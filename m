@@ -2,35 +2,35 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id B29CD35FB8
-	for <lists+linux-sparse@lfdr.de>; Wed,  5 Jun 2019 16:58:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id A998736061
+	for <lists+linux-sparse@lfdr.de>; Wed,  5 Jun 2019 17:35:51 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1728412AbfFEO6Y (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Wed, 5 Jun 2019 10:58:24 -0400
-Received: from hosted-by.blazingfast.io ([5.206.225.98]:62175 "EHLO
+        id S1728522AbfFEPfr (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Wed, 5 Jun 2019 11:35:47 -0400
+Received: from hosted-by.blazingfast.io ([5.206.225.98]:56379 "EHLO
         WIN-CI6T0SVTGOL" rhost-flags-OK-FAIL-OK-FAIL) by vger.kernel.org
-        with ESMTP id S1728287AbfFEO6Y (ORCPT
+        with ESMTP id S1728495AbfFEPfr (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Wed, 5 Jun 2019 10:58:24 -0400
-X-Greylist: delayed 1034 seconds by postgrey-1.27 at vger.kernel.org; Wed, 05 Jun 2019 10:58:15 EDT
+        Wed, 5 Jun 2019 11:35:47 -0400
+X-Greylist: delayed 1028 seconds by postgrey-1.27 at vger.kernel.org; Wed, 05 Jun 2019 11:35:44 EDT
 Received: from WIN-CI6T0SVTGOL.blazingfast.io ([127.0.0.1]) by WIN-CI6T0SVTGOL with Microsoft SMTPSVC(10.0.17763.1);
-         Wed, 5 Jun 2019 07:40:55 -0700
-Content-Type: multipart/mixed; boundary="===============1984393253=="
+         Wed, 5 Jun 2019 08:18:33 -0700
+Content-Type: multipart/mixed; boundary="===============1125678059=="
 MIME-Version: 1.0
-Subject: Schedule email from DHL Interactive
-To:     Recipients <orders@pureaire.net>
-From:   "DHL GLOBAL(noreplyservice@dhl.com)" <orders@pureaire.net>
-Date:   Wed, 05 Jun 2019 07:40:54 -0700
-Reply-To: orders@pureaire.net
-Message-ID: <WIN-CI6T0SVTGOLzTIA00000789@WIN-CI6T0SVTGOL>
-X-OriginalArrivalTime: 05 Jun 2019 14:40:55.0376 (UTC) FILETIME=[AE87D500:01D51BAC]
+Subject: DHL-Shipping#000967
+To:     Recipients <brandon@pureaire.net>
+From:   "DHL International(noreplyservice@dhl.com)" <brandon@pureaire.net>
+Date:   Wed, 05 Jun 2019 08:18:32 -0700
+Reply-To: brandon@pureaire.net
+Message-ID: <WIN-CI6T0SVTGOLapSJ00001e5a@WIN-CI6T0SVTGOL>
+X-OriginalArrivalTime: 05 Jun 2019 15:18:34.0002 (UTC) FILETIME=[F0C6CF20:01D51BB1]
 Sender: linux-sparse-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
 You will not see this in a MIME-aware mail reader.
---===============1984393253==
+--===============1125678059==
 Content-Type: text/plain; charset="iso-8859-1"
 MIME-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
@@ -55,7 +55,7 @@ You can download the file and open it using a Internet Explorer or Mozilla
 
 
 File is clean and contains no virus.
---===============1984393253==
+--===============1125678059==
 Content-Type: application/zip
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -463,4 +463,4 @@ NrbZ/UsSQv8FJYRFKFPCGwmhiEfuhB7Ez+nxUwnZ/viUhV2Gg972k+N/Hht71MF5K3tU4a+29sOm
 8ra2NgM3ZRpvQojWuFm2nIczLNPo6J1lV22WwnbEqHckbfsTO4p//H9QSwECFAAUAAAACABXLcVO
 gFgGNM1YAAD+MgEAFQAAAAAAAAABACAAAAAAAAAAc2hpcHBpbmdEb2MjMDU4NDUuZG9jUEsFBgAA
 AAABAAEAQwAAAABZAAAAAA==
---===============1984393253==--
+--===============1125678059==--
