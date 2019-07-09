@@ -2,24 +2,24 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 70E345683D
-	for <lists+linux-sparse@lfdr.de>; Wed, 26 Jun 2019 14:07:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 86CBE6346F
+	for <lists+linux-sparse@lfdr.de>; Tue,  9 Jul 2019 12:39:22 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727318AbfFZMHk (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Wed, 26 Jun 2019 08:07:40 -0400
-Received: from mail.vodokanal.poltava.ua ([91.219.220.27]:57275 "EHLO
+        id S1726569AbfGIKjV (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Tue, 9 Jul 2019 06:39:21 -0400
+Received: from mail.vodokanal.poltava.ua ([91.219.220.27]:50434 "EHLO
         mail.vodokanal.poltava.ua" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726339AbfFZMHk (ORCPT
+        with ESMTP id S1725947AbfGIKjU (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Wed, 26 Jun 2019 08:07:40 -0400
+        Tue, 9 Jul 2019 06:39:20 -0400
 Received: by mail.vodokanal.poltava.ua (Postfix, from userid 80)
-        id C871922C44D; Wed, 26 Jun 2019 14:19:01 +0300 (EEST)
+        id 387A4229F21; Tue,  9 Jul 2019 10:12:36 +0300 (EEST)
 Received: from 192.168.0.119
         (SquirrelMail authenticated user test@vodokanal.poltava.ua)
         by mail.vodokanal.poltava.ua with HTTP;
-        Wed, 26 Jun 2019 12:19:01 +0100
-Message-ID: <be6afb8d68f3a6f3240e3c6a1756ccb8.squirrel@mail.vodokanal.poltava.ua>
-Date:   Wed, 26 Jun 2019 12:19:01 +0100
+        Tue, 9 Jul 2019 08:12:36 +0100
+Message-ID: <1183c3c3678da75d6b7310e84949551a.squirrel@mail.vodokanal.poltava.ua>
+Date:   Tue, 9 Jul 2019 08:12:36 +0100
 Subject: LOANS !!!
 From:   "Dial Direct Loans" <dialdirect@info.org>
 Reply-To: infodialdirectloans@mail2consultant.com
@@ -41,9 +41,8 @@ Dial Direct Loan SA
 
 Consolidate your debts with Dial Direct Loan SA for your peace of
 mind at a fixed interest rate of 4.75%,personal and business loans
-are also welcome.For details  and file in your applications by sending an
-email
-to:infodialdirectloans@mail2consultant.com
+are also welcome.For details  file in your applications by sending an email
+to:infodialdirectloans@mail2consultant.com.
 
 
 
