@@ -2,55 +2,48 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 86CBE6346F
-	for <lists+linux-sparse@lfdr.de>; Tue,  9 Jul 2019 12:39:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id C860964E61
+	for <lists+linux-sparse@lfdr.de>; Thu, 11 Jul 2019 00:04:32 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726569AbfGIKjV (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Tue, 9 Jul 2019 06:39:21 -0400
-Received: from mail.vodokanal.poltava.ua ([91.219.220.27]:50434 "EHLO
-        mail.vodokanal.poltava.ua" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1725947AbfGIKjU (ORCPT
+        id S1727958AbfGJWEb convert rfc822-to-8bit (ORCPT
+        <rfc822;lists+linux-sparse@lfdr.de>); Wed, 10 Jul 2019 18:04:31 -0400
+Received: from 50-244-196-250-static.hfc.comcastbusiness.net ([50.244.196.250]:56929
+        "EHLO hometime.com" rhost-flags-OK-OK-OK-FAIL) by vger.kernel.org
+        with ESMTP id S1727928AbfGJWEb (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Tue, 9 Jul 2019 06:39:20 -0400
-Received: by mail.vodokanal.poltava.ua (Postfix, from userid 80)
-        id 387A4229F21; Tue,  9 Jul 2019 10:12:36 +0300 (EEST)
-Received: from 192.168.0.119
-        (SquirrelMail authenticated user test@vodokanal.poltava.ua)
-        by mail.vodokanal.poltava.ua with HTTP;
-        Tue, 9 Jul 2019 08:12:36 +0100
-Message-ID: <1183c3c3678da75d6b7310e84949551a.squirrel@mail.vodokanal.poltava.ua>
-Date:   Tue, 9 Jul 2019 08:12:36 +0100
-Subject: LOANS !!!
-From:   "Dial Direct Loans" <dialdirect@info.org>
-Reply-To: infodialdirectloans@mail2consultant.com
-User-Agent: SquirrelMail/1.4.21
+        Wed, 10 Jul 2019 18:04:31 -0400
+X-Greylist: delayed 18198 seconds by postgrey-1.27 at vger.kernel.org; Wed, 10 Jul 2019 18:04:22 EDT
+Received: from [100.120.45.199] ([195.181.172.132]) by hometime.com with Microsoft SMTPSVC(6.0.3790.4675);
+         Wed, 10 Jul 2019 00:08:23 -0500
+Content-Type: text/plain; charset="iso-8859-1"
 MIME-Version: 1.0
-Content-Type:   text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7BIT
-X-Priority: 3 (Normal)
-Importance: Normal
-To:     undisclosed-recipients:;
+Content-Transfer-Encoding: 8BIT
+Content-Description: Mail message body
+Subject: Greetings!
+To:     Recipients <fuqingzheng@asia.com>
+From:   fuqingzheng@asia.com
+Date:   Wed, 10 Jul 2019 07:07:49 +0200
+Reply-To: zhengfuqing@yandex.com
+X-Antivirus: Avast (VPS 190709-4, 09-07-2019), Outbound message
+X-Antivirus-Status: Clean
+Message-ID: <SBSRAluo3npvqnJNeO900008fee@hometime.com>
+X-OriginalArrivalTime: 10 Jul 2019 05:08:24.0000 (UTC) FILETIME=[7FF91400:01D536DD]
 Sender: linux-sparse-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
+Good day,
 
-Dial Direct Loan SA
+  I have a mutual business proposal, which refers to the transfer of a large amount of money to an account abroad, with your help as a foreign partner as a beneficiary of the funds. Everything about this transaction will be legal without any bridge of financial authority both in my country and yours. If you are interested and I will give you more information about the project as soon as I receive your positive response.
 
+Best regards,
 
-Consolidate your debts with Dial Direct Loan SA for your peace of
-mind at a fixed interest rate of 4.75%,personal and business loans
-are also welcome.For details  file in your applications by sending an email
-to:infodialdirectloans@mail2consultant.com.
+Executive Director.
+ 
+ICBC. China
 
-
-
-Yours in Service,
-Susan Muller (Mrs.),
-Senior Consultant,
-Loan Application Team
-Dial Direct Loan SA
-Tel No: +27717231058
-
+---
+Dit e-mailbericht is gecontroleerd op virussen met Avast antivirussoftware.
+https://www.avast.com/antivirus
 
