@@ -2,110 +2,120 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id A7E4F84A14
-	for <lists+linux-sparse@lfdr.de>; Wed,  7 Aug 2019 12:51:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id D8AF38A42B
+	for <lists+linux-sparse@lfdr.de>; Mon, 12 Aug 2019 19:19:41 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726564AbfHGKvO (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Wed, 7 Aug 2019 06:51:14 -0400
-Received: from userp2120.oracle.com ([156.151.31.85]:59694 "EHLO
-        userp2120.oracle.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726418AbfHGKvO (ORCPT
+        id S1727037AbfHLRTa (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Mon, 12 Aug 2019 13:19:30 -0400
+Received: from mail-pl1-f195.google.com ([209.85.214.195]:36658 "EHLO
+        mail-pl1-f195.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1726679AbfHLRT3 (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Wed, 7 Aug 2019 06:51:14 -0400
-Received: from pps.filterd (userp2120.oracle.com [127.0.0.1])
-        by userp2120.oracle.com (8.16.0.27/8.16.0.27) with SMTP id x77AmwP2126290;
-        Wed, 7 Aug 2019 10:50:53 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=date : from : to : cc
- : subject : message-id : references : mime-version : content-type :
- in-reply-to; s=corp-2018-07-02;
- bh=E62+7VTE7UonCrlCnPHNWi4RPE8HkU4TSMt2nyRommM=;
- b=xlFdWUxH2bW6rVoJdPVh8EmDH2mfU1vnFm9PJAVMX1GY1g4vFfaS2bTEvO9EPcxA9Qh9
- LykHvi6D8SLCJCiPlWRB7HTLjRRXHqMqLYzusGmGc8zFybMied62OZBr8n8h0RiiU0HE
- 7zTdmCsIddY8AYKUk8c/JzBjZFAIT2DroZKIES13ewnsxyOJLLTwJsjZOOTwYKDwFb6H
- U+LZf2RU4u9REcByD2U1cwKC3QKp8V0f0ZkeXH5iw6VU0iojWSZY8bvczok3ho4l23sz
- ui/KZ0bRAetVvRKcsFqYQNbeJYcEUXkflyZQDMukDaI166KHs0B2ZyEvXytNwFasIJtr oA== 
-Received: from aserp3030.oracle.com (aserp3030.oracle.com [141.146.126.71])
-        by userp2120.oracle.com with ESMTP id 2u52wrbhm5-1
-        (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-        Wed, 07 Aug 2019 10:50:53 +0000
-Received: from pps.filterd (aserp3030.oracle.com [127.0.0.1])
-        by aserp3030.oracle.com (8.16.0.27/8.16.0.27) with SMTP id x77Alums162550;
-        Wed, 7 Aug 2019 10:50:52 GMT
-Received: from aserv0121.oracle.com (aserv0121.oracle.com [141.146.126.235])
-        by aserp3030.oracle.com with ESMTP id 2u75bwaw44-1
-        (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-        Wed, 07 Aug 2019 10:50:52 +0000
-Received: from abhmp0015.oracle.com (abhmp0015.oracle.com [141.146.116.21])
-        by aserv0121.oracle.com (8.14.4/8.13.8) with ESMTP id x77AooQk002351;
-        Wed, 7 Aug 2019 10:50:51 GMT
-Received: from kadam (/41.57.98.10)
-        by default (Oracle Beehive Gateway v4.0)
-        with ESMTP ; Wed, 07 Aug 2019 03:50:50 -0700
-Date:   Wed, 7 Aug 2019 13:50:42 +0300
-From:   Dan Carpenter <dan.carpenter@oracle.com>
-To:     Oliver Hartkopp <socketcan@hartkopp.net>,
+        Mon, 12 Aug 2019 13:19:29 -0400
+Received: by mail-pl1-f195.google.com with SMTP id g4so1646956plo.3
+        for <linux-sparse@vger.kernel.org>; Mon, 12 Aug 2019 10:19:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google;
+        h=date:from:to:cc:subject:message-id:references:mime-version
+         :content-disposition:in-reply-to;
+        bh=jQdWi79UOET3NcbXkAwjygJB1Ir2fsPCLcASHFDPOY4=;
+        b=c9m2bRW2HxuvJEovBcFUuEjhkoaeh3/hBEi96hf8jC4GhpACXRSOH0yNlpDL3OIUbE
+         vwQd9eJVNG/ktDg4zdgWQ3zTq12opNssQy/H8Pae3V5y22ELcxrwUYkuTDnzLK4GnXc/
+         PDJioUs8RXnlaFZFm6PkEx6IwDnD8BzaoJ0CI=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+         :mime-version:content-disposition:in-reply-to;
+        bh=jQdWi79UOET3NcbXkAwjygJB1Ir2fsPCLcASHFDPOY4=;
+        b=o8T9Qu6ZECktvO47CGhj0HxYDItsXMNSgLbfRNkcLBV8XTPSwloxtwN7mjraaQhA4E
+         QagLBYAalTuU/Gzb8o/4G8/vmD9H8Azf7P2wHsm4scThqgLKVDLQT3GUoYjFJOdJVWyE
+         nus3xz2MrzLM2+QVb5HIDxCH+ljCVspaxxnTF6K8m3Mb424EY5raCbU05lcx6oRVZv2c
+         oEmrribBTBUykHIAFGC8dsyNp8pbNw4Xj6wVXxg6chPuPY3m6qknEC2Sqo9KyKH5XUib
+         Rga9Qym//M3+xmM998ODHrTb4Vfwn4YHO/J8WCZh4CmjtBQ46/YqHqWP0A2rja1HUG1l
+         CkJg==
+X-Gm-Message-State: APjAAAXpU0//+WAQk/kHkdNAm3syRC7zOaaj6e9J9Mw2QOsP7+FIZNm5
+        pVFk2G7LVbesvaJECltFqAjKvw==
+X-Google-Smtp-Source: APXvYqy10JjsFB3axHFNMgROpGcmwPwO4mBb8G1S0iRV3C7gVjicasx85fhT3Py/5umslxym0I5lrg==
+X-Received: by 2002:a17:902:b698:: with SMTP id c24mr34036132pls.28.1565630369208;
+        Mon, 12 Aug 2019 10:19:29 -0700 (PDT)
+Received: from www.outflux.net (smtp.outflux.net. [198.145.64.163])
+        by smtp.gmail.com with ESMTPSA id e9sm161724pja.17.2019.08.12.10.19.27
+        (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
+        Mon, 12 Aug 2019 10:19:28 -0700 (PDT)
+Date:   Mon, 12 Aug 2019 10:19:27 -0700
+From:   Kees Cook <keescook@chromium.org>
+To:     Dan Carpenter <dan.carpenter@oracle.com>
+Cc:     Oliver Hartkopp <socketcan@hartkopp.net>,
         Patrick Bellasi <patrick.bellasi@arm.com>,
-        linux-sparse@vger.kernel.org
-Cc:     Mao Wenan <maowenan@huawei.com>, davem@davemloft.net,
-        netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
-        kernel-janitors@vger.kernel.org, Ingo Molnar <mingo@kernel.org>
+        linux-sparse@vger.kernel.org, Mao Wenan <maowenan@huawei.com>,
+        davem@davemloft.net, netdev@vger.kernel.org,
+        linux-kernel@vger.kernel.org, kernel-janitors@vger.kernel.org,
+        Ingo Molnar <mingo@kernel.org>
 Subject: Re: [PATCH net-next] net: can: Fix compiling warning
-Message-ID: <20190807105042.GK1974@kadam>
+Message-ID: <201908121001.0AC0A90@keescook>
 References: <20190802033643.84243-1-maowenan@huawei.com>
  <0050efdb-af9f-49b9-8d83-f574b3d46a2e@hartkopp.net>
  <20190806135231.GJ1974@kadam>
  <6e1c5aa0-8ed3-eec3-a34d-867ea8f54e9d@hartkopp.net>
+ <20190807105042.GK1974@kadam>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <6e1c5aa0-8ed3-eec3-a34d-867ea8f54e9d@hartkopp.net>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9341 signatures=668685
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=0 malwarescore=0
- phishscore=0 bulkscore=0 spamscore=0 mlxscore=0 mlxlogscore=969
- adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.0.1-1906280000 definitions=main-1908070120
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9341 signatures=668685
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 priorityscore=1501 malwarescore=0
- suspectscore=0 phishscore=0 bulkscore=0 spamscore=0 clxscore=1011
- lowpriorityscore=0 mlxscore=0 impostorscore=0 mlxlogscore=999 adultscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1906280000
- definitions=main-1908070120
+In-Reply-To: <20190807105042.GK1974@kadam>
 Sender: linux-sparse-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-On Tue, Aug 06, 2019 at 06:41:44PM +0200, Oliver Hartkopp wrote:
-> I compiled the code (the original version), but I do not get that "Should it
-> be static?" warning:
+On Wed, Aug 07, 2019 at 01:50:42PM +0300, Dan Carpenter wrote:
+> On Tue, Aug 06, 2019 at 06:41:44PM +0200, Oliver Hartkopp wrote:
+> > I compiled the code (the original version), but I do not get that "Should it
+> > be static?" warning:
+> > 
+> > user@box:~/net-next$ make C=1
+> >   CALL    scripts/checksyscalls.sh
+> >   CALL    scripts/atomic/check-atomics.sh
+> >   DESCEND  objtool
+> >   CHK     include/generated/compile.h
+> >   CHECK   net/can/af_can.c
+> > ./include/linux/sched.h:609:43: error: bad integer constant expression
+> > ./include/linux/sched.h:609:73: error: invalid named zero-width bitfield
+> > `value'
+> > ./include/linux/sched.h:610:43: error: bad integer constant expression
+> > ./include/linux/sched.h:610:67: error: invalid named zero-width bitfield
+> > `bucket_id'
+> >   CC [M]  net/can/af_can.o
 > 
-> user@box:~/net-next$ make C=1
->   CALL    scripts/checksyscalls.sh
->   CALL    scripts/atomic/check-atomics.sh
->   DESCEND  objtool
->   CHK     include/generated/compile.h
->   CHECK   net/can/af_can.c
-> ./include/linux/sched.h:609:43: error: bad integer constant expression
-> ./include/linux/sched.h:609:73: error: invalid named zero-width bitfield
-> `value'
-> ./include/linux/sched.h:610:43: error: bad integer constant expression
-> ./include/linux/sched.h:610:67: error: invalid named zero-width bitfield
-> `bucket_id'
->   CC [M]  net/can/af_can.o
+> The sched.h errors suppress Sparse warnings so it's broken/useless now.
+> The code looks like this:
+> 
+> include/linux/sched.h
+>    613  struct uclamp_se {
+>    614          unsigned int value              : bits_per(SCHED_CAPACITY_SCALE);
+>    615          unsigned int bucket_id          : bits_per(UCLAMP_BUCKETS);
+>    616          unsigned int active             : 1;
+>    617          unsigned int user_defined       : 1;
+>    618  };
+> 
+> bits_per() is zero and Sparse doesn't like zero sized bitfields.
 
-The sched.h errors suppress Sparse warnings so it's broken/useless now.
-The code looks like this:
+I just noticed these sparse warnings too -- what's happening here? Are
+they _supposed_ to be 0-width fields? It doesn't look like it to me:
 
-include/linux/sched.h
-   613  struct uclamp_se {
-   614          unsigned int value              : bits_per(SCHED_CAPACITY_SCALE);
-   615          unsigned int bucket_id          : bits_per(UCLAMP_BUCKETS);
-   616          unsigned int active             : 1;
-   617          unsigned int user_defined       : 1;
-   618  };
+CONFIG_UCLAMP_BUCKETS_COUNT=5
+...
+#define UCLAMP_BUCKETS CONFIG_UCLAMP_BUCKETS_COUNT
+...
+        unsigned int bucket_id          : bits_per(UCLAMP_BUCKETS);
 
-bits_per() is zero and Sparse doesn't like zero sized bitfields.
+I would expect this to be 3 bits wide. ... Looks like gcc agrees:
 
-regards,
-dan carpenter
+struct uclamp_se {
+    unsigned int               value:11;             /*     0: 0  4 */
+    unsigned int               bucket_id:3;          /*     0:11  4 */
+...
+
+So this is a sparse issue?
+
+-- 
+Kees Cook
