@@ -2,92 +2,121 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 6EAF0993B6
-	for <lists+linux-sparse@lfdr.de>; Thu, 22 Aug 2019 14:33:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 51C369951C
+	for <lists+linux-sparse@lfdr.de>; Thu, 22 Aug 2019 15:32:55 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S2388617AbfHVMd1 (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Thu, 22 Aug 2019 08:33:27 -0400
-Received: from mail-lj1-f196.google.com ([209.85.208.196]:33773 "EHLO
-        mail-lj1-f196.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S2388615AbfHVMdZ (ORCPT
+        id S1729641AbfHVNcw (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Thu, 22 Aug 2019 09:32:52 -0400
+Received: from aserp2120.oracle.com ([141.146.126.78]:54080 "EHLO
+        aserp2120.oracle.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1726262AbfHVNcw (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Thu, 22 Aug 2019 08:33:25 -0400
-Received: by mail-lj1-f196.google.com with SMTP id z17so5413935ljz.0
-        for <linux-sparse@vger.kernel.org>; Thu, 22 Aug 2019 05:33:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=mime-version:reply-to:from:date:message-id:subject:to
-         :content-transfer-encoding;
-        bh=aWwEGZ7IKPwlD1SyN53LweuoS+rG8j2WBRgPDxMagPA=;
-        b=iVbicIO0p0gRad2mojfMoXPK1bvee8m7TQDWF1D1ACPE9HqmNhL2GBY+oHjfleXep+
-         wlwnOwIGGXywTfWnwFY2sQ2+h7NA0iPrPVMp/fpPZz0TCkDtzEkceGvTPOs+5VsA+PDA
-         bog9JENsSaOIYx1EC+/cR0/9HBbgj+daWMstdn5zms4O325GD0AQaD/ms3ETHmSt6uto
-         Q6665qufcUQQcAyfjYrg0fnfHXit5ax05ENYUjOrRwG/w//Vr5t0ubPdCTC7BmhWIJWz
-         mQQKKeL+2FnzNGwY3o/OwTiNkaLGMTHC1jVl8gl5NMf5tKp3Dcziy6EpzKOnIMzsAz/Z
-         Gt/Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:reply-to:from:date:message-id
-         :subject:to:content-transfer-encoding;
-        bh=aWwEGZ7IKPwlD1SyN53LweuoS+rG8j2WBRgPDxMagPA=;
-        b=AnCXYh9RMzHtTSrGgmCsQ5UctfnsB/PfoyXJS+6lTK9EDHHOkXpb1/HK/uP8jqhPpx
-         yutUb0TkknqtWvPs2IkutbmX36TGWVdxE76snIwskN4zUk7ErVXBn49SoyUt1i3L2kMm
-         or8Xhm3L0wIXC9974JsalbwOWiyAqly4S4EJY7QOVUWH8jvx160f+bnKQc7QWDOyKssT
-         /yEDuxDFwDAo+LZW04/Bv8cMzllNSCGayuW0IA4RjkM+S9j61HgimuzeS9o2Klc4qBUh
-         4TOkcUhtjixK8pYQOSr9GtA5wemXcWy93U9Q0E9mpAOU2WD1JLsVMmOVnCzO0Z6+oa4C
-         h4qw==
-X-Gm-Message-State: APjAAAUPTyU43CGsXmt3sKqSxJCTfFXaIUdrls0el+Dh5cDNI8ObmZby
-        KDnPH8bosP7mgEJMdfQroymrYwF0CCfRuxqFGL0=
-X-Google-Smtp-Source: APXvYqzw94KeAGRPQVwAh+UJFBQ7DOYzf35Giv9H76e1wjU00JCNb63boziaVgpph5IBHV5hsn94tmvSTLyQYtVZmJc=
-X-Received: by 2002:a2e:63cd:: with SMTP id s74mr17881307lje.3.1566477203899;
- Thu, 22 Aug 2019 05:33:23 -0700 (PDT)
+        Thu, 22 Aug 2019 09:32:52 -0400
+Received: from pps.filterd (aserp2120.oracle.com [127.0.0.1])
+        by aserp2120.oracle.com (8.16.0.27/8.16.0.27) with SMTP id x7MDTXws014076;
+        Thu, 22 Aug 2019 13:32:43 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=date : from : to : cc
+ : subject : message-id : references : mime-version : content-type :
+ in-reply-to; s=corp-2019-08-05;
+ bh=C1Wv3tdAVw2xDUAYsEtzApTXudLtXKogSkiT0+24GLw=;
+ b=ZjEeX8MOsIbG688D+jm2Qn8bvZ1uoJaq68iyoY0lY2mNLEXlkvx63YN2PbTsqZQV6SsT
+ qk7uukyJrIqRJn0unXF5gCgxe2DcjnkfujjKYJPDj937P4Q1OqcOXP6a6Tkx/9TN0jed
+ TL/yAuezZl3To+RzCJgnus1hW+Je1+X5cGPkJek3pXq41/bEyOuuTeBI7+6Ie8oPLGPj
+ St4xQMxZCS8uGp3d1QwcQXgJ7vY1GmcT4D5FvQ/6ESVOs7ApAGWxVfoFANhvNSQpPUk/
+ B67iOZSxqMfIHBliHXZenQ5h2qBN2Fd0WPmj6muSIkIQjhBaNBAZp2arNMGvZqXH3MGI Fg== 
+Received: from aserp3020.oracle.com (aserp3020.oracle.com [141.146.126.70])
+        by aserp2120.oracle.com with ESMTP id 2ue9hpwjcr-1
+        (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+        Thu, 22 Aug 2019 13:32:43 +0000
+Received: from pps.filterd (aserp3020.oracle.com [127.0.0.1])
+        by aserp3020.oracle.com (8.16.0.27/8.16.0.27) with SMTP id x7MDSkqf184953;
+        Thu, 22 Aug 2019 13:30:43 GMT
+Received: from aserv0121.oracle.com (aserv0121.oracle.com [141.146.126.235])
+        by aserp3020.oracle.com with ESMTP id 2ugj7r4j6c-1
+        (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+        Thu, 22 Aug 2019 13:30:42 +0000
+Received: from abhmp0004.oracle.com (abhmp0004.oracle.com [141.146.116.10])
+        by aserv0121.oracle.com (8.14.4/8.13.8) with ESMTP id x7MDUfb7019190;
+        Thu, 22 Aug 2019 13:30:41 GMT
+Received: from kadam (/41.57.98.10)
+        by default (Oracle Beehive Gateway v4.0)
+        with ESMTP ; Thu, 22 Aug 2019 06:30:40 -0700
+Date:   Thu, 22 Aug 2019 16:30:34 +0300
+From:   Dan Carpenter <dan.carpenter@oracle.com>
+To:     John Levon <levon@movementarian.org>
+Cc:     smatch@vger.kernel.org, linux-sparse@vger.kernel.org,
+        yuri.pankov@nexenta.com
+Subject: Re: noreturn attribute doesn't work in smatch
+Message-ID: <20190822132800.GJ4451@kadam>
+References: <20190815005328.GA8004@movementarian.org>
+ <20190815111237.GA20100@movementarian.org>
 MIME-Version: 1.0
-Received: by 2002:ab3:6a0f:0:0:0:0:0 with HTTP; Thu, 22 Aug 2019 05:33:23
- -0700 (PDT)
-Reply-To: eku.lawfirm@gmail.com
-From:   "Law firm(Eku and Associates)" <ezeobodo1@gmail.com>
-Date:   Thu, 22 Aug 2019 12:33:23 +0000
-Message-ID: <CAN-_bTaBz=R_5Eq36MajojFPC316zxdyXEEVzKzzZgeSdGG98A@mail.gmail.com>
-Subject: MY $25,000,000.00 INVESTMENT PROPOSAL WITH YOU AND IN YOUR COUNTRY.
-To:     undisclosed-recipients:;
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20190815111237.GA20100@movementarian.org>
+User-Agent: Mutt/1.9.4 (2018-02-28)
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9355 signatures=668684
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=0 malwarescore=0
+ phishscore=0 bulkscore=0 spamscore=0 mlxscore=0 mlxlogscore=999
+ adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.0.1-1906280000 definitions=main-1908220144
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9355 signatures=668684
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 priorityscore=1501 malwarescore=0
+ suspectscore=0 phishscore=0 bulkscore=0 spamscore=0 clxscore=1011
+ lowpriorityscore=0 mlxscore=0 impostorscore=0 mlxlogscore=999 adultscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1906280000
+ definitions=main-1908220144
 Sender: linux-sparse-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
---=20
-Dear,
-With due respect this is not spam or Scam mail, because I have
-contacted you before and there was no response from you,I apologise if
-the contents of this mail are contrary to your moral ethics, which I
-feel may be of great disturbance to your person, but please treat this
-with absolute confidentiality, believing that this email reaches you
-in good faith. My contacting you is not a mistake or a coincidence
-because God can use any person known or unknown to accomplish great
-things.
-I am a lawyer and I have an investment business proposal to offer you.
-It is not official but should be considered as legal and confidential
-business. I have a customer's deposit of $US25 million dollars ready
-to be moved for investment if you can partner with us. We are ready to
-offer you 10% of this total amount as your compensation for supporting
-the transaction to completion. If you are interested to help me please
-reply me with your full details as stated below:
-(1) Your full names:
-(2) Your address:
-(3) Your occupation:
-(4) Your mobile telephone number:
-(5) Your nationality:
-(6) Your present location:
-(7) Your age:
-So that I will provide you more details on what to do and what is
-required for successful completion.
-Note: DO NOT REPLY ME IF YOU ARE NOT INTERESTED AND WITHOUT THE ABOVE
-MENTIONED DETAILS
+On Thu, Aug 15, 2019 at 12:12:37PM +0100, John Levon wrote:
+> 
+> I took another pass, and this works for me:
+> 
+> diff --git a/parse.c b/parse.c
+> index ca4726b8..44c59707 100644
+> --- a/parse.c
+> +++ b/parse.c
+> @@ -2859,6 +2859,7 @@ struct token *external_declaration(struct token
+> *token, struct symbol_list **lis
+>         /* Parse declaration-specifiers, if any */
+>         token = declaration_specifiers(token, &ctx);
+>         mod = storage_modifiers(&ctx);
+> +       mod |= ctx.ctype.modifiers & MOD_NORETURN;
+>         decl = alloc_symbol(token->pos, SYM_NODE);
+>         /* Just a type declaration? */
+>         if (match_op(token, ';')) {
+> 
+> (I suppose a proper fix would collate all function-level attributes
+> but...)
+> 
 
-Sinc=C3=A8rement v=C3=B4tre,
-Avocat Etienne Eku Esq.(Lawfirm)
-Procureur principal. De Cabinet d=E2=80=99avocats de l=E2=80=99Afrique de l=
-=E2=80=99ouest.
-Skype:westafricalawfirm
+This patch seems like a hack, but I will apply it...
+
+> 
+> However, it seems like smatch is still not quite passing its knowledge
+> along: if I have:
+> 
+> extern void die() __attribute((__noreturn__));
+> 
+> void mydie()
+> {
+> 	die();
+> }
+> 
+> then the die() call is nullified, but smatch doesn't realise that means
+> all paths of mydie() are __noreturn__ too.
+
+The code to handle that is really ancient.  You need to do:
+    ./smatch --info test.c | tee warns.txt
+    grep no_return_funcs warns.txt || echo FAIL
+    ./smatch_scripts/gen_no_return_funcs.sh warns.txt -p=levon
+    mv levon.no_return_funcs smatch_data/
+
+Then pass -p=levon to smatch on the next run.
+
+regards,
+dan carpenter
+
