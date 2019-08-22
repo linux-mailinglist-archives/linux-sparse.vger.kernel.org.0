@@ -2,62 +2,52 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id AB0CA9982F
-	for <lists+linux-sparse@lfdr.de>; Thu, 22 Aug 2019 17:30:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 3EDED9A2AD
+	for <lists+linux-sparse@lfdr.de>; Fri, 23 Aug 2019 00:16:03 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1731590AbfHVPaA (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Thu, 22 Aug 2019 11:30:00 -0400
-Received: from movementarian.org ([178.79.150.28]:35522 "EHLO
-        movementarian.org" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1731844AbfHVP37 (ORCPT
+        id S2390696AbfHVWPh convert rfc822-to-8bit (ORCPT
+        <rfc822;lists+linux-sparse@lfdr.de>); Thu, 22 Aug 2019 18:15:37 -0400
+Received: from mail.physics.pub.ro ([141.85.216.3]:52642 "EHLO
+        physics1.physics.pub.ro" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S2390161AbfHVWPh (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Thu, 22 Aug 2019 11:29:59 -0400
-Received: from movement by movementarian.org with local (Exim 4.92)
-        (envelope-from <movement@movementarian.org>)
-        id 1i0p2E-0003KJ-PB; Thu, 22 Aug 2019 16:29:58 +0100
-Date:   Thu, 22 Aug 2019 16:29:58 +0100
-From:   John Levon <levon@movementarian.org>
-To:     Dan Carpenter <dan.carpenter@oracle.com>
-Cc:     smatch@vger.kernel.org, linux-sparse@vger.kernel.org,
-        yuri.pankov@nexenta.com
-Subject: Re: noreturn attribute doesn't work in smatch
-Message-ID: <20190822152958.GA12745@movementarian.org>
-References: <20190815005328.GA8004@movementarian.org>
- <20190815111237.GA20100@movementarian.org>
- <20190822132800.GJ4451@kadam>
- <20190822134603.GB9904@movementarian.org>
- <20190822150528.GL3964@kadam>
+        Thu, 22 Aug 2019 18:15:37 -0400
+Received: from localhost (localhost.localdomain [127.0.0.1])
+        by physics1.physics.pub.ro (Postfix) with ESMTP id 9ED35E3ABD3;
+        Thu, 22 Aug 2019 13:54:44 +0300 (EEST)
+X-Virus-Scanned: amavisd-new at physics.pub.ro
+Received: from physics1.physics.pub.ro ([127.0.0.1])
+        by localhost (physics1.physics.pub.ro [127.0.0.1]) (amavisd-new, port 10026)
+        with ESMTP id 2cCu6OGnOTjL; Thu, 22 Aug 2019 13:54:44 +0300 (EEST)
+Received: from [10.51.176.174] (unknown [105.4.6.61])
+        by physics1.physics.pub.ro (Postfix) with ESMTPSA id 3CE63E386C2;
+        Thu, 22 Aug 2019 13:54:33 +0300 (EEST)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20190822150528.GL3964@kadam>
-X-Url:  http://www.movementarian.org/
-User-Agent: Mutt/1.5.21 (2010-09-15)
+Content-Transfer-Encoding: 8BIT
+Content-Description: Mail message body
+Subject: =?utf-8?q?Wohlt=C3=A4tigkeitsspende_von_2=2E000=2E000_Millionen_Euro?=
+To:     Recipients <niculae-tiberiu.puscas@physics.pub.ro>
+From:   ''Tayeb Souami'' <niculae-tiberiu.puscas@physics.pub.ro>
+Date:   Thu, 22 Aug 2019 12:54:30 +0200
+Reply-To: Tayebsouam.spende@gmail.com
+Message-Id: <20190822105434.3CE63E386C2@physics1.physics.pub.ro>
 Sender: linux-sparse-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-On Thu, Aug 22, 2019 at 06:05:29PM +0300, Dan Carpenter wrote:
+Lieber Freund,
 
-> On Thu, Aug 22, 2019 at 02:46:03PM +0100, John Levon wrote:
-> > On Thu, Aug 22, 2019 at 04:30:34PM +0300, Dan Carpenter wrote:
-> > > The code to handle that is really ancient.  You need to do:
-> > >     ./smatch --info test.c | tee warns.txt
-> > >     grep no_return_funcs warns.txt || echo FAIL
-> > >     ./smatch_scripts/gen_no_return_funcs.sh warns.txt -p=levon
-> > >     mv levon.no_return_funcs smatch_data/
-> > > 
-> > > Then pass -p=levon to smatch on the next run.
-> > 
-> > OK, thanks. That doesn't match too well with the way we use smatch, but
-> > this is much less of a big deal (I only needed to annotate this in a
-> > couple of places).
-> 
-> It should be the the DB, right?  Would that work for you?
+Ich bin Herr Tayeb Souami, New Jersey, Vereinigte Staaten von Amerika, der Mega-Gewinner von $ 315million In Mega Millions Jackpot, spende ich an 5 zufällige Personen, wenn Sie diese E-Mail erhalten, dann wurde Ihre E-Mail nach einem Spinball ausgewählt.Ich habe den größten Teil meines Vermögens auf eine Reihe von Wohltätigkeitsorganisationen und Organisationen verteilt.Ich habe mich freiwillig dazu entschieden, die Summe von € 2.000.000,00 an Sie als eine der ausgewählten 5 zu spenden, um meine Gewinne zu überprüfen, sehen Sie bitte meine You Tube Seite unten.
 
-There's few enough that it's preferable to just explicitly mark the
-source as noreturn too, rather than keep a separate list.
+UHR MICH HIER: https://www.youtube.com/watch?v=Z6ui8ZDQ6Ks
 
-regards
-john
+Das ist dein Spendencode: [TS530342018]
+
+Antworten Sie mit dem SPENDE-CODE an diese E-Mail:Tayebsouam.spende@gmail.com
+
+Ich hoffe, Sie und Ihre Familie glücklich zu machen.
+
+Grüße
+Herr Tayeb Souami
