@@ -2,60 +2,107 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id A8DD8B4C1B
-	for <lists+linux-sparse@lfdr.de>; Tue, 17 Sep 2019 12:40:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 2D6FCB8E7D
+	for <lists+linux-sparse@lfdr.de>; Fri, 20 Sep 2019 12:28:16 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726141AbfIQKkk convert rfc822-to-8bit (ORCPT
-        <rfc822;lists+linux-sparse@lfdr.de>); Tue, 17 Sep 2019 06:40:40 -0400
-Received: from mail.11d03.mspz7.gob.ec ([190.214.23.250]:55734 "EHLO
-        mail.11d03.mspz7.gob.ec" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1725904AbfIQKkj (ORCPT
+        id S2438009AbfITK2P (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Fri, 20 Sep 2019 06:28:15 -0400
+Received: from aserp2120.oracle.com ([141.146.126.78]:33650 "EHLO
+        aserp2120.oracle.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S2393456AbfITK2P (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Tue, 17 Sep 2019 06:40:39 -0400
-Received: from localhost (localhost [127.0.0.1])
-        by mail.11d03.mspz7.gob.ec (Postfix) with ESMTP id CDF4A406390EA;
-        Mon, 16 Sep 2019 23:48:21 -0500 (-05)
-Received: from mail.11d03.mspz7.gob.ec ([127.0.0.1])
-        by localhost (mail.11d03.mspz7.gob.ec [127.0.0.1]) (amavisd-new, port 10032)
-        with ESMTP id aRnC-uXkKwML; Mon, 16 Sep 2019 23:48:21 -0500 (-05)
-Received: from localhost (localhost [127.0.0.1])
-        by mail.11d03.mspz7.gob.ec (Postfix) with ESMTP id 62D76405A2322;
-        Mon, 16 Sep 2019 23:48:21 -0500 (-05)
-X-Virus-Scanned: amavisd-new at 11d03.mspz7.gob.ec
-Received: from mail.11d03.mspz7.gob.ec ([127.0.0.1])
-        by localhost (mail.11d03.mspz7.gob.ec [127.0.0.1]) (amavisd-new, port 10026)
-        with ESMTP id dsMeVU1kOPxU; Mon, 16 Sep 2019 23:48:21 -0500 (-05)
-Received: from [10.33.79.142] (unknown [105.4.0.133])
-        by mail.11d03.mspz7.gob.ec (Postfix) with ESMTPSA id C1E2D405A2805;
-        Mon, 16 Sep 2019 23:48:11 -0500 (-05)
-Content-Type: text/plain; charset="utf-8"
+        Fri, 20 Sep 2019 06:28:15 -0400
+Received: from pps.filterd (aserp2120.oracle.com [127.0.0.1])
+        by aserp2120.oracle.com (8.16.0.27/8.16.0.27) with SMTP id x8KAONSk009268;
+        Fri, 20 Sep 2019 10:28:12 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=date : from : to : cc
+ : subject : message-id : references : mime-version : content-type :
+ in-reply-to; s=corp-2019-08-05;
+ bh=o/+8VWjq66u4kHcS5rClvAfiki4/PccampY7VYyU+Kk=;
+ b=B92q+1tuKam1I3qE2aYQemBNVvDpF6IWI8kLeAFDrrKJHJmj4vZxlWjDbcCBZytg3B9o
+ PxvcEyccrLWGAs49aXR1doUSc3WHe32KQCQXJ3GwjfrJwenf6et1W9LEyCnLwiIwKHLa
+ gmyvG6SbAsyMxKQCNddVuMEmMz43PX4gjP6wUZxs/QVISVPbl/DSBwa7LRK3n4KiEnEW
+ B++4ER4KoZlhsFZGP/BpCoPMeahqqmSIGmMTWSLYLVZ1sdVYP8u1oO8C+Oz8+dw49VFj
+ y8dbbP34RHrcdoeeC02sW05xbG0eEdXX/zzyPeO2CGdx9bteTDTxIxfTmDz/N2DH8u2i aA== 
+Received: from aserp3030.oracle.com (aserp3030.oracle.com [141.146.126.71])
+        by aserp2120.oracle.com with ESMTP id 2v3vb4sk28-1
+        (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+        Fri, 20 Sep 2019 10:28:12 +0000
+Received: from pps.filterd (aserp3030.oracle.com [127.0.0.1])
+        by aserp3030.oracle.com (8.16.0.27/8.16.0.27) with SMTP id x8KANZ3k086815;
+        Fri, 20 Sep 2019 10:26:12 GMT
+Received: from userv0121.oracle.com (userv0121.oracle.com [156.151.31.72])
+        by aserp3030.oracle.com with ESMTP id 2v4g2v8nun-1
+        (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+        Fri, 20 Sep 2019 10:26:11 +0000
+Received: from abhmp0018.oracle.com (abhmp0018.oracle.com [141.146.116.24])
+        by userv0121.oracle.com (8.14.4/8.13.8) with ESMTP id x8KAQA4C011944;
+        Fri, 20 Sep 2019 10:26:10 GMT
+Received: from kadam (/41.57.98.10)
+        by default (Oracle Beehive Gateway v4.0)
+        with ESMTP ; Fri, 20 Sep 2019 03:26:09 -0700
+Date:   Fri, 20 Sep 2019 13:25:35 +0300
+From:   Dan Carpenter <dan.carpenter@oracle.com>
+To:     Steve French <smfrench@gmail.com>,
+        Nicolai Stange <nicstange@gmail.com>,
+        Luc Van Oostenryck <luc.vanoostenryck@gmail.com>,
+        Chris Li <christ.li@gmail.com>
+Cc:     LKML <linux-kernel@vger.kernel.org>, linux-sparse@vger.kernel.org
+Subject: Re: checkpatch warnings in sched.h
+Message-ID: <20190920102535.GA25547@kadam>
+References: <CAH2r5mu1+muust_HA8oOWjYSmH6cLZA-d7pRzGJJsHauoDdJdQ@mail.gmail.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8BIT
-Content-Description: Mail message body
-Subject: =?utf-8?q?Wohlt=C3=A4tigkeitsspende_von_2=2E000=2E000_Millionen_Euro?=
-To:     Recipients <vicenta.sinche@11d03.mspz7.gob.ec>
-From:   ''Tayeb souami'' <vicenta.sinche@11d03.mspz7.gob.ec>
-Date:   Tue, 17 Sep 2019 06:48:01 +0200
-Reply-To: Tayebsouam.spende@gmail.com
-Message-Id: <20190917044811.C1E2D405A2805@mail.11d03.mspz7.gob.ec>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAH2r5mu1+muust_HA8oOWjYSmH6cLZA-d7pRzGJJsHauoDdJdQ@mail.gmail.com>
+User-Agent: Mutt/1.9.4 (2018-02-28)
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9385 signatures=668685
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=0 malwarescore=0
+ phishscore=0 bulkscore=0 spamscore=0 mlxscore=0 mlxlogscore=999
+ adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.0.1-1908290000 definitions=main-1909200098
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9385 signatures=668685
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 priorityscore=1501 malwarescore=0
+ suspectscore=0 phishscore=0 bulkscore=0 spamscore=0 clxscore=1011
+ lowpriorityscore=0 mlxscore=0 impostorscore=0 mlxlogscore=999 adultscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1908290000
+ definitions=main-1909200098
 Sender: linux-sparse-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-Lieber Freund,
+On Fri, Sep 20, 2019 at 02:34:46AM -0500, Steve French wrote:
+> Any hints to get rid of the noisy warnings in sched.h that make it
+> hard to spot real warnings:
+> 
+> /include/linux/sched.h:609:43: error: bad integer constant expression
+> /include/linux/sched.h:609:73: error: invalid named zero-width bitfield `value'
+> 
 
-Ich bin Herr Tayeb Souami, New Jersey, Vereinigte Staaten von Amerika, der Mega-Gewinner von $ 315million In Mega Millions Jackpot, spende ich an 5 zufällige Personen, wenn Sie diese E-Mail erhalten, dann wurde Ihre E-Mail nach einem Spinball ausgewählt.Ich habe den größten Teil meines Vermögens auf eine Reihe von Wohltätigkeitsorganisationen und Organisationen verteilt.Ich habe mich freiwillig dazu entschieden, die Summe von € 2.000.000,00 an Sie als eine der ausgewählten 5 zu spenden, um meine Gewinne zu überprüfen, sehen Sie bitte meine You Tube Seite unten.
+This is a bug in Sparse and it's way worse than you think.  It actually
+disables the real Sparse warnings because now Sparse thinks it has
+encountered a parse error.  I think we should just ifdef out that Sparse
+code.
 
-UHR MICH HIER: https://www.youtube.com/watch?v=Z6ui8ZDQ6Ks
+The problem is that if you have code like:
 
-Das ist dein Spendencode: [TS530342018]
+	1 ? 1 :__bits_per()
 
-Antworten Sie mit dem SPENDE-CODE an diese 
+GCC treats that as a compile constant but Sparse says that it's not
+because all three elements of the conditional statement have to be
+constant.  See the code in evaluate_conditional_expression().  The
+complication is that Sparse sets the constant flags before calls
+expand_expression() to see what the condition part of the statement is
+so the code needs to shuffled around to set the constant bits to match
+GCC.
 
-E-Mail:Tayebsouam.spende@gmail.com
+I'm going to #ifdef this out for Smatch later today but someone needs
+to do the same thing in Sparse because right now no one can check for
+endian bugs until this gets fixed.  It's been broken for a month so
+we'll probably get a flood of patches marking functions as static once
+we patch this and people start seeing that warning again.
 
-Ich hoffe, Sie und Ihre Familie glücklich zu machen.
+regards,
+dan carpenter
 
-Grüße
-Herr Tayeb Souami
