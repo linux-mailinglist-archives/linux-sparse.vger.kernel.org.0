@@ -2,91 +2,114 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 19E46BBC50
-	for <lists+linux-sparse@lfdr.de>; Mon, 23 Sep 2019 21:39:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id C2B47BBE63
+	for <lists+linux-sparse@lfdr.de>; Tue, 24 Sep 2019 00:17:17 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727018AbfIWTjH (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Mon, 23 Sep 2019 15:39:07 -0400
-Received: from userp2120.oracle.com ([156.151.31.85]:37848 "EHLO
-        userp2120.oracle.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726777AbfIWTjH (ORCPT
+        id S2391278AbfIWWRR (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Mon, 23 Sep 2019 18:17:17 -0400
+Received: from mail-lj1-f195.google.com ([209.85.208.195]:37673 "EHLO
+        mail-lj1-f195.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S2388785AbfIWWRR (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Mon, 23 Sep 2019 15:39:07 -0400
-Received: from pps.filterd (userp2120.oracle.com [127.0.0.1])
-        by userp2120.oracle.com (8.16.0.27/8.16.0.27) with SMTP id x8NJDhEw170663;
-        Mon, 23 Sep 2019 19:39:05 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=date : from : to : cc
- : subject : message-id : mime-version : content-type; s=corp-2019-08-05;
- bh=gA/KvlKio+33NUFGnDBD6VeRYh62T77ij9FDBa7XUQ0=;
- b=Dd3ZBE4unQT8Y8RCEQATt4y967kNMR40QdKO3CvKFqDEUiEX1NDh99948U/vCQufCzWY
- GlgdOVKD0SXRrJY577YvcPOuEV2r1h8iPtMpLcOeDx+t+K3niE7sKzDzOB8OWHHxYxo1
- AUoNMUIjrHWxz8Gqb3tubQ4CuWnqSUT1y/DkD3RllXER3FQ1BEdBL08SAIsxA8w6atuT
- zQ3/cxZWdEUrIQja8Dx0MFARHAk3hkI5zIUeq+2+fl4EAaZNzNKUtnDLSBYL2P0LNZoU
- fisA7k+L/k5yrU1CHZCiM+WhB0Q/7jrfkZh8jLSTGSJraAV42BWJx0y9oqy+F97SwiEu lA== 
-Received: from aserp3020.oracle.com (aserp3020.oracle.com [141.146.126.70])
-        by userp2120.oracle.com with ESMTP id 2v5cgqs2wg-1
-        (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-        Mon, 23 Sep 2019 19:39:05 +0000
-Received: from pps.filterd (aserp3020.oracle.com [127.0.0.1])
-        by aserp3020.oracle.com (8.16.0.27/8.16.0.27) with SMTP id x8NJd446120724;
-        Mon, 23 Sep 2019 19:39:04 GMT
-Received: from aserv0121.oracle.com (aserv0121.oracle.com [141.146.126.235])
-        by aserp3020.oracle.com with ESMTP id 2v6yvq1213-1
-        (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-        Mon, 23 Sep 2019 19:39:04 +0000
-Received: from abhmp0009.oracle.com (abhmp0009.oracle.com [141.146.116.15])
-        by aserv0121.oracle.com (8.14.4/8.13.8) with ESMTP id x8NJd3b3026268;
-        Mon, 23 Sep 2019 19:39:03 GMT
-Received: from kadam (/41.57.98.10)
-        by default (Oracle Beehive Gateway v4.0)
-        with ESMTP ; Mon, 23 Sep 2019 12:39:03 -0700
-Date:   Mon, 23 Sep 2019 22:38:56 +0300
-From:   Dan Carpenter <dan.carpenter@oracle.com>
-To:     linux-sparse@vger.kernel.org
-Cc:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-Subject: enums and EXPR_VALUE and sign expansion
-Message-ID: <20190923193856.GJ20699@kadam>
+        Mon, 23 Sep 2019 18:17:17 -0400
+Received: by mail-lj1-f195.google.com with SMTP id l21so15305419lje.4
+        for <linux-sparse@vger.kernel.org>; Mon, 23 Sep 2019 15:17:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linux-foundation.org; s=google;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=HYNoYLLGGs59jfBB0+YGCqebvK+gLX/xtb2Yh7mk1wY=;
+        b=R0bmtUWTRq2haoPfGdkt6Tp7KkAU5qSiJJcJh2wFeI6D4zU+QMIPRflJSA3ChN/3eq
+         MRqGwgLkTyIgHIitZuLRRjXIWPs8TZap8T1Adz7thWN4tS/sSB0p+CkcHk/QbKCkWlIm
+         Ckh4PF1QxPKvskNLlIFM+YrJorWaxsp+JnwRk=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=HYNoYLLGGs59jfBB0+YGCqebvK+gLX/xtb2Yh7mk1wY=;
+        b=DJRNrWebkzf+UIB1CMDcICZHM/vB+nxz/YmoIm02U3xspemRwX0j2xInVkeiA2+VoB
+         r6VI9Moi/8SRvwXJvHOyqZVvR1ZTBkfrlz5CFH8CR/mO6eJqcRJNRM/YsYKE5J90p3qY
+         FBWNrSPeeUPQNsfp2D5L+SADdkUpC8yqgTJmmcKqqIpqkBfWt3qfmbJXO15GQqS+6/KI
+         tRUjn6UMm4pGcPtUAcas7hUoG9M1Vd20p0QpnHWLwLAPoebwmpW8Rr/ySLk0lSQP9cie
+         StRYta3I2tBRNJZLz2PXqIX24hAF9VuKHqsdk/YQWApSkz3FdC7f0e5aqOFJ3JkWtzL6
+         3X/g==
+X-Gm-Message-State: APjAAAVqzyK6p7Lox8aLNtOYmoPHWeEOW8txxbs+trZjvnhIyYdtvy7v
+        AQ0QsfVmdMO/LM1JU7Tp+63nI5qO7+M=
+X-Google-Smtp-Source: APXvYqyWMZ2qX58+hPA88phMKdY6jhorEmKZHZOK1WADEx1Ww55VCitPTLeGUxSW4M12v8TfvCp5/g==
+X-Received: by 2002:a2e:7211:: with SMTP id n17mr895935ljc.9.1569277034467;
+        Mon, 23 Sep 2019 15:17:14 -0700 (PDT)
+Received: from mail-lj1-f179.google.com (mail-lj1-f179.google.com. [209.85.208.179])
+        by smtp.gmail.com with ESMTPSA id q19sm2759382lfj.9.2019.09.23.15.17.13
+        for <linux-sparse@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 23 Sep 2019 15:17:13 -0700 (PDT)
+Received: by mail-lj1-f179.google.com with SMTP id f5so15284633ljg.8
+        for <linux-sparse@vger.kernel.org>; Mon, 23 Sep 2019 15:17:13 -0700 (PDT)
+X-Received: by 2002:a2e:9854:: with SMTP id e20mr938658ljj.72.1569277032970;
+ Mon, 23 Sep 2019 15:17:12 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-User-Agent: Mutt/1.9.4 (2018-02-28)
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9389 signatures=668685
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=1 malwarescore=0
- phishscore=0 bulkscore=0 spamscore=0 mlxscore=0 mlxlogscore=653
- adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.0.1-1908290000 definitions=main-1909230165
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9389 signatures=668685
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 priorityscore=1501 malwarescore=0
- suspectscore=1 phishscore=0 bulkscore=0 spamscore=0 clxscore=1015
- lowpriorityscore=0 mlxscore=0 impostorscore=0 mlxlogscore=751 adultscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1908290000
- definitions=main-1909230164
+References: <20190923193856.GJ20699@kadam>
+In-Reply-To: <20190923193856.GJ20699@kadam>
+From:   Linus Torvalds <torvalds@linux-foundation.org>
+Date:   Mon, 23 Sep 2019 15:16:56 -0700
+X-Gmail-Original-Message-ID: <CAHk-=wiby96wPxF87Fdq=yPVpjBMv+okrAoQUgO+2eCYjWbqPA@mail.gmail.com>
+Message-ID: <CAHk-=wiby96wPxF87Fdq=yPVpjBMv+okrAoQUgO+2eCYjWbqPA@mail.gmail.com>
+Subject: Re: enums and EXPR_VALUE and sign expansion
+To:     Dan Carpenter <dan.carpenter@oracle.com>
+Cc:     Sparse Mailing-list <linux-sparse@vger.kernel.org>,
+        Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
 Sender: linux-sparse-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-I'm upgrading to the latest version of Sparse and it's mostly been easy
-and full of improvements but I'm running into one issue:
+On Mon, Sep 23, 2019 at 12:39 PM Dan Carpenter <dan.carpenter@oracle.com> wrote:
+>
+> In GCC the enum would be a signed int,
 
-The problem is that if you have:
+That would be broken. You can't fit 0x80000000 in a signed int.
 
-enum {
-	a = 0x80000000,
-	b = -1,
-}
+But that's not actually what gcc does.
 
-Then Sparse doesn't handle that correctly and it leads to a false
-positive in Smatch.
+For gcc, the type of the 'enum' is actually 'long'.
 
-drivers/scsi/stex.c:1879 stex_hba_stop() warn: always true condition '(st_sleep_mic != 4294967295) => (s32min-s32max != 4294967295)'
+But the type of 'a' is 'unsigned int', and the type of 'b' is 'long'.
 
-In GCC the enum would be a signed int, but in Sparse it is a signed
-long (on my 64 bit system).  That would be fine except the second issue
-is the signed bit isn't expanded correctly because a long -1 should be
-0xffffffffffffffff and the expr->value is 0xffffffff.
+Yes, crazy and arguably completely broken, but there you are.
 
-regards,
-dan carpenter
+> but in Sparse it is a signed
+> long (on my 64 bit system).  That would be fine except the second issue
+> is the signed bit isn't expanded correctly because a long -1 should be
+> 0xffffffffffffffff and the expr->value is 0xffffffff.
 
+Well, that's even more broken, of course.
 
+sparse makes everything have the same type, but yes, it has corrupted
+the value of 'b'.
+
+We used to get this right (well, I'm sure we got other things wrong),
+and bisecting shows that it was brokenb by commit 604a148a ("enum: fix
+cast_enum_list()").
+
+Luc - I _suspect_ that what happens is that it now does that
+
+                expr->ctype = base_type;
+
+in parse.c, which is correct in the long run, but AT THE TIME it is
+parsed, the type hasn't been finalized yet. That's fine - we'll fix it
+in-place eventually.
+
+HOWEVER. We also do this:
+
+                if (ctype->bit_size == base_type->bit_size)
+                        continue;
+                cast_value(expr, base_type, expr, ctype);
+
+and I think it's that 'cast_value()' that gets things wrong somehow.
+It probably uses a 'unsigned int' either as the source or the
+destination, or something.
+
+Luc?
+
+            Linus
