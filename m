@@ -2,97 +2,112 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 0E5EABC259
-	for <lists+linux-sparse@lfdr.de>; Tue, 24 Sep 2019 09:10:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 07F6EBD572
+	for <lists+linux-sparse@lfdr.de>; Wed, 25 Sep 2019 01:23:56 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S2404288AbfIXHKc (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Tue, 24 Sep 2019 03:10:32 -0400
-Received: from userp2130.oracle.com ([156.151.31.86]:60964 "EHLO
-        userp2130.oracle.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S2404243AbfIXHKc (ORCPT
+        id S2411147AbfIXXXz (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Tue, 24 Sep 2019 19:23:55 -0400
+Received: from mail-lj1-f196.google.com ([209.85.208.196]:39786 "EHLO
+        mail-lj1-f196.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S2389370AbfIXXXz (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Tue, 24 Sep 2019 03:10:32 -0400
-Received: from pps.filterd (userp2130.oracle.com [127.0.0.1])
-        by userp2130.oracle.com (8.16.0.27/8.16.0.27) with SMTP id x8O78dUs127053;
-        Tue, 24 Sep 2019 07:10:29 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=date : from : to : cc
- : subject : message-id : references : mime-version : content-type :
- in-reply-to; s=corp-2019-08-05;
- bh=okhgsaKedUCwWr7pKuWbIx3Y/HTQYaIo0pRhZ1zxCYc=;
- b=TSxc++A7swnjJakzuGrojrjqiwmiECvpC5JOqC+StG5+royIhQbwdtoknBwqBVKryaOu
- oWKSFCE/SJTOTVW8upcZeAwqsQK9TZkUAI7B0csc0nR5l0IKMmBdh0w9aOaCAoYdF6nW
- ccL7NuLzWqYE/4XEahxzRIGHrzXhn0UozjCgNmPuzwKaykfzjwHwqF9jyRZnfDhdaB5I
- 04I9I4t/5et3EGAyv1LwrS2RZs1fyBweO4+9do4bSjnIkxSlvJpuNnyRvuP4E2bqvtY4
- vLGNgeHDeynVKFPagpEXxBTB09/wMKwFC9pQulH3q5oSbfceZKiBN8mY1XUo8Jxogvzd rw== 
-Received: from aserp3030.oracle.com (aserp3030.oracle.com [141.146.126.71])
-        by userp2130.oracle.com with ESMTP id 2v5b9tkytb-1
-        (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-        Tue, 24 Sep 2019 07:10:28 +0000
-Received: from pps.filterd (aserp3030.oracle.com [127.0.0.1])
-        by aserp3030.oracle.com (8.16.0.27/8.16.0.27) with SMTP id x8O78X40096394;
-        Tue, 24 Sep 2019 07:10:28 GMT
-Received: from userv0122.oracle.com (userv0122.oracle.com [156.151.31.75])
-        by aserp3030.oracle.com with ESMTP id 2v6yvpk26d-1
-        (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-        Tue, 24 Sep 2019 07:10:28 +0000
-Received: from abhmp0005.oracle.com (abhmp0005.oracle.com [141.146.116.11])
-        by userv0122.oracle.com (8.14.4/8.14.4) with ESMTP id x8O7ARYV025966;
-        Tue, 24 Sep 2019 07:10:27 GMT
-Received: from kadam (/41.57.98.10)
-        by default (Oracle Beehive Gateway v4.0)
-        with ESMTP ; Tue, 24 Sep 2019 00:10:26 -0700
-Date:   Tue, 24 Sep 2019 10:10:20 +0300
-From:   Dan Carpenter <dan.carpenter@oracle.com>
-To:     Linus Torvalds <torvalds@linux-foundation.org>
+        Tue, 24 Sep 2019 19:23:55 -0400
+Received: by mail-lj1-f196.google.com with SMTP id y3so3627766ljj.6
+        for <linux-sparse@vger.kernel.org>; Tue, 24 Sep 2019 16:23:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linux-foundation.org; s=google;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=8ifYMqUgjjlNkKwX4MNHotZB57THub8NmbMOhzV6AWQ=;
+        b=DCRehmQvwsoeUmKMse93X8Bn0LV88sDRHkzYmH8PDvEmMHRmMf/G52ftg1YVPzqs55
+         zCPR+LbCmir5CZkKJemUjL90XUUlayw/MdX+IDIWOlobyam10ATqwvCRn/U8HpU41HUZ
+         AD8hVpQHzda/ZRQ70zeNJXpfJXKotxNHNwux4=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=8ifYMqUgjjlNkKwX4MNHotZB57THub8NmbMOhzV6AWQ=;
+        b=M78VDGCBsQsE4/39dz9yAqlqwi62QDT1fvwjsKv+03Be3Q0JfU9CynANrI86wekQdP
+         hFvCZccOhNS0hnH2UM6fjX2zwgqNn9KWbGqoy8J6yera29Gm4jrDsz9sl8U45vCr4LCF
+         xjCxTvoJUV/E9CS4RM6+b78KH0Qcn6PRcKtDzHTHocS/vW1E19RRveFomtGff+gDWVo4
+         QRAPLkm0VFu1o2LRw2QAU+bUHyMCKQCJyzF422M2nBChN7ZD16b2zz92r6++MPCe+nHX
+         Kj2znJyeYPe2I0BzjdBiFFzDrvRAryVrrUN/sApIBheeXo36J+NymUrtonIojy8/FgZe
+         4rjQ==
+X-Gm-Message-State: APjAAAWn50+Dd/SHekdXsa/Ja6DEwXEwJIGSwmmmVzvl3uwq10fcPNbf
+        bnKvAhRBp2J85YjBqR9wDzkMD3hODnQ=
+X-Google-Smtp-Source: APXvYqzyQbyzGipYBxVCIfP9QoeHFWPfpiJeOMIzuVTEhgYwX7+Ecg/0A7Fm3cZOjA3cgk1LZTE56g==
+X-Received: by 2002:a2e:9049:: with SMTP id n9mr3704003ljg.45.1569367432575;
+        Tue, 24 Sep 2019 16:23:52 -0700 (PDT)
+Received: from mail-lf1-f47.google.com (mail-lf1-f47.google.com. [209.85.167.47])
+        by smtp.gmail.com with ESMTPSA id d25sm770991lfj.15.2019.09.24.16.23.51
+        for <linux-sparse@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 24 Sep 2019 16:23:51 -0700 (PDT)
+Received: by mail-lf1-f47.google.com with SMTP id u3so2688630lfl.10
+        for <linux-sparse@vger.kernel.org>; Tue, 24 Sep 2019 16:23:51 -0700 (PDT)
+X-Received: by 2002:a19:2489:: with SMTP id k131mr3463027lfk.52.1569367430945;
+ Tue, 24 Sep 2019 16:23:50 -0700 (PDT)
+MIME-Version: 1.0
+References: <CAHk-=wiby96wPxF87Fdq=yPVpjBMv+okrAoQUgO+2eCYjWbqPA@mail.gmail.com>
+ <20190924070852.GA24834@mwanda>
+In-Reply-To: <20190924070852.GA24834@mwanda>
+From:   Linus Torvalds <torvalds@linux-foundation.org>
+Date:   Tue, 24 Sep 2019 16:23:34 -0700
+X-Gmail-Original-Message-ID: <CAHk-=wgpzse8AOSLS39GC4-qc0BSMPKtd_ehkjpWg4SSd_pykw@mail.gmail.com>
+Message-ID: <CAHk-=wgpzse8AOSLS39GC4-qc0BSMPKtd_ehkjpWg4SSd_pykw@mail.gmail.com>
+Subject: Re: [PATCH] parse: Fix sign extension in casting enums
+To:     Dan Carpenter <dan.carpenter@oracle.com>
 Cc:     Sparse Mailing-list <linux-sparse@vger.kernel.org>,
         Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-Subject: Re: enums and EXPR_VALUE and sign expansion
-Message-ID: <20190924071020.GK20699@kadam>
-References: <20190923193856.GJ20699@kadam>
- <CAHk-=wiby96wPxF87Fdq=yPVpjBMv+okrAoQUgO+2eCYjWbqPA@mail.gmail.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAHk-=wiby96wPxF87Fdq=yPVpjBMv+okrAoQUgO+2eCYjWbqPA@mail.gmail.com>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9389 signatures=668685
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=0 malwarescore=0
- phishscore=0 bulkscore=0 spamscore=0 mlxscore=0 mlxlogscore=999
- adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.0.1-1908290000 definitions=main-1909240071
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9389 signatures=668685
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 priorityscore=1501 malwarescore=0
- suspectscore=0 phishscore=0 bulkscore=0 spamscore=0 clxscore=1015
- lowpriorityscore=0 mlxscore=0 impostorscore=0 mlxlogscore=999 adultscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1908290000
- definitions=main-1909240071
+Content-Type: multipart/mixed; boundary="0000000000003e8ce1059354d4fc"
 Sender: linux-sparse-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-On Mon, Sep 23, 2019 at 03:16:56PM -0700, Linus Torvalds wrote:
-> Luc - I _suspect_ that what happens is that it now does that
-> 
->                 expr->ctype = base_type;
-> 
-> in parse.c, which is correct in the long run, but AT THE TIME it is
-> parsed, the type hasn't been finalized yet. That's fine - we'll fix it
-> in-place eventually.
-> 
-> HOWEVER. We also do this:
-> 
->                 if (ctype->bit_size == base_type->bit_size)
->                         continue;
->                 cast_value(expr, base_type, expr, ctype);
-> 
-> and I think it's that 'cast_value()' that gets things wrong somehow.
-> It probably uses a 'unsigned int' either as the source or the
-> destination, or something.
+--0000000000003e8ce1059354d4fc
+Content-Type: text/plain; charset="UTF-8"
 
-Thanks, Linus.
+On Tue, Sep 24, 2019 at 12:09 AM Dan Carpenter <dan.carpenter@oracle.com> wrote:
+>
+> The problem is the sign isn't extended properly when this casts an int
+> to a long.  The expr->ctype has to be the original int ctype for the
+> cast_value() call so that the "value = get_longlong(old);" expansion
+> works correctly.
 
-That was the problem.  get_longlong(old) has to have the original ctype.
+What happens if you just remove the
 
-regards,
-dan carpenter
+        if (ctype->bit_size == base_type->bit_size) {
+                expr->ctype = base_type;
+                continue;
+        }
+
+part entirely? IOW, leave just
+
+        cast_value(expr, base_type, expr, ctype);
+        expr->ctype = base_type;
+
+in place unconditionally? I _think- that should be the simpler correct
+fix, but I'll leave it to Luc to think about it more.
+
+That simpler alternate patch attached,
+
+              Linus
+
+--0000000000003e8ce1059354d4fc
+Content-Type: text/x-patch; charset="US-ASCII"; name="patch.diff"
+Content-Disposition: attachment; filename="patch.diff"
+Content-Transfer-Encoding: base64
+Content-ID: <f_k0ygu2180>
+X-Attachment-Id: f_k0ygu2180
+
+IHBhcnNlLmMgfCA0ICstLS0KIDEgZmlsZSBjaGFuZ2VkLCAxIGluc2VydGlvbigrKSwgMyBkZWxl
+dGlvbnMoLSkKCmRpZmYgLS1naXQgYS9wYXJzZS5jIGIvcGFyc2UuYwppbmRleCBmMjkxZTI0Ny4u
+YjAxYzg3NmUgMTAwNjQ0Ci0tLSBhL3BhcnNlLmMKKysrIGIvcGFyc2UuYwpAQCAtODk3LDEwICs4
+OTcsOCBAQCBzdGF0aWMgdm9pZCBjYXN0X2VudW1fbGlzdChzdHJ1Y3Qgc3ltYm9sX2xpc3QgKmxp
+c3QsIHN0cnVjdCBzeW1ib2wgKmJhc2VfdHlwZSkKIAkJCWV4cHItPmN0eXBlID0gJmludF9jdHlw
+ZTsKIAkJCWNvbnRpbnVlOwogCQl9Ci0JCWV4cHItPmN0eXBlID0gYmFzZV90eXBlOwotCQlpZiAo
+Y3R5cGUtPmJpdF9zaXplID09IGJhc2VfdHlwZS0+Yml0X3NpemUpCi0JCQljb250aW51ZTsKIAkJ
+Y2FzdF92YWx1ZShleHByLCBiYXNlX3R5cGUsIGV4cHIsIGN0eXBlKTsKKwkJZXhwci0+Y3R5cGUg
+PSBiYXNlX3R5cGU7CiAJfSBFTkRfRk9SX0VBQ0hfUFRSKHN5bSk7CiB9CiAK
+--0000000000003e8ce1059354d4fc--
