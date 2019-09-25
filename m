@@ -2,102 +2,81 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id F2EAEBD5BE
-	for <lists+linux-sparse@lfdr.de>; Wed, 25 Sep 2019 02:30:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 53CC3BD5C0
+	for <lists+linux-sparse@lfdr.de>; Wed, 25 Sep 2019 02:32:51 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S2389375AbfIYAah (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Tue, 24 Sep 2019 20:30:37 -0400
-Received: from mail-wr1-f67.google.com ([209.85.221.67]:36525 "EHLO
-        mail-wr1-f67.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S2388529AbfIYAah (ORCPT
+        id S2389656AbfIYAcu (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Tue, 24 Sep 2019 20:32:50 -0400
+Received: from mail-wr1-f65.google.com ([209.85.221.65]:46020 "EHLO
+        mail-wr1-f65.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S2388529AbfIYAcu (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Tue, 24 Sep 2019 20:30:37 -0400
-Received: by mail-wr1-f67.google.com with SMTP id y19so4119267wrd.3
-        for <linux-sparse@vger.kernel.org>; Tue, 24 Sep 2019 17:30:35 -0700 (PDT)
+        Tue, 24 Sep 2019 20:32:50 -0400
+Received: by mail-wr1-f65.google.com with SMTP id r5so4101829wrm.12
+        for <linux-sparse@vger.kernel.org>; Tue, 24 Sep 2019 17:32:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=date:from:to:cc:subject:message-id:references:mime-version
          :content-disposition:in-reply-to:user-agent;
-        bh=QITw1GDj8g6RZsmsxVVVeUjUn2JqC/cPxjZt20P3YsU=;
-        b=gDRevbmjJHrq1yUr5p9jSRdDnDjU6X+pybgB7UPNBHX6MUNJqrvXkyCUFt9oBbpShd
-         Tj4A8D1fT7hCKbcK9YYZnc8rTIrWE81dTPqsA8B4eq67dsH1jvWGmcXhjCHeuZZuXYLi
-         0SF6mV/o9MxHxg2X42DjskpX1mtCPFXOxlt92S3xD3P4iXpmgu8tukGMo0KnSdnp4LrC
-         QIcDq5virs9bgK8J2vU1VlEEvkoE3+mZ4DPQDLvGsau7R5g7rWxTHd4+dyaG57x0U62u
-         +4/YWh/u57k9QEshMcGC+poh9oE450raZtVejVQXtsUWn1yhS2XnZznU1XXIif7LRE0Q
-         R8VQ==
+        bh=BrYOfv9eIe+12nhL+Pd7gILvH0fD9hC58lNNrO6Sn7A=;
+        b=Z6NTVu7r4Dr5FA7QaPsQkYzXGh5zY8IEEPTdERcyEuGJAZh8KLzkpJ97fymheNxImX
+         V30MuxkyHMkxpSMcWLx+oPaGDWq40ESjqJgTwOTMDQlTkNztoW0Yey2pnd4l81xuwW/b
+         z5cyX/cvZd8Er+5zGKxSHdIJRigign6lvRFlsHhd29REtyhuqLQj0CFzpchDMW7HRplQ
+         D3jVj55k2FSw3JvWak/XT1pDeyDKp+UnHbDyuzCDKO8MW/x1ysJQtY37qbx6A7+qogDv
+         OVhXrGLZfezNsUsZfcbZ26qLIN+kPiH5G7PnHUnWSRetYgrTyXxKCxIx4brH7LQDa4Rf
+         nbeA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:date:from:to:cc:subject:message-id:references
          :mime-version:content-disposition:in-reply-to:user-agent;
-        bh=QITw1GDj8g6RZsmsxVVVeUjUn2JqC/cPxjZt20P3YsU=;
-        b=jE+tL1Mh7/pSeFMVkzAhbq+PZ8T4nmQG4SXgnlolZxRYpiBXYDn4xaBLPB7vhaE0qf
-         mQNpKn4ht6WtuNVOh1JsxSNc70+AJWa898CP5xOVtk0wth8w97ixCUQeAVg7i+LM4quQ
-         cS0SJz4B4/2nYt0vaVYPfENMZZOd6sY+yEmd1r+jYzxwSXn8RXAIS5jHGv9hO4fG+pQt
-         DYg2ckOeWnG+q18e5Y8l7kuTp8wwTGYb7W1AnLKQ/DMp8yUayb3jRx7NNMr0Jx0kcdTR
-         NDxf2PzjbyYDs4ABmVrx0olMepS9dLK49x/mEG00ZbKe80n5Zjnja9cPAUefGvW7QbmR
-         Or9Q==
-X-Gm-Message-State: APjAAAX5T7NE5K9rpB2fRvhZGZA4mfFDMq950Nr1h3WXkZr6jrozK3J1
-        McQxb5t2LHq6QuYANDfgpSZzENxE
-X-Google-Smtp-Source: APXvYqzZ+0BXr9Zu3Ti09l3xugxh9WlhzW+8nhimn6g2Imk9kHc/aVGx6RG9jnkoi8MpDhtJezVLfQ==
-X-Received: by 2002:a5d:558c:: with SMTP id i12mr2865116wrv.8.1569371434926;
-        Tue, 24 Sep 2019 17:30:34 -0700 (PDT)
-Received: from desk.local ([2a02:a03f:4080:1900:153:592e:a07d:13ca])
-        by smtp.gmail.com with ESMTPSA id t30sm658780edt.91.2019.09.24.17.30.34
+        bh=BrYOfv9eIe+12nhL+Pd7gILvH0fD9hC58lNNrO6Sn7A=;
+        b=KaoNKXapBhMSxV0DGuqmjfnpmmCZna+qMby7yuIWa89bmMSGUGwvt+JdslV2tSW/u5
+         jPIXUVT3YV38l/kYZ9fcjlJTHMYFc8smJJumwjqmuwUCDFG3EO2PevfD4qk816g9EHtu
+         AOWf5MEqLAwj2vkSL3Uikzm2acxH7AXJ3GC/d/RanAIxNhdBnnvJDENbI1m9h1LBvTaE
+         /m4tmPpGIeUuJp/Rr7w+2CrdZsuOjUUyyNpc9ycS4/uSSR87hBXc/1eClJlqJlrj05V/
+         45SeBw9an+ZTqZOFHZKYIrB7L8twdvKODSxvBv9orvo5jh+PbZeg10HzdfWUat+3I/gO
+         lmTg==
+X-Gm-Message-State: APjAAAWFyvd9OxL4LMS2kQ1GdD068I7/yCF6HUxxyuNjYx/wkbIwH7vW
+        y8FKaJ/HY/ry6le3gSYRHXU=
+X-Google-Smtp-Source: APXvYqz8gG+Nf1WuasDDI9+dRagFwaBg6iQ+q2O8/tfQ3FjKMLp2K/5SzF5Ml0PknW8hMdRmfqge8Q==
+X-Received: by 2002:a05:6000:188:: with SMTP id p8mr5701306wrx.220.1569371568470;
+        Tue, 24 Sep 2019 17:32:48 -0700 (PDT)
+Received: from desk.local ([91.177.171.57])
+        by smtp.gmail.com with ESMTPSA id z65sm665239ede.86.2019.09.24.17.32.47
         (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-        Tue, 24 Sep 2019 17:30:34 -0700 (PDT)
-Date:   Wed, 25 Sep 2019 02:30:33 +0200
+        Tue, 24 Sep 2019 17:32:48 -0700 (PDT)
+Date:   Wed, 25 Sep 2019 02:32:47 +0200
 From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 To:     Linus Torvalds <torvalds@linux-foundation.org>
 Cc:     Dan Carpenter <dan.carpenter@oracle.com>,
         Sparse Mailing-list <linux-sparse@vger.kernel.org>
 Subject: Re: [PATCH] parse: Fix sign extension in casting enums
-Message-ID: <20190925003032.4xhujkifdruryvlk@desk.local>
+Message-ID: <20190925003246.7j4sffxf62a4qkkm@desk.local>
 References: <CAHk-=wiby96wPxF87Fdq=yPVpjBMv+okrAoQUgO+2eCYjWbqPA@mail.gmail.com>
  <20190924070852.GA24834@mwanda>
  <CAHk-=wgpzse8AOSLS39GC4-qc0BSMPKtd_ehkjpWg4SSd_pykw@mail.gmail.com>
+ <CAHk-=wgEV=+S+AzwqxDKfSuux6g1t8yHHtXuASnL+kXXJnE5iA@mail.gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <CAHk-=wgpzse8AOSLS39GC4-qc0BSMPKtd_ehkjpWg4SSd_pykw@mail.gmail.com>
+In-Reply-To: <CAHk-=wgEV=+S+AzwqxDKfSuux6g1t8yHHtXuASnL+kXXJnE5iA@mail.gmail.com>
 User-Agent: NeoMutt/20180716
 Sender: linux-sparse-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-On Tue, Sep 24, 2019 at 04:23:34PM -0700, Linus Torvalds wrote:
-> On Tue, Sep 24, 2019 at 12:09 AM Dan Carpenter <dan.carpenter@oracle.com> wrote:
+On Tue, Sep 24, 2019 at 04:26:48PM -0700, Linus Torvalds wrote:
+> On Tue, Sep 24, 2019 at 4:23 PM Linus Torvalds
+> <torvalds@linux-foundation.org> wrote:
 > >
-> > The problem is the sign isn't extended properly when this casts an int
-> > to a long.  The expr->ctype has to be the original int ctype for the
-> > cast_value() call so that the "value = get_longlong(old);" expansion
-> > works correctly.
+> > I _think- that should be the simpler correct
+> > fix, but I'll leave it to Luc to think about it more.
 > 
-> What happens if you just remove the
-> 
->         if (ctype->bit_size == base_type->bit_size) {
->                 expr->ctype = base_type;
->                 continue;
->         }
-> 
-> part entirely? IOW, leave just
-> 
->         cast_value(expr, base_type, expr, ctype);
->         expr->ctype = base_type;
-> 
-> in place unconditionally? I _think- that should be the simpler correct
-> fix, but I'll leave it to Luc to think about it more.
+> Side note: I don't think I've seen anything from Luc on the git list
+> since April, and the last commit is early April too. It may be that
+> sparse has lost its maintainer..
 
-Yes, I agree. Dan's patch is the obvious one solving the problem
-(expr->ctype adjusted too early) but yours should be equivalent since
-bit_size check is also done in cast_value(). I still need to run the
-tests tough.
+Sorry, I just had some issues and I'm stil catching up.
 
-That being said, I think that using cast_value() is error-prone:
-expr's ctype should probably be changed there. but this will be in
-a separate patch anyway.
-
-> That simpler alternate patch attached,
-
-Thanks.
 -- Luc
