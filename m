@@ -2,130 +2,115 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 0D075BF9B1
-	for <lists+linux-sparse@lfdr.de>; Thu, 26 Sep 2019 20:58:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 361FFBFA9B
+	for <lists+linux-sparse@lfdr.de>; Thu, 26 Sep 2019 22:33:32 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1728444AbfIZS6D (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Thu, 26 Sep 2019 14:58:03 -0400
-Received: from avasout01.plus.net ([84.93.230.227]:46238 "EHLO
-        avasout01.plus.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1728377AbfIZS6D (ORCPT
+        id S1727938AbfIZUdb (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Thu, 26 Sep 2019 16:33:31 -0400
+Received: from mail-ed1-f43.google.com ([209.85.208.43]:40856 "EHLO
+        mail-ed1-f43.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1727868AbfIZUdb (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Thu, 26 Sep 2019 14:58:03 -0400
-X-Greylist: delayed 450 seconds by postgrey-1.27 at vger.kernel.org; Thu, 26 Sep 2019 14:58:02 EDT
-Received: from [10.0.2.15] ([146.198.133.101])
-        by smtp with ESMTPA
-        id DYqSiWisnbMsODYqTiMJ2Y; Thu, 26 Sep 2019 19:50:31 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=plus.com; s=042019;
-        t=1569523831; bh=iAZhzAYMaepEBjycS/djuNUeTsxDypCPnvyFjU9mkP8=;
-        h=Subject:To:Cc:References:From:Date:In-Reply-To;
-        b=rxMPVHv3wuC9JK2pYIEczRkk2R+FCbdGp4pV4XGyGB/k5k4/mweOz+LeSSLN1dlSP
-         g9ndelSSb1bpBb/01rh4KcRoqh0402MsuHs3HzvVLZuczTV8ia1mtjm/Iqexyf0RDc
-         AAKb02UiyYWwRN4QI3i1dTUIomDFGsJHaHSnBvg/ce0X/4tPEgKJAg5CQhVmqJrU3m
-         OU0CzGCH8s30L0ho3xJyVD7F/oICgOdPQfmN3lgtl6Y7AdmKHDh7fvEEVQJQ0z5M2a
-         jM6EJVuZidQRoqKYbmsQjfyXOlLa/N1RP0HIQ5upwtZAcs7Q9Zcgq9Kbw7RdkOGdjY
-         wgC88w6VSFOPw==
-X-Clacks-Overhead: "GNU Terry Pratchett"
-X-CM-Score: 0.00
-X-CNFS-Analysis: v=2.3 cv=C5WXNjH+ c=1 sm=1 tr=0
- a=T/I7yOf4TbhWogbgnfTaxw==:117 a=T/I7yOf4TbhWogbgnfTaxw==:17
- a=jpOVt7BSZ2e4Z31A5e1TngXxSK0=:19 a=IkcTkHD0fZMA:10 a=pBZnl71HcN4KRPHueLcA:9
- a=QEXdDO2ut3YA:10
-X-AUTH: ramsayjones@:2500
-Subject: Re: problem building sparse 0.6.0 (sparse-llvm)
-To:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
+        Thu, 26 Sep 2019 16:33:31 -0400
+Received: by mail-ed1-f43.google.com with SMTP id v38so422468edm.7
+        for <linux-sparse@vger.kernel.org>; Thu, 26 Sep 2019 13:33:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=date:from:to:cc:subject:message-id:references:mime-version
+         :content-disposition:in-reply-to:user-agent;
+        bh=KppJQDu+4A50GcyYLx/fJzJq5qZsrfF/yPEbA7zBv0w=;
+        b=PGVKD9t0qCvguA16utafSVnzVElgWgXHqpm3LQa2u2VTwlyR4FMPFEZI5j5tWFDqle
+         lsA34gyVhlluHhWah6PQgeNKpzG6ftxcn2mFASMtqVEoJ3JhIMXJpvpcxRXTAKWzlV2u
+         J4HejPEXCeWxY9als6Mll4PUQ9L5oirx1oJSuLYh80VTHRmkkUiiKxN1FDBQBY4r/5Ps
+         afnVpo+ROtmyjAWQgUAx4ASKTb84F7HcJZjpoQ+9lsMxhwDS3ZZxRDCF91hsziRNy2LG
+         p0yYLxp4rLQsVYvss3WSueyKYzIUtCr/Z2vz0JeWnAnEV33uaZk3/j45yi6BYAPPW2BL
+         mpsw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+         :mime-version:content-disposition:in-reply-to:user-agent;
+        bh=KppJQDu+4A50GcyYLx/fJzJq5qZsrfF/yPEbA7zBv0w=;
+        b=AMRpsU3gk0JN6uiqijhNnH30jvAYZ4BZqpJ21BYNT40oUjXj+YuhVt+Jz6v8sXcKQW
+         iCDdrPg9KpCrUzMEdNYi952KZhGeM+kaJC7gRx8AAO6WgpnRE/jUxMiAhLJby/NgMq7l
+         zGlTP/h2WG6EXrArxYI19ujghwILIy6IR0wufosRZQQDvrTFYGN1FaFWkHaxN0ffLOow
+         ug743vZ+c94qwyCQI6uetzqcF2x6JKeviRigUZRFKHEGeG9s+bT22AoUKyUiIwS4KGjW
+         sJUiwc44/4hoiub0ienJix7nhg2+YVSgMzq1GE9IZs5MnTEeaphYPWr86GF5U6rz34PL
+         4r+Q==
+X-Gm-Message-State: APjAAAVmE2Dmm3s/JTE1a6KP7Uu+VNfqZ/cGRUFdhyz8uJfsfdKJRdi+
+        FjHvwB8Qlm5i0pUKRthgzN0EcKI3
+X-Google-Smtp-Source: APXvYqwHn/6cVTvTax+s+7Kp7Sp+WiMBaxzFH2r4Mw9GCglGrugK80ZqE1DOvQnProiFLBWJQ1jg1w==
+X-Received: by 2002:a50:b6a8:: with SMTP id d37mr795780ede.63.1569530009456;
+        Thu, 26 Sep 2019 13:33:29 -0700 (PDT)
+Received: from desk.local ([2a02:a03f:4080:1900:5de2:f287:160f:22])
+        by smtp.gmail.com with ESMTPSA id s19sm350579ejs.78.2019.09.26.13.33.28
+        (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+        Thu, 26 Sep 2019 13:33:28 -0700 (PDT)
+Date:   Thu, 26 Sep 2019 22:33:27 +0200
+From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
+To:     Ramsay Jones <ramsay@ramsayjones.plus.com>
 Cc:     Randy Dunlap <rdunlap@infradead.org>,
         Linux-Sparse <linux-sparse@vger.kernel.org>
+Subject: Re: problem building sparse 0.6.0 (sparse-llvm)
+Message-ID: <20190926203326.t6or7pbvybtnussi@desk.local>
 References: <5ebc73fc-1c4f-e97a-f626-ec0d35ec4e69@infradead.org>
  <c03600e0-057a-fb59-78b4-60f363c1b44d@infradead.org>
  <c037bde7-84ea-a7ed-ab81-f5a054093069@ramsayjones.plus.com>
  <f135aab3-5a94-f073-2fd2-c1890abe37b0@infradead.org>
  <54aaa827-4f31-69de-277b-f9723b829d02@ramsayjones.plus.com>
  <20190925221610.srmkmsqkmqh4uzd3@desk.local>
-From:   Ramsay Jones <ramsay@ramsayjones.plus.com>
-Message-ID: <d4203048-34da-0fa0-b670-c400b1bc05b7@ramsayjones.plus.com>
-Date:   Thu, 26 Sep 2019 19:50:27 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.8.0
+ <d4203048-34da-0fa0-b670-c400b1bc05b7@ramsayjones.plus.com>
 MIME-Version: 1.0
-In-Reply-To: <20190925221610.srmkmsqkmqh4uzd3@desk.local>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
-X-CMAE-Envelope: MS4wfCNHMSQidGKk5Ta/W3mTVabS5oRM4lKPJKS9VDt4Jn0jUYSGQKphwrqQrsFsn2LuN62iQHrdZqWx3UG3b+dL+rpKrvHUbw+/R69Y5F7zuSsDue9rWyxF
- CgGdIdf4OBWk8TMe82BTevZMyYJKWHW01q5rwxpL/XOjzcYyFFRg+hcxSVwtAtKAPY8/DexYd0SljA==
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <d4203048-34da-0fa0-b670-c400b1bc05b7@ramsayjones.plus.com>
+User-Agent: NeoMutt/20180716
 Sender: linux-sparse-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-
-
-On 25/09/2019 23:16, Luc Van Oostenryck wrote:
-> On Fri, Apr 26, 2019 at 05:46:22PM +0100, Ramsay Jones wrote:
->> On 26/04/2019 16:20, Randy Dunlap wrote:
-[snip]
->> However, I should have made it clear that I meant to suggest
->> that we should _replace_ the definition of LLVM_CFLAGS with
->> that single call to llvm-config. So, I also tested the
->> following on cygwin:
->>
->>   $ git diff
->>   diff --git a/Makefile b/Makefile
->>   index f816a50..7e8c2ab 100644
->>   --- a/Makefile
->>   +++ b/Makefile
->>   @@ -165,8 +165,7 @@ ifeq ($(shell expr "$(LLVM_VERSION)" : '[3-9]\.'),2)
->>    LLVM_PROGS := sparse-llvm
->>    $(LLVM_PROGS): LD := g++
->>    LLVM_LDFLAGS := $(shell $(LLVM_CONFIG) --ldflags)
->>   -LLVM_CFLAGS := -I$(shell $(LLVM_CONFIG) --includedir) \
->>   -       $(shell $(LLVM_CONFIG) --cppflags)
->>   +LLVM_CFLAGS := $(shell $(LLVM_CONFIG) --cppflags)
->>    LLVM_LIBS := $(shell $(LLVM_CONFIG) --libs)
->>    LLVM_LIBS += $(shell $(LLVM_CONFIG) --system-libs 2>/dev/null)
->>    LLVM_LIBS += $(shell $(LLVM_CONFIG) --cxxflags | grep -F -q -e '-stdlib=libc++' && echo -lc++)
->>   $ 
->>
->> ... which also works! The only difference is that '-I/usr/include'
->> is not passed to gcc twice.
->>
->> Looking at commit 65840c61dc ("build: only need includedir from
->> llvm-config", 2018-12-18), Luc only wanted the 'pre-processor'
->> flags not all of the '--cflags'. The '--cppflags' argument to
->> llvm-config is used for just that. ;-)
->>
->> If you could confirm that the above works for you also, that
->> would be great. Thanks!
+On Thu, Sep 26, 2019 at 07:50:27PM +0100, Ramsay Jones wrote:
 > 
-> Yes, I agree and applied.
-> Thank both and really sorry for the delay.
+> Welcome back Luc. ;-)
 
-Welcome back Luc. ;-)
+Thank you!
+ 
+> [BTW, we are still in 'RC' period! I have been using sparse
+> version v0.6.1-rc1-7-g2b96cd8 in 'production' all this time ...]
 
-[BTW, we are still in 'RC' period! I have been using sparse
-version v0.6.1-rc1-7-g2b96cd8 in 'production' all this time ...]
+Yes, I know. In March-April I was close to get v0.6.1 out but then ...
+ 
+> I just fetched sparse and tested master@3c74809, and it failed
+> on cygwin!
+> 
+> At first I thought it was this patch (ie it was all sparse-llvm
+> tests which failed), but I was equally sure I had tested back
+> when Randy sent the patch (_not_ just compile tested).
+> 
+> However, if I go back to v0.6.1-rc1-7-g2b96cd8, it also fails, so
+> this is not the smoking gun. Then I remembered that the cygwin
+> package for clang/llvm was updated recently ...
+> 
+> Back when Randy sent the patch I was on clang/llvm v3.x.y (I _think_
+> it was 3.0.1, but don't quote me), but now I am on v8.0.1.
 
-I just fetched sparse and tested master@3c74809, and it failed
-on cygwin!
+Randy had the problem on llvm-3.8.0.
+ 
+> I haven't looked into the errors/warnings yet, but they seem to
+> relate to 'unknown/misused' pseudo-ops used for debug info.
 
-At first I thought it was this patch (ie it was all sparse-llvm
-tests which failed), but I was equally sure I had tested back
-when Randy sent the patch (_not_ just compile tested).
+I really don't think it could be related to the last patch.
+I don't use or have access to cygwin but I've tested on Debian
+(bullseye/sid) with gcc-7 & gcc-9 and there wasn't any problem with
+llvm-8 (on Ubuntu I can only test with llvm-7). So, I'm curious to
+know more about this error you're seeing.
 
-However, if I go back to v0.6.1-rc1-7-g2b96cd8, it also fails, so
-this is not the smoking gun. Then I remembered that the cygwin
-package for clang/llvm was updated recently ...
+Two years ago or so, I had once a problem with the version of the C++
+library (libc++ vs. libstc++) and the Makefile currently contains a
+hack for it (the line using llvm-config --cxxflags and then grepping
+for -stdlib=libc++). Can you check the output of this comand and, if
+it doesn't report '-stdlib=libc++', try to explicitly add -lc++ in
+LLVM_LIBS?
 
-Back when Randy sent the patch I was on clang/llvm v3.x.y (I _think_
-it was 3.0.1, but don't quote me), but now I am on v8.0.1.
-
-I haven't looked into the errors/warnings yet, but they seem to
-relate to 'unknown/misused' pseudo-ops used for debug info.
-
-Just a heads up! (If Randy hasn't also updated, he may well still
-be fine).
-
-ATB,
-Ramsay Jones
-
+Thanks for the report.
+-- Luc
