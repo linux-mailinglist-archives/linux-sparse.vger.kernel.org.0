@@ -2,159 +2,130 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 17031BE872
-	for <lists+linux-sparse@lfdr.de>; Thu, 26 Sep 2019 00:49:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 0D075BF9B1
+	for <lists+linux-sparse@lfdr.de>; Thu, 26 Sep 2019 20:58:04 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1729707AbfIYWtY (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Wed, 25 Sep 2019 18:49:24 -0400
-Received: from mail-ed1-f67.google.com ([209.85.208.67]:34924 "EHLO
-        mail-ed1-f67.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1729706AbfIYWtY (ORCPT
+        id S1728444AbfIZS6D (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Thu, 26 Sep 2019 14:58:03 -0400
+Received: from avasout01.plus.net ([84.93.230.227]:46238 "EHLO
+        avasout01.plus.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1728377AbfIZS6D (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Wed, 25 Sep 2019 18:49:24 -0400
-Received: by mail-ed1-f67.google.com with SMTP id v8so233911eds.2
-        for <linux-sparse@vger.kernel.org>; Wed, 25 Sep 2019 15:49:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=from:to:cc:subject:date:message-id:in-reply-to:references
-         :mime-version:content-transfer-encoding;
-        bh=Y5OsfRxFFwSoHN4V1gW0w6VqgjSEozZWDna8QzUOi1Y=;
-        b=BjdEnGIkql4XTLTvOUyr6Wpqz1f5FabJXuuBaV90wwqDdpGlzB3CBRuaVbkS/v0KrE
-         s9UWJDEeRGmvrBu6v5gtf8WYkX+ihpYZnqeltGtyMinK7qFy5sWjBhqwuufldQZVq9l2
-         3D51B2ZtXSJ+G6x/10EF4LKhRIR1UxjPjIYyGzkLeCrPQyWQLIQ1YIdkXnfEg4lIoE/h
-         rCe1KXBNNlus2qlVXBtyvVGX/VTWEJtnqLeEOo+bzQdzbMjtwOSmZbwBws+koFZ5AxkF
-         fcPlqgxJFpvoyIZpr/beMe3envfZimYHZidIP8wDHIcosYR2oHbrl7quwmDw7nKePh0/
-         mKqQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
-         :references:mime-version:content-transfer-encoding;
-        bh=Y5OsfRxFFwSoHN4V1gW0w6VqgjSEozZWDna8QzUOi1Y=;
-        b=lkWmyHT0p6NXWMM0Xt0Yzu9gu1xyfZSqfJrXkt3tgU6VXUJnhtfhY1hfaekW2yVplU
-         YIsYypSxXIIggdavPeF9E/83fPhIwcggWgu3WjMidaUZ2guP7ik2uKDQ59s/Vcq424Zy
-         6RYjGcD6Kw5PYOoHzHZE9VfqPfa+ve3+KJxlEosbero0RrgNPDVUiAASULwhQuKtn5UG
-         lFlSydVOlB1WLbhi7qZYk7pil4VydheVB5fP8SwSFCX7QW4i+2l7RhYj9rfH9OmRfA1/
-         ZlmdUKl7wyLNsUzx/86FWDrJX4PE0biWP/vMXbcSFTpId/ZzrH+S/H1m5o7ReFwvw3OS
-         U3KQ==
-X-Gm-Message-State: APjAAAVrK/Or70fEbofnQPuBaKUAujdb7ZzOL2eGxSktwDAqVWl30Jn2
-        nb8MDNeRa1zJaRZ4Kn/8oC6mBCXd
-X-Google-Smtp-Source: APXvYqy0ZonilTUH/ekoLvWa9+BLbsl5S/mc+/jOWHdR6eZi+gfOSSX7f2g6eSpzgD925w1Uln4z4w==
-X-Received: by 2002:a17:906:41a:: with SMTP id d26mr492018eja.17.1569451762101;
-        Wed, 25 Sep 2019 15:49:22 -0700 (PDT)
-Received: from localhost.localdomain ([2a02:a03f:4080:1900:553b:deac:4ba3:2b98])
-        by smtp.gmail.com with ESMTPSA id jp14sm17057ejb.60.2019.09.25.15.49.20
-        (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-        Wed, 25 Sep 2019 15:49:21 -0700 (PDT)
-From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-To:     linux-sparse@vger.kernel.org
-Cc:     Oliver Hartkopp <socketcan@hartkopp.net>,
-        Dan Carpenter <dan.carpenter@oracle.com>,
-        Steve French <smfrench@gmail.com>,
-        Nicolai Stange <nicstange@gmail.com>,
-        Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-Subject: [PATCH] constexpr: relax constexprness of constant conditionals
-Date:   Thu, 26 Sep 2019 00:49:13 +0200
-Message-Id: <20190925224913.6056-1-luc.vanoostenryck@gmail.com>
-X-Mailer: git-send-email 2.23.0
-In-Reply-To: <20190807105042.GK1974@kadam>
-References: <20190807105042.GK1974@kadam>
+        Thu, 26 Sep 2019 14:58:03 -0400
+X-Greylist: delayed 450 seconds by postgrey-1.27 at vger.kernel.org; Thu, 26 Sep 2019 14:58:02 EDT
+Received: from [10.0.2.15] ([146.198.133.101])
+        by smtp with ESMTPA
+        id DYqSiWisnbMsODYqTiMJ2Y; Thu, 26 Sep 2019 19:50:31 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=plus.com; s=042019;
+        t=1569523831; bh=iAZhzAYMaepEBjycS/djuNUeTsxDypCPnvyFjU9mkP8=;
+        h=Subject:To:Cc:References:From:Date:In-Reply-To;
+        b=rxMPVHv3wuC9JK2pYIEczRkk2R+FCbdGp4pV4XGyGB/k5k4/mweOz+LeSSLN1dlSP
+         g9ndelSSb1bpBb/01rh4KcRoqh0402MsuHs3HzvVLZuczTV8ia1mtjm/Iqexyf0RDc
+         AAKb02UiyYWwRN4QI3i1dTUIomDFGsJHaHSnBvg/ce0X/4tPEgKJAg5CQhVmqJrU3m
+         OU0CzGCH8s30L0ho3xJyVD7F/oICgOdPQfmN3lgtl6Y7AdmKHDh7fvEEVQJQ0z5M2a
+         jM6EJVuZidQRoqKYbmsQjfyXOlLa/N1RP0HIQ5upwtZAcs7Q9Zcgq9Kbw7RdkOGdjY
+         wgC88w6VSFOPw==
+X-Clacks-Overhead: "GNU Terry Pratchett"
+X-CM-Score: 0.00
+X-CNFS-Analysis: v=2.3 cv=C5WXNjH+ c=1 sm=1 tr=0
+ a=T/I7yOf4TbhWogbgnfTaxw==:117 a=T/I7yOf4TbhWogbgnfTaxw==:17
+ a=jpOVt7BSZ2e4Z31A5e1TngXxSK0=:19 a=IkcTkHD0fZMA:10 a=pBZnl71HcN4KRPHueLcA:9
+ a=QEXdDO2ut3YA:10
+X-AUTH: ramsayjones@:2500
+Subject: Re: problem building sparse 0.6.0 (sparse-llvm)
+To:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
+Cc:     Randy Dunlap <rdunlap@infradead.org>,
+        Linux-Sparse <linux-sparse@vger.kernel.org>
+References: <5ebc73fc-1c4f-e97a-f626-ec0d35ec4e69@infradead.org>
+ <c03600e0-057a-fb59-78b4-60f363c1b44d@infradead.org>
+ <c037bde7-84ea-a7ed-ab81-f5a054093069@ramsayjones.plus.com>
+ <f135aab3-5a94-f073-2fd2-c1890abe37b0@infradead.org>
+ <54aaa827-4f31-69de-277b-f9723b829d02@ramsayjones.plus.com>
+ <20190925221610.srmkmsqkmqh4uzd3@desk.local>
+From:   Ramsay Jones <ramsay@ramsayjones.plus.com>
+Message-ID: <d4203048-34da-0fa0-b670-c400b1bc05b7@ramsayjones.plus.com>
+Date:   Thu, 26 Sep 2019 19:50:27 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.8.0
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <20190925221610.srmkmsqkmqh4uzd3@desk.local>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
+X-CMAE-Envelope: MS4wfCNHMSQidGKk5Ta/W3mTVabS5oRM4lKPJKS9VDt4Jn0jUYSGQKphwrqQrsFsn2LuN62iQHrdZqWx3UG3b+dL+rpKrvHUbw+/R69Y5F7zuSsDue9rWyxF
+ CgGdIdf4OBWk8TMe82BTevZMyYJKWHW01q5rwxpL/XOjzcYyFFRg+hcxSVwtAtKAPY8/DexYd0SljA==
 Sender: linux-sparse-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-Currently, sparse emits a warning when a conditional expression with a
-constant condition is used where an "Integer Constant Expression" is
-expected and only the false-side operand (which is not evaluated) is
-not constant. The standard are especially unclear about this situation.
 
-However, GCC silently accept those as ICEs when they evaluate to a compile-time
-known value (in other words, when the conditional and the corresponding
-true/false sub-expression are themselves constant). The standard are
-especially unclear about the situation when the unevaluated side is non-constant.
 
-So, relax sparse to match GCC's behaviour.
+On 25/09/2019 23:16, Luc Van Oostenryck wrote:
+> On Fri, Apr 26, 2019 at 05:46:22PM +0100, Ramsay Jones wrote:
+>> On 26/04/2019 16:20, Randy Dunlap wrote:
+[snip]
+>> However, I should have made it clear that I meant to suggest
+>> that we should _replace_ the definition of LLVM_CFLAGS with
+>> that single call to llvm-config. So, I also tested the
+>> following on cygwin:
+>>
+>>   $ git diff
+>>   diff --git a/Makefile b/Makefile
+>>   index f816a50..7e8c2ab 100644
+>>   --- a/Makefile
+>>   +++ b/Makefile
+>>   @@ -165,8 +165,7 @@ ifeq ($(shell expr "$(LLVM_VERSION)" : '[3-9]\.'),2)
+>>    LLVM_PROGS := sparse-llvm
+>>    $(LLVM_PROGS): LD := g++
+>>    LLVM_LDFLAGS := $(shell $(LLVM_CONFIG) --ldflags)
+>>   -LLVM_CFLAGS := -I$(shell $(LLVM_CONFIG) --includedir) \
+>>   -       $(shell $(LLVM_CONFIG) --cppflags)
+>>   +LLVM_CFLAGS := $(shell $(LLVM_CONFIG) --cppflags)
+>>    LLVM_LIBS := $(shell $(LLVM_CONFIG) --libs)
+>>    LLVM_LIBS += $(shell $(LLVM_CONFIG) --system-libs 2>/dev/null)
+>>    LLVM_LIBS += $(shell $(LLVM_CONFIG) --cxxflags | grep -F -q -e '-stdlib=libc++' && echo -lc++)
+>>   $ 
+>>
+>> ... which also works! The only difference is that '-I/usr/include'
+>> is not passed to gcc twice.
+>>
+>> Looking at commit 65840c61dc ("build: only need includedir from
+>> llvm-config", 2018-12-18), Luc only wanted the 'pre-processor'
+>> flags not all of the '--cflags'. The '--cppflags' argument to
+>> llvm-config is used for just that. ;-)
+>>
+>> If you could confirm that the above works for you also, that
+>> would be great. Thanks!
+> 
+> Yes, I agree and applied.
+> Thank both and really sorry for the delay.
 
-Reported-by: Oliver Hartkopp <socketcan@hartkopp.net>
-Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
----
- evaluate.c                       | 28 +++++++++++++++-------------
- validation/constexpr-constcond.c | 10 ++++++++++
- validation/ioc-typecheck.c       |  4 ----
- 3 files changed, 25 insertions(+), 17 deletions(-)
- create mode 100644 validation/constexpr-constcond.c
+Welcome back Luc. ;-)
 
-diff --git a/evaluate.c b/evaluate.c
-index 3268333ab..d52fd9f99 100644
---- a/evaluate.c
-+++ b/evaluate.c
-@@ -1178,20 +1178,22 @@ static struct symbol *evaluate_conditional_expression(struct expression *expr)
- 	expr->flags = (expr->conditional->flags & (*cond)->flags &
- 			expr->cond_false->flags & ~CEF_CONST_MASK);
- 	/*
--	 * A conditional operator yields a particular constant
--	 * expression type only if all of its three subexpressions are
--	 * of that type [6.6(6), 6.6(8)].
--	 * As an extension, relax this restriction by allowing any
--	 * constant expression type for the condition expression.
--	 *
--	 * A conditional operator never yields an address constant
--	 * [6.6(9)].
--	 * However, as an extension, if the condition is any constant
--	 * expression, and the true and false expressions are both
--	 * address constants, mark the result as an address constant.
-+	 * In the standard, it is defined that an integer constant expression
-+	 * shall only have operands that are themselves constant [6.6(6)].
-+	 * While this definition is very clear for expressions that need all
-+	 * their operands to be evaluated, for conditional expressions with a
-+	 * constant condition things are much less obvious.
-+	 * So, as an extension, do the same as GCC seems to do:
-+	 *	Consider a conditional expression with a constant condition
-+	 *	as having the same constantness as the argument corresponding
-+	 *	to the truth value (including in the case of address constants
-+	 *	which are defined more stricly [6.6(9)]).
- 	 */
--	if (expr->conditional->flags & (CEF_ACE | CEF_ADDR))
--		expr->flags = (*cond)->flags & expr->cond_false->flags & ~CEF_CONST_MASK;
-+	if (expr->conditional->flags & (CEF_ACE | CEF_ADDR)) {
-+		int is_true = expr_truth_value(expr->conditional);
-+		struct expression *arg = is_true ? *cond : expr->cond_false;
-+		expr->flags = arg->flags & ~CEF_CONST_MASK;
-+	}
- 
- 	lclass = classify_type(ltype, &ltype);
- 	rclass = classify_type(rtype, &rtype);
-diff --git a/validation/constexpr-constcond.c b/validation/constexpr-constcond.c
-new file mode 100644
-index 000000000..d98da3dc4
---- /dev/null
-+++ b/validation/constexpr-constcond.c
-@@ -0,0 +1,10 @@
-+extern int var;
-+
-+static int a[] = {
-+	[0 ? var : 1] = 0,
-+	[1 ? 2 : var] = 0,
-+};
-+
-+/*
-+ * check-name: constexprness in constant conditionals
-+ */
-diff --git a/validation/ioc-typecheck.c b/validation/ioc-typecheck.c
-index 34b37d310..7780773bc 100644
---- a/validation/ioc-typecheck.c
-+++ b/validation/ioc-typecheck.c
-@@ -4,8 +4,4 @@ static unsigned iocnrs[] = {
- };
- /*
-  * check-name: integer constant & conditional expression
-- * check-known-to-fail
-- *
-- * check-error-start
-- * check-error-end
-  */
--- 
-2.23.0
+[BTW, we are still in 'RC' period! I have been using sparse
+version v0.6.1-rc1-7-g2b96cd8 in 'production' all this time ...]
+
+I just fetched sparse and tested master@3c74809, and it failed
+on cygwin!
+
+At first I thought it was this patch (ie it was all sparse-llvm
+tests which failed), but I was equally sure I had tested back
+when Randy sent the patch (_not_ just compile tested).
+
+However, if I go back to v0.6.1-rc1-7-g2b96cd8, it also fails, so
+this is not the smoking gun. Then I remembered that the cygwin
+package for clang/llvm was updated recently ...
+
+Back when Randy sent the patch I was on clang/llvm v3.x.y (I _think_
+it was 3.0.1, but don't quote me), but now I am on v8.0.1.
+
+I haven't looked into the errors/warnings yet, but they seem to
+relate to 'unknown/misused' pseudo-ops used for debug info.
+
+Just a heads up! (If Randy hasn't also updated, he may well still
+be fine).
+
+ATB,
+Ramsay Jones
 
