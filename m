@@ -2,55 +2,55 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 7BB6AC0EA3
-	for <lists+linux-sparse@lfdr.de>; Sat, 28 Sep 2019 01:43:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 37E03C0EA5
+	for <lists+linux-sparse@lfdr.de>; Sat, 28 Sep 2019 01:43:58 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1728763AbfI0Xn3 (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Fri, 27 Sep 2019 19:43:29 -0400
-Received: from mail-ed1-f65.google.com ([209.85.208.65]:36432 "EHLO
-        mail-ed1-f65.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1728444AbfI0Xn3 (ORCPT
+        id S1728742AbfI0Xna (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Fri, 27 Sep 2019 19:43:30 -0400
+Received: from mail-ed1-f67.google.com ([209.85.208.67]:36435 "EHLO
+        mail-ed1-f67.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1728573AbfI0Xn3 (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
         Fri, 27 Sep 2019 19:43:29 -0400
-Received: by mail-ed1-f65.google.com with SMTP id h2so3746130edn.3
-        for <linux-sparse@vger.kernel.org>; Fri, 27 Sep 2019 16:43:27 -0700 (PDT)
+Received: by mail-ed1-f67.google.com with SMTP id h2so3746148edn.3
+        for <linux-sparse@vger.kernel.org>; Fri, 27 Sep 2019 16:43:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=UdajxMr2+P+kt6tSUAwxxGAJHtZoSF/M61YKLkSgbeI=;
-        b=BgVqKYGlry2BWrhvkjeFYe0NLvrsKqrXjKL1Tq0T/tbCFyAYU8vobwwnNCAv+93HOw
-         bwF377Cry0bt2r8Rub0VT/VO9ORiQ53fH8FYVlcD3MUxh4WJ7Bxp/wF45o2YfB/wXEKp
-         WV3PlAZbQf1ayDLlVvstL4c0PE9dxJLOLYulp2/I4fLZ+PL8I5iQm1N2yo3OGp8sxZkg
-         5PCk1kuAy5jk7EjYHg6eULalEi9ChFvl8tFPurZzQtuCOTTWQnuG+qpifpSKYrHrSXGP
-         TJFSBw9vi8x3SfPjppI+7swdtjtRtUGai4zCct4lM1jDc5ASvHq/UN37FsV2LwHc+e06
-         Z1eA==
+        bh=i48AorL/QX6PUj4RrX0pYJ7Oarrksg8nCzm7dmWkIq0=;
+        b=svBQwg4aJmKMTDiaMRaJCUeZwwOsma/EVIvxQ++VyklJE2Ad+0gXZgL4O3+zR9ZlYF
+         C5TUBaDKZhxyzo+WUGXFUQmrYFuHmIQiUNwGAkbyiVHPJX+4B0N1F+OxHfb2UUpF5H4k
+         ZdC64k5688tvEJhhaG+9a5QYKrycSL2JnKonVAphASRcoGw6KkvztSi4tCBayP5dyl9c
+         ZYvsvgAXUHazYZm0rQct0AFB1TM8YnwbsEhdUdBN2eqqPfQrSpbHIRjgWX7DmzjlCzR+
+         jloWX1AGyEjHMYLcQ1MNpolqoGM0+dilRAl1AlC2jSvevDQGqFaTrMqaiC2UGQFBQOaG
+         7I+Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=UdajxMr2+P+kt6tSUAwxxGAJHtZoSF/M61YKLkSgbeI=;
-        b=axK4Ezlqvu6sV4EmMJ4Ox4M8mCUKs+uapXDkCryomLcIQ0cY1SbV+rrDm09Y9xV7tf
-         QogFJGaSwERIiqHcgZ57VQ6nnbiqOSNJsMgFAaigZcS1SRgzWENcmfZKfAKQc44jnHD1
-         8grC7dq8BCcK0JgJTJ5YgmDYwDzHuN/Le7TlliNsbjgQ02FQwA5LXG8nXFhfE24wfhYA
-         sQcPIKpSTB0Iy3kMX7OgBQnP4k9AwntOvWlPR13sM9WvfxUqxnuyk76I2b/pMYHC4iiK
-         X+wo5wmnhBrhlBTvFsgceUq+pw9kSXtNQfRuU60DQ08q0lfQzmiSwx9EreSxaOR9mtWj
-         fVRQ==
-X-Gm-Message-State: APjAAAWR1nIE57VSPb166GyT16s/rnQqQjJtA4H5v2RHlbz6BtwbS5eM
-        CJOMZosnCR6RrQU9ix1vK9KVLkg+
-X-Google-Smtp-Source: APXvYqyxlAvDC8aKveJZ3+DVsPFOY9CptBLf2eUODnbreQS6cUYbJzpb8XhJFAr0AQUvMnuoTL5iRw==
-X-Received: by 2002:a05:6402:1583:: with SMTP id c3mr7554772edv.286.1569627807081;
-        Fri, 27 Sep 2019 16:43:27 -0700 (PDT)
+        bh=i48AorL/QX6PUj4RrX0pYJ7Oarrksg8nCzm7dmWkIq0=;
+        b=YZDBXCE7LIHceavAb56YeP6C3mpi2oTXI5eY3ct3JbjEnbShe5r1GMMZppnUIK9dVs
+         Kv5FJ3BQOOgD8MDQ2KrX1Rzw6paVW3fHiBOovXD+UYQeWzxRV8zHO9hz9J3Sd25Sa5oM
+         lBkcTMHTomEixfbdCP58FkucLCcauSPXwZdZ1Lh9wXmq/2oiTkpm3curQr1uw/4mrB+B
+         57BJW5FIwY/kmGNcd/QHi1Uc7ToJZXjPiolFjH4Std+wbiYLPz5pywD58OKtEupf0IFk
+         lQlObJLd19tWG73I/ir3H7rapAnMHbHQFw09tmquuHIc+KZabQzU65G+QFSjgJSBN2SM
+         IcGA==
+X-Gm-Message-State: APjAAAXAd0E6+Le5eaBzzi8TSvGg8r1FfHZYgpyGAQEPQWox/P1xcgGU
+        gsrQml7ZewpdjPWG7VLoYsBhzytq
+X-Google-Smtp-Source: APXvYqy54eVuj/KxCho1FND26t23WjEN/90/crKkr+12iYSwaG065bEWwziQvb7+1IwbVQonvMd/VA==
+X-Received: by 2002:a50:9512:: with SMTP id u18mr7357786eda.182.1569627808029;
+        Fri, 27 Sep 2019 16:43:28 -0700 (PDT)
 Received: from localhost.localdomain ([2a02:a03f:4080:1900:da8:650b:f6cc:5bcf])
-        by smtp.gmail.com with ESMTPSA id ng5sm730393ejb.9.2019.09.27.16.43.26
+        by smtp.gmail.com with ESMTPSA id ng5sm730393ejb.9.2019.09.27.16.43.27
         (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-        Fri, 27 Sep 2019 16:43:26 -0700 (PDT)
+        Fri, 27 Sep 2019 16:43:27 -0700 (PDT)
 From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 To:     linux-sparse@vger.kernel.org
 Cc:     Linus Torvalds <torvalds@linux-foundation.org>
-Subject: [PATCH 02/18] shorter message for non-scalar in conditionals
-Date:   Sat, 28 Sep 2019 01:43:06 +0200
-Message-Id: <20190927234322.5157-5-luc.vanoostenryck@gmail.com>
+Subject: [PATCH 03/18] expand: add test for expansion of compound literals
+Date:   Sat, 28 Sep 2019 01:43:07 +0200
+Message-Id: <20190927234322.5157-6-luc.vanoostenryck@gmail.com>
 X-Mailer: git-send-email 2.23.0
 In-Reply-To: <20190927234322.5157-1-luc.vanoostenryck@gmail.com>
 References: <20190927234322.5157-1-luc.vanoostenryck@gmail.com>
@@ -61,78 +61,48 @@ Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-The diagnostic message is a bit long with the non-really-informative
-part 'incorrect type' first and the explanation later in parentheses.
-
-Change this by using a shorter message "non-scalar type in ...".
+Compound literals are currently not expanded.
+Add a test for this.
 
 Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 ---
- evaluate.c                    |  2 +-
- validation/bad-type-twice0.c  |  2 +-
- validation/conditional-type.c | 16 ++++++++--------
- 3 files changed, 10 insertions(+), 10 deletions(-)
+ validation/expand/compound-literal.c | 27 +++++++++++++++++++++++++++
+ 1 file changed, 27 insertions(+)
+ create mode 100644 validation/expand/compound-literal.c
 
-diff --git a/evaluate.c b/evaluate.c
-index 3821bb3d7..f6dfcced7 100644
---- a/evaluate.c
-+++ b/evaluate.c
-@@ -910,7 +910,7 @@ static struct symbol *evaluate_conditional(struct expression *expr, int iterator
- 		if (Waddress)
- 			warning(expr->pos, "the address of %s will always evaluate as true", "an array");
- 	} else if (!is_scalar_type(ctype)) {
--		sparse_error(expr->pos, "incorrect type in conditional (non-scalar type):");
-+		sparse_error(expr->pos, "non-scalar type in conditional:");
- 		info(expr->pos, "   %s", show_typename(ctype));
- 		return NULL;
- 	}
-diff --git a/validation/bad-type-twice0.c b/validation/bad-type-twice0.c
-index 45234699e..9e834d47d 100644
---- a/validation/bad-type-twice0.c
-+++ b/validation/bad-type-twice0.c
-@@ -7,7 +7,7 @@ static int foo(a)
-  * check-name: bad-type-twice0
-  *
-  * check-error-start
--bad-type-twice0.c:3:16: error: incorrect type in conditional (non-scalar type):
-+bad-type-twice0.c:3:16: error: non-scalar type in conditional:
- bad-type-twice0.c:3:16:    incomplete type a
-  * check-error-end
-  */
-diff --git a/validation/conditional-type.c b/validation/conditional-type.c
-index 34cfcc687..6e2da9b52 100644
---- a/validation/conditional-type.c
-+++ b/validation/conditional-type.c
-@@ -79,21 +79,21 @@ static int good_if_ptr(void *ptr)
-  * check-name: conditional-type
-  *
-  * check-error-start
--conditional-type.c:18:18: error: incorrect type in conditional (non-scalar type):
-+conditional-type.c:18:18: error: non-scalar type in conditional:
- conditional-type.c:18:18:    void
--conditional-type.c:19:13: error: incorrect type in conditional (non-scalar type):
-+conditional-type.c:19:13: error: non-scalar type in conditional:
- conditional-type.c:19:13:    struct state s
--conditional-type.c:24:18: error: incorrect type in conditional (non-scalar type):
-+conditional-type.c:24:18: error: non-scalar type in conditional:
- conditional-type.c:24:18:    void
--conditional-type.c:29:21: error: incorrect type in conditional (non-scalar type):
-+conditional-type.c:29:21: error: non-scalar type in conditional:
- conditional-type.c:29:21:    void
--conditional-type.c:30:16: error: incorrect type in conditional (non-scalar type):
-+conditional-type.c:30:16: error: non-scalar type in conditional:
- conditional-type.c:30:16:    struct state s
--conditional-type.c:34:21: error: incorrect type in conditional (non-scalar type):
-+conditional-type.c:34:21: error: non-scalar type in conditional:
- conditional-type.c:34:21:    void
--conditional-type.c:36:20: error: incorrect type in conditional (non-scalar type):
-+conditional-type.c:36:20: error: non-scalar type in conditional:
- conditional-type.c:36:20:    void
--conditional-type.c:40:21: error: incorrect type in conditional (non-scalar type):
-+conditional-type.c:40:21: error: non-scalar type in conditional:
- conditional-type.c:40:21:    void
-  * check-error-end
-  */
+diff --git a/validation/expand/compound-literal.c b/validation/expand/compound-literal.c
+new file mode 100644
+index 000000000..7401b0191
+--- /dev/null
++++ b/validation/expand/compound-literal.c
+@@ -0,0 +1,27 @@
++#define SAME_TYPE(A, B)	\
++	__builtin_types_compatible_p(A, B)
++
++struct s {
++	int i;
++};
++
++static void foo(struct s *p)
++{
++	*p = (struct s) { .i = SAME_TYPE(int, int), };
++}
++
++/*
++ * check-name: compound-literal
++ * check-command: test-linearize $file
++ * check-known-to-fail
++ *
++ * check-output-start
++foo:
++.L0:
++	<entry-point>
++	store.32    $1 -> 0[%arg1]
++	ret
++
++
++ * check-output-end
++ */
 -- 
 2.23.0
 
