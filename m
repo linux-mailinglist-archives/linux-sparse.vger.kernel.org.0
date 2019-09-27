@@ -2,55 +2,55 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id EEBCEC0EB1
-	for <lists+linux-sparse@lfdr.de>; Sat, 28 Sep 2019 01:44:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id CDA7DC0EB3
+	for <lists+linux-sparse@lfdr.de>; Sat, 28 Sep 2019 01:44:03 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1728535AbfI0Xni (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Fri, 27 Sep 2019 19:43:38 -0400
-Received: from mail-ed1-f65.google.com ([209.85.208.65]:41399 "EHLO
+        id S1728589AbfI0Xnk (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Fri, 27 Sep 2019 19:43:40 -0400
+Received: from mail-ed1-f65.google.com ([209.85.208.65]:35810 "EHLO
         mail-ed1-f65.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1728538AbfI0Xni (ORCPT
+        with ESMTP id S1728526AbfI0Xnk (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Fri, 27 Sep 2019 19:43:38 -0400
-Received: by mail-ed1-f65.google.com with SMTP id f20so3711538edv.8
+        Fri, 27 Sep 2019 19:43:40 -0400
+Received: by mail-ed1-f65.google.com with SMTP id v8so3751972eds.2
         for <linux-sparse@vger.kernel.org>; Fri, 27 Sep 2019 16:43:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=sIxF0fk3/UNrjRYRUSTrX1zPJ94k+QatPGej04y0ilI=;
-        b=bQncEjgdtxMwGcKofiAErxPfOQou6u0kDYUySpGgOz8tuFBNEtseFuUiaXAHVI3cR7
-         t1Ebijn3/3U14DE6xWT1BXd05TVMmbxsYThecdFHWYAVs7U9lR62y8DjgeEK0qDqWBvf
-         iwOLUWmFqlQTVW4+QUxQ3ajFBUExN1rAEWgUpOZg6Jst9FgMT7RD8LEofJcJqFAhiSXx
-         KIYzBvM+epVbHi4RvCn65xvV61KOmB7zCsYBOIbxX0XnyzSxmV6/aQRhKg9AxtiZ8mof
-         SiWtML5QOtfgqqWkA73Uw3I+koMpRpBoEzqFpLXEBRUyY//trh906OBdL7GxYFRKNi7L
-         S9Sg==
+        bh=Kxo4izDidFVysmwdv+kfyq0Qbyy1ne+H7jf+alrQCx4=;
+        b=reg1Yd6s4nPbhjdPU/a59tavpevW4zrhdAygvvhUr4MBKx/fZ7V0ejBM4l2an6S51H
+         qUbTRwwGqzw2/1CedjUqGkFQYMfyg6ziTFCOLubIvULBGua+c5UPyIH3kyQHqx3LTZAL
+         5hZLCtVn2PS0Bp9zIhWBsDR5s7O+C/ijcSB7IJSu7ERD7epO2CEAtv6EaCoEITIrT2F/
+         VP+NCv/rpb2KxIKJA9gftarGFZaSkV7MkMgM4SGNTjYeVIJ67zWxbh5q4srE8/zOgCTL
+         gGVqoYJn5oKAvyy6uLJZJoDrssEL6J4zMJS/3ULJDVvL21fuiA/YthBdN1/gQWKUqZvG
+         k6BA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=sIxF0fk3/UNrjRYRUSTrX1zPJ94k+QatPGej04y0ilI=;
-        b=rYHBnng1aXDOpu6eHByK7BwhS6VRxdmOTsNNnfdBavGJgV0OaDNLDoQWfeb2hBVSFB
-         +cSCcWN5EENrDxMjDc7IzkMLWA5zlJC9+GTIYNptpxgnrzmWaFE95fZn2l1Mg9Ex6Hgs
-         V7aCHWVG5ijKJPKbHzDiRqqqRt1GhYTzvKl0DqDOWK3wh33bnAtPIu0o9RgaQ5obtxxn
-         Y4+bB8TDAo7uSxq+L79layP6YKI0iJ6TRqSkHfhYX0P9QMY9mTIRoBeFg+vV97NsRRR6
-         gu4YV3mOfYutNAh3EdSVBwMBoBb6hs2615cOAru9M4VAhEUD0HszLApGQVDD1eOLPV43
-         t9TQ==
-X-Gm-Message-State: APjAAAXKbSV9K24PBX5hinTUxVL5UMBatXgM+X+2Ulh54sg/HFNu6AyZ
-        Z75/Cy7i5QHSfxOfSRZJf0liM6OV
-X-Google-Smtp-Source: APXvYqzxvXUP7jSbvOnU0Yosh/tCQslISAaRg4m5Y6sOU14zRLvwTJNPPpUT+Ly7Wd4T2CMHZrfPRQ==
-X-Received: by 2002:a17:906:f4a:: with SMTP id h10mr9847450ejj.158.1569627816267;
+        bh=Kxo4izDidFVysmwdv+kfyq0Qbyy1ne+H7jf+alrQCx4=;
+        b=pSnouju2mWDkwDrC2QEgMLveJgxq3X+4OcotExNdahtP5dgApH1zs/ws+I7835yu+O
+         Xbgt12v28GoEL0BwOGm123XUpKCDhQrtj5PFRL8XIW4+T2QKh38ydyRPUF4600in5cj0
+         gRgiPKHb2ya9Iwfvi6HmrDFRW34KYS89eJoTVaD0p+0aIHPrmCvg8qQQOTyofCkkhYaK
+         xWH401LrrEVaL0Qayai6DzjU1EF1LqNeRW6m4cGSclgwNaZ5icIVzE0bFgY2xIJjHBdJ
+         g19xqBXZyYLDyq3hvW7CKIauRnC8/CkDa58D/2Tcfmia3lpPFjH6JroyffLf/uPCWaf9
+         /BDA==
+X-Gm-Message-State: APjAAAXB+XhwPn09a9mxTweW6GiMr1DzX8cHXIwzPqZ6hgeFyXZnqPog
+        6ZEn6sQA/UDelm2ILALRsDvy4FFt
+X-Google-Smtp-Source: APXvYqzcZqlEGNDSz+xTpXVdHkq1zg1BxTR3zQoujCGkTV3R/EOqpbK/hG+OV+lstGyHTbgZ5JsylQ==
+X-Received: by 2002:a05:6402:346:: with SMTP id r6mr7349359edw.124.1569627816958;
         Fri, 27 Sep 2019 16:43:36 -0700 (PDT)
 Received: from localhost.localdomain ([2a02:a03f:4080:1900:da8:650b:f6cc:5bcf])
-        by smtp.gmail.com with ESMTPSA id ng5sm730393ejb.9.2019.09.27.16.43.35
+        by smtp.gmail.com with ESMTPSA id ng5sm730393ejb.9.2019.09.27.16.43.36
         (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-        Fri, 27 Sep 2019 16:43:35 -0700 (PDT)
+        Fri, 27 Sep 2019 16:43:36 -0700 (PDT)
 From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 To:     linux-sparse@vger.kernel.org
 Cc:     Linus Torvalds <torvalds@linux-foundation.org>
-Subject: [PATCH 14/18] asm: missing evaluation of asm statements
-Date:   Sat, 28 Sep 2019 01:43:18 +0200
-Message-Id: <20190927234322.5157-17-luc.vanoostenryck@gmail.com>
+Subject: [PATCH 15/18] asm: linearization of output memory operands is different
+Date:   Sat, 28 Sep 2019 01:43:19 +0200
+Message-Id: <20190927234322.5157-18-luc.vanoostenryck@gmail.com>
 X-Mailer: git-send-email 2.23.0
 In-Reply-To: <20190927234322.5157-1-luc.vanoostenryck@gmail.com>
 References: <20190927234322.5157-1-luc.vanoostenryck@gmail.com>
@@ -61,72 +61,56 @@ Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-The operands of extended ASM need to have their type evaluated,
-exactly like any other expression.
+ASM memory operands are considered by GCC as some kind of implicit
+reference. Their linearization should thus not create any storage
+statement: the storage is done by the ASM code itself.
 
-So, add the missing evaluation of ASM operands.
+Adjust the linearization of such operands accordingly.
 
 Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 ---
- evaluate.c                  | 18 ++++++++++++++++++
- validation/eval/asm-memop.c |  1 -
- 2 files changed, 18 insertions(+), 1 deletion(-)
+ linearize.c                   | 13 +++++++++----
+ validation/linear/asm-memop.c |  1 -
+ 2 files changed, 9 insertions(+), 5 deletions(-)
 
-diff --git a/evaluate.c b/evaluate.c
-index f0f9b4b34..4f7efc480 100644
---- a/evaluate.c
-+++ b/evaluate.c
-@@ -3579,6 +3579,22 @@ static void verify_input_constraint(struct asm_operand *op)
- 		expression_error(expr, "input constraint with assignment (\"%s\")", constraint);
- }
- 
-+static void evaluate_asm_memop(struct asm_operand *op)
-+{
-+	if (op->is_memory) {
-+		struct expression *expr = op->expr;
-+		struct expression *addr;
-+
-+		// implicit addressof
-+		addr = alloc_expression(expr->pos, EXPR_PREOP);
-+		addr->op = '&';
-+		addr->unop = expr;
-+
-+		evaluate_addressof(addr);
-+		op->expr = addr;
-+	}
-+}
-+
- static void evaluate_asm_statement(struct statement *stmt)
+diff --git a/linearize.c b/linearize.c
+index 7724350ba..68be3ab1e 100644
+--- a/linearize.c
++++ b/linearize.c
+@@ -2089,12 +2089,17 @@ static void add_asm_input(struct entrypoint *ep, struct instruction *insn, struc
+ static void add_asm_output(struct entrypoint *ep, struct instruction *insn, struct asm_operand *op)
  {
- 	struct expression *expr;
-@@ -3604,6 +3620,7 @@ static void evaluate_asm_statement(struct statement *stmt)
- 		if (!lvalue_expression(expr))
- 			warning(expr->pos, "asm output is not an lvalue");
- 		evaluate_assign_to(expr, expr->ctype);
-+		evaluate_asm_memop(op);
- 	} END_FOR_EACH_PTR(op);
+ 	struct access_data ad = { NULL, };
+-	pseudo_t pseudo = alloc_pseudo(insn);
++	pseudo_t pseudo;
+ 	struct asm_constraint *rule;
  
- 	FOR_EACH_PTR(stmt->asm_inputs, op) {
-@@ -3618,6 +3635,7 @@ static void evaluate_asm_statement(struct statement *stmt)
- 		/* Expression */
- 		if (!evaluate_expression(op->expr))
- 			return;
-+		evaluate_asm_memop(op);
- 	} END_FOR_EACH_PTR(op);
- 
- 	FOR_EACH_PTR(stmt->asm_clobbers, expr) {
-diff --git a/validation/eval/asm-memop.c b/validation/eval/asm-memop.c
-index 9bbb3a305..33ba0e5a5 100644
---- a/validation/eval/asm-memop.c
-+++ b/validation/eval/asm-memop.c
-@@ -9,7 +9,6 @@ void fo3(int *p) { asm volatile ("op %0" :: "m" (*p)); }
+-	if (!op->expr || !linearize_address_gen(ep, op->expr, &ad))
+-		return;
+-	linearize_store_gen(ep, pseudo, &ad);
++	if (op->is_memory) {
++		pseudo = linearize_expression(ep, op->expr);
++	} else {
++		if (!linearize_address_gen(ep, op->expr, &ad))
++			return;
++		pseudo = alloc_pseudo(insn);
++		linearize_store_gen(ep, pseudo, &ad);
++	}
+ 	rule = __alloc_asm_constraint(0);
+ 	rule->ident = op->name;
+ 	rule->constraint = op->constraint ? op->constraint->string->data : "";
+diff --git a/validation/linear/asm-memop.c b/validation/linear/asm-memop.c
+index 97df98e22..245c8d0f0 100644
+--- a/validation/linear/asm-memop.c
++++ b/validation/linear/asm-memop.c
+@@ -8,7 +8,6 @@ static int foo(int *p)
  /*
-  * check-name: eval-asm-memop
-  * check-command: test-linearize -Wno-decl $file
+  * check-name: linear-asm-memop
+  * check-command: test-linearize $file
 - * check-known-to-fail
   *
   * check-output-start
- fo0:
+ foo:
 -- 
 2.23.0
 
