@@ -2,55 +2,55 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id CDA7DC0EB3
+	by mail.lfdr.de (Postfix) with ESMTP id 643C1C0EB2
 	for <lists+linux-sparse@lfdr.de>; Sat, 28 Sep 2019 01:44:03 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1728589AbfI0Xnk (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Fri, 27 Sep 2019 19:43:40 -0400
-Received: from mail-ed1-f65.google.com ([209.85.208.65]:35810 "EHLO
-        mail-ed1-f65.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1728526AbfI0Xnk (ORCPT
+        id S1728538AbfI0Xnj (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Fri, 27 Sep 2019 19:43:39 -0400
+Received: from mail-ed1-f66.google.com ([209.85.208.66]:36444 "EHLO
+        mail-ed1-f66.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1728639AbfI0Xnj (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Fri, 27 Sep 2019 19:43:40 -0400
-Received: by mail-ed1-f65.google.com with SMTP id v8so3751972eds.2
-        for <linux-sparse@vger.kernel.org>; Fri, 27 Sep 2019 16:43:37 -0700 (PDT)
+        Fri, 27 Sep 2019 19:43:39 -0400
+Received: by mail-ed1-f66.google.com with SMTP id h2so3746300edn.3
+        for <linux-sparse@vger.kernel.org>; Fri, 27 Sep 2019 16:43:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=Kxo4izDidFVysmwdv+kfyq0Qbyy1ne+H7jf+alrQCx4=;
-        b=reg1Yd6s4nPbhjdPU/a59tavpevW4zrhdAygvvhUr4MBKx/fZ7V0ejBM4l2an6S51H
-         qUbTRwwGqzw2/1CedjUqGkFQYMfyg6ziTFCOLubIvULBGua+c5UPyIH3kyQHqx3LTZAL
-         5hZLCtVn2PS0Bp9zIhWBsDR5s7O+C/ijcSB7IJSu7ERD7epO2CEAtv6EaCoEITIrT2F/
-         VP+NCv/rpb2KxIKJA9gftarGFZaSkV7MkMgM4SGNTjYeVIJ67zWxbh5q4srE8/zOgCTL
-         gGVqoYJn5oKAvyy6uLJZJoDrssEL6J4zMJS/3ULJDVvL21fuiA/YthBdN1/gQWKUqZvG
-         k6BA==
+        bh=yiBVmjLvtUxLkBWELtNSRiQfWzyWOYMOqHSYgFqWD6w=;
+        b=IfbVSztQwUzZu2uFhMTkoUON1UuDkW6NS4QSquRc4FtcdBrxw0UauOGZ9oGFGde7nT
+         14FZDwnS1hwUAl2Rj4wYUSXAraKQCVl1SyLFUOUalHNTaAloOxmj9ZBa73DlPSDNkTo0
+         FM5fkJJznqPs0cKBuCFDjQp49InXWrOZCkbpBCXBNiUBexGcy6mx/hKHMtH3E1H3munB
+         B73omc387R7CuVeNNOEVF7z0Bip3itqBs5YcieHXSGqJatBWiQzwD+PqxGmHHorFdiZS
+         BZjnMXhTFj5y24VKuMgx11y73TEx787cgdRJZkqi4wC+RQ+9fTz4j/JOgaMGPB1bwGcc
+         jwNw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=Kxo4izDidFVysmwdv+kfyq0Qbyy1ne+H7jf+alrQCx4=;
-        b=pSnouju2mWDkwDrC2QEgMLveJgxq3X+4OcotExNdahtP5dgApH1zs/ws+I7835yu+O
-         Xbgt12v28GoEL0BwOGm123XUpKCDhQrtj5PFRL8XIW4+T2QKh38ydyRPUF4600in5cj0
-         gRgiPKHb2ya9Iwfvi6HmrDFRW34KYS89eJoTVaD0p+0aIHPrmCvg8qQQOTyofCkkhYaK
-         xWH401LrrEVaL0Qayai6DzjU1EF1LqNeRW6m4cGSclgwNaZ5icIVzE0bFgY2xIJjHBdJ
-         g19xqBXZyYLDyq3hvW7CKIauRnC8/CkDa58D/2Tcfmia3lpPFjH6JroyffLf/uPCWaf9
-         /BDA==
-X-Gm-Message-State: APjAAAXB+XhwPn09a9mxTweW6GiMr1DzX8cHXIwzPqZ6hgeFyXZnqPog
-        6ZEn6sQA/UDelm2ILALRsDvy4FFt
-X-Google-Smtp-Source: APXvYqzcZqlEGNDSz+xTpXVdHkq1zg1BxTR3zQoujCGkTV3R/EOqpbK/hG+OV+lstGyHTbgZ5JsylQ==
-X-Received: by 2002:a05:6402:346:: with SMTP id r6mr7349359edw.124.1569627816958;
-        Fri, 27 Sep 2019 16:43:36 -0700 (PDT)
+        bh=yiBVmjLvtUxLkBWELtNSRiQfWzyWOYMOqHSYgFqWD6w=;
+        b=Zf6HB47lIBEVjubZV0MJuNrv7SrmzvonJdHbXhsdaVeaIzgZu/4VRz16z4ltJaTmTh
+         PVDkgrhYUlpHCUxWmNbD29Lu8O1C4lx4VEw5UvP30D7SWdZbea9VDvKHx9lDipbI16K2
+         oHPak9AznSAXxaaG+erRWBtropeJZ8QW1CJN1Hw9EiFOIFrOVNiCRFz7XD7NXrLeHdf6
+         fBE8lM90hKlRWD71+mxXYAWv7rXOmA5/x31DyyrDvN6kmMii1NtdLN1CgqzKa7U9CSCE
+         hUQb0woL4MFFOHQFNMjebW6Rp8vQmbcBU5KY/PuQ40NP+ZrYP6WITOFv4xsezMD7a8nh
+         fpOQ==
+X-Gm-Message-State: APjAAAXQ8WeGs8ybQLr086ZRw4H4JeOPEo5RHWlfDy6amrNnx1Komzg0
+        aGE8OaSgtWFMc41xq833ixbvA6gE
+X-Google-Smtp-Source: APXvYqzkYSVT7YzQngtSaxrmNPkzohyTdEI79YADGqp0UclbYOMcgISn0QV9NIPLb+TF9UV1LXxyfA==
+X-Received: by 2002:a50:fd01:: with SMTP id i1mr7364595eds.184.1569627817727;
+        Fri, 27 Sep 2019 16:43:37 -0700 (PDT)
 Received: from localhost.localdomain ([2a02:a03f:4080:1900:da8:650b:f6cc:5bcf])
         by smtp.gmail.com with ESMTPSA id ng5sm730393ejb.9.2019.09.27.16.43.36
         (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-        Fri, 27 Sep 2019 16:43:36 -0700 (PDT)
+        Fri, 27 Sep 2019 16:43:37 -0700 (PDT)
 From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 To:     linux-sparse@vger.kernel.org
 Cc:     Linus Torvalds <torvalds@linux-foundation.org>
-Subject: [PATCH 15/18] asm: linearization of output memory operands is different
-Date:   Sat, 28 Sep 2019 01:43:19 +0200
-Message-Id: <20190927234322.5157-18-luc.vanoostenryck@gmail.com>
+Subject: [PATCH 16/18] asm: fix liveness memory operand
+Date:   Sat, 28 Sep 2019 01:43:20 +0200
+Message-Id: <20190927234322.5157-19-luc.vanoostenryck@gmail.com>
 X-Mailer: git-send-email 2.23.0
 In-Reply-To: <20190927234322.5157-1-luc.vanoostenryck@gmail.com>
 References: <20190927234322.5157-1-luc.vanoostenryck@gmail.com>
@@ -61,56 +61,59 @@ Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-ASM memory operands are considered by GCC as some kind of implicit
-reference. Their linearization should thus not create any storage
-statement: the storage is done by the ASM code itself.
+Since memory operands are only some kind of reference, the pseudo
+in an output operand is not defined by the statement, the reference
+is only used.
 
-Adjust the linearization of such operands accordingly.
+Fix the liveness processing accordingly.
 
 Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 ---
- linearize.c                   | 13 +++++++++----
- validation/linear/asm-memop.c |  1 -
- 2 files changed, 9 insertions(+), 5 deletions(-)
+ linearize.c | 1 +
+ linearize.h | 1 +
+ liveness.c  | 5 ++++-
+ 3 files changed, 6 insertions(+), 1 deletion(-)
 
 diff --git a/linearize.c b/linearize.c
-index 7724350ba..68be3ab1e 100644
+index 68be3ab1e..09b1c7ee8 100644
 --- a/linearize.c
 +++ b/linearize.c
-@@ -2089,12 +2089,17 @@ static void add_asm_input(struct entrypoint *ep, struct instruction *insn, struc
- static void add_asm_output(struct entrypoint *ep, struct instruction *insn, struct asm_operand *op)
- {
- 	struct access_data ad = { NULL, };
--	pseudo_t pseudo = alloc_pseudo(insn);
-+	pseudo_t pseudo;
- 	struct asm_constraint *rule;
- 
--	if (!op->expr || !linearize_address_gen(ep, op->expr, &ad))
--		return;
--	linearize_store_gen(ep, pseudo, &ad);
-+	if (op->is_memory) {
-+		pseudo = linearize_expression(ep, op->expr);
-+	} else {
-+		if (!linearize_address_gen(ep, op->expr, &ad))
-+			return;
-+		pseudo = alloc_pseudo(insn);
-+		linearize_store_gen(ep, pseudo, &ad);
-+	}
+@@ -2101,6 +2101,7 @@ static void add_asm_output(struct entrypoint *ep, struct instruction *insn, stru
+ 		linearize_store_gen(ep, pseudo, &ad);
+ 	}
  	rule = __alloc_asm_constraint(0);
++	rule->is_memory = op->is_memory;
  	rule->ident = op->name;
  	rule->constraint = op->constraint ? op->constraint->string->data : "";
-diff --git a/validation/linear/asm-memop.c b/validation/linear/asm-memop.c
-index 97df98e22..245c8d0f0 100644
---- a/validation/linear/asm-memop.c
-+++ b/validation/linear/asm-memop.c
-@@ -8,7 +8,6 @@ static int foo(int *p)
- /*
-  * check-name: linear-asm-memop
-  * check-command: test-linearize $file
-- * check-known-to-fail
-  *
-  * check-output-start
- foo:
+ 	use_pseudo(insn, pseudo, &rule->pseudo);
+diff --git a/linearize.h b/linearize.h
+index 89da3db6e..76efd0b47 100644
+--- a/linearize.h
++++ b/linearize.h
+@@ -68,6 +68,7 @@ struct asm_constraint {
+ 	pseudo_t pseudo;
+ 	const char *constraint;
+ 	const struct ident *ident;
++	unsigned int is_memory:1;
+ };
+ 
+ DECLARE_ALLOCATOR(asm_constraint);
+diff --git a/liveness.c b/liveness.c
+index 93a7cc300..33cd04831 100644
+--- a/liveness.c
++++ b/liveness.c
+@@ -39,7 +39,10 @@ static void asm_liveness(struct basic_block *bb, struct instruction *insn,
+ 	} END_FOR_EACH_PTR(entry);
+ 		
+ 	FOR_EACH_PTR(insn->asm_rules->outputs, entry) {
+-		def(bb, entry->pseudo);
++		if (entry->is_memory)
++			use(bb, entry->pseudo);
++		else
++			def(bb, entry->pseudo);
+ 	} END_FOR_EACH_PTR(entry);
+ }
+ 
 -- 
 2.23.0
 
