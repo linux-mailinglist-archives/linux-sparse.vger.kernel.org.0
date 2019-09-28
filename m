@@ -2,101 +2,78 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 4301EC0EB4
-	for <lists+linux-sparse@lfdr.de>; Sat, 28 Sep 2019 01:44:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id D963EC0F13
+	for <lists+linux-sparse@lfdr.de>; Sat, 28 Sep 2019 03:11:49 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1728639AbfI0Xnl (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Fri, 27 Sep 2019 19:43:41 -0400
-Received: from mail-ed1-f68.google.com ([209.85.208.68]:44905 "EHLO
-        mail-ed1-f68.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1728565AbfI0Xnl (ORCPT
+        id S1726061AbfI1BLt (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Fri, 27 Sep 2019 21:11:49 -0400
+Received: from mail-lf1-f68.google.com ([209.85.167.68]:32848 "EHLO
+        mail-lf1-f68.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1725306AbfI1BLs (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Fri, 27 Sep 2019 19:43:41 -0400
-Received: by mail-ed1-f68.google.com with SMTP id r16so3694356edq.11
-        for <linux-sparse@vger.kernel.org>; Fri, 27 Sep 2019 16:43:39 -0700 (PDT)
+        Fri, 27 Sep 2019 21:11:48 -0400
+Received: by mail-lf1-f68.google.com with SMTP id y127so3219868lfc.0
+        for <linux-sparse@vger.kernel.org>; Fri, 27 Sep 2019 18:11:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=from:to:cc:subject:date:message-id:in-reply-to:references
-         :mime-version:content-transfer-encoding;
-        bh=e4OmaF6OC3gjZP120sptRVAm/496uYugpt1ZAoFC1dw=;
-        b=Ii3todN7AkzAtOmlhktxi3km/XjS8pVefR0czlVCODnDPHUJY/xGRgIAJPPlF+5ScF
-         H85EF83BZykS/uDkQxWoTULFU2eQDS0o0rjVPva/naestq3m3e5HpPTrY4HPICNOZGVn
-         87j+1qr7a3kyvvfUMTC34zr29SgJjVDB7l+av+X8+vMf97Z+8QBUxd7Pq2uSrpUSZ6qR
-         MuXhKcn3hbRBzpyMSqjxZVqGDW67jIKvUTENW1BZjUPZ3J6XuKAPhftab2SORcmLgM4j
-         uUZksKRpQERvcv2bF64voyLOg9M1ClPOlOOJG9FiQH4UOGJvkVO0vE+Yn1nPt1TeIV4Y
-         fV+A==
+        d=linux-foundation.org; s=google;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=LlmPiAIpMI9GQbXEoYuM6M8KuwCqAyw2mX7xgCiH2cs=;
+        b=LtpsC4qK1UPfDCQqyX/FmuWhgATiDb15wHV7AuH1/xQr/eMDAiVo7zlVdL+4ct1aa+
+         UlaCHnNrBGuAcVW8Ihwv7HU3WhYK/mlgNTNkBIilLAFah37V11baMfBNkZN8zD54dhbR
+         xu6mZzX1C5jT51KKAiPYzYf5jpuJ6M0H7PGf8=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
-         :references:mime-version:content-transfer-encoding;
-        bh=e4OmaF6OC3gjZP120sptRVAm/496uYugpt1ZAoFC1dw=;
-        b=ufnsJgfJ/JfE1AIyTtZipSXqj4vPWy8h+dzxhK/++TYcVaFFRdpwOL1zG2+tCr5tVr
-         yMGslqctuEODu1EI+qujtvKf0vWWbwaMcFIY5L4wGrySWP0WjMqBCLhcwg4VcWsIQltL
-         RBnHBz5VtUl8eEQ/6ZFtvKVoofYQVPP5OnKv/7VF+RinuHnukaQjGALSeqwJBZ4FD4rc
-         28rxI6vVTAPf42C14NuZzzu9Jy/tVeRSJC0/jQWcQcLFyg1lOhxyquFyKU/3ChCIyF9c
-         Hvde6cbqCyH2pMdGfqwMIGtO51wy+qVg1PQqWXBYM8Y66qjkCSIYe6dRg/8qXuTOWa40
-         swSw==
-X-Gm-Message-State: APjAAAXwK3DI21MjJzHF8l6DUhhXFxFVn1vt5iVJa+AKK6q1Nuf/CWhE
-        7u0qEf+islckRBCqgKeoU+jhHY2q
-X-Google-Smtp-Source: APXvYqxGWxUKizdtIlfr5DvhAK/wOwlDmpkbdJ0e6AOMTQOibdCakqcw5Nn4KVEDcJ3IDY5EqIZ4sQ==
-X-Received: by 2002:a17:906:3286:: with SMTP id 6mr9966972ejw.37.1569627819044;
-        Fri, 27 Sep 2019 16:43:39 -0700 (PDT)
-Received: from localhost.localdomain ([2a02:a03f:4080:1900:da8:650b:f6cc:5bcf])
-        by smtp.gmail.com with ESMTPSA id ng5sm730393ejb.9.2019.09.27.16.43.38
-        (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-        Fri, 27 Sep 2019 16:43:38 -0700 (PDT)
-From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-To:     linux-sparse@vger.kernel.org
-Cc:     Linus Torvalds <torvalds@linux-foundation.org>
-Subject: [PATCH 18/18] asm: arrays & functions in non-memory operand degenerate into pointers
-Date:   Sat, 28 Sep 2019 01:43:22 +0200
-Message-Id: <20190927234322.5157-21-luc.vanoostenryck@gmail.com>
-X-Mailer: git-send-email 2.23.0
-In-Reply-To: <20190927234322.5157-1-luc.vanoostenryck@gmail.com>
-References: <20190927234322.5157-1-luc.vanoostenryck@gmail.com>
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=LlmPiAIpMI9GQbXEoYuM6M8KuwCqAyw2mX7xgCiH2cs=;
+        b=W6FsEThkzwGq70L6l4UH08sS2aN6iE6ckYNFbrFcksJMzsfPPvZRW0UL2NOcCvLAHR
+         PtSflsaVo65axyKKwL5CQNPcTbqCctKqzTd4yqaNlwaOF0RGqVAshNRAEUwE6K7XV0Ti
+         FyfhSmqgYEJFmfulsfw9zRR1vavcgLnjRmf5wPEjQJyVFwE05fmIMHnu0LVHhu/Y80sy
+         sAO8UVOKCvzXR5ZBLKvP1cEZftV8bXJ+f3pZNyE3Y2cphoQq2Yx7Nww6UGprAhqYArQB
+         XA0AH1LrVBM8CXicWdFzm6kdIuuwLNmfnSrahzWMc3x8epG87wZCDXw1jVKLVD23dlu3
+         q+0Q==
+X-Gm-Message-State: APjAAAVGPG1wBYEK6iBTRko13W3PcXD1BPGdiBO0DcA7yMcWPimekXFs
+        r+1TvmAYYqIzHD2IqG7DYGICGYVSPlI=
+X-Google-Smtp-Source: APXvYqzQK3U6sUtsZvUXOG/yy5yEQx5FnWYTQwI+hFviKkWfbidnxrqQXphE030bf5QeIZrVyo2sLA==
+X-Received: by 2002:a19:c80b:: with SMTP id y11mr4825575lff.184.1569633106277;
+        Fri, 27 Sep 2019 18:11:46 -0700 (PDT)
+Received: from mail-lf1-f49.google.com (mail-lf1-f49.google.com. [209.85.167.49])
+        by smtp.gmail.com with ESMTPSA id p27sm871936lfo.95.2019.09.27.18.11.45
+        for <linux-sparse@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 27 Sep 2019 18:11:46 -0700 (PDT)
+Received: by mail-lf1-f49.google.com with SMTP id t8so3159432lfc.13
+        for <linux-sparse@vger.kernel.org>; Fri, 27 Sep 2019 18:11:45 -0700 (PDT)
+X-Received: by 2002:ac2:47f8:: with SMTP id b24mr4680064lfp.134.1569633104609;
+ Fri, 27 Sep 2019 18:11:44 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20190927234322.5157-1-luc.vanoostenryck@gmail.com>
+In-Reply-To: <20190927234322.5157-1-luc.vanoostenryck@gmail.com>
+From:   Linus Torvalds <torvalds@linux-foundation.org>
+Date:   Fri, 27 Sep 2019 18:11:28 -0700
+X-Gmail-Original-Message-ID: <CAHk-=wgL1CMmu-oZedk578FTfmPbKZ_YptYqXkvV2EDN-2sOdw@mail.gmail.com>
+Message-ID: <CAHk-=wgL1CMmu-oZedk578FTfmPbKZ_YptYqXkvV2EDN-2sOdw@mail.gmail.com>
+Subject: Re: [PATCH 00/18] add missing expansion of ASM operands
+To:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
+Cc:     Sparse Mailing-list <linux-sparse@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 Sender: linux-sparse-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-Non-memory asm operands are very much like the argument of a function
-and as such any array (or function designator) given need to degenerate
-into the corresponding pointer.
+On Fri, Sep 27, 2019 at 4:43 PM Luc Van Oostenryck
+<luc.vanoostenryck@gmail.com> wrote:
+>
+> Currently, ASM operand aren't expanded or even evaluated.
+> This causes Sparse to emit warning about 'unknown expression'
+> during the linearization of these operands if they contains,
+> for example, calls to __builtin_compatible_types_p().
+>
+> This series contains a number of preparatory patches before
+> adding the missing evaluation & expansion.
 
-Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
----
- evaluate.c                  | 3 +++
- validation/eval/asm-degen.c | 1 -
- 2 files changed, 3 insertions(+), 1 deletion(-)
+Looks like a solid improvement. Thanks,
 
-diff --git a/evaluate.c b/evaluate.c
-index 4f7efc480..157260691 100644
---- a/evaluate.c
-+++ b/evaluate.c
-@@ -3592,6 +3592,9 @@ static void evaluate_asm_memop(struct asm_operand *op)
- 
- 		evaluate_addressof(addr);
- 		op->expr = addr;
-+	} else {
-+		evaluate_expression(op->expr);
-+		degenerate(op->expr);
- 	}
- }
- 
-diff --git a/validation/eval/asm-degen.c b/validation/eval/asm-degen.c
-index 5f3191597..7bbed9255 100644
---- a/validation/eval/asm-degen.c
-+++ b/validation/eval/asm-degen.c
-@@ -29,7 +29,6 @@ static void qux(void)
- 
- /*
-  * check-name: asm-degen
-- * check-known-to-fail
-  *
-  * check-error-start
- eval/asm-degen.c:12:24: warning: dereference of noderef expression
--- 
-2.23.0
-
+               Linus
