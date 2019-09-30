@@ -2,65 +2,85 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 97644C15F1
-	for <lists+linux-sparse@lfdr.de>; Sun, 29 Sep 2019 17:41:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 82FF8C2533
+	for <lists+linux-sparse@lfdr.de>; Mon, 30 Sep 2019 18:33:05 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726018AbfI2Plp (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Sun, 29 Sep 2019 11:41:45 -0400
-Received: from padbanking.net ([31.220.0.186]:54803 "EHLO
-        slot0.jntechglass.com" rhost-flags-OK-FAIL-OK-OK) by vger.kernel.org
-        with ESMTP id S1725948AbfI2Plp (ORCPT
+        id S1732286AbfI3QdF (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Mon, 30 Sep 2019 12:33:05 -0400
+Received: from mail-ed1-f54.google.com ([209.85.208.54]:43022 "EHLO
+        mail-ed1-f54.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1727767AbfI3QdF (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Sun, 29 Sep 2019 11:41:45 -0400
-X-Greylist: delayed 607 seconds by postgrey-1.27 at vger.kernel.org; Sun, 29 Sep 2019 11:41:44 EDT
-DKIM-Signature: v=1; a=rsa-sha1; c=relaxed/relaxed; s=dkim; d=jntechglass.com;
- h=Content-Type:MIME-Version:Content-Transfer-Encoding:Content-Description:Subject:To:From:Date:Reply-To:Message-ID; i=admin@jntechglass.com;
- bh=SQLP4om4P2qFu3Jv36hG0y56Qcw=;
- b=HajK6uH1/noq5LIydQyduTFXeFIpwHYWZxyW5InUViU78Wmg//9p+ZgjfI178LPbmKjan+lTxnPO
-   DhzUmTL+v8Cvz8vXGVVjxWUTSdOh9uYELAP8akuQxcDhxaVIUZldEgD3IkHIuHesIiqHhUm5LG1X
-   tDToq/ue59FMr11WkUxzbpvXloXX80sQVzhpZT72b2j+pFydeZtOR2b8L8HYmcxY0+AJEX2ou7lo
-   SJsd9GU9xwV48M3PA74wTMypw7n2eXwBEGcT2amf6xKaTEPoFkAKtO94vR8W50wrnjy5vfAwbLhE
-   b1h1sgb6x9RQQizXFJRafIgQE/xg1g7kROtPtg==
-DomainKey-Signature: a=rsa-sha1; c=nofws; q=dns; s=dkim; d=jntechglass.com;
- b=H0ujF3P2cOrSG5ruW73eI/a+w8glBQVIUo+NM1coYeE6oc4Si6jNu5Xzl0fZy0HjcptqDAzDypLg
-   nobdtfif3e8PGYlFexSVcSpDsWfirJH4p4MCr2lDm/ONN+P73g6bJs0PbC1SNW0DMAEzUNPHd6Gz
-   r/INessLDFHwDBUAjLPvGSgNjsQ4jKNahA5/CZQldxEj1OqzJuYib8wlPqbV+f32HePGFG0IkNrx
-   251hWXpt2d0TgfDngrmzSFtTWNu1XF3ZV/41nZ2SsW6JbLBSfMK40G3BVZFYSATCkihkNyElBbG7
-   k/IGOZIXMqMZj+GmP6v5nuZ//tDMaLoIVYuncw==;
-Content-Type: text/plain; charset="utf-8"
+        Mon, 30 Sep 2019 12:33:05 -0400
+Received: by mail-ed1-f54.google.com with SMTP id r9so9216420edl.10
+        for <linux-sparse@vger.kernel.org>; Mon, 30 Sep 2019 09:33:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=date:from:to:cc:subject:message-id:references:mime-version
+         :content-disposition:in-reply-to:user-agent;
+        bh=G84nbsWjyKxnIb+e2e+wiTN4qAUfXIWACQHS1Y+CWNk=;
+        b=qQ+7KFCNycFy1VrY047vpevb2hTqRcQQoYpkf/Eiulbh7XloTeKpg7hVivOfyszegm
+         35jxaTZJ6+aCJ4FjgmO1yuH3WBAYWZnPOptlxF6EM90sanVAL/xwL/NHraMMcIpTDn4k
+         z7FC8SHMStFOJUpd8eFt/xkJ28pP5WkrwOMyKF27tD2OrBOOhU9yD3A3fpcnDh4GaO/e
+         z1xqNMPSzIcfcpxvXoavlP4akEKxqi0ZHHVmeOLznRVD1UV0GOnFYiLTxNWhYS8nKvB4
+         YnoNi9yudF+Pa5plW+BZ0GE0n6jLU1kPt7fNpcg0jhFOYJXqim1ihycoxN2DSQB3jIMX
+         mxmg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+         :mime-version:content-disposition:in-reply-to:user-agent;
+        bh=G84nbsWjyKxnIb+e2e+wiTN4qAUfXIWACQHS1Y+CWNk=;
+        b=itnWFEMklfdaw9+RSd2oJKEF5d6q96SHmmnpdQ/1i2sPth4WWiDvYhULSQjXXdPsyZ
+         +y9UhFB5fhK4XsgVFcpY6u5RVlyxlKRNDjGikKEP/2M4Ik1BW7qdkxVOt8e1ZoqhfeKY
+         tzslw+CCKWcuRtuJ9ScCg1PwAuerd4TF4apVNUkCNmJ69N7zjeZ4ldS5m5uD0nt2qxth
+         8y9JhJZyJpFsRqi+k/WXM5pAC6wjQy2ZlPrKt0EN6mUU1DNgvjX0ciUr4dpwQGKww1tP
+         NSg/tUfDrJH/krSbtgyUwnMYtIUpOhZTuyzO9PAi1meA9tpRH8ng72z7OhwzQ8XIT/mf
+         mr+Q==
+X-Gm-Message-State: APjAAAVzQDmuqbHSuJxeFF1tvMJz6f8XD95XnRQ2MOgU73DQsRXz30x0
+        fsj9c0L5XlyRJ8u9x9myH6Q=
+X-Google-Smtp-Source: APXvYqzIH1EB/jMoYJ3hZark54ho2utyqSU/CRFGRrzCKYWM65EXD4SHMqXkdxvkPasZg5zBbuNpRg==
+X-Received: by 2002:a17:906:4990:: with SMTP id p16mr20634286eju.9.1569861181986;
+        Mon, 30 Sep 2019 09:33:01 -0700 (PDT)
+Received: from ltop.local ([2a02:a03f:4080:1900:7167:7859:9bcf:1ec4])
+        by smtp.gmail.com with ESMTPSA id i5sm2518950edv.29.2019.09.30.09.33.00
+        (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+        Mon, 30 Sep 2019 09:33:01 -0700 (PDT)
+Date:   Mon, 30 Sep 2019 18:32:59 +0200
+From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
+To:     Randy Dunlap <rdunlap@infradead.org>
+Cc:     Linux-Sparse <linux-sparse@vger.kernel.org>
+Subject: Re: <linux/kernel.h>: container_of()
+Message-ID: <20190930163258.7nrseddp5mk6wyz4@ltop.local>
+References: <db1c5b13-8864-f7a9-81b7-8cb153760778@infradead.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Description: Mail message body
-Subject: =?utf-8?b?UmU6IOKCrCAyLDAwMCwwMDAtMDAgRVVS?=
-To:     Recipients <admin@jntechglass.com>
-From:   "Herr Richard Wahl" <admin@jntechglass.com>
-Date:   Sun, 29 Sep 2019 08:31:33 -0700
-Reply-To: unitednationscouncilrefunds@gmail.com
-Message-ID: <0.0.19.439.1D576DAF959F5AC.0@slot0.jntechglass.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <db1c5b13-8864-f7a9-81b7-8cb153760778@infradead.org>
+User-Agent: NeoMutt/20180716
 Sender: linux-sparse-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-Lieber Freund,
+On Mon, May 06, 2019 at 01:30:09PM -0700, Randy Dunlap wrote:
+> Hi,
+> 
+> sparse (0.6.0) seems to have problems with container_of().
+> My x86_64 allmodconfig build has 88 warnings like these:
+> 
+> ../kernel/bpf/verifier.c:7701:39: warning: unknown expression (4 0)
+> 
+> ../include/linux/genhd.h:221:32: warning: unknown expression (4 0)
+> 
+> ../fs/proc/array.c:686:32: warning: unknown expression (4 0)
+> 
+> ../drivers/infiniband/hw/hns/hns_roce_device.h:1003:16: warning: unknown expression (4 0)
+> 
 
-Ich bin Herr Richard Wahl der Mega-Gewinner von $ 533M In Mega Millions Jac=
-kpot spende ich an 5 zuf=C3=A4llige Personen, wenn Sie diese E-Mail erhalte=
-n, dann wurde Ihre E-Mail nach einem Spinball ausgew=C3=A4hlt. Ich habe den=
- gr=C3=B6=C3=9Ften Teil meines Verm=C3=B6gens auf eine Reihe von Wohlt=C3=
-=A4tigkeitsorganisationen und Organisationen verteilt. Ich habe mich freiwi=
-llig dazu entschieden, Ihnen den Betrag von =E2=82=AC 2.000.000,00 zu spend=
-en eine der ausgew=C3=A4hlten 5, um meine Gewinne zu =C3=BCberpr=C3=BCfen, =
-finden Sie auf meiner You Tube Seite unten.
+Hi,
 
-UHR MICH HIER: https://www.youtube.com/watch?v=3Dtne02ExNDrw
+This is now fixed in sparse's upstream.
 
-Das ist dein Spendencode: [DF00430342018]
 
-Antworten Sie mit dem Spendencode auf diese E-Mail: andrebotha@yahoo.com
-
-Ich hoffe, Sie und Ihre Familie gl=C3=BCcklich zu machen.
-
-Gr=C3=BC=C3=9Fe
-
-Herr Richard Wahl
+Cheers,
+-- Luc
