@@ -2,89 +2,105 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 51D8AC4428
-	for <lists+linux-sparse@lfdr.de>; Wed,  2 Oct 2019 01:10:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 159BCC442F
+	for <lists+linux-sparse@lfdr.de>; Wed,  2 Oct 2019 01:14:37 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726430AbfJAXKW (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Tue, 1 Oct 2019 19:10:22 -0400
-Received: from mail-ed1-f66.google.com ([209.85.208.66]:35718 "EHLO
-        mail-ed1-f66.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726050AbfJAXKW (ORCPT
+        id S1727364AbfJAXOg (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Tue, 1 Oct 2019 19:14:36 -0400
+Received: from mail-io1-f68.google.com ([209.85.166.68]:33358 "EHLO
+        mail-io1-f68.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1726971AbfJAXOg (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Tue, 1 Oct 2019 19:10:22 -0400
-Received: by mail-ed1-f66.google.com with SMTP id v8so13541604eds.2;
-        Tue, 01 Oct 2019 16:10:21 -0700 (PDT)
+        Tue, 1 Oct 2019 19:14:36 -0400
+Received: by mail-io1-f68.google.com with SMTP id z19so52636379ior.0;
+        Tue, 01 Oct 2019 16:14:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=date:from:to:cc:subject:message-id:references:mime-version
-         :content-disposition:in-reply-to:user-agent;
-        bh=rllEIXSEaJY+0zEEMqfyvHADIZRp1u2OsWJwhWHfzJw=;
-        b=ArdtP1c3q8CKnJz8AiZ8hgGXcZmYBVvJZ3S0smD/DiUBn7H/KRI2q9TXLCyZ9Zu889
-         5zVdKYAW6jn8Pqft0KmuoBugb4FxcLj+QUeYxPcqOWsDuq6T0erzPFWmz7koAt/fYmPw
-         wf6FaZRScZ+IcqZoPxQbPlzy0zBvHpQTGRURHmg1Z5nOTiIqzJZhxo0S6eqkSPjLgWJk
-         4nGEkE5/ch89ON3SGlCUw33/Z8j+Iretag3f99oQ6NuUl7xqXDzut4RmFqTcOX+Ljk0B
-         ixqlo8pDNQ90eJ+aNm4Yl8cbYZyJmq/IDQmXeqN/j3CqYdFC3jiLUwhvxxCgmZEJ3tG7
-         YN4w==
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=z7GZGFrE8g4aFYCkd/kn56E+LCqap8x+Hr8ty1XtTJs=;
+        b=QcfsGbCG77Zjj1kd5g92af79DfUtzh3+m/pwY0IW8M/2aVjSNAiJC9FSL5g1QgVekO
+         tEgcCY+Jt56bkOiK4NfI6N3L0ngJpskmWLEPjNDw61h4v+a1gqLeIMOp0Fzs6BwgUoSF
+         cI8GWVUrzXoJ3dgQWbdwSdu4+TnxHFjYLh+dx+p6380fUrJdPwjjK76YyP61cpl3Xd+A
+         1GqeFC/hewmNbFowgdVxT/w74orEK23UUqtsyPP/TPfUaF+mgo3eKzJlq1Zhj+WWLRUX
+         /DR10Q+shHL2a9lfqZrQ9rtn9UGyfjHyjeprm+wZfn0Aq8c0bcEaB0UNEdhtMKLE1s66
+         2grQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
-         :mime-version:content-disposition:in-reply-to:user-agent;
-        bh=rllEIXSEaJY+0zEEMqfyvHADIZRp1u2OsWJwhWHfzJw=;
-        b=V5oPr9ntI8Mn7/j3PpwfKNvlCjrNbZlSlnElq5RY6hOXJuYCFHTpq7v7BD1LiaEVzC
-         1quvelCgJFKfFZbxML6wb2/fxn/VJ/J7Ju0aiZJDxqC0V7T7C3fBZRUoAIspa3+h2vG9
-         EVgqDEN6OwfyqhltOZDuiJzOYHOrJ//7MIXiKFLGbdWQYcE6CgZ4qOZ5G//pWm/E4B9m
-         jylk14LWuvkvfU55qcZZkeyJbQ9dXmytXZ3VaGLHRPx8onRpjwd4sZfsAN5/F8HwF2zZ
-         6qJaMO6sl8sko8/Fj0Y/ftShyKjgxXE9V0wgoMGH3AiY/OWmt2kQN0LKZKSd0obVmqDn
-         DzwA==
-X-Gm-Message-State: APjAAAWz5bl+rpk9DsIYUOKEgQJqBefJbyRVghQcvQuzkV/JTGVK6qUr
-        TXdw8zRgUwplsd2iBrEdqfQ=
-X-Google-Smtp-Source: APXvYqxCwnsxrsZ0hgw5ZP4b4Wj0yx4DKc0RYyXjQaniqT/qEmoXZMwtUiZu8tdA5iigF8D9bEQC4g==
-X-Received: by 2002:a17:906:48e:: with SMTP id f14mr524812eja.15.1569971420589;
-        Tue, 01 Oct 2019 16:10:20 -0700 (PDT)
-Received: from desk.local ([2a02:a03f:4080:1900:c8a8:489c:8544:d3e4])
-        by smtp.gmail.com with ESMTPSA id q16sm1991662ejb.41.2019.10.01.16.10.19
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 01 Oct 2019 16:10:19 -0700 (PDT)
-Date:   Wed, 2 Oct 2019 01:10:18 +0200
-From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-To:     Steve French <smfrench@gmail.com>
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=z7GZGFrE8g4aFYCkd/kn56E+LCqap8x+Hr8ty1XtTJs=;
+        b=BcszLCXOyuan9mAlzb6CdhVt4AO9uA6eVSkKyeSMnXXvqybVoRoMcsWk2PKcWdGuy2
+         d7WG9Zm5YdtE/xeXmtzO2u7UCWPtpKiUswg9RsB7QnykuiKm4Sat+TRxrCPxqPQ2M1gF
+         7dufkPYWuqOpODWs647HHCHoTOsYsiYdRcDWva8ZpTd8ZVuUd0Af47TVC8ibrfrzgkGL
+         z4mWQu9ZZ83/l6XgEXil6EXtKPG2P2wJEmukg2IwNE6U65LAgmd0NrZARTWTD6BWFlWp
+         /pQgetP+Qyg55wtFlHvokvxzd60f231lEILaj6vBklZmV37w5pm34TE3EzEq3dVawrt3
+         ul6A==
+X-Gm-Message-State: APjAAAWPH95UXslVdKJwdM9RpxK6KwVINq/3ssoCQ6FdqyOvVS86yh1c
+        niYadK/mUxtXKn1jJwC6aeMDCdHsqeqhtf/uJRs=
+X-Google-Smtp-Source: APXvYqxMU7/5uW0MyUvmt2lUjkWPCdcEqtXmk3Hydlb7ge1HQ9ZIH506P7RA7yyl2Wl+ZJmONkOHelpAd9zdlk6uSrI=
+X-Received: by 2002:a92:15c4:: with SMTP id 65mr664464ilv.173.1569971675391;
+ Tue, 01 Oct 2019 16:14:35 -0700 (PDT)
+MIME-Version: 1.0
+References: <CAH2r5mspD=iMnO-CuyHMf3jmS0zm7fbqNOXe0cqMcKsXfLAu-Q@mail.gmail.com>
+ <20191001231017.67txq4dhrvhyzbu5@desk.local>
+In-Reply-To: <20191001231017.67txq4dhrvhyzbu5@desk.local>
+From:   Steve French <smfrench@gmail.com>
+Date:   Tue, 1 Oct 2019 18:14:23 -0500
+Message-ID: <CAH2r5mvnYtmfpHY+jeUbN4JehQwY1XfBWYVNSLO+wx1wkAA6gA@mail.gmail.com>
+Subject: Re: Many unexpected warnings with current sparse
+To:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 Cc:     LKML <linux-kernel@vger.kernel.org>, sparse@vger.kernel.org,
         linux-sparse@vger.kernel.org
-Subject: Re: Many unexpected warnings with current sparse
-Message-ID: <20191001231017.67txq4dhrvhyzbu5@desk.local>
-References: <CAH2r5mspD=iMnO-CuyHMf3jmS0zm7fbqNOXe0cqMcKsXfLAu-Q@mail.gmail.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAH2r5mspD=iMnO-CuyHMf3jmS0zm7fbqNOXe0cqMcKsXfLAu-Q@mail.gmail.com>
-User-Agent: NeoMutt/20180716
+Content-Type: text/plain; charset="UTF-8"
 Sender: linux-sparse-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-On Tue, Oct 01, 2019 at 11:28:16AM -0500, Steve French wrote:
-> Updated sparse to get rid of some unneeded kernel sparse check
-> warnings but now get many more
-> 
-> I get 100s of warnings similar to
-> 
-> ./include/linux/quota.h:114:17: error: Expected ( after asm
-> ./include/linux/quota.h:114:17: error: got __inline
-> 
-> but that is simply
->         default:
->                 BUG();
+It may be related to the following sparse make warning:
 
-Hi,
+No rule to make target
+'/usr/include/x86_64-linux-gnu/bits/huge_val.h', needed by
+'sparse-llvm.o'
 
-I don't see this on v5.4-rc1 with defconfig or allyesconfig and
-sparse's current version. Any sparse's version since roughly
-mid-December should give the same result.
+I don't see huge_val.h in the Ubuntu 19 version of libc6-dev
 
-If you're using an older version of sparse, please upgrade.
-Otherwise, please send me your config so that I can take a look at it.
+Will send you the kernel config - but I am using the default one from
+the Ubuntu mainline download of 5.4-rc1
+
+On Tue, Oct 1, 2019 at 6:10 PM Luc Van Oostenryck
+<luc.vanoostenryck@gmail.com> wrote:
+>
+> On Tue, Oct 01, 2019 at 11:28:16AM -0500, Steve French wrote:
+> > Updated sparse to get rid of some unneeded kernel sparse check
+> > warnings but now get many more
+> >
+> > I get 100s of warnings similar to
+> >
+> > ./include/linux/quota.h:114:17: error: Expected ( after asm
+> > ./include/linux/quota.h:114:17: error: got __inline
+> >
+> > but that is simply
+> >         default:
+> >                 BUG();
+>
+> Hi,
+>
+> I don't see this on v5.4-rc1 with defconfig or allyesconfig and
+> sparse's current version. Any sparse's version since roughly
+> mid-December should give the same result.
+>
+> If you're using an older version of sparse, please upgrade.
+> Otherwise, please send me your config so that I can take a look at it.
+>
+>
+> Best regards,
+> -- Luc Van Oostenryck
 
 
-Best regards,
--- Luc Van Oostenryck
+
+-- 
+Thanks,
+
+Steve
