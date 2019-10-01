@@ -2,73 +2,89 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 6E7B6C273E
-	for <lists+linux-sparse@lfdr.de>; Mon, 30 Sep 2019 22:51:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 51D8AC4428
+	for <lists+linux-sparse@lfdr.de>; Wed,  2 Oct 2019 01:10:23 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726784AbfI3Uu5 (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Mon, 30 Sep 2019 16:50:57 -0400
-Received: from bombadil.infradead.org ([198.137.202.133]:46684 "EHLO
-        bombadil.infradead.org" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726425AbfI3Uu5 (ORCPT
+        id S1726430AbfJAXKW (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Tue, 1 Oct 2019 19:10:22 -0400
+Received: from mail-ed1-f66.google.com ([209.85.208.66]:35718 "EHLO
+        mail-ed1-f66.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1726050AbfJAXKW (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Mon, 30 Sep 2019 16:50:57 -0400
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-        d=infradead.org; s=bombadil.20170209; h=Content-Transfer-Encoding:
-        Content-Type:In-Reply-To:MIME-Version:Date:Message-ID:From:References:Cc:To:
-        Subject:Sender:Reply-To:Content-ID:Content-Description:Resent-Date:
-        Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
-        List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
-         bh=A3l7r+ksCqiP6+ctREyqoBTN5t8weeiT6tQveZFkM+4=; b=R9msdUzR5JKYEkRkuH/gs231z
-        V+mCH2++yUXIgDCSsLD1hZEIoLOyN3iCezA+WzxgaLbUUNUL2KDo7Z8YGyU09Ene8+SQRk8LA3CSr
-        AnXpysQItebKWiduRD4F0jLAVDYHstvP25T2w06gXw+Zle3nhda0Ypnj+Dmzq6JBoMO3ro84GCwCk
-        LVbDqzMbAs/60sahcaxqE/JXYa/nZfvo6Dl3E6OCBI0an0FB34a5qtMkBSjCFGGJH8dj5I8D1DQrQ
-        +n1E4+E+tc4nn+TshG6Uynw6a/keyyzDx7JIf5fDWaodkvBFehiN160lDw91AV5cOyqWTBA2u3LHO
-        STeMfOgWQ==;
-Received: from [2601:1c0:6280:3f0::9a1f]
-        by bombadil.infradead.org with esmtpsa (Exim 4.92.2 #3 (Red Hat Linux))
-        id 1iF2EV-0004gv-Jh; Mon, 30 Sep 2019 20:25:23 +0000
-Subject: Re: <linux/kernel.h>: container_of()
-To:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-Cc:     Linux-Sparse <linux-sparse@vger.kernel.org>
-References: <db1c5b13-8864-f7a9-81b7-8cb153760778@infradead.org>
- <20190930163258.7nrseddp5mk6wyz4@ltop.local>
-From:   Randy Dunlap <rdunlap@infradead.org>
-Message-ID: <d0a328fa-ac96-8629-df84-fc2ee32619ef@infradead.org>
-Date:   Mon, 30 Sep 2019 13:25:23 -0700
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.8.0
+        Tue, 1 Oct 2019 19:10:22 -0400
+Received: by mail-ed1-f66.google.com with SMTP id v8so13541604eds.2;
+        Tue, 01 Oct 2019 16:10:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=date:from:to:cc:subject:message-id:references:mime-version
+         :content-disposition:in-reply-to:user-agent;
+        bh=rllEIXSEaJY+0zEEMqfyvHADIZRp1u2OsWJwhWHfzJw=;
+        b=ArdtP1c3q8CKnJz8AiZ8hgGXcZmYBVvJZ3S0smD/DiUBn7H/KRI2q9TXLCyZ9Zu889
+         5zVdKYAW6jn8Pqft0KmuoBugb4FxcLj+QUeYxPcqOWsDuq6T0erzPFWmz7koAt/fYmPw
+         wf6FaZRScZ+IcqZoPxQbPlzy0zBvHpQTGRURHmg1Z5nOTiIqzJZhxo0S6eqkSPjLgWJk
+         4nGEkE5/ch89ON3SGlCUw33/Z8j+Iretag3f99oQ6NuUl7xqXDzut4RmFqTcOX+Ljk0B
+         ixqlo8pDNQ90eJ+aNm4Yl8cbYZyJmq/IDQmXeqN/j3CqYdFC3jiLUwhvxxCgmZEJ3tG7
+         YN4w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+         :mime-version:content-disposition:in-reply-to:user-agent;
+        bh=rllEIXSEaJY+0zEEMqfyvHADIZRp1u2OsWJwhWHfzJw=;
+        b=V5oPr9ntI8Mn7/j3PpwfKNvlCjrNbZlSlnElq5RY6hOXJuYCFHTpq7v7BD1LiaEVzC
+         1quvelCgJFKfFZbxML6wb2/fxn/VJ/J7Ju0aiZJDxqC0V7T7C3fBZRUoAIspa3+h2vG9
+         EVgqDEN6OwfyqhltOZDuiJzOYHOrJ//7MIXiKFLGbdWQYcE6CgZ4qOZ5G//pWm/E4B9m
+         jylk14LWuvkvfU55qcZZkeyJbQ9dXmytXZ3VaGLHRPx8onRpjwd4sZfsAN5/F8HwF2zZ
+         6qJaMO6sl8sko8/Fj0Y/ftShyKjgxXE9V0wgoMGH3AiY/OWmt2kQN0LKZKSd0obVmqDn
+         DzwA==
+X-Gm-Message-State: APjAAAWz5bl+rpk9DsIYUOKEgQJqBefJbyRVghQcvQuzkV/JTGVK6qUr
+        TXdw8zRgUwplsd2iBrEdqfQ=
+X-Google-Smtp-Source: APXvYqxCwnsxrsZ0hgw5ZP4b4Wj0yx4DKc0RYyXjQaniqT/qEmoXZMwtUiZu8tdA5iigF8D9bEQC4g==
+X-Received: by 2002:a17:906:48e:: with SMTP id f14mr524812eja.15.1569971420589;
+        Tue, 01 Oct 2019 16:10:20 -0700 (PDT)
+Received: from desk.local ([2a02:a03f:4080:1900:c8a8:489c:8544:d3e4])
+        by smtp.gmail.com with ESMTPSA id q16sm1991662ejb.41.2019.10.01.16.10.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 01 Oct 2019 16:10:19 -0700 (PDT)
+Date:   Wed, 2 Oct 2019 01:10:18 +0200
+From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
+To:     Steve French <smfrench@gmail.com>
+Cc:     LKML <linux-kernel@vger.kernel.org>, sparse@vger.kernel.org,
+        linux-sparse@vger.kernel.org
+Subject: Re: Many unexpected warnings with current sparse
+Message-ID: <20191001231017.67txq4dhrvhyzbu5@desk.local>
+References: <CAH2r5mspD=iMnO-CuyHMf3jmS0zm7fbqNOXe0cqMcKsXfLAu-Q@mail.gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <20190930163258.7nrseddp5mk6wyz4@ltop.local>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAH2r5mspD=iMnO-CuyHMf3jmS0zm7fbqNOXe0cqMcKsXfLAu-Q@mail.gmail.com>
+User-Agent: NeoMutt/20180716
 Sender: linux-sparse-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-On 9/30/19 9:32 AM, Luc Van Oostenryck wrote:
-> On Mon, May 06, 2019 at 01:30:09PM -0700, Randy Dunlap wrote:
->> Hi,
->>
->> sparse (0.6.0) seems to have problems with container_of().
->> My x86_64 allmodconfig build has 88 warnings like these:
->>
->> ../kernel/bpf/verifier.c:7701:39: warning: unknown expression (4 0)
->>
->> ../include/linux/genhd.h:221:32: warning: unknown expression (4 0)
->>
->> ../fs/proc/array.c:686:32: warning: unknown expression (4 0)
->>
->> ../drivers/infiniband/hw/hns/hns_roce_device.h:1003:16: warning: unknown expression (4 0)
->>
+On Tue, Oct 01, 2019 at 11:28:16AM -0500, Steve French wrote:
+> Updated sparse to get rid of some unneeded kernel sparse check
+> warnings but now get many more
 > 
-> Hi,
+> I get 100s of warnings similar to
 > 
-> This is now fixed in sparse's upstream.
+> ./include/linux/quota.h:114:17: error: Expected ( after asm
+> ./include/linux/quota.h:114:17: error: got __inline
+> 
+> but that is simply
+>         default:
+>                 BUG();
 
-Hi Luc,
-Thanks. and welcome back.
+Hi,
 
--- 
-~Randy
+I don't see this on v5.4-rc1 with defconfig or allyesconfig and
+sparse's current version. Any sparse's version since roughly
+mid-December should give the same result.
+
+If you're using an older version of sparse, please upgrade.
+Otherwise, please send me your config so that I can take a look at it.
+
+
+Best regards,
+-- Luc Van Oostenryck
