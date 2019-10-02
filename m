@@ -2,106 +2,85 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 49982C939A
-	for <lists+linux-sparse@lfdr.de>; Wed,  2 Oct 2019 23:45:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 6D827C939F
+	for <lists+linux-sparse@lfdr.de>; Wed,  2 Oct 2019 23:46:30 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727818AbfJBVpD (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Wed, 2 Oct 2019 17:45:03 -0400
-Received: from bombadil.infradead.org ([198.137.202.133]:46778 "EHLO
-        bombadil.infradead.org" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1727798AbfJBVpD (ORCPT
+        id S1726062AbfJBVq3 (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Wed, 2 Oct 2019 17:46:29 -0400
+Received: from mail-ed1-f65.google.com ([209.85.208.65]:46928 "EHLO
+        mail-ed1-f65.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1727891AbfJBVq3 (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Wed, 2 Oct 2019 17:45:03 -0400
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-        d=infradead.org; s=bombadil.20170209; h=Content-Transfer-Encoding:
-        Content-Type:In-Reply-To:MIME-Version:Date:Message-ID:From:References:Cc:To:
-        Subject:Sender:Reply-To:Content-ID:Content-Description:Resent-Date:
-        Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
-        List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
-         bh=6mfjJ61ZOriShInThe6KuZ5zam610WpEenQpP858nk4=; b=JqrTnqxvtPRY0nLJQSyQh5rFk
-        b2txP+/Stdf6qSg6ZnHV3EdC4NE9Tsq9iHSQ/zwJ4Y5TRbbCfuMUrVCf/leUPZvlAoa2JQtokj4y+
-        BtFESud3GT1OKPRQt7394opmUcKGVlEUVlvDGXZ0TlZ0qFPr4IxFg+F8TJF8gALQnRigQnR+XVLQx
-        HK7l6an5utF2dv3gUHQHuqVMsC4kNAPStqIZRdltKjo1X0w3T7i9OerFV83vQ6O06RLoi+eItROCI
-        B1fNeoUva8naFtkoNi9EpB38ATwHQHdXdplxKdUVrecfjgD4TDGk2PzBLDXiwPWAng6nhsuOHW9rG
-        EUhWa6OdA==;
-Received: from [2601:1c0:6280:3f0::9a1f]
-        by bombadil.infradead.org with esmtpsa (Exim 4.92.2 #3 (Red Hat Linux))
-        id 1iFmQf-0007x7-Ne; Wed, 02 Oct 2019 21:45:02 +0000
-Subject: Re: [PATCH] void-cond: allow void in conditional expression
-To:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>,
-        linux-sparse@vger.kernel.org
-Cc:     Linus Torvalds <torvalds@linux-foundation.org>
-References: <CAHk-=wiE8gMJhM9gDsA_ErJqvs=5T+-eRYBY7CttGhQJEZYeKQ@mail.gmail.com>
- <20191002212333.51017-1-luc.vanoostenryck@gmail.com>
-From:   Randy Dunlap <rdunlap@infradead.org>
-Message-ID: <c8d2bf4c-c1b5-73f9-e044-0be5b2dfafc4@infradead.org>
-Date:   Wed, 2 Oct 2019 14:45:01 -0700
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.8.0
+        Wed, 2 Oct 2019 17:46:29 -0400
+Received: by mail-ed1-f65.google.com with SMTP id t3so503325edw.13
+        for <linux-sparse@vger.kernel.org>; Wed, 02 Oct 2019 14:46:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=xhPzca6BGeQuqxwTpzGeAL/fS8pCBLkYe+hGV0kMSeU=;
+        b=tcQkb2wQYz26d/CtE/6G9lqXr0fZHUhYCDv+FicDEliP4v84AAYLLV+Opwj/VjcfOX
+         f5vr7Ke2MyZbGVkovt6VL1aAXJBIyetaQ+eOX5XHWOE1oIrirrbcACBeVqyvXdvyEbBz
+         NP0wZJlTYqKdAF6UgTU22KORKcP9AM9Lsr3ndbQaWGwBk4Le+gXakVo3KBSDtBm5A/Ve
+         kTAqXYzK1XTmjPh3s7Px1L7AhVNTscPD9O0TH30En0pgu8bLJhiCf+31Ie4CBp8onQQy
+         hXgnfPs38tcieldUU9AztLtbNF3Sy9rodw9a0J78dv0qBhC+f4i+TIEGbGTg4PrxE9O8
+         Qhrg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=xhPzca6BGeQuqxwTpzGeAL/fS8pCBLkYe+hGV0kMSeU=;
+        b=f9ELHd9VpCXnk+ydcNbc9mWAh85A1J+T/hQk5f3DwDdQ8ovehd8685vvO/LA+s72Yl
+         /3nLlFSGZzQTDzU6Qk93PL6zYfUFSUDvCjahEOoS06kVs+u1TJ0tG/Oidtp/+xfMVjxf
+         CT1dWXajJlvPcXhQFlCV0gur3ak8ZmvYHVlFvROmhmuDNxwBdB8b9K4eyeIobIQKrszF
+         +bFwonGYfNQGSvYx8s1ciMHa+2vRORtnDcCHjFpccxxS9S6GZDw3Rss6t/xzO1E/jL4T
+         QukspkHlopl9zXH1nx84iSuFKEKCCXxo6NLWApDX6KCojF6o898ajJ0thdhZCFKp46bh
+         3iBw==
+X-Gm-Message-State: APjAAAVJ+FQcjQceG6T8zkyU5Sys2Zpj8AU5FnxcjVZYRHRm6YWfbKvm
+        1mAIEe+nYDD2RpW+jK0l7VhfhUH2
+X-Google-Smtp-Source: APXvYqwKDcL6jNgiLT02bo3b1VTC6HMoNSVj42+56+tGUOvliDrcQAYAtRQXGE6VDF5VScvgKwewxw==
+X-Received: by 2002:a17:906:1248:: with SMTP id u8mr4988698eja.172.1570052787585;
+        Wed, 02 Oct 2019 14:46:27 -0700 (PDT)
+Received: from localhost.localdomain ([91.177.171.57])
+        by smtp.gmail.com with ESMTPSA id r18sm75347edl.6.2019.10.02.14.46.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 02 Oct 2019 14:46:27 -0700 (PDT)
+From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
+To:     linux-sparse@vger.kernel.org
+Cc:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
+Subject: [PATCH] asm: warn on invalid empty constraints
+Date:   Wed,  2 Oct 2019 23:46:20 +0200
+Message-Id: <20191002214620.61002-1-luc.vanoostenryck@gmail.com>
+X-Mailer: git-send-email 2.23.0
 MIME-Version: 1.0
-In-Reply-To: <20191002212333.51017-1-luc.vanoostenryck@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 Sender: linux-sparse-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-On 10/2/19 2:23 PM, Luc Van Oostenryck wrote:
-> As an extension, allow conditional expressions (?:) with one
-> side of type 'void' and consider the result to also be void.
-> 
-> The warning can be reinstated with the flag '-Wcond-void'.
-> 
-> Note: I only see a single occurrence of this in the kernel.
+Empty ASM constraints are invalid. So, catch them
+at parsing time and issue a warning.
 
-Yes, I would prefer to eliminate that one.  :)
+Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
+---
+ evaluate.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-> Suggested-by: Randy Dunlap <rdunlap@infradead.org>
-
-I prefer
-Reported-by: Randy Dunlap <rdunlap@infradead.org>
-Tested-by: Randy Dunlap <rdunlap@infradead.org>
-
-I didn't try to Suggest this.
-
-One man page edit below...
-
-> Suggested-by: Linus Torvalds <torvalds@linux-foundation.org>
-> Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-> ---
->  evaluate.c                   | 7 +++++++
->  lib.c                        | 2 ++
->  lib.h                        | 1 +
->  sparse.1                     | 7 +++++++
->  validation/cond-err-expand.c | 2 +-
->  5 files changed, 18 insertions(+), 1 deletion(-)
-
-
-> diff --git a/sparse.1 b/sparse.1
-> index beb484423..71ac0c646 100644
-> --- a/sparse.1
-> +++ b/sparse.1
-> @@ -117,6 +117,13 @@ Sparse issues these warnings by default.  To turn them off, use
->  \fB\-Wno\-cast\-truncate\fR.
->  .
->  .TP
-> +.B \-Wconditional\-void
-> +Warn if one side of a conditional expression (\fB? :\fR) is of type
-> +void and the other one not.
-> +As an extension, Sparse consider the result of such expressions as also
-
-                           considers
-
-> +having the type void.
-> +.
-> +.TP
->  .B \-Wconstant\-suffix
->  Warn if an integer constant is larger than the maximum representable value
->  of the type indicated by its type suffix (if any). For example, on a
-
-
-Thanks.
+diff --git a/evaluate.c b/evaluate.c
+index 919c944cf..74c7fd1d8 100644
+--- a/evaluate.c
++++ b/evaluate.c
+@@ -3503,6 +3503,9 @@ static void parse_asm_constraint(struct asm_operand *op)
+ 	int c;
+ 
+ 	switch (str[0]) {
++	case '\0':
++		sparse_error(constraint->pos, "invalid ASM constraint (\"\")");
++		break;
+ 	case '+':
+ 		op->is_modify = true;
+ 		/* fall-through */
 -- 
-~Randy
+2.23.0
+
