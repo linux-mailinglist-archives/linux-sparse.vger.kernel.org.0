@@ -2,106 +2,106 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id D4176C9399
-	for <lists+linux-sparse@lfdr.de>; Wed,  2 Oct 2019 23:45:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 49982C939A
+	for <lists+linux-sparse@lfdr.de>; Wed,  2 Oct 2019 23:45:04 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727803AbfJBVpD (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        id S1727818AbfJBVpD (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
         Wed, 2 Oct 2019 17:45:03 -0400
-Received: from mail-ed1-f65.google.com ([209.85.208.65]:39818 "EHLO
-        mail-ed1-f65.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+Received: from bombadil.infradead.org ([198.137.202.133]:46778 "EHLO
+        bombadil.infradead.org" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
         with ESMTP id S1727798AbfJBVpD (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
         Wed, 2 Oct 2019 17:45:03 -0400
-Received: by mail-ed1-f65.google.com with SMTP id a15so549527edt.6
-        for <linux-sparse@vger.kernel.org>; Wed, 02 Oct 2019 14:45:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=XWcAsNRYcWG1tBibVGSD9IxXM2As1REZiKMhOhtphxc=;
-        b=m1kAN1e5/jiqWlUnw+5t6Mpe18DU7bx5AJBmy2YGnZUbUqpab46qn7sItD6UVTiK5c
-         LDDXEvyQcbI1nmOiUo5sAJJQMATzXKBXBXep4xAmdHR9uXq71ibOoGCZQmzZMxVPY5FG
-         6vREGL4lTZP9NGxml7x+S6wj7QXiW98iS0/2gKBo1VO8wMpPsu4IjItaKNnR3ZCP93S/
-         EO3E3mLSkcAh5v4jz3GS/pf6pidHthiIwqZE1iBvnbxc/Ee4zbePsDmU0u0PQ8W4/RZI
-         xtDFwz7BlOyZRieET9HfCg9Q/XSh8UIEtmMsIIHrT/enLGdQ3nvIK5B5Ie2bxG4l1sWp
-         Be4g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=XWcAsNRYcWG1tBibVGSD9IxXM2As1REZiKMhOhtphxc=;
-        b=JuNJ0zyPAjM3x2HbVCcb7kileuS4LI/k3JFzHLS4ICeIiX+y/jk60R2uHYJvWLmJAz
-         cCR8r4AtGi/S51RlBl6a9L/3gZwrSM4HLG4FncLO3EpozXRO3l1e4HO1XojXG4ic/zU1
-         09lGuinR8YAKZXrhTcjB70rXhkzOx76Cyf2K1Cy+WRT9mHt2UGWVJOEWavKncCDYsBQq
-         kvS/Yj4vMls/kAB97Dp4028gOgJ4ewrZEgHGoTf1zehsfhZeo2qu6uDJmqe5+FjtkwfD
-         Kqvgf7/vmk5jD9q1oyTduLQb5v/+4cuRQvqR7ufDHKQG8afjyewX9QirK3G3W4Bc1cCM
-         EKEg==
-X-Gm-Message-State: APjAAAWU/o4C+z6Xn+2zPOQ3txzL8VDb1HxsDGevru7SDAFEdYPkltYF
-        4wR/LXErQSYbrfNbfc5DX7DsTW2/
-X-Google-Smtp-Source: APXvYqw+CwTHcWKaUz4lVJCcBwByrd+lw8xfgTNVMov46bHoHCWDs31Q+v77sOeePWLxCnD4VDLdYQ==
-X-Received: by 2002:aa7:d692:: with SMTP id d18mr6054841edr.95.1570052701107;
-        Wed, 02 Oct 2019 14:45:01 -0700 (PDT)
-Received: from localhost.localdomain ([2a02:a03f:4080:1900:3985:a315:dc4f:6706])
-        by smtp.gmail.com with ESMTPSA id m1sm31680eji.29.2019.10.02.14.45.00
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Oct 2019 14:45:00 -0700 (PDT)
-From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-To:     linux-sparse@vger.kernel.org
-Cc:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-Subject: [PATCH] make 'directive in argument list' clearer
-Date:   Wed,  2 Oct 2019 23:44:52 +0200
-Message-Id: <20191002214452.60924-1-luc.vanoostenryck@gmail.com>
-X-Mailer: git-send-email 2.23.0
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+        d=infradead.org; s=bombadil.20170209; h=Content-Transfer-Encoding:
+        Content-Type:In-Reply-To:MIME-Version:Date:Message-ID:From:References:Cc:To:
+        Subject:Sender:Reply-To:Content-ID:Content-Description:Resent-Date:
+        Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+        List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+         bh=6mfjJ61ZOriShInThe6KuZ5zam610WpEenQpP858nk4=; b=JqrTnqxvtPRY0nLJQSyQh5rFk
+        b2txP+/Stdf6qSg6ZnHV3EdC4NE9Tsq9iHSQ/zwJ4Y5TRbbCfuMUrVCf/leUPZvlAoa2JQtokj4y+
+        BtFESud3GT1OKPRQt7394opmUcKGVlEUVlvDGXZ0TlZ0qFPr4IxFg+F8TJF8gALQnRigQnR+XVLQx
+        HK7l6an5utF2dv3gUHQHuqVMsC4kNAPStqIZRdltKjo1X0w3T7i9OerFV83vQ6O06RLoi+eItROCI
+        B1fNeoUva8naFtkoNi9EpB38ATwHQHdXdplxKdUVrecfjgD4TDGk2PzBLDXiwPWAng6nhsuOHW9rG
+        EUhWa6OdA==;
+Received: from [2601:1c0:6280:3f0::9a1f]
+        by bombadil.infradead.org with esmtpsa (Exim 4.92.2 #3 (Red Hat Linux))
+        id 1iFmQf-0007x7-Ne; Wed, 02 Oct 2019 21:45:02 +0000
+Subject: Re: [PATCH] void-cond: allow void in conditional expression
+To:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>,
+        linux-sparse@vger.kernel.org
+Cc:     Linus Torvalds <torvalds@linux-foundation.org>
+References: <CAHk-=wiE8gMJhM9gDsA_ErJqvs=5T+-eRYBY7CttGhQJEZYeKQ@mail.gmail.com>
+ <20191002212333.51017-1-luc.vanoostenryck@gmail.com>
+From:   Randy Dunlap <rdunlap@infradead.org>
+Message-ID: <c8d2bf4c-c1b5-73f9-e044-0be5b2dfafc4@infradead.org>
+Date:   Wed, 2 Oct 2019 14:45:01 -0700
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.8.0
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <20191002212333.51017-1-luc.vanoostenryck@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 Sender: linux-sparse-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-The warning 'directive in argument list' is about macros'
-arguments, not functions' ones.
+On 10/2/19 2:23 PM, Luc Van Oostenryck wrote:
+> As an extension, allow conditional expressions (?:) with one
+> side of type 'void' and consider the result to also be void.
+> 
+> The warning can be reinstated with the flag '-Wcond-void'.
+> 
+> Note: I only see a single occurrence of this in the kernel.
 
-Make this clearer in the warning message.
+Yes, I would prefer to eliminate that one.  :)
 
-Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
----
- pre-process.c                            | 2 +-
- validation/preprocessor/preprocessor22.c | 8 ++++----
- 2 files changed, 5 insertions(+), 5 deletions(-)
+> Suggested-by: Randy Dunlap <rdunlap@infradead.org>
 
-diff --git a/pre-process.c b/pre-process.c
-index df208bcf9..ca92ff06d 100644
---- a/pre-process.c
-+++ b/pre-process.c
-@@ -272,7 +272,7 @@ static struct token *collect_arg(struct token *prev, int vararg, struct position
- 		if (next->pos.newline && match_op(next, '#')) {
- 			if (!next->pos.noexpand) {
- 				sparse_error(next->pos,
--					     "directive in argument list");
-+					     "directive in macro's argument list");
- 				preprocessor_line(stream, p);
- 				__free_token(next);	/* Free the '#' token */
- 				continue;
-diff --git a/validation/preprocessor/preprocessor22.c b/validation/preprocessor/preprocessor22.c
-index af5bcb37f..fb28daaa5 100644
---- a/validation/preprocessor/preprocessor22.c
-+++ b/validation/preprocessor/preprocessor22.c
-@@ -20,10 +20,10 @@ define_struct(a, {
-  * check-command: sparse -E $file
-  *
-  * check-error-start
--preprocessor/preprocessor22.c:6:1: error: directive in argument list
--preprocessor/preprocessor22.c:8:1: error: directive in argument list
--preprocessor/preprocessor22.c:10:1: error: directive in argument list
--preprocessor/preprocessor22.c:12:1: error: directive in argument list
-+preprocessor/preprocessor22.c:6:1: error: directive in macro's argument list
-+preprocessor/preprocessor22.c:8:1: error: directive in macro's argument list
-+preprocessor/preprocessor22.c:10:1: error: directive in macro's argument list
-+preprocessor/preprocessor22.c:12:1: error: directive in macro's argument list
-  * check-error-end
-  *
-  * check-output-start
+I prefer
+Reported-by: Randy Dunlap <rdunlap@infradead.org>
+Tested-by: Randy Dunlap <rdunlap@infradead.org>
+
+I didn't try to Suggest this.
+
+One man page edit below...
+
+> Suggested-by: Linus Torvalds <torvalds@linux-foundation.org>
+> Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
+> ---
+>  evaluate.c                   | 7 +++++++
+>  lib.c                        | 2 ++
+>  lib.h                        | 1 +
+>  sparse.1                     | 7 +++++++
+>  validation/cond-err-expand.c | 2 +-
+>  5 files changed, 18 insertions(+), 1 deletion(-)
+
+
+> diff --git a/sparse.1 b/sparse.1
+> index beb484423..71ac0c646 100644
+> --- a/sparse.1
+> +++ b/sparse.1
+> @@ -117,6 +117,13 @@ Sparse issues these warnings by default.  To turn them off, use
+>  \fB\-Wno\-cast\-truncate\fR.
+>  .
+>  .TP
+> +.B \-Wconditional\-void
+> +Warn if one side of a conditional expression (\fB? :\fR) is of type
+> +void and the other one not.
+> +As an extension, Sparse consider the result of such expressions as also
+
+                           considers
+
+> +having the type void.
+> +.
+> +.TP
+>  .B \-Wconstant\-suffix
+>  Warn if an integer constant is larger than the maximum representable value
+>  of the type indicated by its type suffix (if any). For example, on a
+
+
+Thanks.
 -- 
-2.23.0
-
+~Randy
