@@ -2,163 +2,165 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 632DBD14B1
-	for <lists+linux-sparse@lfdr.de>; Wed,  9 Oct 2019 18:56:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id DB131D17F3
+	for <lists+linux-sparse@lfdr.de>; Wed,  9 Oct 2019 21:05:42 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1731158AbfJIQ4W (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Wed, 9 Oct 2019 12:56:22 -0400
-Received: from avasout03.plus.net ([84.93.230.244]:44862 "EHLO
-        avasout03.plus.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1730490AbfJIQ4W (ORCPT
+        id S1730490AbfJITFm (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Wed, 9 Oct 2019 15:05:42 -0400
+Received: from mail-ed1-f68.google.com ([209.85.208.68]:38055 "EHLO
+        mail-ed1-f68.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1729535AbfJITFl (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Wed, 9 Oct 2019 12:56:22 -0400
-Received: from [10.0.2.15] ([146.198.133.39])
-        by smtp with ESMTPA
-        id IFG7iGdAgtvkXIFG8iXR3T; Wed, 09 Oct 2019 17:56:21 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=plus.com; s=042019;
-        t=1570640181; bh=Rj1lTodho9UnOAQbjwvwPUiqSoH7tYJc55q5vODC040=;
-        h=Subject:To:Cc:References:From:Date:In-Reply-To;
-        b=rb5ntsdgxD04qsvO6dHDkygl8pZ1QxFkDNXBJPOhOLrGQbFO3rS8o/RRzIim0xTyu
-         4AitGYopIe+VYnUoiiWwzmr9iB+4o62j7J5VgpcSuVsMhyvv5fv2R0yZH3CJUko5O8
-         ZP/P91TLoUiI/cyW7Em769FAgRr6q1KKWUFy9ZYOnkTdJaLSpZiCslILrrxSQCqB/V
-         N1H9BQCLXf6EUPBTdks93A6O4kHp/fTmlHNutRe8GXUi+eYr7oOgr3fWJNQYRGinIr
-         Zez096ubsK996B1pGhqd6bQfBQ4VMsGLxrafV8SGGus0bkgGK9ArlyKU3SIdDY5Swu
-         B24TSVJVnCKjw==
-X-Clacks-Overhead: "GNU Terry Pratchett"
-X-CM-Score: 0.00
-X-CNFS-Analysis: v=2.3 cv=ePBtc0h1 c=1 sm=1 tr=0
- a=1Jh3712dEPwUcX5EWi7t+w==:117 a=1Jh3712dEPwUcX5EWi7t+w==:17
- a=jpOVt7BSZ2e4Z31A5e1TngXxSK0=:19 a=IkcTkHD0fZMA:10 a=VwQbUJbxAAAA:8
- a=c-iLqsyUcdR9tygbuWMA:9 a=QEXdDO2ut3YA:10 a=AjGcO6oz07-iQ99wixmX:22
- a=pHzHmUro8NiASowvMSCR:22 a=nt3jZW36AmriUCFCBwmW:22
-X-AUTH: ramsayjones@:2500
-Subject: Re: [PATCH] Sparse v0.6.1-rc2 is now out.
-To:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
+        Wed, 9 Oct 2019 15:05:41 -0400
+Received: by mail-ed1-f68.google.com with SMTP id l21so3093823edr.5
+        for <linux-sparse@vger.kernel.org>; Wed, 09 Oct 2019 12:05:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=date:from:to:cc:subject:message-id:references:mime-version
+         :content-disposition:in-reply-to:user-agent;
+        bh=Bqtp6ojA0G6R/rRRoNWw9q2ijwXczXGi6XQucqjRguI=;
+        b=nJd+1Wi+evgX887PG3Ay6y5WHhG7ywlDvqBVIMtSDfXS3xP+U8zORUxEz78fL48riq
+         TnWbrGXVpA2BZOpNXLiOaat6k45AxvoO4aNG5wAjCW5b81lj9yRDhM+ifK4tTPD0zDy/
+         n0bjSXE/8iVJrOfz5lcYkeBgnfnEm0Ph/SEW7aRN/R9Ol2UrnWBQqF+jtxCblhxeCuSe
+         DD2b/I4JNU51fUbZtCM77a7lcOW6lW4E2eHO/RCpJRpvlvWpCtY6h6RrRPS4wJjSJcEo
+         /viTCfaGmGEqzGRMN+LvcbGRjltv4Sg8urz5adqpxehh+PCsXuz4lrNeGAYqLqRtUh0P
+         75gw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+         :mime-version:content-disposition:in-reply-to:user-agent;
+        bh=Bqtp6ojA0G6R/rRRoNWw9q2ijwXczXGi6XQucqjRguI=;
+        b=emDkAUbn7+X6RBCAJ/x9mNKMMMPZdZFEIsLfSS/WdQhUA0RZKfBEccWJCCGyAqDFeC
+         cQEOEExG+HCSk0ktXFEaEd6iEwLuOIWdRXQb8MWHhV1VcygjY5UE1ePpdXd/Ft2JotXf
+         JBcDFxBQqXMLj/UKWzTMIkvoGC+7N7RhUKdAMQBIw9lT3uf6Xh6iUxjOWCyO4frRmn4U
+         /D9Uk+zC5sqCmTrWIUgKREIcw36JGeiptudglPtembJjoQ3VMN9/J/HTWvGYoGBp+CRm
+         UM5InUaECZgUkFHkRvKLrXMMdUljMur//Xz77jlISrtrrj+O4KdrhlG0FAcfjaZUI0yB
+         9Tsg==
+X-Gm-Message-State: APjAAAU49MQjVepfaVhh9TEYR8dogIWvmi/5CSH+lpcX17WAW6YJYGzx
+        iYFF0WkVoZtYJCAS5ALhv9qpv5SL
+X-Google-Smtp-Source: APXvYqxnxnF+hwECr7jJnk0yLkV32J5Sa5Ewtd86rS9+OdGYBNsQwJuXoRxFU2JhuHIAJNKEf0YJ9g==
+X-Received: by 2002:a17:906:6dd3:: with SMTP id j19mr4242872ejt.144.1570647938550;
+        Wed, 09 Oct 2019 12:05:38 -0700 (PDT)
+Received: from ltop.local ([2a02:a03f:4080:1900:e57a:fd21:8a5f:3932])
+        by smtp.gmail.com with ESMTPSA id x4sm488315eds.87.2019.10.09.12.05.36
+        (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+        Wed, 09 Oct 2019 12:05:37 -0700 (PDT)
+Date:   Wed, 9 Oct 2019 21:05:35 +0200
+From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
+To:     Ramsay Jones <ramsay@ramsayjones.plus.com>
 Cc:     linux-sparse@vger.kernel.org
+Subject: Re: [PATCH] Sparse v0.6.1-rc2 is now out.
+Message-ID: <20191009190533.yk7ilfktslf5o2cx@ltop.local>
 References: <20191007090610.10640-1-luc.vanoostenryck@gmail.com>
  <e07a51e8-dc18-5074-3832-8a1f33ec7085@ramsayjones.plus.com>
  <4f29a2d7-de83-5b6b-ce14-1ed880b6fe12@ramsayjones.plus.com>
  <20191009112226.f6vgymntddcz7mgq@ltop.local>
-From:   Ramsay Jones <ramsay@ramsayjones.plus.com>
-Message-ID: <64c4ca41-79f9-4182-1e07-1efe68063d07@ramsayjones.plus.com>
-Date:   Wed, 9 Oct 2019 17:56:18 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.9.0
+ <64c4ca41-79f9-4182-1e07-1efe68063d07@ramsayjones.plus.com>
 MIME-Version: 1.0
-In-Reply-To: <20191009112226.f6vgymntddcz7mgq@ltop.local>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
-X-CMAE-Envelope: MS4wfLa5wUEf0Ar5qQqa56R7UeJQu7dSox1sfUqZZVaQhDPo60YimPDTbLOYIpec3/fb+IUNITIF0iAn7J2z+c1VL8SdgTz7vwQ7krIHNJlQ6smFMRCfP359
- lGyagqfQLdPbk73mD1/2f/KY5MY01Hw5DUBgx4zodu2vqhfGSvgBdimj1IhzlhiGWfcfpg+oAZJELA==
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <64c4ca41-79f9-4182-1e07-1efe68063d07@ramsayjones.plus.com>
+User-Agent: NeoMutt/20180716
 Sender: linux-sparse-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-
-
-On 09/10/2019 12:22, Luc Van Oostenryck wrote:
-> On Wed, Oct 09, 2019 at 02:03:19AM +0100, Ramsay Jones wrote:
->>
->>
->> On 08/10/2019 22:57, Ramsay Jones wrote:
->>>
->>>
->>> On 07/10/2019 10:06, Luc Van Oostenryck wrote:
->>>> The source code can be found at its usual repository:
->>>>   git://git.kernel.org/pub/scm/devel/sparse/sparse.git v0.6.1-rc2
->>>>
->>>> The tarballs are found at:
->>>>     https://www.kernel.org/pub/software/devel/sparse/dist/
->>>>
->>>
->>> Luc, I tested (last night) in the usual way on 64-&32-bit Linux
->>> and 64-bit cygwin, without issue. I had intended to test (tonight)
->>> also on fedora 30 and Ubuntu 19.04 (19.10 is still in beta), since
->>> my normal test targets are all built on a fairly old base. However,
->>> I didn't find time tonight, sorry ... :(
->>
->> OK, I lied. I managed to do a quick test on fedora 30 tonight
->> after all! No issues found. :-D
+On Wed, Oct 09, 2019 at 05:56:18PM +0100, Ramsay Jones wrote:
+> On 09/10/2019 12:22, Luc Van Oostenryck wrote:
+> > Before the release, I would like to add the patch for the problem
+> > you had with Cygwin. Would you be fine with the:
+> > 	LLC_ARCH_OPTS="$LLC_ARCH_OPTS -mtriple=$(llvm-config --host-target)"
+> > we had discussed before, with a note saying it's needed for recent
+> > cygwin64 but may be inadequate for cygwin32?
 > 
-> Awww, thanks a lot for this.
+> Ha, yes, I should have mentioned that, on cygwin, I actually
+> tested:
+> 
+>  $ sparse --version
+>  v0.6.1-rc2-dirty
+>  $ 
+> 
+> ... where the 'dirty' was:
+> 
+>  $ git diff
+>  diff --git a/sparsec b/sparsec
+>  index bafe2da..8a056e7 100755
+>  --- a/sparsec
+>  +++ b/sparsec
+>  @@ -39,6 +39,7 @@ case "$(uname -s)" in
+>   *CYGWIN*)
+>          # cygwin uses the sjlj (setjmp-longjmp) exception model
+>          LLC_ARCH_OPTS="-exception-model=sjlj"
+>  +       LLC_ARCH_OPTS="$LLC_ARCH_OPTS -mtriple=x86_64-unknown-windows-cygnus"
+>          ;;
+>   *)
+>          ;;
+>  $ 
+> 
+> Given that:
+> 
+>  $ llvm-config --host-target
+>  x86_64-unknown-windows-cygnus
+>  $ 
+> 
+> ... the above should be just fine. (Do you want me to send
+> a tested patch?).
 
-No problem.
+No, thank you, it's not needed, I consider it as tested :)
+I'll send the patch later.
+ 
+> Note that I have been messing around with 'sparsec' and, in
+> particular the invocation of llc, which can also output the
+> object file directly. ie there is no need to generate assembler
+> output and then assemble with the platform assembler. (which
+> allows us to sidestep the incorrect assembler directives used
+> for the wineh exception model!).
+> 
+> However, 'sparsec' seems to have several problems (not just
+> on cygwin). For example, on Linux, we see:
+> 
+>  $ ./sparsec -o hello hello.c
+>  /usr/bin/ld: /tmp/tmp.F57wOC: relocation R_X86_64_32 against `.rodata' can not be used when making a PIE object; recompile with -fPIC
+>  /usr/bin/ld: final link failed: Nonrepresentable section on output
+>  collect2: error: ld returned 1 exit status
+>  $ 
 
-> For my part, I've tested on the most recent unstable/dev version of
-> Debian & Ubuntu and everything was fine.> 
-> Before the release, I would like to add the patch for the problem
-> you had with Cygwin. Would you be fine with the:
-> 	LLC_ARCH_OPTS="$LLC_ARCH_OPTS -mtriple=$(llvm-config --host-target)"
-> we had discussed before, with a note saying it's needed for recent
-> cygwin64 but may be inadequate for cygwin32?
+Yes, I'm aware of this. As far as I understand it, this is because
+sparse-llvm.c doesn't yet correctly handle literal strings (and, in
+general, top-level objects). If you try instead something like:
+	#include <stdio.h>
+	int main(int argc, char *argv[])
+	{
+		puts(argv[1]);
+		return 0;
+	}
 
-Ha, yes, I should have mentioned that, on cygwin, I actually
-tested:
+then sparsec produces a functioning executable. It should also work
+if you use simple global variables.
 
- $ sparse --version
- v0.6.1-rc2-dirty
- $ 
+> whereas, on cygwin:
+> 
+>  $ ./sparsec -o hello hello.c
+>  $ ./hello.exe 
+>  hello world
+>  $ 
+> 
+> ... which was somewhat surprising! ;-)
 
-... where the 'dirty' was:
+That is indeed very surprising.
 
- $ git diff
- diff --git a/sparsec b/sparsec
- index bafe2da..8a056e7 100755
- --- a/sparsec
- +++ b/sparsec
- @@ -39,6 +39,7 @@ case "$(uname -s)" in
-  *CYGWIN*)
-         # cygwin uses the sjlj (setjmp-longjmp) exception model
-         LLC_ARCH_OPTS="-exception-model=sjlj"
- +       LLC_ARCH_OPTS="$LLC_ARCH_OPTS -mtriple=x86_64-unknown-windows-cygnus"
-         ;;
-  *)
-         ;;
- $ 
+> Note that the testsuite is happy if 'sparcec' produces an
+> object file without error - it never tests the creation of
+> an executable (let alone that it actually runs and produces
+> correct output).
+> 
+> So, I don't know if we want to bust a gut to fix this up.
 
-Given that:
+Yes ... Saying that sparse-llvm is not much used would not be
+an overstatement. Having a good, multi-arch support for it
+would need more time that I can afford and willing to spend on.
+OTOH, it's not very far from being functional.
 
- $ llvm-config --host-target
- x86_64-unknown-windows-cygnus
- $ 
-
-... the above should be just fine. (Do you want me to send
-a tested patch?).
-
-Note that I have been messing around with 'sparsec' and, in
-particular the invocation of llc, which can also output the
-object file directly. ie there is no need to generate assembler
-output and then assemble with the platform assembler. (which
-allows us to sidestep the incorrect assembler directives used
-for the wineh exception model!).
-
-However, 'sparsec' seems to have several problems (not just
-on cygwin). For example, on Linux, we see:
-
- $ ./sparsec -o hello hello.c
- /usr/bin/ld: /tmp/tmp.F57wOC: relocation R_X86_64_32 against `.rodata' can not be used when making a PIE object; recompile with -fPIC
- /usr/bin/ld: final link failed: Nonrepresentable section on output
- collect2: error: ld returned 1 exit status
- $ 
-
-whereas, on cygwin:
-
- $ ./sparsec -o hello hello.c
- $ ./hello.exe 
- hello world
- $ 
-
-... which was somewhat surprising! ;-)
-
-Note that the testsuite is happy if 'sparcec' produces an
-object file without error - it never tests the creation of
-an executable (let alone that it actually runs and produces
-correct output).
-
-So, I don't know if we want to bust a gut to fix this up.
-
-ATB,
-Ramsay Jones
-
+Cheers,
+-- Luc
