@@ -2,57 +2,59 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 357E3D18A1
-	for <lists+linux-sparse@lfdr.de>; Wed,  9 Oct 2019 21:17:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 88810D1AF6
+	for <lists+linux-sparse@lfdr.de>; Wed,  9 Oct 2019 23:30:44 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1731168AbfJITRs (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Wed, 9 Oct 2019 15:17:48 -0400
-Received: from mail-ed1-f68.google.com ([209.85.208.68]:39411 "EHLO
-        mail-ed1-f68.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1729535AbfJITRs (ORCPT
+        id S1732140AbfJIVa2 (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Wed, 9 Oct 2019 17:30:28 -0400
+Received: from mail-ed1-f67.google.com ([209.85.208.67]:33077 "EHLO
+        mail-ed1-f67.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1729908AbfJIVa1 (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Wed, 9 Oct 2019 15:17:48 -0400
-Received: by mail-ed1-f68.google.com with SMTP id a15so3126702edt.6
-        for <linux-sparse@vger.kernel.org>; Wed, 09 Oct 2019 12:17:45 -0700 (PDT)
+        Wed, 9 Oct 2019 17:30:27 -0400
+Received: by mail-ed1-f67.google.com with SMTP id c4so3518420edl.0
+        for <linux-sparse@vger.kernel.org>; Wed, 09 Oct 2019 14:30:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=FDAgd8JsF2yIhUY44NkaG1oLm3oKgp6LF2Q216/q0nM=;
-        b=FP7HYqdRc+pW9z6Kx/pvCl70ZMLP8sR0Iev0sqZt9apDMeQWW+oevQc7Q+YAkvXI6A
-         9QO2aChNzxH19qSuVktsPzE9A2AseB6EarOxffwvwNSaJJqZajAosgLrYLVYOQaUCoaz
-         5XM8Pk2goIQHgsG63YRTJWi5M0KJTf3hOO5QpmyEK46pfo0C3v5LnjiW8TSg9RKS0+k9
-         ABGS6wWlXrCsLByt7Xn/Ax8vUwEC6E8MND4VjNZQSsETosHfdneM530WFFCDBB2117tN
-         adlKGTVQVhxFxhIOQfaRfNRp3uTT3cFdvpvstv72G5x3/zQHuiBbfdGEikzY8NS8ryMc
-         lVoA==
+        h=from:to:cc:subject:date:message-id:in-reply-to:references
+         :mime-version:content-transfer-encoding;
+        bh=/1AsREliZzC2YOyCedq/FfC7C5LI00d3BvKBNM7QbKg=;
+        b=WA7JD8oq6XO3Y5xy96g+Zha94UUu8kgMp+dUafpcZUeux2gKac5MXIcCS63P9x7v+/
+         Dc44r17WNALqycoNw5IF6O0nVlkCMldifjMjwnG0U7+P97e5RuALtxochpoMYh58ljEv
+         PCtgQc3EMh2cz6hypFdUQ4aV0UaR3PWCXiW0maX8ZEy0/Fxv9K2ssRi5G1lTh1NFg3E3
+         bhuaFcziKJrYtFxzkzEynMXDovUHNL7ifQGcFi81ftrnkyXt7XFr6ncWMhI+I6d5Yo2u
+         eS7w1+Lj0HqN0jPoawpV5XsZF9CiuVQRCiLDug9Iylpva776nzqIgepGZJuDkh03BvCS
+         Hj0A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=FDAgd8JsF2yIhUY44NkaG1oLm3oKgp6LF2Q216/q0nM=;
-        b=VR92oC8mumv5FSACdbJhfIj+uYsWyem9wVfAuPxSK5N7EO1Iyvxy5JnjH2H6n12zPf
-         v+Fq+w+nJ5SDHE6v5MxTBVl1rTLrVP/pFiBv7cEfk5XSUs93gLd/lKYdA6LuFPNMLIwu
-         KldO9z/EN+9WbokVgX7byt7HHsZRa24tZMUtYeezvXYvvCL9Cm/R40YNdDnJl47kI1pu
-         vNvXGtWYbvoCkNk0JBGC0mTq+/Bg3SVOlpZpYYtd5QvEU4c4TkvQtM+0HzWpzh00mjWh
-         y/e4mxSQplijo+h+c10nmowCFcCmeaLbKmWwrhi6gXQ6w9NvJRFJIV3rp7SvIaPB33Yc
-         EHJg==
-X-Gm-Message-State: APjAAAVO0OD77lUQKCNNKITWlXukNYFS+dGrohOwza1/rqDA0MI373b6
-        owByfrHjmHU1XzB70afmKGCdAXkK
-X-Google-Smtp-Source: APXvYqygW5UJCvHDq23aWhWsK9BmlMw/hyE/HSJ0n04ujY3i/ipykrt6ukAnbfhK1TLtXw384CZitg==
-X-Received: by 2002:a17:906:3b10:: with SMTP id g16mr4481324ejf.34.1570648665104;
-        Wed, 09 Oct 2019 12:17:45 -0700 (PDT)
-Received: from localhost.localdomain ([2a02:a03f:4080:1900:e57a:fd21:8a5f:3932])
-        by smtp.gmail.com with ESMTPSA id c15sm486987edl.16.2019.10.09.12.17.44
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+         :references:mime-version:content-transfer-encoding;
+        bh=/1AsREliZzC2YOyCedq/FfC7C5LI00d3BvKBNM7QbKg=;
+        b=XY+ybUihGOfiC+5185x5RKvZq3136uf88TOagrwCTg37YtBpPlnECHtXWWZFNZtmEA
+         kXOmlRfFt04smYy+4WEN1u1RbvH8Y/If6W7zjMfVMHieE0LSg6E9N0kah4oWVmjZ9StY
+         P1URS8db4DypLFBq861PKqBUXO4OlxFpwywjYX6Ku7QkEKVMAgkZExYIDLXBdE4zMgrw
+         8uYZ04HAFp91s6tlCWXxY5fcEdqul5GeNE65TFOdjyosbywUqty5kxaJDsQLt8798h21
+         C7naew+WqEBuNdr5QjMO7ULM0YcTai0jQ8sAItXIoJPHimXJi5L9mFkt4DSOFOHW4GMN
+         vWQw==
+X-Gm-Message-State: APjAAAVYvhW/cs6anf1kBcGkIO9X1hxTHWD39N1zdp1Noxja5f3yIL8E
+        +dmHE2fBRL7z1kNPN1kFv45XMDZD
+X-Google-Smtp-Source: APXvYqxh37ir4Kgzu1oFa/83Mk8awZycH5OVgUdVxQYKTNIPk+P4yZrvr6Djc4QRyiuFmQqiAHuymA==
+X-Received: by 2002:aa7:cb5a:: with SMTP id w26mr5077526edt.188.1570656625697;
+        Wed, 09 Oct 2019 14:30:25 -0700 (PDT)
+Received: from localhost.localdomain ([2a02:a03f:4080:1900:3805:fa49:4ff6:d576])
+        by smtp.gmail.com with ESMTPSA id m1sm541017edq.83.2019.10.09.14.30.24
         (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-        Wed, 09 Oct 2019 12:17:44 -0700 (PDT)
+        Wed, 09 Oct 2019 14:30:24 -0700 (PDT)
 From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 To:     linux-sparse@vger.kernel.org
 Cc:     Vegard Nossum <vegard.nossum@gmail.com>,
         Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-Subject: [PATCH] "graph" segfaults on top-level asm
-Date:   Wed,  9 Oct 2019 21:17:36 +0200
-Message-Id: <20191009191736.40421-1-luc.vanoostenryck@gmail.com>
+Subject: [PATCH v2] "graph" segfaults on top-level asm
+Date:   Wed,  9 Oct 2019 23:30:13 +0200
+Message-Id: <20191009213013.80431-1-luc.vanoostenryck@gmail.com>
 X-Mailer: git-send-email 2.23.0
+In-Reply-To: <20191009191736.40421-1-luc.vanoostenryck@gmail.com>
+References: <20191009191736.40421-1-luc.vanoostenryck@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Sender: linux-sparse-owner@vger.kernel.org
@@ -73,122 +75,53 @@ Sadly, the commit that introduced this crash:
 was (part of a bigger series) meant to fix crashes because
 of such toplevel asm statements.
 
-Fix this by partially reversing this commit, adding a few
-checks in some others places (for tools not using the entrypoint)
-and disabling output in test-parsing.c
+Toplevel ASM statements are quite abnormal:
+* they are toplevel but anonymous symbols
+* they should be limited to basic ASM syntax but are not
+* they are given the type SYM_FN but are not functions
+* there is nothing to evaluate or expand about it.
+These cause quite a few problems including crashes, even
+before the above commit.
+
+So, before handling them more correctly and instead of
+adding a bunch of special cases here and there, temporarily
+take the more radical approach of stopping to add them to
+the list of toplevel symbols.
 
 Fixes: 15fa4d60ebba3025495bb34f0718764336d3dfe0
 Reported-by: Vegard Nossum <vegard.nossum@gmail.com>
 Analyzed-by: Vegard Nossum <vegard.nossum@gmail.com>
 Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 ---
- dissect.c      | 2 ++
- graph.c        | 2 ++
- linearize.c    | 8 ++++----
- sparse-llvm.c  | 3 +++
- test-inspect.c | 2 ++
- test-parsing.c | 4 +++-
- 6 files changed, 16 insertions(+), 5 deletions(-)
+ parse.c                          | 2 +-
+ validation/linear/asm-toplevel.c | 1 +
+ 2 files changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/dissect.c b/dissect.c
-index 14d57bf5b..70d67ccbd 100644
---- a/dissect.c
-+++ b/dissect.c
-@@ -575,6 +575,8 @@ static inline struct symbol *do_symbol(struct symbol *sym)
+diff --git a/parse.c b/parse.c
+index ac795bd75..48a63f22f 100644
+--- a/parse.c
++++ b/parse.c
+@@ -2890,7 +2890,7 @@ static struct token *toplevel_asm_declaration(struct token *token, struct symbol
  
- 	type = base_type(sym);
+ 	token = parse_asm_statement(token, stmt);
  
-+	if (!sym->ident)		// toplevel asm
-+		return type;
- 	if (reporter->r_symdef)
- 		reporter->r_symdef(sym);
- 
-diff --git a/graph.c b/graph.c
-index be4cf282c..d8a276e11 100644
---- a/graph.c
-+++ b/graph.c
-@@ -182,6 +182,8 @@ int main(int argc, char **argv)
- 		concat_symbol_list(fsyms, &all_syms);
- 
- 		FOR_EACH_PTR(fsyms, sym) {
-+			if (!sym->ident) // toplevel asm
-+				continue;
- 			expand_symbol(sym);
- 			linearize_symbol(sym);
- 		} END_FOR_EACH_PTR(sym);
-diff --git a/linearize.c b/linearize.c
-index 30ed2a302..3d21bafab 100644
---- a/linearize.c
-+++ b/linearize.c
-@@ -2471,15 +2471,15 @@ static struct entrypoint *linearize_fn(struct symbol *sym, struct symbol *base_t
- 	bb = alloc_basic_block(ep, sym->pos);
- 	set_activeblock(ep, bb);
- 
-+	entry = alloc_instruction(OP_ENTRY, 0);
-+	add_one_insn(ep, entry);
-+	ep->entry = entry;
-+
- 	if (stmt->type == STMT_ASM) {	// top-level asm
- 		linearize_asm_statement(ep, stmt);
- 		return ep;
- 	}
- 
--	entry = alloc_instruction(OP_ENTRY, 0);
--	add_one_insn(ep, entry);
--	ep->entry = entry;
--
- 	concat_symbol_list(base_type->arguments, &ep->syms);
- 
- 	/* FIXME!! We should do something else about varargs.. */
-diff --git a/sparse-llvm.c b/sparse-llvm.c
-index c7a9fbb7e..69da8d4e8 100644
---- a/sparse-llvm.c
-+++ b/sparse-llvm.c
-@@ -1139,6 +1139,9 @@ static void output_fn(LLVMModuleRef module, struct entrypoint *ep)
- 	int nr_args = 0;
- 	int i;
- 
-+	if (!sym->ident)		// toplevel asm
-+		return;
-+
- 	function.fn = get_sym_value(module, sym);
- 	LLVMSetFunctionCallConv(function.fn, LLVMCCallConv);
- 	LLVMSetLinkage(function.fn, function_linkage(sym));
-diff --git a/test-inspect.c b/test-inspect.c
-index 63754cb3c..d9bbebf0e 100644
---- a/test-inspect.c
-+++ b/test-inspect.c
-@@ -20,6 +20,8 @@ static void expand_symbols(struct symbol_list *list)
- {
- 	struct symbol *sym;
- 	FOR_EACH_PTR(list, sym) {
-+		if (!sym->ident)	// toplevel asm
-+			continue;
- 		expand_symbol(sym);
- 	} END_FOR_EACH_PTR(sym);
+-	add_symbol(list, anon);
++	// FIXME: add_symbol(list, anon);
+ 	return token;
  }
-diff --git a/test-parsing.c b/test-parsing.c
-index c5bc42e19..d18342f5f 100644
---- a/test-parsing.c
-+++ b/test-parsing.c
-@@ -44,6 +44,8 @@ static void clean_up_symbols(struct symbol_list *list)
- 	struct symbol *sym;
  
- 	FOR_EACH_PTR(list, sym) {
-+		if (!sym->ident)	// toplevel asm
-+			continue;
- 		expand_symbol(sym);
- 	} END_FOR_EACH_PTR(sym);
- }
-@@ -70,7 +72,7 @@ int main(int argc, char **argv)
- 		// Simplification
- 		clean_up_symbols(list);
- 
--#if 1
-+#if 0
- 		// Show the end result.
- 		show_symbol_list(list, "\n\n");
- 		printf("\n\n");
+diff --git a/validation/linear/asm-toplevel.c b/validation/linear/asm-toplevel.c
+index 8bdd7fc12..bd3b58a6d 100644
+--- a/validation/linear/asm-toplevel.c
++++ b/validation/linear/asm-toplevel.c
+@@ -2,6 +2,7 @@ __asm__("/* nothing */");
+ /*
+  * check-name: asm-toplevel.c
+  * check-command: test-linearize $file
++ * check-known-to-fail
+  * check-output-ignore
+  * check-output-contains: asm *".. nothing .."
+  */
 -- 
 2.23.0
 
