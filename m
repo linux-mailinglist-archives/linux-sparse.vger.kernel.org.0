@@ -2,74 +2,51 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 2BD5EDBAA5
-	for <lists+linux-sparse@lfdr.de>; Fri, 18 Oct 2019 02:20:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id F2FBEDC3BE
+	for <lists+linux-sparse@lfdr.de>; Fri, 18 Oct 2019 13:15:25 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S2503957AbfJRAU2 (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Thu, 17 Oct 2019 20:20:28 -0400
-Received: from zaovasilisa.ru ([88.200.194.99]:49001 "EHLO usrv.lan"
-        rhost-flags-OK-FAIL-OK-FAIL) by vger.kernel.org with ESMTP
-        id S2503926AbfJRAU1 (ORCPT <rfc822;linux-sparse@vger.kernel.org>);
-        Thu, 17 Oct 2019 20:20:27 -0400
-X-Greylist: delayed 22562 seconds by postgrey-1.27 at vger.kernel.org; Thu, 17 Oct 2019 20:20:19 EDT
-Received: from 127.0.0.1 (localhost [127.0.0.1])
-        by usrv.lan (Postfix) with SMTP id E44FB186481;
-        Thu, 17 Oct 2019 17:04:03 +0400 (MSD)
-Received: from (HELO zlba) [49.155.13.191] by 127.0.0.1 id 08foBMeDLK33 for <linux-nvme@lists.infradead.org>; Thu, 17 Oct 2019 10:59:51 -0200
-Message-ID: <9$4n3z523f$d$rou@1wu6v8t.44r>
-From:   "Mr Ekrem Bayraktar" <dave@dbsoundfactory.com>
-Reply-To: "Mr Ekrem Bayraktar" <dave@dbsoundfactory.com>
-To:     linux-nvme@lists.infradead.org
-Subject: MOTHERLESS CHILDREN IN YOUR CITY !!
-Date:   Thu, 17 Oct 19 10:59:51 GMT
-X-Mailer: MIME-tools 5.503 (Entity 5.501)
+        id S1730953AbfJRLPZ (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Fri, 18 Oct 2019 07:15:25 -0400
+Received: from imap1.codethink.co.uk ([176.9.8.82]:55795 "EHLO
+        imap1.codethink.co.uk" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1725930AbfJRLPZ (ORCPT
+        <rfc822;linux-sparse@vger.kernel.org>);
+        Fri, 18 Oct 2019 07:15:25 -0400
+Received: from [167.98.27.226] (helo=[10.35.5.173])
+        by imap1.codethink.co.uk with esmtpsa (Exim 4.84_2 #1 (Debian))
+        id 1iLQE7-0000Ib-CQ; Fri, 18 Oct 2019 12:15:23 +0100
+To:     linux-sparse@vger.kernel.org,
+        "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+From:   Ben Dooks <ben.dooks@codethink.co.uk>
+Subject: sparse: __pure declaration only
+Organization: Codethink Limited.
+Message-ID: <09d824ac-5371-830e-466d-7f78ccdae065@codethink.co.uk>
+Date:   Fri, 18 Oct 2019 12:15:22 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.9.0
 MIME-Version: 1.0
-Content-Type: multipart/alternative;
-        boundary="EFA7_FB09FAD2"
-X-Priority: 3
-X-MSMail-Priority: Normal
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
 Sender: linux-sparse-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
+I'm seeing the following sparse warnings where the declaration
+has __pure but the implementation does not.
 
---EFA7_FB09FAD2
-Content-Type: text/plain;
-Content-Transfer-Encoding: quoted-printable
+> lib/bitmap.c:62:6: error: symbol '__bitmap_or_equal' redeclared with different type (originally declared at ./include/linux/bitmap.h:123) - different modifiers
 
-Dear Sir / Madam
+is this a valid warning? if not, should sparse be ignoring these.
 
-
-
-Since ever we left your country back to Canada , we have gotten Government=
- approval and we have been busying planning for the less privilege Childre=
-n projects.
-
-We are planning to release first batch of the funds $2,990,000.00 within 1=
-4 days for building an estate for motherless children in your city.
-
-I want you to use my mother;s company name to register this charity projec=
-t in your country after receiving the project funds.
-
-It must be registered as { Bayraktar Group Homeless Children Ltd }.
+Note:
+> include/linux/bitmap.h:extern bool __pure __bitmap_or_equal(const unsigned long *src1,
+> lib/bitmap.c:bool __bitmap_or_equal(const unsigned long *bitmap1,
 
 
-Can you handle and supervise this big project ?
-Can you manager all the workers as a senior supervisor ?
-We want to be sure you can handle it before we proceed with this project.
+-- 
+Ben Dooks				http://www.codethink.co.uk/
+Senior Engineer				Codethink - Providing Genius
 
-
-Please call me if you want to hear from us + 1-917 580 4919.
-Please can you manage such project please Kindly reply for further details=
-.
-
-Your full names-----------
-
-
-
-Ekrem Bayraktar.
-Bayraktar Shipping Group
-
---EFA7_FB09FAD2--
-
+https://www.codethink.co.uk/privacy.html
