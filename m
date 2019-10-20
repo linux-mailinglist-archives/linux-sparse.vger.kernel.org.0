@@ -2,147 +2,202 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 24397DDEFB
-	for <lists+linux-sparse@lfdr.de>; Sun, 20 Oct 2019 16:57:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 616CEDDF3E
+	for <lists+linux-sparse@lfdr.de>; Sun, 20 Oct 2019 17:43:00 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726426AbfJTO5U (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Sun, 20 Oct 2019 10:57:20 -0400
-Received: from mail-wm1-f66.google.com ([209.85.128.66]:52375 "EHLO
-        mail-wm1-f66.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726373AbfJTO5T (ORCPT
+        id S1726467AbfJTPnA (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Sun, 20 Oct 2019 11:43:00 -0400
+Received: from mail-wr1-f67.google.com ([209.85.221.67]:33324 "EHLO
+        mail-wr1-f67.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1726470AbfJTPm7 (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Sun, 20 Oct 2019 10:57:19 -0400
-Received: by mail-wm1-f66.google.com with SMTP id r19so10575237wmh.2
-        for <linux-sparse@vger.kernel.org>; Sun, 20 Oct 2019 07:57:18 -0700 (PDT)
+        Sun, 20 Oct 2019 11:42:59 -0400
+Received: by mail-wr1-f67.google.com with SMTP id s1so2309882wro.0
+        for <linux-sparse@vger.kernel.org>; Sun, 20 Oct 2019 08:42:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=date:from:to:cc:subject:message-id:references:mime-version
          :content-disposition:in-reply-to:user-agent;
-        bh=lCksBW1Rk10mp9u1W+HvouWmGdQ4WzSSxORVvDOit1Y=;
-        b=e/bu7pG56aFY/3mt880CVgKJLrXMU/hWrHbXENgNMGgFOCYsXSFQuUBCuVkCXEqNru
-         3cPl8cPuj4IllcSS/dE8J17LrYKsm3Z4uvcdBP3hy3g0gWpMhxt51PA7DnysPyif0+GT
-         TdoBECPzJT33+sOGH/9StCwNpTh48U8BpGSsByPe6VpLDVeE4i63o41noFzwXYnXEO8s
-         H+UP8FaMjlSxl80TBxz+timQoh3tEcJkAGmGhQ5mTAMeyIS1iwFpUEjHjimRRDWPaWWF
-         KwbVHST3LYwXgUf0Hx6JfexpLiY/W3ORgd+aCuFH3avEWG/Sb+SMi4n4+NrZA0WI/mMl
-         QUAA==
+        bh=VRecaaAOXqe8AE7ObYZymDsWGNWks3SqwAfuvfpHHpE=;
+        b=VaCpvXowznFmnSLATAg1YxQIk8nkvVMq9Q09jzH7bcYdoz99U92afzkRobpyqu1s3H
+         j0AVUqwNbg2jmsyRu8XOSDoOMZlxlaUKy0HqRcE+NngPCzWT7Ja1ni6EmzO5g2y+u5dj
+         oOW1dsiA7djel3VFqNuQUjQQlc2MMgk0QvgkEA6pXCJcU/mO3Y3Y1IVyXR/4sxYKbASf
+         rTd5yDachZnYyLkkloh/23qSXgt4OaQemki8cr+WmxeMI9qSsBzC018es0BML+n5oYRv
+         SBVnARAuqfUmtuIEcZe8xmE/0esADBr3TUiNA5eJkODumXM6FaNdnd/mbjpPrRM4ykbB
+         VvhQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:date:from:to:cc:subject:message-id:references
          :mime-version:content-disposition:in-reply-to:user-agent;
-        bh=lCksBW1Rk10mp9u1W+HvouWmGdQ4WzSSxORVvDOit1Y=;
-        b=mV7IGE4vh1vWgDTm6A55SDCIYNR7j0whgdfrNuIiFnqMyEEPWmU62eHiuYBfRMtvJk
-         vzCqQrYdWzDDHcrYD9g0xyZW+ZMPuujVwGoAWvG25yPQa3+c9tq2T7oMUZE0f//Win6w
-         IXYnBbl0djPSKOW91di1uyin5XrYw+IdrfOvoqFASYVDOT373c69qlqVuWWIgmdoZVGf
-         VPe6JdImvz2wwYJX7flCrBB3wG4bwHUdn6dqKho8PL8hUHRfscXWEi+S+pJEvLwiA300
-         9pJ2kxWhwVHZ+zSNeMk3wGvyt3/UTH7V7lLk3FctKG7A+O7OodvVz3ITSjqIIOMBGzJv
-         44qw==
-X-Gm-Message-State: APjAAAVE2we9WEmPW4e2F3MxRY4Pxhp3tkVi4tx4H/iInSq+7w66OULQ
-        o0IyMhn6m+OpewCWipwPzedyAR3L
-X-Google-Smtp-Source: APXvYqx2rGpDP1330gg9XVubHEQF+xh4OVh/euvdqz2PgPWyoLDDK8/qSLssGemWzIKwfmR/SrbK+g==
-X-Received: by 2002:a1c:7c16:: with SMTP id x22mr16714182wmc.113.1571583437337;
-        Sun, 20 Oct 2019 07:57:17 -0700 (PDT)
+        bh=VRecaaAOXqe8AE7ObYZymDsWGNWks3SqwAfuvfpHHpE=;
+        b=d3pDlH1wFVFSYbKEFRc8WDabaietqXpWnAuHsx/cYLPxbWCUNYQPu3yeb03zg1tIW1
+         A7PDW/YC56xc3fNMSWpu/XZQ5TKO89/F5enW8peJD2x9tdqgQkQuxnH/7L3mKW3q+6SP
+         JplF6txuOxfvZex84RFQob/BXiNhyrrvEQOVkayS8SJI5fEOMKuw5SQhVKEmSyeW3N+K
+         29nN7srws19p/LzPNdUJRzWy0JfEveGcMruPxSkSXoEOJAiBRIR1Klfvj8TElack+wLE
+         RNnk1Mc9AHkjrZQ/agAdK2rqrWDF/YRMRtoliLU2LgjHx0x/qYfHo/OfWypuplaG/6Q8
+         Z7cQ==
+X-Gm-Message-State: APjAAAXePoEzXr5yH0NYCp+H776EufFKDtUwx+9T5x3I3m4heVuzj0Gx
+        mDdgwt8qfg15c0EZIihjpD7LK03n
+X-Google-Smtp-Source: APXvYqyvcybt0/pN56k28fro5Dc8I5AnR24iJqicYBFPBszWXUhRi8EfES8bB4u0GV+1inYbUQOL9A==
+X-Received: by 2002:a5d:44c8:: with SMTP id z8mr15833326wrr.66.1571586176706;
+        Sun, 20 Oct 2019 08:42:56 -0700 (PDT)
 Received: from desk.local ([2a02:a03f:40ac:ce00:90a6:dd03:1e7:4457])
-        by smtp.gmail.com with ESMTPSA id d199sm2483977wmd.35.2019.10.20.07.57.15
+        by smtp.gmail.com with ESMTPSA id c72sm11808156wme.7.2019.10.20.08.42.55
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 20 Oct 2019 07:57:15 -0700 (PDT)
-Date:   Sun, 20 Oct 2019 16:57:15 +0200
+        Sun, 20 Oct 2019 08:42:55 -0700 (PDT)
+Date:   Sun, 20 Oct 2019 17:42:54 +0200
 From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 To:     Ben Dooks <ben.dooks@codethink.co.uk>
 Cc:     linux-sparse@vger.kernel.org
-Subject: Re: [PATCH 2/5] parse: initial parsing of __attribute__((format))
-Message-ID: <20191020145714.uai45bjrrkih2ars@desk.local>
+Subject: Re: [PATCH 3/5] evaluate: check variadic argument types against
+ formatting info
+Message-ID: <20191020154253.gggtofzjsronebje@desk.local>
 References: <20190925100015.31510-1-ben.dooks@codethink.co.uk>
- <20190925100015.31510-3-ben.dooks@codethink.co.uk>
+ <20190925100015.31510-4-ben.dooks@codethink.co.uk>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20190925100015.31510-3-ben.dooks@codethink.co.uk>
+In-Reply-To: <20190925100015.31510-4-ben.dooks@codethink.co.uk>
 User-Agent: NeoMutt/20180716
 Sender: linux-sparse-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-On Wed, Sep 25, 2019 at 11:00:12AM +0100, Ben Dooks wrote:
-> diff --git a/parse.c b/parse.c
-> index f291e24..583a82c 100644
-> --- a/parse.c
-> +++ b/parse.c
-> @@ -87,7 +87,7 @@ static attr_t
->  	attribute_address_space, attribute_context,
->  	attribute_designated_init,
->  	attribute_transparent_union, ignore_attribute,
-> -	attribute_mode, attribute_force;
-> +	attribute_mode, attribute_force, attribute_format;
-
-I prefer that you simply insert for the attribute without touvhing the
-others one:
-	+ invalid_printf_format_args,
-
->  typedef struct symbol *to_mode_t(struct symbol *);
->  
-> @@ -136,6 +136,11 @@ static void asm_modifier_inline(struct token *token, unsigned long *mods)
->  	asm_modifier(token, mods, MOD_INLINE);
+On Wed, Sep 25, 2019 at 11:00:13AM +0100, Ben Dooks wrote:
+> diff --git a/evaluate.c b/evaluate.c
+> --- a/evaluate.c
+> +++ b/evaluate.c
+> @@ -2319,13 +2319,452 @@ static struct symbol *evaluate_alignof(struct expression *expr)
+>  	return size_t_ctype;
 >  }
 >  
-> +/* the types of printf style formatting from __attribute__((format)) */
-> +enum {
-> +	FmtPrintf = 0, FmtScanf,
+> +struct format_type {
+> +	const char	*format;
+> +	int		(*test)(struct format_type *fmt, struct expression **expr, struct symbol *ctype, struct symbol **target, const char **typediff);
+> +	struct symbol	*data;
 > +};
+> +
+> +struct format_state {
+> +	struct expression	*expr;
+> +	unsigned int		va_start;
 
-Please change this to:
-	FORMAT_PRINTF,
-	FORMAT_SCANF,
+the prefix 'va_' is useless.
 
-> @@ -1172,6 +1195,59 @@ static struct token *attribute_address_space(struct token *token, struct symbol
->  	return token;
->  }
->  
-> +static int invalid_printf_format_args(long long start, long long at)
+> +static int printf_fmt_print_pointer(struct format_type *fmt, struct expression **expr, struct symbol *ctype, struct symbol **target, const char **typediff)
 > +{
-> +	return start < 0 || at < 0 || (start == at && start > 0) ||
-> +		(start == 0 && at == 0);
+> +	int ret;
+> +	*target = &ptr_ctype;
+> +	ret =check_assignment_types(*target, expr, typediff);
+> +	if (ret == 0) {
+> +		/* if just printing, ignore address-space mismatches */
+> +		if (strcmp(*typediff, "different address spaces") == 0)
+
+That's terrible.
+It would be better to copy the ctype and then mask out the address spaces.
+
+> +			ret = 1;
+> +	}
+> +	return ret;
 > +}
+> +
+> +static struct format_type printf_fmt_ptr_ref = { "p", .test = printf_fmt_pointer, };
 
-The name suggest it is only used for printf format but the code below
-uses it for all formats, please rename it.
-I would prefer to have the reverse logics, check if the format is valid
-and to have a simpler check, something like:
-	static bool validate_attribute_format(...)
-	{
-		return (start > 1) && ((at > start) || at == 0);
-	}
-but since more validations are done after, I think it's best to simply
-not use this helper and directly doing the checks and emitting the
-approriate warning messages when needed ("index smaller than 1", ...).
+Please use a designator for all members:
+	.format = "p",
+	.test = ....
 
-> +static struct token *attribute_format(struct token *token, struct symbol *attr, struct decl_state *ctx)
+> +static struct expression *get_expression_n(struct expression_list *args, int nr)
+
+get_nth_expression() ?
+
+> +static void parse_format_printf_checkpos(struct format_state *state, const char *which)
 > +{
+> +	if (state->used_position)
+> +		warning(state->expr->pos,
+> +			"format %d: %s: no position specified",
+> +			state->arg_index-1, which);
+
+Please, use braces when the body doesn't hold on a single line.
+
+> +static int parse_format_printf_argfield(const char **fmtptr, struct format_state *state, struct expression_list *args, int *pos, const char *which)
+> +{
+
 ...
 
-> +			ctx->ctype.printf_va_start = start;
-> +			ctx->ctype.printf_msg = at;
+> +	/* check the vale we got was int/uint type */
 
-GCC's manpage call them 'string-index' & 'first-to-check'. Best to keep things
-coherent and use the same names everywhere, for example 'index' & first' ?
+typo: value
 
-> diff --git a/symbol.h b/symbol.h
-> index ac43b31..7bb6f29 100644
-> --- a/symbol.h
-> +++ b/symbol.h
-> @@ -103,6 +104,7 @@ struct ctype {
->  	struct context_list *contexts;
->  	struct ident *as;
->  	struct symbol *base_type;
-> +	unsigned short printf_va_start, printf_msg;
+> +	ctype = evaluate_expression(expr);
+> +	if (ctype) {
+> +		struct symbol *source, *target = &int_ctype;
+> +
+> +		source = degenerate(expr);
+> +
+> +		if (source != &int_ctype && source != &uint_ctype) {
 
-What about something like:
-+	struct {
-+		unsigned short index;
-+		unsigned short first;
-+	} format;
+Is there a good reason to allow uint (the standard only allow a plain int)?
 
-Also the validation should check that these are not bigger than
-USHORT_MAX.
+> +/*
+> + * printf format parsing code
+> + *
+> + * this code currently does not:
+> + * - check castable types (such as int vs long vs long long)
+> + * - validate all arguments specified are also used...
+> + */
+> +static int parse_format_printf(const char **fmtstring,
+> +			       struct format_state *state,
+> +			       struct expression_list *args)
+> +{
+> +	struct format_type ftype;
+> +	struct format_type *type;
+> +	struct expression *expr;
+> +	const char *fmt = *fmtstring;
+> +	const char *fmtpost = NULL;
+> +	int pos = state->arg_index;
+> +	int error = 0;
+> +	int ret;
+
+It would be nice to have some comments about the variables, for example
+what is the purpose of fmtpost.
+
+
+> +		source = degenerate(expr);
+> +		ret = (type->test)(type, &expr, ctype, &target, &typediff);
+
+The first set of parentheses are unneeded. Please remove them.
+
+> +	} else {
+> +		/* try and find the end of this */
+> +		fmtpost = *fmtstring;
+> +		while (*fmtpost > ' ')
+
+This merits a comment. Also, what is 'this'?
+
+> +static void evaluate_format_printf(const char *fmt_string, struct symbol *fn, struct expression_list *head)
+> +{
+> +		if (fail > 0)
+> +			/* format string may have '\n' etc embedded in it */
+> +			warning(expr->pos, "cannot evaluate format string");
+
+If fail > 0, a specific warnings has already been issued, right?
+then this warning should be removed.
+
+>  static int evaluate_arguments(struct symbol *fn, struct expression_list *head)
+>  {
+>  	struct expression *expr;
+>  	struct symbol_list *argument_types = fn->arguments;
+> +	const char *fmt_string = NULL;
+>  	struct symbol *argtype;
+>  	int i = 1;
+>  
+> +	/*
+> +	 * do this first, otherwise the arugment info may get lost or changed
+
+typo: argument.
+Maybe change the message to something like:
+	Do first part of (printf) format checking. This need to be done
+	here, ...
 
 -- Luc
