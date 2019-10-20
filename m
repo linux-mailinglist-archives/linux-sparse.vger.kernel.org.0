@@ -2,100 +2,75 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id ACA87DDCEF
-	for <lists+linux-sparse@lfdr.de>; Sun, 20 Oct 2019 07:52:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 2EDD7DDECE
+	for <lists+linux-sparse@lfdr.de>; Sun, 20 Oct 2019 16:12:22 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1725941AbfJTFw6 (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Sun, 20 Oct 2019 01:52:58 -0400
-Received: from mail-wr1-f51.google.com ([209.85.221.51]:35934 "EHLO
-        mail-wr1-f51.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1725851AbfJTFw5 (ORCPT
+        id S1726307AbfJTOMV (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Sun, 20 Oct 2019 10:12:21 -0400
+Received: from mail-wm1-f65.google.com ([209.85.128.65]:50809 "EHLO
+        mail-wm1-f65.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1726296AbfJTOMV (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Sun, 20 Oct 2019 01:52:57 -0400
-Received: by mail-wr1-f51.google.com with SMTP id w18so9697324wrt.3;
-        Sat, 19 Oct 2019 22:52:55 -0700 (PDT)
+        Sun, 20 Oct 2019 10:12:21 -0400
+Received: by mail-wm1-f65.google.com with SMTP id q13so453195wmj.0
+        for <linux-sparse@vger.kernel.org>; Sun, 20 Oct 2019 07:12:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=date:from:to:cc:subject:message-id:references:mime-version
          :content-disposition:in-reply-to:user-agent;
-        bh=51TklpCVmpWzv8/2EcsxOdE6xXoYYK++w+3ck6sGq7g=;
-        b=sJi8/6+EPXDLkFwM84PDzxNA+xm/Ty4OLsEENxPDWuFLSe6Q0NpSWlMUiamI2quZHb
-         QzqxmXKuEHPbdVFNCl0m/57mbcREyxdyo0vB+W+2RWSpDjNvQFsLrNfv4OzmwtsxgXDG
-         9Xw5z/G7Gl0wzF3x/mhNzIrcai5ZYPq3vxNHWteLj2igr+OCPCCds43IDPuXqe1P6JSp
-         +BR7+k31QxCk+elV8cgZWQJE1iYqq4tIn1PS9dV8VV21YevDhSwcYTsXyMh/NtD353Hm
-         +pbftBm+DMYlO4H8I3L4JLCPrCkt1PdBmTLi0sbfy94PW2DqZpFrCUApyV6oTf0pBZf9
-         ls6g==
+        bh=dN09VuEU8FEi9aqArC2fPVUGP7M8syOIHcU0Zd/1WTE=;
+        b=Lcldm7myB349TvrTeLe4iIh03R0de5rtzRS62r5MfMomFNlUAP8GzG/m47B4KNqroI
+         azBviS0XZJ/QlJk6nVAa99is1nfum3V8NFzIa2WKJspYIw4/A+rH8NK3EB/MyPHp2COK
+         5qcCa3Tcph0wz5mE2IWk98wyKVlbVGl7xVanmdWTozTxDNc8sj+ZYfg7KKscQ4oZ/wQj
+         M8f0WC1QGMK0Um/K2n4GFtgdBfS/KToutBJtJ119Hj2HnK9L/R6DIOye/vnblOkFqVHL
+         dVv9D8UDXVA/bue92W9cf0zYgqVi0U+vu3EEKMimghDgZ6GHFX5fYjBtM+8IrVWYJaJt
+         PPkg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:date:from:to:cc:subject:message-id:references
          :mime-version:content-disposition:in-reply-to:user-agent;
-        bh=51TklpCVmpWzv8/2EcsxOdE6xXoYYK++w+3ck6sGq7g=;
-        b=CHV9FH4bbw95H/L8/OpS30Nwej838e+/iiuyZBSGh1uq66A4AYpnd2xk5Ioh9WwqBR
-         7Cl4KSENuTkscNFmMoMjMgSuOQoKYTTMkct5XoSOOk1guwURCcCLdlw5Hg+gdEfnc2G7
-         FzaXkWaETQGAL1jaya+Jz7MDDgPeNQG4oZVecUgM8JC2cedRUJXMQ6P3gnuDSxYKaV7p
-         u1mZ17ZlZCAjeX9/XLtslf5MwoYa+DWN+SEriCAVoPf3PEhhjCVJQPy5ZdErYzUJy6U1
-         m5jpzSKsusK8hHqE4pChmM1BEigeYh/y7nE1d7ohROoNrAClnT8gRng9+7tVf1l0S1lm
-         Dhvg==
-X-Gm-Message-State: APjAAAV1Rug2YTV5o+welT+P+LTY95RWAvI9fTlXgRt9FFcHJU/r7U5H
-        pD8kSmAh9mrLZ0DBVicI0zc=
-X-Google-Smtp-Source: APXvYqzT7vAv/SjZ4jxekx/DUQnVMu+sCN6LLI8uruB8JJJ5aEqCJhSP422smgKO0FpK9ZmuJZWuBw==
-X-Received: by 2002:a5d:4142:: with SMTP id c2mr13624286wrq.208.1571550775205;
-        Sat, 19 Oct 2019 22:52:55 -0700 (PDT)
-Received: from ltop.local ([2a02:a03f:40ac:ce00:9cfc:63f1:4c41:b934])
-        by smtp.gmail.com with ESMTPSA id u7sm1283982wre.59.2019.10.19.22.52.53
-        (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-        Sat, 19 Oct 2019 22:52:54 -0700 (PDT)
-Date:   Sun, 20 Oct 2019 07:52:53 +0200
+        bh=dN09VuEU8FEi9aqArC2fPVUGP7M8syOIHcU0Zd/1WTE=;
+        b=MoMNuH9XQ9L/5wec00iWNjIz8g95ZRfiBtpIFQZo0omq4lQit1BN+G4/1Q/b8M7CvH
+         rpVWXcvwFaH+2H+pm/kOm0R97bnTtSoORWgwIoXXXjZ1/9ZKKQgSeGrUviju0Lu3l3KF
+         4tu/vaiioXC4uPqqQzS80lIIeOpVlH0VMiGjmSQjl2MQLsR62RolmY1x87Zfs6qXzWvg
+         YpoXq7Zl+rvCPg2RFuamfJzyhSAd9OwnIk226/yL4nuzrgAsg3XkuvCWzONWxLYvhAdB
+         M7ipXQmuxw1vM8DviyDEjipaj6Zp6lBx5fqfOBjN4vox6LAJm635pCd0qqyzJ3xNvC/F
+         QRCg==
+X-Gm-Message-State: APjAAAVYekOmeuZu4Q3TEDWIDQHGxMWuztjO6kxpP0oCiYwR8cPpMLZE
+        u4yf+FwFueeQSkzyVwGaz5O9u+IF
+X-Google-Smtp-Source: APXvYqyNnXA3gE9mKVNGqput0YW3N5wnaZFSh9pPS4i41ocwr6KxeK4NBXJoVojKbuT0w7bzac4izg==
+X-Received: by 2002:a7b:c3cf:: with SMTP id t15mr14958036wmj.85.1571580739186;
+        Sun, 20 Oct 2019 07:12:19 -0700 (PDT)
+Received: from desk.local ([2a02:a03f:40ac:ce00:90a6:dd03:1e7:4457])
+        by smtp.gmail.com with ESMTPSA id u1sm18735036wru.90.2019.10.20.07.12.17
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 20 Oct 2019 07:12:18 -0700 (PDT)
+Date:   Sun, 20 Oct 2019 16:12:17 +0200
 From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-To:     Linus Torvalds <torvalds@linux-foundation.org>
-Cc:     Ben Dooks <ben.dooks@codethink.co.uk>,
-        Sparse Mailing-list <linux-sparse@vger.kernel.org>,
-        "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: Re: sparse: __pure declaration only
-Message-ID: <20191020055252.2ymxfrskpodxhuxs@ltop.local>
-References: <09d824ac-5371-830e-466d-7f78ccdae065@codethink.co.uk>
- <CAHk-=wiYQ=F5H-uwQvj4eMS3xREmqE6tPuDVVLVML02xaThqVQ@mail.gmail.com>
+To:     Ben Dooks <ben.dooks@codethink.co.uk>
+Cc:     linux-sparse@vger.kernel.org
+Subject: Re: [PATCH 1/5] validation: ignore temporary ~ files
+Message-ID: <20191020141216.zkwqacom4m44un4r@desk.local>
+References: <20190925100015.31510-1-ben.dooks@codethink.co.uk>
+ <20190925100015.31510-2-ben.dooks@codethink.co.uk>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <CAHk-=wiYQ=F5H-uwQvj4eMS3xREmqE6tPuDVVLVML02xaThqVQ@mail.gmail.com>
+In-Reply-To: <20190925100015.31510-2-ben.dooks@codethink.co.uk>
 User-Agent: NeoMutt/20180716
 Sender: linux-sparse-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-On Fri, Oct 18, 2019 at 08:31:48AM -0700, Linus Torvalds wrote:
-> On Fri, Oct 18, 2019 at 4:15 AM Ben Dooks <ben.dooks@codethink.co.uk> wrote:
-> >
-> > is this a valid warning? if not, should sparse be ignoring these.
+On Wed, Sep 25, 2019 at 11:00:11AM +0100, Ben Dooks wrote:
+> Ignore any ~ files left in the directory.
 > 
-> It's technically valid, but maybe it's not useful.
-> 
-> If we make sure that any pure bits from a declaration always make it
-> into the definition, then I suspect that the "was not declared"
-> warning (if the definition is non-static and seen without a
-> declaration) is sufficient.
-> 
-> Of course, sparse doesn't actually _care_ about "pure" in the
-> definition, only in the use, so right now it doesn't even make any
-> difference to sparse whether the definition has the "pure" or not.
-> It's only when the function is used that the "pure" matters (it makes
-> the call instruction be CSE'd like any other random instruction).
+> Signed-off-by: Ben Dooks <ben.dooks@codethink.co.uk>
+> ---
+>  validation/.gitignore | 1 +
 
-Yes, for 'pure' it doesn't matter much but it's a problem anyway.
-For example with 'static':
-
-$ cat file.c
-static void foo(void);
-void foo(void) { }
-
-$ sparse file.c
-file.c:2:6: warning: symbol 'foo' was not declared. Should it be static?
-
-Which is kinda absurd: foo() was declared and was even declared static.
-But the definition is a different symbol than its declaration (OK) which
-doesn't 'inherit' the declaration's specifier/modifier/attributes.
-It's on my to-be-fixed list for a long time but ..
+This patch can be dropped because the equivalent has already
+been added to the main .gitignore.
 
 -- Luc
