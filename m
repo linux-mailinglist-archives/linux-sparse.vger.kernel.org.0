@@ -2,83 +2,100 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id E6E88DC89C
-	for <lists+linux-sparse@lfdr.de>; Fri, 18 Oct 2019 17:34:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id ACA87DDCEF
+	for <lists+linux-sparse@lfdr.de>; Sun, 20 Oct 2019 07:52:58 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S2633200AbfJRPcK (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Fri, 18 Oct 2019 11:32:10 -0400
-Received: from mail-lf1-f68.google.com ([209.85.167.68]:37442 "EHLO
-        mail-lf1-f68.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S2501940AbfJRPcJ (ORCPT
+        id S1725941AbfJTFw6 (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Sun, 20 Oct 2019 01:52:58 -0400
+Received: from mail-wr1-f51.google.com ([209.85.221.51]:35934 "EHLO
+        mail-wr1-f51.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1725851AbfJTFw5 (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Fri, 18 Oct 2019 11:32:09 -0400
-Received: by mail-lf1-f68.google.com with SMTP id g21so3936349lfh.4
-        for <linux-sparse@vger.kernel.org>; Fri, 18 Oct 2019 08:32:06 -0700 (PDT)
+        Sun, 20 Oct 2019 01:52:57 -0400
+Received: by mail-wr1-f51.google.com with SMTP id w18so9697324wrt.3;
+        Sat, 19 Oct 2019 22:52:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linux-foundation.org; s=google;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=htc6+DktT7Y3uD3auBmpX964Gqpp3eQIkOXe0EMRrEM=;
-        b=XjWIVFjSz6ga1WAc15MNwGtRsqjuAizeRbLBR+qDU/JmNQalIxeb15P2p6wblxHGiJ
-         okv1b5kgGfawN2eTdxq8f/H3KlmOYczAKpLMUGd/da232vCAUcVkSyubf9sHK9JzewVk
-         lfeh8fR+XTd8y8oNj8qkk5nI6khRxbHTVmkGg=
+        d=gmail.com; s=20161025;
+        h=date:from:to:cc:subject:message-id:references:mime-version
+         :content-disposition:in-reply-to:user-agent;
+        bh=51TklpCVmpWzv8/2EcsxOdE6xXoYYK++w+3ck6sGq7g=;
+        b=sJi8/6+EPXDLkFwM84PDzxNA+xm/Ty4OLsEENxPDWuFLSe6Q0NpSWlMUiamI2quZHb
+         QzqxmXKuEHPbdVFNCl0m/57mbcREyxdyo0vB+W+2RWSpDjNvQFsLrNfv4OzmwtsxgXDG
+         9Xw5z/G7Gl0wzF3x/mhNzIrcai5ZYPq3vxNHWteLj2igr+OCPCCds43IDPuXqe1P6JSp
+         +BR7+k31QxCk+elV8cgZWQJE1iYqq4tIn1PS9dV8VV21YevDhSwcYTsXyMh/NtD353Hm
+         +pbftBm+DMYlO4H8I3L4JLCPrCkt1PdBmTLi0sbfy94PW2DqZpFrCUApyV6oTf0pBZf9
+         ls6g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=htc6+DktT7Y3uD3auBmpX964Gqpp3eQIkOXe0EMRrEM=;
-        b=sZ1NxVuh53iR9yMfr7p/J95yLTVVcVlnoEzJY5sboMHfv/TX2NolFWGpUQPrigXbQs
-         Vju2RgezGySJ4VpLRQw3uhEKX0NnCijIVrc2e3sn8590hIbz+TwXRi40rl0pd4jDH5pv
-         YgcYuz/cwanYFazu8R6xJPoTbV0UaET0RW9Wsnb5BDoR9bBA8wBrTd5Iv+U8cEMwEWNq
-         j+lbkz4TvsDzfrtvwt7yJOXlxBNro/ZRhS9ez+xmzxzjrY4Gbin4/spDbfnx0LfI0T0+
-         hivOrqLl7edKCiHZiRvPLVaeKl7YeKFlv0B0SaX47hx9Av91FRDeuA/LdiU56UOMpsX8
-         Oklw==
-X-Gm-Message-State: APjAAAWkRULlciNA0MU2/qgkw32zhXfWDdo/EknfGeCW4BGOzMJKWzdG
-        4LoZFRTUFgXNf/1MkrycMl86KHRbCxw=
-X-Google-Smtp-Source: APXvYqy+TDHlcz3Rc3b5rZW4BJuxm2crtYT6sG4wR0cQdOrCkdqL/pmQogOTNxdwrfdKiFpRShlfqA==
-X-Received: by 2002:a19:4849:: with SMTP id v70mr6595922lfa.40.1571412725892;
-        Fri, 18 Oct 2019 08:32:05 -0700 (PDT)
-Received: from mail-lf1-f45.google.com (mail-lf1-f45.google.com. [209.85.167.45])
-        by smtp.gmail.com with ESMTPSA id y3sm2451041lfh.97.2019.10.18.08.32.04
-        for <linux-sparse@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 18 Oct 2019 08:32:05 -0700 (PDT)
-Received: by mail-lf1-f45.google.com with SMTP id y127so5071428lfc.0
-        for <linux-sparse@vger.kernel.org>; Fri, 18 Oct 2019 08:32:04 -0700 (PDT)
-X-Received: by 2002:a19:f709:: with SMTP id z9mr6504716lfe.170.1571412724682;
- Fri, 18 Oct 2019 08:32:04 -0700 (PDT)
-MIME-Version: 1.0
-References: <09d824ac-5371-830e-466d-7f78ccdae065@codethink.co.uk>
-In-Reply-To: <09d824ac-5371-830e-466d-7f78ccdae065@codethink.co.uk>
-From:   Linus Torvalds <torvalds@linux-foundation.org>
-Date:   Fri, 18 Oct 2019 08:31:48 -0700
-X-Gmail-Original-Message-ID: <CAHk-=wiYQ=F5H-uwQvj4eMS3xREmqE6tPuDVVLVML02xaThqVQ@mail.gmail.com>
-Message-ID: <CAHk-=wiYQ=F5H-uwQvj4eMS3xREmqE6tPuDVVLVML02xaThqVQ@mail.gmail.com>
-Subject: Re: sparse: __pure declaration only
-To:     Ben Dooks <ben.dooks@codethink.co.uk>
-Cc:     Sparse Mailing-list <linux-sparse@vger.kernel.org>,
+        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+         :mime-version:content-disposition:in-reply-to:user-agent;
+        bh=51TklpCVmpWzv8/2EcsxOdE6xXoYYK++w+3ck6sGq7g=;
+        b=CHV9FH4bbw95H/L8/OpS30Nwej838e+/iiuyZBSGh1uq66A4AYpnd2xk5Ioh9WwqBR
+         7Cl4KSENuTkscNFmMoMjMgSuOQoKYTTMkct5XoSOOk1guwURCcCLdlw5Hg+gdEfnc2G7
+         FzaXkWaETQGAL1jaya+Jz7MDDgPeNQG4oZVecUgM8JC2cedRUJXMQ6P3gnuDSxYKaV7p
+         u1mZ17ZlZCAjeX9/XLtslf5MwoYa+DWN+SEriCAVoPf3PEhhjCVJQPy5ZdErYzUJy6U1
+         m5jpzSKsusK8hHqE4pChmM1BEigeYh/y7nE1d7ohROoNrAClnT8gRng9+7tVf1l0S1lm
+         Dhvg==
+X-Gm-Message-State: APjAAAV1Rug2YTV5o+welT+P+LTY95RWAvI9fTlXgRt9FFcHJU/r7U5H
+        pD8kSmAh9mrLZ0DBVicI0zc=
+X-Google-Smtp-Source: APXvYqzT7vAv/SjZ4jxekx/DUQnVMu+sCN6LLI8uruB8JJJ5aEqCJhSP422smgKO0FpK9ZmuJZWuBw==
+X-Received: by 2002:a5d:4142:: with SMTP id c2mr13624286wrq.208.1571550775205;
+        Sat, 19 Oct 2019 22:52:55 -0700 (PDT)
+Received: from ltop.local ([2a02:a03f:40ac:ce00:9cfc:63f1:4c41:b934])
+        by smtp.gmail.com with ESMTPSA id u7sm1283982wre.59.2019.10.19.22.52.53
+        (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+        Sat, 19 Oct 2019 22:52:54 -0700 (PDT)
+Date:   Sun, 20 Oct 2019 07:52:53 +0200
+From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
+To:     Linus Torvalds <torvalds@linux-foundation.org>
+Cc:     Ben Dooks <ben.dooks@codethink.co.uk>,
+        Sparse Mailing-list <linux-sparse@vger.kernel.org>,
         "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Subject: Re: sparse: __pure declaration only
+Message-ID: <20191020055252.2ymxfrskpodxhuxs@ltop.local>
+References: <09d824ac-5371-830e-466d-7f78ccdae065@codethink.co.uk>
+ <CAHk-=wiYQ=F5H-uwQvj4eMS3xREmqE6tPuDVVLVML02xaThqVQ@mail.gmail.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAHk-=wiYQ=F5H-uwQvj4eMS3xREmqE6tPuDVVLVML02xaThqVQ@mail.gmail.com>
+User-Agent: NeoMutt/20180716
 Sender: linux-sparse-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-On Fri, Oct 18, 2019 at 4:15 AM Ben Dooks <ben.dooks@codethink.co.uk> wrote:
->
-> is this a valid warning? if not, should sparse be ignoring these.
+On Fri, Oct 18, 2019 at 08:31:48AM -0700, Linus Torvalds wrote:
+> On Fri, Oct 18, 2019 at 4:15 AM Ben Dooks <ben.dooks@codethink.co.uk> wrote:
+> >
+> > is this a valid warning? if not, should sparse be ignoring these.
+> 
+> It's technically valid, but maybe it's not useful.
+> 
+> If we make sure that any pure bits from a declaration always make it
+> into the definition, then I suspect that the "was not declared"
+> warning (if the definition is non-static and seen without a
+> declaration) is sufficient.
+> 
+> Of course, sparse doesn't actually _care_ about "pure" in the
+> definition, only in the use, so right now it doesn't even make any
+> difference to sparse whether the definition has the "pure" or not.
+> It's only when the function is used that the "pure" matters (it makes
+> the call instruction be CSE'd like any other random instruction).
 
-It's technically valid, but maybe it's not useful.
+Yes, for 'pure' it doesn't matter much but it's a problem anyway.
+For example with 'static':
 
-If we make sure that any pure bits from a declaration always make it
-into the definition, then I suspect that the "was not declared"
-warning (if the definition is non-static and seen without a
-declaration) is sufficient.
+$ cat file.c
+static void foo(void);
+void foo(void) { }
 
-Of course, sparse doesn't actually _care_ about "pure" in the
-definition, only in the use, so right now it doesn't even make any
-difference to sparse whether the definition has the "pure" or not.
-It's only when the function is used that the "pure" matters (it makes
-the call instruction be CSE'd like any other random instruction).
+$ sparse file.c
+file.c:2:6: warning: symbol 'foo' was not declared. Should it be static?
 
-               Linus
+Which is kinda absurd: foo() was declared and was even declared static.
+But the definition is a different symbol than its declaration (OK) which
+doesn't 'inherit' the declaration's specifier/modifier/attributes.
+It's on my to-be-fixed list for a long time but ..
+
+-- Luc
