@@ -2,56 +2,56 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id DEBBBDDF96
-	for <lists+linux-sparse@lfdr.de>; Sun, 20 Oct 2019 18:55:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id D0421DE02A
+	for <lists+linux-sparse@lfdr.de>; Sun, 20 Oct 2019 21:12:51 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726556AbfJTQzR (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Sun, 20 Oct 2019 12:55:17 -0400
-Received: from mail-wm1-f67.google.com ([209.85.128.67]:39291 "EHLO
+        id S1726687AbfJTTMv (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Sun, 20 Oct 2019 15:12:51 -0400
+Received: from mail-wm1-f67.google.com ([209.85.128.67]:39385 "EHLO
         mail-wm1-f67.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726504AbfJTQzQ (ORCPT
+        with ESMTP id S1726251AbfJTTMv (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Sun, 20 Oct 2019 12:55:16 -0400
-Received: by mail-wm1-f67.google.com with SMTP id r141so838601wme.4
-        for <linux-sparse@vger.kernel.org>; Sun, 20 Oct 2019 09:55:15 -0700 (PDT)
+        Sun, 20 Oct 2019 15:12:51 -0400
+Received: by mail-wm1-f67.google.com with SMTP id r141so1024702wme.4
+        for <linux-sparse@vger.kernel.org>; Sun, 20 Oct 2019 12:12:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=date:from:to:cc:subject:message-id:references:mime-version
          :content-disposition:in-reply-to:user-agent;
-        bh=HBIid/gVpJuBstLGziOZmaR4SGo7uAmwewhF6RfqgCM=;
-        b=JBnam3I5p1X4g6VpGL7rRLPS9d3TkkGQig6ikL3yzk+DqrjAohtrhjOM8SE7R031kS
-         bDa5VO/hDuWpJpofVXe9xyWarGKnD0/oGwTi2zu/dkyM1Vf1gl2tyShgeCs2PSfera6t
-         i9LXGABg5usEov49RAVyxqgfW1/cCuTyK3X1DqHOEUiIbdi4nH1m8f8YdH7FylP2cF81
-         2UbLRKnlDNmk8buE7U3FbOmH3LCqv5+D4U9ayFU8RCiyM47/Rsxy7sejj/uPU9KmX6Qz
-         7crsybnGDgY6W62+i2xUVhlVuPKAoH/GnUGlQl72GixHFYw9UzIh69yqQG48GkKFExS+
-         Q24A==
+        bh=E7hz2FQ1Vt/CdLyxp2n/cNpW4sT0pzREg6jkxoXGMaY=;
+        b=mNt9tYd/aJiuYCtRtVApcDFsEwiRsQUqZLLa7z2KON5y9rTH9WOH/iLDUN1elg0byw
+         80YnUY3RF0CnnN2BsYPCGaKtxrtTiVFFBzxGFXzvAJFm2V9e/NqKIq1XLmnZR6sJ/inw
+         LHxoLYqSX+mUa4iC+f3mqJzN/XWQX62/SvtEeQ621Hk6jx/xKuS5aq7F2BzdsAe5Ww8p
+         N/x08ebV46sLqpVWjBrYyArDhhN5e2zLOYE2UqOLNoUvEjTNuPXFO7TbDzpbYazZlBTE
+         Tekbrx2a95wIP/BkEP8VJ5b1b/mk0YGF8vxJCGILS/hyjLkeV2K34DyG44FhMTV0fIlw
+         W0cw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:date:from:to:cc:subject:message-id:references
          :mime-version:content-disposition:in-reply-to:user-agent;
-        bh=HBIid/gVpJuBstLGziOZmaR4SGo7uAmwewhF6RfqgCM=;
-        b=KLnzGpOcd3Qs69r2hKlrdJNJmn7pDcIuMdHOh9F7Dat9FG5zVywQONfmgqCEbYGFp/
-         fySwkQRdsi+qv5zjfLuhnKkYlkB57FsdeILX8jul++Dw4ImHpG3hj3cTxeNRXLcwsxzO
-         tyMz9Fs3Vy8pPixaFtMIsr9sa+6B5eTP81zydKZHBYfKS8R6Um2PiFFQlSzFV31jaxA3
-         kPsvCqbAvx4n/MhURXC4lbd3aM/5KXAnd40f5NdsgGvhTxKtMqUF1OcMPjCtcFN5dKl7
-         GvEiFEkctAM2tY3UwG8T5V+mZoTFbfwAc6Ju5SpnEHkAtbWrhTizv1bQnNsYf0KQWr4u
-         xAsQ==
-X-Gm-Message-State: APjAAAWkl2LfuOImiZfek2BHmkwgI27+/Yt6e+/efg/aGr16hhIutejB
-        zdtbxMctGAwjyN5UbEeedF0SZXH3
-X-Google-Smtp-Source: APXvYqz5Hpk8Cyj5L+Zbt9aQRrA+UMDjIkeXmMtlZ/tbhLDgxFbhGb9V8J2foVYNfaTgo9QQHmaWig==
-X-Received: by 2002:a1c:6386:: with SMTP id x128mr10862242wmb.41.1571590514668;
-        Sun, 20 Oct 2019 09:55:14 -0700 (PDT)
+        bh=E7hz2FQ1Vt/CdLyxp2n/cNpW4sT0pzREg6jkxoXGMaY=;
+        b=k0N/WRDgegXrsoeH6J/TpRYSi+WZqfReM2hkTFIoEPwLqfMNQd1t7TMis0n+DwNwtG
+         dQqEL3kbJaYMXIHTpii8KBWAq0s29JebxQtmwEA1Uf/fx8QsGtC/JY6TL+pYcC+fMjmo
+         59/P7cZz1LjnbKgb+36vN1auUu21x1Z195CtoT3XZoNcHg96TBdOdQ5h5u7LGTkgYEbi
+         pHktksP65gzMj6mIFvGYQYWUa2YA4/Q37f7/0ZJKOu9DrlytOCZOy26R2IcAs6bCHEdx
+         bDYXWVIfMG2WWtiA86/81RtSZVCTSE44D/1R+1ujcc+s1k8hO2plKR8j89IfdhAy2113
+         bNOg==
+X-Gm-Message-State: APjAAAVRhlQjQKQsmUolxwOz6i3SOf7xve/zrjexMH+8JpkBFI7JM4y3
+        zaiOfLTt3OT6gFg/X4dg/r0wozdE
+X-Google-Smtp-Source: APXvYqxUQySs5NeyldS0e++0VgReHYob5wUMpsSxdX1XchavmCQ8ZvO4u7V0w8LF2oVv1WWkhpIG8g==
+X-Received: by 2002:a7b:cf12:: with SMTP id l18mr16475318wmg.105.1571598768908;
+        Sun, 20 Oct 2019 12:12:48 -0700 (PDT)
 Received: from desk.local ([2a02:a03f:40ac:ce00:90a6:dd03:1e7:4457])
-        by smtp.gmail.com with ESMTPSA id w17sm11175369wmi.30.2019.10.20.09.55.13
+        by smtp.gmail.com with ESMTPSA id w15sm2342809wro.65.2019.10.20.12.12.47
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 20 Oct 2019 09:55:14 -0700 (PDT)
-Date:   Sun, 20 Oct 2019 18:55:13 +0200
+        Sun, 20 Oct 2019 12:12:47 -0700 (PDT)
+Date:   Sun, 20 Oct 2019 21:12:46 +0200
 From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 To:     Ben Dooks <ben.dooks@codethink.co.uk>
 Cc:     linux-sparse@vger.kernel.org
 Subject: Re: [PATCH 3/5] evaluate: check variadic argument types against
  formatting info
-Message-ID: <20191020165512.glldp4pyxbjnk5ne@desk.local>
+Message-ID: <20191020191246.p65zl3dr557vkt3y@desk.local>
 References: <20190925100015.31510-1-ben.dooks@codethink.co.uk>
  <20190925100015.31510-4-ben.dooks@codethink.co.uk>
 MIME-Version: 1.0
@@ -65,58 +65,24 @@ List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
 On Wed, Sep 25, 2019 at 11:00:13AM +0100, Ben Dooks wrote:
-> +		if (*ptr == 'x' || *ptr == 'X' || *ptr == 'u' || *ptr == 'o') {
-> +			ptr++;
-> +			type->test = printf_fmt_numtype;
-> +			switch (szmod) {
-> +			case -1:
-> +				type->data = &ushort_ctype;
-> +				break;
-> +			case 0:
-> +				type->data = &uint_ctype;
-> +				break;
-> +			case 1:
-> +				type->data = &ulong_ctype;
-> +				break;
-> +			case 2:
-> +				type->data = &ullong_ctype;
-> +				break;
-> +			default:
-> +				type->test = NULL;
-> +			}
-> +		} else if (*ptr == 'i' || *ptr == 'd') {
-> +			ptr++;
-> +			type->test = printf_fmt_numtype;
-> +			switch (szmod) {
-> +			case -1:
-> +				type->data = &short_ctype;
-> +				break;
-> +			case 0:
-> +				type->data = &int_ctype;
-> +				break;
-> +			case 1:
-> +				type->data = &long_ctype;
-> +				break;
-> +			case 2:
-> +				type->data = &llong_ctype;
-> +				break;
-> +			default:
-> +				type->test = NULL;
-> +			}
+> +static int printf_fmt_numtype(struct format_type *fmt, struct expression **expr, struct symbol *ctype, struct symbol **target, const char **typediff)
+> +{
+> +	struct symbol *type = fmt->data;
+> +	*target = type;
+> +	return ctype == type;
 
-When testing this on the kernel, I've a bunch of
-	warning: incorrect type in argument . (different types)
+Comparing these pointer will never be the correct way to compare the
+types. You have to use something like check_assignment_types().
+Currently, a simple test like:
+	void print(const char *, ...) __attribute__((format(printf, 1, 2)));
+	static void foo(unsigned int u)
+	{
+		print("%x\n", u);
+	}
+
+gives a warning like:
+	warning: incorrect type in argument 2 (different types)
 	   expected unsigned int
-	   got int
-This will quickly be quite annoying.
-
-I've also a bunch of:
-	warning: incorrect type in argument . (different types)
-	   expected int
-	   got int
-but I can't investigate more for now.
-
-Putting this aside, the series seesm to already been pretty good.
-Congrats!
+	   got unsigned int u
 
 -- Luc
