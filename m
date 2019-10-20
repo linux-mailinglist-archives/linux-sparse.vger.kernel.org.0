@@ -2,56 +2,56 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 5EC06DDF8A
-	for <lists+linux-sparse@lfdr.de>; Sun, 20 Oct 2019 18:40:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id DEBBBDDF96
+	for <lists+linux-sparse@lfdr.de>; Sun, 20 Oct 2019 18:55:17 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726504AbfJTQku (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Sun, 20 Oct 2019 12:40:50 -0400
-Received: from mail-wm1-f65.google.com ([209.85.128.65]:35038 "EHLO
-        mail-wm1-f65.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726485AbfJTQku (ORCPT
+        id S1726556AbfJTQzR (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Sun, 20 Oct 2019 12:55:17 -0400
+Received: from mail-wm1-f67.google.com ([209.85.128.67]:39291 "EHLO
+        mail-wm1-f67.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1726504AbfJTQzQ (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Sun, 20 Oct 2019 12:40:50 -0400
-Received: by mail-wm1-f65.google.com with SMTP id 14so3755923wmu.0
-        for <linux-sparse@vger.kernel.org>; Sun, 20 Oct 2019 09:40:49 -0700 (PDT)
+        Sun, 20 Oct 2019 12:55:16 -0400
+Received: by mail-wm1-f67.google.com with SMTP id r141so838601wme.4
+        for <linux-sparse@vger.kernel.org>; Sun, 20 Oct 2019 09:55:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=date:from:to:cc:subject:message-id:references:mime-version
          :content-disposition:in-reply-to:user-agent;
-        bh=g+ZhpRC9GJpeZTZOGpxeuoCQ++prrwUYwmAw5CQwwQs=;
-        b=W8EfQzONpQEOB/ZSzyxnDqBl3i4KNomZZBS7kgFnWL7IRI6XZPtqLgwCgFTno9HXSV
-         awdwhAgzbhpfQF/NYRLvpOA4rSILN3ff5PWU5U1l0FjXPa7iKjD7Opc86LTgZYnBiePe
-         yAMgm93SkGzZr//l8Hvs6GCNTfygrDFaVUXg1kc2zup8SavArRY1togxHzAtobvM88LB
-         xlrsWVh6yKU2N13GjnttinWyLmQ6pwPk2llnJDne5nazNDvztp/EZKUxGl20aSzBiqVC
-         43HR7Hzx2gaWyGFY+qYm4XSrbV9rPHrddWOTdDbOvKZKjrxHvIO93PPamXtwAuu//T8g
-         YA3Q==
+        bh=HBIid/gVpJuBstLGziOZmaR4SGo7uAmwewhF6RfqgCM=;
+        b=JBnam3I5p1X4g6VpGL7rRLPS9d3TkkGQig6ikL3yzk+DqrjAohtrhjOM8SE7R031kS
+         bDa5VO/hDuWpJpofVXe9xyWarGKnD0/oGwTi2zu/dkyM1Vf1gl2tyShgeCs2PSfera6t
+         i9LXGABg5usEov49RAVyxqgfW1/cCuTyK3X1DqHOEUiIbdi4nH1m8f8YdH7FylP2cF81
+         2UbLRKnlDNmk8buE7U3FbOmH3LCqv5+D4U9ayFU8RCiyM47/Rsxy7sejj/uPU9KmX6Qz
+         7crsybnGDgY6W62+i2xUVhlVuPKAoH/GnUGlQl72GixHFYw9UzIh69yqQG48GkKFExS+
+         Q24A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:date:from:to:cc:subject:message-id:references
          :mime-version:content-disposition:in-reply-to:user-agent;
-        bh=g+ZhpRC9GJpeZTZOGpxeuoCQ++prrwUYwmAw5CQwwQs=;
-        b=aiiHt0fUbYCoWN1xVjmetTfent+JW0kzZnJJnw0iqo1l334k1IGbV+xodw0uu5Ie7Q
-         j5Xr/+Xwxs3+Ab9yi39fI5CaLTo1JaDS1oEesQ/f3UA3QlNljqh7Mqm80z26tUM6RbtG
-         dU+hO/cclpFrb034VXqG0y29YeA8wgZaQZPU/wfffGPnbBqLeqYsFQfphNjP21ofTmvf
-         PsJ8c9dKdAIBfrFQ4eUmkodqn2z4+7/saUHfHaOL2Lw6ELoLfxbDFyGjvvPKUY/mTCK2
-         uPI2WAt11NdrqoKlV8y05CLj1+Pgne4j6SKFpNEG02vOc2ACwEOYFy53SP59jfymdbmw
-         IxVg==
-X-Gm-Message-State: APjAAAXDVQXnFGO1KJoSf3eKwJFiSP5ulUtWg5PonXziad5RlK8IxvtZ
-        vvV3HpAMlXeueUFxNwmMUom5h4k/
-X-Google-Smtp-Source: APXvYqwgW6vOM+LXVsfiq+s5lnsrIpRfxgqRJlxv6nRQDvxR9ppeJnML82WpB/asgaOpl5qKHzLTvA==
-X-Received: by 2002:a1c:208e:: with SMTP id g136mr10798867wmg.107.1571589648660;
-        Sun, 20 Oct 2019 09:40:48 -0700 (PDT)
+        bh=HBIid/gVpJuBstLGziOZmaR4SGo7uAmwewhF6RfqgCM=;
+        b=KLnzGpOcd3Qs69r2hKlrdJNJmn7pDcIuMdHOh9F7Dat9FG5zVywQONfmgqCEbYGFp/
+         fySwkQRdsi+qv5zjfLuhnKkYlkB57FsdeILX8jul++Dw4ImHpG3hj3cTxeNRXLcwsxzO
+         tyMz9Fs3Vy8pPixaFtMIsr9sa+6B5eTP81zydKZHBYfKS8R6Um2PiFFQlSzFV31jaxA3
+         kPsvCqbAvx4n/MhURXC4lbd3aM/5KXAnd40f5NdsgGvhTxKtMqUF1OcMPjCtcFN5dKl7
+         GvEiFEkctAM2tY3UwG8T5V+mZoTFbfwAc6Ju5SpnEHkAtbWrhTizv1bQnNsYf0KQWr4u
+         xAsQ==
+X-Gm-Message-State: APjAAAWkl2LfuOImiZfek2BHmkwgI27+/Yt6e+/efg/aGr16hhIutejB
+        zdtbxMctGAwjyN5UbEeedF0SZXH3
+X-Google-Smtp-Source: APXvYqz5Hpk8Cyj5L+Zbt9aQRrA+UMDjIkeXmMtlZ/tbhLDgxFbhGb9V8J2foVYNfaTgo9QQHmaWig==
+X-Received: by 2002:a1c:6386:: with SMTP id x128mr10862242wmb.41.1571590514668;
+        Sun, 20 Oct 2019 09:55:14 -0700 (PDT)
 Received: from desk.local ([2a02:a03f:40ac:ce00:90a6:dd03:1e7:4457])
-        by smtp.gmail.com with ESMTPSA id l7sm2654949wro.17.2019.10.20.09.40.47
+        by smtp.gmail.com with ESMTPSA id w17sm11175369wmi.30.2019.10.20.09.55.13
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 20 Oct 2019 09:40:47 -0700 (PDT)
-Date:   Sun, 20 Oct 2019 18:40:46 +0200
+        Sun, 20 Oct 2019 09:55:14 -0700 (PDT)
+Date:   Sun, 20 Oct 2019 18:55:13 +0200
 From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 To:     Ben Dooks <ben.dooks@codethink.co.uk>
 Cc:     linux-sparse@vger.kernel.org
 Subject: Re: [PATCH 3/5] evaluate: check variadic argument types against
  formatting info
-Message-ID: <20191020164046.klhcn7uz2sr6syhy@desk.local>
+Message-ID: <20191020165512.glldp4pyxbjnk5ne@desk.local>
 References: <20190925100015.31510-1-ben.dooks@codethink.co.uk>
  <20190925100015.31510-4-ben.dooks@codethink.co.uk>
 MIME-Version: 1.0
@@ -65,24 +65,58 @@ List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
 On Wed, Sep 25, 2019 at 11:00:13AM +0100, Ben Dooks wrote:
-> +static int printf_fmt_string(struct format_type *fmt, struct expression **expr, struct symbol *ctype, struct symbol **target, const char **typediff)
-> +{
-> +	*target = &string_ctype;
+> +		if (*ptr == 'x' || *ptr == 'X' || *ptr == 'u' || *ptr == 'o') {
+> +			ptr++;
+> +			type->test = printf_fmt_numtype;
+> +			switch (szmod) {
+> +			case -1:
+> +				type->data = &ushort_ctype;
+> +				break;
+> +			case 0:
+> +				type->data = &uint_ctype;
+> +				break;
+> +			case 1:
+> +				type->data = &ulong_ctype;
+> +				break;
+> +			case 2:
+> +				type->data = &ullong_ctype;
+> +				break;
+> +			default:
+> +				type->test = NULL;
+> +			}
+> +		} else if (*ptr == 'i' || *ptr == 'd') {
+> +			ptr++;
+> +			type->test = printf_fmt_numtype;
+> +			switch (szmod) {
+> +			case -1:
+> +				type->data = &short_ctype;
+> +				break;
+> +			case 0:
+> +				type->data = &int_ctype;
+> +				break;
+> +			case 1:
+> +				type->data = &long_ctype;
+> +				break;
+> +			case 2:
+> +				type->data = &llong_ctype;
+> +				break;
+> +			default:
+> +				type->test = NULL;
+> +			}
 
-This should be const_string_ctype and a test should be added for "%s"
-with a non-const char pointer/array.
+When testing this on the kernel, I've a bunch of
+	warning: incorrect type in argument . (different types)
+	   expected unsigned int
+	   got int
+This will quickly be quite annoying.
 
-> +static int printf_fmt_pointer(struct format_type *fmt, struct expression **expr, struct symbol *ctype, struct symbol **target, const char **typediff)
-> +{
-> +	*target = &ptr_ctype;
+I've also a bunch of:
+	warning: incorrect type in argument . (different types)
+	   expected int
+	   got int
+but I can't investigate more for now.
 
-Same here with const_ptr_ctype (but I've not tested it).
-
-> +static int printf_fmt_print_pointer(struct format_type *fmt, struct expression **expr, struct symbol *ctype, struct symbol **target, const char **typediff)
-> +{
-> +	int ret;
-> +	*target = &ptr_ctype;
-
-Same here.
+Putting this aside, the series seesm to already been pretty good.
+Congrats!
 
 -- Luc
