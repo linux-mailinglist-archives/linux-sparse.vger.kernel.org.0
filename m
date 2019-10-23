@@ -2,35 +2,33 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 2C54BE1FA3
-	for <lists+linux-sparse@lfdr.de>; Wed, 23 Oct 2019 17:42:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 67A8AE2097
+	for <lists+linux-sparse@lfdr.de>; Wed, 23 Oct 2019 18:28:24 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S2406861AbfJWPlM (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Wed, 23 Oct 2019 11:41:12 -0400
-Received: from imap1.codethink.co.uk ([176.9.8.82]:35568 "EHLO
+        id S2404960AbfJWQ2X (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Wed, 23 Oct 2019 12:28:23 -0400
+Received: from imap1.codethink.co.uk ([176.9.8.82]:36937 "EHLO
         imap1.codethink.co.uk" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S2406593AbfJWPlM (ORCPT
+        with ESMTP id S1733066AbfJWQ2X (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Wed, 23 Oct 2019 11:41:12 -0400
+        Wed, 23 Oct 2019 12:28:23 -0400
 Received: from [167.98.27.226] (helo=[10.35.5.173])
         by imap1.codethink.co.uk with esmtpsa (Exim 4.84_2 #1 (Debian))
-        id 1iNIl4-00035Q-My; Wed, 23 Oct 2019 16:41:10 +0100
-Subject: Re: [PATCH 3/5] evaluate: check variadic argument types against
- formatting info
+        id 1iNJUj-0004Ic-62; Wed, 23 Oct 2019 17:28:21 +0100
+Subject: Re: [PATCH 2/5] parse: initial parsing of __attribute__((format))
 To:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 Cc:     linux-sparse@vger.kernel.org
 References: <20190925100015.31510-1-ben.dooks@codethink.co.uk>
- <20190925100015.31510-4-ben.dooks@codethink.co.uk>
- <20191020220129.pr4edy5t64rizqyw@ltop.local>
- <20191021114737.pnpgdx3taiwn2ovy@ltop.local>
+ <20190925100015.31510-3-ben.dooks@codethink.co.uk>
+ <20191020145714.uai45bjrrkih2ars@desk.local>
 From:   Ben Dooks <ben.dooks@codethink.co.uk>
 Organization: Codethink Limited.
-Message-ID: <ba739518-0ed6-6a08-c334-87a512bf6b75@codethink.co.uk>
-Date:   Wed, 23 Oct 2019 16:41:10 +0100
+Message-ID: <9b512ff3-1605-ebb0-1c95-1ccc04aeac9b@codethink.co.uk>
+Date:   Wed, 23 Oct 2019 17:28:19 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
  Thunderbird/60.9.0
 MIME-Version: 1.0
-In-Reply-To: <20191021114737.pnpgdx3taiwn2ovy@ltop.local>
+In-Reply-To: <20191020145714.uai45bjrrkih2ars@desk.local>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-GB
 Content-Transfer-Encoding: 7bit
@@ -39,51 +37,94 @@ Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-On 21/10/2019 12:47, Luc Van Oostenryck wrote:
-> On Mon, Oct 21, 2019 at 12:01:30AM +0200, Luc Van Oostenryck wrote:
->> On Wed, Sep 25, 2019 at 11:00:13AM +0100, Ben Dooks wrote:
->>> +static void evaluate_format_printf(const char *fmt_string, struct symbol *fn, struct expression_list *head)
->>> +{
->>> +	struct format_state state = { };
->>> +	struct expression *expr;
->>> +
->>> +	expr = get_expression_n(head, fn->ctype.printf_msg-1);
->>> +	if (!expr)
->>> +		return;
->>> +
->>> +	state.expr = expr;
->>> +	state.va_start = fn->ctype.printf_va_start;
->>> +	state.arg_index = fn->ctype.printf_va_start;
->>> +
->>> +	if (!fmt_string) {
->>> +		warning(expr->pos, "not a format string?");
->>> +	} else {
->>> +		const char *string = fmt_string;
->>> +		int fail = 0;
->>> +
->>> +		for (; string[0] != '\0'; string++) {
->>> +			if (string[0] != '%')
->>> +				continue;
->>> +			if (parse_format_printf(&string, &state, head) < 0)
->>> +				fail++;
->>> +			string--;
->>
->> This last statement is wrong, it just needs to be removed.
+On 20/10/2019 15:57, Luc Van Oostenryck wrote:
+> On Wed, Sep 25, 2019 at 11:00:12AM +0100, Ben Dooks wrote:
+>> diff --git a/parse.c b/parse.c
+>> index f291e24..583a82c 100644
+>> --- a/parse.c
+>> +++ b/parse.c
+>> @@ -87,7 +87,7 @@ static attr_t
+>>   	attribute_address_space, attribute_context,
+>>   	attribute_designated_init,
+>>   	attribute_transparent_union, ignore_attribute,
+>> -	attribute_mode, attribute_force;
+>> +	attribute_mode, attribute_force, attribute_format;
 > 
-> It's more subtle than that: the string++ should only be done
-> when stripping the chars before the '%'.
-> Thus the loop should be something like:
-> 		while (string[0]) {
-> 			if (string[0] != '%') {
-> 				// strip everything before '%'
-> 				string++;
-> 				continue;
-> 			}
-> 			if (parse_format_printf(&string, &state, head) < 0)
-> 				fail++;
-> 		}
+> I prefer that you simply insert for the attribute without touvhing the
+> others one:
+> 	+ invalid_printf_format_args,
+> 
+>>   typedef struct symbol *to_mode_t(struct symbol *);
+>>   
+>> @@ -136,6 +136,11 @@ static void asm_modifier_inline(struct token *token, unsigned long *mods)
+>>   	asm_modifier(token, mods, MOD_INLINE);
+>>   }
+>>   
+>> +/* the types of printf style formatting from __attribute__((format)) */
+>> +enum {
+>> +	FmtPrintf = 0, FmtScanf,
+>> +};
+> 
+> Please change this to:
+> 	FORMAT_PRINTF,
+> 	FORMAT_SCANF,
+> 
+>> @@ -1172,6 +1195,59 @@ static struct token *attribute_address_space(struct token *token, struct symbol
+>>   	return token;
+>>   }
+>>   
+>> +static int invalid_printf_format_args(long long start, long long at)
+>> +{
+>> +	return start < 0 || at < 0 || (start == at && start > 0) ||
+>> +		(start == 0 && at == 0);
+>> +}
+> 
+> The name suggest it is only used for printf format but the code below
+> uses it for all formats, please rename it.
+> I would prefer to have the reverse logics, check if the format is valid
+> and to have a simpler check, something like:
+> 	static bool validate_attribute_format(...)
+> 	{
+> 		return (start > 1) && ((at > start) || at == 0);
+> 	}
+> but since more validations are done after, I think it's best to simply
+> not use this helper and directly doing the checks and emitting the
+> approriate warning messages when needed ("index smaller than 1", ...).
+> 
+>> +static struct token *attribute_format(struct token *token, struct symbol *attr, struct decl_state *ctx)
+>> +{
+> ...
+> 
+>> +			ctx->ctype.printf_va_start = start;
+>> +			ctx->ctype.printf_msg = at;
+> 
+> GCC's manpage call them 'string-index' & 'first-to-check'. Best to keep things
+> coherent and use the same names everywhere, for example 'index' & first' ?
 
-ok, will make this change and test.
+ok.
+
+>> diff --git a/symbol.h b/symbol.h
+>> index ac43b31..7bb6f29 100644
+>> --- a/symbol.h
+>> +++ b/symbol.h
+>> @@ -103,6 +104,7 @@ struct ctype {
+>>   	struct context_list *contexts;
+>>   	struct ident *as;
+>>   	struct symbol *base_type;
+>> +	unsigned short printf_va_start, printf_msg;
+> 
+> What about something like:
+> +	struct {
+> +		unsigned short index;
+> +		unsigned short first;
+> +	} format;
+
+ok, done.
+
+> Also the validation should check that these are not bigger than
+> USHORT_MAX.
+
+ok, will do.
 
 
 -- 
