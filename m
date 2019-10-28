@@ -2,95 +2,134 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 4AA00E7C82
-	for <lists+linux-sparse@lfdr.de>; Mon, 28 Oct 2019 23:49:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id A571FE7CA9
+	for <lists+linux-sparse@lfdr.de>; Tue, 29 Oct 2019 00:03:54 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1729767AbfJ1WtT (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Mon, 28 Oct 2019 18:49:19 -0400
-Received: from mail-wr1-f49.google.com ([209.85.221.49]:38416 "EHLO
-        mail-wr1-f49.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1725867AbfJ1WtT (ORCPT
+        id S1730743AbfJ1XDy (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Mon, 28 Oct 2019 19:03:54 -0400
+Received: from mail-wm1-f67.google.com ([209.85.128.67]:52654 "EHLO
+        mail-wm1-f67.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1729692AbfJ1XDy (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Mon, 28 Oct 2019 18:49:19 -0400
-Received: by mail-wr1-f49.google.com with SMTP id v9so11592944wrq.5;
-        Mon, 28 Oct 2019 15:49:17 -0700 (PDT)
+        Mon, 28 Oct 2019 19:03:54 -0400
+Received: by mail-wm1-f67.google.com with SMTP id p21so656419wmg.2;
+        Mon, 28 Oct 2019 16:03:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=date:from:to:cc:subject:message-id:references:mime-version
          :content-disposition:in-reply-to:user-agent;
-        bh=A2jEsBOs5Fgq1k1SUjS53cvLXGYRrdoo13cMo5AIHyk=;
-        b=i/IpsRc5S8qtvd4Hd2Jajl2muQJLkQ9Z8YMjvk6JZSa68F2SqLABksVza3TMROQk1l
-         /4QBiNY1iKt19N2BdTTsYSNeafJcDTRO2E4QtC+5aruM0hW4mtc5ftJT2S5L8GFlPVO6
-         YKMW91bU1FKH8m7wjlo0qMRlZEa5yscXWnOT5TtkxhV6uvyZw6int+SGf31E8CCgtgK/
-         +PnCW1FPhrNJnrlSQzaig+42FGFhZKigWWA1U5aJGoTzmzNKFNpQRyc3dJn4Eh6uVJle
-         kVA2eUWPyplVvIfzyavyLQm4lpmFVVkZvdSAmIfbVaktYI6/5+jFr0jbVFruWSb1RxEh
-         +Lzw==
+        bh=6kOh9lI6YWchLWC+l1b8QT9L947fcvZOAFfSe858fBU=;
+        b=qGUuw+M4JqKVUXl04qUvKcdPECeB8d1xsX6pthiAeWmiu0awZf0ZHOn0LnqLAHqflx
+         T7fjj1NjVbBBi1BfufVzE/0m/IeVOZaOmMnarD5gYLGm4MLbjHI5nDWYWu+jYF/UaX7I
+         YaUx2bk8uhI1ULCgamNeJw87EmeoA6T01mh3WI7MTOMe6bdVR+WuwCNDPnh7n6701H5X
+         hZ6xbUKgzb4JVXdcQ1jxlGIEKMCwgiJH3e9Ii1i4ME6wVlQ2AEqVUprQIcDBqsk2tgE2
+         QytMHotDaAjBcDOmkxGwJdEQTXy4HF+GypoHZZo6df7z6mD+JY/rrtTD9dOb5f8PnYuF
+         QVvg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:date:from:to:cc:subject:message-id:references
          :mime-version:content-disposition:in-reply-to:user-agent;
-        bh=A2jEsBOs5Fgq1k1SUjS53cvLXGYRrdoo13cMo5AIHyk=;
-        b=DOrr8kb/MjohnRRbaqHcEszxolytGIe8Dgei8oQL1LUrA3Nff//Mxuf5qNwQxA0nBS
-         xWxojUwDCOKhrHjhWThGDZTEr/kfdW8XkZGc/5YTIk5nWlSq0gyMC6zurDNAwoabSCXC
-         U3l27oaFPvOs65VVKUg8CcEx7mvB9JTDFQ4NQTSFEhbfFJyXYrBHPyj/xaA21wELXaz+
-         QMIa1AsxYTtH20yqWcBcPQ+12sCEP8ZnKHJZKXEl+ISnczRuO9PPgwD1K1rpFQ/9UAJk
-         0+rqcdSAS847FnL6IxOra+VK9IsNCRrf1HaOWO7BWSLspaj4yPeekfr6KS0J8kUw/o/x
-         ZxTA==
-X-Gm-Message-State: APjAAAUld68BVZGsIO9kwDqZGaTytTsHKb6Y7shLIUpugWCzg05ViHpe
-        x3Ky8nPzqOFpaLpa5JTXKaIA5eXI
-X-Google-Smtp-Source: APXvYqxkisLhWG9uNXHLiB27lzGZOriN/QcZjrQazkEnS+bedp3Okzy6CzZwUI/6m/n3bBjwuOviOg==
-X-Received: by 2002:adf:f44e:: with SMTP id f14mr16228477wrp.56.1572302957156;
-        Mon, 28 Oct 2019 15:49:17 -0700 (PDT)
+        bh=6kOh9lI6YWchLWC+l1b8QT9L947fcvZOAFfSe858fBU=;
+        b=V1JVIZdD+9uf0jZYudfC0n4Ahxu2Dluu4VdcNc9ntm/hbD0y91ABZt00RxRML4zt0S
+         3U5q6Da0LqtqlJZfA6bRcWcOcM8ZZNVnTthXa57gshe5xzmaBBoxQ9Mt3VaXpduOZCBE
+         l4XYFM2V93fALXrMlL2Wtw30J+TGCbLTJRkrUsgEFKnn+HlV9/KytaOFQSXI28w2Q+3J
+         1UsvilhbmP5/Qs0itx/gCvwfssaE4lOXxTECQOGZWqftLo7jMbwmo4XFLe3gSQqxPiAX
+         TtcqMXZaHmV1z48oPezKgcP7yBd6p3QnYLY1PNpytM69F7W2saUqLhaIGtLcKKpruNI7
+         9ysA==
+X-Gm-Message-State: APjAAAVcMrbSoR3h+tprSRRmmnjALWTm2SdDrmie+2PKtOH+MBGV5fZk
+        YR9QmeqSEYvelpjqAZ7JbGw=
+X-Google-Smtp-Source: APXvYqy9JjpFZLPex5bjiSgGuPxUvDWHyonMNNuURSf9tE4joKsbDU/UXy0WjRz6J2/2J19GfmhEFA==
+X-Received: by 2002:a7b:ce0c:: with SMTP id m12mr1382807wmc.117.1572303831985;
+        Mon, 28 Oct 2019 16:03:51 -0700 (PDT)
 Received: from desk.local ([2a02:a03f:40ac:ce00:6dcd:e18f:2cd1:7611])
-        by smtp.gmail.com with ESMTPSA id u7sm14094078wre.59.2019.10.28.15.49.15
+        by smtp.gmail.com with ESMTPSA id l4sm14504010wrf.46.2019.10.28.16.03.51
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 28 Oct 2019 15:49:16 -0700 (PDT)
-Date:   Mon, 28 Oct 2019 23:49:15 +0100
+        Mon, 28 Oct 2019 16:03:51 -0700 (PDT)
+Date:   Tue, 29 Oct 2019 00:03:50 +0100
 From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-To:     Rasmus Villemoes <linux@rasmusvillemoes.dk>
-Cc:     Dan Carpenter <dan.carpenter@oracle.co>,
-        linux-sparse@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>
-Subject: Re: detecting misuse of of_get_property
-Message-ID: <20191028224914.enpqjkcvbxyeexnl@desk.local>
-References: <ec277c12-c608-6326-7723-be8cab4f524a@rasmusvillemoes.dk>
+To:     Joe Perches <joe@perches.com>
+Cc:     Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>,
+        linux-sparse@vger.kernel.org,
+        Andrew Morton <akpm@linux-foundation.org>,
+        linux-kernel <linux-kernel@vger.kernel.org>,
+        clang-built-linux <clang-built-linux@googlegroups.com>
+Subject: Re: [PATCH] compiler*.h: Add '__' prefix and suffix to all
+ __attribute__ #defines
+Message-ID: <20191028230349.xlhm42ripxktx43y@desk.local>
+References: <7a15bc8ad7437dc3a044a4f9cd283500bd0b5f36.camel@perches.com>
+ <CANiq72=B6XKwfkC9L4=+OxWtjxCp-94TWRG1a=pC=y636gzckA@mail.gmail.com>
+ <19fd23e98bab65a1ee624445193bd2ed86108881.camel@perches.com>
+ <20191028221523.vlzdk6dkcglxei6v@desk.local>
+ <00c5ef125a4e62f538de7ddddc9d8fe7085794a3.camel@perches.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <ec277c12-c608-6326-7723-be8cab4f524a@rasmusvillemoes.dk>
+In-Reply-To: <00c5ef125a4e62f538de7ddddc9d8fe7085794a3.camel@perches.com>
 User-Agent: NeoMutt/20180716
 Sender: linux-sparse-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-On Mon, Oct 28, 2019 at 08:32:42PM +0100, Rasmus Villemoes wrote:
-> Hi,
+On Mon, Oct 28, 2019 at 03:28:17PM -0700, Joe Perches wrote:
+> On Mon, 2019-10-28 at 23:15 +0100, Luc Van Oostenryck wrote:
+> > On Mon, Oct 28, 2019 at 10:59:47AM -0700, Joe Perches wrote:
+> > > On Mon, 2019-10-28 at 18:37 +0100, Miguel Ojeda wrote:
+> > > > Just in case: for these ones (i.e. __CHECKER__), did you check if
+> > > > sparse handles this syntax? (I don't recall myself if it does).
+> > > > 
+> > > > Other than that, thanks for the cleanup too! I can pick it up in the
+> > > > the compiler-attributes tree and put it in -next.
+> > > 
+> > > Thanks for asking and no, I did  not until just now.
+> > > Turns out sparse does _not_ handle these changes and
+> > > the checking fails for these __<changes>__.
+> > > 
+> > > sparse would have to update parse.c or the __CHECKER__
+> > > changes would need to be reverted.
+> > > 
+> > > Perhaps update parse.c like:
+> > 
+> > ...
+> > 
+> > Yes, this was missing. Thanks.
+> > Can I have your SoB for this?
 > 
-> I just spent some time trying to convert some so far PPC-only drivers to
-> be more generic. One of the things I had to do was convert stuff like
-> 
->   u32 *val = of_get_property(np, "bla", NULL);
->   do_stuff_with(*val);
-> 
-> with
-> 
->   of_property_read_u32(np, "bla", &val);
->   do_stuff_with(val);
-> 
-> (error checking omitted for simplicity). The problem is that
-> of_get_property() just returns void*. When the property is just a
-> string, there's no problem interpreting that as a char*. But when the
-> property is a number of array of numbers, I'd like some way to flag
-> casting it to u32* as an error - if you cast it to a (pointer to integer
-> type wider than char), it must be to a __be32*. Is there some way
-> sparse/smatch could help find such cases?
+> I'm not sure this actually works as there's
+> some possible sparse parsing changes in the
+> use of __context__.
 
-If I understand you correctly, you would need a kind of 'soft'
-bitwise pointer?
-I guess it shouldn't be too hard to add a new flag which would
-allow cast of bitwise pointers to pointers to char/void (see
-at end of evaluate.c:evaluate_cast()).
-
-Note: casts from bitwise pointer to void* are already allowed.
+Yes, indeed. The following shoud be squashed on top of
+your patch (not tested yet on linux side):
 
 -- Luc
+
+diff --git a/parse.c b/parse.c
+index 4464e2667..4b0a1566c 100644
+--- a/parse.c
++++ b/parse.c
+@@ -345,6 +345,7 @@ static struct symbol_op goto_op = {
+ 
+ static struct symbol_op __context___op = {
+ 	.statement = parse_context_statement,
++	.attribute = attribute_context,
+ };
+ 
+ static struct symbol_op range_op = {
+@@ -537,6 +538,7 @@ static struct init_keyword {
+ 	{ "while",	NS_KEYWORD, .op = &while_op },
+ 	{ "do",		NS_KEYWORD, .op = &do_op },
+ 	{ "goto",	NS_KEYWORD, .op = &goto_op },
++	{ "context",	NS_KEYWORD, .op = &context_op },
+ 	{ "__context__",NS_KEYWORD, .op = &__context___op },
+ 	{ "__range__",	NS_KEYWORD, .op = &range_op },
+ 	{ "asm",	NS_KEYWORD, .op = &asm_op },
+@@ -560,8 +562,6 @@ static struct init_keyword {
+ 	{ "__bitwise__",NS_KEYWORD,	MOD_BITWISE,	.op = &attr_bitwise_op },
+ 	{ "address_space",NS_KEYWORD,	.op = &address_space_op },
+ 	{ "__address_space__",NS_KEYWORD,	.op = &address_space_op },
+-	{ "context",	NS_KEYWORD,	.op = &context_op },
+-	{ "__context__",NS_KEYWORD,	.op = &context_op },
+ 	{ "designated_init",	NS_KEYWORD,	.op = &designated_init_op },
+ 	{ "__designated_init__",	NS_KEYWORD,	.op = &designated_init_op },
+ 	{ "transparent_union",	NS_KEYWORD,	.op = &transparent_union_op },
