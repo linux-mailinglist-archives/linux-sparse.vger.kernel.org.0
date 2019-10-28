@@ -2,120 +2,95 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 608F9E7C58
-	for <lists+linux-sparse@lfdr.de>; Mon, 28 Oct 2019 23:28:27 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 4AA00E7C82
+	for <lists+linux-sparse@lfdr.de>; Mon, 28 Oct 2019 23:49:20 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1728581AbfJ1W20 (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Mon, 28 Oct 2019 18:28:26 -0400
-Received: from smtprelay0225.hostedemail.com ([216.40.44.225]:44446 "EHLO
-        smtprelay.hostedemail.com" rhost-flags-OK-OK-OK-FAIL)
-        by vger.kernel.org with ESMTP id S1726510AbfJ1W20 (ORCPT
+        id S1729767AbfJ1WtT (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Mon, 28 Oct 2019 18:49:19 -0400
+Received: from mail-wr1-f49.google.com ([209.85.221.49]:38416 "EHLO
+        mail-wr1-f49.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1725867AbfJ1WtT (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Mon, 28 Oct 2019 18:28:26 -0400
-Received: from filter.hostedemail.com (clb03-v110.bra.tucows.net [216.40.38.60])
-        by smtprelay03.hostedemail.com (Postfix) with ESMTP id 914C78384360;
-        Mon, 28 Oct 2019 22:28:24 +0000 (UTC)
-X-Session-Marker: 6A6F6540706572636865732E636F6D
-X-Spam-Summary: 90,9,0,,d41d8cd98f00b204,joe@perches.com,:::::::::::,RULES_HIT:41:334:355:368:369:379:599:960:966:973:988:989:1260:1277:1311:1313:1314:1345:1359:1437:1515:1516:1518:1534:1543:1593:1594:1711:1730:1747:1777:1792:2196:2198:2199:2200:2393:2553:2559:2562:2828:2895:3138:3139:3140:3141:3142:3354:3622:3653:3865:3866:3867:3868:3870:3871:3872:3873:3874:4250:4321:4385:4605:5007:6119:6691:7875:7974:9040:10004:10400:10848:11026:11232:11658:11914:12043:12297:12438:12555:12663:12740:12760:12895:12986:13161:13229:13255:13439:14096:14097:14659:14721:21080:21325:21433:21451:21627:21740:21741:30054:30070:30089:30090:30091,0,RBL:47.151.135.224:@perches.com:.lbl8.mailshell.net-62.8.0.100 64.201.201.201,CacheIP:none,Bayesian:0.5,0.5,0.5,Netcheck:none,DomainCache:0,MSF:not bulk,SPF:fn,MSBL:0,DNSBL:neutral,Custom_rules:0:0:0,LFtime:25,LUA_SUMMARY:none
-X-HE-Tag: crown52_665b347525d29
-X-Filterd-Recvd-Size: 4204
-Received: from XPS-9350.home (unknown [47.151.135.224])
-        (Authenticated sender: joe@perches.com)
-        by omf11.hostedemail.com (Postfix) with ESMTPA;
-        Mon, 28 Oct 2019 22:28:23 +0000 (UTC)
-Message-ID: <00c5ef125a4e62f538de7ddddc9d8fe7085794a3.camel@perches.com>
-Subject: Re: [PATCH] compiler*.h: Add '__' prefix and suffix to all
- __attribute__ #defines
-From:   Joe Perches <joe@perches.com>
-To:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-Cc:     Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>,
-        linux-sparse@vger.kernel.org,
-        Andrew Morton <akpm@linux-foundation.org>,
-        linux-kernel <linux-kernel@vger.kernel.org>,
-        clang-built-linux <clang-built-linux@googlegroups.com>
-Date:   Mon, 28 Oct 2019 15:28:17 -0700
-In-Reply-To: <20191028221523.vlzdk6dkcglxei6v@desk.local>
-References: <7a15bc8ad7437dc3a044a4f9cd283500bd0b5f36.camel@perches.com>
-         <CANiq72=B6XKwfkC9L4=+OxWtjxCp-94TWRG1a=pC=y636gzckA@mail.gmail.com>
-         <19fd23e98bab65a1ee624445193bd2ed86108881.camel@perches.com>
-         <20191028221523.vlzdk6dkcglxei6v@desk.local>
-Content-Type: text/plain; charset="ISO-8859-1"
-User-Agent: Evolution 3.34.1-2 
+        Mon, 28 Oct 2019 18:49:19 -0400
+Received: by mail-wr1-f49.google.com with SMTP id v9so11592944wrq.5;
+        Mon, 28 Oct 2019 15:49:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=date:from:to:cc:subject:message-id:references:mime-version
+         :content-disposition:in-reply-to:user-agent;
+        bh=A2jEsBOs5Fgq1k1SUjS53cvLXGYRrdoo13cMo5AIHyk=;
+        b=i/IpsRc5S8qtvd4Hd2Jajl2muQJLkQ9Z8YMjvk6JZSa68F2SqLABksVza3TMROQk1l
+         /4QBiNY1iKt19N2BdTTsYSNeafJcDTRO2E4QtC+5aruM0hW4mtc5ftJT2S5L8GFlPVO6
+         YKMW91bU1FKH8m7wjlo0qMRlZEa5yscXWnOT5TtkxhV6uvyZw6int+SGf31E8CCgtgK/
+         +PnCW1FPhrNJnrlSQzaig+42FGFhZKigWWA1U5aJGoTzmzNKFNpQRyc3dJn4Eh6uVJle
+         kVA2eUWPyplVvIfzyavyLQm4lpmFVVkZvdSAmIfbVaktYI6/5+jFr0jbVFruWSb1RxEh
+         +Lzw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+         :mime-version:content-disposition:in-reply-to:user-agent;
+        bh=A2jEsBOs5Fgq1k1SUjS53cvLXGYRrdoo13cMo5AIHyk=;
+        b=DOrr8kb/MjohnRRbaqHcEszxolytGIe8Dgei8oQL1LUrA3Nff//Mxuf5qNwQxA0nBS
+         xWxojUwDCOKhrHjhWThGDZTEr/kfdW8XkZGc/5YTIk5nWlSq0gyMC6zurDNAwoabSCXC
+         U3l27oaFPvOs65VVKUg8CcEx7mvB9JTDFQ4NQTSFEhbfFJyXYrBHPyj/xaA21wELXaz+
+         QMIa1AsxYTtH20yqWcBcPQ+12sCEP8ZnKHJZKXEl+ISnczRuO9PPgwD1K1rpFQ/9UAJk
+         0+rqcdSAS847FnL6IxOra+VK9IsNCRrf1HaOWO7BWSLspaj4yPeekfr6KS0J8kUw/o/x
+         ZxTA==
+X-Gm-Message-State: APjAAAUld68BVZGsIO9kwDqZGaTytTsHKb6Y7shLIUpugWCzg05ViHpe
+        x3Ky8nPzqOFpaLpa5JTXKaIA5eXI
+X-Google-Smtp-Source: APXvYqxkisLhWG9uNXHLiB27lzGZOriN/QcZjrQazkEnS+bedp3Okzy6CzZwUI/6m/n3bBjwuOviOg==
+X-Received: by 2002:adf:f44e:: with SMTP id f14mr16228477wrp.56.1572302957156;
+        Mon, 28 Oct 2019 15:49:17 -0700 (PDT)
+Received: from desk.local ([2a02:a03f:40ac:ce00:6dcd:e18f:2cd1:7611])
+        by smtp.gmail.com with ESMTPSA id u7sm14094078wre.59.2019.10.28.15.49.15
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 28 Oct 2019 15:49:16 -0700 (PDT)
+Date:   Mon, 28 Oct 2019 23:49:15 +0100
+From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
+To:     Rasmus Villemoes <linux@rasmusvillemoes.dk>
+Cc:     Dan Carpenter <dan.carpenter@oracle.co>,
+        linux-sparse@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>
+Subject: Re: detecting misuse of of_get_property
+Message-ID: <20191028224914.enpqjkcvbxyeexnl@desk.local>
+References: <ec277c12-c608-6326-7723-be8cab4f524a@rasmusvillemoes.dk>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <ec277c12-c608-6326-7723-be8cab4f524a@rasmusvillemoes.dk>
+User-Agent: NeoMutt/20180716
 Sender: linux-sparse-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-On Mon, 2019-10-28 at 23:15 +0100, Luc Van Oostenryck wrote:
-> On Mon, Oct 28, 2019 at 10:59:47AM -0700, Joe Perches wrote:
-> > On Mon, 2019-10-28 at 18:37 +0100, Miguel Ojeda wrote:
-> > > Just in case: for these ones (i.e. __CHECKER__), did you check if
-> > > sparse handles this syntax? (I don't recall myself if it does).
-> > > 
-> > > Other than that, thanks for the cleanup too! I can pick it up in the
-> > > the compiler-attributes tree and put it in -next.
-> > 
-> > Thanks for asking and no, I did  not until just now.
-> > Turns out sparse does _not_ handle these changes and
-> > the checking fails for these __<changes>__.
-> > 
-> > sparse would have to update parse.c or the __CHECKER__
-> > changes would need to be reverted.
-> > 
-> > Perhaps update parse.c like:
+On Mon, Oct 28, 2019 at 08:32:42PM +0100, Rasmus Villemoes wrote:
+> Hi,
 > 
-> ...
+> I just spent some time trying to convert some so far PPC-only drivers to
+> be more generic. One of the things I had to do was convert stuff like
 > 
-> Yes, this was missing. Thanks.
-> Can I have your SoB for this?
+>   u32 *val = of_get_property(np, "bla", NULL);
+>   do_stuff_with(*val);
+> 
+> with
+> 
+>   of_property_read_u32(np, "bla", &val);
+>   do_stuff_with(val);
+> 
+> (error checking omitted for simplicity). The problem is that
+> of_get_property() just returns void*. When the property is just a
+> string, there's no problem interpreting that as a char*. But when the
+> property is a number of array of numbers, I'd like some way to flag
+> casting it to u32* as an error - if you cast it to a (pointer to integer
+> type wider than char), it must be to a __be32*. Is there some way
+> sparse/smatch could help find such cases?
 
-I'm not sure this actually works as there's
-some possible sparse parsing changes in the
-use of __context__.
+If I understand you correctly, you would need a kind of 'soft'
+bitwise pointer?
+I guess it shouldn't be too hard to add a new flag which would
+allow cast of bitwise pointers to pointers to char/void (see
+at end of evaluate.c:evaluate_cast()).
 
-There is a difference in linux compilation of
-a defconfig output with sparse output of init/
-with the new parse.c 
+Note: casts from bitwise pointer to void* are already allowed.
 
-old:
-
-$ make clean ; make C=1 init > old 2>&1
-
-(recompile sparse with changes above)
-
-new:
-
-$ make clean ; make C=1 init > new 2>&1
-
-$ diff -urN old new
---- old	2019-10-28 15:20:00.524678375 -0700
-+++ new	2019-10-28 15:21:14.004674721 -0700
-@@ -55,7 +55,25 @@
-   CHK     include/generated/compile.h
-   CHECK   init/main.c
- init/main.c:173:12: warning: symbol 'envp_init' was not declared. Should it be static?
-+./include/linux/rcupdate.h:598:9: error: undefined identifier '__context__'
-+./include/linux/rcupdate.h:651:9: error: undefined identifier '__context__'
-+./include/linux/rcupdate.h:598:9: error: not a function <noident>
-+./include/linux/rcupdate.h:598:9: error: undefined identifier 'RCU'
-+./include/linux/rcupdate.h:651:9: error: not a function <noident>
-+./include/linux/rcupdate.h:651:9: error: undefined identifier 'RCU'
- init/main.c:506:20: warning: symbol 'mem_encrypt_init' was not declared. Should it be static?
-+./include/linux/rcupdate.h:716:9: error: undefined identifier '__context__'
-+./include/linux/rcupdate.h:736:9: error: undefined identifier '__context__'
-+./include/linux/rcupdate.h:716:9: error: not a function <noident>
-+./include/linux/rcupdate.h:716:9: error: undefined identifier 'RCU_SCHED'
-+./include/linux/rcupdate.h:736:9: error: not a function <noident>
-+./include/linux/rcupdate.h:736:9: error: undefined identifier 'RCU_SCHED'
-+./include/linux/rcupdate.h:716:9: error: not a function <noident>
-+./include/linux/rcupdate.h:736:9: error: not a function <noident>
-+./include/linux/rcupdate.h:716:9: error: not a function <noident>
-+./include/linux/rcupdate.h:736:9: error: not a function <noident>
-+./include/linux/spinlock.h:211:9: error: undefined identifier '__context__'
-+init/main.c:1222:9: warning: context imbalance in 'kernel_init_freeable' - wrong count at exit
-   CC      init/main.o
-   CHECK   init/version.c
-   CC      init/version.o
-
+-- Luc
