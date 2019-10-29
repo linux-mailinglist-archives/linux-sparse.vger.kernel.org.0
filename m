@@ -2,85 +2,99 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id CC758E876C
-	for <lists+linux-sparse@lfdr.de>; Tue, 29 Oct 2019 12:47:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 237A7E88DF
+	for <lists+linux-sparse@lfdr.de>; Tue, 29 Oct 2019 13:57:47 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1729070AbfJ2Lrz (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Tue, 29 Oct 2019 07:47:55 -0400
-Received: from mail-wr1-f65.google.com ([209.85.221.65]:42106 "EHLO
-        mail-wr1-f65.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1725776AbfJ2Lry (ORCPT
+        id S2388147AbfJ2M5b (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Tue, 29 Oct 2019 08:57:31 -0400
+Received: from userp2130.oracle.com ([156.151.31.86]:39220 "EHLO
+        userp2130.oracle.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S2388137AbfJ2M5a (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Tue, 29 Oct 2019 07:47:54 -0400
-Received: by mail-wr1-f65.google.com with SMTP id a15so1008137wrf.9;
-        Tue, 29 Oct 2019 04:47:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=date:from:to:cc:subject:message-id:references:mime-version
-         :content-disposition:in-reply-to:user-agent;
-        bh=2/TTI53BPrTu7UjSNB/6Zde/szNTNtQeVJ8mD6hzll4=;
-        b=kd/Jys8OJtaYytj37wMPpfr7AqETl83AzLSViwAqk7yl+1EOQ80amPKIXb++fjZyvf
-         CuGHhyCTniyKWy7h7BcocyCGY6Bq1EE742MOFinQ07GRw4kj3YTNhwLGLKhwkP4MpDiV
-         xP5CNJSlSsN1VEBNwrUPwKlyODAMO2jSlXNupjZJdNRUwCRthmO++sx3jlnkO9i7flJ9
-         RGLKdcCdsBmGKdNiJBbv59MHPK6cyxHZ5VHa9Qa0hguEM2F4RRPi4tOl7SiBSZu1bnC+
-         C9oZ0t7QHegmxJG0Qk7DEd3R1Z84Lvhjl57UTm5HrHPtBnmyOkic4T06pVMpmgCxj87Q
-         LY1g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
-         :mime-version:content-disposition:in-reply-to:user-agent;
-        bh=2/TTI53BPrTu7UjSNB/6Zde/szNTNtQeVJ8mD6hzll4=;
-        b=iH0y82e95XckkzXKM8XevzA/SkSUaBohTn81qeISyAd0lV1ap7JZqYoSEzAhLUIthc
-         LFNHmDMl9Is+GP+hhs4oE5glHPjZN5wQFlbEZ3FCvFgKbV1hmHaXVImmZWdUmy4GlfEa
-         8oeEUzxmZ3TsJLLAL6fDW6haGa4sL0sl8LCnErKpHAQn954tilSYc/qGM/CEz0Bpu0ZK
-         dAh5tw5ynb5aUEgu1jtkcS4XvOlCR7q3nK2Ncvf7urqR8r62zPS0p/piolBag3uRXTKs
-         OIBAfXvSg2WPS8NcapxdLnNJ0sQSfM1CXuSgDEPF0xMJmStuxb596K3UHiD283kTSFhI
-         zp7A==
-X-Gm-Message-State: APjAAAWmO8Hp34SYWSgSb1a6gZ+NIJ8+oODRScRgTgbuoRt24GUIG20G
-        qRvxaDFp9di9HZJoWnk6Qk4=
-X-Google-Smtp-Source: APXvYqwBPp4sIPktjFq5wRgWxG0Z/ej7KkeM0pu/84LvUd2ZQ+MAaULUdh83NanIN8AbzE1jo+bvPg==
-X-Received: by 2002:a5d:5391:: with SMTP id d17mr2566603wrv.382.1572349672177;
-        Tue, 29 Oct 2019 04:47:52 -0700 (PDT)
-Received: from ltop.local ([2a02:a03f:40ac:ce00:c1a7:4ac0:2d11:a4f8])
-        by smtp.gmail.com with ESMTPSA id 74sm17489735wrm.92.2019.10.29.04.47.51
-        (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-        Tue, 29 Oct 2019 04:47:51 -0700 (PDT)
-Date:   Tue, 29 Oct 2019 12:47:50 +0100
-From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-To:     Dan Carpenter <dan.carpenter@oracle.com>
+        Tue, 29 Oct 2019 08:57:30 -0400
+Received: from pps.filterd (userp2130.oracle.com [127.0.0.1])
+        by userp2130.oracle.com (8.16.0.27/8.16.0.27) with SMTP id x9TCunl9081036;
+        Tue, 29 Oct 2019 12:57:27 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=date : from : to : cc
+ : subject : message-id : references : mime-version : content-type :
+ in-reply-to; s=corp-2019-08-05;
+ bh=ekEQjLDbbm8ZMI/y+AQ/ISG2wMrHvsYf9NqMlkttQWw=;
+ b=bekM1Zv1UT4/zMGEDvJLpyWrlkRCeKaYWzyeH882db96FgRw3l5qHyrPHjtnnV2Md2Kj
+ xzkVMOjR+uvGAFTiVDbZ3AXSA729A6UpZQ4Adhx3TVrn0oXwKaLOwb2xqmO5if7dpA5+
+ GKaatmiYkTlTUe5SqbE4AfgweaA8umSNunaw6HL5Z2xMSwoD46JO7NJgR5TE0IBGMeJB
+ Zqyv+KQRUPZEx38hF7osqf8AsW9sW8tYb6rbTBiTCaJSCRyWnjBX5wEl+sHUHGfPcC0B
+ TTTIcB0B5G+MtNYQ9nltyPfElXvEoidbsticef+RipU8Gq3l+fqrOoOSU+H0gTlYR/Lz hw== 
+Received: from userp3020.oracle.com (userp3020.oracle.com [156.151.31.79])
+        by userp2130.oracle.com with ESMTP id 2vvdju950a-1
+        (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+        Tue, 29 Oct 2019 12:57:27 +0000
+Received: from pps.filterd (userp3020.oracle.com [127.0.0.1])
+        by userp3020.oracle.com (8.16.0.27/8.16.0.27) with SMTP id x9TChecX130593;
+        Tue, 29 Oct 2019 12:55:27 GMT
+Received: from userv0122.oracle.com (userv0122.oracle.com [156.151.31.75])
+        by userp3020.oracle.com with ESMTP id 2vxh9y1ttw-1
+        (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+        Tue, 29 Oct 2019 12:55:27 +0000
+Received: from abhmp0011.oracle.com (abhmp0011.oracle.com [141.146.116.17])
+        by userv0122.oracle.com (8.14.4/8.14.4) with ESMTP id x9TCtQmg011003;
+        Tue, 29 Oct 2019 12:55:26 GMT
+Received: from kadam (/41.57.98.10)
+        by default (Oracle Beehive Gateway v4.0)
+        with ESMTP ; Tue, 29 Oct 2019 05:55:25 -0700
+Date:   Tue, 29 Oct 2019 15:55:19 +0300
+From:   Dan Carpenter <dan.carpenter@oracle.com>
+To:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 Cc:     Rasmus Villemoes <linux@rasmusvillemoes.dk>,
         Dan Carpenter <dan.carpenter@oracle.co>,
         linux-sparse@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>
 Subject: Re: detecting misuse of of_get_property
-Message-ID: <20191029114750.a7inago2vd2o4lzl@ltop.local>
+Message-ID: <20191029125519.GA1705@kadam>
 References: <ec277c12-c608-6326-7723-be8cab4f524a@rasmusvillemoes.dk>
  <20191029104917.GI1944@kadam>
+ <20191029114750.a7inago2vd2o4lzl@ltop.local>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20191029104917.GI1944@kadam>
-User-Agent: NeoMutt/20180716
+In-Reply-To: <20191029114750.a7inago2vd2o4lzl@ltop.local>
+User-Agent: Mutt/1.9.4 (2018-02-28)
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9424 signatures=668685
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=0 malwarescore=0
+ phishscore=0 bulkscore=0 spamscore=0 mlxscore=0 mlxlogscore=997
+ adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.0.1-1908290000 definitions=main-1910290126
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9424 signatures=668685
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 priorityscore=1501 malwarescore=0
+ suspectscore=0 phishscore=0 bulkscore=0 spamscore=0 clxscore=1015
+ lowpriorityscore=0 mlxscore=0 impostorscore=0 mlxlogscore=999 adultscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1908290000
+ definitions=main-1910290126
 Sender: linux-sparse-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-On Tue, Oct 29, 2019 at 01:50:58PM +0300, Dan Carpenter wrote:
-> +static void match_of_get_property(const char *fn, struct expression *expr, void *unused)
-> +{
-> +	struct expression *left = expr->left;
-> +	struct symbol *type;
-> +
-> +	type = get_type(left);
-> +	if (!type || type->type != SYM_PTR)
-> +		return;
-> +	type = get_base_type(type);
-> +	if (type_bits(type) == 8)
-> +		return;
-> +	if (type->type == SYM_RESTRICT)
-> +		return;
+On Tue, Oct 29, 2019 at 12:47:50PM +0100, Luc Van Oostenryck wrote:
+> On Tue, Oct 29, 2019 at 01:50:58PM +0300, Dan Carpenter wrote:
+> > +static void match_of_get_property(const char *fn, struct expression *expr, void *unused)
+> > +{
+> > +	struct expression *left = expr->left;
+> > +	struct symbol *type;
+> > +
+> > +	type = get_type(left);
+> > +	if (!type || type->type != SYM_PTR)
+> > +		return;
+> > +	type = get_base_type(type);
+> > +	if (type_bits(type) == 8)
+> > +		return;
+> > +	if (type->type == SYM_RESTRICT)
+> > +		return;
+> 
+> Wouldn't this also silently accept assignments to any bitwise
+> type: __le32, __be16, ... ? 
 
-Wouldn't this also silently accept assignments to any bitwise
-type: __le32, __be16, ... ? 
+It does, yes.  I'm not sure how big of an issue that is...  I always
+just throw a check together and test it before I decide if it's worth
+investing more time into it.
 
--- Luc
+regards,
+dan carpenter
