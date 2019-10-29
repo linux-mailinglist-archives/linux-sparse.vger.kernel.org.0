@@ -2,54 +2,62 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 429A2E7E8C
-	for <lists+linux-sparse@lfdr.de>; Tue, 29 Oct 2019 03:32:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id B3EE4E7E93
+	for <lists+linux-sparse@lfdr.de>; Tue, 29 Oct 2019 03:39:06 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1728497AbfJ2CcV (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Mon, 28 Oct 2019 22:32:21 -0400
-Received: from avasout03.plus.net ([84.93.230.244]:51503 "EHLO
+        id S1728574AbfJ2CjG (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Mon, 28 Oct 2019 22:39:06 -0400
+Received: from avasout03.plus.net ([84.93.230.244]:51787 "EHLO
         avasout03.plus.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1727775AbfJ2CcV (ORCPT
+        with ESMTP id S1729320AbfJ2CjF (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Mon, 28 Oct 2019 22:32:21 -0400
+        Mon, 28 Oct 2019 22:39:05 -0400
 Received: from [10.0.2.15] ([146.198.133.39])
         by smtp with ESMTPA
-        id PHIuig4kItvkXPHIviiAcf; Tue, 29 Oct 2019 02:32:19 +0000
+        id PHPLig50ftvkXPHPMiiAfY; Tue, 29 Oct 2019 02:39:04 +0000
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=plus.com; s=042019;
-        t=1572316339; bh=AHxmEmqA3jKbaq985HO6+X0/WK+Cj7Quf1Ghb2s1VHI=;
+        t=1572316744; bh=3Vd0JoyK9vjaMDPiEfIcd0bq4Da/dDRQVJRkigVYHx8=;
         h=Subject:To:Cc:References:From:Date:In-Reply-To;
-        b=TIfJ95jkrmG26dU6VcMeZePaSz5G7Vz0EBo5MO4wPJQs9K11GjMtl6hvtgqkm02Yt
-         olJ8cVgVJGl3fwzZze4bl/zQXv67AgeqiDsut9yoKszL/VXiku5sdlrnXwTRqHPb9t
-         Bzl9bZ55R/v40BBgS9P/5tZVe4+dVBRryNCK7Za2zIg1xAM3p3QPuh4JIpByg/U5lv
-         sBYVqhv8QcX4DzUi31IYgicYnFDTAansml0xOdfBFH8S/sXPlOHFd8zbI1km8rwcja
-         F88UkOD1gwhhYXxg7PXPmZPMSbzMhKLTt9kGtV3sb+GgBTw68GrLrW5m19ewnSEzcd
-         qtAyb63he5qHA==
+        b=GpkkkMh7LCwSC46u2HgfQp5jLrtQpvnvXOOoPPE85Jgqm00T26JxCjah0K5W5+0rR
+         mJmYjyA4sTgCc4oUlB5Y6OQrl/JTjpeJI7G7LKXlSXy8seGlvmq9c1F8pFEpFb4JON
+         oK1ko7oP1ONYTI7BT0fMScfL9/t7soQGTKDSVZ3lqqaLnLHBUN5Z4pFAYbOivCyF0s
+         6LQ704/BxQuu/PhnMSOStcStwKiX3nwnJLz8ta2txWo/gCOZV1NxBNQvgFCeSJTuOY
+         qOV+6sR/TTmNGy8kzsJyRwAqLfpLNSpH8jrnw9yzLbZZkWrPp2MSCnqoU6a/KHrshi
+         qWZsebbR10niA==
 X-Clacks-Overhead: "GNU Terry Pratchett"
 X-CM-Score: 0.00
 X-CNFS-Analysis: v=2.3 cv=ePBtc0h1 c=1 sm=1 tr=0
  a=1Jh3712dEPwUcX5EWi7t+w==:117 a=1Jh3712dEPwUcX5EWi7t+w==:17
- a=jpOVt7BSZ2e4Z31A5e1TngXxSK0=:19 a=IkcTkHD0fZMA:10 a=1EsaE_6oAAAA:8
- a=pGLkceISAAAA:8 a=zVSr1GjoBOdNZ055LQgA:9 a=QEXdDO2ut3YA:10
- a=3ZumFrijQQ-2J9H5h8ct:22 a=pHzHmUro8NiASowvMSCR:22 a=nt3jZW36AmriUCFCBwmW:22
+ a=jpOVt7BSZ2e4Z31A5e1TngXxSK0=:19 a=IkcTkHD0fZMA:10 a=X9G2ohcBEumEKn13xBoA:9
+ a=DKryddvG6lcVqKu1:21 a=rVP9ElcGolyjnz41:21 a=QEXdDO2ut3YA:10
 X-AUTH: ramsayjones@:2500
-Subject: Re: [PATCH] options: allow to specify the desired arch with
- --arch=<arch>
+Subject: Re: [PATCH] compiler*.h: Add '__' prefix and suffix to all
+ __attribute__ #defines
 To:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>,
-        linux-sparse@vger.kernel.org
-Cc:     Ben Dooks <ben.dooks@codethink.co.uk>
-References: <20191028214337.70890-1-luc.vanoostenryck@gmail.com>
+        Joe Perches <joe@perches.com>
+Cc:     Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>,
+        linux-sparse@vger.kernel.org,
+        Andrew Morton <akpm@linux-foundation.org>,
+        linux-kernel <linux-kernel@vger.kernel.org>,
+        clang-built-linux <clang-built-linux@googlegroups.com>
+References: <7a15bc8ad7437dc3a044a4f9cd283500bd0b5f36.camel@perches.com>
+ <CANiq72=B6XKwfkC9L4=+OxWtjxCp-94TWRG1a=pC=y636gzckA@mail.gmail.com>
+ <19fd23e98bab65a1ee624445193bd2ed86108881.camel@perches.com>
+ <20191028221523.vlzdk6dkcglxei6v@desk.local>
+ <00c5ef125a4e62f538de7ddddc9d8fe7085794a3.camel@perches.com>
+ <20191028230349.xlhm42ripxktx43y@desk.local>
 From:   Ramsay Jones <ramsay@ramsayjones.plus.com>
-Message-ID: <c480aeeb-2779-94b0-1354-f1f8eb6522a8@ramsayjones.plus.com>
-Date:   Tue, 29 Oct 2019 02:32:15 +0000
+Message-ID: <61eb73ad-5c30-0005-5031-6584df72ad5f@ramsayjones.plus.com>
+Date:   Tue, 29 Oct 2019 02:38:54 +0000
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
  Thunderbird/60.9.0
 MIME-Version: 1.0
-In-Reply-To: <20191028214337.70890-1-luc.vanoostenryck@gmail.com>
+In-Reply-To: <20191028230349.xlhm42ripxktx43y@desk.local>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-GB
 Content-Transfer-Encoding: 7bit
-X-CMAE-Envelope: MS4wfFP+ZHaeTDot/bdeAWnAbfJ/CEijxCwmMx+3b8c5JEC+d38zZDzOx0jclwN0+BxLO884t9ESh2epPPtvK7vEecT1sto14xGsr+L+KqoH2MNgRsFzqxSp
- cu5EoeP4e19Je53h47XUa7F5N9wVTIk6Pa+doRIAl1C3+887gQjdKqcIT/ofMBA1se2o/crtX3iuyQ==
+X-CMAE-Envelope: MS4wfJdK6ojPg4UiCDVjaWTqnOOrupE3lz3KQWXLl6QihDq77CAG4/APgQzVxjAQpq+wdO3iqLRan8yae0aSYVGClPTFYVrugUDQPyHeMhm+MQkzu5UTCa1x
+ PFXN/KmG3YgTK+giDaL9E7beY3/I3X+pTahWiIdsN5A5tlrgkm7ML6d0Jtn2WMn6V9WY3+oCnuWZJg==
 Sender: linux-sparse-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
@@ -57,159 +65,79 @@ X-Mailing-List: linux-sparse@vger.kernel.org
 
 
 
-On 28/10/2019 21:43, Luc Van Oostenryck wrote:
-> Sparse is universal in the sense that the same executable can
-> be used for all architectures. For this, most arch-specific
-> setting can be set with an option and the default values
-> are taken from the host machine.
+On 28/10/2019 23:03, Luc Van Oostenryck wrote:
+> On Mon, Oct 28, 2019 at 03:28:17PM -0700, Joe Perches wrote:
+>> On Mon, 2019-10-28 at 23:15 +0100, Luc Van Oostenryck wrote:
+>>> On Mon, Oct 28, 2019 at 10:59:47AM -0700, Joe Perches wrote:
+>>>> On Mon, 2019-10-28 at 18:37 +0100, Miguel Ojeda wrote:
+>>>>> Just in case: for these ones (i.e. __CHECKER__), did you check if
+>>>>> sparse handles this syntax? (I don't recall myself if it does).
+>>>>>
+>>>>> Other than that, thanks for the cleanup too! I can pick it up in the
+>>>>> the compiler-attributes tree and put it in -next.
+>>>>
+>>>> Thanks for asking and no, I did  not until just now.
+>>>> Turns out sparse does _not_ handle these changes and
+>>>> the checking fails for these __<changes>__.
+>>>>
+>>>> sparse would have to update parse.c or the __CHECKER__
+>>>> changes would need to be reverted.
+>>>>
+>>>> Perhaps update parse.c like:
+>>>
+>>> ...
+>>>
+>>> Yes, this was missing. Thanks.
+>>> Can I have your SoB for this?
+>>
+>> I'm not sure this actually works as there's
+>> some possible sparse parsing changes in the
+>> use of __context__.
 > 
-> This is working nicely for native targets. However, for cross-
-> compilation, while seeming to work relatively well (thanks to
-> the kernel build system using -m32/-m64 for all archs, for example)
-> things can never work 100% correctly. For example, in the case
-> an X86-64 host machine is used for an ARM target, the kernel
-> build system will call sparse with -m32, Sparse will 'autodetect'
-> the target arch as i386 (x86-64 + -m32) and will then predefine
-> the macro __i386__. Most of the time this is not a problem (at
-> least for the kernel) unless, of course, if the code contains
-> something like:
-> 	#ifdef __i386__
-> 	...
-> 	#elif  __arm__
-> 	...
+> Yes, indeed. The following shoud be squashed on top of
+> your patch (not tested yet on linux side):
 > 
-> So, add an option --arch=<arch> to specify the target architecture.
-> The native arch is still used if no such flag is given.
-
-How does this interact with the cgcc --target=<spec> and the
-(otherwise) guessing of the 'native' specs?
-
+> -- Luc
 > 
-> Reported-by: Ben Dooks <ben.dooks@codethink.co.uk>
-> Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-> ---
->  lib.c    | 68 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
->  sparse.1 |  8 +++++++
->  2 files changed, 76 insertions(+)
-> 
-> diff --git a/lib.c b/lib.c
-> index 75a4f9870..353d19100 100644
-> --- a/lib.c
-> +++ b/lib.c
-> @@ -1044,6 +1044,73 @@ static char **handle_switch_x(char *arg, char **next)
->  }
+> diff --git a/parse.c b/parse.c
+> index 4464e2667..4b0a1566c 100644
+> --- a/parse.c
+> +++ b/parse.c
+> @@ -345,6 +345,7 @@ static struct symbol_op goto_op = {
 >  
+>  static struct symbol_op __context___op = {
+>  	.statement = parse_context_statement,
+> +	.attribute = attribute_context,
+
+Hmm, so why is do we have a context_op and a __context___op?
+
+>  };
 >  
-> +static char **handle_arch(char *arg, char **next)
-> +{
-> +	static const struct arch {
-> +		const char *name;
-> +		int mach;
-> +		int bits;
-> +	} archs[] = {
-> +		{ "aarch64",	MACH_ARM64,	64 },
-> +		{ "arm64",	MACH_ARM64,	64 },
-> +		{ "arm",	MACH_ARM,	32 },
-> +		{ "i386",	MACH_I386,	32 },
-> +		{ "m68k",	MACH_M68K,	32 },
-> +		{ "mips",	MACH_MIPS64 },
-> +		{ "powerpc",	MACH_PPC64 },
-> +		{ "ppc",	MACH_PPC64 },
-> +		{ "riscv",	MACH_RISCV64 },
+>  static struct symbol_op range_op = {
+> @@ -537,6 +538,7 @@ static struct init_keyword {
+>  	{ "while",	NS_KEYWORD, .op = &while_op },
+>  	{ "do",		NS_KEYWORD, .op = &do_op },
+>  	{ "goto",	NS_KEYWORD, .op = &goto_op },
+> +	{ "context",	NS_KEYWORD, .op = &context_op },
+>  	{ "__context__",NS_KEYWORD, .op = &__context___op },
 
-I would rather these were explicitly set to 0.
+So, can '__context__' be used in a statement, as well as an
+attribute, while 'context' can only be used in an attribute?
 
-> +		{ "s390",	MACH_S390X,	64 },
-> +		{ "s390x",	MACH_S390X,	64 },
-> +		{ "sparc",	MACH_MIPS64 },
-
-Er, I suppose this should be MACH_SPARC64, right? (also 0 init).
-
-> +		{ "x86_64",	MACH_X86_64,	64 },
-> +		{ "x86-64",	MACH_X86_64,	64 },
-> +		{ "x86",	MACH_X86_64 },
-
-(also 0 init).
-
-> +		{ NULL },
-> +	};
-> +	const struct arch *p;
-> +
-> +	if (*arg++ != '=')
-> +		die("missing argument for --arch option");
-> +
-> +	for (p = &archs[0]; p->name; p++) {
-> +		size_t len = strlen(p->name);
-> +		if (strncmp(p->name, arg, len) == 0) {
-> +			const char *suf = arg + len;
-> +			int bits = p->bits;
-> +
-> +			arch_mach = p->mach;
-> +			if (bits == 0) {
-> +				// guess the size of the architecture
-> +				if (!strcmp(suf, "")) {
-> +					if (arch_m64 == ARCH_LP32)
-> +						bits = 32;
-> +					else
-> +						bits = 64;
-
-So, this is a 50-50 bet. ;-)
+Confused.
 
 ATB,
 Ramsay Jones
 
-> +				} else if (!strcmp(suf, "64")) {
-> +					bits = 64;
-> +				} else if (!strcmp(suf, "32")) {
-> +					bits = 32;
-> +				} else {
-> +					die("invalid architecture: %s", arg);
-> +				}
-> +				if (bits == 32)
-> +					arch_mach -= 1;
-> +			} else {
-> +				if (strcmp(suf, ""))
-> +					die("invalid architecture: %s", arg);
-> +			}
-> +			if (p->bits == 32)
-> +				arch_m64 = ARCH_LP32;
-> +			else if (p->bits == 64)
-> +				arch_m64 = ARCH_LP64;
-> +			break;
-> +		}
-> +	}
-> +
-> +	return next;
-> +}
-> +
->  static char **handle_version(char *arg, char **next)
->  {
->  	printf("%s\n", SPARSE_VERSION);
-> @@ -1076,6 +1143,7 @@ struct switches {
->  static char **handle_long_options(char *arg, char **next)
->  {
->  	static struct switches cmd[] = {
-> +		{ "arch", handle_arch, 1 },
->  		{ "param", handle_param, 1 },
->  		{ "version", handle_version },
->  		{ NULL, NULL }
-> diff --git a/sparse.1 b/sparse.1
-> index beb484423..be38f6883 100644
-> --- a/sparse.1
-> +++ b/sparse.1
-> @@ -423,6 +423,14 @@ Sparse does not issue these warnings by default.
->  .
->  .SH MISC OPTIONS
->  .TP
-> +.B \-\-arch=\fIARCH\fR
-> +Specify the target architecture.
-> +For architectures having both a 32-bit and a 64-bit variant (mips, powerpc,
-> +riscv & sparc) the architecture name can be suffixed with \fI32\fR or \fI64\fR.
-> +
-> +The default architecture & size is the one of the machine used to build Sparse.
-> +.
-> +.TP
->  .B \-gcc-base-dir \fIdir\fR
->  Look for compiler-provided system headers in \fIdir\fR/include/ and \fIdir\fR/include-fixed/.
->  .
+>  	{ "__range__",	NS_KEYWORD, .op = &range_op },
+>  	{ "asm",	NS_KEYWORD, .op = &asm_op },
+> @@ -560,8 +562,6 @@ static struct init_keyword {
+>  	{ "__bitwise__",NS_KEYWORD,	MOD_BITWISE,	.op = &attr_bitwise_op },
+>  	{ "address_space",NS_KEYWORD,	.op = &address_space_op },
+>  	{ "__address_space__",NS_KEYWORD,	.op = &address_space_op },
+> -	{ "context",	NS_KEYWORD,	.op = &context_op },
+> -	{ "__context__",NS_KEYWORD,	.op = &context_op },
+>  	{ "designated_init",	NS_KEYWORD,	.op = &designated_init_op },
+>  	{ "__designated_init__",	NS_KEYWORD,	.op = &designated_init_op },
+>  	{ "transparent_union",	NS_KEYWORD,	.op = &transparent_union_op },
 > 
