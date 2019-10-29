@@ -2,99 +2,75 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 7F07EE911E
-	for <lists+linux-sparse@lfdr.de>; Tue, 29 Oct 2019 21:56:27 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 72077E9120
+	for <lists+linux-sparse@lfdr.de>; Tue, 29 Oct 2019 21:57:24 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1728224AbfJ2U40 (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Tue, 29 Oct 2019 16:56:26 -0400
-Received: from mail-wr1-f66.google.com ([209.85.221.66]:40115 "EHLO
-        mail-wr1-f66.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1727041AbfJ2U40 (ORCPT
+        id S1728388AbfJ2U5Y (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Tue, 29 Oct 2019 16:57:24 -0400
+Received: from mail-wm1-f67.google.com ([209.85.128.67]:53628 "EHLO
+        mail-wm1-f67.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1726747AbfJ2U5X (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Tue, 29 Oct 2019 16:56:26 -0400
-Received: by mail-wr1-f66.google.com with SMTP id o28so15176372wro.7
-        for <linux-sparse@vger.kernel.org>; Tue, 29 Oct 2019 13:56:24 -0700 (PDT)
+        Tue, 29 Oct 2019 16:57:23 -0400
+Received: by mail-wm1-f67.google.com with SMTP id n7so4112050wmc.3
+        for <linux-sparse@vger.kernel.org>; Tue, 29 Oct 2019 13:57:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=date:from:to:cc:subject:message-id:references:mime-version
          :content-disposition:in-reply-to:user-agent;
-        bh=JM5SA1VkcKL/0d2Pzwo3Jmh7qWPhcbElO5kxr+nVRco=;
-        b=HPiaLOAaOvFon7KBL/X2VNgt9Mn4raqOaeNGIcJlONDE/WA/QNb/lvyO9sjDzACZ2E
-         nfWuhTJmq3FeB2DmqaiwSQwA6mFLT+dtxhmZ+pPTwdSJynMqVNFU8bMsg8L7OzkeTimE
-         ZjoAdhS4y/7kfZmGtbYZbYcIrkh3ROx26NCwGFLpb5BJDZorzxidpiRh3VFrAwqOM/PB
-         XveKskzpgOqGu2SOBhKMkhwLCa2pV0oLM4C82YERRpgvEWhdF6WpIMSCnK+rhrWd/OYI
-         RNCfHdmglrBFHOCzAVjTn5f2gzfxvCOQzqy81C2ylsB1QPN/bzKg2htgBqAk8ZYqrvAQ
-         564g==
+        bh=rhoqUsn9vy0bW7ON2qCA4JCTv1mQHu3AVlbJ/pt3+m0=;
+        b=W4qspXhlXIGqmh+9qhh/wfttOtbdTsU6A6cZvAj5DNljsP/b++VsOaAa32TbrFXyTQ
+         gM/VKh+FRwO2LFs60j91hS6ZUUmx+izFor9EdZdOoeIalQioyPCLxUETJTK20p+N6vB3
+         kvB5ambsjSoS8RQDufcMa8DAlkdBnK5Uzlgcc2tKoMiwwzcj0FEHswdvu8psgJKCVcF7
+         2RKW+Gu2fiy9eU1vD/u5fimtIAOyq32LOTD4OPAgd2yZ6dZ5szJBQhVVQl0Lo8Jen0YL
+         2Z6+NprWJEjxa85VKrJ0U64EAUVuNjtZQkZKD3EZ/wls6c9PQ0Io5aVxC9nEAwrmT/G/
+         +Emg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:date:from:to:cc:subject:message-id:references
          :mime-version:content-disposition:in-reply-to:user-agent;
-        bh=JM5SA1VkcKL/0d2Pzwo3Jmh7qWPhcbElO5kxr+nVRco=;
-        b=e8LJibqU6mRc+gwjuga5arb59eouSgzB4ySYeBVzSdxsBTPfxoMmobrCs0rrBG1WRA
-         z4FkUdezyLejk38kAphvHMZjupWGRrYUU6oB4EMDbC6X8sO2ZTRlp7DTPinAFC8g5Fu8
-         x89y7t8HXu9pe+uPi3AbXUQRvhWmX8SDWWT+5uO5BtD5RrKal+4ooMpXiZeNrY4PTTub
-         bezwuHKpV9OTPh/MpqvsVHtPU4WBuEpRZFL7KNbMNd5hSmrZ/DxBcK1x0wA2g3ofs9eL
-         lpD+SetqU84NQNBB9NXuS57s3LiDoozz6MWE+a+r96eRZMLm+LTSRS4jTYllFWtvoj4R
-         mhrg==
-X-Gm-Message-State: APjAAAXfMF8+k5FQ9kkOg0Aegkt5jTxPCGxBD8wfq+SseHR9rVZWwu5Q
-        +S7XsbtCSpTKZRFDvJM8wUqfKiTM
-X-Google-Smtp-Source: APXvYqwarkG9Oo/QBoR4LM6rYzkJHLfN0qh+QkyIPDmqI8uzLq+iRvV2O51YUIssUxZL0WrtJ9DN4A==
-X-Received: by 2002:adf:e882:: with SMTP id d2mr22362195wrm.132.1572382584312;
-        Tue, 29 Oct 2019 13:56:24 -0700 (PDT)
+        bh=rhoqUsn9vy0bW7ON2qCA4JCTv1mQHu3AVlbJ/pt3+m0=;
+        b=rFNzL4a+Uix66RqXF9t3GW5WA8Tccv5AGIuerTi3bUScG6+8CfGhBhOueqwk4bKXbC
+         MRDHIUQW/v3AnKdDxE5bkBt4iOvFffIpSxFUuI3dfLnekJIXMGSuPtQxPOiR0hW/tHO7
+         3uUCnIucU5iJEdryBZ3AMlNltxS8KwPvjDW4Zf9NfwfuhIQKVXO+Y8kR+u30gmjTrDdc
+         1GjapeTkWSsVgvQAuxCx6trQZ2bnUh1D3dPmBtqiBFtevWVIwXb5RyPoJiQW8EAajKe1
+         lyHwSyZwznZmwEo2kvCdbPW4hGEXnAUNs+cTlx6KXQyaDSL5nKxkJcRlcLMIE/6sIfTs
+         /Pbw==
+X-Gm-Message-State: APjAAAVwkkGXJF26G1RMYgMZyPQfuL2ZuiDX6YcXKs5HhFxTE7WXBImP
+        Eu60aHFaliBpiE8yXu71VpXsPLGX
+X-Google-Smtp-Source: APXvYqyRtV+huDWEm+52H6bB2RksNZKabcEgCoMzuJ0ZJgbUS8KeRpK9xX/dfcBT8RacPIfNoYzGJw==
+X-Received: by 2002:a7b:c049:: with SMTP id u9mr5788221wmc.12.1572382641829;
+        Tue, 29 Oct 2019 13:57:21 -0700 (PDT)
 Received: from ltop.local ([2a02:a03f:40ac:ce00:81ee:880:54a7:d771])
-        by smtp.gmail.com with ESMTPSA id d11sm105079wrf.80.2019.10.29.13.56.22
+        by smtp.gmail.com with ESMTPSA id 12sm4374364wmk.13.2019.10.29.13.57.20
         (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-        Tue, 29 Oct 2019 13:56:23 -0700 (PDT)
-Date:   Tue, 29 Oct 2019 21:56:22 +0100
+        Tue, 29 Oct 2019 13:57:21 -0700 (PDT)
+Date:   Tue, 29 Oct 2019 21:57:19 +0100
 From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 To:     Ramsay Jones <ramsay@ramsayjones.plus.com>
 Cc:     linux-sparse@vger.kernel.org, Ben Dooks <ben.dooks@codethink.co.uk>
 Subject: Re: [PATCH] options: allow to specify the desired arch with
  --arch=<arch>
-Message-ID: <20191029205620.yu5k6ffrdzfcnost@ltop.local>
+Message-ID: <20191029205718.z7ki5z23j5qqovsx@ltop.local>
 References: <20191028214337.70890-1-luc.vanoostenryck@gmail.com>
  <c480aeeb-2779-94b0-1354-f1f8eb6522a8@ramsayjones.plus.com>
- <20191029092807.cvb7ipfexxfyr5nc@ltop.local>
- <6e698a41-040a-bc31-9eb6-c6b4fc09d954@ramsayjones.plus.com>
+ <20191029082334.g3evfqkc73ohn6pn@ltop.local>
+ <89ebf585-7700-c8e2-7786-a599f31ee5e8@ramsayjones.plus.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <6e698a41-040a-bc31-9eb6-c6b4fc09d954@ramsayjones.plus.com>
+In-Reply-To: <89ebf585-7700-c8e2-7786-a599f31ee5e8@ramsayjones.plus.com>
 User-Agent: NeoMutt/20180716
 Sender: linux-sparse-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-On Tue, Oct 29, 2019 at 07:05:13PM +0000, Ramsay Jones wrote:
-> >>> +			if (bits == 0) {
-> >>> +				// guess the size of the architecture
-> >>> +				if (!strcmp(suf, "")) {
-> >>> +					if (arch_m64 == ARCH_LP32)
-> >>> +						bits = 32;
-> >>> +					else
-> >>> +						bits = 64;
-> >>
-> >> So, this is a 50-50 bet. ;-)
-> > 
-> > No, not really.
-> > The -m32/-m64 flags are still taken in account, before the
-> > --arch and after it too. If no -m32/-m64 is given at all
-> > then the used size is the one of the native arch (because
-> > arch_m64 is initialized so).
+On Tue, Oct 29, 2019 at 06:57:02PM +0000, Ramsay Jones wrote:
+> > Do you see some complications?
 > 
-> heh, yes, I just meant that (if -m32/-m64 has _not_ been given)
-> then you have a 50/50 chance that you are cross-compiling to a
-> system that has the same 'bit-ness' as your current platform.
-> 
-> (well, actually, I suppose both are likely to be 64-bit these
-> days - so, maybe not 50/50! ;-) ).
+> No, I was thinking about the opportunity to simplify cgcc! :-D
 
-Yes, I somehow agree. It would probably be better to make 'mips',
-'ppc' & 'sparc' default to 32-bit since it's what uname seems to
-do (for RISC-V uname returns 'riscv32' or 'riscv64'). For the
-kernel, the plain name is always used but -m32/-m64 is awalys given,
-so it's never a problem.
+Oh yes, I'm working on it.
 
-Thank you for your input.
--- Luc
+-- Luc 
