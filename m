@@ -2,56 +2,56 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 977D4E8327
-	for <lists+linux-sparse@lfdr.de>; Tue, 29 Oct 2019 09:23:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 2E19FE846E
+	for <lists+linux-sparse@lfdr.de>; Tue, 29 Oct 2019 10:28:13 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1728783AbfJ2IXi (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Tue, 29 Oct 2019 04:23:38 -0400
-Received: from mail-wr1-f68.google.com ([209.85.221.68]:46326 "EHLO
-        mail-wr1-f68.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1728757AbfJ2IXi (ORCPT
+        id S1726290AbfJ2J2M (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Tue, 29 Oct 2019 05:28:12 -0400
+Received: from mail-wm1-f68.google.com ([209.85.128.68]:51969 "EHLO
+        mail-wm1-f68.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1726089AbfJ2J2M (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Tue, 29 Oct 2019 04:23:38 -0400
-Received: by mail-wr1-f68.google.com with SMTP id n15so12539024wrw.13
-        for <linux-sparse@vger.kernel.org>; Tue, 29 Oct 2019 01:23:37 -0700 (PDT)
+        Tue, 29 Oct 2019 05:28:12 -0400
+Received: by mail-wm1-f68.google.com with SMTP id q70so1726524wme.1
+        for <linux-sparse@vger.kernel.org>; Tue, 29 Oct 2019 02:28:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=date:from:to:cc:subject:message-id:references:mime-version
          :content-disposition:in-reply-to:user-agent;
-        bh=WWnD3aPQj4y/RdmUzoDtIfZgkiE6VwXUVp1vO008BVk=;
-        b=Ndw4qpwZDfESfLajoPHa6ZW89plmZJl7XbWH99C5iqBSBnZ52cAWK7soVrdL4lTDWX
-         kIuBQ3Ndwl6CL7pKdfz4omB9qcoHJOaJjEs1mMnAwSQbQVpsEu4wD14Tw0D/GZG52xAm
-         FcVbj9gY97MMH87EabZfhN++kPFZL3G8HaGYadI+ffvoSDzaILpYLXvHSKI5a6cOYQvW
-         N5y6+Ciz2gKjG9fpVWtJ1933j5krEBBnxBckIBh6m/gUSxZOiSAIL7GGIyvDUJtdwcXZ
-         8kmRH2WSu2uEeOzA+0GBeL+2xIJDuk0NCsai9JYxoUUXu76Ni8Flxzm9OxXe2xZwDJYq
-         YDqQ==
+        bh=mrpnI7h3W1UUyPP8m/PZdAr6MT/vPvxNFbSiUjM4RCg=;
+        b=kBsiIgXAx13wT+HRJS0quVg0CQuIYghK3olmRKJgLQAL3Bjp3RtXyFsSFk13koCvDH
+         z5VrjrX9xcQrmbw3e7qxWcPLHjb8xGF+/NPG3hmjy3pGmqEPW+yAAc1VeNbdI0UI+T8c
+         qJxI/Ce7JSUfcZgwtzydQ2ClRMLNACVshmTWbXo0I9XZlIqyYGdN0Q9t3CqnYJBcIuOW
+         7I1R6fLZXOmgSxNhPSfP4rnzTpOsXzGX9WAeNifpSUGg6kTqngKaD8JAHS3mF7xGN0cg
+         hvasgKA7k2+HA826UezLBgIw48nCwDBFNjk5N1c+kZPl7JmACMQ+Hza1nzCzHHl8md4U
+         qKsQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:date:from:to:cc:subject:message-id:references
          :mime-version:content-disposition:in-reply-to:user-agent;
-        bh=WWnD3aPQj4y/RdmUzoDtIfZgkiE6VwXUVp1vO008BVk=;
-        b=cWAYAkHNwL4IMIXbRO9L/MZ61Dvw7La7duZ1I8wEKol5aqe6kS7A6f9hbZkbrx6FQm
-         lEe4dvkGoE9lzS/Zy3l2IrTzZoDLPbaJYvLgpJtVKuW6vcnZ6bX1+hnS+eYOSxzo6D+n
-         nzDFlyOnb7nI0NtGhkKhgmR9/gaehSYFGMNjSvqbGEKnVlPDG4nq9/cWLv7etf5x7arL
-         7SW15vo5ui+h0f98wxY7iNXHPdaohd2ukXO8yEpwSLHbMGqgnDX1mT7uikmd/TLp7p1v
-         cBBshmrFib1Ip1dhMUSg6cB8JYvup8CbDglTYtFFTsscJJJz+m4Dh4amIUtaSTLvhIvh
-         pjkw==
-X-Gm-Message-State: APjAAAUKvceEFrkGkdTbLeE/SZmeY7+hDwOKYi4PoDkYT4Y7/wI//P8h
-        WcMuas6pP3YzOgl4kqZ96pE=
-X-Google-Smtp-Source: APXvYqyfDmT85x1FIhb7Rk2oEjpJbqKV6X7rHaONxWCK4qguExjY9PwhktQEZBeNgqOtX529F3rFzg==
-X-Received: by 2002:adf:b6a6:: with SMTP id j38mr18095478wre.275.1572337416681;
-        Tue, 29 Oct 2019 01:23:36 -0700 (PDT)
+        bh=mrpnI7h3W1UUyPP8m/PZdAr6MT/vPvxNFbSiUjM4RCg=;
+        b=kXrYe//xTwKFFdxjR6L0E78WCXIWx32Z/awjdNUnLINv3tU3UolqXCQM8oUw2yZHDv
+         gCgWztNY8mz4KYvgDgz7F3H4cjLeUVpk74GkkB1KJ7a4HZBMbjaBtiVfs8JVs6G+xcJw
+         pHgu59q7a8Uc1HtlDZlRdUh7hwuZQRzgCwBKUvrWdEKN//oq4HfqEfoBs/90d5gN28An
+         cDPW3IQmW+qHYxsXIg/kO5YU5UBnPOpfh6i9s+9Errq3uftfcnM7Z9gl6EIFpNTcwOVa
+         nGeJTghhQpypIBr8wydiBlNdExYXoTp71Eey/Vs5+CcJH9exILT9aWsMUyT2HspbGgv3
+         pAZw==
+X-Gm-Message-State: APjAAAUKBaSizmciRR92Dvhwl4H2AnaIHAqNL0w5Mr0acBDizFl3xHc0
+        DblYEiw3r53y3ukr+lxqclAqfIDA
+X-Google-Smtp-Source: APXvYqzWKXBC6Fmf2fhfW50d13yeR+Jc9ZJaxo3EdZjldZdCzjLjFS6A4byZwthhlP1aU/ESXqti2g==
+X-Received: by 2002:a1c:7313:: with SMTP id d19mr3216474wmb.16.1572341289821;
+        Tue, 29 Oct 2019 02:28:09 -0700 (PDT)
 Received: from ltop.local ([2a02:a03f:40ac:ce00:c1a7:4ac0:2d11:a4f8])
-        by smtp.gmail.com with ESMTPSA id l4sm16055111wrf.46.2019.10.29.01.23.35
+        by smtp.gmail.com with ESMTPSA id i18sm14440267wrx.14.2019.10.29.02.28.08
         (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-        Tue, 29 Oct 2019 01:23:36 -0700 (PDT)
-Date:   Tue, 29 Oct 2019 09:23:35 +0100
+        Tue, 29 Oct 2019 02:28:08 -0700 (PDT)
+Date:   Tue, 29 Oct 2019 10:28:08 +0100
 From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 To:     Ramsay Jones <ramsay@ramsayjones.plus.com>
 Cc:     linux-sparse@vger.kernel.org, Ben Dooks <ben.dooks@codethink.co.uk>
 Subject: Re: [PATCH] options: allow to specify the desired arch with
  --arch=<arch>
-Message-ID: <20191029082334.g3evfqkc73ohn6pn@ltop.local>
+Message-ID: <20191029092807.cvb7ipfexxfyr5nc@ltop.local>
 References: <20191028214337.70890-1-luc.vanoostenryck@gmail.com>
  <c480aeeb-2779-94b0-1354-f1f8eb6522a8@ramsayjones.plus.com>
 MIME-Version: 1.0
@@ -65,45 +65,53 @@ List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
 On Tue, Oct 29, 2019 at 02:32:15AM +0000, Ramsay Jones wrote:
+> > +	static const struct arch {
+> > +		const char *name;
+> > +		int mach;
+> > +		int bits;
+> > +	} archs[] = {
+> > +		{ "aarch64",	MACH_ARM64,	64 },
+> > +		{ "arm64",	MACH_ARM64,	64 },
+> > +		{ "arm",	MACH_ARM,	32 },
+> > +		{ "i386",	MACH_I386,	32 },
+> > +		{ "m68k",	MACH_M68K,	32 },
+> > +		{ "mips",	MACH_MIPS64 },
+> > +		{ "powerpc",	MACH_PPC64 },
+> > +		{ "ppc",	MACH_PPC64 },
+> > +		{ "riscv",	MACH_RISCV64 },
 > 
+> I would rather these were explicitly set to 0.
+
+Hmm ... To me, the difference pop out better like so.
+The absence of a value is supposed to mean "there is not
+a known size for this, it needs to be calculated/guessed".
+I find that an explicit 0 conveys this les well.
+ 
+> > +		{ "s390",	MACH_S390X,	64 },
+> > +		{ "s390x",	MACH_S390X,	64 },
+> > +		{ "sparc",	MACH_MIPS64 },
 > 
-> On 28/10/2019 21:43, Luc Van Oostenryck wrote:
-> > Sparse is universal in the sense that the same executable can
-> > be used for all architectures. For this, most arch-specific
-> > setting can be set with an option and the default values
-> > are taken from the host machine.
-> > 
-> > This is working nicely for native targets. However, for cross-
-> > compilation, while seeming to work relatively well (thanks to
-> > the kernel build system using -m32/-m64 for all archs, for example)
-> > things can never work 100% correctly. For example, in the case
-> > an X86-64 host machine is used for an ARM target, the kernel
-> > build system will call sparse with -m32, Sparse will 'autodetect'
-> > the target arch as i386 (x86-64 + -m32) and will then predefine
-> > the macro __i386__. Most of the time this is not a problem (at
-> > least for the kernel) unless, of course, if the code contains
-> > something like:
-> > 	#ifdef __i386__
-> > 	...
-> > 	#elif  __arm__
-> > 	...
-> > 
-> > So, add an option --arch=<arch> to specify the target architecture.
-> > The native arch is still used if no such flag is given.
+> Er, I suppose this should be MACH_SPARC64, right? (also 0 init).
+
+Ooops, yes, thank you. Bad copy-paste, bad.
+ 
+> > +			if (bits == 0) {
+> > +				// guess the size of the architecture
+> > +				if (!strcmp(suf, "")) {
+> > +					if (arch_m64 == ARCH_LP32)
+> > +						bits = 32;
+> > +					else
+> > +						bits = 64;
 > 
-> How does this interact with the cgcc --target=<spec> and the
-> (otherwise) guessing of the 'native' specs?
+> So, this is a 50-50 bet. ;-)
 
-I didn't yet looked at how it interacts with cgcc --target=<spec>.
-I had losely planned to do this after having removed all the defines
-in cgcc that are now unneeded (integer_type() and define_size_t()
-are now done by sparse itself, float_types() should also).
+No, not really.
+The -m32/-m64 flags are still taken in account, before the
+--arch and after it too. If no -m32/-m64 is given at all
+then the used size is the one of the native arch (because
+arch_m64 is initialized so). I think it's quite natural to
+use but it lacks some error checking (e.g.: --arch=arm -m64
+will purposely *not* select arm64, aka aarach64, but no
+warnings will be issued).
 
-I think that the OS-specific parts can be kept in cgcc and in
-the 'arch' parts it would be easy enough to call sparse with the
-right '--arch=<...>' (either guessed via uname or specified via
---target=<spec>, it wouldn't matter).
-
-Do you see some complications?
-
---Luc
+-- Luc
