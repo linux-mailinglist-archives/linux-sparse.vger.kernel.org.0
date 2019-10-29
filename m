@@ -2,101 +2,115 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 097C2E89AD
-	for <lists+linux-sparse@lfdr.de>; Tue, 29 Oct 2019 14:38:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 60E5EE8F94
+	for <lists+linux-sparse@lfdr.de>; Tue, 29 Oct 2019 19:54:05 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S2388604AbfJ2NiC (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Tue, 29 Oct 2019 09:38:02 -0400
-Received: from mail-wr1-f52.google.com ([209.85.221.52]:41681 "EHLO
-        mail-wr1-f52.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S2388578AbfJ2NiC (ORCPT
+        id S1732096AbfJ2SyF (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Tue, 29 Oct 2019 14:54:05 -0400
+Received: from avasout03.plus.net ([84.93.230.244]:55910 "EHLO
+        avasout03.plus.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1732091AbfJ2SyE (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Tue, 29 Oct 2019 09:38:02 -0400
-Received: by mail-wr1-f52.google.com with SMTP id p4so13678780wrm.8;
-        Tue, 29 Oct 2019 06:38:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=date:from:to:cc:subject:message-id:references:mime-version
-         :content-disposition:in-reply-to:user-agent;
-        bh=xiMDm1ky06nmshR0GScrWBxrzoPoulophvZ9wLbseww=;
-        b=e+ASarVjckjzvyw0nQ7ljwc0J5bn9wwd19sEw98XUVM0LbXK6CZOfT6hSi0t9l37LO
-         m9dRkbrsROVqUv6+7SYo5AzV+iKMdixExYZYLJ6NxlU3fhiny4GQ8vdS1h+197N73lW7
-         rArv8yKBuDLKVOwUiV83yyqe4llt/avnVYp2VVkJXkh5wUKPUj1WGooV/HfmqZ2PWKL2
-         4K7D0idXeb3gJ8dOtjgjkTwVOSSNawi5+VFalyGAetWILpS1fnUMJAQDAS7OtryydDXP
-         LW946YNqADyO/INrnjFOfErLFxF2hq3kNAjzSflmRnud/63zA0+hWojEmyFIyAS0/jnK
-         RvQA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
-         :mime-version:content-disposition:in-reply-to:user-agent;
-        bh=xiMDm1ky06nmshR0GScrWBxrzoPoulophvZ9wLbseww=;
-        b=rkqioeXmhPvhNMnczHQll0jycIJxCr1VHNhl4ZK0gRTedopjguW4c/tDL4WLwZ8egJ
-         /hNB5AsAWWRZwhyQbZgQEFZPQY8h/N3O0eZkv8/0WQssHwThQ49aibxgGBcAA6vaGf+A
-         G1aPaXOolf2oRA1GeqWVfuzAkcmmRvEnbAYly1w1KY1YCKyZGmxfxrtCQMZ3futDELxM
-         nnaJXfYnmo4l0YHnARXtm2SVxv9UT/5y0tTs7NpzHSXXIj0lDp33KOJ/Be+nH8JT013R
-         NSAoky+CynTYQcH+4o3lQ9kjYj7z/ZRD0v9iS9sPXNn3XcmbrBwHSMq7CRtO0CywQTMb
-         emAw==
-X-Gm-Message-State: APjAAAXUkYgD6MJnwOJEhFcIRz/3rQDg6hj4Vo2MLh6IEOWDk4YqTMxA
-        Q1y5N3J5tNV+fuR2zV8fUhdKwt+I
-X-Google-Smtp-Source: APXvYqwZmxqAvuKLjtKOvJ9JlC2VKqvB/zQ62QrheplfgaFIHh3wC+cKc+/QwCG8bpX5Tx1TPo/cvA==
-X-Received: by 2002:a5d:5383:: with SMTP id d3mr18655697wrv.55.1572356280195;
-        Tue, 29 Oct 2019 06:38:00 -0700 (PDT)
-Received: from ltop.local ([2a02:a03f:40ac:ce00:e50c:dda6:99a6:2dfe])
-        by smtp.gmail.com with ESMTPSA id o15sm14429536wrv.76.2019.10.29.06.37.58
-        (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-        Tue, 29 Oct 2019 06:37:59 -0700 (PDT)
-Date:   Tue, 29 Oct 2019 14:37:57 +0100
-From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-To:     Dan Carpenter <dan.carpenter@oracle.com>
-Cc:     Rasmus Villemoes <linux@rasmusvillemoes.dk>,
-        Dan Carpenter <dan.carpenter@oracle.co>,
-        linux-sparse@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>
-Subject: Re: detecting misuse of of_get_property
-Message-ID: <20191029133756.qpqk5vf6txapqm35@ltop.local>
-References: <ec277c12-c608-6326-7723-be8cab4f524a@rasmusvillemoes.dk>
- <20191029104917.GI1944@kadam>
- <20191029114750.a7inago2vd2o4lzl@ltop.local>
- <20191029125519.GA1705@kadam>
+        Tue, 29 Oct 2019 14:54:04 -0400
+Received: from [10.0.2.15] ([146.198.133.39])
+        by smtp with ESMTPA
+        id PWcyigzCktvkXPWcziiYf9; Tue, 29 Oct 2019 18:54:03 +0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=plus.com; s=042019;
+        t=1572375243; bh=I4ZZ/wVJJQ0guXrWMZRkvryKrerb1ReP5+TDi/d996w=;
+        h=Subject:To:Cc:References:From:Date:In-Reply-To;
+        b=qGlZh9wka1XHevwqmEXD49cMDJJfe+FkSQGHxa1snuKSk6S2cgjCPgidJzixQZACE
+         wUW2kiQI1FiTjd1ob1ZeayuihK5zg+aPVmAhvEfSBCL/Lm5zkYc5W3e3zyD5G6dnw7
+         BZQUO7icHobzrrZFqfhzrm6FI4cFgw+k/g9UpyhRC2saG+qzples5/pDdSc/FB+o3T
+         +EvtPc5/zBBu2vkEksa2KC4UqfCINtk+/N5ApeevynBL+EXTOrH7XT3lZnY0UFpRkt
+         GtNCTULhBK7GtciDczTbi4mP2kN1/FtVKCsZIh1/L/LAo06NwwMSu9Eddj0cRYOat8
+         0JzfIf7xWiPkw==
+X-Clacks-Overhead: "GNU Terry Pratchett"
+X-CM-Score: 0.00
+X-CNFS-Analysis: v=2.3 cv=ePBtc0h1 c=1 sm=1 tr=0
+ a=1Jh3712dEPwUcX5EWi7t+w==:117 a=1Jh3712dEPwUcX5EWi7t+w==:17
+ a=jpOVt7BSZ2e4Z31A5e1TngXxSK0=:19 a=IkcTkHD0fZMA:10 a=491Ab-Zl-TA3clIL934A:9
+ a=QEXdDO2ut3YA:10
+X-AUTH: ramsayjones@:2500
+Subject: Re: [PATCH] compiler*.h: Add '__' prefix and suffix to all
+ __attribute__ #defines
+To:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
+Cc:     Joe Perches <joe@perches.com>,
+        Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>,
+        linux-sparse@vger.kernel.org,
+        Andrew Morton <akpm@linux-foundation.org>,
+        linux-kernel <linux-kernel@vger.kernel.org>,
+        clang-built-linux <clang-built-linux@googlegroups.com>
+References: <7a15bc8ad7437dc3a044a4f9cd283500bd0b5f36.camel@perches.com>
+ <CANiq72=B6XKwfkC9L4=+OxWtjxCp-94TWRG1a=pC=y636gzckA@mail.gmail.com>
+ <19fd23e98bab65a1ee624445193bd2ed86108881.camel@perches.com>
+ <20191028221523.vlzdk6dkcglxei6v@desk.local>
+ <00c5ef125a4e62f538de7ddddc9d8fe7085794a3.camel@perches.com>
+ <20191028230349.xlhm42ripxktx43y@desk.local>
+ <61eb73ad-5c30-0005-5031-6584df72ad5f@ramsayjones.plus.com>
+ <20191029080701.qpvscbz3xptadhbd@ltop.local>
+From:   Ramsay Jones <ramsay@ramsayjones.plus.com>
+Message-ID: <ede574e5-d18d-f30c-b9f0-a39b73d57ff3@ramsayjones.plus.com>
+Date:   Tue, 29 Oct 2019 18:54:00 +0000
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.9.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20191029125519.GA1705@kadam>
-User-Agent: NeoMutt/20180716
+In-Reply-To: <20191029080701.qpvscbz3xptadhbd@ltop.local>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
+X-CMAE-Envelope: MS4wfDVoYw7ULPJG2gXopqFyDkmgZvbcO8oQUTiYMfxlmz6Gnd4uUsch0XW/zcYouohl3jtIkJ7OQVZAnwhkyFoc8eds9yVeMsZTsXYDLiJipbGXmrCsDCtr
+ za5CAl/4tJyknl2EXIlMxmt+ZrMs1BCXQEfoCSWPWpU8/LfcajI3M48HB9VwXGWulR1MHE0YajXyMg==
 Sender: linux-sparse-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-On Tue, Oct 29, 2019 at 03:55:19PM +0300, Dan Carpenter wrote:
-> On Tue, Oct 29, 2019 at 12:47:50PM +0100, Luc Van Oostenryck wrote:
-> > On Tue, Oct 29, 2019 at 01:50:58PM +0300, Dan Carpenter wrote:
-> > > +static void match_of_get_property(const char *fn, struct expression *expr, void *unused)
-> > > +{
-> > > +	struct expression *left = expr->left;
-> > > +	struct symbol *type;
-> > > +
-> > > +	type = get_type(left);
-> > > +	if (!type || type->type != SYM_PTR)
-> > > +		return;
-> > > +	type = get_base_type(type);
-> > > +	if (type_bits(type) == 8)
-> > > +		return;
-> > > +	if (type->type == SYM_RESTRICT)
-> > > +		return;
-> > 
-> > Wouldn't this also silently accept assignments to any bitwise
-> > type: __le32, __be16, ... ? 
+
+
+On 29/10/2019 08:07, Luc Van Oostenryck wrote:
+> On Tue, Oct 29, 2019 at 02:38:54AM +0000, Ramsay Jones wrote:
+>> On 28/10/2019 23:03, Luc Van Oostenryck wrote:
+>>> diff --git a/parse.c b/parse.c
+>>> index 4464e2667..4b0a1566c 100644
+>>> --- a/parse.c
+>>> +++ b/parse.c
+>>> @@ -345,6 +345,7 @@ static struct symbol_op goto_op = {
+>>>  
+>>>  static struct symbol_op __context___op = {
+>>>  	.statement = parse_context_statement,
+>>> +	.attribute = attribute_context,
+>>
+>> Hmm, so why is do we have a context_op and a __context___op?
+>>
+>>>  };
+>>>  
+>>>  static struct symbol_op range_op = {
+>>> @@ -537,6 +538,7 @@ static struct init_keyword {
+>>>  	{ "while",	NS_KEYWORD, .op = &while_op },
+>>>  	{ "do",		NS_KEYWORD, .op = &do_op },
+>>>  	{ "goto",	NS_KEYWORD, .op = &goto_op },
+>>> +	{ "context",	NS_KEYWORD, .op = &context_op },
+>>>  	{ "__context__",NS_KEYWORD, .op = &__context___op },
+>>
+>> So, can '__context__' be used in a statement, as well as an
+>> attribute, while 'context' can only be used in an attribute?
 > 
-> It does, yes.  I'm not sure how big of an issue that is...
+> Yes, indeed.
 
-Probably not much if it's just a one shot for Rasmus and
-probably not much more otherwise.
+OK, so I wasn't quite as confused as I thought! ;-)
 
-> I always
-> just throw a check together and test it before I decide if it's worth
-> investing more time into it.
+> '__context__' was only parsed as a statement and 'context'
+> only as an attribute. But now we also want to be able to use
+> '__context__' as an attribute (because 'context' is not a
+> reserved keyword and can thus be a used defined macro).
+> 
+> There is no reason, though, we should now also want to use
+> 'context' as a statement since it's a sparse extension. Hence
+> adding attribute_context to '__context___op' and keeping
+> 'context_op' as such (but moving them together).
 
-Sure, but I was thinking about false negatives here.
+Thanks for the explanation.
 
-Regards,
--- Luc
+ATB,
+Ramsay Jones
+
