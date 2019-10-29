@@ -2,114 +2,108 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 0D28FE82F2
-	for <lists+linux-sparse@lfdr.de>; Tue, 29 Oct 2019 09:07:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 977D4E8327
+	for <lists+linux-sparse@lfdr.de>; Tue, 29 Oct 2019 09:23:39 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1728237AbfJ2IHG (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Tue, 29 Oct 2019 04:07:06 -0400
-Received: from mail-wr1-f68.google.com ([209.85.221.68]:44120 "EHLO
+        id S1728783AbfJ2IXi (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Tue, 29 Oct 2019 04:23:38 -0400
+Received: from mail-wr1-f68.google.com ([209.85.221.68]:46326 "EHLO
         mail-wr1-f68.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726246AbfJ2IHG (ORCPT
+        with ESMTP id S1728757AbfJ2IXi (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Tue, 29 Oct 2019 04:07:06 -0400
-Received: by mail-wr1-f68.google.com with SMTP id z11so12487337wro.11;
-        Tue, 29 Oct 2019 01:07:04 -0700 (PDT)
+        Tue, 29 Oct 2019 04:23:38 -0400
+Received: by mail-wr1-f68.google.com with SMTP id n15so12539024wrw.13
+        for <linux-sparse@vger.kernel.org>; Tue, 29 Oct 2019 01:23:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=date:from:to:cc:subject:message-id:references:mime-version
          :content-disposition:in-reply-to:user-agent;
-        bh=GfXU1iwRgOcekEGBFraoPf4Q3S7itjMXcEa/+TYa5iQ=;
-        b=sqhQDfcDyYknLPZL9eGIlv4PJfvAw+LP1NkwTn3IgkDJzjVpzmxyzW7JFEl4rLbo9Y
-         /R2X8JAiBJwH/jg+sveDNJujfhQR79QDlqW75iHGJoJHRH+oVcmeA2hcEGkHnnQC1TS5
-         Ez9Kh2Pn+UrfGVJesdrvpHCWpBOTLXCDqrGidoRHNad49mbdnYuqeI2eMJvPQEvL21Il
-         ia4o/uD52xrnG0H7X9zxbA78YsBcC9CNRBu6Jr412ivrS7kNAyEzmAwgfhQr2tUus+hL
-         TewCCGy1mgX9tlFUUSSqQHSQEQ7FFg8/QBuEo3Wp0ayRJd2JISSXMFZYsBCObiTkau0m
-         11zQ==
+        bh=WWnD3aPQj4y/RdmUzoDtIfZgkiE6VwXUVp1vO008BVk=;
+        b=Ndw4qpwZDfESfLajoPHa6ZW89plmZJl7XbWH99C5iqBSBnZ52cAWK7soVrdL4lTDWX
+         kIuBQ3Ndwl6CL7pKdfz4omB9qcoHJOaJjEs1mMnAwSQbQVpsEu4wD14Tw0D/GZG52xAm
+         FcVbj9gY97MMH87EabZfhN++kPFZL3G8HaGYadI+ffvoSDzaILpYLXvHSKI5a6cOYQvW
+         N5y6+Ciz2gKjG9fpVWtJ1933j5krEBBnxBckIBh6m/gUSxZOiSAIL7GGIyvDUJtdwcXZ
+         8kmRH2WSu2uEeOzA+0GBeL+2xIJDuk0NCsai9JYxoUUXu76Ni8Flxzm9OxXe2xZwDJYq
+         YDqQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:date:from:to:cc:subject:message-id:references
          :mime-version:content-disposition:in-reply-to:user-agent;
-        bh=GfXU1iwRgOcekEGBFraoPf4Q3S7itjMXcEa/+TYa5iQ=;
-        b=JJCulrNaS0Y04IHwA2aWhiZRZYOSQKhOTHVOlsgYXrWtkudH0hjYSZbQf+xg6YtEvM
-         0/FR0+oniEOu2z0oI3VofUKUHvJcr/s24uUlr9TfI5/eFOOwf36mAVOLK3rxyW7qKGnY
-         EBkiHKntJdotqe0jNrsePSiqlxmX94clhceKG1eHmp49onm/RCX1Jj1NvEQJatytR2IL
-         HHZKcuCs8IXZxMhIXaBTJL5hi9raKeYhKnZXMKKweZJCDWDyWOzIPUFbZoma9Tk2gBXi
-         FhKS/jawxqspXtWpST6Wmd2J9may73NyPmH9RH3BFIf1s7pi80AspwUaJUZdJzicqoDu
-         bLAQ==
-X-Gm-Message-State: APjAAAVG81QtO2CF/pcN8GD83Z7hAsDrWjhZW+kxNCXiA/V/CIsxTeKU
-        axZhZjZR05/BUF8yg/PQOV0=
-X-Google-Smtp-Source: APXvYqygyU6rn4vt9zUjs90G5fyqFX/x5yrUMsrVZ6NmKw41MJksTZW+YcXsjt6oTkWlvCrjP8R0MQ==
-X-Received: by 2002:a5d:4047:: with SMTP id w7mr18366744wrp.270.1572336423968;
-        Tue, 29 Oct 2019 01:07:03 -0700 (PDT)
+        bh=WWnD3aPQj4y/RdmUzoDtIfZgkiE6VwXUVp1vO008BVk=;
+        b=cWAYAkHNwL4IMIXbRO9L/MZ61Dvw7La7duZ1I8wEKol5aqe6kS7A6f9hbZkbrx6FQm
+         lEe4dvkGoE9lzS/Zy3l2IrTzZoDLPbaJYvLgpJtVKuW6vcnZ6bX1+hnS+eYOSxzo6D+n
+         nzDFlyOnb7nI0NtGhkKhgmR9/gaehSYFGMNjSvqbGEKnVlPDG4nq9/cWLv7etf5x7arL
+         7SW15vo5ui+h0f98wxY7iNXHPdaohd2ukXO8yEpwSLHbMGqgnDX1mT7uikmd/TLp7p1v
+         cBBshmrFib1Ip1dhMUSg6cB8JYvup8CbDglTYtFFTsscJJJz+m4Dh4amIUtaSTLvhIvh
+         pjkw==
+X-Gm-Message-State: APjAAAUKvceEFrkGkdTbLeE/SZmeY7+hDwOKYi4PoDkYT4Y7/wI//P8h
+        WcMuas6pP3YzOgl4kqZ96pE=
+X-Google-Smtp-Source: APXvYqyfDmT85x1FIhb7Rk2oEjpJbqKV6X7rHaONxWCK4qguExjY9PwhktQEZBeNgqOtX529F3rFzg==
+X-Received: by 2002:adf:b6a6:: with SMTP id j38mr18095478wre.275.1572337416681;
+        Tue, 29 Oct 2019 01:23:36 -0700 (PDT)
 Received: from ltop.local ([2a02:a03f:40ac:ce00:c1a7:4ac0:2d11:a4f8])
-        by smtp.gmail.com with ESMTPSA id o15sm13468325wrv.76.2019.10.29.01.07.02
+        by smtp.gmail.com with ESMTPSA id l4sm16055111wrf.46.2019.10.29.01.23.35
         (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-        Tue, 29 Oct 2019 01:07:03 -0700 (PDT)
-Date:   Tue, 29 Oct 2019 09:07:01 +0100
+        Tue, 29 Oct 2019 01:23:36 -0700 (PDT)
+Date:   Tue, 29 Oct 2019 09:23:35 +0100
 From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 To:     Ramsay Jones <ramsay@ramsayjones.plus.com>
-Cc:     Joe Perches <joe@perches.com>,
-        Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>,
-        linux-sparse@vger.kernel.org,
-        Andrew Morton <akpm@linux-foundation.org>,
-        linux-kernel <linux-kernel@vger.kernel.org>,
-        clang-built-linux <clang-built-linux@googlegroups.com>
-Subject: Re: [PATCH] compiler*.h: Add '__' prefix and suffix to all
- __attribute__ #defines
-Message-ID: <20191029080701.qpvscbz3xptadhbd@ltop.local>
-References: <7a15bc8ad7437dc3a044a4f9cd283500bd0b5f36.camel@perches.com>
- <CANiq72=B6XKwfkC9L4=+OxWtjxCp-94TWRG1a=pC=y636gzckA@mail.gmail.com>
- <19fd23e98bab65a1ee624445193bd2ed86108881.camel@perches.com>
- <20191028221523.vlzdk6dkcglxei6v@desk.local>
- <00c5ef125a4e62f538de7ddddc9d8fe7085794a3.camel@perches.com>
- <20191028230349.xlhm42ripxktx43y@desk.local>
- <61eb73ad-5c30-0005-5031-6584df72ad5f@ramsayjones.plus.com>
+Cc:     linux-sparse@vger.kernel.org, Ben Dooks <ben.dooks@codethink.co.uk>
+Subject: Re: [PATCH] options: allow to specify the desired arch with
+ --arch=<arch>
+Message-ID: <20191029082334.g3evfqkc73ohn6pn@ltop.local>
+References: <20191028214337.70890-1-luc.vanoostenryck@gmail.com>
+ <c480aeeb-2779-94b0-1354-f1f8eb6522a8@ramsayjones.plus.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <61eb73ad-5c30-0005-5031-6584df72ad5f@ramsayjones.plus.com>
+In-Reply-To: <c480aeeb-2779-94b0-1354-f1f8eb6522a8@ramsayjones.plus.com>
 User-Agent: NeoMutt/20180716
 Sender: linux-sparse-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-On Tue, Oct 29, 2019 at 02:38:54AM +0000, Ramsay Jones wrote:
-> On 28/10/2019 23:03, Luc Van Oostenryck wrote:
-> > diff --git a/parse.c b/parse.c
-> > index 4464e2667..4b0a1566c 100644
-> > --- a/parse.c
-> > +++ b/parse.c
-> > @@ -345,6 +345,7 @@ static struct symbol_op goto_op = {
-> >  
-> >  static struct symbol_op __context___op = {
-> >  	.statement = parse_context_statement,
-> > +	.attribute = attribute_context,
+On Tue, Oct 29, 2019 at 02:32:15AM +0000, Ramsay Jones wrote:
 > 
-> Hmm, so why is do we have a context_op and a __context___op?
 > 
-> >  };
-> >  
-> >  static struct symbol_op range_op = {
-> > @@ -537,6 +538,7 @@ static struct init_keyword {
-> >  	{ "while",	NS_KEYWORD, .op = &while_op },
-> >  	{ "do",		NS_KEYWORD, .op = &do_op },
-> >  	{ "goto",	NS_KEYWORD, .op = &goto_op },
-> > +	{ "context",	NS_KEYWORD, .op = &context_op },
-> >  	{ "__context__",NS_KEYWORD, .op = &__context___op },
+> On 28/10/2019 21:43, Luc Van Oostenryck wrote:
+> > Sparse is universal in the sense that the same executable can
+> > be used for all architectures. For this, most arch-specific
+> > setting can be set with an option and the default values
+> > are taken from the host machine.
+> > 
+> > This is working nicely for native targets. However, for cross-
+> > compilation, while seeming to work relatively well (thanks to
+> > the kernel build system using -m32/-m64 for all archs, for example)
+> > things can never work 100% correctly. For example, in the case
+> > an X86-64 host machine is used for an ARM target, the kernel
+> > build system will call sparse with -m32, Sparse will 'autodetect'
+> > the target arch as i386 (x86-64 + -m32) and will then predefine
+> > the macro __i386__. Most of the time this is not a problem (at
+> > least for the kernel) unless, of course, if the code contains
+> > something like:
+> > 	#ifdef __i386__
+> > 	...
+> > 	#elif  __arm__
+> > 	...
+> > 
+> > So, add an option --arch=<arch> to specify the target architecture.
+> > The native arch is still used if no such flag is given.
 > 
-> So, can '__context__' be used in a statement, as well as an
-> attribute, while 'context' can only be used in an attribute?
+> How does this interact with the cgcc --target=<spec> and the
+> (otherwise) guessing of the 'native' specs?
 
-Yes, indeed.
-'__context__' was only parsed as a statement and 'context'
-only as an attribute. But now we also want to be able to use
-'__context__' as an attribute (because 'context' is not a
-reserved keyword and can thus be a used defined macro).
+I didn't yet looked at how it interacts with cgcc --target=<spec>.
+I had losely planned to do this after having removed all the defines
+in cgcc that are now unneeded (integer_type() and define_size_t()
+are now done by sparse itself, float_types() should also).
 
-There is no reason, though, we should now also want to use
-'context' as a statement since it's a sparse extension. Hence
-adding attribute_context to '__context___op' and keeping
-'context_op' as such (but moving them together).
+I think that the OS-specific parts can be kept in cgcc and in
+the 'arch' parts it would be easy enough to call sparse with the
+right '--arch=<...>' (either guessed via uname or specified via
+--target=<spec>, it wouldn't matter).
 
--- Luc
+Do you see some complications?
+
+--Luc
