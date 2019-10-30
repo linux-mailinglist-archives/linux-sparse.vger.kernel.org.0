@@ -2,56 +2,56 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id EA9AFE98C4
-	for <lists+linux-sparse@lfdr.de>; Wed, 30 Oct 2019 10:03:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 602AAE98C6
+	for <lists+linux-sparse@lfdr.de>; Wed, 30 Oct 2019 10:03:56 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726594AbfJ3JDx (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        id S1726198AbfJ3JDx (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
         Wed, 30 Oct 2019 05:03:53 -0400
-Received: from mail-wm1-f67.google.com ([209.85.128.67]:35281 "EHLO
-        mail-wm1-f67.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726198AbfJ3JDx (ORCPT
+Received: from mail-wm1-f66.google.com ([209.85.128.66]:53504 "EHLO
+        mail-wm1-f66.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1726213AbfJ3JDx (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
         Wed, 30 Oct 2019 05:03:53 -0400
-Received: by mail-wm1-f67.google.com with SMTP id x5so1228554wmi.0
-        for <linux-sparse@vger.kernel.org>; Wed, 30 Oct 2019 02:03:50 -0700 (PDT)
+Received: by mail-wm1-f66.google.com with SMTP id n7so1205606wmc.3
+        for <linux-sparse@vger.kernel.org>; Wed, 30 Oct 2019 02:03:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=+NxCfiSXtYClnyIjhOXlGGMb1f1qjeeoFxR3ywrcspE=;
-        b=mYU/ahLdhTN5EXynMCVKJyhJkt6Fe60Z5Q7kd3Il0pqEltfpvLxTFDhuntaQZMxDAW
-         I+XAWWD0GZOXqizuxr8Og7dj08RLNyY+zk8VMFoRc/OdVzaWeYuFyi0X0PFm4QoAfRTk
-         5+zNO22gCIa+dEXyte7+VteZPvmjYe9nki1CEONXLAAkeLyZzI9cuwlWpoLSXgugFku5
-         FYnrfBNeLoLVM+9xcOdR+ycBSYCVh1GD89Hqa8p8Kgm4/RIJ2a1Vtew9FR+dhf97eigM
-         WpBo5p/uWuAtBROMa4GrEUaN1SMZfvyhR64NvFH2qZlIOJGuwRs9LvA3qHpHVOZfg1RK
-         Lv5A==
+        bh=pkwhKR/eIAUCOx47YxM4QJnhanDWBGm+ZxiVZCUe/HM=;
+        b=EffmjzJ5Kv1nzPBaN2c368GIXA4a2oI3qAfDdZdsAmRzd1EOOKTwChTkN4oIJOVJSb
+         A9VYKvNFjx8jq8ASQa2F55stw1EO9E/zaG3e5sI2FDcrCQG9+5W2EtobbJjTsHilRBFR
+         ZJ1bgaWALS4MzP+sVVbSepwSSsShkOO5sw7jNAFVWMGk99CQ5/Ka5nxv6N7brkG2Clpc
+         SwmGrVsczpYQUd47LT4oTWbOoIjooOJ/7TLSuKLftnQWFB1s8fq+rIw4dfgJ2S57wB9H
+         i9D0/wrjFvLd7qgKQEEVT/SPMCiWf+NY7XYpy4zmTN2Dzn+YYLTt+BVHrhXAAwm+Ji3v
+         MoRw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=+NxCfiSXtYClnyIjhOXlGGMb1f1qjeeoFxR3ywrcspE=;
-        b=N6De/DIp1Xd/ARt2wdC9fSmp7YblLWulQUAU16SmaOkUVajHNVUK74fnE3YFD1Mxqd
-         HghQ5jYAcYaVXZAxAKu+WPiF4unX7n1N58ixjZbHk+OAwt3jz7uLkO1lMPTa2alWM5r6
-         /hx0IOHdURo1cCjv9NflR5rkyaxyNQp6nZQDD/ITjP5T90BYTH8EqEjjevtlxE50dnUY
-         5g+rIfJ3EF4exomPF3jULjFiVSc/M35nryU5pmyaVL7sXGYDTCme9+CeWpdPutsNaf9+
-         Hzc5rlWtu3rzTgu7WPdcQW6eNHlJ85i5PahZkhBP78MDbuK/Gw0YYWeekxl0DqBjlQmg
-         56cg==
-X-Gm-Message-State: APjAAAX6+XOtuMsWbjdqzLCGz7O+aWYWmZjrONrMqGwlxg/josIG02ou
-        zJzcqlQL73qoOIoed4Ix6XmFmBSa
-X-Google-Smtp-Source: APXvYqy+F55pPoELtwEEUZvXfg8DHH17vCecWpG4vOFKsqk5RpANSvdov7y6Tv6Fh9DhxHO0ttPA6A==
-X-Received: by 2002:a1c:60d7:: with SMTP id u206mr8321225wmb.101.1572426229739;
-        Wed, 30 Oct 2019 02:03:49 -0700 (PDT)
+        bh=pkwhKR/eIAUCOx47YxM4QJnhanDWBGm+ZxiVZCUe/HM=;
+        b=mC46204Sx1ObSu7ohziiQf5+LcAVzpyTcBnRNiWysbQsg8KppT99lQeNReGlp8Zymx
+         RVubGZVidvdOShses+lXcvuizcH+IXEntbSdLptRNaXz6OKYjqJdEPPyt0LQw3aiNjKK
+         apiMJxxpPzK3qQ5jIZzJdxHgEptfoCiUcfZwG8F2JFG1uXZeNuiCA0NcirGGxHjRKr2Z
+         l1Lf1oU2k0q8ApIoIGCDP4bdw1ly2CvYzh86J2fuugvg6vk/Vui96zKCsm5QM/fl3vxY
+         qGxUWwQaDYV+x1VpImZhA/H6j3shPcy7o8Ue/Cb5vtc/2nmMYu+HoYqL3LbC1kUt8EPI
+         r3yg==
+X-Gm-Message-State: APjAAAVf2M1Is40FF5X7sW3DFoyZabKu8bCrwMzi92Ww6I7lHjvz/1+y
+        v3kwcjq/k+lT0X4BNTFX3XgqmPQM
+X-Google-Smtp-Source: APXvYqz7PP4qIQCaeq8yo+VZ4DUlQi3w3Tuac5bIMH7VPh9l/2Ef+BZZgNRyuR3Nni/XziJIEwOxlA==
+X-Received: by 2002:a1c:ed0d:: with SMTP id l13mr7886886wmh.54.1572426230601;
+        Wed, 30 Oct 2019 02:03:50 -0700 (PDT)
 Received: from localhost.localdomain ([2a02:a03f:40ac:ce00:f5ff:f33b:6735:4cb6])
         by smtp.gmail.com with ESMTPSA id c15sm1263247wmb.45.2019.10.30.02.03.49
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Oct 2019 02:03:49 -0700 (PDT)
+        Wed, 30 Oct 2019 02:03:50 -0700 (PDT)
 From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 To:     linux-sparse@vger.kernel.org
 Cc:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>,
         Ben Dooks <ben.dooks@codethink.co.uk>
-Subject: [PATCH v2 4/6] options: allow to specify the desired arch with --arch=<arch>
-Date:   Wed, 30 Oct 2019 10:03:28 +0100
-Message-Id: <20191030090333.3412-9-luc.vanoostenryck@gmail.com>
+Subject: [PATCH 5/7] arch: add an option to specify the desired arch: --arch=<arch>
+Date:   Wed, 30 Oct 2019 10:03:29 +0100
+Message-Id: <20191030090333.3412-10-luc.vanoostenryck@gmail.com>
 X-Mailer: git-send-email 2.23.0
 In-Reply-To: <20191030090333.3412-1-luc.vanoostenryck@gmail.com>
 References: <20191030090333.3412-1-luc.vanoostenryck@gmail.com>
@@ -88,12 +88,20 @@ The native arch is still used if no such flag is given.
 Reported-by: Ben Dooks <ben.dooks@codethink.co.uk>
 Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 ---
- lib.c    | 68 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
- sparse.1 |  8 +++++++
- 2 files changed, 76 insertions(+)
+ lib.c                     | 68 +++++++++++++++++++++++++++++++++++++++
+ sparse.1                  |  8 +++++
+ validation/arch/arm.c     | 27 ++++++++++++++++
+ validation/arch/arm64.c   | 23 +++++++++++++
+ validation/arch/mips32.c  | 29 +++++++++++++++++
+ validation/arch/riscv64.c | 27 ++++++++++++++++
+ 6 files changed, 182 insertions(+)
+ create mode 100644 validation/arch/arm.c
+ create mode 100644 validation/arch/arm64.c
+ create mode 100644 validation/arch/mips32.c
+ create mode 100644 validation/arch/riscv64.c
 
 diff --git a/lib.c b/lib.c
-index 72dcfa6a0..3cc8916b1 100644
+index 58c12c77b..91ecc12c5 100644
 --- a/lib.c
 +++ b/lib.c
 @@ -1046,6 +1046,73 @@ static char **handle_switch_x(char *arg, char **next)
@@ -157,10 +165,10 @@ index 72dcfa6a0..3cc8916b1 100644
 +				arch_m64 = ARCH_LP32;
 +			else if (bits == 64 && arch_m64 == ARCH_LP32)
 +				arch_m64 = ARCH_LP64;
-+			break;
-+
 +			if (p->big_endian)
 +				arch_big_endian = 1;
++
++			break;
 +		}
 +	}
 +
@@ -197,6 +205,136 @@ index beb484423..be38f6883 100644
  .B \-gcc-base-dir \fIdir\fR
  Look for compiler-provided system headers in \fIdir\fR/include/ and \fIdir\fR/include-fixed/.
  .
+diff --git a/validation/arch/arm.c b/validation/arch/arm.c
+new file mode 100644
+index 000000000..4eb804de6
+--- /dev/null
++++ b/validation/arch/arm.c
+@@ -0,0 +1,27 @@
++__arm__
++__aarch64__
++__i386__
++__x86_64__
++__LP64__
++__BYTE_ORDER__
++__SIZEOF_INT__
++__SIZEOF_LONG__
++__SIZE_TYPE__
++
++/*
++ * check-name: arch/arm
++ * check-command: sparse --arch=arm -E $file
++ *
++ * check-output-start
++
++1
++__aarch64__
++__i386__
++__x86_64__
++__LP64__
++1234
++4
++4
++unsigned int
++ * check-output-end
++ */
+diff --git a/validation/arch/arm64.c b/validation/arch/arm64.c
+new file mode 100644
+index 000000000..12f839cc6
+--- /dev/null
++++ b/validation/arch/arm64.c
+@@ -0,0 +1,23 @@
++__aarch64__
++__x86_64__
++__LP64__
++__BYTE_ORDER__
++__SIZEOF_INT__
++__SIZEOF_LONG__
++__SIZE_TYPE__
++
++/*
++ * check-name: arch/arm64
++ * check-command: sparse --arch=arm64 -E $file
++ *
++ * check-output-start
++
++1
++__x86_64__
++1
++1234
++4
++8
++unsigned long
++ * check-output-end
++ */
+diff --git a/validation/arch/mips32.c b/validation/arch/mips32.c
+new file mode 100644
+index 000000000..339218b61
+--- /dev/null
++++ b/validation/arch/mips32.c
+@@ -0,0 +1,29 @@
++__mips__
++__mips
++__mips64__
++__i386__
++__x86_64__
++__LP64__
++__BYTE_ORDER__
++__SIZEOF_INT__
++__SIZEOF_LONG__
++__SIZE_TYPE__
++
++/*
++ * check-name: arch/mips32
++ * check-command: sparse --arch=mips32 -E $file
++ *
++ * check-output-start
++
++1
++32
++__mips64__
++__i386__
++__x86_64__
++__LP64__
++4321
++4
++4
++unsigned int
++ * check-output-end
++ */
+diff --git a/validation/arch/riscv64.c b/validation/arch/riscv64.c
+new file mode 100644
+index 000000000..9da7a7de3
+--- /dev/null
++++ b/validation/arch/riscv64.c
+@@ -0,0 +1,27 @@
++__riscv
++__riscv_xlen
++__i386__
++__x86_64__
++__LP64__
++__BYTE_ORDER__
++__SIZEOF_INT__
++__SIZEOF_LONG__
++__SIZE_TYPE__
++
++/*
++ * check-name: arch/riscv64
++ * check-command: sparse --arch=riscv64 -E $file
++ *
++ * check-output-start
++
++1
++64
++__i386__
++__x86_64__
++1
++1234
++4
++8
++unsigned long
++ * check-output-end
++ */
 -- 
 2.23.0
 
