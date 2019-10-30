@@ -2,55 +2,55 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 8B82BE98BC
-	for <lists+linux-sparse@lfdr.de>; Wed, 30 Oct 2019 10:03:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 75CB8E98BE
+	for <lists+linux-sparse@lfdr.de>; Wed, 30 Oct 2019 10:03:48 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726104AbfJ3JDq (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Wed, 30 Oct 2019 05:03:46 -0400
-Received: from mail-wm1-f68.google.com ([209.85.128.68]:56267 "EHLO
-        mail-wm1-f68.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726088AbfJ3JDq (ORCPT
+        id S1726063AbfJ3JDs (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Wed, 30 Oct 2019 05:03:48 -0400
+Received: from mail-wr1-f66.google.com ([209.85.221.66]:34364 "EHLO
+        mail-wr1-f66.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1726097AbfJ3JDr (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Wed, 30 Oct 2019 05:03:46 -0400
-Received: by mail-wm1-f68.google.com with SMTP id g24so1197383wmh.5
-        for <linux-sparse@vger.kernel.org>; Wed, 30 Oct 2019 02:03:45 -0700 (PDT)
+        Wed, 30 Oct 2019 05:03:47 -0400
+Received: by mail-wr1-f66.google.com with SMTP id t16so1370845wrr.1
+        for <linux-sparse@vger.kernel.org>; Wed, 30 Oct 2019 02:03:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=wKW8iZ30J+9D0MFnnWRot60IdudahSYdVNTFwS5waTk=;
-        b=KEeo9qU7kWyvgn91+SJQnp6gZPErINlQ0KHnl47Sr1Z7IAJQcQMSCirRGaaiDOMrG+
-         zwpPAcqajEF4ODPn29xBTJzG0t8/43sCnGNlyNWznseBBoFYZGYbcEO07bCZUOejZlRS
-         dEKnw/FhDTjdfmC9gUGbZslMkcd1Zyo/He+JnJMgiVc2WmEjITgfheayR6XP7B4FXgYc
-         oeRLhkOeY3IKhJwxIQ8Ty1gCf8oq4bzS1y4j0zgHQafyWLNSaJG7Yrt4Kyq8GzgBqsjn
-         qWc4n+QmzUZOb/MsPrdjjdPDp7j3MEE4NWOMXT0wZ2fobbR93LxZaMEdloOjC8yNcmJO
-         xGGw==
+        bh=9siAmTmC1XbJQpNMsxl68pjg9PQbRz3F5HvuE/oXrjA=;
+        b=fBQyj3nT2eS0lNyTz/tU2zw1xnaOuCTHpa3GMaMvrU7jfrPx9kH73PJ39pKC32P0Fx
+         t3BuYamFniJnfgMbR4DN8l4pC5mc5JLhiklaubhlbMKlQU2AydAi+xzoUdap3vzUgjIR
+         +BCZ/lCyQbSK6OLzZ1s9l8Ilic2hoRjPwcrlKpTuBxc1F8nalaMtw+mxV4CAR7jlNzWo
+         IK/ZNf8XDimah5kMgmUrOEO8UMFKWebTe7iHkr9qdmI9iDDeAMy+Pg0tqXKHx2u/Qld3
+         apK0ESjZ5iAKb9rY+3S5AaYQhlHGt9Xp3gdQRo7t9mptsEUkPqjOiIQqZHHHiYle1fTR
+         VPKg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=wKW8iZ30J+9D0MFnnWRot60IdudahSYdVNTFwS5waTk=;
-        b=exASD002wDqpc6qUCBXXBOgYQHY/k2S5slSxnXd/dLudpI5SG4HKU+h7SEmZt9W4Hv
-         mpFaRB9saMZ6OWqfj0NXUzaqCpt80fzBvn4Cvj37wJ1M8b+gAnCFlui1G1I9HpzFYgA2
-         bhPPXSAkzwXZYB9Yew/hHXzgg9rPYi7AHhE9EcOU7gKBl4sOMrCYmhbtPGzbUJUZ/nC0
-         gTKopfmGqyivmB/TcqHzqAxhCZzczNiMdShl9Z17ST64nXUkM9vRL2y38z4GrU6PemEu
-         kLgTLXyf4fYg95NwLyhNLS+qaag5jI3e442PaA0Voh9PCcLStAxcTqrQbAuGeA094oqr
-         p3dA==
-X-Gm-Message-State: APjAAAWHCyGl719ANBbWvRyPx0BkHml34H1xzwQ02FjKfOh5JiBxtaZk
-        go1yJDkhBZdHhtK/eBaYQrTLlnTe
-X-Google-Smtp-Source: APXvYqwSOU6ZKquNZ+ucL+HpEQCiAQ+R0hgDeMUCLW/3GiJqYqpqkTgNlb7drfpOFU77QoLTOkTj6A==
-X-Received: by 2002:a1c:7405:: with SMTP id p5mr7739154wmc.91.1572426224375;
-        Wed, 30 Oct 2019 02:03:44 -0700 (PDT)
+        bh=9siAmTmC1XbJQpNMsxl68pjg9PQbRz3F5HvuE/oXrjA=;
+        b=Y0jFh16WhiXxjExewXHH0zxsO5ih3WTc2QK57c//0SPYiZ5RoTENsYbdN6LhZSvezv
+         Y5t1JaN0eCtzvLFl6IN8ohlLVMtYOd55aDqU6+WXnuX0JHmZ7HwIMyDwPwhGv5OfoHe+
+         apMDTBjTvvOu43EtK/T62o2ghv8gTHjWR6M97alE7kd+LJ4SjLf8KDJzTkFVTg/0lqtb
+         b7EzYaxJ4G+CUXEVfEtz/vH42kqb+snucuEHRDxYU/SRFLf2nYhcvo7S14TblcwStOWh
+         aKIvQ5E9+m69XYvsmFYt2eJNysIYRFYVZWSPzWgDgkZvS62lv/i29FRBFa5Se5Ckxn1F
+         twGA==
+X-Gm-Message-State: APjAAAWjwg+A+AjaPwjgvOpmXynxyzxSgXA2K922qyBwkn7yWqbjt5yq
+        8eR2RTE04SREZdb+7tatm3L4uYe9
+X-Google-Smtp-Source: APXvYqwxWSJfZYRZZxP1dvOsZOzVLlLtSDEY1PjpVztz7pSiSurqBG20uWRK09JCjz6Sq+XhqabaiQ==
+X-Received: by 2002:adf:dec7:: with SMTP id i7mr14893747wrn.134.1572426225470;
+        Wed, 30 Oct 2019 02:03:45 -0700 (PDT)
 Received: from localhost.localdomain ([2a02:a03f:40ac:ce00:f5ff:f33b:6735:4cb6])
-        by smtp.gmail.com with ESMTPSA id c15sm1263247wmb.45.2019.10.30.02.03.43
+        by smtp.gmail.com with ESMTPSA id c15sm1263247wmb.45.2019.10.30.02.03.44
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Oct 2019 02:03:43 -0700 (PDT)
+        Wed, 30 Oct 2019 02:03:44 -0700 (PDT)
 From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 To:     linux-sparse@vger.kernel.org
 Cc:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-Subject: [PATCH v2 1/6] reorder MACH_XXX defines
-Date:   Wed, 30 Oct 2019 10:03:22 +0100
-Message-Id: <20191030090333.3412-3-luc.vanoostenryck@gmail.com>
+Subject: [PATCH v2 2/6] add support for s390 (ILP32)
+Date:   Wed, 30 Oct 2019 10:03:23 +0100
+Message-Id: <20191030090333.3412-4-luc.vanoostenryck@gmail.com>
 X-Mailer: git-send-email 2.23.0
 In-Reply-To: <20191030090333.3412-1-luc.vanoostenryck@gmail.com>
 References: <20191030090333.3412-1-luc.vanoostenryck@gmail.com>
@@ -61,46 +61,71 @@ Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-Some architectures have a 32- and a 64-bit variant which can
-be exchanged via the -m32/-m64 flags.
-
-Make clear the correspondance between these variant when
-defining the MACH_XXX.
+On s390x, the flag -m31 is needed to enable this mode.
 
 Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 ---
- machine.h | 18 ++++++------------
- 1 file changed, 6 insertions(+), 12 deletions(-)
+ lib.c     | 3 +++
+ machine.h | 4 +++-
+ target.c  | 1 +
+ 3 files changed, 7 insertions(+), 1 deletion(-)
 
+diff --git a/lib.c b/lib.c
+index 75a4f9870..72dcfa6a0 100644
+--- a/lib.c
++++ b/lib.c
+@@ -456,6 +456,8 @@ static char **handle_switch_m(char *arg, char **next)
+ 		arch_m64 = ARCH_LP64;
+ 	} else if (!strcmp(arg, "m32") || !strcmp(arg, "m16")) {
+ 		arch_m64 = ARCH_LP32;
++	} else if (!strcmp(arg, "m31")) {
++		arch_m64 = ARCH_LP32;
+ 	} else if (!strcmp(arg, "mx32")) {
+ 		arch_m64 = ARCH_X32;
+ 	} else if (!strcmp(arg, "msize-llp64")) {
+@@ -1355,6 +1357,7 @@ static void predefined_macros(void)
+ 	case MACH_S390X:
+ 		predefine("__zarch__", 1, "1");
+ 		predefine("__s390x__", 1, "1");
++	case MACH_S390:
+ 		predefine("__s390__", 1, "1");
+ 		break;
+ 	case MACH_SPARC64:
 diff --git a/machine.h b/machine.h
-index b46383ac1..f7567efed 100644
+index f7567efed..e24822a7f 100644
 --- a/machine.h
 +++ b/machine.h
-@@ -25,18 +25,12 @@ enum {
- 
- 
- enum machine {
--	MACH_ARM,
--	MACH_ARM64,
--	MACH_I386,
--	MACH_X86_64,
--	MACH_MIPS32,
--	MACH_MIPS64,
--	MACH_PPC32,
--	MACH_PPC64,
--	MACH_RISCV32,
--	MACH_RISCV64,
--	MACH_SPARC32,
--	MACH_SPARC64,
-+	MACH_ARM,	MACH_ARM64,
-+	MACH_I386,	MACH_X86_64,
-+	MACH_MIPS32,	MACH_MIPS64,
-+	MACH_PPC32,	MACH_PPC64,
-+	MACH_RISCV32,	MACH_RISCV64,
-+	MACH_SPARC32,	MACH_SPARC64,
+@@ -31,8 +31,8 @@ enum machine {
+ 	MACH_PPC32,	MACH_PPC64,
+ 	MACH_RISCV32,	MACH_RISCV64,
+ 	MACH_SPARC32,	MACH_SPARC64,
++	MACH_S390,	MACH_S390X,
  	MACH_M68K,
- 	MACH_S390X,
+-	MACH_S390X,
  	MACH_UNKNOWN
+ };
+ 
+@@ -64,6 +64,8 @@ enum machine {
+ #define MACH_NATIVE	MACH_M68K
+ #elif defined(__s390x__) || defined(__zarch__)
+ #define MACH_NATIVE	MACH_S390X
++#elif defined(__s390__)
++#define MACH_NATIVE	MACH_S390
+ #else
+ #define MACH_NATIVE	MACH_UNKNOWN
+ #endif
+diff --git a/target.c b/target.c
+index c2ab55490..7829e8f9a 100644
+--- a/target.c
++++ b/target.c
+@@ -97,6 +97,7 @@ void init_target(void)
+ 	switch (arch_mach) {
+ 	case MACH_ARM:
+ 	case MACH_MIPS32:
++	case MACH_S390:
+ 	case MACH_S390X:
+ 	case MACH_SPARC32:
+ 		bits_in_longdouble = 64;
 -- 
 2.23.0
 
