@@ -2,106 +2,125 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 031DAE9951
-	for <lists+linux-sparse@lfdr.de>; Wed, 30 Oct 2019 10:40:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id E40A9E9A5C
+	for <lists+linux-sparse@lfdr.de>; Wed, 30 Oct 2019 11:51:21 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726209AbfJ3JkH (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Wed, 30 Oct 2019 05:40:07 -0400
-Received: from mail-wr1-f68.google.com ([209.85.221.68]:39301 "EHLO
-        mail-wr1-f68.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726150AbfJ3JkH (ORCPT
-        <rfc822;Linux-sparse@vger.kernel.org>);
-        Wed, 30 Oct 2019 05:40:07 -0400
-Received: by mail-wr1-f68.google.com with SMTP id a11so1478640wra.6
-        for <Linux-sparse@vger.kernel.org>; Wed, 30 Oct 2019 02:40:05 -0700 (PDT)
+        id S1726150AbfJ3KvV (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Wed, 30 Oct 2019 06:51:21 -0400
+Received: from mail-wr1-f65.google.com ([209.85.221.65]:46541 "EHLO
+        mail-wr1-f65.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1726096AbfJ3KvV (ORCPT
+        <rfc822;linux-sparse@vger.kernel.org>);
+        Wed, 30 Oct 2019 06:51:21 -0400
+Received: by mail-wr1-f65.google.com with SMTP id n15so1703944wrw.13
+        for <linux-sparse@vger.kernel.org>; Wed, 30 Oct 2019 03:51:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=date:from:to:cc:subject:message-id:references:mime-version
-         :content-disposition:in-reply-to:user-agent;
-        bh=vv8yXcyKNu7N7ZUossfMpB5kIFUFW/m+036/6iHqcrU=;
-        b=TK3ofGnstl8hTaijsl7yJ9GBjTgBa4tUGhgzhLCds+o9EWkq4PsO6xmoZZOxDIKSr5
-         3qlzm6LEvT86xSi1+rLE6k9valsLu6NAKJ75MFTswnXXJrno5rVjZyMpHmBz/XO+VcVB
-         S0H7EVUEv7s2MH5wjC0wE1S+u477vd/Pp/GMrHZxs1cI1hUcyFtMlCYvJAWRjS9knzOh
-         5opEHlKLVqbHfKuz9KZZ4vqzDsrXJgKWcQ6BRUL1CoAH1traLkDyvxiR3+XJRU/x3YDY
-         ks0vSnK+oYlu65rQSv00z0jDHu6ssNtEU1bBB5mjBvUvxV6sVG9RQPkpSIoq98OCUFpL
-         Fisg==
+        h=from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=n5d5OfPnaj9U4y3vnknV8cPPaNcEnFKsUO8uvZ+KClY=;
+        b=PtNuWsCfn6sCCJTfzww5N21gxlY2wRgRJmar2TTkU/ADxc4/lDFSHNu7fuboV5unlU
+         gxg65YExHbPEG/zCkrsrzq6QiGYNuVbUtNX+CencGpNy7TXQBgeHbIt/I2XLceFoqaNq
+         qBctsOaKcZr9j3RpidATdXnM+Kcxv3eimZrchdCn6Wd1O+GtpbnV/wRus3KZrsqhoTiZ
+         11Dom0Q94XrPj+B9cJnEMteywmZF5Yg9XslTczxV5SJoUpWM3Py5FFuEFzHCMr3muj8K
+         kAGNmiXlcqtYHsye0xVntKKFqaMIwS4jb128vZ58W9SPl37vPpdKoDnoad0MsSyYXyni
+         2/JQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
-         :mime-version:content-disposition:in-reply-to:user-agent;
-        bh=vv8yXcyKNu7N7ZUossfMpB5kIFUFW/m+036/6iHqcrU=;
-        b=fvoPgb7hglw4gPF/4HtjMQLFxamklCZnAs5D7ejoLU7/ikSzmV0olONy8d8ELvjY5I
-         +usrWRWWi1E8ZzHfqJ2BSr7bxIgWRjb7UENMfr9sO1piyxJBbxA4D8knL6GSzyKkB4yE
-         HVrLm4TWmsiYuUQkSus0saC9YNzgcOMlyo7nBTx11Rh3Q1s952zdeY2+wNrrLtmcd9ll
-         RaeSHCvQx3B+Vas1kC8SwRsmgUb7etmPmY01/B/VuyHxqVTGsboSDNAKQQZCk0vTQLbS
-         17ptT7dYN2iqpgT45/uOQDRmdtPxNyB+07EbgXtUSeXbSk7oUgt51dG1BV4D8NRYDSUT
-         +M6w==
-X-Gm-Message-State: APjAAAUMeAmvd/0maydVHB82GSWODdpLjqFvswRcRcdD0vaEamTFYrqh
-        bxHawIyY6lSejDoGXgclh2Y=
-X-Google-Smtp-Source: APXvYqx3vfUiHbqBPaPaED/kQHWb8ypqSpEbupYdeNBBeVxRrYay/71OX/U6b30T/WNKUPqrD/tr3w==
-X-Received: by 2002:a5d:518c:: with SMTP id k12mr1482490wrv.104.1572428404845;
-        Wed, 30 Oct 2019 02:40:04 -0700 (PDT)
-Received: from ltop.local ([2a02:a03f:40ac:ce00:5898:aeb7:8c5e:3aa1])
-        by smtp.gmail.com with ESMTPSA id f6sm2082754wrm.61.2019.10.30.02.40.03
-        (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-        Wed, 30 Oct 2019 02:40:04 -0700 (PDT)
-Date:   Wed, 30 Oct 2019 10:40:03 +0100
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=n5d5OfPnaj9U4y3vnknV8cPPaNcEnFKsUO8uvZ+KClY=;
+        b=IzWSxW3b52tO6yGMlHkz7ABjDZa8+P7Rr+qNHQUsvE30bW4XN8C8YuiBGIHP3wjgRN
+         KPwgIQ/98HhUZvIiaZQxuOIu+M0drxjzmpWDYw4kZiKEf61MNI7YqUpp1l05YuKXS9D8
+         N73uhi7ZjMeDBtpgsJDYQ36qQUHxPqfuY2AXXlOAjqC2A03Ff/JRWEcnGF40vQvhJ7WS
+         Heb3TNF+5gdfmrfS6EAJTTjz9hv+zxQGTA3flW4Vv5hqBMB/dLV5TgHg0U9DOUsGB0ku
+         qLc2Emtwkdghbyt37cCMzUZA/+QyCyK4dohVVCP5ifhQrI1T4Xygj2u5Eo+h7yyp6/Ew
+         ucsw==
+X-Gm-Message-State: APjAAAUV4vhn55sjo9xcyPha07Eb5VHawSjT2auxogu8v3Dn9P5NkHXN
+        rbeidcbsTW2s4YA6l/ndNNLxo4pd
+X-Google-Smtp-Source: APXvYqyFsY2cT8H96BOCdUtgVtZLYAunqjaayz+oKzXM+dhdIrD+mkdNve1zJmtBd5zVrukqKCbmUg==
+X-Received: by 2002:adf:9ec7:: with SMTP id b7mr24428826wrf.221.1572432678639;
+        Wed, 30 Oct 2019 03:51:18 -0700 (PDT)
+Received: from localhost.localdomain ([2a02:a03f:40ac:ce00:f5ff:f33b:6735:4cb6])
+        by smtp.gmail.com with ESMTPSA id m3sm2110545wrb.67.2019.10.30.03.51.17
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 30 Oct 2019 03:51:17 -0700 (PDT)
 From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-To:     Ben Dooks <ben.dooks@codethink.co.uk>
-Cc:     Linux-sparse@vger.kernel.org
-Subject: Re: [PATCH] options: allow to specify the desired arch with
- --arch=<arch>
-Message-ID: <20191030094002.6j3hlzzlee26tia6@ltop.local>
-References: <20191028214337.70890-1-luc.vanoostenryck@gmail.com>
- <c480aeeb-2779-94b0-1354-f1f8eb6522a8@ramsayjones.plus.com>
- <20191029082334.g3evfqkc73ohn6pn@ltop.local>
- <89ebf585-7700-c8e2-7786-a599f31ee5e8@ramsayjones.plus.com>
- <20191029205718.z7ki5z23j5qqovsx@ltop.local>
- <9108cbcfc91e0bdc8c331beb5a45329b@codethink.co.uk>
+To:     linux-sparse@vger.kernel.org
+Cc:     Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>,
+        Joe Perches <joe@perches.com>,
+        Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
+Subject: [PATCH] Add '__' prefix and suffix to all __attribute__ #defines
+Date:   Wed, 30 Oct 2019 11:50:57 +0100
+Message-Id: <20191030105057.4703-1-luc.vanoostenryck@gmail.com>
+X-Mailer: git-send-email 2.23.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <9108cbcfc91e0bdc8c331beb5a45329b@codethink.co.uk>
-User-Agent: NeoMutt/20180716
+Content-Transfer-Encoding: 8bit
 Sender: linux-sparse-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-On Wed, Oct 30, 2019 at 10:06:41AM +0100, Ben Dooks wrote:
-> 
-> 
-> On 2019-10-29 21:57, Luc Van Oostenryck wrote:
-> > On Tue, Oct 29, 2019 at 06:57:02PM +0000, Ramsay Jones wrote:
-> > > > Do you see some complications?
-> > > 
-> > > No, I was thinking about the opportunity to simplify cgcc! :
-> 
-> Should we also have an option to use cc to provide the current
-> architecture and other cc defines introduced by the ore processor
-> stage to allow synchronization with compiler? Or shod this be done
-> in the makefile calling
+From: Joe Perches <joe@perches.com>
 
-It depends. I think that for the kernel it is not needed
-because all CFLAGS are also given as CHECKFLAGS (and,
-of course, I planning to send in the following days a patch
-for the kernel to add 'CHECKFLAGS += --arch=$(ARCH)').
-I think that for the kernel it would be enough.
+To avoid macro name collisions and improve portability
+the kernel want to use a double underscore prefix and
+suffix on all attributes.
 
-For user-space, part of this is more or less done in the
-cgcc script (and you can specifiy the compiler via the
-unusual environment variable 'REAL_CC', the idea being
-to be able to define cgcc tself as 'CC').
+However, for some of them (mainly sparse's extensions),
+Sparse know only about the plain name.
 
-In both cases, arch-specific details surely need to be added,
-like the recent -mcmodel for RISC-V. I'm thinking mainly
-about '-march' & '-mabi'.
-These can be added as needed but are often quite arch-specific
-which is currently a problem for Sparse. My longer term plan
-is to move everything arch-specific to separated files.
+Teach Sparse about the double underscore for all
+attributes.
 
-To answer your question, I would say that if you can easily
-do it via the makefile or the makefile's configuration,
-then do it so.
+Link: https://lore.kernel.org/r/7a15bc8ad7437dc3a044a4f9cd283500bd0b5f36.camel@perches.com
+Link: https://lore.kernel.org/r/19fd23e98bab65a1ee624445193bd2ed86108881.camel@perches.com
+Originally-by: Joe Perches <joe@perches.com>
+Reported-by: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
+---
+ parse.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
 
--- Luc
+diff --git a/parse.c b/parse.c
+index 48a63f22f..4b0a1566c 100644
+--- a/parse.c
++++ b/parse.c
+@@ -345,6 +345,7 @@ static struct symbol_op goto_op = {
+ 
+ static struct symbol_op __context___op = {
+ 	.statement = parse_context_statement,
++	.attribute = attribute_context,
+ };
+ 
+ static struct symbol_op range_op = {
+@@ -537,6 +538,7 @@ static struct init_keyword {
+ 	{ "while",	NS_KEYWORD, .op = &while_op },
+ 	{ "do",		NS_KEYWORD, .op = &do_op },
+ 	{ "goto",	NS_KEYWORD, .op = &goto_op },
++	{ "context",	NS_KEYWORD, .op = &context_op },
+ 	{ "__context__",NS_KEYWORD, .op = &__context___op },
+ 	{ "__range__",	NS_KEYWORD, .op = &range_op },
+ 	{ "asm",	NS_KEYWORD, .op = &asm_op },
+@@ -549,13 +551,17 @@ static struct init_keyword {
+ 	{ "aligned",	NS_KEYWORD, .op = &aligned_op },
+ 	{ "__aligned__",NS_KEYWORD, .op = &aligned_op },
+ 	{ "nocast",	NS_KEYWORD,	MOD_NOCAST,	.op = &attr_mod_op },
++	{ "__nocast__",	NS_KEYWORD,	MOD_NOCAST,	.op = &attr_mod_op },
+ 	{ "noderef",	NS_KEYWORD,	MOD_NODEREF,	.op = &attr_mod_op },
++	{ "__noderef__",NS_KEYWORD,	MOD_NODEREF,	.op = &attr_mod_op },
+ 	{ "safe",	NS_KEYWORD,	MOD_SAFE, 	.op = &attr_mod_op },
++	{ "__safe__",	NS_KEYWORD,	MOD_SAFE, 	.op = &attr_mod_op },
+ 	{ "force",	NS_KEYWORD,	.op = &attr_force_op },
++	{ "__force__",	NS_KEYWORD,	.op = &attr_force_op },
+ 	{ "bitwise",	NS_KEYWORD,	MOD_BITWISE,	.op = &attr_bitwise_op },
+ 	{ "__bitwise__",NS_KEYWORD,	MOD_BITWISE,	.op = &attr_bitwise_op },
+ 	{ "address_space",NS_KEYWORD,	.op = &address_space_op },
+-	{ "context",	NS_KEYWORD,	.op = &context_op },
++	{ "__address_space__",NS_KEYWORD,	.op = &address_space_op },
+ 	{ "designated_init",	NS_KEYWORD,	.op = &designated_init_op },
+ 	{ "__designated_init__",	NS_KEYWORD,	.op = &designated_init_op },
+ 	{ "transparent_union",	NS_KEYWORD,	.op = &transparent_union_op },
+-- 
+2.23.0
+
