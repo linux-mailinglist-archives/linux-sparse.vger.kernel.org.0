@@ -2,55 +2,55 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id A1C34E98C1
-	for <lists+linux-sparse@lfdr.de>; Wed, 30 Oct 2019 10:03:54 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 17420E98C2
+	for <lists+linux-sparse@lfdr.de>; Wed, 30 Oct 2019 10:03:55 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726209AbfJ3JDu (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Wed, 30 Oct 2019 05:03:50 -0400
-Received: from mail-wr1-f68.google.com ([209.85.221.68]:43997 "EHLO
-        mail-wr1-f68.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726088AbfJ3JDu (ORCPT
+        id S1726273AbfJ3JDv (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Wed, 30 Oct 2019 05:03:51 -0400
+Received: from mail-wr1-f67.google.com ([209.85.221.67]:41978 "EHLO
+        mail-wr1-f67.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1726091AbfJ3JDv (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Wed, 30 Oct 2019 05:03:50 -0400
-Received: by mail-wr1-f68.google.com with SMTP id n1so1329534wra.10
-        for <linux-sparse@vger.kernel.org>; Wed, 30 Oct 2019 02:03:49 -0700 (PDT)
+        Wed, 30 Oct 2019 05:03:51 -0400
+Received: by mail-wr1-f67.google.com with SMTP id p4so1338143wrm.8
+        for <linux-sparse@vger.kernel.org>; Wed, 30 Oct 2019 02:03:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
         bh=Cfd0MKA/Z3VdDnpq3cZbaXMVKLfEfd8yncwXTXklIr4=;
-        b=JBs1YRmltpWduNv+bI0HVBZFkQOJ01mEj6WjtOT1kL7oOduY6AQJC/LsDDL3BDtWbZ
-         4khJg3vGWINq19lTdGqF9DhJRc/gHoUCFKoK/Ao7nsf37JJSr/eS9+1UVH+BR66SOOuR
-         Vn3ZLqiRs86AfERKEi1wDhrGO2q9pIsTObM4WNdirnFxX7tqCZke+2QX51Zy4bufRxSE
-         k5a5+CR2ox/6cRHoYDioczjhmcGVfqtXg0LoNlIEXP7mEvBqPcpoBMaaZ257C2FkZ/gl
-         x7c35gCGm+yPLlLFBBrnAqGICutiRYnHxFBa8nIYnKYw6OdExaoZsDBDEorn3MggP06I
-         mc+w==
+        b=vdtIcQO0ldvrOGtS4MsloXyxrZvbrgl1k7Ux/7KqgvYfSfFCZoyPrwHE9qdU17Czyu
+         Xok1+T6d+ElbtkGBn1nP9infSthdqP2nc5isMP3mgy/qPtw6hWz2w4EWFaSDHazsXiqU
+         Xr5geSUrglYETg+9DerPoxDxwPeg+9kfGmK7CetF/27DbzfzmFzRbfaN5bDwkG7j48HT
+         GMkgCPvebKi1SohZ9Cfg9sZKzjVa/FXIhEEgiF2YXuek+fsoSVA4P3c4JuIDVcAjmPfT
+         y8UySLt4aWH+lDaecldWDuvhPAKI8A+umzkak0XAd5RSWT+IHxYYO7VIghEb0mCYgDEn
+         X7mQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
         bh=Cfd0MKA/Z3VdDnpq3cZbaXMVKLfEfd8yncwXTXklIr4=;
-        b=P30vVJ7i74/9RQx8cFPoFuzG/QsqAZFOZ+dlC6K+ZhcUmafdJTbo86Z/nTLaR35vzD
-         jji/Py7jttJ76TAzfzYuWZDH0C3yZrlNutN3JC56c4eqftL/Lx0RmtQDvRq5YGH6GDuG
-         NtJjCVcRWN9+71htTMOpSu2pcLxQsWguAKE75FY7NpnAcR5QO71XWzxc+2TM9p3CWIBC
-         dWw8b1qjWePsmu7RRC7+PJRymAQ3X9llGwbjMXEwzQscE4tuMBXeq116/UggLFolcbmW
-         2YMAivx4NNSyn4D1ln+stvWs6850jB6f4/OXWVRLGGnaPUEAmHItZzGxpwyvuevjfjPy
-         HYUA==
-X-Gm-Message-State: APjAAAX/6MPZ3qISMVq2WyEFLpwgFxNwDXsfFN9ucLmgKIbUIGHn+kD+
-        pn9tssTOd2Wa8/FcpotUotIyLY64
-X-Google-Smtp-Source: APXvYqyVhbY0Bp6gUuskfpavHE0jskgU/Dinj7fNn6fj/aRlhZhhvlqA6intuecs/ac7SZHP6xJH3Q==
-X-Received: by 2002:adf:e38f:: with SMTP id e15mr22622570wrm.218.1572426228107;
-        Wed, 30 Oct 2019 02:03:48 -0700 (PDT)
+        b=d5A1HHw7F9GDWmxGddeGHj+bbzD0iXNr2Djw6039zr+HKo3i78dLO4NJXDsLokxpD/
+         mN9xLkE2YNvjvgpq51VdYXM3VmzzQUFwVFpNl+lrBtEbi0Q9deJ1xohdGZoJp4fY2s66
+         aF0D6sJCMlLYowGjChEtpurtQ5d/OOBNDD9mUQFoVTrirlo8bwCcKJJQZ9/vt8s+KHYA
+         2mHx2zzDvYC0RCsUS16ncfvhCz7cnUNqZcBDG5VLQSWqpHmRp+fCqXTxEQtjNnTqQFlI
+         WY4SIWTwZ99raHT+FJeP1Z1JyDRJDr1VNOlDk3H04SQ/tAgSBFXuTr9VCfOYvU7eSiKa
+         m5sg==
+X-Gm-Message-State: APjAAAWFDO71l18r9WxxmBsdgG/Sz6+0yZfqIr60IKKi6/2v31VvYilm
+        YdrFGD3wb7THHndLQDVqepK8AknX
+X-Google-Smtp-Source: APXvYqyJNNeOOl4noabKCGd8oAbGV7cp76qe1/06+TFK4c812lNZpbjttd5Yy2uR/m9+CHm0YjI80A==
+X-Received: by 2002:adf:ec90:: with SMTP id z16mr22565388wrn.110.1572426229005;
+        Wed, 30 Oct 2019 02:03:49 -0700 (PDT)
 Received: from localhost.localdomain ([2a02:a03f:40ac:ce00:f5ff:f33b:6735:4cb6])
-        by smtp.gmail.com with ESMTPSA id c15sm1263247wmb.45.2019.10.30.02.03.47
+        by smtp.gmail.com with ESMTPSA id c15sm1263247wmb.45.2019.10.30.02.03.48
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Oct 2019 02:03:47 -0700 (PDT)
+        Wed, 30 Oct 2019 02:03:48 -0700 (PDT)
 From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 To:     linux-sparse@vger.kernel.org
 Cc:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-Subject: [PATCH v2 3/6] change the arch when changing -m32/64
-Date:   Wed, 30 Oct 2019 10:03:26 +0100
-Message-Id: <20191030090333.3412-7-luc.vanoostenryck@gmail.com>
+Subject: [PATCH 4/7] arch: change the arch when changing -m32/64
+Date:   Wed, 30 Oct 2019 10:03:27 +0100
+Message-Id: <20191030090333.3412-8-luc.vanoostenryck@gmail.com>
 X-Mailer: git-send-email 2.23.0
 In-Reply-To: <20191030090333.3412-1-luc.vanoostenryck@gmail.com>
 References: <20191030090333.3412-1-luc.vanoostenryck@gmail.com>
