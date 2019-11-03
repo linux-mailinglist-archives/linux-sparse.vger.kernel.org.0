@@ -2,55 +2,55 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 360C8ED3DE
+	by mail.lfdr.de (Postfix) with ESMTP id C69C7ED3DF
 	for <lists+linux-sparse@lfdr.de>; Sun,  3 Nov 2019 17:28:46 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727880AbfKCQ2q (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        id S1727860AbfKCQ2q (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
         Sun, 3 Nov 2019 11:28:46 -0500
-Received: from mail-wm1-f67.google.com ([209.85.128.67]:55397 "EHLO
+Received: from mail-wm1-f67.google.com ([209.85.128.67]:53060 "EHLO
         mail-wm1-f67.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1727860AbfKCQ2p (ORCPT
+        with ESMTP id S1727769AbfKCQ2q (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Sun, 3 Nov 2019 11:28:45 -0500
-Received: by mail-wm1-f67.google.com with SMTP id m17so4873054wmi.5
-        for <linux-sparse@vger.kernel.org>; Sun, 03 Nov 2019 08:28:43 -0800 (PST)
+        Sun, 3 Nov 2019 11:28:46 -0500
+Received: by mail-wm1-f67.google.com with SMTP id c17so6788029wmk.2
+        for <linux-sparse@vger.kernel.org>; Sun, 03 Nov 2019 08:28:44 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=EDX18BQ3B0CJX0jk+DtU+5U6A1qUYvcc4e97fUfeQsk=;
-        b=DI1BZJl1iP1wP2Ufc90NX+IfjUukDipoIPT5KwcEdiWZHnVJO1QSo8uPqSkhuFUVwx
-         NZg5cSOfZHmpGvNJpwbc0CZXvqvsiyikgkuNqFYsjZDwrthz0CfW8OoEwTwgmxKI4gdT
-         gybOYHDNXw6Ip4i1amDXuRxkEeZDEjEqYutCFTDZWCHF6PaPtRIRjXykbWgQL+BFvqe3
-         TRHE3o4IyQBpnhDmqbp6g4QXb5ZWKraYzMUAVpl9ApbhnDeigOAilkXDzE19gfnEpug7
-         pPVz4a5wPGCFCGBpzqzMmS1V54nLmX1PYoyMXh1LSvfhh5FROOhxomzl8/tclBFcpuG1
-         Qriw==
+        bh=/Dj9Qtj4gZeEY0g0DjyxvIVaSQaDOhfACTrK0MyjhP8=;
+        b=pUDBAUFy6PEd054OpX2vzbUwJZFNr4ZkkwpW0ckOUmujou+U751aZRCjL6TXfeWLt3
+         Swm1gbajJ1CpbSWkL86tvktCZJsfF21oE9a1FnxUWJ7X6sLWZjvdLDDx1Sn5CKlasvZ9
+         FdU8NBnyhIIN5kkevjhRJGeTqaRwufzUmsKLR80UgbomMrRJsYiyOtwtlrZOSX7bQ3pd
+         +6ugQJuuTM7KeHf76glbHlYFx7PHEMwqCcP+JUqgUIpLpC04plHFQGhn5xFHres7xBIc
+         9AQdLWff/A4UgdtnbFmHuSWkScU4BPB3waYi1p9sRqXv0/zOOEWdRWf8CR6tPvC9LOry
+         VWuA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=EDX18BQ3B0CJX0jk+DtU+5U6A1qUYvcc4e97fUfeQsk=;
-        b=bLLBUsn2Ij/tmq6ZL2SlKud4gvGRWM/gjQ7mirk8NXzsSTbOlW4THCadXXPUP1yceH
-         Oe/SFYo+ILTRH2Jnw6iVyITF86Yr9V7qD51rAuZPcPlP/ZIjee2D29cBkNiS3gwiBQTz
-         YhWMxWpZ365bkQqqQ2lZW3BcV0ohnIYuWNGBVX8SW2f2VV3uaExU0DzLlp+9rOvFq001
-         3k3tREs21u7Wr8QsqrVLIbteiVTk5X3J6u45BnoBHt7bOI+OsXEPiaUIZ06mexn38q5T
-         cED53znOVeQI9rOPGbZ8Mmm4d0fkfkWurwnjlYykOBEjg7TpyS6dswVDWyChu5qdUxFW
-         77lQ==
-X-Gm-Message-State: APjAAAUH6oRcylJeCDDLrbVu4I2DfFCnKWKmESrlFlXEeRMMn3o7w/xu
-        Yjws+F0kn+ZpIEO43uc+pRUXzDXQ
-X-Google-Smtp-Source: APXvYqzpO+3R7Ufslsbl9MI056h0aZKMlXLCRmiEutcCKiMAAMi6u6UuceneL09jOwIEjQVLqg8Myw==
-X-Received: by 2002:a05:600c:206:: with SMTP id 6mr6688279wmi.78.1572798522703;
-        Sun, 03 Nov 2019 08:28:42 -0800 (PST)
+        bh=/Dj9Qtj4gZeEY0g0DjyxvIVaSQaDOhfACTrK0MyjhP8=;
+        b=m57JN+bstjg0EXB3wh1RCMCOgOB8s0rETqV0c6wgw0L/duchEcygaZYz7txkgGYLBV
+         fQlu6s7y75Ekwe7lfJOJf8BF4PNGYcfd0uFn614gyxrkyXHHcvgZtamIBNPSfg0zqLus
+         hWRA1DWY9ISHt6Dv7ImwmwGP44Phyvr4wG9BVltbWj4lCAlNgI5nvI6USRZM20dtbrRC
+         TuJg3b2fIbnYCPH9g0/x8pwf5K0QHBf2p7f8ARvQzwTrsLLNBGCfSQ5h/OAp5IAyi7QF
+         Vv1RVXm0YwxyKjsIpZ+0/Vjykfgz7VjcZ/wRyTFK2i3CODEO+4ACv5G6NamKR5aRsSFg
+         3sUA==
+X-Gm-Message-State: APjAAAXKY/2eH1VPf4CAlXUp3E4mG5CSIV1vrL/JZZncUHcE1rvBtGhZ
+        UwCxUtrL5lxMFLg6ha7GwiSQPjeG
+X-Google-Smtp-Source: APXvYqxXkNGGCwqzMff0yEMSHxxMLGKBKjeOLAMBeuK4LYSVNVf68wReHedMotlRk7tpP9o004nKiQ==
+X-Received: by 2002:a1c:e386:: with SMTP id a128mr20013478wmh.52.1572798523794;
+        Sun, 03 Nov 2019 08:28:43 -0800 (PST)
 Received: from localhost.localdomain ([2a02:a03f:40ac:ce00:d83d:1405:3788:2299])
-        by smtp.gmail.com with ESMTPSA id o189sm20902060wmo.23.2019.11.03.08.28.41
+        by smtp.gmail.com with ESMTPSA id o189sm20902060wmo.23.2019.11.03.08.28.42
         (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-        Sun, 03 Nov 2019 08:28:42 -0800 (PST)
+        Sun, 03 Nov 2019 08:28:43 -0800 (PST)
 From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 To:     linux-sparse@vger.kernel.org
 Cc:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-Subject: [PATCH 3/4] remove unused SYM_TYPEDEF
-Date:   Sun,  3 Nov 2019 17:26:34 +0100
-Message-Id: <20191103162635.66442-4-luc.vanoostenryck@gmail.com>
+Subject: [PATCH 4/4] remove unneeded MOD_TYPE
+Date:   Sun,  3 Nov 2019 17:26:35 +0100
+Message-Id: <20191103162635.66442-5-luc.vanoostenryck@gmail.com>
 X-Mailer: git-send-email 2.23.0
 In-Reply-To: <20191103162635.66442-1-luc.vanoostenryck@gmail.com>
 References: <20191103162635.66442-1-luc.vanoostenryck@gmail.com>
@@ -61,66 +61,95 @@ Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-SYM_TYPEDEF is not used anymore since the SYM -> MOD conversion.
+MOD_TYPE is used for the sparse extension which allow
+to directly compare types with each others.
 
-So, remove it.
+Expressions for direct type are EXPR_TYPE with the type in
+expr->symbol and the expression itself having it's type
+(expr->ctype) set to &type_ctype. This is one of the few
+base/builtin types and is the only one which van have MOD_TYPE.
+
+Howver, the MOD_TYPE is not needed (like bad_ctype doesn't need
+a MOD_BAD, or incomplete_ctype ....). There is also a single
+place where MOD_TYPE is tested: is_type_ctype(), itself used
+a single time.
+
+So:
+* rewrite the unique test using is_type_ctype() by directly
+  comparing with &type_ctype instead.
+* remove now unused is_type_ctype()
+* remove MOD_TYPE from type_ctype's definition
+* remove MOD_TYPE's definition.
 
 Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 ---
- ast-inspect.c | 1 -
- show-parse.c  | 1 -
- symbol.c      | 1 -
- symbol.h      | 1 -
- 4 files changed, 4 deletions(-)
+ gdbhelpers   | 3 ---
+ show-parse.c | 1 -
+ symbol.c     | 2 +-
+ symbol.h     | 4 ++--
+ 4 files changed, 3 insertions(+), 7 deletions(-)
 
-diff --git a/ast-inspect.c b/ast-inspect.c
-index d1b4f9ace..b510cd9b1 100644
---- a/ast-inspect.c
-+++ b/ast-inspect.c
-@@ -109,7 +109,6 @@ static const char *symbol_type_name(enum type type)
- 		[SYM_STRUCT] = "SYM_STRUCT",
- 		[SYM_UNION] = "SYM_UNION",
- 		[SYM_ENUM] = "SYM_ENUM",
--		[SYM_TYPEDEF] = "SYM_TYPEDEF",
- 		[SYM_TYPEOF] = "SYM_TYPEOF",
- 		[SYM_BITFIELD] = "SYM_BITFIELD",
- 		[SYM_LABEL] = "SYM_LABEL",
+diff --git a/gdbhelpers b/gdbhelpers
+index 2fe9336dd..8d186cee7 100644
+--- a/gdbhelpers
++++ b/gdbhelpers
+@@ -152,9 +152,6 @@ define gdb_show_ctype
+ 	if ($arg0->modifiers & MOD_ASSIGNED)
+ 		printf "MOD_ASSIGNED "
+ 	end
+-	if ($arg0->modifiers & MOD_TYPE)
+-		printf "MOD_TYPE "
+-	end
+ 	if ($arg0->modifiers & MOD_SAFE)
+ 		printf "MOD_SAFE "
+ 	end
 diff --git a/show-parse.c b/show-parse.c
-index 232460743..7b65ba679 100644
+index 7b65ba679..68b3e7186 100644
 --- a/show-parse.c
 +++ b/show-parse.c
-@@ -58,7 +58,6 @@ static void do_debug_symbol(struct symbol *sym, int indent)
- 		[SYM_STRUCT] = "strt",
- 		[SYM_UNION] = "unin",
- 		[SYM_ENUM] = "enum",
--		[SYM_TYPEDEF] = "tdef",
- 		[SYM_TYPEOF] = "tpof",
- 		[SYM_BITFIELD] = "bitf",
- 		[SYM_LABEL] = "labl",
+@@ -140,7 +140,6 @@ const char *modifier_string(unsigned long mod)
+ 		{MOD_NODEREF,		"[noderef]"},
+ 		{MOD_TOPLEVEL,		"[toplevel]"},
+ 		{MOD_ASSIGNED,		"[assigned]"},
+-		{MOD_TYPE,		"[type]"},
+ 		{MOD_SAFE,		"[safe]"},
+ 		{MOD_USERTYPE,		"[usertype]"},
+ 		{MOD_NORETURN,		"[noreturn]"},
 diff --git a/symbol.c b/symbol.c
-index 30f5d27df..a410af43a 100644
+index a410af43a..116b1040f 100644
 --- a/symbol.c
 +++ b/symbol.c
-@@ -533,7 +533,6 @@ const char* get_type_name(enum type type)
- 	[SYM_STRUCT] = "struct",
- 	[SYM_UNION] = "union",
- 	[SYM_ENUM] = "enum",
--	[SYM_TYPEDEF] = "typedef",
- 	[SYM_TYPEOF] = "typeof",
- 	[SYM_BITFIELD] = "bitfield",
- 	[SYM_LABEL] = "label",
+@@ -742,7 +742,7 @@ static const struct ctype_declare {
+ } ctype_declaration[] = {
+ 	{ &bool_ctype,	    SYM_BASETYPE, MOD_UNSIGNED,		    &bits_in_bool,	     &max_int_alignment, &int_type },
+ 	{ &void_ctype,	    SYM_BASETYPE, 0,			    NULL,	     NULL,		 NULL },
+-	{ &type_ctype,	    SYM_BASETYPE, MOD_TYPE,		    NULL,		     NULL,		 NULL },
++	{ &type_ctype,	    SYM_BASETYPE, 0,			    NULL,	     NULL,		 NULL },
+ 	{ &incomplete_ctype,SYM_BASETYPE, 0,			    NULL,		     NULL,		 NULL },
+ 	{ &bad_ctype,	    SYM_BASETYPE, 0,			    NULL,		     NULL,		 NULL },
+ 
 diff --git a/symbol.h b/symbol.h
-index 6ad026d3b..ee7088718 100644
+index ee7088718..fd536ed6e 100644
 --- a/symbol.h
 +++ b/symbol.h
-@@ -64,7 +64,6 @@ enum type {
- 	SYM_STRUCT,
- 	SYM_UNION,
- 	SYM_ENUM,
--	SYM_TYPEDEF,
- 	SYM_TYPEOF,
- 	SYM_BITFIELD,
- 	SYM_LABEL,
+@@ -222,7 +222,7 @@ struct symbol {
+ #define MOD_UNSIGNED		0x00004000
+ #define MOD_EXPLICITLY_SIGNED	0x00008000
+ 
+-#define MOD_TYPE		0x00010000
++//      UNUSED			0x00010000
+ #define MOD_USERTYPE		0x00020000
+ #define MOD_CHAR		0x00040000
+ #define MOD_SHORT		0x00080000
+@@ -373,7 +373,7 @@ static inline int is_signed_type(struct symbol *sym)
+ 
+ static inline int is_type_type(struct symbol *type)
+ {
+-	return (type->ctype.modifiers & MOD_TYPE) != 0;
++	return type == &type_ctype;
+ }
+ 
+ static inline int is_ptr_type(struct symbol *type)
 -- 
 2.23.0
 
