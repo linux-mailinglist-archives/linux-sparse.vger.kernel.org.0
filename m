@@ -2,55 +2,55 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 5D327ED3DD
-	for <lists+linux-sparse@lfdr.de>; Sun,  3 Nov 2019 17:28:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 360C8ED3DE
+	for <lists+linux-sparse@lfdr.de>; Sun,  3 Nov 2019 17:28:46 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727818AbfKCQ2o (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Sun, 3 Nov 2019 11:28:44 -0500
-Received: from mail-wm1-f68.google.com ([209.85.128.68]:51405 "EHLO
-        mail-wm1-f68.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1727769AbfKCQ2o (ORCPT
+        id S1727880AbfKCQ2q (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Sun, 3 Nov 2019 11:28:46 -0500
+Received: from mail-wm1-f67.google.com ([209.85.128.67]:55397 "EHLO
+        mail-wm1-f67.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1727860AbfKCQ2p (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Sun, 3 Nov 2019 11:28:44 -0500
-Received: by mail-wm1-f68.google.com with SMTP id q70so14143987wme.1
-        for <linux-sparse@vger.kernel.org>; Sun, 03 Nov 2019 08:28:42 -0800 (PST)
+        Sun, 3 Nov 2019 11:28:45 -0500
+Received: by mail-wm1-f67.google.com with SMTP id m17so4873054wmi.5
+        for <linux-sparse@vger.kernel.org>; Sun, 03 Nov 2019 08:28:43 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=I7AV2xIJutGZwhW0jKBO3yXeQjukB+pKGlRdyKRLHro=;
-        b=ZoZwW/d/uRBKCdUdqQ22gbVhJrXHQAlFfETorIGYse4DJ/DdEQ+GpqrPzp6scEB7hx
-         h9gemgR+FjTaEquc6BcD85otVEemDJjv7pg1AldySbc3gQUymSAmq/xHkzO5cfUj8m9o
-         +GeraOSJ1quf4kx/vvZnrakIpkQLqyHCyKaWdHf6RWZHfNwQ4uRzUprraOtSbNTGxXA9
-         vHYc7ENaFYeca3YostmWWFkswjHbMoCKZcKpjtkZKbYTlu6s1xjmOdKaTQHu+a0W9Xh5
-         oXdrRiJCDcrPGmBBfQQQ2TxBccF6rkbycj5kA6V59dXrDxhQbn6QfmdNo62K6FiAtYN8
-         0vyw==
+        bh=EDX18BQ3B0CJX0jk+DtU+5U6A1qUYvcc4e97fUfeQsk=;
+        b=DI1BZJl1iP1wP2Ufc90NX+IfjUukDipoIPT5KwcEdiWZHnVJO1QSo8uPqSkhuFUVwx
+         NZg5cSOfZHmpGvNJpwbc0CZXvqvsiyikgkuNqFYsjZDwrthz0CfW8OoEwTwgmxKI4gdT
+         gybOYHDNXw6Ip4i1amDXuRxkEeZDEjEqYutCFTDZWCHF6PaPtRIRjXykbWgQL+BFvqe3
+         TRHE3o4IyQBpnhDmqbp6g4QXb5ZWKraYzMUAVpl9ApbhnDeigOAilkXDzE19gfnEpug7
+         pPVz4a5wPGCFCGBpzqzMmS1V54nLmX1PYoyMXh1LSvfhh5FROOhxomzl8/tclBFcpuG1
+         Qriw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=I7AV2xIJutGZwhW0jKBO3yXeQjukB+pKGlRdyKRLHro=;
-        b=sIhL5fePrpYdcwPynJBvs/Dv/xHB2LGb0RcfGMNJPtykU3DF6yQhvtdvVAQzm7UHd2
-         dGhKBlOHK3pQIWdWhNzRcQmIKx2Sr6W3wGC5wUF86jZ3NFTF6sLfxctQA1OpwLniI5wb
-         45vBVXu8nKd22TKgFweoxOXJkZFeK2rpR7Ewjpekt5PuvkJ/om11mJfHHxbzDoyc4b2y
-         TaCYEz7jwq+5znGpA6VNFHDLwsMh0PziKH5e+FSURN+MpygHSB7qonj6OVGM3CrwvX0c
-         164fcCjHQqP4x2VnTKrlQHRGs+V12btNqmWolH1Xu1e1WLQR6dG50Sl+gwA+3LnIhfVN
-         wVkA==
-X-Gm-Message-State: APjAAAXZq5hxdAsP1ZT82/LlLjpbUyJsHJ6hTBrWnLzrTLkmj0trNzvc
-        XUg1GcLmEtJhTOeviUlh7ZgqsvdY
-X-Google-Smtp-Source: APXvYqxOwxwqgLySMCafkaqR3Y2fDeC2lRItLUAUSJ7sRE74ExBhUjKI3ktgKeqZzKcTJ7mf61ZqQg==
-X-Received: by 2002:a1c:9a88:: with SMTP id c130mr20083943wme.164.1572798521773;
-        Sun, 03 Nov 2019 08:28:41 -0800 (PST)
+        bh=EDX18BQ3B0CJX0jk+DtU+5U6A1qUYvcc4e97fUfeQsk=;
+        b=bLLBUsn2Ij/tmq6ZL2SlKud4gvGRWM/gjQ7mirk8NXzsSTbOlW4THCadXXPUP1yceH
+         Oe/SFYo+ILTRH2Jnw6iVyITF86Yr9V7qD51rAuZPcPlP/ZIjee2D29cBkNiS3gwiBQTz
+         YhWMxWpZ365bkQqqQ2lZW3BcV0ohnIYuWNGBVX8SW2f2VV3uaExU0DzLlp+9rOvFq001
+         3k3tREs21u7Wr8QsqrVLIbteiVTk5X3J6u45BnoBHt7bOI+OsXEPiaUIZ06mexn38q5T
+         cED53znOVeQI9rOPGbZ8Mmm4d0fkfkWurwnjlYykOBEjg7TpyS6dswVDWyChu5qdUxFW
+         77lQ==
+X-Gm-Message-State: APjAAAUH6oRcylJeCDDLrbVu4I2DfFCnKWKmESrlFlXEeRMMn3o7w/xu
+        Yjws+F0kn+ZpIEO43uc+pRUXzDXQ
+X-Google-Smtp-Source: APXvYqzpO+3R7Ufslsbl9MI056h0aZKMlXLCRmiEutcCKiMAAMi6u6UuceneL09jOwIEjQVLqg8Myw==
+X-Received: by 2002:a05:600c:206:: with SMTP id 6mr6688279wmi.78.1572798522703;
+        Sun, 03 Nov 2019 08:28:42 -0800 (PST)
 Received: from localhost.localdomain ([2a02:a03f:40ac:ce00:d83d:1405:3788:2299])
-        by smtp.gmail.com with ESMTPSA id o189sm20902060wmo.23.2019.11.03.08.28.40
+        by smtp.gmail.com with ESMTPSA id o189sm20902060wmo.23.2019.11.03.08.28.41
         (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-        Sun, 03 Nov 2019 08:28:41 -0800 (PST)
+        Sun, 03 Nov 2019 08:28:42 -0800 (PST)
 From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 To:     linux-sparse@vger.kernel.org
 Cc:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-Subject: [PATCH 2/4] remove unused SYM_MEMBER
-Date:   Sun,  3 Nov 2019 17:26:33 +0100
-Message-Id: <20191103162635.66442-3-luc.vanoostenryck@gmail.com>
+Subject: [PATCH 3/4] remove unused SYM_TYPEDEF
+Date:   Sun,  3 Nov 2019 17:26:34 +0100
+Message-Id: <20191103162635.66442-4-luc.vanoostenryck@gmail.com>
 X-Mailer: git-send-email 2.23.0
 In-Reply-To: <20191103162635.66442-1-luc.vanoostenryck@gmail.com>
 References: <20191103162635.66442-1-luc.vanoostenryck@gmail.com>
@@ -61,9 +61,9 @@ Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-SYM_MEMBER has never been set.
+SYM_TYPEDEF is not used anymore since the SYM -> MOD conversion.
 
-Remove since it's unused.
+So, remove it.
 
 Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 ---
@@ -74,53 +74,53 @@ Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
  4 files changed, 4 deletions(-)
 
 diff --git a/ast-inspect.c b/ast-inspect.c
-index 24d4a4a65..d1b4f9ace 100644
+index d1b4f9ace..b510cd9b1 100644
 --- a/ast-inspect.c
 +++ b/ast-inspect.c
-@@ -111,7 +111,6 @@ static const char *symbol_type_name(enum type type)
+@@ -109,7 +109,6 @@ static const char *symbol_type_name(enum type type)
+ 		[SYM_STRUCT] = "SYM_STRUCT",
+ 		[SYM_UNION] = "SYM_UNION",
  		[SYM_ENUM] = "SYM_ENUM",
- 		[SYM_TYPEDEF] = "SYM_TYPEDEF",
+-		[SYM_TYPEDEF] = "SYM_TYPEDEF",
  		[SYM_TYPEOF] = "SYM_TYPEOF",
--		[SYM_MEMBER] = "SYM_MEMBER",
  		[SYM_BITFIELD] = "SYM_BITFIELD",
  		[SYM_LABEL] = "SYM_LABEL",
- 		[SYM_RESTRICT] = "SYM_RESTRICT",
 diff --git a/show-parse.c b/show-parse.c
-index 371041675..232460743 100644
+index 232460743..7b65ba679 100644
 --- a/show-parse.c
 +++ b/show-parse.c
-@@ -60,7 +60,6 @@ static void do_debug_symbol(struct symbol *sym, int indent)
+@@ -58,7 +58,6 @@ static void do_debug_symbol(struct symbol *sym, int indent)
+ 		[SYM_STRUCT] = "strt",
+ 		[SYM_UNION] = "unin",
  		[SYM_ENUM] = "enum",
- 		[SYM_TYPEDEF] = "tdef",
+-		[SYM_TYPEDEF] = "tdef",
  		[SYM_TYPEOF] = "tpof",
--		[SYM_MEMBER] = "memb",
  		[SYM_BITFIELD] = "bitf",
  		[SYM_LABEL] = "labl",
- 		[SYM_RESTRICT] = "rstr",
 diff --git a/symbol.c b/symbol.c
-index 72ea2e4e7..30f5d27df 100644
+index 30f5d27df..a410af43a 100644
 --- a/symbol.c
 +++ b/symbol.c
-@@ -535,7 +535,6 @@ const char* get_type_name(enum type type)
+@@ -533,7 +533,6 @@ const char* get_type_name(enum type type)
+ 	[SYM_STRUCT] = "struct",
+ 	[SYM_UNION] = "union",
  	[SYM_ENUM] = "enum",
- 	[SYM_TYPEDEF] = "typedef",
+-	[SYM_TYPEDEF] = "typedef",
  	[SYM_TYPEOF] = "typeof",
--	[SYM_MEMBER] = "member",
  	[SYM_BITFIELD] = "bitfield",
  	[SYM_LABEL] = "label",
- 	[SYM_RESTRICT] = "restrict",
 diff --git a/symbol.h b/symbol.h
-index a27392fa4..6ad026d3b 100644
+index 6ad026d3b..ee7088718 100644
 --- a/symbol.h
 +++ b/symbol.h
-@@ -66,7 +66,6 @@ enum type {
+@@ -64,7 +64,6 @@ enum type {
+ 	SYM_STRUCT,
+ 	SYM_UNION,
  	SYM_ENUM,
- 	SYM_TYPEDEF,
+-	SYM_TYPEDEF,
  	SYM_TYPEOF,
--	SYM_MEMBER,
  	SYM_BITFIELD,
  	SYM_LABEL,
- 	SYM_RESTRICT,
 -- 
 2.23.0
 
