@@ -2,55 +2,55 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 240D9EED3D
-	for <lists+linux-sparse@lfdr.de>; Mon,  4 Nov 2019 23:06:46 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id A639DEEE84
+	for <lists+linux-sparse@lfdr.de>; Mon,  4 Nov 2019 23:15:41 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S2388481AbfKDWEs (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Mon, 4 Nov 2019 17:04:48 -0500
-Received: from mail-wm1-f68.google.com ([209.85.128.68]:36865 "EHLO
-        mail-wm1-f68.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S2388678AbfKDWEp (ORCPT
+        id S2387476AbfKDWPV (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Mon, 4 Nov 2019 17:15:21 -0500
+Received: from mail-wr1-f50.google.com ([209.85.221.50]:36296 "EHLO
+        mail-wr1-f50.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S2389911AbfKDWGJ (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Mon, 4 Nov 2019 17:04:45 -0500
-Received: by mail-wm1-f68.google.com with SMTP id q130so17743642wme.2
-        for <linux-sparse@vger.kernel.org>; Mon, 04 Nov 2019 14:04:43 -0800 (PST)
+        Mon, 4 Nov 2019 17:06:09 -0500
+Received: by mail-wr1-f50.google.com with SMTP id w18so18934915wrt.3
+        for <linux-sparse@vger.kernel.org>; Mon, 04 Nov 2019 14:06:08 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=date:from:to:cc:subject:message-id:references:mime-version
          :content-disposition:in-reply-to:user-agent;
-        bh=fu1HeYYi6cu3FWgJguieb80XpcIdbBw2qoRR1ggWB2g=;
-        b=BkVoNSjGoeTX65J6cF1vXRlCOvnMMwIQNw8y5Lx7xKbDz0xmAGwwmzXVJPl/K63O8J
-         ZnGRRjv9l1a17DXQRcpCVJLvgOs5bXAHfCAjR3A2gLHf2wTFyE0A1gI4duDXdmmrFPTe
-         HNb9pzdO/SQniOnnQFOWVlaMIVr3qnNpeNp1J5hG95xWpO+95xeL2Go23kXj9fDRT6NP
-         uTX1HEq4xvoLRPmyln00sJi0NgHk9NiL1UyfCiw64xP8lqWpI61gzV196+ZxImU9H+sY
-         xitLRuNxpN6vlkWgQlrG3mVflcSLwPgqF+sO8jCQeQs347CebCZnf5aU1HET4yKFX33K
-         pEOA==
+        bh=/jyTqqf8yJj+tZVK+yw+BqmQ6JGuPLGwjz/BklJSLJ8=;
+        b=rZgQGjbNfhi7VnFTh/ZaTVKUSIaI4PwrQQcraoPYaEY4S3RsBCTX8NE8DCra3VeVSu
+         T4ZYdj9wOCnhJw8EFvCpna+tAaBCVo5kXw7h1KqX3fTw1xXUYbuLv8mE8R6BBolMUmwA
+         RtrsHSz8zy6B8mKe4iyKh2lgzsslY0M0e5+TlQ4HIpSn31PenN+lly2wx9d50c2DMmuZ
+         NUjIG+EUsTOfIriE8S8buV6qw0007990b+NXLOxig4AZneDWJdOjXH3OrmRQ1cXn7pc2
+         Ki8uveXNRO7zlRLziHtUcIonIfVAVLHopEsKoDrqKYEDZszBgvo+8Wzf/6Zpqi7KWobK
+         EHGg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:date:from:to:cc:subject:message-id:references
          :mime-version:content-disposition:in-reply-to:user-agent;
-        bh=fu1HeYYi6cu3FWgJguieb80XpcIdbBw2qoRR1ggWB2g=;
-        b=VcNLCH38gsd5091Z7h5IPe1XhZGNm2PwEwsxRbzmTgqZEloDhHkKNmbNNCzCbLu3dJ
-         /Fav/LtzhDKWi4o3TL1BW886irmgK3CrxAa6OG5+TNWrOKXKxUxbUGawo2GTubibjPAK
-         1hIxKXYZNvpdB6qcVzzUuOTzlVXcmdFT74Ghy3sNsBwpuyDXhSW96N++HsrBos6b4miv
-         Jt69CYKMFJfOMGyMciCC1wtYlA1oPdjOZIb38oVWP203d9/ZqEjHf+Owbj1eNaveipY5
-         mqMc+y211lGxaLy8AvrJ8PTcOqrOw/WPm3ibR37Ty4J1lzGmOICYnGuAvN2U475neuxn
-         RuHA==
-X-Gm-Message-State: APjAAAX8XgqeQUtXBoeHXuMkWWuC0KLVEQeNZnnwccLkZHy8qOxSCBYz
-        UmIFXlHCVnpi5Nc4OIKl8tsvQcU3
-X-Google-Smtp-Source: APXvYqyhfWJRo/RGGZfAXjn58bXb8YdMC5TlXUllz7wo0tiJu0wA7i3viXVzH471MFHpzMcE0461Pg==
-X-Received: by 2002:a7b:c4c7:: with SMTP id g7mr1047716wmk.144.1572905082680;
-        Mon, 04 Nov 2019 14:04:42 -0800 (PST)
+        bh=/jyTqqf8yJj+tZVK+yw+BqmQ6JGuPLGwjz/BklJSLJ8=;
+        b=txd0Pq0kxYdF+DnNUQ09d1YDBbiOvkksen8Qg98T09NlJ/y9IHshpCGd0VbLFSJfUj
+         ESDuSPCU5tg/5m6Gz1mcUBCLyPAmJyhRCqU+dRUO5yoaRqcuTMdvI6WNUVS+UCbAsKI1
+         WetQAEYLjjkopW/aEFSlbp3SPyzIhWuqpMnf71hPCR67K6nPcKtPlipWnENtNPbbkhAo
+         f4Z/JALnv1a7vpVSt6et0g88iH9bby3xX3N2TEDZzMV37CS2KUI1K5/yQh+fHYvBRTjm
+         PxHKQizdSLyGCFiIXTeWvQ2RHQMFdam9MKFwK0TRANO8Xj8JeMFidXL4Oh72QMBhzP8+
+         BoMA==
+X-Gm-Message-State: APjAAAV+v8WncZR4dYfKkHUSaenf2XqtLoYGC7Tr3D5OQC6sK4BYo2JS
+        Gvs/mQ2gYFAezzgh1ZmMs2tK8BWM
+X-Google-Smtp-Source: APXvYqxr7dtHgdL2keteLyMUCcZPYQAegbmBbwHXVPHuU3nuLimq+t2WVkCBTqzOje9QYZFU0TvF4A==
+X-Received: by 2002:adf:ef4f:: with SMTP id c15mr25762865wrp.296.1572905167909;
+        Mon, 04 Nov 2019 14:06:07 -0800 (PST)
 Received: from ltop.local ([2a02:a03f:40ac:ce00:cd02:6aa1:b334:cea8])
-        by smtp.gmail.com with ESMTPSA id m3sm13955280wrw.20.2019.11.04.14.04.41
+        by smtp.gmail.com with ESMTPSA id h140sm18931978wme.22.2019.11.04.14.06.07
         (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-        Mon, 04 Nov 2019 14:04:42 -0800 (PST)
-Date:   Mon, 4 Nov 2019 23:04:41 +0100
+        Mon, 04 Nov 2019 14:06:07 -0800 (PST)
+Date:   Mon, 4 Nov 2019 23:06:06 +0100
 From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 To:     Ben Dooks <ben.dooks@codethink.co.uk>
 Cc:     linux-sparse@vger.kernel.org
 Subject: Re: latest printf code
-Message-ID: <20191104220440.vsqnrxnogvy3tazw@ltop.local>
+Message-ID: <20191104220605.shbfduyg4lrlnbzf@ltop.local>
 References: <78105f3a4a949a746d3ba6e562eb0e00@codethink.co.uk>
  <20191104214643.d6ta3xok4jypkrjo@ltop.local>
 MIME-Version: 1.0
@@ -78,120 +78,49 @@ On Mon, Nov 04, 2019 at 10:46:44PM +0100, Luc Van Oostenryck wrote:
 > I've a few more remarks about formatting or naming and
 > also some simplifications I would like you make.
 
-This one is a bit more complex.
-IIRC, you introduced get_printf_fmt() and called before the
-evaluation of the arguments because this evaluation inhibited
-the check that the format was indeed a string literal.
+s/head/args/ in order to use the same variable name everywhere
+in your checks.
 
-In fact it doesn't. This function is thus not needed and
-everything can be done in the same function.
-
-Uou'll need a few more changes at the beginning of
-evaluate_format_printf() so that the warning is again
-issued for non-literal string format.
-
-From bc1c1dd9851188f2de25cdbd2ca4904f6009a0c3 Mon Sep 17 00:00:00 2001
+From cf2e3f8fa9ddba85c14ee40b2191fd702a907c2f Mon Sep 17 00:00:00 2001
 From: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-Date: Mon, 4 Nov 2019 18:04:38 +0100
-Subject: [PATCH 4/7] get rid of get_printf_fmt()
+Date: Mon, 4 Nov 2019 18:10:25 +0100
+Subject: [PATCH 5/7] s/head/args/
 
 ---
- evaluate.c | 51 +++++++++++++++------------------------------------
- 1 file changed, 15 insertions(+), 36 deletions(-)
+ evaluate.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
 diff --git a/evaluate.c b/evaluate.c
-index c415773f4..76b37e045 100644
+index 76b37e045..fc340c2c3 100644
 --- a/evaluate.c
 +++ b/evaluate.c
-@@ -2706,44 +2706,33 @@ static int parse_format_printf(const char **fmtstring,
- 	return 1;
- }
- 
--static const char *get_printf_fmt(struct symbol *fn, struct expression_list *head)
--{
--	struct expression *expr;
--
--	expr = get_nth_expression(head, fn->ctype.format.index-1);
--	if (!expr)
--		return NULL;
--	if (!evaluate_expression(expr))
--		return NULL;
--	if (expr->type == EXPR_PREOP && expr->op == '*')
--		expr = expr->unop;
--	if (expr->type == EXPR_SYMBOL) {
--		struct symbol *sym = expr->symbol;
--		if (sym && sym->initializer)
--			expr = sym->initializer;
--	}
--	if (expr->type == EXPR_STRING)
--		return expr->string->data;
--
--	return NULL;
--}
--
- /*
-  * attempt to run through a printf format string and work out the types
-  * it specifies. The format is parsed from the __attribute__(format())
+@@ -2712,7 +2712,7 @@ static int parse_format_printf(const char **fmtstring,
   * in the parser code which stores the positions of the message and arg
   * start in the ctype.
   */
--static void evaluate_format_printf(const char *fmt_string, struct symbol *fn,
--				   struct expression_list *head)
-+static void evaluate_format_printf(struct symbol *fn, struct expression_list *head)
+-static void evaluate_format_printf(struct symbol *fn, struct expression_list *head)
++static void evaluate_format_printf(struct symbol *fn, struct expression_list *args)
  {
  	struct format_state state = { };
  	struct expression *expr;
-+	struct expression *init;
-+	const char *fmt_string;
-+
-+	if (!fn->ctype.format.index)
-+		return;
+@@ -2722,7 +2722,7 @@ static void evaluate_format_printf(struct symbol *fn, struct expression_list *he
+ 	if (!fn->ctype.format.index)
+ 		return;
  
- 	expr = get_nth_expression(head, fn->ctype.format.index-1);
+-	expr = get_nth_expression(head, fn->ctype.format.index-1);
++	expr = get_nth_expression(args, fn->ctype.format.index-1);
  	if (!expr)
  		return;
  
-+	if (expr->type != EXPR_SYMBOL || expr->symbol->ident)
-+		return;			// not a literal
-+	init = expr->symbol->initializer;
-+	if (!init || init->type != EXPR_STRING)
-+		return;			// not a string
-+	fmt_string = init->string->data;
-+
- 	state.expr = expr;
- 	state.first = fn->ctype.format.first;
- 	state.arg_index = fn->ctype.format.first;
-@@ -2775,19 +2764,9 @@ static int evaluate_arguments(struct symbol *fn, struct expression_list *head)
- {
- 	struct expression *expr;
- 	struct symbol_list *argument_types = fn->arguments;
--	const char *fmt_string = NULL;
- 	struct symbol *argtype;
- 	int i = 1;
+@@ -2750,7 +2750,7 @@ static void evaluate_format_printf(struct symbol *fn, struct expression_list *he
+ 				continue;
+ 			}
  
--	/*
--	 * Do the va-arg format parsing here. This is done as the argument
--	 * info may get lost or changed later on in the evaluation loop by
--	 * calls to degenerate()
--	 */
--
--	if (Wformat && fn->ctype.format.index)
--		fmt_string = get_printf_fmt(fn, head);
--
- 	PREPARE_PTR_LIST(argument_types, argtype);
- 	FOR_EACH_PTR (head, expr) {
- 		struct expression **p = THIS_ADDRESS(expr);
-@@ -2825,8 +2804,8 @@ static int evaluate_arguments(struct symbol *fn, struct expression_list *head)
- 	} END_FOR_EACH_PTR(expr);
- 	FINISH_PTR_LIST(argtype);
+-			if (parse_format_printf(&string, &state, head) < 0)
++			if (parse_format_printf(&string, &state, args) < 0)
+ 				fail++;
+ 		}
  
--	if (Wformat && fn->ctype.format.index)
--		evaluate_format_printf(fmt_string, fn, head);
-+	if (Wformat)
-+		evaluate_format_printf(fn, head);
- 
- 	return 1;
- }
 -- 
 2.23.0
 
