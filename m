@@ -2,55 +2,55 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 4D1D0EEDD0
-	for <lists+linux-sparse@lfdr.de>; Mon,  4 Nov 2019 23:10:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 680B3EEE9E
+	for <lists+linux-sparse@lfdr.de>; Mon,  4 Nov 2019 23:16:18 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S2390028AbfKDWKR (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Mon, 4 Nov 2019 17:10:17 -0500
-Received: from mail-wm1-f52.google.com ([209.85.128.52]:36305 "EHLO
-        mail-wm1-f52.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S2389916AbfKDWKR (ORCPT
+        id S2389781AbfKDWQC (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Mon, 4 Nov 2019 17:16:02 -0500
+Received: from mail-wm1-f44.google.com ([209.85.128.44]:52861 "EHLO
+        mail-wm1-f44.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S2389376AbfKDWQB (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Mon, 4 Nov 2019 17:10:17 -0500
-Received: by mail-wm1-f52.google.com with SMTP id c22so17786591wmd.1
-        for <linux-sparse@vger.kernel.org>; Mon, 04 Nov 2019 14:10:15 -0800 (PST)
+        Mon, 4 Nov 2019 17:16:01 -0500
+Received: by mail-wm1-f44.google.com with SMTP id c17so11134702wmk.2
+        for <linux-sparse@vger.kernel.org>; Mon, 04 Nov 2019 14:16:00 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=date:from:to:cc:subject:message-id:references:mime-version
          :content-disposition:in-reply-to:user-agent;
-        bh=WnjJ+5eqn9NGxtrxwzaWlzPIIAXKXb8eVBtWqnxJbG8=;
-        b=IV2UGO5PyojFfF3fooWAXIzwQR/f5xEPFRlYkl3cpYsBKeaCv54scMsdBvuzU7Z4/6
-         fp1uUzDqm1Rr9u1TrXSq8rtdPRlYclhZgZyNr8VNAx2fCA5f4EkzdgrA2F3YgLojoxsh
-         KjfZMOALU9m8CQVOQk6RfEvzgE4/T9p+VLWjxcchY5LrFf6V5UNFgXyKsTyENsWfZCz3
-         xS3SWu7khj6KdY8qYdDBgIQ9BPNM0EYTdsNk71bnxbRFY/5zKO63pVfpQx3BVNANjKyc
-         8DfpWo2QbFVYp7B54pMWCMQNS8UQX4WMdy75zsoNI0v/LVVdQjSrfQYtRLF5WTTcsYJp
-         Rppw==
+        bh=CZNRWRGZGSrb6nQeFH7nycNFxycLzKIWIx2ZaL2FxW8=;
+        b=kyiKkO9dVq0dtNIQfhWhmaWq/iiA/JYVRamaMApqKFKJjJt5Z3m/xfpzoDwvxhg64R
+         1fgAuHGQgSkqrLw8IyoY6EwmMA0QHW6Nj8XK2iNIHZAZPwBah+pYDlGBy9VCFkV8hVzC
+         0k+pRzIlwh6RN0sY8mQMLt5upPpXTPjZ1TlpFmzWgsvI4tW3t4RuvQjggC3U10yPZw8E
+         BIiAucpTS8J9u/LgG7ChJIpbRruawZ0EHt49N26fRwvr3d+VRnU2vARqoRz6u/ZQGYxa
+         rzHetmodxSRXB4LwvQE0Fiuh2Fi7xGxi3r/yxfq+1ThMMZ0oco2e411smdMyDpVcslRs
+         XWCw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:date:from:to:cc:subject:message-id:references
          :mime-version:content-disposition:in-reply-to:user-agent;
-        bh=WnjJ+5eqn9NGxtrxwzaWlzPIIAXKXb8eVBtWqnxJbG8=;
-        b=QCDl0sbIStsmFAQuuBiYJtXf8BeNvPS0aL1AYiZU5et+L3Ki/qCDi9R3W/cr5P++wS
-         R7TPw7FWokvpy9Cwmp2CDmXfo0w91foWbvP8p6DGxuhnk+X23gBImZszKKeFDpd2vQ/c
-         P7l+M/Jr/yHEYqZw467VTJwIrI3FQyRTxz1vL0sjjcXKsBeFHio4meTeuqB+IoicPs10
-         ht5lnSRWM8axLSGO601Fvz7qJSpZUTB41OFjRVA8ytzHJSIb+1jLp924YJ4mZHS4IPZ6
-         po7Bldp7ZU7tPE+XBItb/6pw48tgDs5bfhgWUAr2rmrSztSKM5FCWGEGcuIUcghgCZEV
-         LMoQ==
-X-Gm-Message-State: APjAAAUUGzDKHgmPmxhS6lO6xfOkxMuqBmeM23utsnouYtVRDCB4S01m
-        cyi0yW9/Y59WgKZP5PXl6UsQM2AD
-X-Google-Smtp-Source: APXvYqxBgjYR3p0jghQ4/zkl91dDP4nTdRFVJ4ifafPouAiWFOJcETykm88wR4wUxDqpF2AxTEvxSA==
-X-Received: by 2002:a1c:f718:: with SMTP id v24mr1077293wmh.82.1572905414968;
-        Mon, 04 Nov 2019 14:10:14 -0800 (PST)
+        bh=CZNRWRGZGSrb6nQeFH7nycNFxycLzKIWIx2ZaL2FxW8=;
+        b=az5ManzD6MVrh01qVk2fN3YJFUQ6hAPxi/kZcRn/q4eSthgYIy3QJXHhF7u+VLC43L
+         H+IhOThMcA15RLv/FTq85tszMiG7wVLazVQP6QkQq4LQUWG/tREzArG00J/kZdVuTTuF
+         kaXXAAzzk10NlNd03yKh7HB8dS0aEH9QHQLmr95+SqRAFvYMUV+tfJiSizMzPBGJHr5G
+         SInTNQ1vc4rOQohwsL5io6aF7bFsvmfuxW7oWzMenEGXvazKmwRyU4rBOjGZAcyTLcLl
+         L4WTvdJFRX3Qcn4b5DmnbK0nkc67G0y0Igb8PXDofmuXOcglBbz+NiVvKxpr1N3e0nRG
+         St5g==
+X-Gm-Message-State: APjAAAWv8YAfaGlYaKnXftJ7gRjhwZoot9uN4XDi/HOw6NiuajFLzszL
+        bJRNta0XUtunTGJnEVuLEh9eUTCt
+X-Google-Smtp-Source: APXvYqzFb+l6XZPvw2MnY1etvbOxWDYQAJiq/7aLGTfaGXeoPsbqKB9HCzFx1+hJPJX2lvB0J0Ih+A==
+X-Received: by 2002:a1c:560b:: with SMTP id k11mr1191028wmb.153.1572905760137;
+        Mon, 04 Nov 2019 14:16:00 -0800 (PST)
 Received: from ltop.local ([2a02:a03f:40ac:ce00:cd02:6aa1:b334:cea8])
-        by smtp.gmail.com with ESMTPSA id z8sm13581704wrp.49.2019.11.04.14.10.13
+        by smtp.gmail.com with ESMTPSA id l4sm33068137wrf.46.2019.11.04.14.15.59
         (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-        Mon, 04 Nov 2019 14:10:14 -0800 (PST)
-Date:   Mon, 4 Nov 2019 23:10:12 +0100
+        Mon, 04 Nov 2019 14:15:59 -0800 (PST)
+Date:   Mon, 4 Nov 2019 23:15:58 +0100
 From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 To:     Ben Dooks <ben.dooks@codethink.co.uk>
 Cc:     linux-sparse@vger.kernel.org
 Subject: Re: latest printf code
-Message-ID: <20191104221011.pkflv2cpullewkag@ltop.local>
+Message-ID: <20191104221558.nmujqsd7ffcz6k4u@ltop.local>
 References: <78105f3a4a949a746d3ba6e562eb0e00@codethink.co.uk>
  <20191104214643.d6ta3xok4jypkrjo@ltop.local>
 MIME-Version: 1.0
@@ -78,77 +78,44 @@ On Mon, Nov 04, 2019 at 10:46:44PM +0100, Luc Van Oostenryck wrote:
 > I've a few more remarks about formatting or naming and
 > also some simplifications I would like you make.
 
-In some of the checks you're calling evaluate_expression() and
-degenerate() but this is done on the arguments and these have
-already been evaluated (and degenerated in evaluate_arguments().
-It's thus not needed to do it again, expr->ctype already contains
-the right type or can be null (or can be &bad_ctype).
+In sparse's parlance: 'evaluation' is, essentially, to give
+a type to everything needing to be typed. For this it also does
+type checking but I see it more as a kind of side-effect.o
 
-From e6cf4b8c20f3d53d92df55173e786fdf81d5f0d9 Mon Sep 17 00:00:00 2001
+Since evaluate_format_printf() is purely doing some verification,
+rename it it accordingly.
+
+From 2048d796dccb6b2997d03a53b1667d1f80c98fbd Mon Sep 17 00:00:00 2001
 From: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-Date: Mon, 4 Nov 2019 18:40:12 +0100
-Subject: [PATCH 6/7] evaluate() & degenerate() are already done
+Date: Mon, 4 Nov 2019 22:24:24 +0100
+Subject: [PATCH 7/7] s/evaluate_format_printf/verify_format_attribute/
 
 ---
- evaluate.c | 17 +++++++----------
- 1 file changed, 7 insertions(+), 10 deletions(-)
+ evaluate.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/evaluate.c b/evaluate.c
-index fc340c2c3..d27499ccf 100644
+index d27499ccf..e0f9ba5f0 100644
 --- a/evaluate.c
 +++ b/evaluate.c
-@@ -2583,16 +2583,14 @@ static int parse_format_printf_argfield(const char **fmtptr,
- 	}
+@@ -2709,7 +2709,7 @@ static int parse_format_printf(const char **fmtstring,
+  * in the parser code which stores the positions of the message and arg
+  * start in the ctype.
+  */
+-static void evaluate_format_printf(struct symbol *fn, struct expression_list *args)
++static void verify_format_attribute(struct symbol *fn, struct expression_list *args)
+ {
+ 	struct format_state state = { };
+ 	struct expression *expr;
+@@ -2802,7 +2802,7 @@ static int evaluate_arguments(struct symbol *fn, struct expression_list *head)
+ 	FINISH_PTR_LIST(argtype);
  
- 	/* check the value we got was int/uint type */
--	ctype = evaluate_expression(expr);
-+	ctype = expr->ctype;
- 	if (ctype) {
--		struct symbol *source, *target = &int_ctype;
-+		struct symbol *target = &int_ctype;
+ 	if (Wformat)
+-		evaluate_format_printf(fn, head);
++		verify_format_attribute(fn, head);
  
--		source = degenerate(expr);
--
--		if (source != &int_ctype && source != &uint_ctype) {
-+		if (ctype != &int_ctype && ctype != &uint_ctype) {
- 			warning(expr->pos, "incorrect type for %s argument %d", which, argpos);
- 			info(expr->pos, "   expected %s", show_typename(target));
--			info(expr->pos, "   got %s", show_typename(source));
-+			info(expr->pos, "   got %s", show_typename(ctype));
- 		}
- 	}
- 
-@@ -2666,7 +2664,7 @@ static int parse_format_printf(const char **fmtstring,
- 		type = &printf_fmt_ptr_ref;	/* probably some extension */
- 
- 	if (type) {
--		struct symbol *ctype, *source, *target = NULL;
-+		struct symbol *ctype, *target = NULL;
- 		const char *typediff = "different types";
- 		int ret;
- 
-@@ -2678,11 +2676,10 @@ static int parse_format_printf(const char **fmtstring,
- 			return 0;
- 		}
- 
--		ctype = evaluate_expression(expr);
-+		ctype = expr->ctype;
- 		if (!ctype)
- 			return -3;
- 
--		source = degenerate(expr);
- 		ret = type->test(type, &expr, ctype, &target, &typediff);
- 		if (!target)	/* shouldn't happen, but catch anyway */
- 			return -4;
-@@ -2690,7 +2687,7 @@ static int parse_format_printf(const char **fmtstring,
- 		if (ret == 0) {
- 			warning(expr->pos, "incorrect type in argument %d (%s)", pos, typediff);
- 			info(expr->pos, "   expected %s", show_typename(target));
--			info(expr->pos, "   got %s", show_typename(source));
-+			info(expr->pos, "   got %s", show_typename(ctype));
- 		}
- 	} else {
- 		/* try and find the end of this format string by looking for a space*/
+ 	return 1;
+ }
 -- 
 2.23.0
 
