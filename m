@@ -2,55 +2,55 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id B0238EEC6D
-	for <lists+linux-sparse@lfdr.de>; Mon,  4 Nov 2019 22:57:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 016FEEEFB6
+	for <lists+linux-sparse@lfdr.de>; Mon,  4 Nov 2019 23:23:33 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S2388500AbfKDV47 (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Mon, 4 Nov 2019 16:56:59 -0500
-Received: from mail-wm1-f41.google.com ([209.85.128.41]:33495 "EHLO
-        mail-wm1-f41.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S2388490AbfKDV46 (ORCPT
+        id S2388371AbfKDWWm (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Mon, 4 Nov 2019 17:22:42 -0500
+Received: from mail-wm1-f48.google.com ([209.85.128.48]:40748 "EHLO
+        mail-wm1-f48.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S2388265AbfKDV4C (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Mon, 4 Nov 2019 16:56:58 -0500
-Received: by mail-wm1-f41.google.com with SMTP id 6so15042361wmf.0
-        for <linux-sparse@vger.kernel.org>; Mon, 04 Nov 2019 13:56:56 -0800 (PST)
+        Mon, 4 Nov 2019 16:56:02 -0500
+Received: by mail-wm1-f48.google.com with SMTP id f3so6624903wmc.5
+        for <linux-sparse@vger.kernel.org>; Mon, 04 Nov 2019 13:56:01 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=date:from:to:cc:subject:message-id:references:mime-version
          :content-disposition:in-reply-to:user-agent;
-        bh=SYqnVPV4vCe3+LJLDBtNgLv6UvaNa+1hUb+MJgr6Zn0=;
-        b=tLW9hpW62CpbSo00B7QcmTMLKCmB4jpMgO0+PCgRw7ki6VC/DdJ39LDNmnlf3MKEiH
-         l5n5FuhS7YuFj3Ck1VpBrEcVa7yF48S9Ga8d3YV7EIEyhZBwMyXSHc2hajRay58zixzK
-         khKnfJM1lIZb5UBB2RZrB2UGtS9Cz6LBt65qemlPHUZlglOl0PlsiRCU2Fz9cWwyIhcZ
-         +1xiy+o9Cwug1YYWJRBjkilw+eoVLHe4hYFPPzcQpAjb41TN9F5eJokAD/Xv/bpmp7NQ
-         C6aBWwp4mY/8KyYRijPGn4RRGG0VMglO73OskwWy0MK6lx7fUvnfNVJQWTN2su7V7beA
-         AVHQ==
+        bh=bHbRAEMkjj6CHpJKv7dPt3t2Gt2IzoYctppBaZ6ZdxM=;
+        b=X38LeTAG3RxUVVaXajeQ73zyNryVhcUPL5jIYpujCOcBynMnddy3lES9/6TMZ/EyRW
+         ruXquyXv/w1WVuYu4ZtULP2Xs3eKVjdNPQrGoHXxewhgEJIa98Sps9B2w5SoKHPFGtea
+         0byFRQYFqa1ygCG9r0vAulCcEqI7H70VZntZB29m07ngcqyb91ZUh1Q496GhoTLmogNJ
+         /KeLH252gnh8vSWiSsliPI3N0JYq6v0l1Fi2GHZX1ZRNrhX3lXWVw2bWLTMIJW/ir8Y5
+         quSn6FzrIqDKnd7wBlFKkYAnHizT1jx0IyW/olqJYNjCye2o9VKM7cA3eYU7xzTQ6+p3
+         eS6A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:date:from:to:cc:subject:message-id:references
          :mime-version:content-disposition:in-reply-to:user-agent;
-        bh=SYqnVPV4vCe3+LJLDBtNgLv6UvaNa+1hUb+MJgr6Zn0=;
-        b=DAQuPI2GhAshH8g38MX4wd2kgxpozFxC56Hxm8Eq6Rpy/6yILo08ZbX4/WGAl3eBi7
-         bLe1eGEWDtgNFplnGmugqngP9QSD4NznAbt6aRVZKtAl9pvqwljiJUL9Tib/xXM9Av3Y
-         FGTTesQusdshBt0vzuabARmCJCw+vKYrDstfJfbVuoKxGqlyCiZn9bXBANXYtSYrSPd6
-         y8KdpyuP1ZAhI0X8Pq4/XxVyxLNwJKIY1ReIbob/gbpydm7GDOR63iKWqy6GT3aRoGcB
-         JTzjMfTFVZc29zcVqsVyHcFekWtzTQs5DP20LCm55BxmNaMO2AeaoZMJCkFuq5U5E72c
-         jx+Q==
-X-Gm-Message-State: APjAAAXeW+QGNkYLL6l13AXSSumS1/lbwNrTPV5DSsFTIGCG1TjCrgSr
-        REkYeqjBI3mb4t7qtJPoE+qzyFDf
-X-Google-Smtp-Source: APXvYqxmvI5twPx78JdEgLdR1ONmAuPHM8yNXaDUoywSKDoSVH+bEdQcqxR8Wl+NFESK5LPjLcoC+Q==
-X-Received: by 2002:a1c:96c9:: with SMTP id y192mr1140051wmd.8.1572904616237;
-        Mon, 04 Nov 2019 13:56:56 -0800 (PST)
+        bh=bHbRAEMkjj6CHpJKv7dPt3t2Gt2IzoYctppBaZ6ZdxM=;
+        b=POfrCeS0PhdQ018Ql02D3S2Esb6Ei6dp96NlM0eKYqxBuNRN0NUWU08ombqk/D4H5b
+         hkiqTL6saJT9HrE78BixE4aa92Ch9DvWfJFc/z4X8fYv6C5Xo77v73qri4fIUPfPr4J2
+         mZ+ZJraECl+ICnaAXPrAwnBN6Wk/2f8sfnEMZjaEjpcYl6mgw+DlFXgTj3fz04vSDjWm
+         Zpmr+r+86vu538tJGOFXh+xlbHQu1JmuYiDMtkTGZBUhTFo98u6IBr1hZCxYKAzJb6Y3
+         87Y5ppQT4GFh4oCukaoTkA15J/fl8k6whbujhZVE0OwKPFSTc2Tok/IoA81MlC8/QQul
+         iAUA==
+X-Gm-Message-State: APjAAAWERzbVz5145YL+eFsObtxY58OA425rEmvHTkfrfabE1OzCDoYA
+        KHXoNxStfM6XKYpIbu3bzB4iBz6H
+X-Google-Smtp-Source: APXvYqzEmgAB5qHpi88gffxOEo7G+WPhZcFbyKb/SepvP9jRR7RT/+LhSYeGGsy+YSSbrkk/4DGgZg==
+X-Received: by 2002:a1c:740a:: with SMTP id p10mr7626wmc.121.1572904560462;
+        Mon, 04 Nov 2019 13:56:00 -0800 (PST)
 Received: from ltop.local ([2a02:a03f:40ac:ce00:cd02:6aa1:b334:cea8])
-        by smtp.gmail.com with ESMTPSA id q17sm7461868wmj.12.2019.11.04.13.56.55
+        by smtp.gmail.com with ESMTPSA id m13sm5776615wmc.41.2019.11.04.13.55.59
         (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
-        Mon, 04 Nov 2019 13:56:55 -0800 (PST)
-Date:   Mon, 4 Nov 2019 22:56:55 +0100
+        Mon, 04 Nov 2019 13:55:59 -0800 (PST)
+Date:   Mon, 4 Nov 2019 22:55:59 +0100
 From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 To:     Ben Dooks <ben.dooks@codethink.co.uk>
 Cc:     linux-sparse@vger.kernel.org
 Subject: Re: latest printf code
-Message-ID: <20191104215654.dhmrtnmg36eabvd7@ltop.local>
+Message-ID: <20191104215558.qgkh55dkqamce4xb@ltop.local>
 References: <78105f3a4a949a746d3ba6e562eb0e00@codethink.co.uk>
  <20191104214643.d6ta3xok4jypkrjo@ltop.local>
 MIME-Version: 1.0
@@ -78,39 +78,52 @@ On Mon, Nov 04, 2019 at 10:46:44PM +0100, Luc Van Oostenryck wrote:
 > I've a few more remarks about formatting or naming and
 > also some simplifications I would like you make.
 
-'struct format' is a bit too generic. Rename it.
+A typo and some formatting issues.
 
-From 07bd6a35ce437617b8c0d2bc32273bcd9dfd84a0 Mon Sep 17 00:00:00 2001
+From 0522fbfc145c948401b9057a505428df83749cb9 Mon Sep 17 00:00:00 2001
 From: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-Date: Mon, 4 Nov 2019 21:44:54 +0100
-Subject: [PATCH 3/7] s/struct format/struct attr_format/
+Date: Mon, 4 Nov 2019 15:45:10 +0100
+Subject: [PATCH 2/7] misc fixes
 
 ---
- symbol.h | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ evaluate.c | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
 
-diff --git a/symbol.h b/symbol.h
-index 5bfaac588..228c3a392 100644
---- a/symbol.h
-+++ b/symbol.h
-@@ -98,7 +98,7 @@ extern struct context *alloc_context(void);
+diff --git a/evaluate.c b/evaluate.c
+index ee1d69c53..c415773f4 100644
+--- a/evaluate.c
++++ b/evaluate.c
+@@ -2362,7 +2362,7 @@ static int printf_fmt_print_pointer(struct format_type *fmt, struct expression *
+ 	// TODO TODO: fix this here!!!
+ 	int ret;
+ 	*target = &const_ptr_ctype;
+-	ret =check_assignment_types(*target, expr, typediff);
++	ret = check_assignment_types(*target, expr, typediff);
+ 	if (ret == 0) {
+ 		/* if just printing, ignore address-space mismatches */
+ 		if (strcmp(*typediff, "different address spaces") == 0)
+@@ -2780,12 +2780,11 @@ static int evaluate_arguments(struct symbol *fn, struct expression_list *head)
+ 	int i = 1;
  
- DECLARE_PTR_LIST(context_list, struct context);
+ 	/*
+-	 * Do the va-arg format parsing here. This is done as the arugment
++	 * Do the va-arg format parsing here. This is done as the argument
+ 	 * info may get lost or changed later on in the evaluation loop by
+ 	 * calls to degenerate()
+ 	 */
  
--struct format {
-+struct attr_format {
- 	unsigned short index;	/* index in argument list for format string */
- 	unsigned short first;	/* where first variadic argument is */
- };
-@@ -109,7 +109,7 @@ struct ctype {
- 	struct context_list *contexts;
- 	struct ident *as;
- 	struct symbol *base_type;
--	struct format format;
-+	struct attr_format format;
- };
+-	
+ 	if (Wformat && fn->ctype.format.index)
+ 		fmt_string = get_printf_fmt(fn, head);
  
- struct decl_state {
+@@ -2826,7 +2825,6 @@ static int evaluate_arguments(struct symbol *fn, struct expression_list *head)
+ 	} END_FOR_EACH_PTR(expr);
+ 	FINISH_PTR_LIST(argtype);
+ 
+-
+ 	if (Wformat && fn->ctype.format.index)
+ 		evaluate_format_printf(fmt_string, fn, head);
+ 
 -- 
 2.23.0
 
