@@ -2,87 +2,88 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 837C8F2303
-	for <lists+linux-sparse@lfdr.de>; Thu,  7 Nov 2019 01:08:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id D0F1EF27D6
+	for <lists+linux-sparse@lfdr.de>; Thu,  7 Nov 2019 07:56:47 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727326AbfKGAIs (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Wed, 6 Nov 2019 19:08:48 -0500
-Received: from mail-wr1-f44.google.com ([209.85.221.44]:38269 "EHLO
-        mail-wr1-f44.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1727296AbfKGAIr (ORCPT
+        id S1726910AbfKGG4r (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Thu, 7 Nov 2019 01:56:47 -0500
+Received: from antares.kleine-koenig.org ([94.130.110.236]:33076 "EHLO
+        antares.kleine-koenig.org" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1726829AbfKGG4r (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Wed, 6 Nov 2019 19:08:47 -0500
-Received: by mail-wr1-f44.google.com with SMTP id j15so822767wrw.5
-        for <linux-sparse@vger.kernel.org>; Wed, 06 Nov 2019 16:08:46 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=date:from:to:cc:subject:message-id:references:mime-version
-         :content-disposition:in-reply-to;
-        bh=s6BVgqN50PlOy1zVKlH6v/cU7Bmtc1Iks296VUQFzqM=;
-        b=lwq0cZB9mSXlNcnayGIozXfmFyiH98yqlMgGiUsWfHm4T1gQb9V91A3b5KuyeO62zg
-         NagtN9wkx4OpZzka1dD316noViODMu1uoA9EFzNHWGOGQWAbAqE7jEjJhoVNsAjzxV6x
-         nUeAMD7eaRh+zdyGJTLtPTzZodyORghFWEabjOKrMx5WSKmk1BubzQwJoSY0j30/+tDn
-         sIDgLWx4QIz3Wshph6wCFOZFZhkULxS8fpxjzJnFNE8sJidv4qy9CoiPdjEYCtzIw7yX
-         rL51zjgBkgJqnuk0Qw40FyZJo7UcgeMUGyORhzTzJDc+xnDYdLxPmZUpD750Uv2mPS8J
-         fkdA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
-         :mime-version:content-disposition:in-reply-to;
-        bh=s6BVgqN50PlOy1zVKlH6v/cU7Bmtc1Iks296VUQFzqM=;
-        b=t0Tgk84rHpwIIj27+1ufyDyB+ayMYfCEsjkBR3rv7ZmIEYEWm1pFV/1i6N26DL+lwx
-         FVmFfWntYhtnMpGOxpt8sFZCwx/2v0Ti/1L/DpwlD/oGErmHbFScoOVQRX5qf9tzfXll
-         vsdcDE2aLhaUnXWOHPDIzkuUWgbyrXekWq8H1CDJYy5FCQJ5ufqf2riphNHV9XBkj0So
-         tkN2dksF56S+EFbT7/fg0wfgBG3gwYyjZl/FEh0ry+DNMCdwD3S7j4QuYISs5BReiHF4
-         8kP1EqB6UwXD2cStvLaH9XRvF+iG9w2AgjLLO0hAmoTzq6SLorqCX/vuRzAPzbIaIX9/
-         89Ng==
-X-Gm-Message-State: APjAAAWh1HTDe7yUgu9CslmiRAGevP1bdezIYyx441wPI41TxktCgts1
-        cxxgarreQpiPYlZpUO9YUj7lTASe
-X-Google-Smtp-Source: APXvYqwHaQH3Djx5vz+ahZmX7jVJ4WxeQzorvnt2Bv/JYNQ3BCaaMRX1uM3he1LfXTSF3d7UN54mQg==
-X-Received: by 2002:adf:e890:: with SMTP id d16mr211751wrm.105.1573085325694;
-        Wed, 06 Nov 2019 16:08:45 -0800 (PST)
-Received: from ltop.local ([2a02:a03f:40ac:ce00:f977:7428:775c:3ad2])
-        by smtp.gmail.com with ESMTPSA id 205sm4479610wmb.3.2019.11.06.16.08.44
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 06 Nov 2019 16:08:44 -0800 (PST)
-Date:   Thu, 7 Nov 2019 01:08:43 +0100
-From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-To:     Ben Dooks <ben.dooks@codethink.co.uk>
-Cc:     linux-sparse@vger.kernel.org
-Subject: Re: latest printf code
-Message-ID: <20191107000843.466fv6uihnzmum6t@ltop.local>
-References: <78105f3a4a949a746d3ba6e562eb0e00@codethink.co.uk>
- <20191104214643.d6ta3xok4jypkrjo@ltop.local>
- <20191104222703.d75txlb7pq2dp6kd@ltop.local>
- <f2efffd7-c032-9875-1990-67716612ea9b@codethink.co.uk>
- <a91fe185-9b23-f0f4-097c-e9bd57d40243@codethink.co.uk>
+        Thu, 7 Nov 2019 01:56:47 -0500
+Received: by antares.kleine-koenig.org (Postfix, from userid 1000)
+        id 6A96C8260A8; Thu,  7 Nov 2019 07:56:45 +0100 (CET)
+Date:   Thu, 7 Nov 2019 07:56:42 +0100
+From:   Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <uwe@kleine-koenig.org>
+To:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
+Cc:     linux-sparse@vger.kernel.org, Jeff Layton <jlayton@redhat.com>
+Subject: Re: Sparse v0.6.1
+Message-ID: <20191107065642.GA4911@taurus.defre.kleine-koenig.org>
+References: <20191013234630.7uuszc5auri46h4y@desk.local>
+ <42602ad0-05c2-b6a1-33ac-75191b80af88@kleine-koenig.org>
+ <20191106234554.crh5eyybfuhqiy7l@ltop.local>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha512;
+        protocol="application/pgp-signature"; boundary="UugvWAfsgieZRqgk"
 Content-Disposition: inline
-In-Reply-To: <a91fe185-9b23-f0f4-097c-e9bd57d40243@codethink.co.uk>
+In-Reply-To: <20191106234554.crh5eyybfuhqiy7l@ltop.local>
+User-Agent: Mutt/1.10.1 (2018-07-13)
 Sender: linux-sparse-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-On Wed, Nov 06, 2019 at 05:58:06PM +0000, Ben Dooks wrote:
-> 
-> Ok, I've split this out now, I agree it is probably better suited to
-> being seperate as it may well grow as we add formats and anything
-> else that might be required.
-> 
-> I'll try and finish looking at the tests tomorrow, ande about the
-> use of check_assignment_types(), whether we could extend it with
-> some sort of flags field, such as (IGNORE_ADDRESS_SPACE).
-> 
-> I've started putting up:
-> 	https://github.com/bjdooks-ct/sparse bjdooks/printf22
 
-Yes, that's fine. There is just that, as I said, you surely want to
-move the code around a little at the start of verify_format_attribute()
-so that the warning "not a format string?" can be showed again
-(the check I made to the expr just do a silent early return
-if the string is not a literal string).
+--UugvWAfsgieZRqgk
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Best regards,
--- Luc
+Hello Luc,
+
+On Thu, Nov 07, 2019 at 12:45:54AM +0100, Luc Van Oostenryck wrote:
+> On Wed, Nov 06, 2019 at 09:59:27PM +0100, Uwe Kleine-K=F6nig wrote:
+> > Hello Luc,
+> >=20
+> > On 10/14/19 1:46 AM, Luc Van Oostenryck wrote:
+> > > Sparse v0.6.1 is now out.
+> >=20
+> > I uploaded sparse 0.6.1 to Debian and got two failed builds. Both mipsel
+> > and powerpc
+> > fail in the same way:
+> > 	+enum-sign-extend.c:6:28: error: static assertion failed: "type"
+>=20
+> This problem is already fixed on the head since a few days ago.
+
+Great.
+
+> I've also pushed a branch 'main-0.6.1' containing only the
+> minimal fix. If needed I can tag it as 'v0.6.1.1' and update
+> VERSION accordingly but I would like to be sure that such
+> 4-part version isn't a problem.
+
+For me this isn't necessary. I will cherry-pick the fix for Debian's
+0.6.1. As there is a Debian specific version mangling I don't need a new
+upstream release. (The version I uploaded without the fix is 0.6.1-1,
+will prepare 0.6.1-2 today.)
+
+Best regards and thanks for your prompt reply,
+Uwe
+
+--UugvWAfsgieZRqgk
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEfnIqFpAYrP8+dKQLwfwUeK3K7AkFAl3DwCcACgkQwfwUeK3K
+7AmW6Qf+JGaaAwF4UiOC3pS1iiZfqEb4U7J3jcr3Z5b0c9t9e35GLjU8ZWbn574c
+dIzTI3DVA7bQeV7ptswxVYII40UD3eBBnJqb0jVPpOokJ3UAEzTVI0yd1NO8+7jC
+CAsygP9xlrFgn1o6AzgRu11Mj62OCrziNIJyccAAb+8OKJLNlMj0xY6wGlvBqNbC
+0Tfa3w+AfeBEPkeF+3ijJofSAOYymGDDtKcWYyaD62zmWNpv+OK9cYxGALQgbnRK
+y9dTc1EfH7KA5/ZM+PJPsADkSGVf2VtbrlYW4LbOblwNvdkb5d4uZ+rNSg/nKoDr
+vbqWf+ajWlkhohOhAAcVd/pqwLzStg==
+=dokc
+-----END PGP SIGNATURE-----
+
+--UugvWAfsgieZRqgk--
