@@ -2,88 +2,72 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id D0F1EF27D6
-	for <lists+linux-sparse@lfdr.de>; Thu,  7 Nov 2019 07:56:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 3A7F8F28AA
+	for <lists+linux-sparse@lfdr.de>; Thu,  7 Nov 2019 09:05:51 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726910AbfKGG4r (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Thu, 7 Nov 2019 01:56:47 -0500
-Received: from antares.kleine-koenig.org ([94.130.110.236]:33076 "EHLO
-        antares.kleine-koenig.org" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726829AbfKGG4r (ORCPT
+        id S1726925AbfKGIFu (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Thu, 7 Nov 2019 03:05:50 -0500
+Received: from imap1.codethink.co.uk ([176.9.8.82]:38573 "EHLO
+        imap1.codethink.co.uk" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1726791AbfKGIFu (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Thu, 7 Nov 2019 01:56:47 -0500
-Received: by antares.kleine-koenig.org (Postfix, from userid 1000)
-        id 6A96C8260A8; Thu,  7 Nov 2019 07:56:45 +0100 (CET)
-Date:   Thu, 7 Nov 2019 07:56:42 +0100
-From:   Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <uwe@kleine-koenig.org>
+        Thu, 7 Nov 2019 03:05:50 -0500
+Received: from [167.98.27.226] (helo=[10.35.5.173])
+        by imap1.codethink.co.uk with esmtpsa (Exim 4.84_2 #1 (Debian))
+        id 1iScnc-0007xF-8y; Thu, 07 Nov 2019 08:05:48 +0000
+Subject: Re: latest printf code
 To:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-Cc:     linux-sparse@vger.kernel.org, Jeff Layton <jlayton@redhat.com>
-Subject: Re: Sparse v0.6.1
-Message-ID: <20191107065642.GA4911@taurus.defre.kleine-koenig.org>
-References: <20191013234630.7uuszc5auri46h4y@desk.local>
- <42602ad0-05c2-b6a1-33ac-75191b80af88@kleine-koenig.org>
- <20191106234554.crh5eyybfuhqiy7l@ltop.local>
+Cc:     linux-sparse@vger.kernel.org
+References: <78105f3a4a949a746d3ba6e562eb0e00@codethink.co.uk>
+ <20191104214643.d6ta3xok4jypkrjo@ltop.local>
+ <20191104222703.d75txlb7pq2dp6kd@ltop.local>
+ <f2efffd7-c032-9875-1990-67716612ea9b@codethink.co.uk>
+ <a91fe185-9b23-f0f4-097c-e9bd57d40243@codethink.co.uk>
+ <20191107000843.466fv6uihnzmum6t@ltop.local>
+From:   Ben Dooks <ben.dooks@codethink.co.uk>
+Organization: Codethink Limited.
+Message-ID: <80a34306-e836-8f88-231a-59bcba280358@codethink.co.uk>
+Date:   Thu, 7 Nov 2019 08:05:47 +0000
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.9.0
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-        protocol="application/pgp-signature"; boundary="UugvWAfsgieZRqgk"
-Content-Disposition: inline
-In-Reply-To: <20191106234554.crh5eyybfuhqiy7l@ltop.local>
-User-Agent: Mutt/1.10.1 (2018-07-13)
+In-Reply-To: <20191107000843.466fv6uihnzmum6t@ltop.local>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
 Sender: linux-sparse-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
+On 07/11/2019 00:08, Luc Van Oostenryck wrote:
+> On Wed, Nov 06, 2019 at 05:58:06PM +0000, Ben Dooks wrote:
+>>
+>> Ok, I've split this out now, I agree it is probably better suited to
+>> being seperate as it may well grow as we add formats and anything
+>> else that might be required.
+>>
+>> I'll try and finish looking at the tests tomorrow, ande about the
+>> use of check_assignment_types(), whether we could extend it with
+>> some sort of flags field, such as (IGNORE_ADDRESS_SPACE).
+>>
+>> I've started putting up:
+>> 	https://github.com/bjdooks-ct/sparse bjdooks/printf22
+> 
+> Yes, that's fine. There is just that, as I said, you surely want to
+> move the code around a little at the start of verify_format_attribute()
+> so that the warning "not a format string?" can be showed again
+> (the check I made to the expr just do a silent early return
+> if the string is not a literal string).
 
---UugvWAfsgieZRqgk
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Ah, ok. I'll have a look at the test cases today and work out
+what else needs to be done and try and get as much done by the
+end of this week.
 
-Hello Luc,
+Thank you for looking at this.
 
-On Thu, Nov 07, 2019 at 12:45:54AM +0100, Luc Van Oostenryck wrote:
-> On Wed, Nov 06, 2019 at 09:59:27PM +0100, Uwe Kleine-K=F6nig wrote:
-> > Hello Luc,
-> >=20
-> > On 10/14/19 1:46 AM, Luc Van Oostenryck wrote:
-> > > Sparse v0.6.1 is now out.
-> >=20
-> > I uploaded sparse 0.6.1 to Debian and got two failed builds. Both mipsel
-> > and powerpc
-> > fail in the same way:
-> > 	+enum-sign-extend.c:6:28: error: static assertion failed: "type"
->=20
-> This problem is already fixed on the head since a few days ago.
+-- 
+Ben Dooks				http://www.codethink.co.uk/
+Senior Engineer				Codethink - Providing Genius
 
-Great.
-
-> I've also pushed a branch 'main-0.6.1' containing only the
-> minimal fix. If needed I can tag it as 'v0.6.1.1' and update
-> VERSION accordingly but I would like to be sure that such
-> 4-part version isn't a problem.
-
-For me this isn't necessary. I will cherry-pick the fix for Debian's
-0.6.1. As there is a Debian specific version mangling I don't need a new
-upstream release. (The version I uploaded without the fix is 0.6.1-1,
-will prepare 0.6.1-2 today.)
-
-Best regards and thanks for your prompt reply,
-Uwe
-
---UugvWAfsgieZRqgk
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEfnIqFpAYrP8+dKQLwfwUeK3K7AkFAl3DwCcACgkQwfwUeK3K
-7AmW6Qf+JGaaAwF4UiOC3pS1iiZfqEb4U7J3jcr3Z5b0c9t9e35GLjU8ZWbn574c
-dIzTI3DVA7bQeV7ptswxVYII40UD3eBBnJqb0jVPpOokJ3UAEzTVI0yd1NO8+7jC
-CAsygP9xlrFgn1o6AzgRu11Mj62OCrziNIJyccAAb+8OKJLNlMj0xY6wGlvBqNbC
-0Tfa3w+AfeBEPkeF+3ijJofSAOYymGDDtKcWYyaD62zmWNpv+OK9cYxGALQgbnRK
-y9dTc1EfH7KA5/ZM+PJPsADkSGVf2VtbrlYW4LbOblwNvdkb5d4uZ+rNSg/nKoDr
-vbqWf+ajWlkhohOhAAcVd/pqwLzStg==
-=dokc
------END PGP SIGNATURE-----
-
---UugvWAfsgieZRqgk--
+https://www.codethink.co.uk/privacy.html
