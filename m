@@ -2,55 +2,55 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id EDF1FF7559
+	by mail.lfdr.de (Postfix) with ESMTP id A75F6F7556
 	for <lists+linux-sparse@lfdr.de>; Mon, 11 Nov 2019 14:48:05 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727047AbfKKNsE (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Mon, 11 Nov 2019 08:48:04 -0500
-Received: from mail-wr1-f67.google.com ([209.85.221.67]:35115 "EHLO
-        mail-wr1-f67.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726970AbfKKNr7 (ORCPT
+        id S1727080AbfKKNr7 (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Mon, 11 Nov 2019 08:47:59 -0500
+Received: from mail-wm1-f65.google.com ([209.85.128.65]:35877 "EHLO
+        mail-wm1-f65.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1726832AbfKKNr7 (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
         Mon, 11 Nov 2019 08:47:59 -0500
-Received: by mail-wr1-f67.google.com with SMTP id s5so3618502wrw.2
+Received: by mail-wm1-f65.google.com with SMTP id c22so13296657wmd.1
         for <linux-sparse@vger.kernel.org>; Mon, 11 Nov 2019 05:47:57 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=oAD7nJkcojlVEh/iOs29rblOin1qKm/mis780XOEnAE=;
-        b=Yphl4cMo8ATjiMS+/pCEzRq4VWkfRstcKsmzTvNbbJDQJ8MrX8lRXJuMiqSB0YSIyw
-         c010Aii5/6leMQK52G82VZ2rKmdw46TK58ApLVpICgZTfR3aEJqLjBBJf+iJiig1wQP2
-         +6WwLtbi35T/aF1pkhI+dbVWYVZQlDv4+Z9Au2wh9DmWeZG9aOIhG1VtxOM1GAokhp/v
-         fdT8vRQDX+F6iMjQbA416HFCsgG7aQUc7L2HWNazJrInP5v+hMP6gSI+XWZjpiCHHffo
-         z8QJoYcW/1P/Ldp+BxdgadD+LaAApyHjvkv1HIwlkNnQHpmqSvutW+gz6IymXLwhl82n
-         dP+Q==
+        bh=CdpRZpXwwwpv+t6qLwk4W4YLQ/jTu158pXgTDvvwZT4=;
+        b=KeR0KzbzvOZmqAYpMc3+k3kzqzypLMGfISBXy4er5SXu7i2mAoaseL4EFiPQOIScsv
+         kn0w+T7Kf4lcerGmGAJf1IkE8pV0RZs1VqtfZ/UvcI0CZWjtHmBcxtIWsvliPWabWZjn
+         2k38C24soMvOjWqnrraB4/1JEtFPS6p5PScmYB9Z1jgk1n0GXmHb8cCCuRf5EZtYyA1J
+         XpBHc8MDiZn4vSXWcacWeT7x+nE8cSxkiP9FKaUBaq4FmHl6Ffdct5acKqLQTLX41Tku
+         5ZNuugqOTyDgjMq/vTCf3+AiQ7rEizZq0jeS4nz0ofTmqzJ6Q8MtFzpUS4i84USiOaGQ
+         JIlg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=oAD7nJkcojlVEh/iOs29rblOin1qKm/mis780XOEnAE=;
-        b=JCczp7W0x+V99x0MJrgyOqDgE3VaLIUEjzhCgekB/X6BVhfAI8FklB6VtF6/JLk8Ag
-         RfnG3KTMBCmuFQZTt63xNW0pUJGi1j8irmAFW6sF7whL+3j88KZMFLKrcZO5Cu3RAtJh
-         H8SaacupN55YFS28Ifckz/X6GuMl2ev75Y2VH+UpuhQYkrolqwkRf+qw4g+blMf9sg4z
-         hNAKHGZqTjqAeQ1iK0MCdEbFlPAjs3AOWtXyQr6ISzLBiQTi5QBRdMoLwQ8aloc05V4y
-         /aKoNdteGLiMQeoQeih22y04O/Us5X5mvjsbrB0LZT3/+uhir2IFd0i4qUaJ4LHh80xQ
-         39rA==
-X-Gm-Message-State: APjAAAXKsyEajUXO8F71dyVVXjJjoanK+z82VQg+IMQQfUvB5p8ZhvZY
-        3BDHyqL0PAQwhjEgurrFm1tORAvA
-X-Google-Smtp-Source: APXvYqyUYHBf8Le9A1ZJ5tFmc/sHEEgWgq24sjj9GLfUCxPXkeOJcGYCv5vZc8GPX6BvURVM+9hjVg==
-X-Received: by 2002:a5d:6203:: with SMTP id y3mr4504581wru.142.1573480076181;
+        bh=CdpRZpXwwwpv+t6qLwk4W4YLQ/jTu158pXgTDvvwZT4=;
+        b=lQ7XWTwZZ7+1fUQR+yt1V2ZujiFkdS5K3HHFQcPOzY6+MzlYT5nmnOZBPBu7BOxYuj
+         zHhxRNP3NhvNFXhj9u78Hcr1YFYzNAeEJRQ/F/yBWTydnOSirMeMECJbg20HOW+9EErM
+         lI4zU4HMki4cImiE1jRn2bRbqEYtkPsF0Qfk6JGm/w9Ff8yMZyQQ9/jj69ZlF1YEaNam
+         SCCkdCRZCXxmaJuBpmjbHg22cpXzkddJOXC5J7FiZSAqMvEycJUVOB3W3BOJbNs1XFbH
+         kAFiBog21MuQ/wOBz8vtZeSnFGm7iRubfuvJXfZ63oGMac5MPoczeX7owDuxdb/kxBZx
+         x0og==
+X-Gm-Message-State: APjAAAXjr861L5chCQZd4OSaKQJm69zlgfIjrpD0+5yY7n386F7SWlIP
+        z/A+o9DDZ2oeKhbv9MuBulqohY+p
+X-Google-Smtp-Source: APXvYqxHwXp1g/dJS06F2sSq3RuiwKjxsuufTHtL74E3pP7vbq6hT3/lO5UpbaekdZiXKPzkq+/d+w==
+X-Received: by 2002:a1c:998f:: with SMTP id b137mr21476111wme.104.1573480076913;
         Mon, 11 Nov 2019 05:47:56 -0800 (PST)
 Received: from localhost.localdomain ([2a02:a03f:4058:bc00:7107:cc84:c820:8cf8])
-        by smtp.gmail.com with ESMTPSA id u187sm18384031wme.15.2019.11.11.05.47.55
+        by smtp.gmail.com with ESMTPSA id u187sm18384031wme.15.2019.11.11.05.47.56
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 11 Nov 2019 05:47:55 -0800 (PST)
+        Mon, 11 Nov 2019 05:47:56 -0800 (PST)
 From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 To:     linux-sparse@vger.kernel.org
 Cc:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-Subject: [PATCH 5/9] spec: KW_SHORT is not needed
-Date:   Mon, 11 Nov 2019 14:47:43 +0100
-Message-Id: <20191111134747.79516-6-luc.vanoostenryck@gmail.com>
+Subject: [PATCH 6/9] spec: KW_LONG is not needed
+Date:   Mon, 11 Nov 2019 14:47:44 +0100
+Message-Id: <20191111134747.79516-7-luc.vanoostenryck@gmail.com>
 X-Mailer: git-send-email 2.24.0
 In-Reply-To: <20191111134747.79516-1-luc.vanoostenryck@gmail.com>
 References: <20191111134747.79516-1-luc.vanoostenryck@gmail.com>
@@ -62,62 +62,53 @@ List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
 To determine the rank of shorts & floats, the keyword type
-KW_SHORT is used but there is no need for a specific keyword
-since testing for 'Set_Short' or 'Set_Float' has the same
-effect.
+KW_LONG is used but there is no need for a specific keyword
+since testing for 'Set_Long' has the same effect.
 
-So, remove this keyword and test the Set_... flags instead
+So, remove this keyword and test for 'Set_Long' instead
 as this somehow clarify the processing of specifiers.
 
 Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 ---
- parse.c  | 6 +++---
+ parse.c  | 4 ++--
  symbol.h | 2 +-
- 2 files changed, 4 insertions(+), 4 deletions(-)
+ 2 files changed, 3 insertions(+), 3 deletions(-)
 
 diff --git a/parse.c b/parse.c
-index c71f34a39..3526bf37e 100644
+index 3526bf37e..0ace13514 100644
 --- a/parse.c
 +++ b/parse.c
-@@ -266,14 +266,14 @@ static struct symbol_op double_op = {
+@@ -294,7 +294,7 @@ static struct symbol_op unsigned_op = {
  };
  
- static struct symbol_op float_op = {
--	.type = KW_SPECIFIER | KW_SHORT,
+ static struct symbol_op long_op = {
+-	.type = KW_SPECIFIER | KW_LONG,
 +	.type = KW_SPECIFIER,
- 	.test = Set_T|Set_Signed|Set_Unsigned|Set_Short|Set_Long,
- 	.set = Set_T|Set_Float,
- 	.class = CReal,
+ 	.test = Set_S|Set_Char|Set_Float|Set_Short|Set_Vlong,
+ 	.set = Set_Long,
  };
- 
- static struct symbol_op short_op = {
--	.type = KW_SPECIFIER | KW_SHORT,
-+	.type = KW_SPECIFIER,
- 	.test = Set_S|Set_Char|Set_Float|Set_Double|Set_Long|Set_Short,
- 	.set = Set_Short,
- 	.class = CInt,
-@@ -1624,7 +1624,7 @@ static struct token *declaration_specifiers(struct token *token, struct decl_sta
- 			}
- 			seen |= s->op->set;
- 			class += s->op->class;
--			if (s->op->type & KW_SHORT) {
-+			if (s->op->set & (Set_Short|Set_Float)) {
- 				size = -1;
- 			} else if (s->op->set & Set_Char) {
+@@ -1630,7 +1630,7 @@ static struct token *declaration_specifiers(struct token *token, struct decl_sta
  				size = -2;
+ 			} else if (s->op->set & Set_Int128) {
+ 				size = 3;
+-			} else if (s->op->type & KW_LONG && size++) {
++			} else if (s->op->set & Set_Long && size++) {
+ 				if (class == CReal) {
+ 					specifier_conflict(token->pos,
+ 							   Set_Vlong,
 diff --git a/symbol.h b/symbol.h
-index 4e7e437bf..5b25c040c 100644
+index 5b25c040c..188291cd7 100644
 --- a/symbol.h
 +++ b/symbol.h
-@@ -81,7 +81,7 @@ enum keyword {
-      // KW UNUSED	= 1 << 4,
+@@ -82,7 +82,7 @@ enum keyword {
  	KW_ASM		= 1 << 5,
  	KW_MODE		= 1 << 6,
--	KW_SHORT	= 1 << 7,
-+     // KW UNUSED	= 1 << 7,
- 	KW_LONG		= 1 << 8,
+      // KW UNUSED	= 1 << 7,
+-	KW_LONG		= 1 << 8,
++     // KW UNUSED	= 1 << 8,
  	KW_EXACT	= 1 << 9,
  };
+ 
 -- 
 2.24.0
 
