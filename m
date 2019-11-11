@@ -2,55 +2,55 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id A75F6F7556
+	by mail.lfdr.de (Postfix) with ESMTP id B2E4AF7557
 	for <lists+linux-sparse@lfdr.de>; Mon, 11 Nov 2019 14:48:05 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727080AbfKKNr7 (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Mon, 11 Nov 2019 08:47:59 -0500
-Received: from mail-wm1-f65.google.com ([209.85.128.65]:35877 "EHLO
-        mail-wm1-f65.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726832AbfKKNr7 (ORCPT
+        id S1727053AbfKKNsB (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Mon, 11 Nov 2019 08:48:01 -0500
+Received: from mail-wr1-f68.google.com ([209.85.221.68]:43657 "EHLO
+        mail-wr1-f68.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1727047AbfKKNsA (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Mon, 11 Nov 2019 08:47:59 -0500
-Received: by mail-wm1-f65.google.com with SMTP id c22so13296657wmd.1
-        for <linux-sparse@vger.kernel.org>; Mon, 11 Nov 2019 05:47:57 -0800 (PST)
+        Mon, 11 Nov 2019 08:48:00 -0500
+Received: by mail-wr1-f68.google.com with SMTP id n1so14671134wra.10
+        for <linux-sparse@vger.kernel.org>; Mon, 11 Nov 2019 05:47:58 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=CdpRZpXwwwpv+t6qLwk4W4YLQ/jTu158pXgTDvvwZT4=;
-        b=KeR0KzbzvOZmqAYpMc3+k3kzqzypLMGfISBXy4er5SXu7i2mAoaseL4EFiPQOIScsv
-         kn0w+T7Kf4lcerGmGAJf1IkE8pV0RZs1VqtfZ/UvcI0CZWjtHmBcxtIWsvliPWabWZjn
-         2k38C24soMvOjWqnrraB4/1JEtFPS6p5PScmYB9Z1jgk1n0GXmHb8cCCuRf5EZtYyA1J
-         XpBHc8MDiZn4vSXWcacWeT7x+nE8cSxkiP9FKaUBaq4FmHl6Ffdct5acKqLQTLX41Tku
-         5ZNuugqOTyDgjMq/vTCf3+AiQ7rEizZq0jeS4nz0ofTmqzJ6Q8MtFzpUS4i84USiOaGQ
-         JIlg==
+        bh=mZXNXY+6xe415JuXFu6oaGeh2uXAmJtbbPwMOJ1hcw4=;
+        b=r/bJJv+cSy8teaSnCaoo3RNVpCI10kKZBDlMOwAH9A+HA0vhKsZcLZsY5v+6UP1ibC
+         IjwCSqXCSLxr3qXISWaaCVQYZpkSutDDUXGsFH6axrFRpwp73xi1jbnmTuRsPpw47PQP
+         uR93B93iAeWYb0ukP3sTHrtXxT66XzFzJYD2lHv0ZbbQaF8Q2pmgp86+mL+GiDVd4LEK
+         JwTD/iO8ike9jbqMmFK1w/S58qkNtxPL4D2fGcVheH5IDuJiwgpRIFQrT9+4oplLlGxY
+         xILnwhhKfpc2IMNSTlzCetva8Tdtjfavs/L9HlimNVNqo8CsiK+XLnAUm4b/5Y6V/C6b
+         jOPg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=CdpRZpXwwwpv+t6qLwk4W4YLQ/jTu158pXgTDvvwZT4=;
-        b=lQ7XWTwZZ7+1fUQR+yt1V2ZujiFkdS5K3HHFQcPOzY6+MzlYT5nmnOZBPBu7BOxYuj
-         zHhxRNP3NhvNFXhj9u78Hcr1YFYzNAeEJRQ/F/yBWTydnOSirMeMECJbg20HOW+9EErM
-         lI4zU4HMki4cImiE1jRn2bRbqEYtkPsF0Qfk6JGm/w9Ff8yMZyQQ9/jj69ZlF1YEaNam
-         SCCkdCRZCXxmaJuBpmjbHg22cpXzkddJOXC5J7FiZSAqMvEycJUVOB3W3BOJbNs1XFbH
-         kAFiBog21MuQ/wOBz8vtZeSnFGm7iRubfuvJXfZ63oGMac5MPoczeX7owDuxdb/kxBZx
-         x0og==
-X-Gm-Message-State: APjAAAXjr861L5chCQZd4OSaKQJm69zlgfIjrpD0+5yY7n386F7SWlIP
-        z/A+o9DDZ2oeKhbv9MuBulqohY+p
-X-Google-Smtp-Source: APXvYqxHwXp1g/dJS06F2sSq3RuiwKjxsuufTHtL74E3pP7vbq6hT3/lO5UpbaekdZiXKPzkq+/d+w==
-X-Received: by 2002:a1c:998f:: with SMTP id b137mr21476111wme.104.1573480076913;
-        Mon, 11 Nov 2019 05:47:56 -0800 (PST)
+        bh=mZXNXY+6xe415JuXFu6oaGeh2uXAmJtbbPwMOJ1hcw4=;
+        b=UvbE+Eojn1xUAI4Ex0eZwYqNLqBoHuw73d/bzxvMoJ8kWWZuMTHXVOjQ1t5CyWl/wy
+         ts/2VXWUglOLtzh3Hjh6dVj8d+C2v0oPwirDxXy3K71cm2fMkZu6aoWhFGVyMTHffl7F
+         oLg+tlMO0L4G4elYRwP2hhmrQOR6+LZNsn0hkXOPg6yukL06cczCTBW4kcser+ItCfNn
+         YInqzQmwxVoK9NbobFSzkb7uST5m3jqk9z/8HRo6Qb8KZ9ii2JBgJPWPySL28Rk4iYs0
+         +LwePIs52w/HbMYj+ODC0vsvmTt2dMV4WY1OK6yA9vaS9/1MMiFw0Ec25fH+Ilh9kJFv
+         eggw==
+X-Gm-Message-State: APjAAAX0VEO6RrXyNhW/JvzG2+4GIwog2rOLIQmfhWmDvGhXemAvPzg/
+        70ERkLtwZHahwOQ3q+VAaxKJ3Eut
+X-Google-Smtp-Source: APXvYqzq8VTdBBxKi+MkmbnxOry5PH5Kvte3tcxBg4rdNgDqAj/Odxr2F2dMXHCAgu1hTShqP7dvZg==
+X-Received: by 2002:a5d:6944:: with SMTP id r4mr20092110wrw.238.1573480077974;
+        Mon, 11 Nov 2019 05:47:57 -0800 (PST)
 Received: from localhost.localdomain ([2a02:a03f:4058:bc00:7107:cc84:c820:8cf8])
-        by smtp.gmail.com with ESMTPSA id u187sm18384031wme.15.2019.11.11.05.47.56
+        by smtp.gmail.com with ESMTPSA id u187sm18384031wme.15.2019.11.11.05.47.57
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 11 Nov 2019 05:47:56 -0800 (PST)
+        Mon, 11 Nov 2019 05:47:57 -0800 (PST)
 From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 To:     linux-sparse@vger.kernel.org
 Cc:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-Subject: [PATCH 6/9] spec: KW_LONG is not needed
-Date:   Mon, 11 Nov 2019 14:47:44 +0100
-Message-Id: <20191111134747.79516-7-luc.vanoostenryck@gmail.com>
+Subject: [PATCH 7/9] spec: s/size/rank/
+Date:   Mon, 11 Nov 2019 14:47:45 +0100
+Message-Id: <20191111134747.79516-8-luc.vanoostenryck@gmail.com>
 X-Mailer: git-send-email 2.24.0
 In-Reply-To: <20191111134747.79516-1-luc.vanoostenryck@gmail.com>
 References: <20191111134747.79516-1-luc.vanoostenryck@gmail.com>
@@ -61,53 +61,56 @@ Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-To determine the rank of shorts & floats, the keyword type
-KW_LONG is used but there is no need for a specific keyword
-since testing for 'Set_Long' has the same effect.
+In declaration_specifiers() the variable 'size' is used to
+make the distinction between char/short/int/long/long long/...
+but this correspond more closely to the notion of 'rank' since
+some of these types can have the same bit-size.
 
-So, remove this keyword and test for 'Set_Long' instead
-as this somehow clarify the processing of specifiers.
+Rename the variable 'size' to 'rank'.
 
 Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 ---
- parse.c  | 4 ++--
- symbol.h | 2 +-
- 2 files changed, 3 insertions(+), 3 deletions(-)
+ parse.c | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
 
 diff --git a/parse.c b/parse.c
-index 3526bf37e..0ace13514 100644
+index 0ace13514..46136ec66 100644
 --- a/parse.c
 +++ b/parse.c
-@@ -294,7 +294,7 @@ static struct symbol_op unsigned_op = {
- };
+@@ -1599,7 +1599,7 @@ static struct token *declaration_specifiers(struct token *token, struct decl_sta
+ {
+ 	int seen = 0;
+ 	int class = CInt;
+-	int size = 0;
++	int rank = 0;
  
- static struct symbol_op long_op = {
--	.type = KW_SPECIFIER | KW_LONG,
-+	.type = KW_SPECIFIER,
- 	.test = Set_S|Set_Char|Set_Float|Set_Short|Set_Vlong,
- 	.set = Set_Long,
- };
-@@ -1630,7 +1630,7 @@ static struct token *declaration_specifiers(struct token *token, struct decl_sta
- 				size = -2;
+ 	while (token_type(token) == TOKEN_IDENT) {
+ 		struct symbol *s = lookup_symbol(token->ident,
+@@ -1625,12 +1625,12 @@ static struct token *declaration_specifiers(struct token *token, struct decl_sta
+ 			seen |= s->op->set;
+ 			class += s->op->class;
+ 			if (s->op->set & (Set_Short|Set_Float)) {
+-				size = -1;
++				rank = -1;
+ 			} else if (s->op->set & Set_Char) {
+-				size = -2;
++				rank = -2;
  			} else if (s->op->set & Set_Int128) {
- 				size = 3;
--			} else if (s->op->type & KW_LONG && size++) {
-+			} else if (s->op->set & Set_Long && size++) {
+-				size = 3;
+-			} else if (s->op->set & Set_Long && size++) {
++				rank = 3;
++			} else if (s->op->set & Set_Long && rank++) {
  				if (class == CReal) {
  					specifier_conflict(token->pos,
  							   Set_Vlong,
-diff --git a/symbol.h b/symbol.h
-index 5b25c040c..188291cd7 100644
---- a/symbol.h
-+++ b/symbol.h
-@@ -82,7 +82,7 @@ enum keyword {
- 	KW_ASM		= 1 << 5,
- 	KW_MODE		= 1 << 6,
-      // KW UNUSED	= 1 << 7,
--	KW_LONG		= 1 << 8,
-+     // KW UNUSED	= 1 << 8,
- 	KW_EXACT	= 1 << 9,
- };
+@@ -1652,7 +1652,7 @@ static struct token *declaration_specifiers(struct token *token, struct decl_sta
+ 	if (!(seen & Set_S)) {	/* not set explicitly? */
+ 		struct symbol *base = &incomplete_ctype;
+ 		if (seen & Set_Any)
+-			base = types[class][size];
++			base = types[class][rank];
+ 		ctx->ctype.base_type = base;
+ 	}
  
 -- 
 2.24.0
