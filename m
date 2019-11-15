@@ -2,55 +2,55 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 49B64FD220
-	for <lists+linux-sparse@lfdr.de>; Fri, 15 Nov 2019 02:03:29 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 1E0B8FD241
+	for <lists+linux-sparse@lfdr.de>; Fri, 15 Nov 2019 02:14:02 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727437AbfKOBD2 (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Thu, 14 Nov 2019 20:03:28 -0500
-Received: from mail-wm1-f65.google.com ([209.85.128.65]:40699 "EHLO
-        mail-wm1-f65.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1727168AbfKOBD2 (ORCPT
+        id S1727020AbfKOBOB (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Thu, 14 Nov 2019 20:14:01 -0500
+Received: from mail-wm1-f66.google.com ([209.85.128.66]:39030 "EHLO
+        mail-wm1-f66.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1726996AbfKOBOB (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Thu, 14 Nov 2019 20:03:28 -0500
-Received: by mail-wm1-f65.google.com with SMTP id f3so8527353wmc.5
-        for <linux-sparse@vger.kernel.org>; Thu, 14 Nov 2019 17:03:26 -0800 (PST)
+        Thu, 14 Nov 2019 20:14:01 -0500
+Received: by mail-wm1-f66.google.com with SMTP id t26so8571806wmi.4
+        for <linux-sparse@vger.kernel.org>; Thu, 14 Nov 2019 17:13:59 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:mime-version
          :content-transfer-encoding;
-        bh=wpQ+IRfjFWx6Ga6256RSK3FNc5uw9qS4mZK5yNCwwrA=;
-        b=r54fidZl0TsCpHuJIDt6+L5tZwW11N309sGzEXr7EztcRS3czMwF6tp3RX0LUmA/Ki
-         fn3Itijj0S9GcFCp4oTKOI+eWoIs4sBdqVHyXKmUrcWjrXTeDs/8qt77nLCoonw9aDiC
-         wcnnUQddws8oXYQNtmnJSvqlUVzc2NDJo34Fc4tWe2XdyOWmc/WBVW/D8Esi+0db3RkY
-         k4QeaWdEuRFd/iDL1x5cw0GJ5Rb1kdliTMVuwUuVYAQVQlSHjZyBez3UGJaCWNqJzvIj
-         3MxIuvBtNUL7aKNaGgNEH0coW6Ptam5cbD1GhePV7lZGMp57M5TJtxFdgFrNdDNQjLJT
-         fApw==
+        bh=/4Wjh8c+TwthyN3Ikj/okFfcAfDv0lAsmRCBhNtzSa0=;
+        b=KuD3Bb/EgpRqen6d7A09//YZAL3lj1m9DXjGbckIKR+uz1d88wRoYZ9OwvWnuy5EuG
+         NyxuBB2Kv5E6bKEN1YnohsiwUmc5effIYdnuotaxvdlvJr7u04yIPFDwOYlVLeh9qp1N
+         wqFpyfRA0gBiGRebNTFOZjmtUf8HmZWsRRJt2JQv5CYg5RCERMN0Z/shrpZu/a6jAupd
+         n+b6alrU/QUGIIMjAZcfnuscmtfBSW/Vsw8ZacO/XKlLA21+bYlbEDyciXfQofO5oo3Y
+         TmR7hWPGV+01/hjkwHoqbIqHLYyY2fsy4Q4ap5nD26L4J1gyDus9LatSAUIGON5JWAQ4
+         pz6g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
          :content-transfer-encoding;
-        bh=wpQ+IRfjFWx6Ga6256RSK3FNc5uw9qS4mZK5yNCwwrA=;
-        b=CGtW90aHH0auv7vTJ1eeG3WVLtKPmAEkVLkWmf29DjYDy6GF6QNhql4K1VKsCm2Saw
-         JwavjKtKl+BP+dp9V5oUEqd2QppZ8nCKTmihhGrazCfcodjmuw67ZSH50h96aY6lZI/Y
-         mF+fOca9SjzHDkCtmEq+cyGRF+DhvX/9f2yPnSwowWjP/ppUyMKnBB5cZs45b8RRxK3U
-         B7xS7GmouGbeSuGhpuQccKA2xd0XKAwFN+irs864yhSRFLThkhKjcoO0RsFR2DxCRzxz
-         h15gPwC8XiNjVF5yPNgWF+7FUBUSU2jFfaPFdHbhZbT0ZUxcb1oSAVmjlRcLNZBfhhy6
-         BnNA==
-X-Gm-Message-State: APjAAAUEGcLQIBESarE2CeMy2hC72CG+umOP6cCiMPUf8iG9VKUKprpj
-        jEyl/MVemS8DPH2wytRsVvc1PzeM
-X-Google-Smtp-Source: APXvYqwJL07C9X6YHdMgrWcpO9hkg4dtrwaztzBkXJm4SgaKtnWlhCipdgxc5NWilxKNOypKmiWsjg==
-X-Received: by 2002:a1c:7412:: with SMTP id p18mr11721652wmc.9.1573779805840;
-        Thu, 14 Nov 2019 17:03:25 -0800 (PST)
+        bh=/4Wjh8c+TwthyN3Ikj/okFfcAfDv0lAsmRCBhNtzSa0=;
+        b=WB+H8TMsLe6yKpZvPMtVQ3jaxiIx78Qzn1A2hZPhAQ2DZaJF1k5lLluShibX2olG2w
+         cZd3Uq+2jGcMuxq9wzwuqvxEJrbhBkvt4z/jEekR00G3h0xULI4wAjwk+r/fm56LvDia
+         iMVc8gfaI3i4mXU+5x0ixQztLgRwXHNbyt8Hl/8gxWhOZHtrnLxAlR64GrXTC8Glehl2
+         rlFVkmReb82GUfYr0idyWAwY+KGsXKpbt8nRzYwtmeCCqlkWNpdFNDqukCIDq/VInHq9
+         AJU+bjzmCP9Nckbxc9EA0A3oQAAUr8IaZq9QRF5W9h36ZdqqNA3omYUKmvcTszvRIqSn
+         8dbQ==
+X-Gm-Message-State: APjAAAVLMzpNIwq+g18maP9Xwl5GFSv6HyS0ZRPnnrRol0/8DDoiSQFK
+        RUkHGkgrrfzCxUSASPT3MohvNDhn
+X-Google-Smtp-Source: APXvYqxvS1aMU8OE/trHoIySR5np6Tm1MWPsLGQ5YF2oG+3HS6LDGYjyXN/V3qu0VH/uQ6CwBN4gBw==
+X-Received: by 2002:a1c:a78b:: with SMTP id q133mr11835271wme.115.1573780438822;
+        Thu, 14 Nov 2019 17:13:58 -0800 (PST)
 Received: from localhost.localdomain ([2a02:a03f:40e1:9900:b41c:b7ad:6b56:89fb])
-        by smtp.gmail.com with ESMTPSA id p4sm9652387wrx.71.2019.11.14.17.03.24
+        by smtp.gmail.com with ESMTPSA id l4sm7918792wml.33.2019.11.14.17.13.57
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 14 Nov 2019 17:03:25 -0800 (PST)
+        Thu, 14 Nov 2019 17:13:57 -0800 (PST)
 From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 To:     linux-sparse@vger.kernel.org
 Cc:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-Subject: [PATCH] process MOD_EXT_VISIBLE like other MOD_FUN_ATTRs
-Date:   Fri, 15 Nov 2019 02:03:18 +0100
-Message-Id: <20191115010318.53315-1-luc.vanoostenryck@gmail.com>
+Subject: [PATCH 0/8] Miscellaneous arch specific fixes
+Date:   Fri, 15 Nov 2019 02:13:47 +0100
+Message-Id: <20191115011355.53495-1-luc.vanoostenryck@gmail.com>
 X-Mailer: git-send-email 2.24.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -59,99 +59,34 @@ Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-The function attribute 'externally_visible' is processed
-like a sort of storage modifiers but there is no reason
-for it (other than to avoid the problem with function
-attributes when returning a pointer) and can now be
-processed like the other function attributes.
+These patches contains some fixes for the type specific types:
+* signedness of plain char when defaulting to unsigned
+* long double on ppc32
+* char32_t
+* int32_t on ARM
+as well as simplifying and moving around some code about
+these arch specifities.
 
-Fix this by processing it like other attributes modifiers
-and adding MOD_EXT_VISIBLE to MOD_FUN_ATTR.
+Luc Van Oostenryck (8):
+  arch: fix the signedness of plain chars
+  arch: simplify i386/x86-64 specifics
+  arch: keep BSD & Darwin specifics with i386/x86-64 specifics
+  arch: do not needlessly set bitness on 32-bit archs
+  arch: remove impossible cases with 64-bit arch not being lp64
+  arch: ppc32 has 64-bit long double
+  arch: char32_t should be the same as uint32_t, not uint
+  arch: arm uses long for int32_t
 
-Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
----
- parse.c  | 18 +++---------------
- symbol.h |  3 +--
- 2 files changed, 4 insertions(+), 17 deletions(-)
+ lib.c                             | 27 ++++++++----------
+ machine.h                         |  6 ----
+ target.c                          | 47 ++++++++++++++++++++-----------
+ validation/char-signed-native.c   |  9 ++++++
+ validation/char-unsigned-native.c | 11 ++++++++
+ validation/char-unsigned.c        |  2 +-
+ 6 files changed, 63 insertions(+), 39 deletions(-)
+ create mode 100644 validation/char-signed-native.c
+ create mode 100644 validation/char-unsigned-native.c
 
-diff --git a/parse.c b/parse.c
-index 37ffede72..6cd420972 100644
---- a/parse.c
-+++ b/parse.c
-@@ -82,7 +82,6 @@ typedef struct token *attr_t(struct token *, struct symbol *,
- 
- static attr_t
- 	attribute_packed, attribute_aligned, attribute_modifier,
--	attribute_ext_visible,
- 	attribute_bitwise,
- 	attribute_address_space, attribute_context,
- 	attribute_designated_init,
-@@ -375,10 +374,6 @@ static struct symbol_op attr_mod_op = {
- 	.attribute = attribute_modifier,
- };
- 
--static struct symbol_op ext_visible_op = {
--	.attribute = attribute_ext_visible,
--};
--
- static struct symbol_op attr_bitwise_op = {
- 	.attribute = attribute_bitwise,
- };
-@@ -573,8 +568,8 @@ static struct init_keyword {
- 	{"const",	NS_KEYWORD,	MOD_PURE,	.op = &attr_mod_op },
- 	{"__const",	NS_KEYWORD,	MOD_PURE,	.op = &attr_mod_op },
- 	{"__const__",	NS_KEYWORD,	MOD_PURE,	.op = &attr_mod_op },
--	{"externally_visible",	NS_KEYWORD,	.op = &ext_visible_op },
--	{"__externally_visible__",	NS_KEYWORD,	.op = &ext_visible_op },
-+	{"externally_visible",	NS_KEYWORD, MOD_EXT_VISIBLE, .op = &attr_mod_op },
-+	{"__externally_visible__", NS_KEYWORD, MOD_EXT_VISIBLE, .op = &attr_mod_op },
- 
- 	{ "mode",	NS_KEYWORD,	.op = &mode_op },
- 	{ "__mode__",	NS_KEYWORD,	.op = &mode_op },
-@@ -1117,12 +1112,6 @@ static struct token *attribute_modifier(struct token *token, struct symbol *attr
- 	return token;
- }
- 
--static struct token *attribute_ext_visible(struct token *token, struct symbol *attr, struct decl_state *ctx)
--{
--	ctx->is_ext_visible = 1;
--	return token;
--}
--
- static struct token *attribute_bitwise(struct token *token, struct symbol *attr, struct decl_state *ctx)
- {
- 	if (Wbitwise)
-@@ -1360,8 +1349,7 @@ static unsigned long storage_modifiers(struct decl_state *ctx)
- 		[SRegister] = MOD_REGISTER
- 	};
- 	return mod[ctx->storage_class] | (ctx->is_inline ? MOD_INLINE : 0)
--		| (ctx->is_tls ? MOD_TLS : 0)
--		| (ctx->is_ext_visible ? MOD_EXT_VISIBLE : 0);
-+		| (ctx->is_tls ? MOD_TLS : 0);
- }
- 
- static void set_storage_class(struct position *pos, struct decl_state *ctx, int class)
-diff --git a/symbol.h b/symbol.h
-index 516b61361..cc8ffd63b 100644
---- a/symbol.h
-+++ b/symbol.h
-@@ -108,7 +108,6 @@ struct decl_state {
- 	struct ident **ident;
- 	struct symbol_op *mode;
- 	unsigned char prefer_abstract, is_inline, storage_class, is_tls;
--	unsigned char is_ext_visible;
- };
- 
- struct symbol_op {
-@@ -252,7 +251,7 @@ struct symbol {
- /* modifiers preserved by typeof() operator */
- #define MOD_TYPEOF	(MOD_QUALIFIER | MOD_NOCAST | MOD_SPECIFIER)
- /* modifiers for funtion attributes */
--#define MOD_FUN_ATTR	(MOD_PURE|MOD_NORETURN)
-+#define MOD_FUN_ATTR	(MOD_PURE|MOD_NORETURN|MOD_EXT_VISIBLE)
- 
- 
- /* Current parsing/evaluation function */
 -- 
 2.24.0
 
