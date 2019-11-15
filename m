@@ -2,58 +2,56 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id DCEEBFD26C
-	for <lists+linux-sparse@lfdr.de>; Fri, 15 Nov 2019 02:25:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 9775EFD2C8
+	for <lists+linux-sparse@lfdr.de>; Fri, 15 Nov 2019 03:10:46 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727463AbfKOBZY (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Thu, 14 Nov 2019 20:25:24 -0500
-Received: from mail-wr1-f46.google.com ([209.85.221.46]:36322 "EHLO
-        mail-wr1-f46.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1727323AbfKOBZY (ORCPT
+        id S1727021AbfKOCKo (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Thu, 14 Nov 2019 21:10:44 -0500
+Received: from mail-wr1-f66.google.com ([209.85.221.66]:36966 "EHLO
+        mail-wr1-f66.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1726969AbfKOCKZ (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Thu, 14 Nov 2019 20:25:24 -0500
-Received: by mail-wr1-f46.google.com with SMTP id r10so9154157wrx.3
-        for <linux-sparse@vger.kernel.org>; Thu, 14 Nov 2019 17:25:22 -0800 (PST)
+        Thu, 14 Nov 2019 21:10:25 -0500
+Received: by mail-wr1-f66.google.com with SMTP id t1so9232188wrv.4
+        for <linux-sparse@vger.kernel.org>; Thu, 14 Nov 2019 18:10:24 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=from:to:cc:subject:date:message-id:in-reply-to:references
-         :mime-version:content-transfer-encoding;
-        bh=B4QpSXeowraIBWpNryl5bzZhDHSkGBcJXdBK3zFefA4=;
-        b=tbmRmzKiGV4KTFyIJGVsADGQv3IgsATHGR8JqYEStjhAXhTJR1g8UtqUUtgiJj24kV
-         GwVOQw/djJCme7A51V9OUBg/4MxkFqRT/gJZtLsX8arjeS38f8Sek6qfkpL3DfFmwajo
-         4gA0r9UX6tU1FtzmLroYv2QKAsLEAryjfDzwQZB0Y68pEAJ/x0XFYLDXY7B9F+QDg8T/
-         NKVeGZrWmMLk9nZbxYHGoI83XOJ4LZkWGptfYAJMie2P5EVldwKepj6DDeTIPsCUtBA9
-         G/XLBdTxuUWh3WdO4qQmL43b6ZRG0pSjWXPwk8iD+ZXBacI4EGe7UZmwWu2Mptw//Jjb
-         Cbww==
+        h=from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=zxzHQsoF/FfoZHz8YH4tT6yQ/doXUTyQNDRwUngxdGA=;
+        b=blhreprMzSCxNLPMSvuNeMYG0EyfdKU4naA5vE/v1su1cb5S2D7CCciN0QU3TT1dQO
+         9qQ/GZsmDu8EDNFGYXNFvSYt2DeELYPclYqeIAlvuxUHkFN56nq75EN1tZZHLtfktHMq
+         NwrJGsVSU0TZX4YdRZZ/KDkSAxq3JPFH/Hitu1mYdlgeUjdX9Y6/kok1WNUzvj4FPyw0
+         IFEbQrtfB6u7Fu2t1E62zGu9qGo5W24EP3MLwSC4Z65eOGhPYWa6CLGmbWhsneORw97d
+         Vs0MIB522Tl1b28pJMlBWF5laZ1dOOLYhnE9kIdH3rkPw8gijZhi3Wv/zJHWsvVHSMD7
+         DllQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
-         :references:mime-version:content-transfer-encoding;
-        bh=B4QpSXeowraIBWpNryl5bzZhDHSkGBcJXdBK3zFefA4=;
-        b=lSQOMWvZx6yLwGoEmeibXG9ZrxrEAlno+i4Yc6WpCgTnAa9W35Q13vTXQW4g7BO92H
-         0dmxJG92Mr9Q0ugwLOFy/wI6WZ5SgJB6/eqeJ+P0+K8aEQMGC3m2yf39ZF11L/mzBdbo
-         NOYFJqwfJ0OCXQN8ejF8R4mevoZ39FkyqXUFSYxp+umZ8rxWpdgCK+6f/78mfSgsbiCu
-         jiPAf4AN2mA1al/UchUCowI3kyy9/LNLcc2vaFJowEDGfBg3B7dLgBacx8gDtq77JluS
-         45jfOWDA3qkATMdNnXFd+/+0BFoDOdX54465laOz1AGSa45QOOQn1AFnRAiJQieUZMBu
-         OW2Q==
-X-Gm-Message-State: APjAAAUhKVFal6weMmGRxMA0QTpF6W6cBHr3pW2P7PaevNrlbmuKIXdQ
-        7SkI0U0WtjfgffHO9DX02rQaCxli
-X-Google-Smtp-Source: APXvYqwXTIe2sqK0l53MTOpOVciySr5U4GOVuCOIQNdNG7zVcL9gd5TLDJ0TE9H2+DhsGIM+42byXw==
-X-Received: by 2002:adf:e4c5:: with SMTP id v5mr9632219wrm.106.1573781121892;
-        Thu, 14 Nov 2019 17:25:21 -0800 (PST)
-Received: from localhost.localdomain ([2a02:a03f:40e1:9900:b41c:b7ad:6b56:89fb])
-        by smtp.gmail.com with ESMTPSA id j22sm10736216wrd.41.2019.11.14.17.25.20
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=zxzHQsoF/FfoZHz8YH4tT6yQ/doXUTyQNDRwUngxdGA=;
+        b=b2Iyq/GOIT+3NZ2AEhHWQ8WQdaHf5HkNRdcR8qXu+9wQkQxLR9UIa4H9jYZjg6gfRr
+         YrrC6zdiuwZFNwSxDHhVJPUu8D2mdImD/01xk7jo27E6r4ntXNxKaqeKU2QiN+7FpKva
+         55nqGOxvwLIC6SmRHk7PStFQ+MFjN5HRZAroFUviraq2TXIhAT2b5MYVLG377i1um6L1
+         DnRoWWDC5i6lLrp0aJUscrBruvGvAijDTOQ7wFwUdBb4BcX0aVWEyT14uAm/uMDMiKQU
+         X8vEvTIbwY6Donm8eqr6AA83HOs3VkqIN4M6VZlfu0nznd3WSYJ9PLnjUWCcTCCLxJyT
+         IJYQ==
+X-Gm-Message-State: APjAAAX3MJNlZXWJXeFERkbD9oPBb8okIb8kvrQKamER/aSqLCULoz6u
+        fOeJ0LaFkrd+L8BqgE1k7/F7HeAh
+X-Google-Smtp-Source: APXvYqxBX89EUiVa8imJTEnWR0ZBqx27rvhV1xofHZXIsVBnzmqppGfrFsTe7yc7zHu25BiQWLi0tw==
+X-Received: by 2002:adf:f60e:: with SMTP id t14mr12171891wrp.292.1573783823169;
+        Thu, 14 Nov 2019 18:10:23 -0800 (PST)
+Received: from localhost.localdomain ([2a02:a03f:40e1:9900:a451:455e:cb63:513c])
+        by smtp.gmail.com with ESMTPSA id i13sm9115802wrp.12.2019.11.14.18.10.22
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 14 Nov 2019 17:25:21 -0800 (PST)
+        Thu, 14 Nov 2019 18:10:22 -0800 (PST)
 From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 To:     linux-sparse@vger.kernel.org
 Cc:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-Subject: [PATCH 3/3] cgcc: let cygwin use -fshort-wchar
-Date:   Fri, 15 Nov 2019 02:25:15 +0100
-Message-Id: <20191115012515.53725-4-luc.vanoostenryck@gmail.com>
+Subject: [PATCH] give a correct position to mode
+Date:   Fri, 15 Nov 2019 03:10:17 +0100
+Message-Id: <20191115021017.54308-1-luc.vanoostenryck@gmail.com>
 X-Mailer: git-send-email 2.24.0
-In-Reply-To: <20191115012515.53725-1-luc.vanoostenryck@gmail.com>
-References: <20191115012515.53725-1-luc.vanoostenryck@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Sender: linux-sparse-owner@vger.kernel.org
@@ -61,27 +59,124 @@ Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-Cygwin uses 'unsigned short' for its wchar_t.
+apply_modifiers() is given a position for a warning
+that can possibly be issued but:
+* this position is the one of the token following the attributes
+* the warning is about a mode that can't be applied.
 
-So, use -fshort-wchar for it.
+Fix this by storing the position with the mode in the decl_state.
 
 Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 ---
- cgcc | 1 +
- 1 file changed, 1 insertion(+)
+ parse.c  | 23 ++++++++++++-----------
+ symbol.h |  1 +
+ 2 files changed, 13 insertions(+), 11 deletions(-)
 
-diff --git a/cgcc b/cgcc
-index 201fbc9a0..239f713da 100755
---- a/cgcc
-+++ b/cgcc
-@@ -252,6 +252,7 @@ sub add_specs {
- 	return ' -Dunix=1 -D__unix=1 -D__unix__=1';
-     } elsif ( $spec =~ /^cygwin/) {
- 	return &add_specs ('unix') .
-+	    ' -fshort-wchar' .
- 	    ' -D__CYGWIN__=1 -D__CYGWIN32__=1' .
- 	    " -D'_cdecl=__attribute__((__cdecl__))'" .
- 	    " -D'__cdecl=__attribute__((__cdecl__))'" .
+diff --git a/parse.c b/parse.c
+index 48a63f22f..cd5bea43c 100644
+--- a/parse.c
++++ b/parse.c
+@@ -670,18 +670,17 @@ struct statement *alloc_statement(struct position pos, int type)
+ 
+ static struct token *struct_declaration_list(struct token *token, struct symbol_list **list);
+ 
+-static void apply_modifiers(struct position pos, struct decl_state *ctx)
++static void apply_modifiers(struct decl_state *ctx)
+ {
+ 	struct symbol *ctype;
+ 	if (!ctx->mode)
+ 		return;
+ 	ctype = ctx->mode->to_mode(ctx->ctype.base_type);
+ 	if (!ctype)
+-		sparse_error(pos, "don't know how to apply mode to %s",
++		sparse_error(ctx->mode_pos, "don't know how to apply mode to %s",
+ 				show_typename(ctx->ctype.base_type));
+ 	else
+ 		ctx->ctype.base_type = ctype;
+-	
+ }
+ 
+ static struct symbol * alloc_indirect_symbol(struct position pos, struct ctype *ctype, int type)
+@@ -1233,10 +1232,12 @@ static struct token *attribute_mode(struct token *token, struct symbol *attr, st
+ 	token = expect(token, '(', "after mode attribute");
+ 	if (token_type(token) == TOKEN_IDENT) {
+ 		struct symbol *mode = lookup_keyword(token->ident, NS_KEYWORD);
+-		if (mode && mode->op->type == KW_MODE)
++		if (mode && mode->op->type == KW_MODE) {
+ 			ctx->mode = mode->op;
+-		else
++			ctx->mode_pos = token->pos;
++		} else {
+ 			sparse_error(token->pos, "unknown mode attribute %s", show_ident(token->ident));
++		}
+ 		token = token->next;
+ 	} else
+ 		sparse_error(token->pos, "expect attribute mode symbol\n");
+@@ -1969,7 +1970,7 @@ static struct token *declaration_list(struct token *token, struct symbol_list **
+ 			token = handle_bitfield(token, &ctx);
+ 
+ 		token = handle_attributes(token, &ctx, KW_ATTRIBUTE);
+-		apply_modifiers(token->pos, &ctx);
++		apply_modifiers(&ctx);
+ 
+ 		decl->ctype = ctx.ctype;
+ 		decl->ctype.modifiers |= mod;
+@@ -2009,7 +2010,7 @@ static struct token *parameter_declaration(struct token *token, struct symbol *s
+ 	ctx.ident = &sym->ident;
+ 	token = declarator(token, &ctx);
+ 	token = handle_attributes(token, &ctx, KW_ATTRIBUTE);
+-	apply_modifiers(token->pos, &ctx);
++	apply_modifiers(&ctx);
+ 	sym->ctype = ctx.ctype;
+ 	sym->ctype.modifiers |= storage_modifiers(&ctx);
+ 	sym->endpos = token->pos;
+@@ -2025,7 +2026,7 @@ struct token *typename(struct token *token, struct symbol **p, int *forced)
+ 	*p = sym;
+ 	token = declaration_specifiers(token, &ctx);
+ 	token = declarator(token, &ctx);
+-	apply_modifiers(token->pos, &ctx);
++	apply_modifiers(&ctx);
+ 	sym->ctype = ctx.ctype;
+ 	sym->endpos = token->pos;
+ 	class = ctx.storage_class;
+@@ -2918,14 +2919,14 @@ struct token *external_declaration(struct token *token, struct symbol_list **lis
+ 	decl = alloc_symbol(token->pos, SYM_NODE);
+ 	/* Just a type declaration? */
+ 	if (match_op(token, ';')) {
+-		apply_modifiers(token->pos, &ctx);
++		apply_modifiers(&ctx);
+ 		return token->next;
+ 	}
+ 
+ 	saved = ctx.ctype;
+ 	token = declarator(token, &ctx);
+ 	token = handle_attributes(token, &ctx, KW_ATTRIBUTE | KW_ASM);
+-	apply_modifiers(token->pos, &ctx);
++	apply_modifiers(&ctx);
+ 
+ 	decl->ctype = ctx.ctype;
+ 	decl->ctype.modifiers |= mod;
+@@ -3021,7 +3022,7 @@ struct token *external_declaration(struct token *token, struct symbol_list **lis
+ 		token = handle_attributes(token, &ctx, KW_ATTRIBUTE);
+ 		token = declarator(token, &ctx);
+ 		token = handle_attributes(token, &ctx, KW_ATTRIBUTE | KW_ASM);
+-		apply_modifiers(token->pos, &ctx);
++		apply_modifiers(&ctx);
+ 		decl->ctype = ctx.ctype;
+ 		decl->ctype.modifiers |= mod;
+ 		decl->endpos = token->pos;
+diff --git a/symbol.h b/symbol.h
+index ac43b314f..ceb754ec1 100644
+--- a/symbol.h
++++ b/symbol.h
+@@ -109,6 +109,7 @@ struct decl_state {
+ 	struct ctype ctype;
+ 	struct ident **ident;
+ 	struct symbol_op *mode;
++	struct position mode_pos;
+ 	unsigned char prefer_abstract, is_inline, storage_class, is_tls;
+ 	unsigned char is_ext_visible;
+ };
 -- 
 2.24.0
 
