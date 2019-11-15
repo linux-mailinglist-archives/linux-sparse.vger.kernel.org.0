@@ -2,55 +2,55 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 281E7FD268
-	for <lists+linux-sparse@lfdr.de>; Fri, 15 Nov 2019 02:25:33 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id DCEEBFD26C
+	for <lists+linux-sparse@lfdr.de>; Fri, 15 Nov 2019 02:25:34 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727461AbfKOBZX (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Thu, 14 Nov 2019 20:25:23 -0500
-Received: from mail-wr1-f65.google.com ([209.85.221.65]:44258 "EHLO
-        mail-wr1-f65.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726956AbfKOBZX (ORCPT
+        id S1727463AbfKOBZY (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Thu, 14 Nov 2019 20:25:24 -0500
+Received: from mail-wr1-f46.google.com ([209.85.221.46]:36322 "EHLO
+        mail-wr1-f46.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1727323AbfKOBZY (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Thu, 14 Nov 2019 20:25:23 -0500
-Received: by mail-wr1-f65.google.com with SMTP id f2so9134421wrs.11
-        for <linux-sparse@vger.kernel.org>; Thu, 14 Nov 2019 17:25:21 -0800 (PST)
+        Thu, 14 Nov 2019 20:25:24 -0500
+Received: by mail-wr1-f46.google.com with SMTP id r10so9154157wrx.3
+        for <linux-sparse@vger.kernel.org>; Thu, 14 Nov 2019 17:25:22 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=qim0d+bSWfF9SSPhts6IrHKcLBzeCKICpnCJAdfDg5w=;
-        b=WuOgrayqljorip1O6RWYVwtQ1sYVCET11wFa6S98CF3y1izuL5OVNlkeCTHC24WnFa
-         dokAYInXfUjQbK8Dcccpk058BsULL1HwYVGnrrLXI0adjciuL5XOSDgAroDMpKiSMk+4
-         suqNcRypf06mlXQbDJ4VzCLw/MH05kIQgwMKXLhr39SUtPm3222hqFffoAIAOztprq8d
-         2g7b92TYWqj4eQatOy32p/5t/ub2MhbriuE6btSXpFFONJaSW2TSmGEOoEiJdFbvtH7s
-         SxbpeR8+UigAoSj4cx0vcwjLd9mvliTM06C6YRzs9rfmGrn93DinDGdGRm0KuOjXYmD/
-         +otA==
+        bh=B4QpSXeowraIBWpNryl5bzZhDHSkGBcJXdBK3zFefA4=;
+        b=tbmRmzKiGV4KTFyIJGVsADGQv3IgsATHGR8JqYEStjhAXhTJR1g8UtqUUtgiJj24kV
+         GwVOQw/djJCme7A51V9OUBg/4MxkFqRT/gJZtLsX8arjeS38f8Sek6qfkpL3DfFmwajo
+         4gA0r9UX6tU1FtzmLroYv2QKAsLEAryjfDzwQZB0Y68pEAJ/x0XFYLDXY7B9F+QDg8T/
+         NKVeGZrWmMLk9nZbxYHGoI83XOJ4LZkWGptfYAJMie2P5EVldwKepj6DDeTIPsCUtBA9
+         G/XLBdTxuUWh3WdO4qQmL43b6ZRG0pSjWXPwk8iD+ZXBacI4EGe7UZmwWu2Mptw//Jjb
+         Cbww==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=qim0d+bSWfF9SSPhts6IrHKcLBzeCKICpnCJAdfDg5w=;
-        b=AQPwl1SnhRVkiMOuT7TgPzPTldHO79OWE3p6+YSvSBXYZS142kIpOYq8dXK2a8sO55
-         MUYVT3YGpbEybmYPC1OtLFLJ+QAfFrx+3MDl1Y8XeELUJXojGaq0cTL+htlTNcRC5YWV
-         OBxJeVLF0nSvC3sHKTPl0jyQ46mau7FNRD0ibfR80G93XOSl84b/1ohTJdPj62DcrRcQ
-         RhK2dcUrN/Qbfma+EXZ5bTk97mrZ3TpRUucnqmET0DFNXiwpqIAXxhxpJtGm1hh6aJDp
-         L6MSu0TA1kqGfXVH6VnNHXLx7uXzB90m/CFsy5maOwzlFpJgWQU3LoPtlteBNoXHBu7e
-         /wJQ==
-X-Gm-Message-State: APjAAAVM4U1d6f5P0G7op87SYm1GvVPnbeqOGze3ocPyu9Bm10SGove5
-        jx9Ao5DRqe+3DxpXDIQr7o5HZaCp
-X-Google-Smtp-Source: APXvYqw+GSsLIX3Zgq9KMLht+8nw196/zeDvLggK4qv2guqK9J5zMVw06CfsmNOkozhX0vagVAzFMg==
-X-Received: by 2002:a5d:4688:: with SMTP id u8mr1864306wrq.40.1573781120909;
-        Thu, 14 Nov 2019 17:25:20 -0800 (PST)
+        bh=B4QpSXeowraIBWpNryl5bzZhDHSkGBcJXdBK3zFefA4=;
+        b=lSQOMWvZx6yLwGoEmeibXG9ZrxrEAlno+i4Yc6WpCgTnAa9W35Q13vTXQW4g7BO92H
+         0dmxJG92Mr9Q0ugwLOFy/wI6WZ5SgJB6/eqeJ+P0+K8aEQMGC3m2yf39ZF11L/mzBdbo
+         NOYFJqwfJ0OCXQN8ejF8R4mevoZ39FkyqXUFSYxp+umZ8rxWpdgCK+6f/78mfSgsbiCu
+         jiPAf4AN2mA1al/UchUCowI3kyy9/LNLcc2vaFJowEDGfBg3B7dLgBacx8gDtq77JluS
+         45jfOWDA3qkATMdNnXFd+/+0BFoDOdX54465laOz1AGSa45QOOQn1AFnRAiJQieUZMBu
+         OW2Q==
+X-Gm-Message-State: APjAAAUhKVFal6weMmGRxMA0QTpF6W6cBHr3pW2P7PaevNrlbmuKIXdQ
+        7SkI0U0WtjfgffHO9DX02rQaCxli
+X-Google-Smtp-Source: APXvYqwXTIe2sqK0l53MTOpOVciySr5U4GOVuCOIQNdNG7zVcL9gd5TLDJ0TE9H2+DhsGIM+42byXw==
+X-Received: by 2002:adf:e4c5:: with SMTP id v5mr9632219wrm.106.1573781121892;
+        Thu, 14 Nov 2019 17:25:21 -0800 (PST)
 Received: from localhost.localdomain ([2a02:a03f:40e1:9900:b41c:b7ad:6b56:89fb])
-        by smtp.gmail.com with ESMTPSA id j22sm10736216wrd.41.2019.11.14.17.25.19
+        by smtp.gmail.com with ESMTPSA id j22sm10736216wrd.41.2019.11.14.17.25.20
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 14 Nov 2019 17:25:20 -0800 (PST)
+        Thu, 14 Nov 2019 17:25:21 -0800 (PST)
 From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 To:     linux-sparse@vger.kernel.org
 Cc:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-Subject: [PATCH 2/3] arch: teach sparse about -fshort-wchar
-Date:   Fri, 15 Nov 2019 02:25:14 +0100
-Message-Id: <20191115012515.53725-3-luc.vanoostenryck@gmail.com>
+Subject: [PATCH 3/3] cgcc: let cygwin use -fshort-wchar
+Date:   Fri, 15 Nov 2019 02:25:15 +0100
+Message-Id: <20191115012515.53725-4-luc.vanoostenryck@gmail.com>
 X-Mailer: git-send-email 2.24.0
 In-Reply-To: <20191115012515.53725-1-luc.vanoostenryck@gmail.com>
 References: <20191115012515.53725-1-luc.vanoostenryck@gmail.com>
@@ -61,75 +61,27 @@ Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-This is useful in cgcc for supporting Cygwin which doesn't
-use a 32-bit type for wchar_t.
+Cygwin uses 'unsigned short' for its wchar_t.
+
+So, use -fshort-wchar for it.
 
 Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 ---
- lib.c                         | 2 ++
- lib.h                         | 1 +
- target.c                      | 2 ++
- validation/arch/short-wchar.c | 6 ++++++
- 4 files changed, 11 insertions(+)
- create mode 100644 validation/arch/short-wchar.c
+ cgcc | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/lib.c b/lib.c
-index 350d881a9..47dd7029d 100644
---- a/lib.c
-+++ b/lib.c
-@@ -313,6 +313,7 @@ unsigned long long fmemcpy_max_count = 100000;
- unsigned long fpasses = ~0UL;
- int fpic = 0;
- int fpie = 0;
-+int fshort_wchar = 0;
- int funsigned_char = -1;
- 
- int preprocess_only;
-@@ -995,6 +996,7 @@ static struct flag fflags[] = {
- 	{ "pie",		&fpie,	handle_switch_setval, 1 },
- 	{ "PIE",		&fpie,	handle_switch_setval, 2 },
- 	{ "signed-char",	&funsigned_char, NULL,	OPT_INVERSE },
-+	{ "short-wchar",	&fshort_wchar },
- 	{ "unsigned-char",	&funsigned_char, NULL, },
- 	{ },
- };
-diff --git a/lib.h b/lib.h
-index 00c608125..3d596a529 100644
---- a/lib.h
-+++ b/lib.h
-@@ -202,6 +202,7 @@ extern unsigned long long fmemcpy_max_count;
- extern unsigned long fpasses;
- extern int fpic;
- extern int fpie;
-+extern int fshort_wchar;
- extern int funsigned_char;
- 
- extern int arch_m64;
-diff --git a/target.c b/target.c
-index 9ce21272d..7aaad1c40 100644
---- a/target.c
-+++ b/target.c
-@@ -106,6 +106,8 @@ void init_target(void)
- 	default:
- 		break;
- 	}
-+	if (fshort_wchar)
-+		wchar_ctype = &ushort_ctype;
- 
- 	switch (arch_mach) {
- 	case MACH_MIPS64:
-diff --git a/validation/arch/short-wchar.c b/validation/arch/short-wchar.c
-new file mode 100644
-index 000000000..de05313c6
---- /dev/null
-+++ b/validation/arch/short-wchar.c
-@@ -0,0 +1,6 @@
-+_Static_assert([__WCHAR_TYPE__] == [unsigned short], "short wchar");
-+
-+/*
-+ * check-name: short-wchar
-+ * check-command: sparse -fshort-wchar $file
-+ */
+diff --git a/cgcc b/cgcc
+index 201fbc9a0..239f713da 100755
+--- a/cgcc
++++ b/cgcc
+@@ -252,6 +252,7 @@ sub add_specs {
+ 	return ' -Dunix=1 -D__unix=1 -D__unix__=1';
+     } elsif ( $spec =~ /^cygwin/) {
+ 	return &add_specs ('unix') .
++	    ' -fshort-wchar' .
+ 	    ' -D__CYGWIN__=1 -D__CYGWIN32__=1' .
+ 	    " -D'_cdecl=__attribute__((__cdecl__))'" .
+ 	    " -D'__cdecl=__attribute__((__cdecl__))'" .
 -- 
 2.24.0
 
