@@ -2,130 +2,125 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 6F26F10308F
-	for <lists+linux-sparse@lfdr.de>; Wed, 20 Nov 2019 01:10:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 7AFB7103159
+	for <lists+linux-sparse@lfdr.de>; Wed, 20 Nov 2019 03:00:56 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727512AbfKTAKU (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Tue, 19 Nov 2019 19:10:20 -0500
-Received: from mail-wr1-f68.google.com ([209.85.221.68]:37201 "EHLO
-        mail-wr1-f68.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1727399AbfKTAKU (ORCPT
+        id S1727264AbfKTCAz (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Tue, 19 Nov 2019 21:00:55 -0500
+Received: from avasout04.plus.net ([212.159.14.19]:42953 "EHLO
+        avasout04.plus.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1726874AbfKTCAz (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Tue, 19 Nov 2019 19:10:20 -0500
-Received: by mail-wr1-f68.google.com with SMTP id t1so26018850wrv.4
-        for <linux-sparse@vger.kernel.org>; Tue, 19 Nov 2019 16:10:19 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=from:to:cc:subject:date:message-id:in-reply-to:references
-         :mime-version:content-transfer-encoding;
-        bh=nHc2RHa9mV2EzwOVItsbWjxFPfwDmx5x6+1UxBAkh9I=;
-        b=rzlT6xDplwBy6DhLd6jPx3dU/F2UJbQX1tninMtoE1YFuSWBVeM7eMuBfz/NBc4cvn
-         K/bcqBQUxppozNG9u3erhp/bDZfu339owwi4Oex1VqDLULUj5ByMZS697A+xvCPIOV2c
-         GSCd0WdZUfZFhHIOieK7NDibvOh/XHm36f2Cfw3DT2kZS4XhqQVTyX+4L6cIlLauSKvL
-         tchav4lFiGcynUqyZQZ3E0SwiadMmKHlMQp9Nxw3/7ZOvckQi1NViEbcybGrggdydZKg
-         mkP08arNMFdhr9GBNT+vBzfLwMWUlcz8Z9yzPskWTyuhvz889iB9veof67KWtrWmWjSb
-         rKKg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
-         :references:mime-version:content-transfer-encoding;
-        bh=nHc2RHa9mV2EzwOVItsbWjxFPfwDmx5x6+1UxBAkh9I=;
-        b=GaS6NdKEqbutiIJ7ia9uccYptXz4lmdzhKF8XVEY84zPmVb3agYh3K8zTD/oEYJuFa
-         KnJevq5VIyPzUXyQwGmvKQ5jNl5JL3kGt7y4fy6SYCKiaeQP8M6hvwbWuzxLlFsyUObK
-         t4kMKkwDW1/uo9hyWgxiAnz76yUUeSApSMMk/iNA5dH2klN6Wb0Qf2NS49x2KmhFiDj3
-         3/XG9rTyCIZP73s76jC7vV0K7qp8UMCttFHBMKkQ1eBlCBLn03g2RBmucR9sZXdnzP8h
-         3fD4j90xZRU+sk89H1E4mbDA89+Jo4pkHoOAhhY4DilMEwzlwnkRf+X0nibyJianS2n9
-         7Esg==
-X-Gm-Message-State: APjAAAUeh+spNMTc6AEPnLgHMmFJki13onzkIssNT7ZSpILUWyVPJasF
-        QmCKqBcCLmKgITFE70evu5aBt70U
-X-Google-Smtp-Source: APXvYqy8dycbKgQv8PcBPOcubC9/NfeKCiKk0XXWfr91gLf5w4/DYH5LCrugXmxbGwV+IVt5NCoqxA==
-X-Received: by 2002:a5d:49cf:: with SMTP id t15mr104086wrs.183.1574208618551;
-        Tue, 19 Nov 2019 16:10:18 -0800 (PST)
-Received: from localhost.localdomain ([2a02:a03f:40e1:9900:5dce:1599:e3b5:7d61])
-        by smtp.gmail.com with ESMTPSA id c24sm33398808wrb.27.2019.11.19.16.10.17
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 19 Nov 2019 16:10:17 -0800 (PST)
-From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-To:     linux-sparse@vger.kernel.org
-Cc:     Ramsay Jones <ramsay@ramsayjones.plus.com>,
-        Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-Subject: [PATCH 5/5] allow omitted function attribute in definition
-Date:   Wed, 20 Nov 2019 01:02:24 +0100
-Message-Id: <20191120000224.30441-6-luc.vanoostenryck@gmail.com>
-X-Mailer: git-send-email 2.24.0
-In-Reply-To: <20191120000224.30441-1-luc.vanoostenryck@gmail.com>
+        Tue, 19 Nov 2019 21:00:55 -0500
+Received: from [10.0.2.15] ([87.115.253.23])
+        by smtp with ESMTPA
+        id XFIbir3S74Al0XFIciyI71; Wed, 20 Nov 2019 02:00:54 +0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=plus.com; s=042019;
+        t=1574215254; bh=PWH5GUnXVHJQDRcfPpLnyJml8vXVaJKZdjL1CJO+ED8=;
+        h=Subject:To:References:From:Date:In-Reply-To;
+        b=Um6PV68oevLOP4aZPGwQiLH4MlY3sPFgR1nG6TE7BWvpbFEfj3QHtmMgA/0M4MlFg
+         knHjgfojC/0DZxE744n0HSxrbmbjvUnWvo0jQVI1hlx8DElNknqGqpplgqwtaAfCZ3
+         y7Sp+h1C05WUZxiej5tEvbU0jwcFSo2JgOPWmhiUjj2nIh+4lBoylIpTcrq/XBtiHi
+         teXYT3UjqrjdRJKlNHA/mmc8C0P6SkwWEsJlsncMY2SlRNjO+4b2fOOjVvbP7xv9tP
+         xD79dGv9bPakx0i1aYrl/NkgQ27i1l+PXYQuXgRY7CI9smzme3VQsiBdd7ABXiltwd
+         YqB4wlOUamgDQ==
+X-Clacks-Overhead: "GNU Terry Pratchett"
+X-CM-Score: 0.00
+X-CNFS-Analysis: v=2.3 cv=GY1pYjfL c=1 sm=1 tr=0
+ a=LuhjJmsKGzDBBq+cJWlr3w==:117 a=LuhjJmsKGzDBBq+cJWlr3w==:17
+ a=jpOVt7BSZ2e4Z31A5e1TngXxSK0=:19 a=IkcTkHD0fZMA:10 a=VwQbUJbxAAAA:8
+ a=uEdKzkqz7ZsUaUq_6NwA:9 a=QEXdDO2ut3YA:10 a=AjGcO6oz07-iQ99wixmX:22
+ a=pHzHmUro8NiASowvMSCR:22 a=nt3jZW36AmriUCFCBwmW:22
+X-AUTH: ramsayjones@:2500
+Subject: Re: [PATCH 0/5] fix propagation of function attributes
+To:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>,
+        linux-sparse@vger.kernel.org
 References: <20191120000224.30441-1-luc.vanoostenryck@gmail.com>
+From:   Ramsay Jones <ramsay@ramsayjones.plus.com>
+Message-ID: <0f224459-7c35-234e-72e3-8baf87742507@ramsayjones.plus.com>
+Date:   Wed, 20 Nov 2019 02:00:52 +0000
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.9.0
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <20191120000224.30441-1-luc.vanoostenryck@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
+X-CMAE-Envelope: MS4wfCJdYb/qahOefu2R+R0yXfgNWTSQLivrNcYlxG8wZ+D0jp5ucQv3OYtyavrVkpP7YX24FE5MpjoO3elGpzELxxU16489/3UQMKmT3bjYfFy3m1GbTqaA
+ /IRbY5fNlOlO216YrI+9f6336j6aOV3EtDh1FZBPQ7T5UyklP8oRwRmIm7v+mnRtGQEluaSqyQF/rg==
 Sender: linux-sparse-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-It's common to declare a function with the attribute
-'pure' or 'noreturn' and to omit the attribute in the
-function definition.
 
-It make some sense since the information convoyed by
-these attribute are destinated to the function users
-not the function itself.
 
-Silence the warnings emitted when the attributes are
-omited by masking the corresponding modifier bits
-when checking the type compatibility between a
-function definition and its declarations.
+On 20/11/2019 00:02, Luc Van Oostenryck wrote:
+> Function attributes need to be propagated differently
+> than the usual specifiers: For example, in code like:
+> 	#define __noreturn __attribute__((noreturn))
+> 	__noreturn void foo(int a);
+> the __noreturn attribute should be applied to the function
+> type while a specifier like 'const' would be applied to its
+> return type. Also, when declaring the corresponding
+> function pointer or functionpointer pointer:
+> 	__noreturn void (*fptr)(int);
+> 	__noreturn void (**fptr)(int);
+> the attribute should also be applied to the function type,
+> not one of the pointer types.
+>  
+> This series fixes (hopefully) the previous attempt to solve
+> this problem. The main patch is #4, pacthes #2 & #3 are
+> kinda related preparatory patches and patch #5 is clearly
+> related but independent (and a bit discutable, so will
+> probably be omitted when pushed to kernel.org).
+> 
+> Many thanks to Ramsay Jones for noticing the problem!
 
-Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
----
- evaluate.c                              | 4 +++-
- validation/function-attribute-omitted.c | 1 -
- validation/function-redecl2.c           | 3 ---
- 3 files changed, 3 insertions(+), 5 deletions(-)
+Hi Luc,
 
-diff --git a/evaluate.c b/evaluate.c
-index 863750fab..4e1762eff 100644
---- a/evaluate.c
-+++ b/evaluate.c
-@@ -3371,6 +3371,7 @@ void check_duplicates(struct symbol *sym)
- 	int initialized = sym->initializer != NULL;
- 
- 	while ((next = next->same_symbol) != NULL) {
-+		unsigned long fmods;
- 		const char *typediff;
- 		evaluate_symbol(next);
- 		if (initialized && next->initializer) {
-@@ -3381,7 +3382,8 @@ void check_duplicates(struct symbol *sym)
- 			initialized = 0;
- 		}
- 		declared++;
--		typediff = type_difference(&sym->ctype, &next->ctype, 0, 0);
-+		fmods = next->ctype.modifiers & MOD_FUN_ATTR;
-+		typediff = type_difference(&sym->ctype, &next->ctype, fmods, 0);
- 		if (typediff) {
- 			sparse_error(sym->pos, "symbol '%s' redeclared with different type (originally declared at %s:%d) - %s",
- 				show_ident(sym->ident),
-diff --git a/validation/function-attribute-omitted.c b/validation/function-attribute-omitted.c
-index 43b301d8f..c5eb50d31 100644
---- a/validation/function-attribute-omitted.c
-+++ b/validation/function-attribute-omitted.c
-@@ -10,5 +10,4 @@ void		n(void) { while (1) ; }
- 
- /*
-  * check-name: function-attribute-omitted
-- * check-known-to-fail
-  */
-diff --git a/validation/function-redecl2.c b/validation/function-redecl2.c
-index 3435aa00c..ef396137a 100644
---- a/validation/function-redecl2.c
-+++ b/validation/function-redecl2.c
-@@ -25,7 +25,4 @@ void func2(int a)
- 
- /*
-  * check-name: function-redecl2
-- *
-- * check-known-to-fail
-- *
-  */
--- 
-2.24.0
+It is somewhat late here, but I thought I should take a quick
+look at this before bed ...
 
+I have applied this series on top of 'master' and run it over
+the git source and, as expected, the additional 8 warnings have
+gone. Thanks! (Also, I haven't tried cygwin, but because this
+fixes 'validation/function-redecl2.c', that long-standing warning
+will be fixed too! :-D ).
+
+Thanks!
+
+ATB,
+Ramsay Jones
+
+> 
+> 
+> Luc Van Oostenryck (5):
+>   add tests for function attributes
+>   fix assignment: pointer to __pure/__noreturn function to void *
+>   fix assignment check with function attribute
+>   propagate function modifiers only to functions
+>   allow omitted function attribute in definition
+> 
+>  evaluate.c                               | 14 +++++--
+>  parse.c                                  | 49 +++++++++++++-----------
+>  symbol.h                                 |  5 ++-
+>  validation/attr-visible.c                | 13 +++++++
+>  validation/attr-visible2.c               | 10 +++++
+>  validation/bitwise-function-pointer.c    | 17 ++++++++
+>  validation/function-attribute-inner.c    |  9 +++++
+>  validation/function-attribute-omitted.c  | 13 +++++++
+>  validation/function-attribute-pointer.c  | 33 ++++++++++++++++
+>  validation/function-attribute-void-ptr.c | 14 +++++++
+>  validation/function-attribute.c          | 15 +++++---
+>  validation/function-redecl2.c            |  3 --
+>  validation/pure-function.c               | 17 ++++++--
+>  13 files changed, 171 insertions(+), 41 deletions(-)
+>  create mode 100644 validation/attr-visible.c
+>  create mode 100644 validation/attr-visible2.c
+>  create mode 100644 validation/bitwise-function-pointer.c
+>  create mode 100644 validation/function-attribute-inner.c
+>  create mode 100644 validation/function-attribute-omitted.c
+>  create mode 100644 validation/function-attribute-pointer.c
+>  create mode 100644 validation/function-attribute-void-ptr.c
+> 
