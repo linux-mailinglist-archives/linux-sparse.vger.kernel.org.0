@@ -2,104 +2,87 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 55E66104246
-	for <lists+linux-sparse@lfdr.de>; Wed, 20 Nov 2019 18:41:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 20061104254
+	for <lists+linux-sparse@lfdr.de>; Wed, 20 Nov 2019 18:44:11 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727590AbfKTRlF (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Wed, 20 Nov 2019 12:41:05 -0500
-Received: from mail-wr1-f68.google.com ([209.85.221.68]:40691 "EHLO
-        mail-wr1-f68.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1727312AbfKTRlF (ORCPT
+        id S1727777AbfKTRoK (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Wed, 20 Nov 2019 12:44:10 -0500
+Received: from mail-wr1-f67.google.com ([209.85.221.67]:45369 "EHLO
+        mail-wr1-f67.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1726944AbfKTRoK (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Wed, 20 Nov 2019 12:41:05 -0500
-Received: by mail-wr1-f68.google.com with SMTP id q15so843701wrw.7
-        for <linux-sparse@vger.kernel.org>; Wed, 20 Nov 2019 09:41:04 -0800 (PST)
+        Wed, 20 Nov 2019 12:44:10 -0500
+Received: by mail-wr1-f67.google.com with SMTP id z10so814447wrs.12
+        for <linux-sparse@vger.kernel.org>; Wed, 20 Nov 2019 09:44:08 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=date:from:to:cc:subject:message-id:references:mime-version
          :content-disposition:in-reply-to;
-        bh=oUAB609+h+wOZUnvfqTlUYPmPcKloR2Hd8rKtKyypRE=;
-        b=NrpVmOLREKjfWXBOg7wCXIJXa4ZFOfmeFQ5HJ1SWrehrBB7DR4UyV0p/0xJ0mwOat7
-         JlO+MQfPt9jzpVOvI6eitJIESkht8djMNoWrB1MVspGiXLkxURh7Ug2uS4CGlppRDQ6x
-         Nk34j9+oJ04CtNVo7fgLmol7AndiZOCAtrTE2r65Xy6rxK3OT5CIrrVqRFcGzT1DhvjE
-         W9K60d3dkoMBO0+uXZnD1rtl727GE9wig74utJlSbKL81r003nUxcdbvSchvlWaJjxr7
-         DRxVQw9clTJWR4ne7cVPnKT9adI0dw/YuWZ/vjACrnR7uyz/buUfI9xG/COwPv19pumx
-         L13A==
+        bh=yG31yDzIToojpu/+vTlZw5moHhg9qzYS8fgMH+kubrE=;
+        b=i+kG1YJA35XI1GYtpVLiryOHYP1aek5s7H4tUisYuctbuOp9+rU+sNHKdwQcsxE5/e
+         5nbXs3897RjO1ZZhHDj9QPL66XbRYDp1+LA7MqT0knBH1IBBCaODtBmC0oX1qqSgLMM+
+         tvKnHSD4db7bhNBNDpimLuJA9FiYduPBrdsrGwN5W0YTT6CkZoy5E4ZVXVBrZ7fvT3kg
+         6AWo99jxbu2ePrjvJ+KUaKV9rxQ5ZLhno/CWya+cwx9myuXZf3qt+jbzitD/mSdBr7k0
+         JAVWaz7XY0pj0SueNm9PuS15bceUkmB/2ckklXJFclvvJDfvkKlNE+jZ24hcadyI2eVV
+         5Hhg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:date:from:to:cc:subject:message-id:references
          :mime-version:content-disposition:in-reply-to;
-        bh=oUAB609+h+wOZUnvfqTlUYPmPcKloR2Hd8rKtKyypRE=;
-        b=lzvLjDv6+NnbjyT6PekYtt1Pybl2d2IwXvFktU1yVKGX77d7lb4sIU/IEaWL5OMqtO
-         6Yt52eogDxbyxrTDoqfB5s3thOGkqXto1A7/m9o3qWHHVvblGUPNXMqBhkWoZItkziCy
-         vVb1k6UApR/tDaUnZ1eCLvmN2txKtGSKfjIKHQFz3ublQEzNwX9VU32K1Al/tlycb8JB
-         ArxcMZ+cNluOstx+grYlBXHQlGnP83PXhq3bvOI4gY3z2MIfTsUjzkwBsYAnmPvu1yPj
-         CucxAqrWFhhGS1OMB++B67D0Uvt8eoEM6gegL49AKnS50Dq9j1QyDfJ23K2J0gVMrr4h
-         0+JA==
-X-Gm-Message-State: APjAAAXdxy6spuCmyAiNk6d9EhGrz2YACevhvLwihpxI/5UniTGAo3l3
-        jKjxogiR8d1P5EpKvC9f8ag9opCD
-X-Google-Smtp-Source: APXvYqyNvq6KMtoviGEvBKmNhV3UyuPn7/+x9+ql8zY+SgQin0f8Tyk7tLL6imYX6H05dWXZJWTcsw==
-X-Received: by 2002:a5d:4a10:: with SMTP id m16mr4671747wrq.294.1574271663786;
-        Wed, 20 Nov 2019 09:41:03 -0800 (PST)
+        bh=yG31yDzIToojpu/+vTlZw5moHhg9qzYS8fgMH+kubrE=;
+        b=bd2oREEUXJzqsU1IOQzkJtYlIXtOJotKFQ7XxYJalCMxV+O1VYgCHmbl//AAZjvWez
+         Q1rzyMdrb2fZArihxGiuRswcTJXOssz2xKu6Z6YX+ZsX3Z+HYcRg6e0mCZaDFhKZDZYA
+         zHPbRwtAD8Szal2drhoYrw68svtdn2j/GYd+7rwNf4hafnrpwNU4YUN4PDPt0WXmMQPW
+         QiHQ8zzSoXOA46MY1vRTSQVa8pOReJeJXnI5zUR4yDUOarEzfWFdI7qW1GfPOtnJBq7J
+         c0a6Yjo4EH+Bbe9MrTFP6jn9/shSjB3LobUEU8weg8vOLUApNMqj97kzmmzIDYvFVr4O
+         EaAg==
+X-Gm-Message-State: APjAAAW/TTdjwdPliOSZ+4ey3vyW29i/kqtoMm+6eKvZu5lYD9TEGElu
+        aDi3xt3FnTJrjn/Lf+IP1xg=
+X-Google-Smtp-Source: APXvYqyTyeMre5EbQeRPxlDVFIAlJj5jyQKrggptltnLklRVKB5olURzEzoxEn6LNUkGfRX7JI2tpw==
+X-Received: by 2002:a5d:50c3:: with SMTP id f3mr4865817wrt.14.1574271848256;
+        Wed, 20 Nov 2019 09:44:08 -0800 (PST)
 Received: from ltop.local ([2a02:a03f:40e1:9900:950c:3e8e:b6df:1425])
-        by smtp.gmail.com with ESMTPSA id n17sm30930747wrp.40.2019.11.20.09.41.02
+        by smtp.gmail.com with ESMTPSA id r2sm32496332wrp.64.2019.11.20.09.44.07
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 20 Nov 2019 09:41:03 -0800 (PST)
-Date:   Wed, 20 Nov 2019 18:41:02 +0100
+        Wed, 20 Nov 2019 09:44:07 -0800 (PST)
+Date:   Wed, 20 Nov 2019 18:44:06 +0100
 From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 To:     Ramsay Jones <ramsay@ramsayjones.plus.com>
 Cc:     linux-sparse@vger.kernel.org
-Subject: Re: [PATCH 0/5] fix propagation of function attributes
-Message-ID: <20191120174102.qdd3lhaouil62257@ltop.local>
+Subject: Re: [PATCH 1/5] add tests for function attributes
+Message-ID: <20191120174406.u44nkqhmwfcgn47q@ltop.local>
 References: <20191120000224.30441-1-luc.vanoostenryck@gmail.com>
- <0f224459-7c35-234e-72e3-8baf87742507@ramsayjones.plus.com>
+ <20191120000224.30441-2-luc.vanoostenryck@gmail.com>
+ <0969a62b-4fab-eacb-b2aa-26c04b2f4a0b@ramsayjones.plus.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <0f224459-7c35-234e-72e3-8baf87742507@ramsayjones.plus.com>
+In-Reply-To: <0969a62b-4fab-eacb-b2aa-26c04b2f4a0b@ramsayjones.plus.com>
 Sender: linux-sparse-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-On Wed, Nov 20, 2019 at 02:00:52AM +0000, Ramsay Jones wrote:
+On Wed, Nov 20, 2019 at 02:05:58AM +0000, Ramsay Jones wrote:
 > On 20/11/2019 00:02, Luc Van Oostenryck wrote:
-> > Function attributes need to be propagated differently
-> > than the usual specifiers: For example, in code like:
+> > Function attributes need to be parsed differently than
+> > the usual specifiers. For example, in code like:
 > > 	#define __noreturn __attribute__((noreturn))
 > > 	__noreturn void foo(int a);
-> > the __noreturn attribute should be applied to the function
-> > type while a specifier like 'const' would be applied to its
-> > return type. Also, when declaring the corresponding
-> > function pointer or functionpointer pointer:
-> > 	__noreturn void (*fptr)(int);
-> > 	__noreturn void (**fptr)(int);
-> > the attribute should also be applied to the function type,
-> > not one of the pointer types.
-> >  
-> > This series fixes (hopefully) the previous attempt to solve
-> > this problem. The main patch is #4, pacthes #2 & #3 are
-> > kinda related preparatory patches and patch #5 is clearly
-> > related but independent (and a bit discutable, so will
-> > probably be omitted when pushed to kernel.org).
-> > 
-> > Many thanks to Ramsay Jones for noticing the problem!
+> > the __noreturn attribute should apply to the function type,
+> > while a specifier like 'const' would apply to its return type.
+> > It's even more clear when function pointers are involved:
+> > 	__noreturn void (*fptr)(void);
+> > here too, the attribute should be applied to the function type,
+> > not the its return type, nor to the declared pointer type.
 > 
-> Hi Luc,
-> 
-> It is somewhat late here, but I thought I should take a quick
-> look at this before bed ...
-> 
-> I have applied this series on top of 'master' and run it over
-> the git source and, as expected, the additional 8 warnings have
-> gone. Thanks!
+> Hmm, it _is_ applied to the 'pointed to' type; ie the pointer
+> base type. I don't quite know how to say that succinctly (so
+> just ignore my rambling! ;-)
 
-Thanks for confirming this and thank you for noticing the typos!
+Well, yes, in the case with the function pointer, the attribute
+should be applied to the 'pointed to' type. But this 'pointed to'
+type is the function type and that was what I wanted to emphase.
 
-> (Also, I haven't tried cygwin, but because this
-> fixes 'validation/function-redecl2.c', that long-standing warning
-> will be fixed too! :-D ).
-
-Ahhh, that's good to know. Thanks.
-
+Best regards,
 -- Luc 
