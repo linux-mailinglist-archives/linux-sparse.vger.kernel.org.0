@@ -2,80 +2,104 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 9E174103BB6
-	for <lists+linux-sparse@lfdr.de>; Wed, 20 Nov 2019 14:37:11 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 55E66104246
+	for <lists+linux-sparse@lfdr.de>; Wed, 20 Nov 2019 18:41:06 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1728030AbfKTNhB (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Wed, 20 Nov 2019 08:37:01 -0500
-Received: from avasout01.plus.net ([84.93.230.227]:37804 "EHLO
-        avasout01.plus.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1730864AbfKTNhA (ORCPT
+        id S1727590AbfKTRlF (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Wed, 20 Nov 2019 12:41:05 -0500
+Received: from mail-wr1-f68.google.com ([209.85.221.68]:40691 "EHLO
+        mail-wr1-f68.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1727312AbfKTRlF (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Wed, 20 Nov 2019 08:37:00 -0500
-Received: from [10.0.2.15] ([87.115.253.23])
-        by smtp with ESMTPA
-        id XQAEiXWykSXPqXQAFiCJtb; Wed, 20 Nov 2019 13:36:59 +0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=plus.com; s=042019;
-        t=1574257019; bh=4GutkkR7tfOlTK+6jsH609RbdEJHie4emF5O4q/gZos=;
-        h=Subject:From:To:References:Date:In-Reply-To;
-        b=pLsHTA/hzWDLZRDLdbtwXNNaklI98bNTFqpJn5VdGEGXQ81FzT3W9SEJYfT8uJvsT
-         XW03BmL8KstKPviab0EAzeOmuaCRR5bglmILBIuY9Vo3IECWwYeFJ00IavuW5KKxOd
-         dBgGyE8WyB3a6M0F2RrpvtasdZNner3uKCYeHOuDb3VRPE8alVPzmlaYvXQoUM2Ocx
-         MxuM/5DI3UkzCAmDEkY/wE6JiNCGsgqbFubXzqbszNMSsPRkrYOtInyB1dn/iDWygx
-         Eq0BPC8FuNfonkd5giRSiUjfW5xL6stJy1jvePNv2C15ESaOsyMMzIL7TExwTkXyIs
-         LxJPMXgc0I/MQ==
-X-Clacks-Overhead: "GNU Terry Pratchett"
-X-CM-Score: 0.00
-X-CNFS-Analysis: v=2.3 cv=U/js8tju c=1 sm=1 tr=0
- a=LuhjJmsKGzDBBq+cJWlr3w==:117 a=LuhjJmsKGzDBBq+cJWlr3w==:17
- a=jpOVt7BSZ2e4Z31A5e1TngXxSK0=:19 a=IkcTkHD0fZMA:10 a=6NHFKx9cINla41NyLg0A:9
- a=QEXdDO2ut3YA:10 a=pHzHmUro8NiASowvMSCR:22 a=nt3jZW36AmriUCFCBwmW:22
-X-AUTH: ramsayjones@:2500
-Subject: Re: [PATCH 4/5] propagate function modifiers only to functions
-From:   Ramsay Jones <ramsay@ramsayjones.plus.com>
-To:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>,
-        linux-sparse@vger.kernel.org
+        Wed, 20 Nov 2019 12:41:05 -0500
+Received: by mail-wr1-f68.google.com with SMTP id q15so843701wrw.7
+        for <linux-sparse@vger.kernel.org>; Wed, 20 Nov 2019 09:41:04 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=date:from:to:cc:subject:message-id:references:mime-version
+         :content-disposition:in-reply-to;
+        bh=oUAB609+h+wOZUnvfqTlUYPmPcKloR2Hd8rKtKyypRE=;
+        b=NrpVmOLREKjfWXBOg7wCXIJXa4ZFOfmeFQ5HJ1SWrehrBB7DR4UyV0p/0xJ0mwOat7
+         JlO+MQfPt9jzpVOvI6eitJIESkht8djMNoWrB1MVspGiXLkxURh7Ug2uS4CGlppRDQ6x
+         Nk34j9+oJ04CtNVo7fgLmol7AndiZOCAtrTE2r65Xy6rxK3OT5CIrrVqRFcGzT1DhvjE
+         W9K60d3dkoMBO0+uXZnD1rtl727GE9wig74utJlSbKL81r003nUxcdbvSchvlWaJjxr7
+         DRxVQw9clTJWR4ne7cVPnKT9adI0dw/YuWZ/vjACrnR7uyz/buUfI9xG/COwPv19pumx
+         L13A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+         :mime-version:content-disposition:in-reply-to;
+        bh=oUAB609+h+wOZUnvfqTlUYPmPcKloR2Hd8rKtKyypRE=;
+        b=lzvLjDv6+NnbjyT6PekYtt1Pybl2d2IwXvFktU1yVKGX77d7lb4sIU/IEaWL5OMqtO
+         6Yt52eogDxbyxrTDoqfB5s3thOGkqXto1A7/m9o3qWHHVvblGUPNXMqBhkWoZItkziCy
+         vVb1k6UApR/tDaUnZ1eCLvmN2txKtGSKfjIKHQFz3ublQEzNwX9VU32K1Al/tlycb8JB
+         ArxcMZ+cNluOstx+grYlBXHQlGnP83PXhq3bvOI4gY3z2MIfTsUjzkwBsYAnmPvu1yPj
+         CucxAqrWFhhGS1OMB++B67D0Uvt8eoEM6gegL49AKnS50Dq9j1QyDfJ23K2J0gVMrr4h
+         0+JA==
+X-Gm-Message-State: APjAAAXdxy6spuCmyAiNk6d9EhGrz2YACevhvLwihpxI/5UniTGAo3l3
+        jKjxogiR8d1P5EpKvC9f8ag9opCD
+X-Google-Smtp-Source: APXvYqyNvq6KMtoviGEvBKmNhV3UyuPn7/+x9+ql8zY+SgQin0f8Tyk7tLL6imYX6H05dWXZJWTcsw==
+X-Received: by 2002:a5d:4a10:: with SMTP id m16mr4671747wrq.294.1574271663786;
+        Wed, 20 Nov 2019 09:41:03 -0800 (PST)
+Received: from ltop.local ([2a02:a03f:40e1:9900:950c:3e8e:b6df:1425])
+        by smtp.gmail.com with ESMTPSA id n17sm30930747wrp.40.2019.11.20.09.41.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 20 Nov 2019 09:41:03 -0800 (PST)
+Date:   Wed, 20 Nov 2019 18:41:02 +0100
+From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
+To:     Ramsay Jones <ramsay@ramsayjones.plus.com>
+Cc:     linux-sparse@vger.kernel.org
+Subject: Re: [PATCH 0/5] fix propagation of function attributes
+Message-ID: <20191120174102.qdd3lhaouil62257@ltop.local>
 References: <20191120000224.30441-1-luc.vanoostenryck@gmail.com>
- <20191120000224.30441-5-luc.vanoostenryck@gmail.com>
- <b9aa0b5c-7e65-25ac-898a-a87c5fcaee98@ramsayjones.plus.com>
-Message-ID: <f3185314-1232-1046-ed9d-6ccc4b497d14@ramsayjones.plus.com>
-Date:   Wed, 20 Nov 2019 13:36:57 +0000
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.9.0
+ <0f224459-7c35-234e-72e3-8baf87742507@ramsayjones.plus.com>
 MIME-Version: 1.0
-In-Reply-To: <b9aa0b5c-7e65-25ac-898a-a87c5fcaee98@ramsayjones.plus.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
-X-CMAE-Envelope: MS4wfBLBi6RcQjMzCK/Eboe9wX4AvkC2MxWoJMYm7DmYc0e4NZLGwLWEAUHXawCtFVnoScZDWO5E2Dg3qvOn6XAtJitxRysZErocUARYPWTYsM15IWyatrEX
- pQdX28p2/ZR1La+nG0ni50vJUgRpZyBFrOj+FfB8KBtNcH98qhJUR8czRes7nIDWLOW5c82kVMx8iQ==
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <0f224459-7c35-234e-72e3-8baf87742507@ramsayjones.plus.com>
 Sender: linux-sparse-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-
-
-On 20/11/2019 02:13, Ramsay Jones wrote:
-[snip]
-
+On Wed, Nov 20, 2019 at 02:00:52AM +0000, Ramsay Jones wrote:
+> On 20/11/2019 00:02, Luc Van Oostenryck wrote:
+> > Function attributes need to be propagated differently
+> > than the usual specifiers: For example, in code like:
+> > 	#define __noreturn __attribute__((noreturn))
+> > 	__noreturn void foo(int a);
+> > the __noreturn attribute should be applied to the function
+> > type while a specifier like 'const' would be applied to its
+> > return type. Also, when declaring the corresponding
+> > function pointer or functionpointer pointer:
+> > 	__noreturn void (*fptr)(int);
+> > 	__noreturn void (**fptr)(int);
+> > the attribute should also be applied to the function type,
+> > not one of the pointer types.
+> >  
+> > This series fixes (hopefully) the previous attempt to solve
+> > this problem. The main patch is #4, pacthes #2 & #3 are
+> > kinda related preparatory patches and patch #5 is clearly
+> > related but independent (and a bit discutable, so will
+> > probably be omitted when pushed to kernel.org).
+> > 
+> > Many thanks to Ramsay Jones for noticing the problem!
 > 
-> Hmm, shouldn't these:
+> Hi Luc,
 > 
->> +	{"const",	NS_KEYWORD,	MOD_PURE,	.op = &attr_fun_op },
->> +	{"__const",	NS_KEYWORD,	MOD_PURE,	.op = &attr_fun_op },
->> +	{"__const__",	NS_KEYWORD,	MOD_PURE,	.op = &attr_fun_op },
+> It is somewhat late here, but I thought I should take a quick
+> look at this before bed ...
 > 
-> ... be attr_mod_op? (I'm just reading this in my email client, so I
-> haven't given it much thought, but it just seems wrong ...)
+> I have applied this series on top of 'master' and run it over
+> the git source and, as expected, the additional 8 warnings have
+> gone. Thanks!
 
-Of course, as soon as my head hit the pillow, I remembered that
-gcc has a 'const function attribute', somewhat similar to 'pure'.
-(I just looked it up, because I couldn't remember what the
-difference was between 'const' and 'pure'!).
+Thanks for confirming this and thank you for noticing the typos!
 
-So, just ignore me! :-D
+> (Also, I haven't tried cygwin, but because this
+> fixes 'validation/function-redecl2.c', that long-standing warning
+> will be fixed too! :-D ).
 
-ATB,
-Ramsay Jones
+Ahhh, that's good to know. Thanks.
 
+-- Luc 
