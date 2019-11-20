@@ -2,53 +2,53 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 20571103171
-	for <lists+linux-sparse@lfdr.de>; Wed, 20 Nov 2019 03:13:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id F302710317F
+	for <lists+linux-sparse@lfdr.de>; Wed, 20 Nov 2019 03:19:42 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727243AbfKTCNz (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Tue, 19 Nov 2019 21:13:55 -0500
-Received: from avasout04.plus.net ([212.159.14.19]:43571 "EHLO
+        id S1727427AbfKTCTm (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Tue, 19 Nov 2019 21:19:42 -0500
+Received: from avasout04.plus.net ([212.159.14.19]:43816 "EHLO
         avasout04.plus.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1727222AbfKTCNz (ORCPT
+        with ESMTP id S1727140AbfKTCTm (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Tue, 19 Nov 2019 21:13:55 -0500
+        Tue, 19 Nov 2019 21:19:42 -0500
 Received: from [10.0.2.15] ([87.115.253.23])
         by smtp with ESMTPA
-        id XFVAir4FP4Al0XFVBiyITd; Wed, 20 Nov 2019 02:13:54 +0000
+        id XFalir4SO4Al0XFamiyIWN; Wed, 20 Nov 2019 02:19:40 +0000
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=plus.com; s=042019;
-        t=1574216034; bh=vBtHSO/B6MxoSi0DeDqsqksEe6waqPDwO1dkLw9hVow=;
+        t=1574216380; bh=DtKyNJZQoPb+hgrouY28EZuLU74RkF9upZCTec5xR6g=;
         h=Subject:To:References:From:Date:In-Reply-To;
-        b=GgcyejFbyBziafnwfH/Pj4hwiyF1fubsd3Wc0W9LnAmPeDdrRbttRtX4wuFZADdzz
-         JyRMjKQ4XRsyeqItLIfJ/pL9bWLpGiMWO/WyflQ5Bs49nTt4CvKWHhboLfYSHRML/G
-         A+D5L8F98NpzKwitzL4kPLI++tasHWxeLp4kMA+XXbWMtGDNUxLTg0kBRcuXn0RkNr
-         ODair5ZnrLzwyHyxJ6cWvsBMLX9G0H2eLbz9mCDZqshwkUakk46lKZhMnfM2PgvxgI
-         69iBdkop/3pfmbE6xDz5vpHt6n3UsA4M6ws4Vv7P2BEF/YsbSc6Q2ulkBqDslO1VyW
-         FFVP22iHFy58Q==
+        b=i9iDh0HSfSfWe6RgSS+tevflC41XmtRKoYhXUur0Wb82gp9M/AfFl45/cBWKSBKnj
+         Pllq71TeJmuVx9x/FRPzpSznCN5YK4AZcAP7//okIvWMQXbwKhq5I1vsAYthk4cR9f
+         IIrXpGL5wTH5ax7BujY3tt7vgdOt3HdP9bri97Ne0V5XCsAvcLQ1fPlvVIgmIZTOD1
+         3elPS7AD2ALzCTbfpA9jSH5jQGeTPDZjEOxntmjckeH7cGlkycPUGFCAyJLl7rsgFB
+         RzmHYmUV3BC0lSLFv1nOXA9EMdUgCbf4S8Tovk2rKHohozahTKrcS+ePTG+QtP1DcE
+         hzavYGBakOSaQ==
 X-Clacks-Overhead: "GNU Terry Pratchett"
 X-CM-Score: 0.00
 X-CNFS-Analysis: v=2.3 cv=GY1pYjfL c=1 sm=1 tr=0
  a=LuhjJmsKGzDBBq+cJWlr3w==:117 a=LuhjJmsKGzDBBq+cJWlr3w==:17
- a=jpOVt7BSZ2e4Z31A5e1TngXxSK0=:19 a=IkcTkHD0fZMA:10 a=EBOSESyhAAAA:8
- a=pGLkceISAAAA:8 a=bDlFDvaDmHgyw6Df_b4A:9 a=QEXdDO2ut3YA:10
- a=yJM6EZoI5SlJf8ks9Ge_:22 a=pHzHmUro8NiASowvMSCR:22 a=nt3jZW36AmriUCFCBwmW:22
+ a=jpOVt7BSZ2e4Z31A5e1TngXxSK0=:19 a=IkcTkHD0fZMA:10 a=pGLkceISAAAA:8
+ a=qKGxaBiyDxZj9c1BscIA:9 a=QEXdDO2ut3YA:10 a=pHzHmUro8NiASowvMSCR:22
+ a=nt3jZW36AmriUCFCBwmW:22
 X-AUTH: ramsayjones@:2500
-Subject: Re: [PATCH 4/5] propagate function modifiers only to functions
+Subject: Re: [PATCH 5/5] allow omitted function attribute in definition
 To:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>,
         linux-sparse@vger.kernel.org
 References: <20191120000224.30441-1-luc.vanoostenryck@gmail.com>
- <20191120000224.30441-5-luc.vanoostenryck@gmail.com>
+ <20191120000224.30441-6-luc.vanoostenryck@gmail.com>
 From:   Ramsay Jones <ramsay@ramsayjones.plus.com>
-Message-ID: <b9aa0b5c-7e65-25ac-898a-a87c5fcaee98@ramsayjones.plus.com>
-Date:   Wed, 20 Nov 2019 02:13:52 +0000
+Message-ID: <273f0297-7966-176a-bce3-1e0d40ace30c@ramsayjones.plus.com>
+Date:   Wed, 20 Nov 2019 02:19:39 +0000
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
  Thunderbird/60.9.0
 MIME-Version: 1.0
-In-Reply-To: <20191120000224.30441-5-luc.vanoostenryck@gmail.com>
+In-Reply-To: <20191120000224.30441-6-luc.vanoostenryck@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-GB
 Content-Transfer-Encoding: 7bit
-X-CMAE-Envelope: MS4wfGDShZBfSXLCXVYPWm6VvAmk8kngJDzFR3Uofrnlzl/b17Y4epXlppC8zy1FUVk+97stRcaE0HDmtj2+rlIzFZQSS5hD4Dv9p63xnTsHTnqzG3p/Ln6p
- nGMG5dncQoxlDKjnoQeRM7PiByBHcgKlTLjk9kdQXn4uXost+tbc4F/W0KMW+QVDxZwJKFXaV8J6EQ==
+X-CMAE-Envelope: MS4wfEjlimCvTU8oet1X8Fvy7qyKFQPUWFOBxkd/PMuuQriEApuf4ADwhneM+/yJTZxtdHBqzSubvMH3fmSghwi7+WncszFat5fBnTjLiDCQmtOD7F6XvU7J
+ e7Y/BJbM8rn8ROOmoalhN+D76xbRdGI0wevDdpAQjZ12BNUY/55L4Z8llHAt868jI+h8v3S8g9HQ3Q==
 Sender: linux-sparse-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
@@ -57,213 +57,86 @@ X-Mailing-List: linux-sparse@vger.kernel.org
 
 
 On 20/11/2019 00:02, Luc Van Oostenryck wrote:
-> Function attributes need to be parsed differently
-> than the usual specifiers: For example, in code like:
-> 	#define __noreturn __attribute__((noreturn))
-> 	__noreturn void foo(int a);
-> the __noreturn attribute should apply to the function type
-> while a specifier like 'const' would apply to its return type.
+> It's common to declare a function with the attribute
+> 'pure' or 'noreturn' and to omit the attribute in the
+> function definition.
 > 
-> The situation is quite similar to how storage specifiers
-> must not be handled by alloc_indirect_symbol().
-> However, the solution used for storage specifiers (apply the
-> modifier bits only after the declarator is reached: cfr.commit
-> 233d4e17c ("function attributes apply to the function declaration"))
-> can't be used here (because the storage modifiers can be applied
-> to the outermost declarator and function attributes may be
-> applied more deeper if function pointers are present).
+> It make some sense since the information convoyed by
 
-s/deeper/deeply/
+s/convoyed/conveyed/
 
+> these attribute are destinated to the function users
+
+s/attribute/attributes/
+s/destinated to/destined for/
+
+> not the function itself.
 > 
-> Fix this by:
-> 1) reverting the previous storage-specifier-like solution
-> 2) collect function specifiers MODs in a new separate
->    field in the declaration context (f_modifiers)
-> 3) apply these modifiers when the declarator for the
->    function type is reached (note: it must not be
->    applied to the SYM_FN itself since this correspond
->    to the function's return type; it must be applied to
->    the parent node which can be a SYM_NODE or a SYM_PTR).
-> 4) also apply these modifiers to the declarated symbol,
+> Silence the warnings emitted when the attributes are
+> omited by masking the corresponding modifier bits
 
-s/declarated/declared/
+s/omited/omitted/
 
->    if this symbol is a function declaration, to take
->    into account attributes which are placed at the end
->    of the declaration and not in front.
+> when checking the type compatibility between a
+> function definition and its declarations.
 > 
-> Reported-by: Ramsay Jones <ramsay@ramsayjones.plus.com>
-> Fixes: 233d4e17c544e1de252aed8f409630599104dbc7
 > Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 > ---
->  parse.c                                 | 49 +++++++++++++------------
->  symbol.h                                |  3 +-
->  validation/function-attribute-inner.c   |  1 -
->  validation/function-attribute-pointer.c |  1 -
->  4 files changed, 28 insertions(+), 26 deletions(-)
+>  evaluate.c                              | 4 +++-
+>  validation/function-attribute-omitted.c | 1 -
+>  validation/function-redecl2.c           | 3 ---
+>  3 files changed, 3 insertions(+), 5 deletions(-)
 > 
-> diff --git a/parse.c b/parse.c
-> index 37ffede72..acae63af2 100644
-> --- a/parse.c
-> +++ b/parse.c
-> @@ -82,6 +82,7 @@ typedef struct token *attr_t(struct token *, struct symbol *,
+> diff --git a/evaluate.c b/evaluate.c
+> index 863750fab..4e1762eff 100644
+> --- a/evaluate.c
+> +++ b/evaluate.c
+> @@ -3371,6 +3371,7 @@ void check_duplicates(struct symbol *sym)
+>  	int initialized = sym->initializer != NULL;
 >  
->  static attr_t
->  	attribute_packed, attribute_aligned, attribute_modifier,
-> +	attribute_function,
->  	attribute_ext_visible,
->  	attribute_bitwise,
->  	attribute_address_space, attribute_context,
-> @@ -375,6 +376,10 @@ static struct symbol_op attr_mod_op = {
->  	.attribute = attribute_modifier,
->  };
+>  	while ((next = next->same_symbol) != NULL) {
+> +		unsigned long fmods;
+>  		const char *typediff;
+>  		evaluate_symbol(next);
+>  		if (initialized && next->initializer) {
+> @@ -3381,7 +3382,8 @@ void check_duplicates(struct symbol *sym)
+>  			initialized = 0;
+>  		}
+>  		declared++;
+> -		typediff = type_difference(&sym->ctype, &next->ctype, 0, 0);
+> +		fmods = next->ctype.modifiers & MOD_FUN_ATTR;
+> +		typediff = type_difference(&sym->ctype, &next->ctype, fmods, 0);
+>  		if (typediff) {
+>  			sparse_error(sym->pos, "symbol '%s' redeclared with different type (originally declared at %s:%d) - %s",
+>  				show_ident(sym->ident),
+> diff --git a/validation/function-attribute-omitted.c b/validation/function-attribute-omitted.c
+> index 43b301d8f..c5eb50d31 100644
+> --- a/validation/function-attribute-omitted.c
+> +++ b/validation/function-attribute-omitted.c
+> @@ -10,5 +10,4 @@ void		n(void) { while (1) ; }
 >  
-> +static struct symbol_op attr_fun_op = {
-> +	.attribute = attribute_function,
-> +};
-> +
->  static struct symbol_op ext_visible_op = {
->  	.attribute = attribute_ext_visible,
->  };
-> @@ -566,13 +571,13 @@ static struct init_keyword {
->  	{ "__designated_init__",	NS_KEYWORD,	.op = &designated_init_op },
->  	{ "transparent_union",	NS_KEYWORD,	.op = &transparent_union_op },
->  	{ "__transparent_union__",	NS_KEYWORD,	.op = &transparent_union_op },
-> -	{ "noreturn",	NS_KEYWORD,	MOD_NORETURN,	.op = &attr_mod_op },
-> -	{ "__noreturn__",	NS_KEYWORD,	MOD_NORETURN,	.op = &attr_mod_op },
-> -	{ "pure",	NS_KEYWORD,	MOD_PURE,	.op = &attr_mod_op },
-> -	{"__pure__",	NS_KEYWORD,	MOD_PURE,	.op = &attr_mod_op },
-> -	{"const",	NS_KEYWORD,	MOD_PURE,	.op = &attr_mod_op },
-> -	{"__const",	NS_KEYWORD,	MOD_PURE,	.op = &attr_mod_op },
-> -	{"__const__",	NS_KEYWORD,	MOD_PURE,	.op = &attr_mod_op },
-> +	{ "noreturn",	NS_KEYWORD,	MOD_NORETURN,	.op = &attr_fun_op },
-> +	{ "__noreturn__",	NS_KEYWORD,	MOD_NORETURN,	.op = &attr_fun_op },
-> +	{ "pure",	NS_KEYWORD,	MOD_PURE,	.op = &attr_fun_op },
-> +	{"__pure__",	NS_KEYWORD,	MOD_PURE,	.op = &attr_fun_op },
+>  /*
+>   * check-name: function-attribute-omitted
+> - * check-known-to-fail
 
-Hmm, shouldn't these:
+yay!  \O/
 
-> +	{"const",	NS_KEYWORD,	MOD_PURE,	.op = &attr_fun_op },
-> +	{"__const",	NS_KEYWORD,	MOD_PURE,	.op = &attr_fun_op },
-> +	{"__const__",	NS_KEYWORD,	MOD_PURE,	.op = &attr_fun_op },
-
-... be attr_mod_op? (I'm just reading this in my email client, so I
-haven't given it much thought, but it just seems wrong ...)
+Thanks! (That's all for tonight!)
 
 ATB,
 Ramsay Jones
 
-
->  	{"externally_visible",	NS_KEYWORD,	.op = &ext_visible_op },
->  	{"__externally_visible__",	NS_KEYWORD,	.op = &ext_visible_op },
->  
-> @@ -1117,6 +1122,15 @@ static struct token *attribute_modifier(struct token *token, struct symbol *attr
->  	return token;
->  }
->  
-> +static struct token *attribute_function(struct token *token, struct symbol *attr, struct decl_state *ctx)
-> +{
-> +	unsigned long mod = attr->ctype.modifiers;
-> +	if (ctx->f_modifiers & mod)
-> +		warning(token->pos, "duplicate %s", modifier_string(mod));
-> +	ctx->f_modifiers |= mod;
-> +	return token;
-> +}
-> +
->  static struct token *attribute_ext_visible(struct token *token, struct symbol *attr, struct decl_state *ctx)
->  {
->  	ctx->is_ext_visible = 1;
-> @@ -1862,6 +1876,7 @@ static struct token *direct_declarator(struct token *token, struct decl_state *c
->  		enum kind kind = which_func(token, p, ctx->prefer_abstract);
->  		struct symbol *fn;
->  		fn = alloc_indirect_symbol(token->pos, ctype, SYM_FN);
-> +		ctype->modifiers |= ctx->f_modifiers;
->  		token = token->next;
->  		if (kind == K_R)
->  			token = identifier_list(token, fn);
-> @@ -2900,21 +2915,6 @@ static struct token *toplevel_asm_declaration(struct token *token, struct symbol
->  	return token;
->  }
->  
-> -static unsigned long declaration_modifiers(struct decl_state *ctx)
-> -{
-> -	unsigned long mods;
-> -
-> -	// Storage modifiers only relates to the declaration
-> -	mods = storage_modifiers(ctx);
-> -
-> -	// Function attributes also only relates to the declaration
-> -	// and must not be present in the function/return type.
-> -	mods |= ctx->ctype.modifiers & MOD_FUN_ATTR;
-> -	ctx->ctype.modifiers &=~ MOD_FUN_ATTR;
-> -
-> -	return mods;
-> -}
-> -
->  struct token *external_declaration(struct token *token, struct symbol_list **list,
->  		validate_decl_t validate_decl)
->  {
-> @@ -2935,7 +2935,7 @@ struct token *external_declaration(struct token *token, struct symbol_list **lis
->  
->  	/* Parse declaration-specifiers, if any */
->  	token = declaration_specifiers(token, &ctx);
-> -	mod = declaration_modifiers(&ctx);
-> +	mod = storage_modifiers(&ctx);
->  	decl = alloc_symbol(token->pos, SYM_NODE);
->  	/* Just a type declaration? */
->  	if (match_op(token, ';')) {
-> @@ -2988,6 +2988,9 @@ struct token *external_declaration(struct token *token, struct symbol_list **lis
->  				show_ident(decl->ident));
->  			base_type->ctype.base_type = &int_ctype;
->  		}
-> +		/* apply attributes placed after the declarator */
-> +		decl->ctype.modifiers |= ctx.f_modifiers;
-> +
->  		/* K&R argument declaration? */
->  		if (lookup_type(token))
->  			return parse_k_r_arguments(token, decl, list);
-> diff --git a/symbol.h b/symbol.h
-> index 2465d6d88..d8a4f3b68 100644
-> --- a/symbol.h
-> +++ b/symbol.h
-> @@ -107,6 +107,7 @@ struct decl_state {
->  	struct ctype ctype;
->  	struct ident **ident;
->  	struct symbol_op *mode;
-> +	unsigned long f_modifiers;		// function attributes
->  	unsigned char prefer_abstract, is_inline, storage_class, is_tls;
->  	unsigned char is_ext_visible;
->  };
-> @@ -251,7 +252,7 @@ struct symbol {
->  #define MOD_PTRINHERIT	(MOD_QUALIFIER | MOD_NODEREF | MOD_NORETURN | MOD_NOCAST)
->  /* modifiers preserved by typeof() operator */
->  #define MOD_TYPEOF	(MOD_QUALIFIER | MOD_NOCAST | MOD_SPECIFIER)
-> -/* modifiers for funtion attributes */
-> +/* modifiers for function attributes */
->  #define MOD_FUN_ATTR	(MOD_PURE|MOD_NORETURN)
->  /* like cvr-qualifiers but 'reversed' (OK: source <= target) */
->  #define MOD_REV_QUAL	(MOD_PURE|MOD_NORETURN)
-> diff --git a/validation/function-attribute-inner.c b/validation/function-attribute-inner.c
-> index 178c7c019..3a8a8407f 100644
-> --- a/validation/function-attribute-inner.c
-> +++ b/validation/function-attribute-inner.c
-> @@ -6,5 +6,4 @@ _Static_assert([void (__noreturn *)(void)] == [typeof(&fun)], "");
->  
->  /*
->   * check-name: function-attribute-inner
-> - * check-known-to-fail
 >   */
-> diff --git a/validation/function-attribute-pointer.c b/validation/function-attribute-pointer.c
-> index 27f43bfb6..fd08ac710 100644
-> --- a/validation/function-attribute-pointer.c
-> +++ b/validation/function-attribute-pointer.c
-> @@ -21,7 +21,6 @@ static void foo(void)
+> diff --git a/validation/function-redecl2.c b/validation/function-redecl2.c
+> index 3435aa00c..ef396137a 100644
+> --- a/validation/function-redecl2.c
+> +++ b/validation/function-redecl2.c
+> @@ -25,7 +25,4 @@ void func2(int a)
 >  
 >  /*
->   * check-name: function-attribute-pointer
+>   * check-name: function-redecl2
+> - *
 > - * check-known-to-fail
->   *
->   * check-error-start
->  function-attribute-pointer.c:14:20: warning: incorrect type in argument 1 (different modifiers)
+> - *
+>   */
 > 
