@@ -2,56 +2,56 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 3AEAB10A890
+	by mail.lfdr.de (Postfix) with ESMTP id C8AC510A891
 	for <lists+linux-sparse@lfdr.de>; Wed, 27 Nov 2019 03:06:55 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726593AbfK0CGz (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        id S1726118AbfK0CGz (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
         Tue, 26 Nov 2019 21:06:55 -0500
-Received: from mail-wm1-f67.google.com ([209.85.128.67]:51863 "EHLO
-        mail-wm1-f67.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726118AbfK0CGy (ORCPT
+Received: from mail-wr1-f68.google.com ([209.85.221.68]:37916 "EHLO
+        mail-wr1-f68.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1726529AbfK0CGz (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Tue, 26 Nov 2019 21:06:54 -0500
-Received: by mail-wm1-f67.google.com with SMTP id g206so5354998wme.1
+        Tue, 26 Nov 2019 21:06:55 -0500
+Received: by mail-wr1-f68.google.com with SMTP id i12so24861237wro.5
         for <linux-sparse@vger.kernel.org>; Tue, 26 Nov 2019 18:06:53 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=qI5NPQjggpjqH6pEyh1Af2hX2N+sfC4lbzjMsTezSow=;
-        b=e64OfBgHf6K0qoDoNYDHX8pZzrSxIYFwvgYy/5vU9T99nDn5ckNT80xZG1mR4FGRT3
-         pXd5uUKgWvSO8UsawklXK4+Bej2fO5Mk3JKzpqQ6/eloRegJtAQz9cHDMkoB4D137ug3
-         Z9109btcfG9lxJITJZ3N3fN3F6YLli7fYbcOy4uPxMQxsBhwcfP14X8eh+pzYsbk/Ari
-         r3BndBOeAohqV6SKAR7I/Cr2tsMhsa/FzSuP4cv5orLVU2HulexGjsQ2f5f54dSZh18s
-         7PkJugZ0Ymnsm4sQBf+XzYiWp1gskrfC9w+id4HLQg5jRdbd1wc1F68kMRSDpQPSE7cP
-         xNKg==
+        bh=+w7kb1cXBLQbRGiw72b2ab1XiHXySDxCH77HPaF+Ogw=;
+        b=DVy8dlm7PUcCNRu5bmMPd+DJgcoGL+nWx0wJjY7Pu01qUgIxhwrtySLNxL4u/RgvNk
+         N9i/pvPmKBXVpmADFEMkonB3f3uOFogUedIhYr6TX0/VEenrzAfIilREbaqZLONfRGXK
+         9LM5kTQi801Uo0qI/76gej4IEbM3D9WCmLmbnWfBcQs+8/2Z/895sGDoLJABGtSIfbgs
+         gt5V/nn9KeLX9EsNw9+q/3f6wKYLgElg0st9lAwlFpbbSU7qbxQIFYob0gqaXzXmPLIq
+         b4vtqoAjQYPABG+CcWR0jS+uuhc/9R5MsSVgwdrz/bNTCnUYygZGquI9axf2k5ZsIAW5
+         mj5w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=qI5NPQjggpjqH6pEyh1Af2hX2N+sfC4lbzjMsTezSow=;
-        b=ASi0bWra8uzbtQVbzCBrA/T/yui6zoGxc/hus7c2Nbg2KzVVjrTz9m+GRP7puXi9By
-         cv6N+BtDUXe3EpKkR1L11ZMlWnjM1DFnjSsF6vSnRBiadKcuWzDVHDDaBWCk4BV9Isde
-         ViK4NY+UGDN0TWb3POIhHcuWJYVOfPuDpzOHMQF1DPCvjX/yg0WqiyuBnYMOgGCqyYRT
-         86PlCzS7hHQ0CAulJXzncjGpYyYJeFBKPa06W0p81cAn1L8I2F4tP9lPUYydK2KwTTcp
-         y/1XtwsY9Ud4t7XSgb97kIslpHJ8VHsum7s4KJ3WHcwrXU3N4Hr16yiZ24sm7jjk9x6n
-         Gnzw==
-X-Gm-Message-State: APjAAAVrIp6M6nyqc7QAeXHc781tReB2RqjPmxkZpqf2Lqjj//HEkLMl
-        1+KYMotWfRIaJd/PCc5yWvepVkJk
-X-Google-Smtp-Source: APXvYqzECjwxiS0B+mGjR/sAVvpwMvigo87ZAUYb60vvEU9/USiS2CsVPUXsd7lgjlQbsStg2MIzoQ==
-X-Received: by 2002:a05:600c:a:: with SMTP id g10mr1754225wmc.69.1574820412404;
-        Tue, 26 Nov 2019 18:06:52 -0800 (PST)
+        bh=+w7kb1cXBLQbRGiw72b2ab1XiHXySDxCH77HPaF+Ogw=;
+        b=Dxr2D5suhTe9BS3AXCdRbkVF1SQRZGDq7/CdYikawTuqNzzBrvDM0IKj+a/anDlSeG
+         KleIQr+BbWRlAxnmH+nzyWdPtQR1gs8oY0g7943fWGp19LiGM/Viv1chrXgrpD0YXfiK
+         FbrvL4oEkWM2H2z9Dz4jmcveLJkqPiDhPAGFIu+/VXf0eWosWgUn0fdVw7/DyHby/6tz
+         zE1Muo9zNt9xQ6V/Er6QbtpyzBOEYlhQBOqcx56R/io9c+c3eE0+8HMzD4++A90Rs3h3
+         83ov4ukoGpft5jZwnHOxOjfjJLlJT8PXTxnWkOB6uI3Wg5xNZHgPru9X1+DqtG9GDzY8
+         Vjfw==
+X-Gm-Message-State: APjAAAWrxzQR7MSM+lkbES33pidp68Bn+Tv8WZD7e3xKWKIdSRqC4C5T
+        rBqTuLUdOe601TmKdR3YEbvehphL
+X-Google-Smtp-Source: APXvYqw7oJCF36KZ2x/kdmp1OWY91RTptey4uJH0NJBk24+oQTzVTkmOurhEphqpyleKdqIjyqc/lQ==
+X-Received: by 2002:a5d:5308:: with SMTP id e8mr32565858wrv.77.1574820413161;
+        Tue, 26 Nov 2019 18:06:53 -0800 (PST)
 Received: from localhost.localdomain ([2a02:a03f:404e:f500:ac14:4c10:6104:457f])
-        by smtp.gmail.com with ESMTPSA id o133sm5326573wmb.4.2019.11.26.18.06.51
+        by smtp.gmail.com with ESMTPSA id o133sm5326573wmb.4.2019.11.26.18.06.52
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 26 Nov 2019 18:06:51 -0800 (PST)
+        Tue, 26 Nov 2019 18:06:52 -0800 (PST)
 From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 To:     linux-sparse@vger.kernel.org
 Cc:     Ramsay Jones <ramsay@ramsayjones.plus.com>,
         Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-Subject: [PATCH v2 03/12] arch: keep BSD & Darwin specifics with i386/x86-64 specifics
-Date:   Wed, 27 Nov 2019 03:06:34 +0100
-Message-Id: <20191127020643.68629-4-luc.vanoostenryck@gmail.com>
+Subject: [PATCH v2 04/12] arch: do not needlessly set bitness on 32-bit archs
+Date:   Wed, 27 Nov 2019 03:06:35 +0100
+Message-Id: <20191127020643.68629-5-luc.vanoostenryck@gmail.com>
 X-Mailer: git-send-email 2.24.0
 In-Reply-To: <20191127020643.68629-1-luc.vanoostenryck@gmail.com>
 References: <20191127020643.68629-1-luc.vanoostenryck@gmail.com>
@@ -62,44 +62,27 @@ Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-Without more testing, the specific types for wint_t & int64_t
-on FreeBSD & Darwin are only valid for i386/x86-64.
+The code at the start of init_target() already take care
+of making the arch variants match their bitness. There is
+no need to redo that while setting the type of [u]int32.
 
 Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 ---
- target.c | 14 +++++++-------
- 1 file changed, 7 insertions(+), 7 deletions(-)
+ target.c | 1 -
+ 1 file changed, 1 deletion(-)
 
 diff --git a/target.c b/target.c
-index acafbd929..647817a22 100644
+index 647817a22..bdda7ec7f 100644
 --- a/target.c
 +++ b/target.c
-@@ -83,6 +83,13 @@ void init_target(void)
- 		wchar_ctype = &long_ctype;
- 		/* fall through */
- 	case MACH_X86_64:
-+#if defined(__APPLE__)
-+		int64_ctype = &llong_ctype;
-+		uint64_ctype = &ullong_ctype;
-+#endif
-+#if defined(__FreeBSD__) || defined(__APPLE__)
-+		wint_ctype = &int_ctype;
-+#endif
+@@ -114,7 +114,6 @@ void init_target(void)
+ 	case MACH_PPC32:
+ 	case MACH_MIPS32:
+ 	case MACH_RISCV32:
+-		arch_m64 = ARCH_LP32;
+ 		int32_ctype = &long_ctype;
+ 		uint32_ctype = &ulong_ctype;
  		break;
- 	case MACH_M68K:
- 	case MACH_SPARC32:
-@@ -193,11 +200,4 @@ void init_target(void)
- #if defined(__CYGWIN__)
- 	wchar_ctype = &ushort_ctype;
- #endif
--#if defined(__FreeBSD__) || defined(__APPLE__)
--	wint_ctype = &int_ctype;
--#endif
--#if defined(__APPLE__)
--	int64_ctype = &llong_ctype;
--	uint64_ctype = &ullong_ctype;
--#endif
- }
 -- 
 2.24.0
 
