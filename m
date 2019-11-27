@@ -2,56 +2,56 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 6BB8910A895
-	for <lists+linux-sparse@lfdr.de>; Wed, 27 Nov 2019 03:06:59 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 1F1AD10A896
+	for <lists+linux-sparse@lfdr.de>; Wed, 27 Nov 2019 03:07:01 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1725916AbfK0CG7 (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Tue, 26 Nov 2019 21:06:59 -0500
-Received: from mail-wr1-f67.google.com ([209.85.221.67]:34093 "EHLO
+        id S1726694AbfK0CHA (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Tue, 26 Nov 2019 21:07:00 -0500
+Received: from mail-wr1-f67.google.com ([209.85.221.67]:45720 "EHLO
         mail-wr1-f67.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726529AbfK0CG7 (ORCPT
+        with ESMTP id S1726529AbfK0CHA (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Tue, 26 Nov 2019 21:06:59 -0500
-Received: by mail-wr1-f67.google.com with SMTP id t2so24802864wrr.1
-        for <linux-sparse@vger.kernel.org>; Tue, 26 Nov 2019 18:06:57 -0800 (PST)
+        Tue, 26 Nov 2019 21:07:00 -0500
+Received: by mail-wr1-f67.google.com with SMTP id z10so24704154wrs.12
+        for <linux-sparse@vger.kernel.org>; Tue, 26 Nov 2019 18:06:58 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=U0vitU0+oYwg7IlELLCqnY2I6rtW7GbwNNJAgyqCT5o=;
-        b=N6LwwB8HlcjCPzFIln5EVbKjjyoRiVfhOLaKroSW5BpZLzGxd/IEv9j/hZRwHKMNzF
-         5F4cQ7PBlxqkJUU244zlmrIwucyYOjDSwRZOKu3MC8NOo6tcf1FszXeNaAQfnZqMjb2H
-         nazSxtV0zY02dWCncEp8hc3frs9v4zHnjBwzD8Q3Z7AMe/Cn/BQ+79BGPryTjAciETgP
-         3ceUyHG9LGGvERfZ8ouL/HdS2lmCxjMTt92q9Q/NIwtCyAjxVBNUUO01cB+jB53Eg96m
-         sgMV9O93BFKZubUB/Ib6gc8N1/KIjZoYPkBZNFU0DAq8qsT4cehc05Xt7YxvfhVmPz+7
-         aKJw==
+        bh=aHh6Ft9v6BE2j7+GtvCtwAC4ocwk3GJa90kZ3tgHNfI=;
+        b=JZO75P3j0YnHGbKKOzdYhIKGoD/HfJHxow5ONe28jOJoMEVu37TH9YlonOjmus0l3X
+         J5T+uF1u3gBtYIpZFPpVNC7dHhW7ouRYOVxecLDBj1L24LrO+2QF6xrM1dEa4ONYhowf
+         OBeVPNExMQSKEZE+8U6+DKtFeRbNCYhAqLyq0taO7OeacgkEYlzpTvkWtsAK1IZEQCAK
+         lpoIC/ikiBOY9DAj97SeFUAm6OY81nVEzRFVqxccHJlSbW4w6F46XDHAV9f8WjpFz8Xk
+         FVHH+FN8LoEKy5Bvc/23foAkz+V8kvoUfDdCmJhOP7q+zqLCD8QaG6TiaaqVmsSoaOOO
+         DfaQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=U0vitU0+oYwg7IlELLCqnY2I6rtW7GbwNNJAgyqCT5o=;
-        b=qGvmKr2mAXy0tfptAMcyQr+ZvEAwojrbu0ZY1PTXWEtZRPDLB7DBPQZgYzMPl9BKI0
-         E0+1tJ4chTZhWHENOi93TbXS3QfQIQonZkaTD62Y0HLa4gpEL86A5o9fhO8nFEVq658V
-         Myu+073xr2uT8T4M2Fy4T2gmilRtEr4wAuJmUCc8dHkC2jqFo3RTcVdcUoszGSiTDThQ
-         Q5TZbuOZ0lOyI4lPMYi8Xn+5dL/mfofhybc2uRDOcgnzDJXDdAHVYUdXzPphut6sIlmG
-         igkdfVP3EnkkQsiPqkYppUHJc/enEyXSBbUwS33lya2vkuWMCwLpy+V7NRx9AXufxYIO
-         VVzQ==
-X-Gm-Message-State: APjAAAUWJQjYuFtvQybrot1OXO2VexYCoRaXsEZc+jV/BizS0lNx5oNR
-        w2wHi3NX6L7FbmWKO4iD+JXRK9Kc
-X-Google-Smtp-Source: APXvYqzd6JNqtBqt1tU2ec8FDJdXf2769FnPGnyTrX7SYEAZOcwHpXzpHiCQ+zsTQdqcM5kdXJf1DQ==
-X-Received: by 2002:adf:979a:: with SMTP id s26mr40689297wrb.92.1574820416929;
-        Tue, 26 Nov 2019 18:06:56 -0800 (PST)
+        bh=aHh6Ft9v6BE2j7+GtvCtwAC4ocwk3GJa90kZ3tgHNfI=;
+        b=UQAPEieDIrHFW+5JTx3kfxPNCT1WofT81sJ834eOEgBYIPo684aVCO7DOtv6uJSiS1
+         NjsMrhSG5HZ3+K3FvGWG0Mo4YsN1ZI4nXUUr376lJb8/o0bikcmxiX4Z146cUcLor0t0
+         coFinkYPGSUC9rgNrTj6ZHUc53UiFRLalOr4PKXW0XDYZIK2VLYPaPdMXz1WdFLieA3i
+         d/VUClGFm0bvmHu2DlWrr2LsDqzJkf6EOPikcz2FyOVEhs7UqWn3cgoVAz3wM561uNes
+         m9bWPd+Dycf8BoMlJkTCY4zNhJ6xSok7xGI/nVRRtbvN16pAYkjjEuNtyctit+tP7gwH
+         twhQ==
+X-Gm-Message-State: APjAAAXzS1//PLpVlmoO2hcYxckrUlm/5YXZn1unShE/4f9jxaBQNnre
+        4sq8WV+E06ckXiA9pJum/n16ea2Z
+X-Google-Smtp-Source: APXvYqwAIH4pthqSbtuwE95x7gi6Apb97JhM/Dgs86iqr7hAwhq4cKXIHsSLX53BXLXoC0aKseq2jw==
+X-Received: by 2002:a05:6000:149:: with SMTP id r9mr387832wrx.147.1574820418008;
+        Tue, 26 Nov 2019 18:06:58 -0800 (PST)
 Received: from localhost.localdomain ([2a02:a03f:404e:f500:ac14:4c10:6104:457f])
-        by smtp.gmail.com with ESMTPSA id o133sm5326573wmb.4.2019.11.26.18.06.55
+        by smtp.gmail.com with ESMTPSA id o133sm5326573wmb.4.2019.11.26.18.06.56
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 26 Nov 2019 18:06:56 -0800 (PST)
+        Tue, 26 Nov 2019 18:06:57 -0800 (PST)
 From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 To:     linux-sparse@vger.kernel.org
 Cc:     Ramsay Jones <ramsay@ramsayjones.plus.com>,
         Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-Subject: [PATCH v2 08/12] arch: add predefines for INT128 only on supported archs
-Date:   Wed, 27 Nov 2019 03:06:39 +0100
-Message-Id: <20191127020643.68629-9-luc.vanoostenryck@gmail.com>
+Subject: [PATCH v2 09/12] arch: use a variable for the OS
+Date:   Wed, 27 Nov 2019 03:06:40 +0100
+Message-Id: <20191127020643.68629-10-luc.vanoostenryck@gmail.com>
 X-Mailer: git-send-email 2.24.0
 In-Reply-To: <20191127020643.68629-1-luc.vanoostenryck@gmail.com>
 References: <20191127020643.68629-1-luc.vanoostenryck@gmail.com>
@@ -62,62 +62,122 @@ Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-The predefines for INT128 were added unconditionally for
-all archs but only the 64-bit ones support them.
+There are a few OS-specific settings and handling them
+with #ifdef is 1) ugly, 2) can only work with when specifically
+built for this OS (either a native or cross-build).
 
-Fix this by issuing the the predefines only on 64-bit archs.
+So, use a variable to hold the OS and initialize it to the one
+used to compile sparse. This avoid the ugly #ifdef and allow
+simpler transition if if the future sparse would take the OS
+in parameter (maybe as triple).
 
 Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 ---
- lib.c                            | 13 +++++++++++--
- validation/preprocessor/predef.c |  2 ++
- 2 files changed, 13 insertions(+), 2 deletions(-)
+ lib.c     |  1 +
+ lib.h     |  1 +
+ machine.h | 26 ++++++++++++++++++++++++++
+ target.c  | 24 +++++++++++++-----------
+ 4 files changed, 41 insertions(+), 11 deletions(-)
 
 diff --git a/lib.c b/lib.c
-index f9e7caf4a..602960a08 100644
+index 602960a08..8bfe4e1c9 100644
 --- a/lib.c
 +++ b/lib.c
-@@ -1433,8 +1433,6 @@ static void predefined_macros(void)
- 	predefined_ctype("INT64",      int64_ctype, PTYPE_MAX|PTYPE_TYPE);
- 	predefined_ctype("UINT64",    uint64_ctype, PTYPE_MAX|PTYPE_TYPE);
+@@ -329,6 +329,7 @@ static int arch_msize_long = 0;
+ int arch_m64 = ARCH_M64_DEFAULT;
+ int arch_big_endian = ARCH_BIG_ENDIAN;
+ int arch_mach = MACH_NATIVE;
++int arch_os = OS_NATIVE;
+ int arch_cmodel = CMODEL_UNKNOWN;
  
--	predefined_sizeof("INT128", "", 128);
--
- 	predefined_ctype("INTMAX",    intmax_ctype, PTYPE_MAX|PTYPE_TYPE|PTYPE_WIDTH);
- 	predefined_ctype("UINTMAX",  uintmax_ctype, PTYPE_MAX|PTYPE_TYPE);
- 	predefined_ctype("INTPTR",   ssize_t_ctype, PTYPE_MAX|PTYPE_TYPE|PTYPE_WIDTH);
-@@ -1447,6 +1445,17 @@ static void predefined_macros(void)
- 	predefined_sizeof("DOUBLE", "", bits_in_double);
- 	predefined_sizeof("LONG_DOUBLE", "", bits_in_longdouble);
  
-+	switch (arch_mach) {
-+	case MACH_ARM64:
-+	case MACH_MIPS64:
-+	case MACH_PPC64:
-+	case MACH_RISCV64:
-+	case MACH_S390X:
-+	case MACH_SPARC64:
-+	case MACH_X86_64:
-+		predefined_sizeof("INT128", "", 128);
-+	}
+diff --git a/lib.h b/lib.h
+index 00c608125..24febfbfa 100644
+--- a/lib.h
++++ b/lib.h
+@@ -207,6 +207,7 @@ extern int funsigned_char;
+ extern int arch_m64;
+ extern int arch_big_endian;
+ extern int arch_mach;
++extern int arch_os;
+ 
+ enum {
+ 	CMODEL_UNKNOWN,
+diff --git a/machine.h b/machine.h
+index 22b05d91a..e98a64462 100644
+--- a/machine.h
++++ b/machine.h
+@@ -70,4 +70,30 @@ enum machine {
+ #define MACH_NATIVE	MACH_UNKNOWN
+ #endif
+ 
 +
- 	predefine("__ORDER_LITTLE_ENDIAN__", 1, "1234");
- 	predefine("__ORDER_BIG_ENDIAN__", 1, "4321");
- 	predefine("__ORDER_PDP_ENDIAN__", 1, "3412");
-diff --git a/validation/preprocessor/predef.c b/validation/preprocessor/predef.c
-index 5678acedf..90f9fb9c8 100644
---- a/validation/preprocessor/predef.c
-+++ b/validation/preprocessor/predef.c
-@@ -37,7 +37,9 @@ int test(void)
- 	TEST_SIZEOF(INT, int);
- 	TEST_SIZEOF(LONG, long);
- 	TEST_SIZEOF(LONG_LONG, long long);
-+#ifdef __SIZEOF_INT128__
- 	TEST_SIZEOF(INT128, __int128);
++enum {
++	OS_CYGWIN,
++	OS_DARWIN,
++	OS_FREEBSD,
++	OS_LINUX,
++	OS_NETBSD,
++	OS_OPENBSD,
++	OS_SUNOS,
++	OS_UNKNOWN,
++};
++
++#if defined(__linux__) || defined(__linux)
++#define OS_NATIVE	OS_LINUX
++#elif defined(__FreeBSD__)
++#define OS_NATIVE	OS_FREEBSD
++#elif defined(__APPLE__)
++#define OS_NATIVE	OS_DARWIN
++#elif defined(__CYGWIN__)
++#define OS_NATIVE	OS_CYGWIN
++#elif defined(__sun__) && defined(__sun)
++#define OS_NATIVE	OS_SUNOS
++#else
++#define OS_NATIVE	OS_UNKNOWN
 +#endif
- 	TEST_SIZEOF(PTRDIFF_T, __PTRDIFF_TYPE__);
- 	TEST_SIZEOF(SIZE_T, __SIZE_TYPE__);
- 	TEST_SIZEOF(POINTER, void*);
++
+ #endif
+diff --git a/target.c b/target.c
+index d03b179be..c89bb07d2 100644
+--- a/target.c
++++ b/target.c
+@@ -83,13 +83,19 @@ void init_target(void)
+ 		wchar_ctype = &long_ctype;
+ 		/* fall through */
+ 	case MACH_X86_64:
+-#if defined(__APPLE__)
+-		int64_ctype = &llong_ctype;
+-		uint64_ctype = &ullong_ctype;
+-#endif
+-#if defined(__FreeBSD__) || defined(__APPLE__)
+-		wint_ctype = &int_ctype;
+-#endif
++		switch (arch_os) {
++		case OS_CYGWIN:
++			wchar_ctype = &ushort_ctype;
++			break;
++		case OS_DARWIN:
++			int64_ctype = &llong_ctype;
++			uint64_ctype = &ullong_ctype;
++			wint_ctype = &int_ctype;
++			break;
++		case OS_FREEBSD:
++			wint_ctype = &int_ctype;
++			break;
++		}
+ 		break;
+ 	case MACH_M68K:
+ 	case MACH_SPARC32:
+@@ -178,8 +184,4 @@ void init_target(void)
+ 		pointer_alignment = 8;
+ 		break;
+ 	}
+-
+-#if defined(__CYGWIN__)
+-	wchar_ctype = &ushort_ctype;
+-#endif
+ }
 -- 
 2.24.0
 
