@@ -2,55 +2,55 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 3370810A8B5
+	by mail.lfdr.de (Postfix) with ESMTP id E837510A8B6
 	for <lists+linux-sparse@lfdr.de>; Wed, 27 Nov 2019 03:24:00 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726525AbfK0CYA (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        id S1726526AbfK0CYA (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
         Tue, 26 Nov 2019 21:24:00 -0500
-Received: from mail-wr1-f68.google.com ([209.85.221.68]:44761 "EHLO
+Received: from mail-wr1-f68.google.com ([209.85.221.68]:44762 "EHLO
         mail-wr1-f68.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1725883AbfK0CX7 (ORCPT
+        with ESMTP id S1726121AbfK0CYA (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Tue, 26 Nov 2019 21:23:59 -0500
-Received: by mail-wr1-f68.google.com with SMTP id i12so24779796wrn.11
-        for <linux-sparse@vger.kernel.org>; Tue, 26 Nov 2019 18:23:58 -0800 (PST)
+        Tue, 26 Nov 2019 21:24:00 -0500
+Received: by mail-wr1-f68.google.com with SMTP id i12so24779822wrn.11
+        for <linux-sparse@vger.kernel.org>; Tue, 26 Nov 2019 18:23:59 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=99VpaTtwa+yquk/rB9Q8EH69cw8a7ETUlC/v+CA3+5Y=;
-        b=fnqnOxHQ1vsonslOQ/53gqzI7NypKxK+zZVfZwC4/w4OAqUbTCoO5ZISLUQ44AJrPq
-         0RmAmu8f6XYAXZ2xSFI1B97zqYnkV3y3euQtizfmc5qyhDiLdBjckcpr6cR1n7WtadS7
-         K7HLQU9O9yaWm4gPT9cJZ9OXuZp80196Tl2550vCubhSh6vGcP7yzvzSWNfeU7vXdA1l
-         8S7TrFgQh9aTwwI1YOqMTTDCH4FbI3TCoygEbT2xO0pDDUGKn0pMtkA+bvckCvBrZ5/i
-         vZ8SqPMyp+lwi3NNM890gWp7CumiOJpbXIBtuUfnfPwQA8XYhNQTI+guazJA2dQhRdBO
-         dIyA==
+        bh=dRodcyKrTvEpEaDtk59x/DKdniM8NVA7LHZ3rFx0c6Q=;
+        b=twsiWyZIN9Uc3tpFKrUtbkAytXSEXbCt9sR112CyGq8wCQUQ9A097pAV934Tyy+JlT
+         VZjhULlVQ9eyy0BFnfw5MmJSzNU3hUB1/MIHLCQu0gmOV0SQPpuDj0LqDI/LjW/+Nf8q
+         4kf/tiQSo2dP+6bd4y6sQBuB+PWjbGmzWm+UikW/p2a6ctLWyhtZk0RGHqtfG2GfL388
+         OkE/KUTK+U0HcJ3dJx1Nba46vdNNdQwewYZkcy7OIQIOf6qO92Dil7tqwOmbTknT301A
+         wmgdh4Lih+wL+H6tDdxFEEcs4u6xJi1aAnhse14S47/Z1j1JYL42UGN3xmKBEdviRh23
+         N8HQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=99VpaTtwa+yquk/rB9Q8EH69cw8a7ETUlC/v+CA3+5Y=;
-        b=W3U+UlyYl5deShCyE/rrw+lBbXTWgYGAlxQEtDkUj6Tr/BKdwODwx6vmXnxCsERczL
-         LQuMHVtu4Bnx1FBAs2WgLfIKfTyREe+GMZ2wK/iSlEYWnLNhbjiHO7XkgPsvZQIWzJVf
-         U8MRjfs/W+3VGUm5u+dR4l5DtbpV4wC0ROBWkErKgeZFknH+C3fwkLX63/s+nUHX0XON
-         LMqmiW/Xv6JxvgDF4/UVSZ080R3kedF6cWxjTRRkIWsYil1EnGD8K6itX4/5Dtsx1Z1M
-         xYQAqEazFPqPblXPLXqLnxEwZYQOX/EzU21ZEdHdQr1V77ciBJYAN0ww2a2cvZ8v9jfT
-         /ARA==
-X-Gm-Message-State: APjAAAWbS9CkeAbvx58eZbqX4GDCuA3dzLFlxjR1JNR2I4MUS3OkUDzB
-        KOkiFjmIN9f/MtQOckyBLTojWamA
-X-Google-Smtp-Source: APXvYqyQOIunynSQ5uPCLdoKyQPNYbzbDjbhAzSn/YTVrzoOToQaDBLI0QkLjy5TVDR16hHHpBkENQ==
-X-Received: by 2002:a5d:6b51:: with SMTP id x17mr42085199wrw.148.1574821437376;
-        Tue, 26 Nov 2019 18:23:57 -0800 (PST)
+        bh=dRodcyKrTvEpEaDtk59x/DKdniM8NVA7LHZ3rFx0c6Q=;
+        b=TRDXE9Vg18tMg6jNIp3/ihiBlxrBlhTJYgS9tb8OsMpGIkonFbN32h5qkc5oh9yTU3
+         DuXVthaeYRhsPEyArq4R1PoHdqDvwxNbsJwt2ibjANkXw73j5Uvj70kOELlC44hMWfDJ
+         SSxbryvT3vA0TWnFbH/Qzhii0inIjf1ySBnzmkxttBfPQzZGIuPHWd7Lk+9DS6kEBrkY
+         fbpaPRYrhGxLHuvClpkvon7wQVkJjgmh/bGA4GZBtZeW0XRIxjCHWw5YIhbxo2CljFxG
+         kU+o9SM5EsRgvJ+UDpJzk/lnDq1XflPw1Ips4Irr/xQxQXfw7ygE7GKP3pXeFjlcVoQ7
+         as2g==
+X-Gm-Message-State: APjAAAUX1fPkjEEZkiZrjMjRtzw6hG71IFVeRVgOo2lx8XxkLzqryosh
+        ydo/hNCEATHlZBHy8y6PRz0om+Lv
+X-Google-Smtp-Source: APXvYqy/cXq85m3COogIKqIU4In3aekBIDMIiCjmkYl7zSHZmT3ad9CgXQLcgq5k5cYUua43levkwA==
+X-Received: by 2002:adf:e78b:: with SMTP id n11mr23541356wrm.10.1574821438216;
+        Tue, 26 Nov 2019 18:23:58 -0800 (PST)
 Received: from localhost.localdomain ([2a02:a03f:404e:f500:ac14:4c10:6104:457f])
-        by smtp.gmail.com with ESMTPSA id c1sm16690920wrs.24.2019.11.26.18.23.56
+        by smtp.gmail.com with ESMTPSA id c1sm16690920wrs.24.2019.11.26.18.23.57
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 26 Nov 2019 18:23:56 -0800 (PST)
+        Tue, 26 Nov 2019 18:23:57 -0800 (PST)
 From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 To:     linux-sparse@vger.kernel.org
 Cc:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-Subject: [PATCH 2/4] arch: add missing predefines for PPC
-Date:   Wed, 27 Nov 2019 03:23:49 +0100
-Message-Id: <20191127022351.68902-3-luc.vanoostenryck@gmail.com>
+Subject: [PATCH 3/4] arch: fix wchar_t & wint_t for openbsd
+Date:   Wed, 27 Nov 2019 03:23:50 +0100
+Message-Id: <20191127022351.68902-4-luc.vanoostenryck@gmail.com>
 X-Mailer: git-send-email 2.24.0
 In-Reply-To: <20191127022351.68902-1-luc.vanoostenryck@gmail.com>
 References: <20191127022351.68902-1-luc.vanoostenryck@gmail.com>
@@ -61,37 +61,30 @@ Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-The macros __PPC, _ARCH_PPC & _ARCH_PPC64 are predefined by
-GCC for powperpc (well, it seems __PPC isn't anymore but
-it was, at least on my old tolchain for ppc32).
-
-So, do the same here too.
+These are only for native build and I don't know
+if anyone is using sparse on openbsd, but for completeness
+and ease of testing let's get them right for sparse too.
 
 Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 ---
- lib.c | 3 +++
- 1 file changed, 3 insertions(+)
+ target.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/lib.c b/lib.c
-index 28ca49c7c..f0b546889 100644
---- a/lib.c
-+++ b/lib.c
-@@ -1574,12 +1574,15 @@ static void predefined_macros(void)
- 		predefine("__powerpc64__", 1, "1");
- 		predefine("__ppc64__", 1, "1");
- 		predefine("__PPC64__", 1, "1");
-+		predefine("_ARCH_PPC64", 1, "1");
- 		/* fall-through */
- 	case MACH_PPC32:
- 		predefine("__powerpc__", 1, "1");
- 		predefine("__powerpc", 1, "1");
- 		predefine("__ppc__", 1, "1");
- 		predefine("__PPC__", 1, "1");
-+		predefine("__PPC", 1, "1");
-+		predefine("_ARCH_PPC", 1, "1");
- 		if (arch_big_endian)
- 			predefine("_BIG_ENDIAN", 1, "1");
+diff --git a/target.c b/target.c
+index e3ea4caf8..76cbb954a 100644
+--- a/target.c
++++ b/target.c
+@@ -95,6 +95,10 @@ void init_target(void)
+ 		case OS_FREEBSD:
+ 			wint_ctype = &int_ctype;
+ 			break;
++		case OS_OPENBSD:
++			wchar_ctype = &int_ctype;
++			wint_ctype = &int_ctype;
++			break;
+ 		}
  		break;
+ 	case MACH_M68K:
 -- 
 2.24.0
 
