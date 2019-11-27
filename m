@@ -2,185 +2,98 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 63D9010A76D
-	for <lists+linux-sparse@lfdr.de>; Wed, 27 Nov 2019 01:21:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 2E6C710A7E4
+	for <lists+linux-sparse@lfdr.de>; Wed, 27 Nov 2019 02:20:52 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727008AbfK0AVD (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Tue, 26 Nov 2019 19:21:03 -0500
-Received: from avasout04.plus.net ([212.159.14.19]:47333 "EHLO
-        avasout04.plus.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726984AbfK0AVD (ORCPT
+        id S1725851AbfK0BUv (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Tue, 26 Nov 2019 20:20:51 -0500
+Received: from mail-wr1-f67.google.com ([209.85.221.67]:46558 "EHLO
+        mail-wr1-f67.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1725823AbfK0BUv (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Tue, 26 Nov 2019 19:21:03 -0500
-Received: from [10.0.2.15] ([87.115.253.23])
-        by smtp with ESMTPA
-        id Zl4ni0tcM4Al0Zl4oi2nbL; Wed, 27 Nov 2019 00:21:02 +0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=plus.com; s=042019;
-        t=1574814062; bh=6+W36wLX4TjuqvhkzOvIiLRcOW3DKlMHUqC1R+9ribQ=;
-        h=Subject:To:References:From:Date:In-Reply-To;
-        b=qc4iBE6bUHaWli/FhLjoPmJlkgiKmJ7h8XbUgS8ZM93CEOiB2XH3RReU8zCQkFWi7
-         e5W1Lo24DhTa8d8SXxfyA8fINVJZlLqiYZnnJEgfQeyG1+S98UqCZGtqsIg4lOYAgK
-         hjwy0vLROGWvkXKueaUiJM9gfSLsq963HP1uDap5lK3OBcthZhy4kYSFcRKa4kA9iQ
-         amJQRSQ2BwViKlpp9uFva3uCHcyiLMJcuNZ7JLZtazLddG/diUhHqRSPyjLbIqv0Bf
-         E0sOV1Z0vNbscqypEwHmhuTYDUe3PVIzUlYK9bUVCuwszN0XaY2MHvdPp8R1ZAnAio
-         YJkZM7pUqexBA==
-X-Clacks-Overhead: "GNU Terry Pratchett"
-X-CM-Score: 0.00
-X-CNFS-Analysis: v=2.3 cv=GY1pYjfL c=1 sm=1 tr=0
- a=LuhjJmsKGzDBBq+cJWlr3w==:117 a=LuhjJmsKGzDBBq+cJWlr3w==:17
- a=jpOVt7BSZ2e4Z31A5e1TngXxSK0=:19 a=IkcTkHD0fZMA:10 a=EBOSESyhAAAA:8
- a=pGLkceISAAAA:8 a=DuCSXAeyd9ta_lLYh3cA:9 a=QEXdDO2ut3YA:10
- a=yJM6EZoI5SlJf8ks9Ge_:22 a=pHzHmUro8NiASowvMSCR:22 a=nt3jZW36AmriUCFCBwmW:22
-X-AUTH: ramsayjones@:2500
+        Tue, 26 Nov 2019 20:20:51 -0500
+Received: by mail-wr1-f67.google.com with SMTP id z7so21284973wrl.13
+        for <linux-sparse@vger.kernel.org>; Tue, 26 Nov 2019 17:20:49 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=date:from:to:cc:subject:message-id:references:mime-version
+         :content-disposition:in-reply-to;
+        bh=5l5HxjNlxXIknDbAaVn1eIdvvaNWFu4b4ZyzJI/GCGQ=;
+        b=TXgKd5HeBSbVudvjPETNGEaWOLTujuBVw9G2/S0jKN8h4DpkyEBPpdqKlhoF6SgWAC
+         JQIIC3s4YLWBKmxCkwlyP/j2ucLESLGJ+wZf911h2i4+vCzM4DECy0GZb45MKEiIV00I
+         vkKE4lNu6zkhr8T3aHCNhfguuv1FoDhhlWzrtw06nfpyg34D0aCBz0HD9F/3uTtm4rUR
+         uakjh8tYQSM3gTncYdE7NX/czEHgcWdyh5EIgUSTJTukM/8oXaGkrAQEhASf5Wb4tkQW
+         2DlgR8WWRIFRQeiG8Ttwe2PZzp5iUiWEJYy0a3Zu7O18mNFGzlpsvs6XKJCQ7x9rA507
+         DHVA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+         :mime-version:content-disposition:in-reply-to;
+        bh=5l5HxjNlxXIknDbAaVn1eIdvvaNWFu4b4ZyzJI/GCGQ=;
+        b=FS7emgk1Onr+Rs2LZ7zzaF6+lpPeKy5V5Iq6dH0/gifZO5v6AhnC+eZKaZAo9ZpftD
+         w0NicmByWsXAg1TRpSNze+ws9KRK3OFs6cZ7R+b2agtJtDqVHy4NUdepq1XdlWYEC82q
+         hNge1Ehfhvc5Y0iQs7YTBo4L5H3vnUkmObmJHM/+puVNrtIs21HMotUPKR3YZT4NMDTa
+         IP5N+y2b1C2hwPXChu+Uv2lpIi0vcAxTZT+tGPOoCGwK2JJM8bs4yr2+H4ZSNQSQQrAn
+         UfM2jtFq24U3brr2LJNpc9LVOycx1Gi2eqIYw4jYlOJbx9UAmS3DgicMXvQF+t8Fzw7x
+         1t/A==
+X-Gm-Message-State: APjAAAXCzBXUSgv67C6cjlzYPTU3qYvpGnZqJhDGEegMYcV1Xh5Ypfv8
+        Izx8kg1NJn8NOWZa3TUDZAVF0v8v
+X-Google-Smtp-Source: APXvYqy5JYh+jqkRZIWjU6AzXyPuAVh82JbcMfcq8Kt5bv/8DTfAM/8UMD5fxhw341W5Neq85LYxEg==
+X-Received: by 2002:a5d:55c8:: with SMTP id i8mr1896192wrw.352.1574817648929;
+        Tue, 26 Nov 2019 17:20:48 -0800 (PST)
+Received: from ltop.local ([2a02:a03f:404e:f500:ac14:4c10:6104:457f])
+        by smtp.gmail.com with ESMTPSA id d14sm3975597wru.9.2019.11.26.17.20.47
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 26 Nov 2019 17:20:48 -0800 (PST)
+Date:   Wed, 27 Nov 2019 02:20:46 +0100
+From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
+To:     Ramsay Jones <ramsay@ramsayjones.plus.com>
+Cc:     linux-sparse@vger.kernel.org
 Subject: Re: [PATCH] spec: replace lllong_ctype by int128_ctype
-To:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>,
-        linux-sparse@vger.kernel.org
+Message-ID: <20191127012046.lkfjejpcuri3vtc7@ltop.local>
 References: <20191126203029.63676-1-luc.vanoostenryck@gmail.com>
-From:   Ramsay Jones <ramsay@ramsayjones.plus.com>
-Message-ID: <015e3edd-3eba-2e02-13e6-d88d879f45f0@ramsayjones.plus.com>
-Date:   Wed, 27 Nov 2019 00:21:01 +0000
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.9.0
+ <015e3edd-3eba-2e02-13e6-d88d879f45f0@ramsayjones.plus.com>
 MIME-Version: 1.0
-In-Reply-To: <20191126203029.63676-1-luc.vanoostenryck@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
-X-CMAE-Envelope: MS4wfP/a8bJfemmWbIaZRUqYpf6vIzY/A44jotEQr1OgZ105IfE5p/C7fN2402lSPssgMUpMCR1J2aGHxmcCaQ1N1ohHFTjeoqCP9U8O5QlKggMOb9KtBR1l
- gWY+e1Kr4O5yVzHDTKIPqxWAlw0FZJ2SEyfbztb2I9FZvKQluaIGLuzQDPp0t9DTxo1R0xNi+Lmd9w==
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <015e3edd-3eba-2e02-13e6-d88d879f45f0@ramsayjones.plus.com>
 Sender: linux-sparse-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-
-
-On 26/11/2019 20:30, Luc Van Oostenryck wrote:
-> Sparse knows about __int128_t, __uint128_t & __int128.
+On Wed, Nov 27, 2019 at 12:21:01AM +0000, Ramsay Jones wrote:
 > 
-> However, internally, these types are treated as a kind of 128-bit
-> 'long long long' type. It's mainly a question of variable naming,
-> but these types are also displayed by show_typename() as
-> 'long long long' which can't be parsed back, neither by GCC,
-> nor even  by sparse itself.
 > 
-> So, rename the variables to use 'int128' and let show_typename()
-> display these types as '[signed|unsigned] __int128'.
+> On 26/11/2019 20:30, Luc Van Oostenryck wrote:
+> > Sparse knows about __int128_t, __uint128_t & __int128.
+> > 
+> > However, internally, these types are treated as a kind of 128-bit
+> > 'long long long' type. It's mainly a question of variable naming,
+> > but these types are also displayed by show_typename() as
+> > 'long long long' which can't be parsed back, neither by GCC,
+> > nor even  by sparse itself.
+> > 
+> > So, rename the variables to use 'int128' and let show_typename()
+> > display these types as '[signed|unsigned] __int128'.
+> > 
+> > Reported-by: Ramsay Jones <ramsay@ramsayjones.plus.com>
+> > Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 > 
-> Reported-by: Ramsay Jones <ramsay@ramsayjones.plus.com>
-> Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
+> Hmm, where does this patch apply? I tried 'master' along with
+> (on a hunch) 'luc/parse-spec', but could not get it to 'git-am'
+> correctly.
 
-Hmm, where does this patch apply? I tried 'master' along with
-(on a hunch) 'luc/parse-spec', but could not get it to 'git-am'
-correctly.
+Mmmm, yes, sorry for that. It probably only apply on top of the
+merge of the pending branches, including the one with all the other
+'arch cleaning' patches which I still need to check after some
+changes and new patches.
 
-ATB,
-Ramsay Jones
+I've pushed everything now on github:
+	git://github.com/lucvoo/sparse-dev.git int128_ctype
 
-> ---
->  parse.c      | 14 +++++++-------
->  show-parse.c |  6 +++---
->  symbol.c     |  8 ++++----
->  symbol.h     |  2 +-
->  4 files changed, 15 insertions(+), 15 deletions(-)
-> 
-> diff --git a/parse.c b/parse.c
-> index 4f7ba0c9a..6db3cba73 100644
-> --- a/parse.c
-> +++ b/parse.c
-> @@ -493,8 +493,8 @@ static struct init_keyword {
->  	/* Predeclared types */
->  	{ "__builtin_va_list", NS_TYPEDEF, .type = &ptr_ctype, .op = &spec_op },
->  	{ "__builtin_ms_va_list", NS_TYPEDEF, .type = &ptr_ctype, .op = &spec_op },
-> -	{ "__int128_t",	NS_TYPEDEF, .type = &lllong_ctype, .op = &spec_op },
-> -	{ "__uint128_t",NS_TYPEDEF, .type = &ulllong_ctype, .op = &spec_op },
-> +	{ "__int128_t",	NS_TYPEDEF, .type = &sint128_ctype, .op = &spec_op },
-> +	{ "__uint128_t",NS_TYPEDEF, .type = &uint128_ctype, .op = &spec_op },
->  	{ "_Float32",	NS_TYPEDEF, .type = &float32_ctype, .op = &spec_op },
->  	{ "_Float32x",	NS_TYPEDEF, .type = &float32x_ctype, .op = &spec_op },
->  	{ "_Float64",	NS_TYPEDEF, .type = &float64_ctype, .op = &spec_op },
-> @@ -1229,8 +1229,8 @@ static struct symbol *to_TI_mode(struct symbol *ctype)
->  {
->  	if (ctype->ctype.base_type != &int_type)
->  		return NULL;
-> -	return ctype->ctype.modifiers & MOD_UNSIGNED ? &ulllong_ctype
-> -						     : &slllong_ctype;
-> +	return ctype->ctype.modifiers & MOD_UNSIGNED ? &uint128_ctype
-> +						     : &sint128_ctype;
->  }
->  
->  static struct symbol *to_pointer_mode(struct symbol *ctype)
-> @@ -1569,13 +1569,13 @@ Catch_all:
->  }
->  
->  static struct symbol * const int_types[] =
-> -	{&char_ctype, &short_ctype, &int_ctype, &long_ctype, &llong_ctype, &lllong_ctype};
-> +	{&char_ctype, &short_ctype, &int_ctype, &long_ctype, &llong_ctype, &int128_ctype};
->  static struct symbol * const signed_types[] =
->  	{&schar_ctype, &sshort_ctype, &sint_ctype, &slong_ctype, &sllong_ctype,
-> -	 &slllong_ctype};
-> +	 &sint128_ctype};
->  static struct symbol * const unsigned_types[] =
->  	{&uchar_ctype, &ushort_ctype, &uint_ctype, &ulong_ctype, &ullong_ctype,
-> -	 &ulllong_ctype};
-> +	 &uint128_ctype};
->  static struct symbol * const real_types[] =
->  	{&float_ctype, &double_ctype, &ldouble_ctype};
->  static struct symbol * const * const types[] = {
-> diff --git a/show-parse.c b/show-parse.c
-> index a0436cbe0..f0ea9caea 100644
-> --- a/show-parse.c
-> +++ b/show-parse.c
-> @@ -235,9 +235,9 @@ static struct ctype_name {
->  	{ & llong_ctype, "long long", "LL" },
->  	{ &sllong_ctype, "signed long long", "LL" },
->  	{ &ullong_ctype, "unsigned long long", "ULL" },
-> -	{ & lllong_ctype, "long long long", "LLL" },
-> -	{ &slllong_ctype, "signed long long long", "LLL" },
-> -	{ &ulllong_ctype, "unsigned long long long", "ULLL" },
-> +	{ & int128_ctype, "__int128", "" },
-> +	{ &sint128_ctype, "signed __int128", "" },
-> +	{ &uint128_ctype, "unsigned __int128", "" },
->  
->  	{ &void_ctype,   "void", "" },
->  	{ &bool_ctype,   "bool", "" },
-> diff --git a/symbol.c b/symbol.c
-> index 79951a076..53ea037a5 100644
-> --- a/symbol.c
-> +++ b/symbol.c
-> @@ -694,7 +694,7 @@ struct symbol	bool_ctype, void_ctype, type_ctype,
->  		int_ctype, sint_ctype, uint_ctype,
->  		long_ctype, slong_ctype, ulong_ctype,
->  		llong_ctype, sllong_ctype, ullong_ctype,
-> -		lllong_ctype, slllong_ctype, ulllong_ctype,
-> +		int128_ctype, sint128_ctype, uint128_ctype,
->  		float_ctype, double_ctype, ldouble_ctype,
->  		string_ctype, ptr_ctype, lazy_ptr_ctype,
->  		incomplete_ctype, label_ctype, bad_ctype,
-> @@ -774,9 +774,9 @@ static const struct ctype_declare {
->  	{ &llong_ctype,        T__INT( 2, longlong) },
->  	{ &sllong_ctype,       T_SINT( 2, longlong) },
->  	{ &ullong_ctype,       T_UINT( 2, longlong) },
-> -	{ &lllong_ctype,       T__INT( 3, longlonglong) },
-> -	{ &slllong_ctype,      T_SINT( 3, longlonglong) },
-> -	{ &ulllong_ctype,      T_UINT( 3, longlonglong) },
-> +	{ &int128_ctype,       T__INT( 3, type128) },
-> +	{ &sint128_ctype,      T_SINT( 3, type128) },
-> +	{ &uint128_ctype,      T_UINT( 3, type128) },
->  
->  	{ &float_ctype,        T_FLOAT(-1, float) },
->  	{ &double_ctype,       T_FLOAT( 0, double) },
-> diff --git a/symbol.h b/symbol.h
-> index ad65a9044..e60d91365 100644
-> --- a/symbol.h
-> +++ b/symbol.h
-> @@ -272,7 +272,7 @@ extern struct symbol	bool_ctype, void_ctype, type_ctype,
->  			int_ctype, sint_ctype, uint_ctype,
->  			long_ctype, slong_ctype, ulong_ctype,
->  			llong_ctype, sllong_ctype, ullong_ctype,
-> -			lllong_ctype, slllong_ctype, ulllong_ctype,
-> +			int128_ctype, sint128_ctype, uint128_ctype,
->  			float_ctype, double_ctype, ldouble_ctype,
->  			string_ctype, ptr_ctype, lazy_ptr_ctype,
->  			incomplete_ctype, label_ctype, bad_ctype,
-> 
+and I think it look pretty good (at least for the 12-15
+arch/bitness combo that I'm tracking).
+
+Best regards,
+-- Luc
