@@ -2,142 +2,145 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 31D0710C061
-	for <lists+linux-sparse@lfdr.de>; Wed, 27 Nov 2019 23:52:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 046CF10C0A5
+	for <lists+linux-sparse@lfdr.de>; Thu, 28 Nov 2019 00:36:06 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727007AbfK0WwG (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Wed, 27 Nov 2019 17:52:06 -0500
-Received: from avasout03.plus.net ([84.93.230.244]:36489 "EHLO
-        avasout03.plus.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726984AbfK0WwG (ORCPT
+        id S1727165AbfK0XgF (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Wed, 27 Nov 2019 18:36:05 -0500
+Received: from mail-wr1-f68.google.com ([209.85.221.68]:44239 "EHLO
+        mail-wr1-f68.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1727141AbfK0XgE (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Wed, 27 Nov 2019 17:52:06 -0500
-Received: from [10.0.2.15] ([87.115.253.23])
-        by smtp with ESMTPA
-        id a6AFiKmGYKleZa6AGimIGv; Wed, 27 Nov 2019 22:52:04 +0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=plus.com; s=042019;
-        t=1574895124; bh=cG6JnMPePNu2nDTAbbRp8hcKxaohDPF5Dczvfoci1EQ=;
-        h=Subject:To:Cc:References:From:Date:In-Reply-To;
-        b=V5f7668qHQBpqj3ohHNEg/Iv9imJfON3EJ3IAzG2P+8R/RkNSUxSuhZLlYUHE2Oh2
-         3x3h7z0NYvBa9JRHLGriwJjUJpDWanObT1vEO2hQV95s7Jq7WesH8PlHQTDBlu1oSo
-         24Z0dfRAGlL9clbczgF4Xd5nCegTi3rIVLeWKIytWrw5R3KxK/cm8/qw9YZhgcX0JI
-         Neb/yGsCkM6b5WlfwILoq4ezq1NKoXKy/G72ljALgZDltyNOmw4CxPM6TfWzhqoo8h
-         tArG/F7RiZXn6x2bcJBhFpGoeR88WIInHNsFStFCnVMjWFnZPgYQZn48cux2M6KLC7
-         MqAy5VUG+uDXQ==
-X-Clacks-Overhead: "GNU Terry Pratchett"
-X-CM-Score: 0.00
-X-CNFS-Analysis: v=2.3 cv=GfxpYjfL c=1 sm=1 tr=0
- a=LuhjJmsKGzDBBq+cJWlr3w==:117 a=LuhjJmsKGzDBBq+cJWlr3w==:17
- a=jpOVt7BSZ2e4Z31A5e1TngXxSK0=:19 a=IkcTkHD0fZMA:10 a=S0M5J17CAAAA:20
- a=rwWLWjjMVuqeBOVP4_gA:9 a=QEXdDO2ut3YA:10 a=rblfI0TChoxLVqhZACYb:22
- a=Z5ABNNGmrOfJ6cZ5bIyy:22 a=bWyr8ysk75zN3GCy5bjg:22
-X-AUTH: ramsayjones@:2500
-Subject: Re: [PATCH 0/4] More arch specific fixes
-To:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
+        Wed, 27 Nov 2019 18:36:04 -0500
+Received: by mail-wr1-f68.google.com with SMTP id i12so28778965wrn.11
+        for <linux-sparse@vger.kernel.org>; Wed, 27 Nov 2019 15:36:03 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=date:from:to:cc:subject:message-id:references:mime-version
+         :content-disposition:in-reply-to;
+        bh=Zv5OYTj1Ypxzke2epkyz1UEdhSP4Nhs5g1O6Z/yX8/w=;
+        b=n/jcdaw/MrOxErGVRJ1/LYjQ87lF1qPHoS36Za+Trr6w76ZwAqE9dM4asPaXAgIVP4
+         pdNmkeDOoJoZCMRz37XdEF2BbpRsiPTviyLwS7eVI5j77ZK7VLTcTaeYwquPWbSq5G1W
+         X8abfVi08E19z+XrR1BblhDfa5d1mcGq4kZpdfUoS6o3Q64ktQdd+KTTX+j0xUTDgVdw
+         2l8j30Vob2WnNq+gNkDaXiutvmUHNmIJte75m99U4wu4s/CVKyLgwMkuhKhT8duiCqiY
+         j6HyqWmcWVeMmSWeZU1ASjk3IZsLBCwJHgtrwfNH6in9MP2/8/MzbcpMA5cxRYBEdMte
+         P83w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+         :mime-version:content-disposition:in-reply-to;
+        bh=Zv5OYTj1Ypxzke2epkyz1UEdhSP4Nhs5g1O6Z/yX8/w=;
+        b=cPVtOa2AugOf8NO09Gu4YU6zdRC+NEKYSkVVNC3sIYKnEjLxyDtJKLVsB+iQ6kPWFS
+         wHyH29ZXgfMTDvYlHRTZMmN5RchVCbeFJa9hmlIwmMXQ9BXFLSRpTQvDB3IlcDIgKzgy
+         pbXK3uRhOJ3SUuWAC88dbxrKjfO/Gmh9dHV/f0Jg/cOQ5IeRwY/6j8IP5xZEAc4uFHUl
+         TgZ3gQtFwB+uBNpfJidKmGURiuMshKdugGc0qL6vty/v2SDUA4TfdvADCex2bOk28ji0
+         idaFP8hyOQunqUM+fbDh82fCo9Sv2IV/W4eDFqhkD7JEaLTrhNcCH6w0YLzCIcn9JUx7
+         CepQ==
+X-Gm-Message-State: APjAAAXwxD7lVAT8qVHQPTa/3IiZAr3xMP5dSrxlgwj6LpiEOitg/wz1
+        yVom6IKJMdyYOUAwhVVM2pPOy53A
+X-Google-Smtp-Source: APXvYqzHBiAvGWnKF2qyglXZ8z0GtKKRFtZzFDVDVIc2rtWLqSZc4moAu86GLM0Qvy6ECmHsa9Y/dA==
+X-Received: by 2002:a5d:526f:: with SMTP id l15mr44115249wrc.169.1574897762658;
+        Wed, 27 Nov 2019 15:36:02 -0800 (PST)
+Received: from ltop.local ([2a02:a03f:404e:f500:2dc4:827a:b71a:1d2b])
+        by smtp.gmail.com with ESMTPSA id l4sm8143755wml.33.2019.11.27.15.36.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 27 Nov 2019 15:36:02 -0800 (PST)
+Date:   Thu, 28 Nov 2019 00:36:01 +0100
+From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
+To:     Ramsay Jones <ramsay@ramsayjones.plus.com>
 Cc:     linux-sparse@vger.kernel.org
+Subject: Re: [PATCH 0/4] More arch specific fixes
+Message-ID: <20191127233601.oplm2rnu2vewa2f5@ltop.local>
 References: <20191127022351.68902-1-luc.vanoostenryck@gmail.com>
  <2c56999a-3ee8-999a-be41-962ec8c8d70e@ramsayjones.plus.com>
  <20191127174845.uol5jdfdqpso6o3h@ltop.local>
  <37371468-5ffd-7021-ea50-35d23eef943c@ramsayjones.plus.com>
  <20191127210248.hcp3rvchzwxjpcx6@ltop.local>
-From:   Ramsay Jones <ramsay@ramsayjones.plus.com>
-Message-ID: <547bd7d9-2844-1276-fce5-c406e9bcd529@ramsayjones.plus.com>
-Date:   Wed, 27 Nov 2019 22:52:02 +0000
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.2.1
+ <547bd7d9-2844-1276-fce5-c406e9bcd529@ramsayjones.plus.com>
 MIME-Version: 1.0
-In-Reply-To: <20191127210248.hcp3rvchzwxjpcx6@ltop.local>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
-X-CMAE-Envelope: MS4wfF1IFBIaOwPjze25nPKow8BHBjyaVd/3ovM2sypKj9nayB1oWVqrZ8m6XC2XQpi3GdZcYULYtnedemA+nEdlo7QFvG2SxOc/fFdDwI1nwW0rO5d7qE51
- 1UMGn4GHFc3bB2MQM1HXxaQJcVXxhGWEANER7yiA8b0iVFkaqLBo/2YftAjywxamQZ0WMrkOFxOy2w==
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <547bd7d9-2844-1276-fce5-c406e9bcd529@ramsayjones.plus.com>
 Sender: linux-sparse-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-
-
-On 27/11/2019 21:02, Luc Van Oostenryck wrote:
-> On Wed, Nov 27, 2019 at 06:05:37PM +0000, Ramsay Jones wrote:
->> On 27/11/2019 17:48, Luc Van Oostenryck wrote:
->>> On Wed, Nov 27, 2019 at 05:15:20PM +0000, Ramsay Jones wrote:
->>>>
->>>> I was going to just test 'luc/int128_ctype', but looking at the output
->>>> of 'git log --oneline --graph master..luc/int128_ctype' I can see that
->>>> several other branches are merged into the result. So, I will apply
->>>> the patches from the mailing list directly to test them (hmm, _hopefully_
->>>> tonight).
->>>
->>> Hi Ramsay,
->>>
->>> Sorry, I should have added in the cover letter that the series
->>> with all related patches is available at:
->>> 	git://github.com/lucvoo/sparse-dev.git next
->>
->> Hmm, but that _also_ contains several other branches not contained
->> in 'master', thus:
->>
->> $ git --no-pager log --oneline --graph master..luc/next
->> * 4a8aa8d1 (luc/tip, luc/next) cgcc: add support for riscv64
->> * df14d253 arch: fix wchar_t & wint_t for openbsd
->> * 662ed740 arch: add missing predefines for PPC
->> * 1ff97d3a arch: add missing predfines: __amd64 & __amd64__
->> * d8754f2c cgcc: filter-out -msize-long & -msize-llp64
->> * 7efa090f (luc/int128_ctype) spec: replace lllong_ctype by int128_ctype
+On Wed, Nov 27, 2019 at 10:52:02PM +0000, Ramsay Jones wrote:
 > 
-> Yes, indeed. It's how these patches have been written and tested, though.
-> They're supposed to be the cherries on top of the cake.
-> But I think that only 'df14d253 arch: fix wchar_t & wint_t for openbsd'
-> may have some dependencies on one of these branches. For the 3 others
-> it shouldn't matter.
+> I decided to just test the 'luc/next' branch (commit 4a8aa8d1 cgcc: add
+> support for riscv64). :-P
 
-I decided to just test the 'luc/next' branch (commit 4a8aa8d1 cgcc: add
-support for riscv64). :-P
+Hehe, quite wise :)
+ 
+> I have only tested on 64-bit Linux and Cygwin (the sparse testsuite and
+> running it over git), so far with no issues.
+> 
+> I have also compared the output of:
+>   $ ./cgcc -dM -E - </dev/null | sort >sss
+>   $ gcc -dM -E - </dev/null | sort >ggg
+>   $ meld ggg sss
+> on both Linux and cygwin (with similar results).
+> 
+> I have ignored the 'float stuff', since the output of gcc and sparse
+> is almost totally different! :(
 
-I have only tested on 64-bit Linux and Cygwin (the sparse testsuite and
-running it over git), so far with no issues.
+Yes, the 'TYPE' and 'SIZEOF' predefines should be correct but
+I ignore the remaining (which is generated by cgcc, not sparse
+itself).
+ 
+> The main difference, which is new, is the spelling of the 'type names'.
+> e.g. __CHAR16_TYPE__ is given as 'short unsigned int' by gcc but
+> 'unsigned short' by sparse. The following table shows the 'type name'
+> differences:
+>
+> CHAR16_TYPE  short unsigned int => unsigned short
+> INT16_TYPE   short int          => short
+> INT64_TYPE   long int           => long
+> INTMAX_TYPE  long int           => long
+> INTPTR_TYPE  long int           => long
+> PTRDIFF_TYPE long int           => long
+> SIZE_TYPE    long unsigned int  => unsigned long
+> UINT16_TYPE short unsigned int  => unsigned short
+> UINT64_TYPE  long unsigned int  => unsigned long
+> UINTMAX_TYPE long unsigned int  => unsigned long
+> UINTPTR_TYPE long unsigned int  => unsigned long
 
-I have also compared the output of:
-  $ ./cgcc -dM -E - </dev/null | sort >sss
-  $ gcc -dM -E - </dev/null | sort >ggg
-  $ meld ggg sss
-on both Linux and cygwin (with similar results).
+I was a bit surprised by the 'new' aspect as sparse itself
+outputs these names since last December (IIRC) but yes
+these were overwritten by cgcc until the patch that removed
+cgcc's integer_types():
+	fba1931d2 ("cgcc: removed unneeded predefines for integers")
+But, yes, they're different, sparse just uses show_typename()
+for it. I've already wondered why GCC issues them like this
+Well, I see that GCC's way inhibit something like:
+	INTMAX_TYPE double var;
+so, maybe sparse should do the same for the predefines.
 
-I have ignored the 'float stuff', since the output of gcc and sparse
-is almost totally different! :(
+> sparse seems to '#define linux linux' rather than '#define linux 1'.
 
-The main difference, which is new, is the spelling of the 'type names'.
-e.g. __CHAR16_TYPE__ is given as 'short unsigned int' by gcc but
-'unsigned short' by sparse. The following table shows the 'type name'
-differences:
+Funny, I wonder why. I never noticed.
+I think that it should not be defined at all (and used also).
 
-CHAR16_TYPE  short unsigned int => unsigned short
-INT16_TYPE   short int          => short
-INT64_TYPE   long int           => long
-INTMAX_TYPE  long int           => long
-INTPTR_TYPE  long int           => long
-PTRDIFF_TYPE long int           => long
-SIZE_TYPE    long unsigned int  => unsigned long
-UINT16_TYPE short unsigned int  => unsigned short
-UINT64_TYPE  long unsigned int  => unsigned long
-UINTMAX_TYPE long unsigned int  => unsigned long
-UINTPTR_TYPE long unsigned int  => unsigned long
+> sparse defines __LITTLE_ENDIAN__ but gcc does not.
 
-sparse seems to '#define linux linux' rather than '#define linux 1'.
-sparse defines __LITTLE_ENDIAN__ but gcc does not.
+Yes, indeed. Well, GCC defines it for some archs/OSes:
+* on the *BSD
+* on ppc64le
+* probably on all platforms using big-endian by default
+  when -mlittle-endian is used.
 
-On cygwin, the results are similar to the above, with the addition
-of the following:
+> On cygwin, the results are similar to the above, with the addition
+> of the following:
+> 
+> WCHAR_TYPE short unsigned int => unsigned short
+> Also, sparse defines __CYGWIN32__ when it shouldn't (this is on
+> x86_64 cygwin, without -m32 etc).
 
-WCHAR_TYPE short unsigned int => unsigned short
-Also, sparse defines __CYGWIN32__ when it shouldn't (this is on
-x86_64 cygwin, without -m32 etc).
-
-That's all so far. ;-)
-
-ATB,
-Ramsay Jones
+Yes, I noticed a few days ago.
+I tried to fix it but this part of cgcc is bitness agnostic.
+Doing a #undef in sparse itself would be easier.
 
 
+Thank you very much!
+-- Luc
