@@ -2,57 +2,59 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 058DA10A88D
+	by mail.lfdr.de (Postfix) with ESMTP id 7000810A88E
 	for <lists+linux-sparse@lfdr.de>; Wed, 27 Nov 2019 03:06:53 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726304AbfK0CGw (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Tue, 26 Nov 2019 21:06:52 -0500
-Received: from mail-wm1-f67.google.com ([209.85.128.67]:37985 "EHLO
-        mail-wm1-f67.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1725916AbfK0CGw (ORCPT
+        id S1726488AbfK0CGx (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Tue, 26 Nov 2019 21:06:53 -0500
+Received: from mail-wm1-f68.google.com ([209.85.128.68]:39309 "EHLO
+        mail-wm1-f68.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1726118AbfK0CGw (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
         Tue, 26 Nov 2019 21:06:52 -0500
-Received: by mail-wm1-f67.google.com with SMTP id z19so5614307wmk.3
-        for <linux-sparse@vger.kernel.org>; Tue, 26 Nov 2019 18:06:50 -0800 (PST)
+Received: by mail-wm1-f68.google.com with SMTP id t26so5599257wmi.4
+        for <linux-sparse@vger.kernel.org>; Tue, 26 Nov 2019 18:06:51 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=/YcXigu/hWYZvX8Q8LgbNLtE81U/TAct75ah6OSChFA=;
-        b=lSqX6dID+RVLPns4QN9xJ16S5vIZqTLp4BkA1N4FzwK31iuFiQ0lEs5jjaDfp5xsmX
-         TrV644X8QBaJfrBoVzARYr/pAHRZYhxUajZIF1dT8tXI6Yu7wd148fGGGTR34gDM0h0h
-         oq2JORS94XGJpa9fCq3EGUMnpFR3BZK6bP62EkQAr4gqOys3VQzW+9QNU0ISPEvFVxOZ
-         547ebw4lPoJSbpBJZSe4y0zC6Fzs5OhVc7zCnoW1KSYIgCuLPXZGYcmxefJvHgeYT6Sj
-         Xpo9v0NQ3FO8VeFIfB5AG3nYP5jDyFfhvq08VOBupFfs2fDt9Lp7611eTIA1PeFq+iJT
-         77Ww==
+        h=from:to:cc:subject:date:message-id:in-reply-to:references
+         :mime-version:content-transfer-encoding;
+        bh=Xuu9XKhLbPM+oQ0XQ9V4Jsei7mntlWfDn8S5g5MPrQM=;
+        b=Ro23DoXBnnF9WDLJCAlPQTYvgcPNWEI3mxoNPBdq+3YCQSBk9mEAquCRav4/D6LLZ9
+         O4Nd7Tkv+xdrzN/epok8gQDC17LLkNg/0zIQmWxDQvVuhc07ut9Vda3lpfxZ55nI5X40
+         n5TBo661DJ8ykXUMp3TOvsipHxzQnUB/eKAG0UOYqKVa1dQsSI/kt1wcN4k8VIOiay70
+         LrMfBgIRw4eK33fXYmf1+ldQCJyG1Kp+gq59k4iFlpBpB0eOSlVPhK4cmdbynVE9IwXM
+         ViUNyYfUFLC9psKKow8EzrqOq8lXc6yGAezLlYuZuPJZS9ur+RJtOJDQ6rb8LvcV8x5Y
+         c15g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=/YcXigu/hWYZvX8Q8LgbNLtE81U/TAct75ah6OSChFA=;
-        b=aQFc9zMtu9Q/b/2MAWyXvAUzUgxAM5qcPpCyeP7b0tNz6l+kE+8TGZIFJZxBlzSMI+
-         W9lztFkgoNtTtA8SgoVykzl66lKehoBaK7HlN6aCv97d82HIC2g15TxbbEeqLcLv+i2E
-         mC2e18N8nw/1TLV2/iRmcwkvr+NdG+d+CBCOvUSY5G0ip1vt0eWa9IA1aAKSh9Y+VKBT
-         VUEB9BzSnn/zaXLmEyeWlkiAVl7QqjuyqxLX53KO+uAgK2yssWZRdqriOOHgIMtfJuF7
-         LjIqIHGcwTEtcmuPDJo3H1uKcmZqHfb0itSDajciJ1q7DE0jJyU1xfAGhfyhN513e5C8
-         8mUQ==
-X-Gm-Message-State: APjAAAU9kOzoShInOlmuRN2HwewohoVX5Bk6y20n4JbCLHaOawEJbjod
-        2/SJ7QRGlKL9kqFJrb5AblIUMYJR
-X-Google-Smtp-Source: APXvYqxPaF6yTQHmtRJmiuKHlvRF4+cpPsyBLMvozmlPY04X1k7Ly3dCM18BKON5/OjKKodmWTBUiA==
-X-Received: by 2002:a1c:ca:: with SMTP id 193mr1682462wma.111.1574820409523;
-        Tue, 26 Nov 2019 18:06:49 -0800 (PST)
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+         :references:mime-version:content-transfer-encoding;
+        bh=Xuu9XKhLbPM+oQ0XQ9V4Jsei7mntlWfDn8S5g5MPrQM=;
+        b=lOrkmEJBBA7wdazFmkzihxQtOuhheP+QnTxaz0a7rHlJZBweXIA/CY2/z+wDroaZjY
+         qKUBNiYtiNGRRT9M9Lz7amlafQlUquGD2zEixKzujgCu3sYwDW0SYfj5KAbVFY5UInQ9
+         tPO/vIx9m4YFjzH9esg9mvutoGEIQPCOpVkiB29UsiRkoP0LaTs6gTHKIJBaqKZdxu+c
+         fqmt3OnJJT7oeLFnrmgYGpj3f8OoVmyfdGG2XG6TJSI1vgd1RV7z50qrcSu1g2C/ZOPW
+         qSqCkVUEaFPh5ibuJwGKls73nwJpquwy+MsMd7DxkmsktIXUzcNCNSMF8aFU4WoHWHbB
+         3bOg==
+X-Gm-Message-State: APjAAAU/IMw2z8M5ZC2qQUjP7Ct1OXJ4MDR2MkdF8GzUtZjQ7e2Prg2f
+        u/BWKfVTJ2GU53V3fnLR82GsiMHV
+X-Google-Smtp-Source: APXvYqzI9h0PsSFTilo6veXMhcdMyn7AgjXgBINus3CnPGCUvzaQL05ooUIp0tOm7WnrXoJHpwg7tg==
+X-Received: by 2002:a05:600c:2389:: with SMTP id m9mr1748614wma.65.1574820410428;
+        Tue, 26 Nov 2019 18:06:50 -0800 (PST)
 Received: from localhost.localdomain ([2a02:a03f:404e:f500:ac14:4c10:6104:457f])
-        by smtp.gmail.com with ESMTPSA id o133sm5326573wmb.4.2019.11.26.18.06.48
+        by smtp.gmail.com with ESMTPSA id o133sm5326573wmb.4.2019.11.26.18.06.49
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 26 Nov 2019 18:06:48 -0800 (PST)
+        Tue, 26 Nov 2019 18:06:49 -0800 (PST)
 From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 To:     linux-sparse@vger.kernel.org
 Cc:     Ramsay Jones <ramsay@ramsayjones.plus.com>,
         Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-Subject: [PATCH v2 00/12] Miscellaneous arch specific fixes
-Date:   Wed, 27 Nov 2019 03:06:31 +0100
-Message-Id: <20191127020643.68629-1-luc.vanoostenryck@gmail.com>
+Subject: [PATCH v2 01/12] arch: fix the signedness of plain chars
+Date:   Wed, 27 Nov 2019 03:06:32 +0100
+Message-Id: <20191127020643.68629-2-luc.vanoostenryck@gmail.com>
 X-Mailer: git-send-email 2.24.0
+In-Reply-To: <20191127020643.68629-1-luc.vanoostenryck@gmail.com>
+References: <20191127020643.68629-1-luc.vanoostenryck@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Sender: linux-sparse-owner@vger.kernel.org
@@ -60,51 +62,128 @@ Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-These patches contains some fixes for the type specific types:
-* signedness of plain char when defaulting to unsigned
-* long double
-* predefine for INT128
-* int32_t & char32_t
-as well as simplifying and moving around some code about
-these arch specifities.
+Some architectures, like ARM or PPC, use 'unsigned' for
+plain chars while others, like the Intel's, use signed ones.
 
+Sparse understands -funsigned-char but by default uses the
+native signedness.
 
-Changes since v1:
-* int32_t & char32_t: use Linux convention by default
-* predefine __SIZEOF_INT128__ only where supported
-* avoid #ifdef for OS-specifics
-* fix which platforms support 128-bit long double
+Fix this by setting the proper signedness of plain chars
+for the archs that Sparse know about.
 
+Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 ---
-
-Luc Van Oostenryck (12):
-  arch: fix the signedness of plain chars
-  arch: simplify i386/x86-64 specifics
-  arch: keep BSD & Darwin specifics with i386/x86-64 specifics
-  arch: do not needlessly set bitness on 32-bit archs
-  arch: remove impossible cases with 64-bit arch not being lp64
-  arch: char32_t should be the same as uint32_t, not uint
-  arch: (almost) all platforms simply use int for int32
-  arch: add predefines for INT128 only on supported archs
-  arch: use a variable for the OS
-  arch: fix wchar_t & wint_t on SunOS/Solaris
-  arch: sparc32 on SunOS/Solaris uses 128-bit long doubles
-  arch: add note for 128-bit long double on mips64
-
- lib.c                             | 41 +++++++++--------
- lib.h                             |  1 +
- machine.h                         | 26 +++++++++--
- target.c                          | 76 ++++++++++++++++++-------------
- validation/char-signed-native.c   |  9 ++++
- validation/char-unsigned-native.c | 11 +++++
+ lib.c                             |  2 +-
+ machine.h                         |  6 ------
+ target.c                          | 18 ++++++++++++++++++
+ validation/char-signed-native.c   |  9 +++++++++
+ validation/char-unsigned-native.c | 11 +++++++++++
  validation/char-unsigned.c        |  2 +-
- validation/preprocessor/predef.c  |  2 +
- 8 files changed, 114 insertions(+), 54 deletions(-)
+ 6 files changed, 40 insertions(+), 8 deletions(-)
  create mode 100644 validation/char-signed-native.c
  create mode 100644 validation/char-unsigned-native.c
 
-
-base-commit: fd3528aa0409874386610ce63bb647fff8312fd9
+diff --git a/lib.c b/lib.c
+index 332eebebb..350d881a9 100644
+--- a/lib.c
++++ b/lib.c
+@@ -313,7 +313,7 @@ unsigned long long fmemcpy_max_count = 100000;
+ unsigned long fpasses = ~0UL;
+ int fpic = 0;
+ int fpie = 0;
+-int funsigned_char = UNSIGNED_CHAR;
++int funsigned_char = -1;
+ 
+ int preprocess_only;
+ 
+diff --git a/machine.h b/machine.h
+index e24822a7f..22b05d91a 100644
+--- a/machine.h
++++ b/machine.h
+@@ -70,10 +70,4 @@ enum machine {
+ #define MACH_NATIVE	MACH_UNKNOWN
+ #endif
+ 
+-#if defined(__CHAR_UNSIGNED__)
+-#define	UNSIGNED_CHAR	1
+-#else
+-#define UNSIGNED_CHAR	0
+-#endif
+-
+ #endif
+diff --git a/target.c b/target.c
+index 90097818f..497ecdc5e 100644
+--- a/target.c
++++ b/target.c
+@@ -137,6 +137,24 @@ void init_target(void)
+ 		break;
+ 	}
+ 
++	switch (arch_mach) {
++	case MACH_ARM:
++	case MACH_ARM64:
++	case MACH_PPC32:
++	case MACH_PPC64:
++	case MACH_RISCV32:
++	case MACH_RISCV64:
++	case MACH_S390:
++	case MACH_S390X:
++		if (funsigned_char == -1)
++			funsigned_char = 1;
++		break;
++	default:
++		if (funsigned_char == -1)
++			funsigned_char = 0;
++		break;
++	}
++
+ 	switch (arch_m64) {
+ 	case ARCH_X32:
+ 		max_int_alignment = 8;
+diff --git a/validation/char-signed-native.c b/validation/char-signed-native.c
+new file mode 100644
+index 000000000..5185fce9e
+--- /dev/null
++++ b/validation/char-signed-native.c
+@@ -0,0 +1,9 @@
++void foo(void)
++{
++	_Static_assert((char) -1 == -1, "plain char is not signed");
++}
++
++/*
++ * check-name: char-signed-native
++ * check-command: sparse --arch=i386 -Wno-decl $file
++ */
+diff --git a/validation/char-unsigned-native.c b/validation/char-unsigned-native.c
+new file mode 100644
+index 000000000..b86458427
+--- /dev/null
++++ b/validation/char-unsigned-native.c
+@@ -0,0 +1,11 @@
++#define	MASK ((1 << __CHAR_BIT__) - 1)
++
++void foo(void)
++{
++	_Static_assert((char) -1 == (-1 & MASK), "plain char is not unsigned");
++}
++
++/*
++ * check-name: char-unsigned-native
++ * check-command: sparse --arch=arm -Wno-decl $file
++ */
+diff --git a/validation/char-unsigned.c b/validation/char-unsigned.c
+index 19cadbda3..354aa40d6 100644
+--- a/validation/char-unsigned.c
++++ b/validation/char-unsigned.c
+@@ -6,6 +6,6 @@ void foo(void)
+ }
+ 
+ /*
+- * check-name: fsigned-char
++ * check-name: funsigned-char
+  * check-command: sparse -funsigned-char -Wno-decl $file
+  */
 -- 
 2.24.0
 
