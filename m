@@ -2,56 +2,56 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 4CCE010A892
-	for <lists+linux-sparse@lfdr.de>; Wed, 27 Nov 2019 03:06:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id EAC0510A893
+	for <lists+linux-sparse@lfdr.de>; Wed, 27 Nov 2019 03:06:57 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726618AbfK0CG4 (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Tue, 26 Nov 2019 21:06:56 -0500
-Received: from mail-wm1-f66.google.com ([209.85.128.66]:39312 "EHLO
-        mail-wm1-f66.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1725916AbfK0CGz (ORCPT
+        id S1726634AbfK0CG5 (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Tue, 26 Nov 2019 21:06:57 -0500
+Received: from mail-wr1-f68.google.com ([209.85.221.68]:34091 "EHLO
+        mail-wr1-f68.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1726529AbfK0CG5 (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Tue, 26 Nov 2019 21:06:55 -0500
-Received: by mail-wm1-f66.google.com with SMTP id t26so5599348wmi.4
-        for <linux-sparse@vger.kernel.org>; Tue, 26 Nov 2019 18:06:54 -0800 (PST)
+        Tue, 26 Nov 2019 21:06:57 -0500
+Received: by mail-wr1-f68.google.com with SMTP id t2so24802808wrr.1
+        for <linux-sparse@vger.kernel.org>; Tue, 26 Nov 2019 18:06:55 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=GaLz94TSXFs920zrC/G9AmzAcwYsfqfaSasZyapJQ+8=;
-        b=Sg4qaUYnvK5lmeEL1A/LEIK4QN3bd4pbQ1UnsgHdJG9vPY/pPFbixI8PMQSahGjfuy
-         0i5dSNeXzVzbBDKpHa/HJ4u3tKI4JlyP9Dns2okhB34xcg8ihC3W36vycZM3/ZtmJ3Yd
-         DAoSVS2HXJ293g2Bw8PGbg3yI8hLcOamqQszP9ulrDEPOmyk6+xmbieSzC5BhXt/FbMq
-         iUleQrXh+qvlwbgnjxLo6wEnNGnvXaGgeelIWiAxxDTCpyfEpdv81AC1KZ4VjxUy4Jbb
-         M6ndnDrlmBvwzpQKb5aBsHoaXtaycNYVFY9gEVu9nIUqgeE8Olzs5hzE8IbjqIw/ymWS
-         eRtw==
+        bh=e0tjfkLzNzsPVTIGar3vbQw7rHX5SC9svfyDY0VDAcY=;
+        b=Ey1p7sBRFTerBBv1jai5zhLyoX1L0/ozPaUccBoskjtgQYoFm7x4faOfLLur59tYsN
+         HmDlUXBZZKefnTwgZ9Sgt5VM3zXjyXwgY6if1WoT9iSQJ5V6qpsvhDFDnRjn2m4qxNT6
+         bMQxzSJfEI1NRGkug81tsgKMa7MRDPjthuUnbgRCgslMcUH7LzyeuMarZjCwk4Dr17R2
+         +MDgWl19h89dIOlkxS/LhYY8f2bosjLXnGCYRpbwpNxAgdNprsnjWQNbXUjEEqFgiqiZ
+         Gw1h9rG6YIX7OCl/LEX7J1fY7/fS2l+MeFTYL73Qju+KG9/VunBCdf+YRlwQlFLYEcH0
+         Nf2A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=GaLz94TSXFs920zrC/G9AmzAcwYsfqfaSasZyapJQ+8=;
-        b=XMyZA6NOZmw3INjuKN7bSjRxM81+0Y51CWWcYQ9/poXdGnS5thlaRtnOB9x5LV9gh3
-         GWjXT7r1InJcAqHkHVLt5CLR3F8mKerDoNFr5khojQ5YPOZP8pEoiHnKx0gdMWDyCYgk
-         t4jfc627SttB8ew95/6PGQyIZH2Ff29gg8rt4mq1rdW9aacMukLnv2itVooT1WRfLaL2
-         a3u0NRyKxjAhA0GOkSemuk1s720vEu0kfEnGRbCMIiWAvDq5Gnp9qAaSpCeKUH4HYgLR
-         HLjKkLLRAI395YEBOjEkVDDLXX5qBJEARQixo9tE4Qjw5zHLnFnqV5GJ1xhdZ/9P2Dsq
-         ehFA==
-X-Gm-Message-State: APjAAAXurkdtHa9QuJXxaeZPAg51D2j9LXrd9dO5H+wSWhabVL8Ocbq0
-        9He+i3dKTgxTxfSwFSQupclQu8Du
-X-Google-Smtp-Source: APXvYqwHjwyYJiY+WXNReYOuFmRqrKRLCJ7ZkTV9thk0FMrMS4rbjrguXZrTQMXCNB1gXtvfK+kCXQ==
-X-Received: by 2002:a1c:2e8f:: with SMTP id u137mr1733062wmu.105.1574820413881;
-        Tue, 26 Nov 2019 18:06:53 -0800 (PST)
+        bh=e0tjfkLzNzsPVTIGar3vbQw7rHX5SC9svfyDY0VDAcY=;
+        b=bDmY+aof/gXW0z50pYEWvMYrV4HrDejRMT6neQS8rxBEDZ6GNkudM5XApUFpiGkbP9
+         G0x8YgRescKS+CZJDMYicvZowGSEDab0LE+CKUnxNVxPRD4Z1bF9rQzb2npPvSebD+JN
+         viuZowR4fXZu7NkK0j2CaCpKG+Gho/qNx2XGu/4859W71tlct9WS4sQveZJr7Y6Q8DFF
+         6B7Hg776yMrc/AvHGIsfKChRChCN7SnFOt/7fKg5SKmie1THGGOyACDkOvPR1ukNbt7F
+         ToEaiOZCZW0WuGe1Sm7iMwrjOHeNQNiAiNBy+HdvYtReOu07xxE7Mye+5hmiglXTbIbg
+         ewxw==
+X-Gm-Message-State: APjAAAXRWawkAHEYcX6ZkD7ArbU5HbpXvqfns8dPSMuc7fKFmmSOhKRw
+        QADRU+pks9ywcnJQz4H/8lmg+kvx
+X-Google-Smtp-Source: APXvYqxNsEBU8v4i7iYbF6WJZ2oIkyi9SqcptG2JCgYI8HVaqUVbsu1he0+SQ2fCHmRoY3vEC/51Ew==
+X-Received: by 2002:adf:f344:: with SMTP id e4mr8610024wrp.365.1574820414644;
+        Tue, 26 Nov 2019 18:06:54 -0800 (PST)
 Received: from localhost.localdomain ([2a02:a03f:404e:f500:ac14:4c10:6104:457f])
         by smtp.gmail.com with ESMTPSA id o133sm5326573wmb.4.2019.11.26.18.06.53
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 26 Nov 2019 18:06:53 -0800 (PST)
+        Tue, 26 Nov 2019 18:06:54 -0800 (PST)
 From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 To:     linux-sparse@vger.kernel.org
 Cc:     Ramsay Jones <ramsay@ramsayjones.plus.com>,
         Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-Subject: [PATCH v2 05/12] arch: remove impossible cases with 64-bit arch not being lp64
-Date:   Wed, 27 Nov 2019 03:06:36 +0100
-Message-Id: <20191127020643.68629-6-luc.vanoostenryck@gmail.com>
+Subject: [PATCH v2 06/12] arch: char32_t should be the same as uint32_t, not uint
+Date:   Wed, 27 Nov 2019 03:06:37 +0100
+Message-Id: <20191127020643.68629-7-luc.vanoostenryck@gmail.com>
 X-Mailer: git-send-email 2.24.0
 In-Reply-To: <20191127020643.68629-1-luc.vanoostenryck@gmail.com>
 References: <20191127020643.68629-1-luc.vanoostenryck@gmail.com>
@@ -62,83 +62,30 @@ Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-The code at the start of init_target() already take care
-of making the arch variants match their bitness. It's thus
-not possible, when setting the type of [u]int32, to have
-mips64, ppc64, riscv64 or sparc64 with arch_m64 different
-than ARCH_LP64.
-
-So, remove the unneeded checks.
+When the predefine for char32_t was added, it was made to
+correspond 'unsigned int' with the commit message saying
+some archs use 'unsigned long'. In fact, it appears that
+there char32_t is always uint32_t (on the archs & OSes
+I'm using to look at this).
 
 Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 ---
- lib.c    | 23 +++++++++--------------
- target.c |  4 ----
- 2 files changed, 9 insertions(+), 18 deletions(-)
+ lib.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/lib.c b/lib.c
-index 350d881a9..57d2738bf 100644
+index 57d2738bf..f9e7caf4a 100644
 --- a/lib.c
 +++ b/lib.c
-@@ -1494,8 +1494,7 @@ static void predefined_macros(void)
- 		predefine("__m68k__", 1, "1");
- 		break;
- 	case MACH_MIPS64:
--		if (arch_m64 == ARCH_LP64)
--			predefine("__mips64", 1, "64");
-+		predefine("__mips64", 1, "64");
- 		/* fall-through */
- 	case MACH_MIPS32:
- 		predefine("__mips__", 1, "1");
-@@ -1505,11 +1504,9 @@ static void predefined_macros(void)
- 		predefine("_MIPS_SZPTR", 1, "%d", ptr_ctype.bit_size);
- 		break;
- 	case MACH_PPC64:
--		if (arch_m64 == ARCH_LP64) {
--			predefine("__powerpc64__", 1, "1");
--			predefine("__ppc64__", 1, "1");
--			predefine("__PPC64__", 1, "1");
--		}
-+		predefine("__powerpc64__", 1, "1");
-+		predefine("__ppc64__", 1, "1");
-+		predefine("__PPC64__", 1, "1");
- 		/* fall-through */
- 	case MACH_PPC32:
- 		predefine("__powerpc__", 1, "1");
-@@ -1531,13 +1528,11 @@ static void predefined_macros(void)
- 		predefine("__s390__", 1, "1");
- 		break;
- 	case MACH_SPARC64:
--		if (arch_m64 == ARCH_LP64) {
--			predefine("__sparc_v9__", 1, "1");
--			predefine("__sparcv9__", 1, "1");
--			predefine("__sparcv9", 1, "1");
--			predefine("__sparc64__", 1, "1");
--			predefine("__arch64__", 1, "1");
--		}
-+		predefine("__sparc_v9__", 1, "1");
-+		predefine("__sparcv9__", 1, "1");
-+		predefine("__sparcv9", 1, "1");
-+		predefine("__sparc64__", 1, "1");
-+		predefine("__arch64__", 1, "1");
- 		/* fall-through */
- 	case MACH_SPARC32:
- 		predefine("__sparc__", 1, "1");
-diff --git a/target.c b/target.c
-index bdda7ec7f..146c4125d 100644
---- a/target.c
-+++ b/target.c
-@@ -105,10 +105,6 @@ void init_target(void)
- 	}
+@@ -1418,7 +1418,7 @@ static void predefined_macros(void)
+ 	predefined_ctype("WCHAR",      wchar_ctype, PTYPE_ALL_T|PTYPE_MIN|PTYPE_TYPE);
+ 	predefined_ctype("WINT",        wint_ctype, PTYPE_ALL_T|PTYPE_MIN|PTYPE_TYPE);
+ 	predefined_ctype("CHAR16",   &ushort_ctype, PTYPE_TYPE);
+-	predefined_ctype("CHAR32",     &uint_ctype, PTYPE_TYPE);
++	predefined_ctype("CHAR32",    uint32_ctype, PTYPE_TYPE);
  
- 	switch (arch_mach) {
--	case MACH_MIPS64:
--		if (arch_m64 == ARCH_LP64)
--			break;
--		/* fall through */
- 	case MACH_M68K:
- 	case MACH_SPARC32:
- 	case MACH_PPC32:
+ 	predefined_ctype("INT",         &int_ctype, PTYPE_ALL);
+ 	predefined_ctype("LONG",       &long_ctype, PTYPE_ALL);
 -- 
 2.24.0
 
