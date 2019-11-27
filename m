@@ -2,55 +2,55 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 30E9510A8B4
-	for <lists+linux-sparse@lfdr.de>; Wed, 27 Nov 2019 03:23:59 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 3370810A8B5
+	for <lists+linux-sparse@lfdr.de>; Wed, 27 Nov 2019 03:24:00 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726488AbfK0CX6 (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Tue, 26 Nov 2019 21:23:58 -0500
-Received: from mail-wr1-f65.google.com ([209.85.221.65]:34671 "EHLO
-        mail-wr1-f65.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726121AbfK0CX6 (ORCPT
+        id S1726525AbfK0CYA (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Tue, 26 Nov 2019 21:24:00 -0500
+Received: from mail-wr1-f68.google.com ([209.85.221.68]:44761 "EHLO
+        mail-wr1-f68.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1725883AbfK0CX7 (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Tue, 26 Nov 2019 21:23:58 -0500
-Received: by mail-wr1-f65.google.com with SMTP id t2so24830603wrr.1
-        for <linux-sparse@vger.kernel.org>; Tue, 26 Nov 2019 18:23:57 -0800 (PST)
+        Tue, 26 Nov 2019 21:23:59 -0500
+Received: by mail-wr1-f68.google.com with SMTP id i12so24779796wrn.11
+        for <linux-sparse@vger.kernel.org>; Tue, 26 Nov 2019 18:23:58 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=Rlz/ET4SBcU//s70nDmydTFSNbw1O4ihr744z5h9Cvo=;
-        b=FOkA3qf3nHoK9v8GBUIpjZSYPEWJD3O3SCJDsim1Cp18Qv+r+jWa+Kw6eXsxGkzq7c
-         TKdNAePq7h1VT3zqpAGkicqrUh50gbSCjGb8G93Up6Yy4/fA/w/+hFmvwuyioW3uDp1o
-         /cAQu75zVfC23wP4c6BZe6Yw52h7QMNz5GJIKRrGWfb/2Thon0h/woPXsoH2SeQtkzSs
-         nXN0L2ZHH8sCtscKvU5DFojX3QrE8+GyoDT957GyO202gcKvuLXCjFkjAlxf2IUywDcw
-         zchtQ6l/Qe/zis+78W2reev6MR/XroydTgW3gZ9zmZ3ewRXTLHmq+A3WEs7pvITQhUdV
-         FinA==
+        bh=99VpaTtwa+yquk/rB9Q8EH69cw8a7ETUlC/v+CA3+5Y=;
+        b=fnqnOxHQ1vsonslOQ/53gqzI7NypKxK+zZVfZwC4/w4OAqUbTCoO5ZISLUQ44AJrPq
+         0RmAmu8f6XYAXZ2xSFI1B97zqYnkV3y3euQtizfmc5qyhDiLdBjckcpr6cR1n7WtadS7
+         K7HLQU9O9yaWm4gPT9cJZ9OXuZp80196Tl2550vCubhSh6vGcP7yzvzSWNfeU7vXdA1l
+         8S7TrFgQh9aTwwI1YOqMTTDCH4FbI3TCoygEbT2xO0pDDUGKn0pMtkA+bvckCvBrZ5/i
+         vZ8SqPMyp+lwi3NNM890gWp7CumiOJpbXIBtuUfnfPwQA8XYhNQTI+guazJA2dQhRdBO
+         dIyA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=Rlz/ET4SBcU//s70nDmydTFSNbw1O4ihr744z5h9Cvo=;
-        b=EwK4J5FIgJbs8HjukjQ4+pAmFjv8BdvL32Ar4Zq528chTC9VaDEYgzVWn7SjkSBwyn
-         rrgberzX3PCjWt/S4vBDgHDgqvD+SIn3FGjD1SbVIS/SePehk7V/gvpEfCruLEPLVMay
-         sHaCcCa0P3n621OFqKgAtTQPODE8fdjy8D4Wjx4JX5HyBCG7B11yxP6jeBGwtCzxE2bJ
-         MjOGvmGL1nMlaWzJseatiB2pWjkisdsvz6qevRav9y062FIkiiAStHZwGOjnnRxK0o3m
-         ZDPDZmOBI/PkjcKlRN8F2oEJsTZSZ4pwWI7vpOXAhCQMjL7kkZlalz6pkUc/yPdt9si/
-         Y4eg==
-X-Gm-Message-State: APjAAAUqSglD8criv8VEWWMGzW+lxVqEsKVo7jdapTomhOP0rOn60kE6
-        LD6/OoIe0O8ry95oVnDMej2UxHxv
-X-Google-Smtp-Source: APXvYqxE3MAQJJuLIj7ZtPovRZRG9lA/wEQF1B2abYePA2jz6Ug+ID01DS4wJUR8ceZy63CYBsIJhg==
-X-Received: by 2002:a5d:55c7:: with SMTP id i7mr41174294wrw.64.1574821436406;
-        Tue, 26 Nov 2019 18:23:56 -0800 (PST)
+        bh=99VpaTtwa+yquk/rB9Q8EH69cw8a7ETUlC/v+CA3+5Y=;
+        b=W3U+UlyYl5deShCyE/rrw+lBbXTWgYGAlxQEtDkUj6Tr/BKdwODwx6vmXnxCsERczL
+         LQuMHVtu4Bnx1FBAs2WgLfIKfTyREe+GMZ2wK/iSlEYWnLNhbjiHO7XkgPsvZQIWzJVf
+         U8MRjfs/W+3VGUm5u+dR4l5DtbpV4wC0ROBWkErKgeZFknH+C3fwkLX63/s+nUHX0XON
+         LMqmiW/Xv6JxvgDF4/UVSZ080R3kedF6cWxjTRRkIWsYil1EnGD8K6itX4/5Dtsx1Z1M
+         xYQAqEazFPqPblXPLXqLnxEwZYQOX/EzU21ZEdHdQr1V77ciBJYAN0ww2a2cvZ8v9jfT
+         /ARA==
+X-Gm-Message-State: APjAAAWbS9CkeAbvx58eZbqX4GDCuA3dzLFlxjR1JNR2I4MUS3OkUDzB
+        KOkiFjmIN9f/MtQOckyBLTojWamA
+X-Google-Smtp-Source: APXvYqyQOIunynSQ5uPCLdoKyQPNYbzbDjbhAzSn/YTVrzoOToQaDBLI0QkLjy5TVDR16hHHpBkENQ==
+X-Received: by 2002:a5d:6b51:: with SMTP id x17mr42085199wrw.148.1574821437376;
+        Tue, 26 Nov 2019 18:23:57 -0800 (PST)
 Received: from localhost.localdomain ([2a02:a03f:404e:f500:ac14:4c10:6104:457f])
-        by smtp.gmail.com with ESMTPSA id c1sm16690920wrs.24.2019.11.26.18.23.55
+        by smtp.gmail.com with ESMTPSA id c1sm16690920wrs.24.2019.11.26.18.23.56
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 26 Nov 2019 18:23:55 -0800 (PST)
+        Tue, 26 Nov 2019 18:23:56 -0800 (PST)
 From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 To:     linux-sparse@vger.kernel.org
 Cc:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-Subject: [PATCH 1/4] arch: add missing predfines: __amd64 & __amd64__
-Date:   Wed, 27 Nov 2019 03:23:48 +0100
-Message-Id: <20191127022351.68902-2-luc.vanoostenryck@gmail.com>
+Subject: [PATCH 2/4] arch: add missing predefines for PPC
+Date:   Wed, 27 Nov 2019 03:23:49 +0100
+Message-Id: <20191127022351.68902-3-luc.vanoostenryck@gmail.com>
 X-Mailer: git-send-email 2.24.0
 In-Reply-To: <20191127022351.68902-1-luc.vanoostenryck@gmail.com>
 References: <20191127022351.68902-1-luc.vanoostenryck@gmail.com>
@@ -61,29 +61,37 @@ Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-These seems to be defined whenever s__x86_64 & __x86_64__
-are defined.
+The macros __PPC, _ARCH_PPC & _ARCH_PPC64 are predefined by
+GCC for powperpc (well, it seems __PPC isn't anymore but
+it was, at least on my old tolchain for ppc32).
 
 So, do the same here too.
 
 Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 ---
- lib.c | 2 ++
- 1 file changed, 2 insertions(+)
+ lib.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
 diff --git a/lib.c b/lib.c
-index 45402e51f..28ca49c7c 100644
+index 28ca49c7c..f0b546889 100644
 --- a/lib.c
 +++ b/lib.c
-@@ -1609,6 +1609,8 @@ static void predefined_macros(void)
- 		if (arch_m64 != ARCH_LP32) {
- 			predefine("__x86_64__", 1, "1");
- 			predefine("__x86_64", 1, "1");
-+			predefine("__amd64__", 1, "1");
-+			predefine("__amd64", 1, "1");
- 			break;
- 		}
+@@ -1574,12 +1574,15 @@ static void predefined_macros(void)
+ 		predefine("__powerpc64__", 1, "1");
+ 		predefine("__ppc64__", 1, "1");
+ 		predefine("__PPC64__", 1, "1");
++		predefine("_ARCH_PPC64", 1, "1");
  		/* fall-through */
+ 	case MACH_PPC32:
+ 		predefine("__powerpc__", 1, "1");
+ 		predefine("__powerpc", 1, "1");
+ 		predefine("__ppc__", 1, "1");
+ 		predefine("__PPC__", 1, "1");
++		predefine("__PPC", 1, "1");
++		predefine("_ARCH_PPC", 1, "1");
+ 		if (arch_big_endian)
+ 			predefine("_BIG_ENDIAN", 1, "1");
+ 		break;
 -- 
 2.24.0
 
