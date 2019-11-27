@@ -2,98 +2,109 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 2E6C710A7E4
-	for <lists+linux-sparse@lfdr.de>; Wed, 27 Nov 2019 02:20:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 058DA10A88D
+	for <lists+linux-sparse@lfdr.de>; Wed, 27 Nov 2019 03:06:53 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1725851AbfK0BUv (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Tue, 26 Nov 2019 20:20:51 -0500
-Received: from mail-wr1-f67.google.com ([209.85.221.67]:46558 "EHLO
-        mail-wr1-f67.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1725823AbfK0BUv (ORCPT
+        id S1726304AbfK0CGw (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Tue, 26 Nov 2019 21:06:52 -0500
+Received: from mail-wm1-f67.google.com ([209.85.128.67]:37985 "EHLO
+        mail-wm1-f67.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1725916AbfK0CGw (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Tue, 26 Nov 2019 20:20:51 -0500
-Received: by mail-wr1-f67.google.com with SMTP id z7so21284973wrl.13
-        for <linux-sparse@vger.kernel.org>; Tue, 26 Nov 2019 17:20:49 -0800 (PST)
+        Tue, 26 Nov 2019 21:06:52 -0500
+Received: by mail-wm1-f67.google.com with SMTP id z19so5614307wmk.3
+        for <linux-sparse@vger.kernel.org>; Tue, 26 Nov 2019 18:06:50 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=date:from:to:cc:subject:message-id:references:mime-version
-         :content-disposition:in-reply-to;
-        bh=5l5HxjNlxXIknDbAaVn1eIdvvaNWFu4b4ZyzJI/GCGQ=;
-        b=TXgKd5HeBSbVudvjPETNGEaWOLTujuBVw9G2/S0jKN8h4DpkyEBPpdqKlhoF6SgWAC
-         JQIIC3s4YLWBKmxCkwlyP/j2ucLESLGJ+wZf911h2i4+vCzM4DECy0GZb45MKEiIV00I
-         vkKE4lNu6zkhr8T3aHCNhfguuv1FoDhhlWzrtw06nfpyg34D0aCBz0HD9F/3uTtm4rUR
-         uakjh8tYQSM3gTncYdE7NX/czEHgcWdyh5EIgUSTJTukM/8oXaGkrAQEhASf5Wb4tkQW
-         2DlgR8WWRIFRQeiG8Ttwe2PZzp5iUiWEJYy0a3Zu7O18mNFGzlpsvs6XKJCQ7x9rA507
-         DHVA==
+        h=from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=/YcXigu/hWYZvX8Q8LgbNLtE81U/TAct75ah6OSChFA=;
+        b=lSqX6dID+RVLPns4QN9xJ16S5vIZqTLp4BkA1N4FzwK31iuFiQ0lEs5jjaDfp5xsmX
+         TrV644X8QBaJfrBoVzARYr/pAHRZYhxUajZIF1dT8tXI6Yu7wd148fGGGTR34gDM0h0h
+         oq2JORS94XGJpa9fCq3EGUMnpFR3BZK6bP62EkQAr4gqOys3VQzW+9QNU0ISPEvFVxOZ
+         547ebw4lPoJSbpBJZSe4y0zC6Fzs5OhVc7zCnoW1KSYIgCuLPXZGYcmxefJvHgeYT6Sj
+         Xpo9v0NQ3FO8VeFIfB5AG3nYP5jDyFfhvq08VOBupFfs2fDt9Lp7611eTIA1PeFq+iJT
+         77Ww==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
-         :mime-version:content-disposition:in-reply-to;
-        bh=5l5HxjNlxXIknDbAaVn1eIdvvaNWFu4b4ZyzJI/GCGQ=;
-        b=FS7emgk1Onr+Rs2LZ7zzaF6+lpPeKy5V5Iq6dH0/gifZO5v6AhnC+eZKaZAo9ZpftD
-         w0NicmByWsXAg1TRpSNze+ws9KRK3OFs6cZ7R+b2agtJtDqVHy4NUdepq1XdlWYEC82q
-         hNge1Ehfhvc5Y0iQs7YTBo4L5H3vnUkmObmJHM/+puVNrtIs21HMotUPKR3YZT4NMDTa
-         IP5N+y2b1C2hwPXChu+Uv2lpIi0vcAxTZT+tGPOoCGwK2JJM8bs4yr2+H4ZSNQSQQrAn
-         UfM2jtFq24U3brr2LJNpc9LVOycx1Gi2eqIYw4jYlOJbx9UAmS3DgicMXvQF+t8Fzw7x
-         1t/A==
-X-Gm-Message-State: APjAAAXCzBXUSgv67C6cjlzYPTU3qYvpGnZqJhDGEegMYcV1Xh5Ypfv8
-        Izx8kg1NJn8NOWZa3TUDZAVF0v8v
-X-Google-Smtp-Source: APXvYqy5JYh+jqkRZIWjU6AzXyPuAVh82JbcMfcq8Kt5bv/8DTfAM/8UMD5fxhw341W5Neq85LYxEg==
-X-Received: by 2002:a5d:55c8:: with SMTP id i8mr1896192wrw.352.1574817648929;
-        Tue, 26 Nov 2019 17:20:48 -0800 (PST)
-Received: from ltop.local ([2a02:a03f:404e:f500:ac14:4c10:6104:457f])
-        by smtp.gmail.com with ESMTPSA id d14sm3975597wru.9.2019.11.26.17.20.47
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=/YcXigu/hWYZvX8Q8LgbNLtE81U/TAct75ah6OSChFA=;
+        b=aQFc9zMtu9Q/b/2MAWyXvAUzUgxAM5qcPpCyeP7b0tNz6l+kE+8TGZIFJZxBlzSMI+
+         W9lztFkgoNtTtA8SgoVykzl66lKehoBaK7HlN6aCv97d82HIC2g15TxbbEeqLcLv+i2E
+         mC2e18N8nw/1TLV2/iRmcwkvr+NdG+d+CBCOvUSY5G0ip1vt0eWa9IA1aAKSh9Y+VKBT
+         VUEB9BzSnn/zaXLmEyeWlkiAVl7QqjuyqxLX53KO+uAgK2yssWZRdqriOOHgIMtfJuF7
+         LjIqIHGcwTEtcmuPDJo3H1uKcmZqHfb0itSDajciJ1q7DE0jJyU1xfAGhfyhN513e5C8
+         8mUQ==
+X-Gm-Message-State: APjAAAU9kOzoShInOlmuRN2HwewohoVX5Bk6y20n4JbCLHaOawEJbjod
+        2/SJ7QRGlKL9kqFJrb5AblIUMYJR
+X-Google-Smtp-Source: APXvYqxPaF6yTQHmtRJmiuKHlvRF4+cpPsyBLMvozmlPY04X1k7Ly3dCM18BKON5/OjKKodmWTBUiA==
+X-Received: by 2002:a1c:ca:: with SMTP id 193mr1682462wma.111.1574820409523;
+        Tue, 26 Nov 2019 18:06:49 -0800 (PST)
+Received: from localhost.localdomain ([2a02:a03f:404e:f500:ac14:4c10:6104:457f])
+        by smtp.gmail.com with ESMTPSA id o133sm5326573wmb.4.2019.11.26.18.06.48
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 26 Nov 2019 17:20:48 -0800 (PST)
-Date:   Wed, 27 Nov 2019 02:20:46 +0100
+        Tue, 26 Nov 2019 18:06:48 -0800 (PST)
 From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-To:     Ramsay Jones <ramsay@ramsayjones.plus.com>
-Cc:     linux-sparse@vger.kernel.org
-Subject: Re: [PATCH] spec: replace lllong_ctype by int128_ctype
-Message-ID: <20191127012046.lkfjejpcuri3vtc7@ltop.local>
-References: <20191126203029.63676-1-luc.vanoostenryck@gmail.com>
- <015e3edd-3eba-2e02-13e6-d88d879f45f0@ramsayjones.plus.com>
+To:     linux-sparse@vger.kernel.org
+Cc:     Ramsay Jones <ramsay@ramsayjones.plus.com>,
+        Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
+Subject: [PATCH v2 00/12] Miscellaneous arch specific fixes
+Date:   Wed, 27 Nov 2019 03:06:31 +0100
+Message-Id: <20191127020643.68629-1-luc.vanoostenryck@gmail.com>
+X-Mailer: git-send-email 2.24.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <015e3edd-3eba-2e02-13e6-d88d879f45f0@ramsayjones.plus.com>
+Content-Transfer-Encoding: 8bit
 Sender: linux-sparse-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-On Wed, Nov 27, 2019 at 12:21:01AM +0000, Ramsay Jones wrote:
-> 
-> 
-> On 26/11/2019 20:30, Luc Van Oostenryck wrote:
-> > Sparse knows about __int128_t, __uint128_t & __int128.
-> > 
-> > However, internally, these types are treated as a kind of 128-bit
-> > 'long long long' type. It's mainly a question of variable naming,
-> > but these types are also displayed by show_typename() as
-> > 'long long long' which can't be parsed back, neither by GCC,
-> > nor even  by sparse itself.
-> > 
-> > So, rename the variables to use 'int128' and let show_typename()
-> > display these types as '[signed|unsigned] __int128'.
-> > 
-> > Reported-by: Ramsay Jones <ramsay@ramsayjones.plus.com>
-> > Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-> 
-> Hmm, where does this patch apply? I tried 'master' along with
-> (on a hunch) 'luc/parse-spec', but could not get it to 'git-am'
-> correctly.
+These patches contains some fixes for the type specific types:
+* signedness of plain char when defaulting to unsigned
+* long double
+* predefine for INT128
+* int32_t & char32_t
+as well as simplifying and moving around some code about
+these arch specifities.
 
-Mmmm, yes, sorry for that. It probably only apply on top of the
-merge of the pending branches, including the one with all the other
-'arch cleaning' patches which I still need to check after some
-changes and new patches.
 
-I've pushed everything now on github:
-	git://github.com/lucvoo/sparse-dev.git int128_ctype
+Changes since v1:
+* int32_t & char32_t: use Linux convention by default
+* predefine __SIZEOF_INT128__ only where supported
+* avoid #ifdef for OS-specifics
+* fix which platforms support 128-bit long double
 
-and I think it look pretty good (at least for the 12-15
-arch/bitness combo that I'm tracking).
+---
 
-Best regards,
--- Luc
+Luc Van Oostenryck (12):
+  arch: fix the signedness of plain chars
+  arch: simplify i386/x86-64 specifics
+  arch: keep BSD & Darwin specifics with i386/x86-64 specifics
+  arch: do not needlessly set bitness on 32-bit archs
+  arch: remove impossible cases with 64-bit arch not being lp64
+  arch: char32_t should be the same as uint32_t, not uint
+  arch: (almost) all platforms simply use int for int32
+  arch: add predefines for INT128 only on supported archs
+  arch: use a variable for the OS
+  arch: fix wchar_t & wint_t on SunOS/Solaris
+  arch: sparc32 on SunOS/Solaris uses 128-bit long doubles
+  arch: add note for 128-bit long double on mips64
+
+ lib.c                             | 41 +++++++++--------
+ lib.h                             |  1 +
+ machine.h                         | 26 +++++++++--
+ target.c                          | 76 ++++++++++++++++++-------------
+ validation/char-signed-native.c   |  9 ++++
+ validation/char-unsigned-native.c | 11 +++++
+ validation/char-unsigned.c        |  2 +-
+ validation/preprocessor/predef.c  |  2 +
+ 8 files changed, 114 insertions(+), 54 deletions(-)
+ create mode 100644 validation/char-signed-native.c
+ create mode 100644 validation/char-unsigned-native.c
+
+
+base-commit: fd3528aa0409874386610ce63bb647fff8312fd9
+-- 
+2.24.0
+
