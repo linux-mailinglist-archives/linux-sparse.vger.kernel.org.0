@@ -2,145 +2,98 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 046CF10C0A5
-	for <lists+linux-sparse@lfdr.de>; Thu, 28 Nov 2019 00:36:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id D155310C0C4
+	for <lists+linux-sparse@lfdr.de>; Thu, 28 Nov 2019 00:44:02 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727165AbfK0XgF (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Wed, 27 Nov 2019 18:36:05 -0500
-Received: from mail-wr1-f68.google.com ([209.85.221.68]:44239 "EHLO
+        id S1727515AbfK0XoC (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Wed, 27 Nov 2019 18:44:02 -0500
+Received: from mail-wr1-f68.google.com ([209.85.221.68]:36588 "EHLO
         mail-wr1-f68.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1727141AbfK0XgE (ORCPT
+        with ESMTP id S1727207AbfK0XoC (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Wed, 27 Nov 2019 18:36:04 -0500
-Received: by mail-wr1-f68.google.com with SMTP id i12so28778965wrn.11
-        for <linux-sparse@vger.kernel.org>; Wed, 27 Nov 2019 15:36:03 -0800 (PST)
+        Wed, 27 Nov 2019 18:44:02 -0500
+Received: by mail-wr1-f68.google.com with SMTP id z3so28836444wru.3
+        for <linux-sparse@vger.kernel.org>; Wed, 27 Nov 2019 15:43:59 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=date:from:to:cc:subject:message-id:references:mime-version
          :content-disposition:in-reply-to;
-        bh=Zv5OYTj1Ypxzke2epkyz1UEdhSP4Nhs5g1O6Z/yX8/w=;
-        b=n/jcdaw/MrOxErGVRJ1/LYjQ87lF1qPHoS36Za+Trr6w76ZwAqE9dM4asPaXAgIVP4
-         pdNmkeDOoJoZCMRz37XdEF2BbpRsiPTviyLwS7eVI5j77ZK7VLTcTaeYwquPWbSq5G1W
-         X8abfVi08E19z+XrR1BblhDfa5d1mcGq4kZpdfUoS6o3Q64ktQdd+KTTX+j0xUTDgVdw
-         2l8j30Vob2WnNq+gNkDaXiutvmUHNmIJte75m99U4wu4s/CVKyLgwMkuhKhT8duiCqiY
-         j6HyqWmcWVeMmSWeZU1ASjk3IZsLBCwJHgtrwfNH6in9MP2/8/MzbcpMA5cxRYBEdMte
-         P83w==
+        bh=BNpHAtN/aIP/Ue0Yuuz+2jgOz/J+CrVhWwo+VNzrVxU=;
+        b=t0e1pxkl+dpsrDEu9TxIp4ZTaVDOWHAXww/8u+PkGQw52EKz/xy7HSqV9bbygEHYtm
+         qOvBOI1ekRujaO5DgTOoF+9Ixq/OkL/GcJylybE+Hb++9HlZy8SqcNKV9BMFB1XD5ttt
+         ve7JpBTlovTwSijj2iCGZwa/3lPagzefQGhQkK3ZYX4ySXPaPW1a2zifwv0J8a7EvEH0
+         UquYmsZzuYUt6aNLJdTXpMzMcCs5GbqD4nKvOxXt5/gMVnyGUi7u0FtUZFtikFjueUBI
+         0tRfeQ1Mog/ggcwO1p8NnKLuDCVs8dLzmxeM1gcUGGcl+7oUMoL5OSyfwnmgkRT4/nE+
+         je1Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:date:from:to:cc:subject:message-id:references
          :mime-version:content-disposition:in-reply-to;
-        bh=Zv5OYTj1Ypxzke2epkyz1UEdhSP4Nhs5g1O6Z/yX8/w=;
-        b=cPVtOa2AugOf8NO09Gu4YU6zdRC+NEKYSkVVNC3sIYKnEjLxyDtJKLVsB+iQ6kPWFS
-         wHyH29ZXgfMTDvYlHRTZMmN5RchVCbeFJa9hmlIwmMXQ9BXFLSRpTQvDB3IlcDIgKzgy
-         pbXK3uRhOJ3SUuWAC88dbxrKjfO/Gmh9dHV/f0Jg/cOQ5IeRwY/6j8IP5xZEAc4uFHUl
-         TgZ3gQtFwB+uBNpfJidKmGURiuMshKdugGc0qL6vty/v2SDUA4TfdvADCex2bOk28ji0
-         idaFP8hyOQunqUM+fbDh82fCo9Sv2IV/W4eDFqhkD7JEaLTrhNcCH6w0YLzCIcn9JUx7
-         CepQ==
-X-Gm-Message-State: APjAAAXwxD7lVAT8qVHQPTa/3IiZAr3xMP5dSrxlgwj6LpiEOitg/wz1
-        yVom6IKJMdyYOUAwhVVM2pPOy53A
-X-Google-Smtp-Source: APXvYqzHBiAvGWnKF2qyglXZ8z0GtKKRFtZzFDVDVIc2rtWLqSZc4moAu86GLM0Qvy6ECmHsa9Y/dA==
-X-Received: by 2002:a5d:526f:: with SMTP id l15mr44115249wrc.169.1574897762658;
-        Wed, 27 Nov 2019 15:36:02 -0800 (PST)
+        bh=BNpHAtN/aIP/Ue0Yuuz+2jgOz/J+CrVhWwo+VNzrVxU=;
+        b=Ko00niIYHFa8TL4VPJDRC+NKrGxdZDtI5Ixi9TLW5wdZU9HRjKwUeZv40NXavIFgRc
+         II4vqMz1jmRpSIN9MikNs53NSOFMkznU5CWqGmUbyrX/nFF8Bga12+EeAAT5swOqs6pY
+         cbl0Cx0ZnL0BBO8agA+8a4vZC4IN2b6MyX2lod68PcceBNMCe3AztaCbpCrjw5hhcPma
+         KdT3WTCsy7UUaQ8R5PpgPlv58KaositO5gLo6doAz/5bGeBFQE5OdDCMpc0ptONzc6N5
+         TbfHkoUbtU+n7ryc/BOJXnWazgwIZqhIXR77ZzXUWwSjJ7/mSImD04UAmEG+K1i9w2J6
+         P/rA==
+X-Gm-Message-State: APjAAAVmzjzpudopyyNE6oPyMSB46IZqxqGF4rMtl1YRaojjXQxFgCvL
+        NxvPRmBEIsLG3JUw7kj/+PrqJ0JV
+X-Google-Smtp-Source: APXvYqyM+RCrj3ixkX4b/gt17wEckFK2NYK5xNkbfyJqYA8WkcULTZEwLml2p3IdKeOiR26ZEkPbig==
+X-Received: by 2002:a5d:65cf:: with SMTP id e15mr25724840wrw.126.1574898239144;
+        Wed, 27 Nov 2019 15:43:59 -0800 (PST)
 Received: from ltop.local ([2a02:a03f:404e:f500:2dc4:827a:b71a:1d2b])
-        by smtp.gmail.com with ESMTPSA id l4sm8143755wml.33.2019.11.27.15.36.01
+        by smtp.gmail.com with ESMTPSA id q5sm8446495wmc.27.2019.11.27.15.43.58
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 27 Nov 2019 15:36:02 -0800 (PST)
-Date:   Thu, 28 Nov 2019 00:36:01 +0100
+        Wed, 27 Nov 2019 15:43:58 -0800 (PST)
+Date:   Thu, 28 Nov 2019 00:43:57 +0100
 From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 To:     Ramsay Jones <ramsay@ramsayjones.plus.com>
 Cc:     linux-sparse@vger.kernel.org
-Subject: Re: [PATCH 0/4] More arch specific fixes
-Message-ID: <20191127233601.oplm2rnu2vewa2f5@ltop.local>
-References: <20191127022351.68902-1-luc.vanoostenryck@gmail.com>
- <2c56999a-3ee8-999a-be41-962ec8c8d70e@ramsayjones.plus.com>
- <20191127174845.uol5jdfdqpso6o3h@ltop.local>
- <37371468-5ffd-7021-ea50-35d23eef943c@ramsayjones.plus.com>
- <20191127210248.hcp3rvchzwxjpcx6@ltop.local>
- <547bd7d9-2844-1276-fce5-c406e9bcd529@ramsayjones.plus.com>
+Subject: Re: [PATCH v2 03/12] arch: keep BSD & Darwin specifics with
+ i386/x86-64 specifics
+Message-ID: <20191127234357.nniyeyp2izx24xnr@ltop.local>
+References: <20191127020643.68629-1-luc.vanoostenryck@gmail.com>
+ <20191127020643.68629-4-luc.vanoostenryck@gmail.com>
+ <e86276dc-1458-cd45-7833-cfdb8f530f02@ramsayjones.plus.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <547bd7d9-2844-1276-fce5-c406e9bcd529@ramsayjones.plus.com>
+In-Reply-To: <e86276dc-1458-cd45-7833-cfdb8f530f02@ramsayjones.plus.com>
 Sender: linux-sparse-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-On Wed, Nov 27, 2019 at 10:52:02PM +0000, Ramsay Jones wrote:
+On Wed, Nov 27, 2019 at 04:01:16PM +0000, Ramsay Jones wrote:
+> On 27/11/2019 02:06, Luc Van Oostenryck wrote:
+> > Without more testing, the specific types for wint_t & int64_t
+> > on FreeBSD & Darwin are only valid for i386/x86-64.
+> > 
+> > Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
+> > ---
+> >  target.c | 14 +++++++-------
+> >  1 file changed, 7 insertions(+), 7 deletions(-)
+> > 
+> > diff --git a/target.c b/target.c
+> > index acafbd929..647817a22 100644
+> > --- a/target.c
+> > +++ b/target.c
+> > @@ -83,6 +83,13 @@ void init_target(void)
+> >  		wchar_ctype = &long_ctype;
+> >  		/* fall through */
+> >  	case MACH_X86_64:
+> > +#if defined(__APPLE__)
+> > +		int64_ctype = &llong_ctype;
+> > +		uint64_ctype = &ullong_ctype;
+> > +#endif
+> > +#if defined(__FreeBSD__) || defined(__APPLE__)
+> > +		wint_ctype = &int_ctype;
+> > +#endif
 > 
-> I decided to just test the 'luc/next' branch (commit 4a8aa8d1 cgcc: add
-> support for riscv64). :-P
+> Heh, OK, question answered! ;-)
 
-Hehe, quite wise :)
- 
-> I have only tested on 64-bit Linux and Cygwin (the sparse testsuite and
-> running it over git), so far with no issues.
-> 
-> I have also compared the output of:
->   $ ./cgcc -dM -E - </dev/null | sort >sss
->   $ gcc -dM -E - </dev/null | sort >ggg
->   $ meld ggg sss
-> on both Linux and cygwin (with similar results).
-> 
-> I have ignored the 'float stuff', since the output of gcc and sparse
-> is almost totally different! :(
+Anyway, I would like to move all this in some arch-specific
+files. Not for soon, though.
 
-Yes, the 'TYPE' and 'SIZEOF' predefines should be correct but
-I ignore the remaining (which is generated by cgcc, not sparse
-itself).
- 
-> The main difference, which is new, is the spelling of the 'type names'.
-> e.g. __CHAR16_TYPE__ is given as 'short unsigned int' by gcc but
-> 'unsigned short' by sparse. The following table shows the 'type name'
-> differences:
->
-> CHAR16_TYPE  short unsigned int => unsigned short
-> INT16_TYPE   short int          => short
-> INT64_TYPE   long int           => long
-> INTMAX_TYPE  long int           => long
-> INTPTR_TYPE  long int           => long
-> PTRDIFF_TYPE long int           => long
-> SIZE_TYPE    long unsigned int  => unsigned long
-> UINT16_TYPE short unsigned int  => unsigned short
-> UINT64_TYPE  long unsigned int  => unsigned long
-> UINTMAX_TYPE long unsigned int  => unsigned long
-> UINTPTR_TYPE long unsigned int  => unsigned long
-
-I was a bit surprised by the 'new' aspect as sparse itself
-outputs these names since last December (IIRC) but yes
-these were overwritten by cgcc until the patch that removed
-cgcc's integer_types():
-	fba1931d2 ("cgcc: removed unneeded predefines for integers")
-But, yes, they're different, sparse just uses show_typename()
-for it. I've already wondered why GCC issues them like this
-Well, I see that GCC's way inhibit something like:
-	INTMAX_TYPE double var;
-so, maybe sparse should do the same for the predefines.
-
-> sparse seems to '#define linux linux' rather than '#define linux 1'.
-
-Funny, I wonder why. I never noticed.
-I think that it should not be defined at all (and used also).
-
-> sparse defines __LITTLE_ENDIAN__ but gcc does not.
-
-Yes, indeed. Well, GCC defines it for some archs/OSes:
-* on the *BSD
-* on ppc64le
-* probably on all platforms using big-endian by default
-  when -mlittle-endian is used.
-
-> On cygwin, the results are similar to the above, with the addition
-> of the following:
-> 
-> WCHAR_TYPE short unsigned int => unsigned short
-> Also, sparse defines __CYGWIN32__ when it shouldn't (this is on
-> x86_64 cygwin, without -m32 etc).
-
-Yes, I noticed a few days ago.
-I tried to fix it but this part of cgcc is bitness agnostic.
-Doing a #undef in sparse itself would be easier.
-
-
-Thank you very much!
+Best regards,
 -- Luc
