@@ -2,56 +2,56 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 1F1AD10A896
+	by mail.lfdr.de (Postfix) with ESMTP id BC30A10A897
 	for <lists+linux-sparse@lfdr.de>; Wed, 27 Nov 2019 03:07:01 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726694AbfK0CHA (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Tue, 26 Nov 2019 21:07:00 -0500
-Received: from mail-wr1-f67.google.com ([209.85.221.67]:45720 "EHLO
-        mail-wr1-f67.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726529AbfK0CHA (ORCPT
+        id S1726529AbfK0CHB (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Tue, 26 Nov 2019 21:07:01 -0500
+Received: from mail-wr1-f66.google.com ([209.85.221.66]:36014 "EHLO
+        mail-wr1-f66.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1726666AbfK0CHB (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Tue, 26 Nov 2019 21:07:00 -0500
-Received: by mail-wr1-f67.google.com with SMTP id z10so24704154wrs.12
-        for <linux-sparse@vger.kernel.org>; Tue, 26 Nov 2019 18:06:58 -0800 (PST)
+        Tue, 26 Nov 2019 21:07:01 -0500
+Received: by mail-wr1-f66.google.com with SMTP id z3so24782218wru.3
+        for <linux-sparse@vger.kernel.org>; Tue, 26 Nov 2019 18:06:59 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=aHh6Ft9v6BE2j7+GtvCtwAC4ocwk3GJa90kZ3tgHNfI=;
-        b=JZO75P3j0YnHGbKKOzdYhIKGoD/HfJHxow5ONe28jOJoMEVu37TH9YlonOjmus0l3X
-         J5T+uF1u3gBtYIpZFPpVNC7dHhW7ouRYOVxecLDBj1L24LrO+2QF6xrM1dEa4ONYhowf
-         OBeVPNExMQSKEZE+8U6+DKtFeRbNCYhAqLyq0taO7OeacgkEYlzpTvkWtsAK1IZEQCAK
-         lpoIC/ikiBOY9DAj97SeFUAm6OY81nVEzRFVqxccHJlSbW4w6F46XDHAV9f8WjpFz8Xk
-         FVHH+FN8LoEKy5Bvc/23foAkz+V8kvoUfDdCmJhOP7q+zqLCD8QaG6TiaaqVmsSoaOOO
-         DfaQ==
+        bh=iIPYh6O8ac+VuE0hhALxa8YRTiNuEaRPwAnoM1Du0eQ=;
+        b=mm4LPeDjBuk1oEr7yD6KQrYDcr89E8fvG6Sq/TqwajlzYKMVbikWxIiPFA7mCJNDGR
+         D310D1D8WCOA7Ev3rZQ3E10RKxL7nid+nlWPoWw8iCX+oLaIRBi8wMpXXir/X/dGbxXM
+         I8JOqe18Zc1gheOf4XzeFC+4Y/in4Uc5oMk4cTKlkaHGfuSGin1bDXxbT79r8l0WbE8u
+         mLBvjwFKjAt2aACr424Zeslbg7++/8loSi4fyP2oHKi7saHWFy5WXAApzNwgWt5u0NYq
+         F6u5/yWjYJ6bqhJRaXnO83YBMyYHfpe+xU8arzdDtVlgZ8hCl/xlfzMQeTVapgY9i+cE
+         QuEQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=aHh6Ft9v6BE2j7+GtvCtwAC4ocwk3GJa90kZ3tgHNfI=;
-        b=UQAPEieDIrHFW+5JTx3kfxPNCT1WofT81sJ834eOEgBYIPo684aVCO7DOtv6uJSiS1
-         NjsMrhSG5HZ3+K3FvGWG0Mo4YsN1ZI4nXUUr376lJb8/o0bikcmxiX4Z146cUcLor0t0
-         coFinkYPGSUC9rgNrTj6ZHUc53UiFRLalOr4PKXW0XDYZIK2VLYPaPdMXz1WdFLieA3i
-         d/VUClGFm0bvmHu2DlWrr2LsDqzJkf6EOPikcz2FyOVEhs7UqWn3cgoVAz3wM561uNes
-         m9bWPd+Dycf8BoMlJkTCY4zNhJ6xSok7xGI/nVRRtbvN16pAYkjjEuNtyctit+tP7gwH
-         twhQ==
-X-Gm-Message-State: APjAAAXzS1//PLpVlmoO2hcYxckrUlm/5YXZn1unShE/4f9jxaBQNnre
-        4sq8WV+E06ckXiA9pJum/n16ea2Z
-X-Google-Smtp-Source: APXvYqwAIH4pthqSbtuwE95x7gi6Apb97JhM/Dgs86iqr7hAwhq4cKXIHsSLX53BXLXoC0aKseq2jw==
-X-Received: by 2002:a05:6000:149:: with SMTP id r9mr387832wrx.147.1574820418008;
-        Tue, 26 Nov 2019 18:06:58 -0800 (PST)
+        bh=iIPYh6O8ac+VuE0hhALxa8YRTiNuEaRPwAnoM1Du0eQ=;
+        b=Sq7GSJ9Z70mmDWc6Z7BjxT03ik/aqJCvEf2a/YLUh0RGcTSuZQ2oGSSyN5XJj6C3VH
+         u0zcLliRuo8usS6Xfrs+jT3bZHEmbDH16aeBC3seD7ApxBwsH8pdVnRBVFHUroObvod4
+         3cbX9/E0MdFHFEQJj7oBvrVdINFCY/UrbHvsc99HD5jmuBufmp2wbWktsLS10VTXtVCx
+         RKoZsHPDl3gtip55ryIM+bU6qIgp1kiU0intBIDQl8b/F9iH6QEdTXX/4Sa3XgS5PLqQ
+         qUc1gbsaTEs4AV/tb1VkdZZfN56K26RaCj2aX6H92fWQSCfr+fvOtxzQCvhQ8fUpSJ/m
+         hGxg==
+X-Gm-Message-State: APjAAAU3fR9LtAqug/SrdHp+dMj6ejmL7d2y2o+igiQuKLupA8F85cFz
+        vadUYZXYU0vXDec+Fq6Wlspvc3iT
+X-Google-Smtp-Source: APXvYqxW4t+sMv98yhZnlp4MVG50AFrZS6FtlZTn1H927l2wK4HqcyMERH+AHRf0jxO4RCJueTRY9g==
+X-Received: by 2002:adf:c611:: with SMTP id n17mr41064018wrg.317.1574820419039;
+        Tue, 26 Nov 2019 18:06:59 -0800 (PST)
 Received: from localhost.localdomain ([2a02:a03f:404e:f500:ac14:4c10:6104:457f])
-        by smtp.gmail.com with ESMTPSA id o133sm5326573wmb.4.2019.11.26.18.06.56
+        by smtp.gmail.com with ESMTPSA id o133sm5326573wmb.4.2019.11.26.18.06.58
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 26 Nov 2019 18:06:57 -0800 (PST)
+        Tue, 26 Nov 2019 18:06:58 -0800 (PST)
 From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 To:     linux-sparse@vger.kernel.org
 Cc:     Ramsay Jones <ramsay@ramsayjones.plus.com>,
         Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-Subject: [PATCH v2 09/12] arch: use a variable for the OS
-Date:   Wed, 27 Nov 2019 03:06:40 +0100
-Message-Id: <20191127020643.68629-10-luc.vanoostenryck@gmail.com>
+Subject: [PATCH v2 10/12] arch: fix wchar_t & wint_t on SunOS/Solaris
+Date:   Wed, 27 Nov 2019 03:06:41 +0100
+Message-Id: <20191127020643.68629-11-luc.vanoostenryck@gmail.com>
 X-Mailer: git-send-email 2.24.0
 In-Reply-To: <20191127020643.68629-1-luc.vanoostenryck@gmail.com>
 References: <20191127020643.68629-1-luc.vanoostenryck@gmail.com>
@@ -62,122 +62,41 @@ Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-There are a few OS-specific settings and handling them
-with #ifdef is 1) ugly, 2) can only work with when specifically
-built for this OS (either a native or cross-build).
+On 32-bit sparc running SunOS or Solaris, wchar_t and wint_t
+are long, not uint or int.
 
-So, use a variable to hold the OS and initialize it to the one
-used to compile sparse. This avoid the ugly #ifdef and allow
-simpler transition if if the future sparse would take the OS
-in parameter (maybe as triple).
+Add a special case to handle this.
 
 Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 ---
- lib.c     |  1 +
- lib.h     |  1 +
- machine.h | 26 ++++++++++++++++++++++++++
- target.c  | 24 +++++++++++++-----------
- 4 files changed, 41 insertions(+), 11 deletions(-)
+ target.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
-diff --git a/lib.c b/lib.c
-index 602960a08..8bfe4e1c9 100644
---- a/lib.c
-+++ b/lib.c
-@@ -329,6 +329,7 @@ static int arch_msize_long = 0;
- int arch_m64 = ARCH_M64_DEFAULT;
- int arch_big_endian = ARCH_BIG_ENDIAN;
- int arch_mach = MACH_NATIVE;
-+int arch_os = OS_NATIVE;
- int arch_cmodel = CMODEL_UNKNOWN;
- 
- 
-diff --git a/lib.h b/lib.h
-index 00c608125..24febfbfa 100644
---- a/lib.h
-+++ b/lib.h
-@@ -207,6 +207,7 @@ extern int funsigned_char;
- extern int arch_m64;
- extern int arch_big_endian;
- extern int arch_mach;
-+extern int arch_os;
- 
- enum {
- 	CMODEL_UNKNOWN,
-diff --git a/machine.h b/machine.h
-index 22b05d91a..e98a64462 100644
---- a/machine.h
-+++ b/machine.h
-@@ -70,4 +70,30 @@ enum machine {
- #define MACH_NATIVE	MACH_UNKNOWN
- #endif
- 
-+
-+enum {
-+	OS_CYGWIN,
-+	OS_DARWIN,
-+	OS_FREEBSD,
-+	OS_LINUX,
-+	OS_NETBSD,
-+	OS_OPENBSD,
-+	OS_SUNOS,
-+	OS_UNKNOWN,
-+};
-+
-+#if defined(__linux__) || defined(__linux)
-+#define OS_NATIVE	OS_LINUX
-+#elif defined(__FreeBSD__)
-+#define OS_NATIVE	OS_FREEBSD
-+#elif defined(__APPLE__)
-+#define OS_NATIVE	OS_DARWIN
-+#elif defined(__CYGWIN__)
-+#define OS_NATIVE	OS_CYGWIN
-+#elif defined(__sun__) && defined(__sun)
-+#define OS_NATIVE	OS_SUNOS
-+#else
-+#define OS_NATIVE	OS_UNKNOWN
-+#endif
-+
- #endif
 diff --git a/target.c b/target.c
-index d03b179be..c89bb07d2 100644
+index c89bb07d2..64e6533f6 100644
 --- a/target.c
 +++ b/target.c
-@@ -83,13 +83,19 @@ void init_target(void)
- 		wchar_ctype = &long_ctype;
- 		/* fall through */
- 	case MACH_X86_64:
--#if defined(__APPLE__)
--		int64_ctype = &llong_ctype;
--		uint64_ctype = &ullong_ctype;
--#endif
--#if defined(__FreeBSD__) || defined(__APPLE__)
--		wint_ctype = &int_ctype;
--#endif
-+		switch (arch_os) {
-+		case OS_CYGWIN:
-+			wchar_ctype = &ushort_ctype;
-+			break;
-+		case OS_DARWIN:
-+			int64_ctype = &llong_ctype;
-+			uint64_ctype = &ullong_ctype;
-+			wint_ctype = &int_ctype;
-+			break;
-+		case OS_FREEBSD:
-+			wint_ctype = &int_ctype;
-+			break;
-+		}
+@@ -98,7 +98,6 @@ void init_target(void)
+ 		}
  		break;
  	case MACH_M68K:
- 	case MACH_SPARC32:
-@@ -178,8 +184,4 @@ void init_target(void)
- 		pointer_alignment = 8;
+-	case MACH_SPARC32:
+ 	case MACH_PPC32:
+ 		wchar_ctype = &long_ctype;
+ 		break;
+@@ -106,6 +105,12 @@ void init_target(void)
+ 	case MACH_ARM64:
+ 		wchar_ctype = &uint_ctype;
+ 		break;
++	case MACH_SPARC32:
++		if (arch_os == OS_SUNOS) {
++			wint_ctype = &long_ctype;
++			wchar_ctype = &long_ctype;
++		}
++		break;
+ 	default:
  		break;
  	}
--
--#if defined(__CYGWIN__)
--	wchar_ctype = &ushort_ctype;
--#endif
- }
 -- 
 2.24.0
 
