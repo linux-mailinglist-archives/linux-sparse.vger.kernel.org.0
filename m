@@ -2,88 +2,83 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id C7A9310C0ED
-	for <lists+linux-sparse@lfdr.de>; Thu, 28 Nov 2019 01:06:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id B001210CB97
+	for <lists+linux-sparse@lfdr.de>; Thu, 28 Nov 2019 16:18:05 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726984AbfK1AGR (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Wed, 27 Nov 2019 19:06:17 -0500
-Received: from mail-wm1-f65.google.com ([209.85.128.65]:55372 "EHLO
-        mail-wm1-f65.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726947AbfK1AGQ (ORCPT
+        id S1726747AbfK1PSF (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Thu, 28 Nov 2019 10:18:05 -0500
+Received: from avasout04.plus.net ([212.159.14.19]:48694 "EHLO
+        avasout04.plus.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1726731AbfK1PSE (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Wed, 27 Nov 2019 19:06:16 -0500
-Received: by mail-wm1-f65.google.com with SMTP id a131so4781991wme.5
-        for <linux-sparse@vger.kernel.org>; Wed, 27 Nov 2019 16:06:15 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=date:from:to:cc:subject:message-id:references:mime-version
-         :content-disposition:in-reply-to;
-        bh=QxG5MQ115m5767eroI7OqXWJi4A65bPu/+lMYNK5UU8=;
-        b=SrYgb2q0uXxcGbl6O1EjZEJyHACb4wYWqEpCbdHmeqrg4GGN6PDWfVnFOzXA0AknWO
-         +PGUzzbQfXX9w91c6d56o/3z0v+jFi1k+RV6eyiLZqAVFr8MtZSb+G3k+5oCS6OTd46r
-         PNV1R2nsvK4kARdfV9TCfLQ+fxQRpJG9EfX1Wu6f2cVyhpX1l4S/EldBBLU0pqf66UA0
-         sZOqo+02xoJAy0k7XgPixBz3Ki4tmkBMD4gaKPS/Ne0yAMNFQOiplQf+Guz6bueo/vAV
-         xvXIkkrsvKzPd5meN1kUbCduy70aR2wlx+pj6spmJCRc5th3INNUacqMoN3f2AHjC22D
-         m0pQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
-         :mime-version:content-disposition:in-reply-to;
-        bh=QxG5MQ115m5767eroI7OqXWJi4A65bPu/+lMYNK5UU8=;
-        b=XixOPN2TeMlbep7OvAWkvTnadmaR+ztsqmK7rWAMpbSwoNlPDytMto7bcV9VJFN3df
-         XrpMae41oyFqYjhY4K3gsyv0RnWABZrrU5Ut24hKdqjUpArdU7dI+AP9o+ecz2dp2Gud
-         +UdtUfOHndaVnfgJH6WFaY0THVzk1RMPVsnFCBT10eFHWTQvGrUCCvaqKVcuHauDZ2Xa
-         jvKUdtzVbkNzBl6e8A/KspteF0YzwbDyIc5hL5WNBDW7EJUQ8iEKRMEfQQA/FS/MiH+B
-         LMpHRilXV3dw5sgbn5nMuhJv05aHilXSsZobdGbM6My+mRKw0eezeK/NPvUH9JJzYi/r
-         sp1Q==
-X-Gm-Message-State: APjAAAWtHn2KiG36472TGWIL2bBfeA4Cp4RYYxTt39SJaO89WllXj25h
-        5BRz3eteI90s0FGbia/Ie4lzWSWc
-X-Google-Smtp-Source: APXvYqw+PgAeNzMtKfXuAfJcbyaOo+IRxCVZWkmlPRmkaXoQ+TGGyCgUQzuyh6xpJ696FRi5EQ/rnQ==
-X-Received: by 2002:a1c:6746:: with SMTP id b67mr6946412wmc.16.1574899574744;
-        Wed, 27 Nov 2019 16:06:14 -0800 (PST)
-Received: from ltop.local ([2a02:a03f:404e:f500:2dc4:827a:b71a:1d2b])
-        by smtp.gmail.com with ESMTPSA id i71sm23238786wri.68.2019.11.27.16.06.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 27 Nov 2019 16:06:13 -0800 (PST)
-Date:   Thu, 28 Nov 2019 01:06:13 +0100
-From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-To:     Ramsay Jones <ramsay@ramsayjones.plus.com>
-Cc:     linux-sparse@vger.kernel.org
-Subject: Re: [PATCH v2 09/12] arch: use a variable for the OS
-Message-ID: <20191128000613.zbz7hcppcpnwvvs2@ltop.local>
-References: <20191127020643.68629-1-luc.vanoostenryck@gmail.com>
- <20191127020643.68629-10-luc.vanoostenryck@gmail.com>
- <4ee48f99-d4c0-1f27-4557-abc014c3d576@ramsayjones.plus.com>
+        Thu, 28 Nov 2019 10:18:04 -0500
+Received: from [10.0.2.15] ([87.115.253.23])
+        by smtp with ESMTPA
+        id aLYQi3YgU4Al0aLYRi3tU0; Thu, 28 Nov 2019 15:18:03 +0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=plus.com; s=042019;
+        t=1574954283; bh=vgezfCmVCTmDjrECHHU1Kp3EuY8G0TNPUgB0Y8YM6cc=;
+        h=To:Cc:From:Subject:Date;
+        b=DPhBB5d1JqphaDl2iHFoCHOQJICq69D8xdGk8tfpQv+QTujwiFikfOxHrhpvET7Fy
+         Y1caq7HZmHvHsS4XcN1wRtDSYHi7qafYEjx3nayStR7m1cIbPA8qfQNddq+aoLyjGp
+         DC3uH2FKKMSuc4PWMrPiNRZLcHsdA3vu5lsx0v930eoT+g3K/nUI1SKWroSXTgYmBK
+         ODwkWNk7uc5NlR4JF6NJ7d6/9fwBbJxpkV7rET9l+t9+M6cGcM5k5ojzJd6Bquur8a
+         hTEaJrkKQDqqI730mEdjaU/55ecGj+eftW2bbQciSxDD+G6bWvPAhK1k2FFNVJLkeA
+         sdUeZyQpI2zJA==
+X-Clacks-Overhead: "GNU Terry Pratchett"
+X-CM-Score: 0.00
+X-CNFS-Analysis: v=2.3 cv=GY1pYjfL c=1 sm=1 tr=0
+ a=LuhjJmsKGzDBBq+cJWlr3w==:117 a=LuhjJmsKGzDBBq+cJWlr3w==:17
+ a=IkcTkHD0fZMA:10 a=EBOSESyhAAAA:8 a=hCnBjOBslDAwLzcSLd4A:9 a=QEXdDO2ut3YA:10
+ a=yJM6EZoI5SlJf8ks9Ge_:22
+X-AUTH: ramsayjones@:2500
+To:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
+Cc:     Sparse Mailing-list <linux-sparse@vger.kernel.org>
+From:   Ramsay Jones <ramsay@ramsayjones.plus.com>
+Subject: [PATCH] cgcc: fix definition of 'linux' macro
+Message-ID: <18e4644b-7616-5d74-e298-4506372680b3@ramsayjones.plus.com>
+Date:   Thu, 28 Nov 2019 15:17:59 +0000
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.2.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <4ee48f99-d4c0-1f27-4557-abc014c3d576@ramsayjones.plus.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
+X-CMAE-Envelope: MS4wfL2BBjfU14jF9GAdlng+TYSTQW/VTz8WDvuPQPM0sMvDfH0AgwPEAgOR7FPIDUippKe86PV2kaXZKr8x955H9zheX2msZcLuEhQHyhDQ28b5a5t3x7aX
+ wvBHMdf2FmZqKVZ6+EFcpcgjfmTbCzvq81WRRr1GmFrSd6njhvXxJnPyFmrN3RlB3WU4AALESAaGOg==
 Sender: linux-sparse-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-On Wed, Nov 27, 2019 at 04:27:35PM +0000, Ramsay Jones wrote:
-> 
-> cgcc also supports:
-> 
-> gnu (== Hurd kernel, Linux userspace ?)
-> gnu/kfreebsd (== Hurd kernel, FreeBSD userspace ?)
-> 
-> Yes, I am just guessing at the above definitions! ;-)
-> [I think Debian have these builds, right?]
 
-Yes, it's for Debian builds.
-* 'gnu' is Hurd/Hurd;
-* 'gnu/kfreebsd' is FreeBSD kernel with Debian on userspace.
+During a call to add_specs('linux'), cgcc adds several macro definitions
+to the sparse command line. In particular, it provides the incorrect
+definition: '-Dlinux=linux'.
 
-I don't have access to these (and not in an hurry to install
-them in some VM). I see no reasons to add the define for them
-since I have nothing specific for them. It can easily be added
-if needed.
+This bug was introduced in commit 807f74466b (<no title>, 2004-08-13), while
+moving some calls to add_pre_buffer() around in lib.c. This was then moved
+out of sparse, into cgcc, by commit cf2bde63a6 (<no title>, 2004-10-05),
+where the definition was copied verbatum.
 
-Also, Debian's sparse can't be built on them anymore because
-of some problems with libraries dependencies.
+Fix this macro definition to read '-Dlinux=1' instead.
 
-Best regards,
--- Luc
+Signed-off-by: Ramsay Jones <ramsay@ramsayjones.plus.com>
+---
+ cgcc | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/cgcc b/cgcc
+index 87f4fc3e..e6541d36 100755
+--- a/cgcc
++++ b/cgcc
+@@ -230,7 +230,7 @@ sub add_specs {
+ 	    ' -DNULL="((void *)0)"';
+     } elsif ($spec eq 'linux') {
+ 	return &add_specs ('unix') .
+-	    ' -D__linux__=1 -D__linux=1 -Dlinux=linux';
++	    ' -D__linux__=1 -D__linux=1 -Dlinux=1';
+     } elsif ($spec eq 'gnu/kfreebsd') {
+ 	return &add_specs ('unix') .
+ 	    ' -D__FreeBSD_kernel__=1';
+-- 
+2.24.0
