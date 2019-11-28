@@ -2,55 +2,55 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 60F4410CFBB
-	for <lists+linux-sparse@lfdr.de>; Thu, 28 Nov 2019 23:27:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 6204610CFBD
+	for <lists+linux-sparse@lfdr.de>; Thu, 28 Nov 2019 23:29:50 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726593AbfK1W1S (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Thu, 28 Nov 2019 17:27:18 -0500
-Received: from mail-wr1-f65.google.com ([209.85.221.65]:46906 "EHLO
-        mail-wr1-f65.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726582AbfK1W1S (ORCPT
+        id S1726593AbfK1W3u (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Thu, 28 Nov 2019 17:29:50 -0500
+Received: from mail-wm1-f68.google.com ([209.85.128.68]:52872 "EHLO
+        mail-wm1-f68.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1726582AbfK1W3t (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Thu, 28 Nov 2019 17:27:18 -0500
-Received: by mail-wr1-f65.google.com with SMTP id z7so29341732wrl.13
-        for <linux-sparse@vger.kernel.org>; Thu, 28 Nov 2019 14:27:17 -0800 (PST)
+        Thu, 28 Nov 2019 17:29:49 -0500
+Received: by mail-wm1-f68.google.com with SMTP id l1so12329632wme.2
+        for <linux-sparse@vger.kernel.org>; Thu, 28 Nov 2019 14:29:48 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:mime-version
          :content-transfer-encoding;
-        bh=Bwe1GO14Y8b9F9AJkP/+dWGSwkrcHkLWqDMA7YMWghs=;
-        b=vbGRtffM2qTGP73xQxzEBgw8iCB5tyqkbkbss7u7djkkccoRQ5FymnFMkMJO7NY+ZL
-         RFTxlpGO10Yg8v+SarmDVLruOqqkDNnFKxyArYSiJPWm/5R3pzKWMf6FVbmKH+uRIADr
-         /iJr/EJQT96h1p+ld5nEUd4TdHsavon1QT4FJTPwFaNJrmXjKTbUal6kGxCWuSZNZObW
-         cnQ/pQ3vbC1DLzoik9Kt5sCKgejI2g9aq794u2KJ/TWxDBrmp15cBo12bkv//IqzCPCe
-         Dl3jNA/QeOXL8dhAXFl+VaNHxbBuoYUZNWaiB5dyxvgzqw/e7Gm+H08EQswk/gr2gCwJ
-         WzpQ==
+        bh=8EDgnQgn6RwQh4abtBpf5hMbwq3Rax9ewzIsbRfq5XU=;
+        b=FKKj1+y1a1MJw8KpTyNOU8NrS9x3v8c5zDHjF/RG/Agzhe6PsBAVtALGBvOGc0aYk5
+         E1O5xe/HQDJyLuacvchZulMd+NfgbALAmbVxipB5x/ckIuuFycl2OO8gODOhSWJWGMkc
+         H9nFiEAk82e3ja/LbnBjZD+9bTAq3W3mwIpAGXj3gnKcy3FWOVJCE2//IAWqiDifVqCL
+         bUQ+DpGPpBwSO1UXccY6bL2q8WDOtW1R9JWkJVc7FntvWHBYN2OgjpgyFkiEW1Az0VLc
+         cODSnU8WSf9J8ARZYOgdEZEHLWC5AMre5Ar66U6MphUK0p9F7FjpeBfY3oGwOCA4cAK8
+         j2Dg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
          :content-transfer-encoding;
-        bh=Bwe1GO14Y8b9F9AJkP/+dWGSwkrcHkLWqDMA7YMWghs=;
-        b=MOwQS2Tkz1c7rVqL+1/TikgMfqIBsBI3miRile+pi+HHGkyfUJsOY6e9oYqQL3v5oj
-         H5k//zQmmqPjUfYEsCZBPf7833kqqsdvXaqf+dEWLhVbT9iimaO90/dhNjrhHNstLszm
-         P1u1J6nkLpZyrCImiFS1g8MEgTxNt+WMmBfFbUDK9FZdhHpxVPYRzeaRfTan+HNsZ//b
-         tRS3oPPbtRSp8ioVTdyrCr0ng5FhfLV4bvruwYxeHRxlftpy7+ro1cNpkuAIFx5ZJrUj
-         /FugEWlesQAB/mQBpz6aflWmwAg2+yemvE5Dl8mjuvfMmufpQlh4XlL9UIlvrfRqnKMF
-         +6gw==
-X-Gm-Message-State: APjAAAX5L/uODf+ooL5+gDZ9gsnq145DG83V+yAzJFlEm47hgChcMjz6
-        EGloBcKL+1xN92Hcoj7BAcwJj9eN
-X-Google-Smtp-Source: APXvYqxiEICU/bPDpWRrU5WJ2YDPp/a+PdSJEZBfpy2semxHVl5APGHWhAE4OVwNPGX4/11h8KRg3Q==
-X-Received: by 2002:a05:6000:11c6:: with SMTP id i6mr481920wrx.178.1574980036206;
-        Thu, 28 Nov 2019 14:27:16 -0800 (PST)
+        bh=8EDgnQgn6RwQh4abtBpf5hMbwq3Rax9ewzIsbRfq5XU=;
+        b=lkZASVMRQwV5KtE6fRsruayBiijgsC5A5RZaPaa6w9/1E2xGFzSEMorigH3WdQzGuz
+         NfpWWsSSw8XrBQ3zD9ixG2mKiPXggjDaa0M2fCT9ZOJ1rIancmWDoYqo584oIub0aGC8
+         TCsPTPmDJAfceKOB67h5YErT8yaUC72+5G4yOoFTV0u4Gq7BjTa2OrMI5+nMLS3WMgwf
+         shWHDlTqS10VbNqL0jTSoknaJu26DIc99oypypGBmPm5PJbKO8CHzrODjBo8BI2RI1Bf
+         mQHg1GbxaaFfxx51aC2nplnd5+SdJpZZb4twEjuzeQP8TMrTXFYNmz1baFG3kw2bfgH7
+         hNAA==
+X-Gm-Message-State: APjAAAXF1jI1SYeUr3cqlSOGSqGah9LS/MzDXKq/leSCgHBpbRsRqhua
+        G4OSkh8nCG4qEru8tLtnFc/nOB/L
+X-Google-Smtp-Source: APXvYqxqFAOWwAZUBgo6wCqRNm3ht8I6USyWVxxKKszfRp3+QiEGxClAYkbDt3H0wPAseIMlI23XDg==
+X-Received: by 2002:a1c:9c82:: with SMTP id f124mr12219358wme.25.1574980187657;
+        Thu, 28 Nov 2019 14:29:47 -0800 (PST)
 Received: from localhost.localdomain ([2a02:a03f:404e:f500:5533:3e30:d93d:fd1e])
-        by smtp.gmail.com with ESMTPSA id 205sm14625071wmb.3.2019.11.28.14.27.14
+        by smtp.gmail.com with ESMTPSA id d8sm3324863wre.13.2019.11.28.14.29.46
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 28 Nov 2019 14:27:15 -0800 (PST)
+        Thu, 28 Nov 2019 14:29:47 -0800 (PST)
 From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 To:     linux-sparse@vger.kernel.org
 Cc:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-Subject: [PATCH] testsuite: avoid standard includes in the tests
-Date:   Thu, 28 Nov 2019 23:27:12 +0100
-Message-Id: <20191128222712.7972-1-luc.vanoostenryck@gmail.com>
+Subject: [PATCH] remove redundant degenerate() in compatible_assignment_types()
+Date:   Thu, 28 Nov 2019 23:29:44 +0100
+Message-Id: <20191128222944.8069-1-luc.vanoostenryck@gmail.com>
 X-Mailer: git-send-email 2.24.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -59,39 +59,34 @@ Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-These headers are often complex and full of implementation
-specificities. They have no place in the testsuite.
+In compatible_assignment_types(), the source expression is
+first degenerated before calling check_assignment_types().
 
-So, remove these includes and replace them by the prototype
-of the function being used.
+But this is not needed since check_assignment_types() must
+anyway do the call to degenerate().
+
+So, remove the redundant call to degenerate().
 
 Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 ---
- validation/backend/hello.c | 2 +-
- validation/backend/sum.c   | 3 +--
- 2 files changed, 2 insertions(+), 3 deletions(-)
+ evaluate.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/validation/backend/hello.c b/validation/backend/hello.c
-index b0e514be4..eb89846f0 100644
---- a/validation/backend/hello.c
-+++ b/validation/backend/hello.c
-@@ -1,4 +1,4 @@
--#include <stdio.h>
-+int puts(const char *s);
- 
- int main(int argc, char *argv[])
+diff --git a/evaluate.c b/evaluate.c
+index 19bdab920..34578be8a 100644
+--- a/evaluate.c
++++ b/evaluate.c
+@@ -1501,9 +1501,9 @@ static int compatible_assignment_types(struct expression *expr, struct symbol *t
+ 	struct expression **rp, const char *where)
  {
-diff --git a/validation/backend/sum.c b/validation/backend/sum.c
-index fa51120e1..38ebf41ed 100644
---- a/validation/backend/sum.c
-+++ b/validation/backend/sum.c
-@@ -1,5 +1,4 @@
--#include <stdio.h>
--#include <stdlib.h>
-+int printf(const char * fmt, ...);
+ 	const char *typediff;
+-	struct symbol *source = degenerate(*rp);
  
- static int sum(int n)
- {
+ 	if (!check_assignment_types(target, rp, &typediff)) {
++		struct symbol *source = *rp ? (*rp)->ctype : NULL;
+ 		warning(expr->pos, "incorrect type in %s (%s)", where, typediff);
+ 		info(expr->pos, "   expected %s", show_typename(target));
+ 		info(expr->pos, "   got %s", show_typename(source));
 -- 
 2.24.0
 
