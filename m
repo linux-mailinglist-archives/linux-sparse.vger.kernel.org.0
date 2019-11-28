@@ -2,55 +2,55 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 671CA10CF51
-	for <lists+linux-sparse@lfdr.de>; Thu, 28 Nov 2019 21:42:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id EDD7010CF54
+	for <lists+linux-sparse@lfdr.de>; Thu, 28 Nov 2019 21:42:37 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726565AbfK1Umf (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Thu, 28 Nov 2019 15:42:35 -0500
-Received: from mail-wm1-f67.google.com ([209.85.128.67]:37474 "EHLO
-        mail-wm1-f67.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726593AbfK1Umf (ORCPT
+        id S1726634AbfK1Umh (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Thu, 28 Nov 2019 15:42:37 -0500
+Received: from mail-wm1-f65.google.com ([209.85.128.65]:53888 "EHLO
+        mail-wm1-f65.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1726616AbfK1Umh (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Thu, 28 Nov 2019 15:42:35 -0500
-Received: by mail-wm1-f67.google.com with SMTP id f129so12893659wmf.2
+        Thu, 28 Nov 2019 15:42:37 -0500
+Received: by mail-wm1-f65.google.com with SMTP id u18so12143244wmc.3
         for <linux-sparse@vger.kernel.org>; Thu, 28 Nov 2019 12:42:34 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=PvpCRWLaPWjQBEhuIDU/X9mQh8xkhmKHbH0NFCUoHF4=;
-        b=T4lBZ370GtT1ZJW9zt17X/BjeAnvFVWo+xOR2+Ary+Yb4H8xqIbOzTVXXbkWt8gTof
-         KhJB0oFX/crNWkzVW0ljDYc79lMiC33auIqlH6xEMDuDUeh9M/vdQfd1fw9Sw3c4sj64
-         MUrSjExPIuw9qSZu4dq5P2sddmlqAH79IlcYZdcRZHJKsgLPNXKGMJ5LQ8O2OrOPKAn4
-         rL+A+t2MQ0Yxp/fhDQJGbyvPsbVni1ldhJ8JOM1RzPVw3ARGTGv/qw+t+rOV471BDJ28
-         O92+B2qwDww3tH4oQdYsi2I3kSExpdkTh27JOteyZs+K4IdYH75kngPxkuadCZM4XDu8
-         O4VA==
+        bh=KpO8rX8yPZpR2lbIJ85UX4H/CKaKpIFF7MBRnXMnWjI=;
+        b=sku/McMuFpFPQi3OLoBjynEV4fWXHY7jLS3lxwvSnuR59wAa4FWubM0yqq6AeTnw7s
+         hWRiS4dcBifa0EHOr6mxG5xjFocXz+MJcKvbiEK6kVxxSvbtwJSr55K3TheR45NJAGz1
+         8gQXapU8c1TYGhCpNdt+DCw70xctx8o/JZ5oELIYq1V285wIfNJ+JS/TCairLj7uoL5X
+         DITLeQLUf4f6m0vw6awGb7u2SO49qvK3UMTQU16PJTnjJWjlL0Pz/oVeCWkoDo+6hlzj
+         t9XdNouyhIg+Hl0O7qo0ZcJ2DtRckfY9cEaQbIjj6uceRfzy8m4VxKju21M38f6A7EZj
+         ehnw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=PvpCRWLaPWjQBEhuIDU/X9mQh8xkhmKHbH0NFCUoHF4=;
-        b=hWNb6Y0hD4wL/UH0WXrjPSWwHJAehMGKzOnid19U4DmBKttUQWv3eFzy9oQ5PZszdJ
-         CoWXLi9ScPUnaJ4I3CJM0chTVsYPjttPeApOAxg2EFWGE74OKFXEVXQy3qF3cv4uwbj2
-         rQ/uLdkyA6PJAUKul+eZ8YsWgJMqn1wCA/YUrObs+wktuqo5DedBrlBiuMGt34A3sT8W
-         BnUHt29zBlhIPnlVYOKgNKophTshakOJ7EO+xBQItR1XyJir3cVnNGenmnxU1GHal1Qp
-         GNkWt/XXSC5z0SfclpYa4bYm21E9OvEVLs8P17d6YluI6dirAlCNAFJQtqnKOs+U65MG
-         lPbg==
-X-Gm-Message-State: APjAAAW084uhM0EFhhhf2reO7QC6N5Yk4QJSD4LZrNY0tA04WOsjz0vk
-        flUe284XMAs7PsmSxrPBKv7fvNGl
-X-Google-Smtp-Source: APXvYqwlWEzLk176s05RxfdDKxikZfz4gbgCaB2Esn3BR7i2JIzYRjmCCnrA2Y0Z5U7i4XlgdDyAcg==
-X-Received: by 2002:a1c:2e91:: with SMTP id u139mr4933071wmu.154.1574973753364;
-        Thu, 28 Nov 2019 12:42:33 -0800 (PST)
+        bh=KpO8rX8yPZpR2lbIJ85UX4H/CKaKpIFF7MBRnXMnWjI=;
+        b=Sn3A+283ceYQGnSRmZeb7X1Kt6pPaSJ7OElapBdVQKR/SdtLmBEOAJtaHT0reShVhw
+         ZEw3MKfTacDC9tessw2mZbv/PhcOz6U0eFdB0G5OZDDokeplXl71+Lg1ElvkLzlWA3Cv
+         WYymq3wSyrAvrmJutSmfrk9oofxI84FejiNAEqqx+i3ECc46kDN3G/A5dskS8OjEnqGA
+         EBT4x3boMxzP9PjAihIbMcc4GPgRk1YpdVQnRhv6NnUT/q1yuyUHntHLXutJsLDSwjUK
+         q65/Lf8rscWZFxoHO4RKF3ktNEwVQ3rUJbXqoyynzYDzucU9bTaZyVZQcbRyavC7DCPb
+         9tDA==
+X-Gm-Message-State: APjAAAUCov8v+Alg0fgHNlaOiVhf4y/jGboCHgSfjdXrFiMP8iH/rmF4
+        vBRCwf/onJdxxoMfpf9TfSTI5SF8
+X-Google-Smtp-Source: APXvYqzFX/uD1F7GPZjHvoHO+yb7t2I+M7Y0blqvQuewmzmIoX1QE9QCEFdcBFpj2rAn/7qFKGqaeQ==
+X-Received: by 2002:a7b:cb86:: with SMTP id m6mr11956608wmi.124.1574973754092;
+        Thu, 28 Nov 2019 12:42:34 -0800 (PST)
 Received: from localhost.localdomain ([2a02:a03f:404e:f500:d55b:3f3b:6182:682d])
-        by smtp.gmail.com with ESMTPSA id k16sm12290150wru.0.2019.11.28.12.42.32
+        by smtp.gmail.com with ESMTPSA id k16sm12290150wru.0.2019.11.28.12.42.33
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 28 Nov 2019 12:42:32 -0800 (PST)
+        Thu, 28 Nov 2019 12:42:33 -0800 (PST)
 From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 To:     linux-sparse@vger.kernel.org
 Cc:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-Subject: [PATCH 3/7] alt definition for STANDARD_GNU89 & friends
-Date:   Thu, 28 Nov 2019 21:42:21 +0100
-Message-Id: <20191128204225.7002-4-luc.vanoostenryck@gmail.com>
+Subject: [PATCH 4/7] reorganize the __STDC_VERSION__/__STRICT_ANSI__ switch statement
+Date:   Thu, 28 Nov 2019 21:42:22 +0100
+Message-Id: <20191128204225.7002-5-luc.vanoostenryck@gmail.com>
 X-Mailer: git-send-email 2.24.0
 In-Reply-To: <20191128204225.7002-1-luc.vanoostenryck@gmail.com>
 References: <20191128204225.7002-1-luc.vanoostenryck@gmail.com>
@@ -61,43 +61,48 @@ Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-It may be useful to known the base standard and if we're using
-the gnu extensions but as these are defined it can only be done
-on a case-by-case basis.
-
-Change these defines so that:
-* the GNU extensions is the least significant bit
-* the versions can be easily compared with <, >, <= and >=
+Move some of the cases so that each STANDARD_GNU* is just
+under the its corresponding STANDRAD_C*.
 
 Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 ---
- lib.h | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
+ lib.c | 13 +++++--------
+ 1 file changed, 5 insertions(+), 8 deletions(-)
 
-diff --git a/lib.h b/lib.h
-index 1eb455618..7958359c1 100644
---- a/lib.h
-+++ b/lib.h
-@@ -225,13 +225,16 @@ enum {
- extern int arch_cmodel;
+diff --git a/lib.c b/lib.c
+index 97d8af390..02f6231e2 100644
+--- a/lib.c
++++ b/lib.c
+@@ -1405,24 +1405,21 @@ static void predefined_macros(void)
  
- enum standard {
-+	STANDARD_NONE,
-+	STANDARD_GNU,
- 	STANDARD_C89,
-+	STANDARD_GNU89 = STANDARD_C89 | STANDARD_GNU,
- 	STANDARD_C94,
-+	STANDARD_GNU94 = STANDARD_C94 | STANDARD_GNU,
- 	STANDARD_C99,
-+	STANDARD_GNU99 = STANDARD_C99 | STANDARD_GNU,
- 	STANDARD_C11,
--	STANDARD_GNU11,
--	STANDARD_GNU89,
--	STANDARD_GNU99,
-+	STANDARD_GNU11 = STANDARD_C11 | STANDARD_GNU,
- };
- extern enum standard standard;
+ 	predefine("__STDC__", 1, "1");
+ 	switch (standard) {
++	default:
++		break;
++
+ 	case STANDARD_C89:
+ 		predefine("__STRICT_ANSI__", 1, "1");
++	case STANDARD_GNU89:
+ 		break;
  
+ 	case STANDARD_C94:
+-		predefine("__STDC_VERSION__", 1, "199409L");
+ 		predefine("__STRICT_ANSI__", 1, "1");
++		predefine("__STDC_VERSION__", 1, "199409L");
+ 		break;
+ 
+ 	case STANDARD_C99:
+-		predefine("__STDC_VERSION__", 1, "199901L");
+ 		predefine("__STRICT_ANSI__", 1, "1");
+-		break;
+-
+-	case STANDARD_GNU89:
+-	default:
+-		break;
+-
+ 	case STANDARD_GNU99:
+ 		predefine("__STDC_VERSION__", 1, "199901L");
+ 		break;
 -- 
 2.24.0
 
