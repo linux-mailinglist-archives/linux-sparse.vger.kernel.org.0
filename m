@@ -2,83 +2,97 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id B001210CB97
-	for <lists+linux-sparse@lfdr.de>; Thu, 28 Nov 2019 16:18:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id BE93410CE10
+	for <lists+linux-sparse@lfdr.de>; Thu, 28 Nov 2019 18:45:10 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726747AbfK1PSF (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Thu, 28 Nov 2019 10:18:05 -0500
-Received: from avasout04.plus.net ([212.159.14.19]:48694 "EHLO
+        id S1726622AbfK1RpK (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Thu, 28 Nov 2019 12:45:10 -0500
+Received: from avasout04.plus.net ([212.159.14.19]:58690 "EHLO
         avasout04.plus.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726731AbfK1PSE (ORCPT
+        with ESMTP id S1726446AbfK1RpJ (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Thu, 28 Nov 2019 10:18:04 -0500
+        Thu, 28 Nov 2019 12:45:09 -0500
 Received: from [10.0.2.15] ([87.115.253.23])
         by smtp with ESMTPA
-        id aLYQi3YgU4Al0aLYRi3tU0; Thu, 28 Nov 2019 15:18:03 +0000
+        id aNqli3mX14Al0aNqmi3yqa; Thu, 28 Nov 2019 17:45:08 +0000
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=plus.com; s=042019;
-        t=1574954283; bh=vgezfCmVCTmDjrECHHU1Kp3EuY8G0TNPUgB0Y8YM6cc=;
+        t=1574963108; bh=iV6ra7mchAy6aikDInrq3G2mhcm1xqbriXN64vxNs+Y=;
         h=To:Cc:From:Subject:Date;
-        b=DPhBB5d1JqphaDl2iHFoCHOQJICq69D8xdGk8tfpQv+QTujwiFikfOxHrhpvET7Fy
-         Y1caq7HZmHvHsS4XcN1wRtDSYHi7qafYEjx3nayStR7m1cIbPA8qfQNddq+aoLyjGp
-         DC3uH2FKKMSuc4PWMrPiNRZLcHsdA3vu5lsx0v930eoT+g3K/nUI1SKWroSXTgYmBK
-         ODwkWNk7uc5NlR4JF6NJ7d6/9fwBbJxpkV7rET9l+t9+M6cGcM5k5ojzJd6Bquur8a
-         hTEaJrkKQDqqI730mEdjaU/55ecGj+eftW2bbQciSxDD+G6bWvPAhK1k2FFNVJLkeA
-         sdUeZyQpI2zJA==
+        b=Ba/fVIhiBziODUMx2JPcIRVOdettwV0Kpa6gQAEh9JCqzXj0XxrP330hDgZIz1+rv
+         kF8coxdwJi9sF1msZKEtbU8eDZCPMahJyv4X2Y1jWrw69j6LiGdiE2yiAkn5oCcE40
+         ork6gtxx2yaru1kCgsa63a5kPysZiYgsVbZCCOvckr0UyoM4u7NauT8chU9PAgnNOK
+         xvzbHO51ujKTvfvumzHzbfs3FTTi0+OP3fnUxbfDtg+o24x4DG+ZCNNvoaMdh6sjGj
+         /nVwsZi8/dwoml3pOBBmFD/U0q4hFB5yDPpGAtJ5aMopieBymqBamdKFoHC0J//PkF
+         Mk5ItRhKxoWbA==
 X-Clacks-Overhead: "GNU Terry Pratchett"
 X-CM-Score: 0.00
 X-CNFS-Analysis: v=2.3 cv=GY1pYjfL c=1 sm=1 tr=0
  a=LuhjJmsKGzDBBq+cJWlr3w==:117 a=LuhjJmsKGzDBBq+cJWlr3w==:17
- a=IkcTkHD0fZMA:10 a=EBOSESyhAAAA:8 a=hCnBjOBslDAwLzcSLd4A:9 a=QEXdDO2ut3YA:10
+ a=IkcTkHD0fZMA:10 a=EBOSESyhAAAA:8 a=y24yejiid5-4W80LlbkA:9 a=QEXdDO2ut3YA:10
  a=yJM6EZoI5SlJf8ks9Ge_:22
 X-AUTH: ramsayjones@:2500
 To:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 Cc:     Sparse Mailing-list <linux-sparse@vger.kernel.org>
 From:   Ramsay Jones <ramsay@ramsayjones.plus.com>
-Subject: [PATCH] cgcc: fix definition of 'linux' macro
-Message-ID: <18e4644b-7616-5d74-e298-4506372680b3@ramsayjones.plus.com>
-Date:   Thu, 28 Nov 2019 15:17:59 +0000
+Subject: [RFC PATCH] cgcc: only define __CYGWIN32__ for -m32 builds
+Message-ID: <b342ed82-2949-7a44-3cf7-23ae3d266cbf@ramsayjones.plus.com>
+Date:   Thu, 28 Nov 2019 17:45:06 +0000
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.2.1
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-GB
 Content-Transfer-Encoding: 7bit
-X-CMAE-Envelope: MS4wfL2BBjfU14jF9GAdlng+TYSTQW/VTz8WDvuPQPM0sMvDfH0AgwPEAgOR7FPIDUippKe86PV2kaXZKr8x955H9zheX2msZcLuEhQHyhDQ28b5a5t3x7aX
- wvBHMdf2FmZqKVZ6+EFcpcgjfmTbCzvq81WRRr1GmFrSd6njhvXxJnPyFmrN3RlB3WU4AALESAaGOg==
+X-CMAE-Envelope: MS4wfNqp9r2Q/crrLz5Bam0cMH39hwUAHDrzbVPbG7C6gBGG/wbHxpqN61kJAnCneqOR43NlF47zYLRd5W5Lu/dA4NAEYfFK/onWtbQm3+al+PyuKmkbl3U0
+ DzM5omycdH20YDLKmgeOYG0LIUOL7H6SV0MbKeFObF1V0WKlpzHAGJS4763A8QZCbby9kyFHF7WQQw==
 Sender: linux-sparse-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
 
-During a call to add_specs('linux'), cgcc adds several macro definitions
-to the sparse command line. In particular, it provides the incorrect
-definition: '-Dlinux=linux'.
-
-This bug was introduced in commit 807f74466b (<no title>, 2004-08-13), while
-moving some calls to add_pre_buffer() around in lib.c. This was then moved
-out of sparse, into cgcc, by commit cf2bde63a6 (<no title>, 2004-10-05),
-where the definition was copied verbatum.
-
-Fix this macro definition to read '-Dlinux=1' instead.
-
 Signed-off-by: Ramsay Jones <ramsay@ramsayjones.plus.com>
 ---
- cgcc | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+
+Hi Luc,
+
+This is marked RFC because it only improves the situation on 64-bit cygwin.
+Without access to a (up-to-date) 32-bit cygwin, I can't experiment to find
+a means to determine what platform I am on. I don't recall what the output
+of 'uname' is on 32-bit cygwin, but I have a hunch that you can't tell which
+is which from it's output. On 64-bit cygwin:
+
+  $ uname -a
+  CYGWIN_NT-10.0 satellite 3.0.7(0.338/5/3) 2019-04-30 18:08 x86_64 Cygwin
+  $ uname -s
+  CYGWIN_NT-10.0
+  $ uname -o
+  Cygwin
+  $ 
+
+[ie. I don't think 'uname -o' returns Cygwin32 or similar. :( ]
+
+So, I don't know.
+
+ATB,
+Ramsay Jones
+
+ cgcc | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
 diff --git a/cgcc b/cgcc
-index 87f4fc3e..e6541d36 100755
+index 87f4fc3e..2223c97d 100755
 --- a/cgcc
 +++ b/cgcc
-@@ -230,7 +230,7 @@ sub add_specs {
- 	    ' -DNULL="((void *)0)"';
-     } elsif ($spec eq 'linux') {
+@@ -254,7 +254,8 @@ sub add_specs {
+     } elsif ( $spec =~ /^cygwin/) {
  	return &add_specs ('unix') .
--	    ' -D__linux__=1 -D__linux=1 -Dlinux=linux';
-+	    ' -D__linux__=1 -D__linux=1 -Dlinux=1';
-     } elsif ($spec eq 'gnu/kfreebsd') {
- 	return &add_specs ('unix') .
- 	    ' -D__FreeBSD_kernel__=1';
+ 	    ' -fshort-wchar' .
+-	    ' -D__CYGWIN__=1 -D__CYGWIN32__=1' .
++	    ' -D__CYGWIN__=1' .
++	    ($m32 ? ' -D__CYGWIN32__=1' : '') .
+ 	    " -D'_cdecl=__attribute__((__cdecl__))'" .
+ 	    " -D'__cdecl=__attribute__((__cdecl__))'" .
+ 	    " -D'_stdcall=__attribute__((__stdcall__))'" .
 -- 
 2.24.0
