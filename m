@@ -2,91 +2,150 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 6204610CFBD
-	for <lists+linux-sparse@lfdr.de>; Thu, 28 Nov 2019 23:29:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id EEF7910D053
+	for <lists+linux-sparse@lfdr.de>; Fri, 29 Nov 2019 02:15:16 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726593AbfK1W3u (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Thu, 28 Nov 2019 17:29:50 -0500
-Received: from mail-wm1-f68.google.com ([209.85.128.68]:52872 "EHLO
-        mail-wm1-f68.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726582AbfK1W3t (ORCPT
+        id S1726692AbfK2BPQ (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Thu, 28 Nov 2019 20:15:16 -0500
+Received: from avasout06.plus.net ([212.159.14.18]:49532 "EHLO
+        avasout06.plus.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1726670AbfK2BPQ (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Thu, 28 Nov 2019 17:29:49 -0500
-Received: by mail-wm1-f68.google.com with SMTP id l1so12329632wme.2
-        for <linux-sparse@vger.kernel.org>; Thu, 28 Nov 2019 14:29:48 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=8EDgnQgn6RwQh4abtBpf5hMbwq3Rax9ewzIsbRfq5XU=;
-        b=FKKj1+y1a1MJw8KpTyNOU8NrS9x3v8c5zDHjF/RG/Agzhe6PsBAVtALGBvOGc0aYk5
-         E1O5xe/HQDJyLuacvchZulMd+NfgbALAmbVxipB5x/ckIuuFycl2OO8gODOhSWJWGMkc
-         H9nFiEAk82e3ja/LbnBjZD+9bTAq3W3mwIpAGXj3gnKcy3FWOVJCE2//IAWqiDifVqCL
-         bUQ+DpGPpBwSO1UXccY6bL2q8WDOtW1R9JWkJVc7FntvWHBYN2OgjpgyFkiEW1Az0VLc
-         cODSnU8WSf9J8ARZYOgdEZEHLWC5AMre5Ar66U6MphUK0p9F7FjpeBfY3oGwOCA4cAK8
-         j2Dg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=8EDgnQgn6RwQh4abtBpf5hMbwq3Rax9ewzIsbRfq5XU=;
-        b=lkZASVMRQwV5KtE6fRsruayBiijgsC5A5RZaPaa6w9/1E2xGFzSEMorigH3WdQzGuz
-         NfpWWsSSw8XrBQ3zD9ixG2mKiPXggjDaa0M2fCT9ZOJ1rIancmWDoYqo584oIub0aGC8
-         TCsPTPmDJAfceKOB67h5YErT8yaUC72+5G4yOoFTV0u4Gq7BjTa2OrMI5+nMLS3WMgwf
-         shWHDlTqS10VbNqL0jTSoknaJu26DIc99oypypGBmPm5PJbKO8CHzrODjBo8BI2RI1Bf
-         mQHg1GbxaaFfxx51aC2nplnd5+SdJpZZb4twEjuzeQP8TMrTXFYNmz1baFG3kw2bfgH7
-         hNAA==
-X-Gm-Message-State: APjAAAXF1jI1SYeUr3cqlSOGSqGah9LS/MzDXKq/leSCgHBpbRsRqhua
-        G4OSkh8nCG4qEru8tLtnFc/nOB/L
-X-Google-Smtp-Source: APXvYqxqFAOWwAZUBgo6wCqRNm3ht8I6USyWVxxKKszfRp3+QiEGxClAYkbDt3H0wPAseIMlI23XDg==
-X-Received: by 2002:a1c:9c82:: with SMTP id f124mr12219358wme.25.1574980187657;
-        Thu, 28 Nov 2019 14:29:47 -0800 (PST)
-Received: from localhost.localdomain ([2a02:a03f:404e:f500:5533:3e30:d93d:fd1e])
-        by smtp.gmail.com with ESMTPSA id d8sm3324863wre.13.2019.11.28.14.29.46
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 28 Nov 2019 14:29:47 -0800 (PST)
-From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-To:     linux-sparse@vger.kernel.org
-Cc:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-Subject: [PATCH] remove redundant degenerate() in compatible_assignment_types()
-Date:   Thu, 28 Nov 2019 23:29:44 +0100
-Message-Id: <20191128222944.8069-1-luc.vanoostenryck@gmail.com>
-X-Mailer: git-send-email 2.24.0
+        Thu, 28 Nov 2019 20:15:16 -0500
+Received: from [10.0.2.15] ([87.115.253.23])
+        by smtp with ESMTPA
+        id aUsLiZnCRsjQSaUsMiFDSv; Fri, 29 Nov 2019 01:15:14 +0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=plus.com; s=042019;
+        t=1574990114; bh=E/HL/NpO/uG3l/ObD/IhEDsN9CTNLFOnOfI74p4l7xk=;
+        h=Subject:To:Cc:References:From:Date:In-Reply-To;
+        b=G5t6Dq/S6xSPtdRf+1cAwPsUjAd/FZ8IHA1we1st+9sx4cDRkR6GXhCYZqBoI2z+Z
+         n0fawUUIp1zwo+ilMRUmFZFXVKaMVsdRRPDXYHA/5oDJ4MhhY61qffSnllyu2Ie6/s
+         ska+ynYOeaedcmXJqy/Wgo9VbQR5rggyVH/xJo3jK/2y7x1GrvwmP0/1KOBXQRupfx
+         sEoDdxOpvz1w8W6PDY58qa3jIbkDQvzIfwhFiVtxempfOvp71UbqlK41XOUSFl5Uiu
+         QDe/ylXxSnt69LX3fBnCj7RCPLtBLtBpkk9Bb9pmjrc6GIcBEDBKBnheO/P47/6Q+T
+         Ow0bZBa74LyFw==
+X-Clacks-Overhead: "GNU Terry Pratchett"
+X-CM-Score: 0.00
+X-CNFS-Analysis: v=2.3 cv=cZasUULM c=1 sm=1 tr=0
+ a=LuhjJmsKGzDBBq+cJWlr3w==:117 a=LuhjJmsKGzDBBq+cJWlr3w==:17
+ a=jpOVt7BSZ2e4Z31A5e1TngXxSK0=:19 a=IkcTkHD0fZMA:10 a=EBOSESyhAAAA:8
+ a=dqb706xE0NWz4BpLEsoA:9 a=QEXdDO2ut3YA:10 a=yJM6EZoI5SlJf8ks9Ge_:22
+X-AUTH: ramsayjones@:2500
+Subject: Re: [RFC PATCH] cgcc: only define __CYGWIN32__ for -m32 builds
+To:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
+Cc:     Sparse Mailing-list <linux-sparse@vger.kernel.org>
+References: <b342ed82-2949-7a44-3cf7-23ae3d266cbf@ramsayjones.plus.com>
+ <20191128200642.wbrb2rukozyac5go@ltop.local>
+From:   Ramsay Jones <ramsay@ramsayjones.plus.com>
+Message-ID: <b4b8bd95-ef23-d296-9d16-16fa2683926f@ramsayjones.plus.com>
+Date:   Fri, 29 Nov 2019 01:15:12 +0000
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.2.1
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <20191128200642.wbrb2rukozyac5go@ltop.local>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
+X-CMAE-Envelope: MS4wfJAgC/f07aG4tqs+gb2xmzLwHnCqwrSbFatyHvKVZAyW/jhqALIHQroYC1KdkGmjB+fOWECoYSw+Tk/6eMregxNZU2OlOY9HktHleUwp+Uj6I2t1y62P
+ lTgamqfPsEEjEmEE7g5L7wU0ClDA1+AAdIE+y68SUnmbXE6q8lhFx7t2G2P4cY3bAYblZR3sG/t2GA==
 Sender: linux-sparse-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-In compatible_assignment_types(), the source expression is
-first degenerated before calling check_assignment_types().
 
-But this is not needed since check_assignment_types() must
-anyway do the call to degenerate().
 
-So, remove the redundant call to degenerate().
+On 28/11/2019 20:06, Luc Van Oostenryck wrote:
+> On Thu, Nov 28, 2019 at 05:45:06PM +0000, Ramsay Jones wrote:
+>>
+>> Signed-off-by: Ramsay Jones <ramsay@ramsayjones.plus.com>
+>> ---
+>>
+>> Hi Luc,
+> 
+> Hi,
+> 
+>> This is marked RFC because it only improves the situation on 64-bit cygwin.
+>> Without access to a (up-to-date) 32-bit cygwin, I can't experiment to find
+>> a means to determine what platform I am on. I don't recall what the output
+>> of 'uname' is on 32-bit cygwin, but I have a hunch that you can't tell which
+>> is which from it's output. On 64-bit cygwin:
+>>
+>>   $ uname -a
+>>   CYGWIN_NT-10.0 satellite 3.0.7(0.338/5/3) 2019-04-30 18:08 x86_64 Cygwin
+>>   $ uname -s
+>>   CYGWIN_NT-10.0
+>>   $ uname -o
+>>   Cygwin
+>>   $ 
+>>
+>> [ie. I don't think 'uname -o' returns Cygwin32 or similar. :( ]
+> 
+> Indeed, I'm guess it doesn't. 
+> 
+>> So, I don't know.
+> 
+> I see several possibilities:
+> 1)  just this patch, wich is OK for 64-bit platform/compiler
+>     where 32-bit needs to be forced with -m32
+> 2)  simply not define __CYGWIN32__ at all based on the
+>     conviction that it's only __CYGWIN__ that should be tested
+> 3a) in cgcc add 'm32=1' in the i386 part if $m64 is not set
+> 3b) in cgcc add 'm64=1' in the x86_64 part if $m32 is not set
+>     and change this patch to test $m64 instead of testing $m32
+> 4a) in sparse itself, add something like:
+> 	if (arch_mach == MACH_X86_64 && arch_os == OS_CYGWIN)
+> 		add_pre_buffer("#undef __CYGWIN32__");
+>     or:
+> 	if (arch_m64 != LP32 && arch_os == OS_CYGWIN)
+> 		add_pre_buffer("#undef __CYGWIN32__");
+> 4b) do not define __CYGWIN32__ in cgcc and add something like:
+> 	if (arch_mach == MACH_i386 && arch_os == OS_CYGWIN)
+> 		add_pre_buffer("#define __CYG_WIN32__ 1");
+>     or:
+> 	if (arch_m64 == LP32 && arch_os == OS_CYGWIN)
+> 		add_pre_buffer("#define __CYGWIN32__ 1");
+> 
+> For the long term, I would prefer something like 4a) or 4b)
+> but currently it would only work for native builds.
+> 
+> So, I think that 3a) should be the best.
 
-Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
----
- evaluate.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+I nearly sent this patch instead:
 
-diff --git a/evaluate.c b/evaluate.c
-index 19bdab920..34578be8a 100644
---- a/evaluate.c
-+++ b/evaluate.c
-@@ -1501,9 +1501,9 @@ static int compatible_assignment_types(struct expression *expr, struct symbol *t
- 	struct expression **rp, const char *where)
- {
- 	const char *typediff;
--	struct symbol *source = degenerate(*rp);
- 
- 	if (!check_assignment_types(target, rp, &typediff)) {
-+		struct symbol *source = *rp ? (*rp)->ctype : NULL;
- 		warning(expr->pos, "incorrect type in %s (%s)", where, typediff);
- 		info(expr->pos, "   expected %s", show_typename(target));
- 		info(expr->pos, "   got %s", show_typename(source));
--- 
-2.24.0
+$ git diff
+diff --git a/cgcc b/cgcc
+index 2223c97d..ddc6de23 100755
+--- a/cgcc
++++ b/cgcc
+@@ -252,10 +252,16 @@ sub add_specs {
+     } elsif ($spec eq 'unix') {
+        return ' -Dunix=1 -D__unix=1 -D__unix__=1';
+     } elsif ( $spec =~ /^cygwin/) {
++       my $c32 = 0;
++       my $m = `uname -m`;
++
++       chomp $m;
++       $c32 = 1 if ($m =~ /^(i.?86|athlon)$/i);
++
+        return &add_specs ('unix') .
+            ' -fshort-wchar' .
+            ' -D__CYGWIN__=1' .
+-           ($m32 ? ' -D__CYGWIN32__=1' : '') .
++           (($m32 || ($c32 && !$m64)) ? ' -D__CYGWIN32__=1' : '') .
+            " -D'_cdecl=__attribute__((__cdecl__))'" .
+            " -D'__cdecl=__attribute__((__cdecl__))'" .
+            " -D'_stdcall=__attribute__((__stdcall__))'" .
+$ 
+
+I was going to use 'uname -p', but the man page on Linux says that
+this is 'not portable'.
+
+However, other than 'hand testing', I could not be sure it would
+work on an actual 32-bit cygwin system. (hand testing seems to
+imply that it should work, but well ... :-D ).
+
+ATB,
+Ramsay Jones
+
 
