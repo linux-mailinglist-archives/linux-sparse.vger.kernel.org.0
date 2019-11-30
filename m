@@ -2,127 +2,149 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 7342310D06B
-	for <lists+linux-sparse@lfdr.de>; Fri, 29 Nov 2019 02:50:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id BB75110DBF6
+	for <lists+linux-sparse@lfdr.de>; Sat, 30 Nov 2019 01:48:44 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726734AbfK2Bu1 (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Thu, 28 Nov 2019 20:50:27 -0500
-Received: from avasout06.plus.net ([212.159.14.18]:51493 "EHLO
-        avasout06.plus.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726716AbfK2Bu1 (ORCPT
+        id S1727175AbfK3Aso (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Fri, 29 Nov 2019 19:48:44 -0500
+Received: from mail-wr1-f67.google.com ([209.85.221.67]:34876 "EHLO
+        mail-wr1-f67.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1727130AbfK3Asn (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Thu, 28 Nov 2019 20:50:27 -0500
-Received: from [10.0.2.15] ([87.115.253.23])
-        by smtp with ESMTPA
-        id aVQPiZop7sjQSaVQQiFELW; Fri, 29 Nov 2019 01:50:26 +0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=plus.com; s=042019;
-        t=1574992226; bh=hxeIGiBHZ+NRsq4kqorBUxorGi0oTArlI18xjM9vQ/I=;
-        h=Subject:To:Cc:References:From:Date:In-Reply-To;
-        b=MxAx/2X3fNn+uqyS+K0VKAGvNonmOPMxHTFGzrLJitcQCNDjxJNAs1AduOAJaF1og
-         6A3BbmLk6Mesz7PpF8S4wgD6nLJ0+v0W1MjMH1CVVt4MhcYSNRmMRwzZAFw4gc5B8I
-         Z7jbjdVcwQJOXh3nfPFjAc1wf/57Ok11tIvZJbA1gGrdODTE6QtJ+8kGZ88PwFaTPX
-         ZGxK23T4ph6YeTGg0+8yFuGaaU4dqP2QZC2EOnu/Qk1K1IYCKTtANtcGtLbFsqt87R
-         pHoHVIeTTki56Q/nSPAkkRwyTduA+m3GLOFwuxRo3obHJm/QBWO2sf1vK+owLOVCp/
-         BHpmnaKZZMySQ==
-X-Clacks-Overhead: "GNU Terry Pratchett"
-X-CM-Score: 0.00
-X-CNFS-Analysis: v=2.3 cv=cZasUULM c=1 sm=1 tr=0
- a=LuhjJmsKGzDBBq+cJWlr3w==:117 a=LuhjJmsKGzDBBq+cJWlr3w==:17
- a=jpOVt7BSZ2e4Z31A5e1TngXxSK0=:19 a=IkcTkHD0fZMA:10 a=Q1Xrn8gz-tVaUaEVTfAA:9
- a=QEXdDO2ut3YA:10 a=pHzHmUro8NiASowvMSCR:22 a=nt3jZW36AmriUCFCBwmW:22
-X-AUTH: ramsayjones@:2500
-Subject: Re: [PATCH 0/4] More arch specific fixes
-To:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-Cc:     linux-sparse@vger.kernel.org
-References: <20191127022351.68902-1-luc.vanoostenryck@gmail.com>
- <2c56999a-3ee8-999a-be41-962ec8c8d70e@ramsayjones.plus.com>
- <20191127174845.uol5jdfdqpso6o3h@ltop.local>
- <37371468-5ffd-7021-ea50-35d23eef943c@ramsayjones.plus.com>
- <20191127210248.hcp3rvchzwxjpcx6@ltop.local>
- <547bd7d9-2844-1276-fce5-c406e9bcd529@ramsayjones.plus.com>
- <20191127233601.oplm2rnu2vewa2f5@ltop.local>
-From:   Ramsay Jones <ramsay@ramsayjones.plus.com>
-Message-ID: <505fc93c-c1bf-5f78-3822-b993616a2f7d@ramsayjones.plus.com>
-Date:   Fri, 29 Nov 2019 01:50:23 +0000
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.2.1
+        Fri, 29 Nov 2019 19:48:43 -0500
+Received: by mail-wr1-f67.google.com with SMTP id g17so5070800wro.2
+        for <linux-sparse@vger.kernel.org>; Fri, 29 Nov 2019 16:48:42 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=date:from:to:cc:subject:message-id:references:mime-version
+         :content-disposition:in-reply-to;
+        bh=g5C6UFrtpnKFGWUTayVDw1LbZpTj4p13kP+eJ9c3yfs=;
+        b=rfkXLGbK0r17hLnT+tglcF467iEzJfjhrFHI4MoE5BhFVAZHFDYawPna33nI3AyHCd
+         slBJZbqCOoYgk1CmvxJUHAcz2uEp7+MK0EWWHY0xdbDauSkdhhjowvDyhty9ZZd3zaW5
+         ZI6Ao40FsmEuWPasDAaO7H1iWRekAT4cFIsa03sNLODwDsuWi0S7C65ZC3rI27wd+rVH
+         sH3FuMXZmPDODiEoUa6TEpBowUSLXPkA8TxMUzkGFbsEmqaffg0fE5laUbytmw0H5tsa
+         q2wHOGTchvANqacRKaYv59JIqyhqoxcFU6tV5F9+yV+1ODZI2e/NrNPXmrOheaWUSAa0
+         WCww==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+         :mime-version:content-disposition:in-reply-to;
+        bh=g5C6UFrtpnKFGWUTayVDw1LbZpTj4p13kP+eJ9c3yfs=;
+        b=qYxtZlZWN5nMpymKgNrtMcgtcGf9ywhEWhMV3UYASqWNDXLl6DM0Tb92y9CTfK/kiM
+         lMhYwXp43KPcVQlVZ3vbOPpm6QzOPyWEAx9c2yvzlrVpzWMOjxSPpLpKKBtbk//N0rID
+         hBrsy3CcK0awU7XS7XidU53SbcyC1YqtltTkzgBYW9FbwNPCTCPdpHx8EVjyaT0TI/Q1
+         7Xcm8KU6k+NIflXprhQbIktg3wTOtbiYu5TGvc/MXgPgaxLARpPjVFCXlzcBz74vwWLH
+         aDlQsH12izNtulC2UiH1N2uakZV5jMPzdzsJEE9zXL7mWYtwjWev4KAXf+Bd3MCVmgZG
+         LaVg==
+X-Gm-Message-State: APjAAAUASb5lVtYR6WboRbvBi8228ct/vGaaCBbqRDKcwuG/nJILNrj8
+        hzL4KHusDm3pYTZC1VKtrBdtMp9M
+X-Google-Smtp-Source: APXvYqw57DLwhoK9I9xovex/joeIawpRqae/2X4NxCJvJTEDa5OuUuUu4WpyOdIn3XEd175mbgws5Q==
+X-Received: by 2002:adf:82f3:: with SMTP id 106mr12148215wrc.69.1575074921432;
+        Fri, 29 Nov 2019 16:48:41 -0800 (PST)
+Received: from ltop.local ([2a02:a03f:404e:f500:cdc6:e155:f3db:f2f3])
+        by smtp.gmail.com with ESMTPSA id g207sm16647175wmg.40.2019.11.29.16.48.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 29 Nov 2019 16:48:40 -0800 (PST)
+Date:   Sat, 30 Nov 2019 01:48:39 +0100
+From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
+To:     Ramsay Jones <ramsay@ramsayjones.plus.com>
+Cc:     Sparse Mailing-list <linux-sparse@vger.kernel.org>
+Subject: Re: [RFC PATCH] cgcc: only define __CYGWIN32__ for -m32 builds
+Message-ID: <20191130004839.fqtkytdp3vtpqlux@ltop.local>
+References: <b342ed82-2949-7a44-3cf7-23ae3d266cbf@ramsayjones.plus.com>
+ <20191128200642.wbrb2rukozyac5go@ltop.local>
+ <b4b8bd95-ef23-d296-9d16-16fa2683926f@ramsayjones.plus.com>
 MIME-Version: 1.0
-In-Reply-To: <20191127233601.oplm2rnu2vewa2f5@ltop.local>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
-X-CMAE-Envelope: MS4wfP9fY5r+7rUH414CPpB7v3z4RAKlmErPTo7tU6jTnkzIQ0/K6ML8RCRmqTBbUR4TFBj90XGorfPAcbfXHDa346jSz7UMpCVf4MKglUV/UXMuJ+AYimoO
- g43Vq446y6K32LMNSGexLUUc0wNC6NB5g+zLpwPnNtQ0Vcs4HDHnRvoUFxbtELRv9MsLiPY2E3dpcQ==
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <b4b8bd95-ef23-d296-9d16-16fa2683926f@ramsayjones.plus.com>
 Sender: linux-sparse-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-
-
-On 27/11/2019 23:36, Luc Van Oostenryck wrote:
-[snip]
-
->> The main difference, which is new, is the spelling of the 'type names'.
->> e.g. __CHAR16_TYPE__ is given as 'short unsigned int' by gcc but
->> 'unsigned short' by sparse. The following table shows the 'type name'
->> differences:
->>
->> CHAR16_TYPE  short unsigned int => unsigned short
->> INT16_TYPE   short int          => short
->> INT64_TYPE   long int           => long
->> INTMAX_TYPE  long int           => long
->> INTPTR_TYPE  long int           => long
->> PTRDIFF_TYPE long int           => long
->> SIZE_TYPE    long unsigned int  => unsigned long
->> UINT16_TYPE short unsigned int  => unsigned short
->> UINT64_TYPE  long unsigned int  => unsigned long
->> UINTMAX_TYPE long unsigned int  => unsigned long
->> UINTPTR_TYPE long unsigned int  => unsigned long
+On Fri, Nov 29, 2019 at 01:15:12AM +0000, Ramsay Jones wrote:
 > 
+> 
+> On 28/11/2019 20:06, Luc Van Oostenryck wrote:
+> > On Thu, Nov 28, 2019 at 05:45:06PM +0000, Ramsay Jones wrote:
+> >>
+> >> Signed-off-by: Ramsay Jones <ramsay@ramsayjones.plus.com>
+> >> ---
+> >>
+> >> Hi Luc,
+> > 
+> > Hi,
+> > 
+> >> This is marked RFC because it only improves the situation on 64-bit cygwin.
+> >> Without access to a (up-to-date) 32-bit cygwin, I can't experiment to find
+> >> a means to determine what platform I am on. I don't recall what the output
+> >> of 'uname' is on 32-bit cygwin, but I have a hunch that you can't tell which
+> >> is which from it's output. On 64-bit cygwin:
+> >>
+> >>   $ uname -a
+> >>   CYGWIN_NT-10.0 satellite 3.0.7(0.338/5/3) 2019-04-30 18:08 x86_64 Cygwin
+> >>   $ uname -s
+> >>   CYGWIN_NT-10.0
+> >>   $ uname -o
+> >>   Cygwin
+> >>   $ 
+> >>
+> >> [ie. I don't think 'uname -o' returns Cygwin32 or similar. :( ]
+> > 
+> > Indeed, I'm guess it doesn't. 
+> > 
+> >> So, I don't know.
+> > 
+> > I see several possibilities:
+> > 1)  just this patch, wich is OK for 64-bit platform/compiler
+> >     where 32-bit needs to be forced with -m32
+> > 2)  simply not define __CYGWIN32__ at all based on the
+> >     conviction that it's only __CYGWIN__ that should be tested
+> > 3a) in cgcc add 'm32=1' in the i386 part if $m64 is not set
+> > 3b) in cgcc add 'm64=1' in the x86_64 part if $m32 is not set
+> >     and change this patch to test $m64 instead of testing $m32
+> > 4a) in sparse itself, add something like:
+> > 	if (arch_mach == MACH_X86_64 && arch_os == OS_CYGWIN)
+> > 		add_pre_buffer("#undef __CYGWIN32__");
+> >     or:
+> > 	if (arch_m64 != LP32 && arch_os == OS_CYGWIN)
+> > 		add_pre_buffer("#undef __CYGWIN32__");
+> > 4b) do not define __CYGWIN32__ in cgcc and add something like:
+> > 	if (arch_mach == MACH_i386 && arch_os == OS_CYGWIN)
+> > 		add_pre_buffer("#define __CYG_WIN32__ 1");
+> >     or:
+> > 	if (arch_m64 == LP32 && arch_os == OS_CYGWIN)
+> > 		add_pre_buffer("#define __CYGWIN32__ 1");
+> > 
+> > For the long term, I would prefer something like 4a) or 4b)
+> > but currently it would only work for native builds.
+> > 
+> > So, I think that 3a) should be the best.
+> 
+> I nearly sent this patch instead:
+> 
+> $ git diff
+> diff --git a/cgcc b/cgcc
+> index 2223c97d..ddc6de23 100755
+> --- a/cgcc
+> +++ b/cgcc
+> @@ -252,10 +252,16 @@ sub add_specs {
+>      } elsif ($spec eq 'unix') {
+>         return ' -Dunix=1 -D__unix=1 -D__unix__=1';
+>      } elsif ( $spec =~ /^cygwin/) {
+> +       my $c32 = 0;
+> +       my $m = `uname -m`;
 
-Just FYI, I happened to be on my 32-bit Linux installation
-tonight, so I did a quick test of current sparse (of course)
-and found it to be very similar to 64-bit Linux. [passes it's
-own tests and run over git source with no issue].
+This won't work correctly with:
+	cgcc -target=i386 -target=cygwin ...
+wich I'm using for some testing :)
 
-There were some differences, of course, mainly the types
-that appear in the above table are slightly different (but
-in the same way/pattern as above), thus:
+> However, other than 'hand testing', I could not be sure it would
+> work on an actual 32-bit cygwin system. (hand testing seems to
+> imply that it should work, but well ... :-D ).
 
-INT64_TYPE   long long int          => long long
-INTMAX_TYPE  long long int          => long long
-UINT64_TYPE  long long unsigned int => unsigned long long
-UINTMAX_TYPE long long unsigned int => unsigned long long
-WCHAR_TYPE   long int               => long
+In this case, hand testing is perfectly fine.
 
-The following <TYPE-WIDTH> macros were output by sparse, but
-not by gcc:
-
-__INTMAX_WIDTH__
-__INTPTR_WIDTH__
-__INT_WIDTH__
-__LONG_WIDTH__
-__PTRDIFF_WIDTH__
-__SCHAR_WIDTH__
-__SHRT_WIDTH__
-__SIZE_WIDTH__
-__WCHAR_WIDTH__
-__WINT_WIDTH__
-
-... but I think this has more to do with the version of gcc on
-that system (Linux Mint 18.3, based on Ubuntu 16.04), which was
-version 5.4.0.
-
-Some of the missing macros included:
-i386
-__i686
-__i686__
-__pentiumpro
-__pentiumpro__
-
-Again Just FYI.
-
-ATB,
-Ramsay Jones
-
+Best regards,
+-- Luc
