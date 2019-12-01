@@ -2,79 +2,108 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id D83B110E365
-	for <lists+linux-sparse@lfdr.de>; Sun,  1 Dec 2019 21:07:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 6BE0210E36D
+	for <lists+linux-sparse@lfdr.de>; Sun,  1 Dec 2019 21:20:13 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726519AbfLAUHz (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Sun, 1 Dec 2019 15:07:55 -0500
-Received: from mail-wm1-f65.google.com ([209.85.128.65]:38987 "EHLO
-        mail-wm1-f65.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726173AbfLAUHz (ORCPT
+        id S1726800AbfLAUUL (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Sun, 1 Dec 2019 15:20:11 -0500
+Received: from mail-wm1-f66.google.com ([209.85.128.66]:35663 "EHLO
+        mail-wm1-f66.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1726519AbfLAUUL (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Sun, 1 Dec 2019 15:07:55 -0500
-Received: by mail-wm1-f65.google.com with SMTP id s14so14010920wmh.4
-        for <linux-sparse@vger.kernel.org>; Sun, 01 Dec 2019 12:07:53 -0800 (PST)
+        Sun, 1 Dec 2019 15:20:11 -0500
+Received: by mail-wm1-f66.google.com with SMTP id u8so5261476wmu.0
+        for <linux-sparse@vger.kernel.org>; Sun, 01 Dec 2019 12:20:09 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=date:from:to:cc:subject:message-id:references:mime-version
          :content-disposition:in-reply-to;
-        bh=9Qhgg+6nw6emr8QeRg0Vj9GJ4PdL7LKcLHJK2/paAFQ=;
-        b=CNNKxKFU6aksKmyKmNYRNd/1Dd31uhlImQnjX+lTcUQrnJvwVbj6mGfmxqv6Xjom0K
-         cMKkze8aPkMgFziupRz4TOGBzHlBRqyZEOGdwoYKa+KY4v8mWWJRCp4OJqrl3IEqC09y
-         imivF/V3xxnzMf2pQJqDMsHIq3hrvJH3KGH40t5QEcntNAjMQFLsVIJedwlikB+jxIu7
-         D+panZOym3b+vvYHRFg9SoBg5JRg8SaCQD7z+dG2egTILsjy5qRb1eJmKsduWGn87aTS
-         Z2K+qAzm4hpOCOdWXqrA+inyq2bKkaidbHli9NsaWbmBPCNpNRMAALjS/l9mw71PXHKr
-         hiHQ==
+        bh=hrKtvqumTVtcgLlV0h6Fj8/f6eNQZYjlfNCtIGoXfkc=;
+        b=KSh8AIflZZ3gbaxZHKGMJ4utoegoQYD0jDnV2TB+bcGIAdMPfKAc2WJmdwLMUiT0qE
+         Qu/bet+gMH5QD/NiabPed72H/pEteuzuP12F3xE6tOE9JTk5Xf5DZYFJqTxa2SfOPyUN
+         3zb734W4NBbIaRovlR6aF2eIRcUffdpM45kdXWclZ1BvlMlPBIbtODrfgoSQAAFe0FV2
+         jH42O4n6p3u5vTHgT+8a+vmJp8H8x/zkzCs24sQhF+RSr+Rft0uMBuLBfiAsE0B52mSo
+         slL/BIDTIzFFaFxxTigbRfwK43+zmgePj8s6juYTt843aK0AIKgylnJCgoyzp2tgHwMy
+         Krsg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:date:from:to:cc:subject:message-id:references
          :mime-version:content-disposition:in-reply-to;
-        bh=9Qhgg+6nw6emr8QeRg0Vj9GJ4PdL7LKcLHJK2/paAFQ=;
-        b=HB3vCY2zbBqnUXthvHyA5s7gwJoYAlK7Ft7jrubomAyUHwYk/dOBAi7VvPhP2VfZRh
-         8/KZgcSk11bduW8teaWtF7FOv6szaN2bqIXxoJulCBfBMBAnOf8oJuvnNlLvd2kVeVyO
-         0SYVhqjsqrGkWso5nZApwseJe4xFjkODJh4lUKcQskjwaz8pdVujED8ggiiE2vIpOCtd
-         OW7Wk3+8e4f8tavvrDY6vscoSRezs2HJ3o6XkBkh0JN/cO63QhxntrkhipzSdW8KDbEp
-         wJnisLRtnfel6BahsrN4s/xgTUaj9Z5DL/y1nRYYlMGRBVnfd7gjnc5VyrOsv7stKkAX
-         TYiw==
-X-Gm-Message-State: APjAAAUZOhwxQ0kS2crqJDi3sm7j5IDcqFDnB7FugPy7UDqWS5kioyit
-        q05TXOOcB+rNvH50gASqu2JzrvlH
-X-Google-Smtp-Source: APXvYqwzr60eEClX/dbmt7t1rnOmSR3EmpffsC4+lMcaihFkbEQV0qEleUWf/PKiGSgZSQYPit3bvw==
-X-Received: by 2002:a1c:cc01:: with SMTP id h1mr24285159wmb.172.1575230872840;
-        Sun, 01 Dec 2019 12:07:52 -0800 (PST)
+        bh=hrKtvqumTVtcgLlV0h6Fj8/f6eNQZYjlfNCtIGoXfkc=;
+        b=VI0KLE0ZcLGYfSc0O8yA+P7OklQ/L5zUVD+MY0lXQ3fZMLTnI+nUB0KHNLUoSQ+sZl
+         rHhhbABjmdTVT5EzoGBvY+a9puYUyCr9gTnPdYZOFy8LGSXEXIPywnrZjpYUrEC6ib4E
+         wwybNkqPR/SORWfGXt1Je/+ldz+5ZLlgrdR00B99MuqmLfdqLh9V4Qi0Kh3yBZoITCyY
+         eVju6N6LhtWYD4Vxz2zbXIdVgEH5wQMNmatwqO36oKtCuUmx8ExGVoqy3gb9c88EEYFs
+         /89OMgg9q2VOWqNO86gvLigHxDEeAXIa+BItmHher6pSBzE94xF2ibOVmf4HdYWHTNVI
+         9uzw==
+X-Gm-Message-State: APjAAAUZN7Op12ueWt5lsphqB7TP+OSjX7BqWyRMDMxSbE1/Q3WpNZqF
+        Mjp5Fd/1gajsVQVonHmEUt5MvAD0
+X-Google-Smtp-Source: APXvYqzdetU2UzafUFDUa/FMGGZzyrlzQWcZQ2mQbNlH7qtqoh6CH1eW4LHWNA6dDKCtol0D5TdvAg==
+X-Received: by 2002:a7b:c449:: with SMTP id l9mr12665250wmi.150.1575231609269;
+        Sun, 01 Dec 2019 12:20:09 -0800 (PST)
 Received: from ltop.local ([2a02:a03f:404e:f500:319e:42d8:5e4b:7244])
-        by smtp.gmail.com with ESMTPSA id t8sm14212178wrp.69.2019.12.01.12.07.51
+        by smtp.gmail.com with ESMTPSA id h8sm20562739wrx.63.2019.12.01.12.20.08
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 01 Dec 2019 12:07:51 -0800 (PST)
-Date:   Sun, 1 Dec 2019 21:07:51 +0100
+        Sun, 01 Dec 2019 12:20:08 -0800 (PST)
+Date:   Sun, 1 Dec 2019 21:20:07 +0100
 From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 To:     Ramsay Jones <ramsay@ramsayjones.plus.com>
 Cc:     linux-sparse@vger.kernel.org
-Subject: Re: [PATCH 5/7] simplify definition of __STRICT_ANSI__
-Message-ID: <20191201200751.of7rpndue2y2ly5r@ltop.local>
+Subject: Re: [PATCH 7/7] teach sparse about C17
+Message-ID: <20191201202007.avbhx6cpt6o4c223@ltop.local>
 References: <20191128204225.7002-1-luc.vanoostenryck@gmail.com>
- <20191128204225.7002-6-luc.vanoostenryck@gmail.com>
- <79778e18-f7f4-1070-c57f-9e19fdc17927@ramsayjones.plus.com>
+ <20191128204225.7002-8-luc.vanoostenryck@gmail.com>
+ <0d75af25-61b7-faee-fd36-eb7b1e3fa5e4@ramsayjones.plus.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <79778e18-f7f4-1070-c57f-9e19fdc17927@ramsayjones.plus.com>
+In-Reply-To: <0d75af25-61b7-faee-fd36-eb7b1e3fa5e4@ramsayjones.plus.com>
 Sender: linux-sparse-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-On Sun, Dec 01, 2019 at 04:19:54PM +0000, Ramsay Jones wrote:
+On Sun, Dec 01, 2019 at 04:25:30PM +0000, Ramsay Jones wrote:
 > On 28/11/2019 20:42, Luc Van Oostenryck wrote:
-> > @@ -1433,6 +1425,8 @@ static void predefined_macros(void)
-> >  		predefine("__STDC_VERSION__", 1, "201112L");
-> >  		break;
-> >  	}
-> > +	if (!(standard & STANDARD_GNU) & (standard != STANDARD_NONE))
+> > No real support is done here (or is needed) but the __STDC_VERSION__
+> > will return the correct value.
+> > 
+> > Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
+> > ---
+> >  lib.c | 13 +++++++++++++
+> >  lib.h |  2 ++
+> >  2 files changed, 15 insertions(+)
+> > 
+> > diff --git a/lib.c b/lib.c
+> > index 7f7ca846b..8fddae450 100644
+> > --- a/lib.c
+> > +++ b/lib.c
+> > @@ -1079,6 +1079,15 @@ static char **handle_switch_s(const char *arg, char **next)
+> >  		else if (!strcmp(arg, "gnu11"))
+> >  			standard = STANDARD_GNU11;
+> >  
+> > +		else if (!strcmp(arg, "c17") ||
+> > +			 !strcmp(arg, "c18") ||
+> > +			 !strcmp(arg, "iso9899:2017") ||
+> > +			 !strcmp(arg, "iso9899:2018"))
+> > +			standard = STANDARD_C17;
+> > +		else if (!strcmp(arg, "gnu17") ||
+> > +			 !strcmp(arg, "gnu18"))
+> > +			standard = STANDARD_GNU17;
+> > +
 > 
-> s/) & (/) && (/
+> Yes, I knew about C17, but out of nowhere I started hearing
+> about C18! ;-) As far as I can tell, this is just C17, but
+> because it crept into 2018 before final approval, come people
+> are starting to call it C18. However, the __STDC_VERSION__
+> value is still 201710L, right?
 
-Nice catch!
-The result is the same, but it certainly wasn't my intention.
+Yes, exactly. It's essentially a 'bug-fix' only version, so
+nothing new and nothing controversial and so there is very few
+reasons to talk about it. I think that the final approval vote
+was still in 2017 but it was only published months later, in 2018. 
+I think it's better known as C18 but I tend to call it C17 because
+of the __STDC_VERSION__.
 
-Thank you very much.
--- Luc 
+Best regards,
+-- Luc
