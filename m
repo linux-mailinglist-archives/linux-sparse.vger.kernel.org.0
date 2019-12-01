@@ -2,107 +2,108 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 2363110DBF9
-	for <lists+linux-sparse@lfdr.de>; Sat, 30 Nov 2019 02:01:53 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 3709E10E27E
+	for <lists+linux-sparse@lfdr.de>; Sun,  1 Dec 2019 17:17:53 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727142AbfK3BBw (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Fri, 29 Nov 2019 20:01:52 -0500
-Received: from mail-wr1-f68.google.com ([209.85.221.68]:46616 "EHLO
-        mail-wr1-f68.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1727130AbfK3BBw (ORCPT
+        id S1726789AbfLAQRw (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Sun, 1 Dec 2019 11:17:52 -0500
+Received: from avasout04.plus.net ([212.159.14.19]:46115 "EHLO
+        avasout04.plus.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1726439AbfLAQRw (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Fri, 29 Nov 2019 20:01:52 -0500
-Received: by mail-wr1-f68.google.com with SMTP id z7so33665818wrl.13
-        for <linux-sparse@vger.kernel.org>; Fri, 29 Nov 2019 17:01:50 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=date:from:to:cc:subject:message-id:references:mime-version
-         :content-disposition:in-reply-to;
-        bh=MNWIkCL1tlTyQQr8DKpjrw9QabICPQV1Ntnif6XAq5E=;
-        b=qi9CyTWxVQ3v0MAzlj80UX/gezfhpyEB+5H2WCgrdvEf+YdpnJzSYZR5hw7gm4UfNx
-         y3mVIe/+vo808fmL5M4ahDKUGwLivAc5UTXaCDE10oQ8pmFvFMUM2lY+/fcL24M7mWYF
-         7ML85tfS9yQMlu+S0CgV/b7EmGQSBRq7SDwA27x52Jp3RoEoErkHBpzewGARCMe8OFTF
-         jn8r/a7Bm0fREIZowXaYtLDGIVwhUhRvMrCh9Vf9fLuZDCxVE0rdfDj4Y0Dv1ywQvzXm
-         J4ODfFPh3fqkr/BYRphy6nSZq77aHmMGcviO5SrP+eBfISoCNoMMLP5CjzfmwvjSlFHC
-         xXkA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
-         :mime-version:content-disposition:in-reply-to;
-        bh=MNWIkCL1tlTyQQr8DKpjrw9QabICPQV1Ntnif6XAq5E=;
-        b=VtEUlYxkjgdc+u4yKox7+3socFpPQCDSuJXsd3cv47wGyR1IpZ/mnEbk1L71jTVdkF
-         xe3DEOi4S+JEUFqNXiQYYrp4PohIYsDjguI/4nTqCTW+FyD57M/NBwDN+pwEY3j7IPo3
-         H8w57xBmVqzJeqsOsXfSupV5uXeJTWQMMGNXSGXgbVmfsNjqnoOXmBXFKl/6Csear9vL
-         Cnob3fvYeK4SZVoRDzgD5dTxAcDTS8MR0IS87WDpxItFktuC7j8tMRF95v3Yaowp+Mtv
-         xTf2qSbgx5Lk9ELLS9NvQfsag08iMyVxVKkhvSir7plQrhxLbmOpOMoU3oge93p61Deq
-         XjXA==
-X-Gm-Message-State: APjAAAXK7m6Xg2tL46lE1R8+gwvVWiD1HxKgMwFRv/KNeG503KJqPsA6
-        CVwRNG9qRTN1ZVx/uF+lEzY=
-X-Google-Smtp-Source: APXvYqxIjOSDipX0SVtguABdeIhF0wNhIBtO+g+Re0YINILSUnAAsHMt4fjgahfNKrA2ulNvGAkppA==
-X-Received: by 2002:adf:c611:: with SMTP id n17mr58910709wrg.317.1575075709941;
-        Fri, 29 Nov 2019 17:01:49 -0800 (PST)
-Received: from ltop.local ([2a02:a03f:404e:f500:cdc6:e155:f3db:f2f3])
-        by smtp.gmail.com with ESMTPSA id v19sm31054645wrg.38.2019.11.29.17.01.48
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 29 Nov 2019 17:01:49 -0800 (PST)
-Date:   Sat, 30 Nov 2019 02:01:47 +0100
-From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-To:     Ramsay Jones <ramsay@ramsayjones.plus.com>
-Cc:     linux-sparse@vger.kernel.org
-Subject: Re: [PATCH 0/4] More arch specific fixes
-Message-ID: <20191130010147.ru5q3nkvicz5l6n3@ltop.local>
-References: <20191127022351.68902-1-luc.vanoostenryck@gmail.com>
- <2c56999a-3ee8-999a-be41-962ec8c8d70e@ramsayjones.plus.com>
- <20191127174845.uol5jdfdqpso6o3h@ltop.local>
- <37371468-5ffd-7021-ea50-35d23eef943c@ramsayjones.plus.com>
- <20191127210248.hcp3rvchzwxjpcx6@ltop.local>
- <547bd7d9-2844-1276-fce5-c406e9bcd529@ramsayjones.plus.com>
- <20191127233601.oplm2rnu2vewa2f5@ltop.local>
- <505fc93c-c1bf-5f78-3822-b993616a2f7d@ramsayjones.plus.com>
+        Sun, 1 Dec 2019 11:17:52 -0500
+Received: from [10.0.2.15] ([87.115.253.23])
+        by smtp with ESMTPA
+        id bRuui7WUk4Al0bRuwi5Sre; Sun, 01 Dec 2019 16:17:50 +0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=plus.com; s=042019;
+        t=1575217070; bh=8nNEGhkddKKYxsP+LjK/gDI+OdLNmVi9SlxCwzm3n60=;
+        h=Subject:To:References:From:Date:In-Reply-To;
+        b=sRn5fa3VxHe1urd3mJgVnFnwjrUKJxqkvMIyqSGO/PYr0DlMiomzvNi9XsKLO9QHj
+         q9FqtGSsMEY3/5pbaAppgPii/Viwn2arwE+pq3qmpYnGFU1oBjoYfD8CvSs5/xUtf8
+         kDpIxrIHRLitaIY5AaDdlc2POl47oG2aiy9aYiFISV7bLq1a39vYt4IhLk7dPqeUHM
+         xKr171XphL4bqWWL70RigpkoM7ZPMlIQ2lfNhaOjm16jpS4GlamS94jjLRNqToHdqz
+         K528+xJvB0/4YNuzPuy3cMnU3QIpeIJ9DMGLD5sTYdSR3UdihFoWMyeRrWznI2gZod
+         AQvvKjSMPD4Xw==
+X-Clacks-Overhead: "GNU Terry Pratchett"
+X-CM-Score: 0.00
+X-CNFS-Analysis: v=2.3 cv=GY1pYjfL c=1 sm=1 tr=0
+ a=LuhjJmsKGzDBBq+cJWlr3w==:117 a=LuhjJmsKGzDBBq+cJWlr3w==:17
+ a=jpOVt7BSZ2e4Z31A5e1TngXxSK0=:19 a=IkcTkHD0fZMA:10 a=pGLkceISAAAA:8
+ a=0B6lBDI9X-RoQM9EfOAA:9 a=QEXdDO2ut3YA:10 a=pHzHmUro8NiASowvMSCR:22
+ a=xoEH_sTeL_Rfw54TyV31:22
+X-AUTH: ramsayjones@:2500
+Subject: Re: [PATCH 4/7] reorganize the __STDC_VERSION__/__STRICT_ANSI__
+ switch statement
+To:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>,
+        linux-sparse@vger.kernel.org
+References: <20191128204225.7002-1-luc.vanoostenryck@gmail.com>
+ <20191128204225.7002-5-luc.vanoostenryck@gmail.com>
+From:   Ramsay Jones <ramsay@ramsayjones.plus.com>
+Message-ID: <d0872bbe-394c-6cbc-023d-e443ce60017c@ramsayjones.plus.com>
+Date:   Sun, 1 Dec 2019 16:17:49 +0000
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.2.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <505fc93c-c1bf-5f78-3822-b993616a2f7d@ramsayjones.plus.com>
+In-Reply-To: <20191128204225.7002-5-luc.vanoostenryck@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
+X-CMAE-Envelope: MS4wfOf5QwhusQA3Nb97dJqUhjensFq0B951PeW+FZxwDUyyCcJPVGwARIQlCIflnFKimHGPEEv9+4IwXnvjNrMawI4FBGJV0uT1FoZgb4C0igzyZVdLWvcq
+ 6IqaSeVdHQ4rzqwEMv5qfFN2qa/a2/LpxXuUK0SzD6WlYMlRdhpseXpH4WmpXIEAvIFo4iDblMwR1w==
 Sender: linux-sparse-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-On Fri, Nov 29, 2019 at 01:50:23AM +0000, Ramsay Jones wrote:
-> 
-> The following <TYPE-WIDTH> macros were output by sparse, but
-> not by gcc:
-> 
-> __INTMAX_WIDTH__
-> __INTPTR_WIDTH__
-> __INT_WIDTH__
-> __LONG_WIDTH__
-> __PTRDIFF_WIDTH__
-> __SCHAR_WIDTH__
-> __SHRT_WIDTH__
-> __SIZE_WIDTH__
-> __WCHAR_WIDTH__
-> __WINT_WIDTH__
-> 
-> ... but I think this has more to do with the version of gcc on
-> that system (Linux Mint 18.3, based on Ubuntu 16.04), which was
-> version 5.4.0.
 
-Yes, indeed. IIRC, these were introduce between GCC 7.2 & 7.3.
- 
-> Some of the missing macros included:
-> i386
-> __i686
-> __i686__
-> __pentiumpro
-> __pentiumpro__
+
+On 28/11/2019 20:42, Luc Van Oostenryck wrote:
+> Move some of the cases so that each STANDARD_GNU* is just
+> under the its corresponding STANDRAD_C*.
+
+s/STANDRAD_C/STANDARD_C/
+
+ATB,
+Ramsay Jones
+
 > 
-> Again Just FYI.
-
-Yes. I tend to think it's best to avoid 'i386' completely.
-For the others, they depend on GCC's default and on '-mcpu=<CPU>'.
-I feel it's more correct for sparse to not define them at all,
-meaning 'only the generic i386 is supported'.
-
-Thank you very much to checking all this.
--- Luc
+> Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
+> ---
+>  lib.c | 13 +++++--------
+>  1 file changed, 5 insertions(+), 8 deletions(-)
+> 
+> diff --git a/lib.c b/lib.c
+> index 97d8af390..02f6231e2 100644
+> --- a/lib.c
+> +++ b/lib.c
+> @@ -1405,24 +1405,21 @@ static void predefined_macros(void)
+>  
+>  	predefine("__STDC__", 1, "1");
+>  	switch (standard) {
+> +	default:
+> +		break;
+> +
+>  	case STANDARD_C89:
+>  		predefine("__STRICT_ANSI__", 1, "1");
+> +	case STANDARD_GNU89:
+>  		break;
+>  
+>  	case STANDARD_C94:
+> -		predefine("__STDC_VERSION__", 1, "199409L");
+>  		predefine("__STRICT_ANSI__", 1, "1");
+> +		predefine("__STDC_VERSION__", 1, "199409L");
+>  		break;
+>  
+>  	case STANDARD_C99:
+> -		predefine("__STDC_VERSION__", 1, "199901L");
+>  		predefine("__STRICT_ANSI__", 1, "1");
+> -		break;
+> -
+> -	case STANDARD_GNU89:
+> -	default:
+> -		break;
+> -
+>  	case STANDARD_GNU99:
+>  		predefine("__STDC_VERSION__", 1, "199901L");
+>  		break;
+> 
