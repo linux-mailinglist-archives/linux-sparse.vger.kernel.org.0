@@ -2,122 +2,89 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 9EAE510E296
-	for <lists+linux-sparse@lfdr.de>; Sun,  1 Dec 2019 17:25:33 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 660D810E314
+	for <lists+linux-sparse@lfdr.de>; Sun,  1 Dec 2019 19:28:13 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727231AbfLAQZc (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Sun, 1 Dec 2019 11:25:32 -0500
-Received: from avasout04.plus.net ([212.159.14.19]:46532 "EHLO
-        avasout04.plus.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726789AbfLAQZc (ORCPT
-        <rfc822;linux-sparse@vger.kernel.org>);
-        Sun, 1 Dec 2019 11:25:32 -0500
-Received: from [10.0.2.15] ([87.115.253.23])
-        by smtp with ESMTPA
-        id bS2Mi7WwL4Al0bS2Ni5T1C; Sun, 01 Dec 2019 16:25:31 +0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=plus.com; s=042019;
-        t=1575217531; bh=0q8vDD32G0k4YBnDfuDz8qWY3fl3owldKszMWTIRwIs=;
-        h=Subject:To:References:From:Date:In-Reply-To;
-        b=svIA3LrXV76+awiR65wbepAJRYHDkQAn/8wL6mC9QnqvgR5VsMqFjCM/UbsHNtCyo
-         E+iaMJAwnCNq08+RXPIU2B/aUh0bNWLhSpj6kX4nvDmckk8tMKqD8SH5xvYmVJwtVB
-         ddMN5NIFprAG8Qz8lmg7qrQ5X/mpK2kXD7PTbDg/FHwa/keFb6OfzXjOe7Tczg2JJ6
-         Jh0Ap94+q2HEsgzeqCOxCboJrYTpSIdl/TOCjuARKfc5q3sobvoiFnpda7sLrpZExG
-         UECP0WQU8Vas90G8i3Yb2vmmv+ll0benr+/K3srSUwHMpq8Nw55/BPuHIOBYzdrbzQ
-         CccbvAFjZ1vUg==
-X-Clacks-Overhead: "GNU Terry Pratchett"
-X-CM-Score: 0.00
-X-CNFS-Analysis: v=2.3 cv=GY1pYjfL c=1 sm=1 tr=0
- a=LuhjJmsKGzDBBq+cJWlr3w==:117 a=LuhjJmsKGzDBBq+cJWlr3w==:17
- a=jpOVt7BSZ2e4Z31A5e1TngXxSK0=:19 a=IkcTkHD0fZMA:10 a=pGLkceISAAAA:8
- a=AtHW6sTSTuk3QGEHC9EA:9 a=QEXdDO2ut3YA:10 a=pHzHmUro8NiASowvMSCR:22
- a=nt3jZW36AmriUCFCBwmW:22
-X-AUTH: ramsayjones@:2500
-Subject: Re: [PATCH 7/7] teach sparse about C17
-To:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>,
-        linux-sparse@vger.kernel.org
-References: <20191128204225.7002-1-luc.vanoostenryck@gmail.com>
- <20191128204225.7002-8-luc.vanoostenryck@gmail.com>
-From:   Ramsay Jones <ramsay@ramsayjones.plus.com>
-Message-ID: <0d75af25-61b7-faee-fd36-eb7b1e3fa5e4@ramsayjones.plus.com>
-Date:   Sun, 1 Dec 2019 16:25:30 +0000
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.2.1
+        id S1727167AbfLAS2N (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Sun, 1 Dec 2019 13:28:13 -0500
+Received: from mtax.cdmx.gob.mx ([187.141.35.197]:12185 "EHLO mtax.cdmx.gob.mx"
+        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
+        id S1727169AbfLAS2M (ORCPT <rfc822;linux-sparse@vger.kernel.org>);
+        Sun, 1 Dec 2019 13:28:12 -0500
+X-Greylist: delayed 7054 seconds by postgrey-1.27 at vger.kernel.org; Sun, 01 Dec 2019 13:28:11 EST
+X-NAI-Header: Modified by McAfee Email Gateway (4500)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cdmx.gob.mx; s=72359050-3965-11E6-920A-0192F7A2F08E;
+        t=1575217638; h=DKIM-Filter:X-Virus-Scanned:
+         Content-Type:MIME-Version:Content-Transfer-Encoding:
+         Content-Description:Subject:To:From:Date:Message-Id:
+         X-AnalysisOut:X-AnalysisOut:X-AnalysisOut:
+         X-AnalysisOut:X-AnalysisOut:X-SAAS-TrackingID:
+         X-NAI-Spam-Flag:X-NAI-Spam-Threshold:X-NAI-Spam-Score:
+         X-NAI-Spam-Rules:X-NAI-Spam-Version; bh=M
+        8rWdUYQ57RAYAgTWJQ4Rsch0kO0UXllaAVDzocOs4
+        8=; b=AJgw5zKuRSxDA4RR1SzCQDXDmYbq3lEbkez0ze6zMlwW
+        X/wMCEBYaGleZ2pGWnVrtYngr6fsmOhMyisacQslDYI3cnrVYt
+        ImDAeXGclPOllZniR8yKozbADkJ0zZghibjY0PJPmMUTT1yGgv
+        D+BMIip2w0gajErzyPpigp0X8+k=
+Received: from cdmx.gob.mx (correo.cdmx.gob.mx [10.250.108.150]) by mtax.cdmx.gob.mx with smtp
+        (TLS: TLSv1/SSLv3,256bits,ECDHE-RSA-AES256-GCM-SHA384)
+         id 217f_6404_70aeedb4_67f9_4254_84e1_45d95604647e;
+        Sun, 01 Dec 2019 10:27:17 -0600
+Received: from localhost (localhost [127.0.0.1])
+        by cdmx.gob.mx (Postfix) with ESMTP id 9C7F51E2F1B;
+        Sun,  1 Dec 2019 10:18:50 -0600 (CST)
+Received: from cdmx.gob.mx ([127.0.0.1])
+        by localhost (cdmx.gob.mx [127.0.0.1]) (amavisd-new, port 10032)
+        with ESMTP id M8xflX4YPAZf; Sun,  1 Dec 2019 10:18:50 -0600 (CST)
+Received: from localhost (localhost [127.0.0.1])
+        by cdmx.gob.mx (Postfix) with ESMTP id B7DE51E2E33;
+        Sun,  1 Dec 2019 10:14:17 -0600 (CST)
+DKIM-Filter: OpenDKIM Filter v2.9.2 cdmx.gob.mx B7DE51E2E33
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cdmx.gob.mx;
+        s=72359050-3965-11E6-920A-0192F7A2F08E; t=1575216857;
+        bh=M8rWdUYQ57RAYAgTWJQ4Rsch0kO0UXllaAVDzocOs48=;
+        h=Content-Type:MIME-Version:Content-Transfer-Encoding:Subject:To:
+         From:Date:Message-Id;
+        b=pZKm0kBMfssiAPOl2vuwSOc8Vx2IjcSbCx1A7EwxZ5vI0H4iGZ+j/5lrUbxcWINpl
+         U1Z3b7gj7WtHwzLTG5dWIzXIEiZmMtguVV8DoB9jk2jBCK505XcQAJGWseydyBq9UK
+         eH1tgY3iJ4Fy9p/Qrl+zdSw5QveHJy9grRi8D7Hw=
+X-Virus-Scanned: amavisd-new at cdmx.gob.mx
+Received: from cdmx.gob.mx ([127.0.0.1])
+        by localhost (cdmx.gob.mx [127.0.0.1]) (amavisd-new, port 10026)
+        with ESMTP id s22pwdcNZkoF; Sun,  1 Dec 2019 10:14:17 -0600 (CST)
+Received: from [192.168.0.104] (unknown [188.125.168.160])
+        by cdmx.gob.mx (Postfix) with ESMTPSA id 04F6B1E2599;
+        Sun,  1 Dec 2019 10:05:21 -0600 (CST)
+Content-Type: text/plain; charset="iso-8859-1"
 MIME-Version: 1.0
-In-Reply-To: <20191128204225.7002-8-luc.vanoostenryck@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
-X-CMAE-Envelope: MS4wfPHeKxxJ5O5U9qS8ZmFOzYRvH6piHxaGhIAPgke9bjeXO+ndkbiKdaRhXvMy+/wRLMW5raK2a8HAw4qqz+cJHldKMquEME4GRsCvEkitUSZI88E8hw0D
- R2UQeWLOhvsMa/7Iyx3Vjyq0E6Htes1saBvgSiN/9Jm8PWQSRGsoasGYCyoFvFbO+y8t7MlDOjQSSA==
+Content-Transfer-Encoding: quoted-printable
+Content-Description: Mail message body
+Subject: Congratulations
+To:     Recipients <aac-styfe@cdmx.gob.mx>
+From:   "Bishop Johnr" <aac-styfe@cdmx.gob.mx>
+Date:   Sun, 01 Dec 2019 17:05:14 +0100
+Message-Id: <20191201160522.04F6B1E2599@cdmx.gob.mx>
+X-AnalysisOut: [v=2.2 cv=euev9shX c=1 sm=1 tr=0 p=6K-Ig8iNAUou4E5wYCEA:9 p]
+X-AnalysisOut: [=zRI05YRXt28A:10 a=T6zFoIZ12MK39YzkfxrL7A==:117 a=9152RP8M]
+X-AnalysisOut: [6GQqDhC/mI/QXQ==:17 a=8nJEP1OIZ-IA:10 a=pxVhFHJ0LMsA:10 a=]
+X-AnalysisOut: [pGLkceISAAAA:8 a=wPNLvfGTeEIA:10 a=M8O0W8wq6qAA:10 a=Ygvjr]
+X-AnalysisOut: [iKHvHXA2FhpO6d-:22]
+X-SAAS-TrackingID: 3e9e3ed5.0.105195785.00-2379.176839663.s12p02m004.mxlogic.net
+X-NAI-Spam-Flag: NO
+X-NAI-Spam-Threshold: 3
+X-NAI-Spam-Score: -5000
+X-NAI-Spam-Rules: 1 Rules triggered
+        WHITELISTED=-5000
+X-NAI-Spam-Version: 2.3.0.9418 : core <6686> : inlines <7165> : streams
+ <1840193> : uri <2949750>
 Sender: linux-sparse-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
+Money was donated to you by Mr and Mrs Allen and Violet Large, just contact=
+ them with this email for more information =
 
 
-On 28/11/2019 20:42, Luc Van Oostenryck wrote:
-> No real support is done here (or is needed) but the __STDC_VERSION__
-> will return the correct value.
-> 
-> Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-> ---
->  lib.c | 13 +++++++++++++
->  lib.h |  2 ++
->  2 files changed, 15 insertions(+)
-> 
-> diff --git a/lib.c b/lib.c
-> index 7f7ca846b..8fddae450 100644
-> --- a/lib.c
-> +++ b/lib.c
-> @@ -1079,6 +1079,15 @@ static char **handle_switch_s(const char *arg, char **next)
->  		else if (!strcmp(arg, "gnu11"))
->  			standard = STANDARD_GNU11;
->  
-> +		else if (!strcmp(arg, "c17") ||
-> +			 !strcmp(arg, "c18") ||
-> +			 !strcmp(arg, "iso9899:2017") ||
-> +			 !strcmp(arg, "iso9899:2018"))
-> +			standard = STANDARD_C17;
-> +		else if (!strcmp(arg, "gnu17") ||
-> +			 !strcmp(arg, "gnu18"))
-> +			standard = STANDARD_GNU17;
-> +
-
-Yes, I knew about C17, but out of nowhere I started hearing
-about C18! ;-) As far as I can tell, this is just C17, but
-because it crept into 2018 before final approval, come people
-are starting to call it C18. However, the __STDC_VERSION__
-value is still 201710L, right?
-
-ATB,
-Ramsay Jones
-
->  		else
->  			die ("Unsupported C dialect");
->  	}
-> @@ -1421,6 +1430,10 @@ static void predefined_macros(void)
->  	case STANDARD_GNU11:
->  		predefine("__STDC_VERSION__", 1, "201112L");
->  		break;
-> +	case STANDARD_C17:
-> +	case STANDARD_GNU17:
-> +		predefine("__STDC_VERSION__", 1, "201710L");
-> +		break;
->  	}
->  	if (!(standard & STANDARD_GNU) & (standard != STANDARD_NONE))
->  		predefine("__STRICT_ANSI__", 1, "1");
-> diff --git a/lib.h b/lib.h
-> index 7958359c1..3e565c6fd 100644
-> --- a/lib.h
-> +++ b/lib.h
-> @@ -235,6 +235,8 @@ enum standard {
->  	STANDARD_GNU99 = STANDARD_C99 | STANDARD_GNU,
->  	STANDARD_C11,
->  	STANDARD_GNU11 = STANDARD_C11 | STANDARD_GNU,
-> +	STANDARD_C17,
-> +	STANDARD_GNU17 = STANDARD_C17 | STANDARD_GNU,
->  };
->  extern enum standard standard;
->  
-> 
+EMail: allenandvioletlargeaward@gmail.com
