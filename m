@@ -2,121 +2,84 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 6BF881135F6
-	for <lists+linux-sparse@lfdr.de>; Wed,  4 Dec 2019 20:51:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id A791E116417
+	for <lists+linux-sparse@lfdr.de>; Mon,  9 Dec 2019 00:21:28 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727887AbfLDTvt (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Wed, 4 Dec 2019 14:51:49 -0500
-Received: from mail-wr1-f66.google.com ([209.85.221.66]:35549 "EHLO
-        mail-wr1-f66.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1727033AbfLDTvt (ORCPT
+        id S1726809AbfLHXV1 (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Sun, 8 Dec 2019 18:21:27 -0500
+Received: from mail-wr1-f67.google.com ([209.85.221.67]:46008 "EHLO
+        mail-wr1-f67.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1726806AbfLHXV1 (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Wed, 4 Dec 2019 14:51:49 -0500
-Received: by mail-wr1-f66.google.com with SMTP id g17so698601wro.2
-        for <linux-sparse@vger.kernel.org>; Wed, 04 Dec 2019 11:51:47 -0800 (PST)
+        Sun, 8 Dec 2019 18:21:27 -0500
+Received: by mail-wr1-f67.google.com with SMTP id j42so13950878wrj.12
+        for <linux-sparse@vger.kernel.org>; Sun, 08 Dec 2019 15:21:26 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=date:from:to:cc:subject:message-id:references:mime-version
-         :content-disposition:in-reply-to;
-        bh=l6WRm/nigCRjikGdzcl2eSA0rdTTu7SVvj/x704joK4=;
-        b=aUVn+Nux0q/nCuRuz+B6hl+X60n5KaiSmY88kc//DjEd5p4TzgDgILCzje6mKM3ZCD
-         GBWbNP1oYa3pp6KZQvdZ6iW4j5jVorD4tD1r8ujPv3UfLgxbwY5FFPnh0AL6eYNHqTFP
-         mWgWGEjNR7v/d2X2nItDqtwYIZ7wQhtskbXjmq/pjKUtxGDX+XkJbewoONMquo3tKj08
-         o9lfMNqCSulBugokQvFLafotYAIE3O2CQ2Y26pifgefw9NVNRSH6JzDTQ9FGPRVfClbO
-         AF95/FMRTOrrjoZnF7+i+KLsTl3XroS33huVSRgeA5JwFVW2QN5jZ6QxuW4Sd+08KWrb
-         x2tw==
+        h=from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=Y560V/CG8w/fUHzmiotjzTWBxS1DGv/Wk6lYFhyLHNU=;
+        b=QnbcajcNSnfyd396pMUJh9EE9Lp9j0J7qR8Iykod59TeSl0wTcISkLCWk0zrN6RK4B
+         Lp2EOpyk7IrJS1yISTIBUja/t7tcXDiHnK/clUdt1AYB4h/jCAB0CE+pNyuc8IJorT4k
+         AgbM0jeG8sQUNGvpcQeTBjFCzJ7szaGf3/oDQm8NvvmaSJIuc0Wb8hDReW5ZjImXvyge
+         GpMt+AzWolFNqEElpXcSraS/tCqsm3ryprfj9RHVj5pk/H7nlxyK/U5hwxtQ6xIbABNt
+         yfSj+yv6g1eOW9Q1CPrW7CEzm4c02+S+5Luv1pBKgXA0NPG7+yP3OHrR+tG4KfCUH1EW
+         fNqg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
-         :mime-version:content-disposition:in-reply-to;
-        bh=l6WRm/nigCRjikGdzcl2eSA0rdTTu7SVvj/x704joK4=;
-        b=FgW5EHVVkbRvDu4C4TIGT0GnMhFk5kCvHmWjv9S9+CzfyCXV4fMIQgjE3eRV9kVezt
-         yLA2Y7QjY9x8GNeE18D3ZKbkq+L08AP4CoJamLgbzjPYds6LCTQUB/kOTe4unWK7Xp+s
-         vCbqma4iK+b1wp2dfMfpHIlCs+YeGsvhAf2uCoDygg/kwKrOHS1H6XAeYv7f3uxoBBmf
-         sigezZp6YhHz9J9DrZJ7Wj++IGUDBsdhExozQLWfwfIz1nBBDpepuD4M/4wmUsTpyCNf
-         I4DiR7iRMyc5WStppDCtH14DoXvLo9uFjVpS6A7j7KrUQByQplePOCRhJ/SdX8BY7QeH
-         cf2w==
-X-Gm-Message-State: APjAAAXxTDVR1utF8FbAEeahMqrEdJcjjFXN8pd4E6yZ3HrLWMAtqEwF
-        PRERtL0TIw9UM+IeSVKU8vohU6+4
-X-Google-Smtp-Source: APXvYqy20OBdegP+K27ho8+9awbRAfX+a5Ruoz6bZk98I4B6z06cz4tCzloc30YOQ00PnVc5aTubqA==
-X-Received: by 2002:a5d:62c8:: with SMTP id o8mr5872810wrv.316.1575489107198;
-        Wed, 04 Dec 2019 11:51:47 -0800 (PST)
-Received: from ltop.local ([2a02:a03f:404e:f500:a07d:f2e4:abd1:6733])
-        by smtp.gmail.com with ESMTPSA id a186sm7802638wmd.41.2019.12.04.11.51.46
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=Y560V/CG8w/fUHzmiotjzTWBxS1DGv/Wk6lYFhyLHNU=;
+        b=p5v3jum7nSQffik5NLNh2EjyoQLYUbVzeMkK4mNjZvadQYjFHdO8bfBEWYk5LS1nJ6
+         WT3PbMD7Rfn5gFpnHWCExSFHMCvb6VobdnuWhWMvqHckdYJq9zqpqXNzSMgy8L6uiq4Q
+         uVCdbkgjJWVLYgr1bd3GjdkE7mEJX4BlQq/4AHwTtbi9v38LPT+jir9L9OMliI2TZSKL
+         A/98dSL+LbXxb37TnbgcRzL2vMqGhH/hWN17BRF+mpMcOsGrTHyAqLUquR8gUsEXudpq
+         CEXmjkeQPQjLtjEY+dTTFiVhvnZI5LJS1LAN470UdhVjJBVkum//qTk1pf0yktltRurd
+         xP6g==
+X-Gm-Message-State: APjAAAUoI+t9k8OeQ7c/fLg1SVRjT3Wm3wQobScxzxE1sqXLWVQbAgcD
+        S+vigVD5rLriTzo23aFKVM7ff7B9
+X-Google-Smtp-Source: APXvYqxCK0gLZJ4WYQppJgCMPCyL+MZyVoDPWltkdJB5sv4MTkcM9yAWLEHVfBI+Q6jw3G7FYPVTcw==
+X-Received: by 2002:adf:c74f:: with SMTP id b15mr27168232wrh.272.1575847285330;
+        Sun, 08 Dec 2019 15:21:25 -0800 (PST)
+Received: from localhost.localdomain ([2a02:a03f:40d5:8a00:61ab:d604:b478:87a3])
+        by smtp.gmail.com with ESMTPSA id w17sm25377996wrt.89.2019.12.08.15.21.24
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Dec 2019 11:51:46 -0800 (PST)
-Date:   Wed, 4 Dec 2019 20:51:45 +0100
+        Sun, 08 Dec 2019 15:21:24 -0800 (PST)
 From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-To:     Ramsay Jones <ramsay@ramsayjones.plus.com>
-Cc:     linux-sparse@vger.kernel.org
-Subject: Re: [DRAFT] add support for GCC's __auto_type
-Message-ID: <20191204195145.65as4uginf5j5luk@ltop.local>
-References: <20191204030649.66699-1-luc.vanoostenryck@gmail.com>
- <baae182b-e824-64b1-f5a8-b691ba637f53@ramsayjones.plus.com>
+To:     linux-sparse@vger.kernel.org
+Cc:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
+Subject: [PATCH 0/5] improve diagnostic messages concerning bitfields
+Date:   Mon,  9 Dec 2019 00:19:16 +0100
+Message-Id: <20191208231921.49964-1-luc.vanoostenryck@gmail.com>
+X-Mailer: git-send-email 2.24.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <baae182b-e824-64b1-f5a8-b691ba637f53@ramsayjones.plus.com>
+Content-Transfer-Encoding: 8bit
 Sender: linux-sparse-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-On Wed, Dec 04, 2019 at 05:28:04PM +0000, Ramsay Jones wrote:
-> On 04/12/2019 03:06, Luc Van Oostenryck wrote:
-> > +/*
-> > + * check-name: autotype-ko
-> > + * check-command: sparse -Wno-decl $file
-> > + * checz-known-to-fail
-> 
-> s/checz-/check-/
+These few patches contains some fixes or improvements
+of diagnostic concerning the size of bitfields.
 
-Hehe, that was my extra-lazy way of temporarily disabling
-the tag by changing a single character ...
- 
-> > +
-> > +extern char ch;
-> > +extern const int ci;
-> > +
-> > +__auto_type i = 0;		is_type(i, int);
-> > +__auto_type m = 1UL;		is_type(m, unsigned long);
-> > +__auto_type p = &i;		is_type(p, int *);
-> > +__auto_type f = 0.0;		is_type(f, double);
-> > +__auto_type s = (struct s){0};	is_type(s, struct s);
-> > +__auto_type c = ch;		is_type(c, char);
-> > +__auto_type ct = ci;		is_type(ct, int);
-> 
-> Hmm, this loses the 'const', ...
-> 
-> > +__auto_type pci = &ci;		is_type(pci, const int *);
-> 
-> ... but this doesn't?
-> 
-> Unfortunately, the gcc documentation that I have doesn't give a
-> sufficiently detailed specification for me to tell if this is
-> expected.
 
-Yes, there is definitively a problem here.
-In fact, I think it does the right thing because:
-	extern const int ci;
-	
-	static void foo(void)
-	{
-		__auto_type ct = ci;
-		ct++;
-	}
+This series is also available at:
+  git://github.com/lucvoo/sparse-dev.git bitfield-size
 
-rightfully complains we're trying to modify a const variable.
-OTOH, the sparse-specifc type compare in the assert seems to ignore
-the qualifiers at the first level. I suppose it's purposely so but ...
 
-Another problem, maybe more important, is that the lines:
-	__auto_type c = ch;
-	__auto_type ct = ci;
+Luc Van Oostenryck (5):
+  bitfield: add testcases for invalid bitfield width
+  bitfield: don't warn twice on invalid width
+  bitfield: oversized bitfields are errors
+  bitfield: keep the bitfield ident
+  bitfield: display the bitfield name in error messages
 
-at top-level are invalid because ch & ci are not constant
-values/expressions and no warnings are issued.
-It's orthogonal to __auto_type but quite annoying.
+ parse.c                     | 10 ++++------
+ symbol.c                    | 10 ++++++----
+ validation/bitfield-sizes.c | 30 ++++++++++++++++++++++++++++++
+ 3 files changed, 40 insertions(+), 10 deletions(-)
+ create mode 100644 validation/bitfield-sizes.c
 
-Thanks for noticing all this!
--- Luc
+-- 
+2.24.0
+
