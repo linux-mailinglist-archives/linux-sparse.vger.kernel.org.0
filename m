@@ -2,132 +2,92 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id E625D11641C
-	for <lists+linux-sparse@lfdr.de>; Mon,  9 Dec 2019 00:22:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 586111172F1
+	for <lists+linux-sparse@lfdr.de>; Mon,  9 Dec 2019 18:39:16 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726811AbfLHXWH (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Sun, 8 Dec 2019 18:22:07 -0500
-Received: from mail-wr1-f66.google.com ([209.85.221.66]:36192 "EHLO
-        mail-wr1-f66.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726806AbfLHXWH (ORCPT
+        id S1726483AbfLIRjP (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Mon, 9 Dec 2019 12:39:15 -0500
+Received: from avasout06.plus.net ([212.159.14.18]:33456 "EHLO
+        avasout06.plus.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1726342AbfLIRjP (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Sun, 8 Dec 2019 18:22:07 -0500
-Received: by mail-wr1-f66.google.com with SMTP id z3so14033055wru.3
-        for <linux-sparse@vger.kernel.org>; Sun, 08 Dec 2019 15:22:05 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=from:to:cc:subject:date:message-id:in-reply-to:references
-         :mime-version:content-transfer-encoding;
-        bh=vHBh6NoQeAxvT/5OI4Pnj2E1vQF1VjLi3k2s23TMyNY=;
-        b=Oc23JFxVNfSDuyaQ09j5iZx1cfjl+E8LSoBPaRl4e9JEtXwIkKTwZLcld3OsYV+1qM
-         po5sa8D014RcFImYcTwYXBFwysCeF17p3S8V3YKFZI2wOYIwrI/gUjcewki+hXmFBQT4
-         3WrXhvj9pV13CABqtnx/Af3Vf0JLHcTQagAid9cPy+66f4k5fA7nYGKkkFoqhJVExie8
-         A92+qsy+FNTBCnm58p8TK81Zs8Sx9W/f9NkVOZy16I+SaNYed+zE4Gn7IZA/8MiAciFs
-         I2mRH2lGdbZoh0MbANHhsoRC1t8aBAJvrBv1Sa8ZXRdPxyzv006kBOa1WQB1/ZKkA5YG
-         RZOA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
-         :references:mime-version:content-transfer-encoding;
-        bh=vHBh6NoQeAxvT/5OI4Pnj2E1vQF1VjLi3k2s23TMyNY=;
-        b=l4YoOGpFBkQEdceZE0iOJJwcRRApmFH63uT7GjW7jdCHvoi5lwUkU+p4zZ4u4xhPtk
-         EL+cK7XNcqLvqRkYXqgURVJa30O0XJQ9Sj+3bTv674oJ/ICkOLkmbqXo/2GeynUMj6ID
-         dMU5C3qlZzsOxf0jqaE11D/AZ+BAh0LNyHjIMjY1uk0BQRpsb7oPWFBohWP6CpG+nOh5
-         b9HY4c7mgVqV88jiCcaOt82i2z1rAZUO6SHVeXVEOAlij8hrkWgiftzWUktqobN3oJDs
-         ybi8o6y0IzBz5GRWtramY/lZAZ+1SvyrupfnfkQecTx0kwMt7vbX6Qz6boJvKzJAkC5z
-         Dmfg==
-X-Gm-Message-State: APjAAAV+up5TI0lVum53RRmx4eOmdDfp2CjTB/sIzKjbHPUPif03muhP
-        cM/4MhattavpTDdivqjZ7RKo/cIG
-X-Google-Smtp-Source: APXvYqxBGMFqnnNa5glLqh61QZuP98JwwvCDEsRwHQ+XUbiEMCDO1eMqRfsrF5/AyGu70EOBX9Jugg==
-X-Received: by 2002:adf:8541:: with SMTP id 59mr21094778wrh.307.1575847324754;
-        Sun, 08 Dec 2019 15:22:04 -0800 (PST)
-Received: from localhost.localdomain ([2a02:a03f:40d5:8a00:61ab:d604:b478:87a3])
-        by smtp.gmail.com with ESMTPSA id w17sm25377996wrt.89.2019.12.08.15.22.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 08 Dec 2019 15:22:04 -0800 (PST)
-From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-To:     linux-sparse@vger.kernel.org
-Cc:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-Subject: [PATCH 5/5] bitfield: display the bitfield name in error messages
-Date:   Mon,  9 Dec 2019 00:19:21 +0100
-Message-Id: <20191208231921.49964-6-luc.vanoostenryck@gmail.com>
-X-Mailer: git-send-email 2.24.0
-In-Reply-To: <20191208231921.49964-1-luc.vanoostenryck@gmail.com>
+        Mon, 9 Dec 2019 12:39:15 -0500
+Received: from [10.0.2.15] ([87.115.253.35])
+        by smtp with ESMTPA
+        id eN04ilwOPsjQSeN05iVM6N; Mon, 09 Dec 2019 17:39:14 +0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=plus.com; s=042019;
+        t=1575913154; bh=B977ortdmUPW1U3nD4XwZYDozq7ompStspjxyu7RJXg=;
+        h=Subject:To:References:From:Date:In-Reply-To;
+        b=TPy9ybWs/dQzA84Z4sZoZiOelTYu5/aEJejmeeibVMhuAtEJHnqdXdkuLYpq19UdH
+         8EGBoAwWiOG9zpqfk6CNBg5cHRuBf1Ctho8DGhIZ5geh4oi0w9KFEg2WqBKtR36mCC
+         s9CKFPIc0Eq/exlpNupl+O7fCpAv6LHZpW032oaMSam9h59M4tuy20K4yqJyCT5IXA
+         4l36uktYKd+s5T845nb4zjBEqTV3d6fyf3X2GOkuuUyBN9goNKVEbMjY1la5Pv+vdB
+         OSLY78iHYVoJTNspE8K/kAYlsGOaXufEG+zAnZNiKyPnFbO4j02IqzPJwnEDuDrR6R
+         qEA4YRKEwqIBA==
+X-Clacks-Overhead: "GNU Terry Pratchett"
+X-CM-Score: 0.00
+X-CNFS-Analysis: v=2.3 cv=cZasUULM c=1 sm=1 tr=0
+ a=VLDPgNmCULccAgTy/RRLiQ==:117 a=VLDPgNmCULccAgTy/RRLiQ==:17
+ a=jpOVt7BSZ2e4Z31A5e1TngXxSK0=:19 a=IkcTkHD0fZMA:10 a=S0M5J17CAAAA:20
+ a=ymyixAidp3iPO6nL9a0A:9 a=QEXdDO2ut3YA:10 a=rblfI0TChoxLVqhZACYb:22
+ a=Z5ABNNGmrOfJ6cZ5bIyy:22 a=bWyr8ysk75zN3GCy5bjg:22
+X-AUTH: ramsayjones@:2500
+Subject: Re: [PATCH 0/5] improve diagnostic messages concerning bitfields
+To:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>,
+        linux-sparse@vger.kernel.org
 References: <20191208231921.49964-1-luc.vanoostenryck@gmail.com>
+From:   Ramsay Jones <ramsay@ramsayjones.plus.com>
+Message-ID: <e6aac4ce-a264-ac7b-dfa2-026eb6a8a532@ramsayjones.plus.com>
+Date:   Mon, 9 Dec 2019 17:39:12 +0000
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.2.1
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <20191208231921.49964-1-luc.vanoostenryck@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
+X-CMAE-Envelope: MS4wfF3kFPOtmzWv/mH8sQ9j9W78G6x04UqrnhHpLlyU2acLIEvmmYMZw6Ul9/GKP3V+4bV/shTgQIHqZoOG6WZUNNxWUyKypaEO5gUB0mugboxVzN68qhP1
+ SzvOtOqduPWJMirAHwTy3cuZkNinfrYYLLEKMg+i0824hR7hj8WIgpucYOYGw8QTPBvM7jD8TnvP1A==
 Sender: linux-sparse-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-Diagnostics related to a bitfield and issued after parsing
-didn't display the bitfield name because it was not available.
 
-Now that that the name is available, use it in error messages
-since it helps to find the origin of the problem.
 
-Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
----
- parse.c                     |  9 +++------
- symbol.c                    |  3 ++-
- validation/bitfield-sizes.c | 10 +++++-----
- 3 files changed, 10 insertions(+), 12 deletions(-)
+On 08/12/2019 23:19, Luc Van Oostenryck wrote:
+> These few patches contains some fixes or improvements
+> of diagnostic concerning the size of bitfields.
+> 
+> 
+> This series is also available at:
+>   git://github.com/lucvoo/sparse-dev.git bitfield-size
 
-diff --git a/parse.c b/parse.c
-index efd8c5de1b6d..fb05253b6a4b 100644
---- a/parse.c
-+++ b/parse.c
-@@ -1946,12 +1946,9 @@ static struct token *handle_bitfield(struct token *token, struct decl_state *ctx
- 	width = const_expression_value(expr);
- 	bitfield->bit_size = width;
- 
--	if (width < 0 || width > INT_MAX) {
--		sparse_error(token->pos, "invalid bitfield width, %lld.", width);
--		width = -1;
--	} else if (*ctx->ident && width == 0) {
--		sparse_error(token->pos, "invalid named zero-width bitfield `%s'",
--		     show_ident(*ctx->ident));
-+	if (width < 0 || width > INT_MAX || (*ctx->ident && width == 0)) {
-+		sparse_error(token->pos, "bitfield '%s' has invalid width (%lld)",
-+			show_ident(*ctx->ident), width);
- 		width = -1;
- 	} else if (*ctx->ident) {
- 		struct symbol *base_type = bitfield->ctype.base_type;
-diff --git a/symbol.c b/symbol.c
-index 40e50874c27f..3655cbb78913 100644
---- a/symbol.c
-+++ b/symbol.c
-@@ -259,7 +259,8 @@ static struct symbol *examine_bitfield_type(struct symbol *sym)
- 	if (!base_type)
- 		return sym;
- 	if (sym->bit_size > base_type->bit_size) {
--		sparse_error(sym->pos, "impossible field-width, %d, for this type",  sym->bit_size);
-+		sparse_error(sym->pos, "bitfield '%s' is wider (%d) than its type (%s)",
-+			show_ident(sym->ident), sym->bit_size, show_typename(base_type));
- 		sym->bit_size = -1;
- 	}
- 
-diff --git a/validation/bitfield-sizes.c b/validation/bitfield-sizes.c
-index c43bb0a4aeb2..9f76d07418a5 100644
---- a/validation/bitfield-sizes.c
-+++ b/validation/bitfield-sizes.c
-@@ -21,10 +21,10 @@ static struct b b;
-  * check-command: sparse -m64 $file
-  *
-  * check-error-start
--bitfield-sizes.c:12:18: error: invalid bitfield width, -1.
--bitfield-sizes.c:13:26: error: invalid bitfield width, 2147483648.
--bitfield-sizes.c:15:17: error: invalid named zero-width bitfield `a0'
--bitfield-sizes.c:6:15: error: impossible field-width, 33, for this type
--bitfield-sizes.c:7:15: error: impossible field-width, 65, for this type
-+bitfield-sizes.c:12:18: error: bitfield 'm1' has invalid width (-1)
-+bitfield-sizes.c:13:26: error: bitfield 'x1' has invalid width (2147483648)
-+bitfield-sizes.c:15:17: error: bitfield 'a0' has invalid width (0)
-+bitfield-sizes.c:6:15: error: bitfield 'x' is wider (33) than its type (int)
-+bitfield-sizes.c:7:15: error: bitfield 'y' is wider (65) than its type (long)
-  * check-error-end
-  */
--- 
-2.24.0
+I tested these patches by applying them on top of current 'master'
+branch (@817270f9). I tested in the usual way (Linux 32-&64-bit and
+cygwin) including a quick run over git source, without issue.
 
+Today, I noticed that the above branch was based on commit 9b2efc15
+rather than 'master'. I just did a trial merge of 'luc/bitfield-size'
+with 'master' and 'git-diff'ed the result against my tested branch
+head - no difference shown. So, I think we are good! (famous last
+words) ;-)
+
+ATB,
+Ramsay Jones
+
+> 
+> 
+> Luc Van Oostenryck (5):
+>   bitfield: add testcases for invalid bitfield width
+>   bitfield: don't warn twice on invalid width
+>   bitfield: oversized bitfields are errors
+>   bitfield: keep the bitfield ident
+>   bitfield: display the bitfield name in error messages
+> 
+>  parse.c                     | 10 ++++------
+>  symbol.c                    | 10 ++++++----
+>  validation/bitfield-sizes.c | 30 ++++++++++++++++++++++++++++++
+>  3 files changed, 40 insertions(+), 10 deletions(-)
+>  create mode 100644 validation/bitfield-sizes.c
+> 
