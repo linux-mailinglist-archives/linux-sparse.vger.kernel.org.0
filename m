@@ -2,101 +2,134 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 8606F11781C
-	for <lists+linux-sparse@lfdr.de>; Mon,  9 Dec 2019 22:12:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id AA72911796B
+	for <lists+linux-sparse@lfdr.de>; Mon,  9 Dec 2019 23:36:31 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726608AbfLIVM5 (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Mon, 9 Dec 2019 16:12:57 -0500
-Received: from mail-wm1-f65.google.com ([209.85.128.65]:33536 "EHLO
-        mail-wm1-f65.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726366AbfLIVM5 (ORCPT
+        id S1726230AbfLIWgL (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Mon, 9 Dec 2019 17:36:11 -0500
+Received: from mail-wr1-f67.google.com ([209.85.221.67]:42972 "EHLO
+        mail-wr1-f67.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1726175AbfLIWgL (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Mon, 9 Dec 2019 16:12:57 -0500
-Received: by mail-wm1-f65.google.com with SMTP id y23so794579wma.0
-        for <linux-sparse@vger.kernel.org>; Mon, 09 Dec 2019 13:12:56 -0800 (PST)
+        Mon, 9 Dec 2019 17:36:11 -0500
+Received: by mail-wr1-f67.google.com with SMTP id a15so17898450wrf.9
+        for <linux-sparse@vger.kernel.org>; Mon, 09 Dec 2019 14:36:10 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=date:from:to:cc:subject:message-id:references:mime-version
-         :content-disposition:in-reply-to;
-        bh=t/H/M+0/tJkEKzRLwxItc9wp/ejTIQZxU+fnmnrDqOs=;
-        b=o3fWTyyJfcV5L0nhaJYNDKus21XzKB3g9Gp0r+IH4UG8/TgLCviuJLLx6IsuF4g7Iw
-         4mr0EqNpmOwjdIfpADsxgtrMIMRNIvm8pCi8/oBsn2RWKZyBvL7v4iY6+r4D0QvPJ39i
-         a61nr45DDYm42SAha3EI3JZvhhHnm6aUwi5m1A8rDADTiSBuRd1WZqhAGdfzuwY1qClP
-         rm14LL6YslAbjoW1dtJRScE1KFn4mVmQ0K1xeEQPL7nWAZWnv2Vmb8NrE2U3FJcfS0c+
-         20ctyIEcGh4JHe/ZzHVRZSg9eoyoMV3yUg/OxSfgPYn8HBH7A93b81y5T/tucG5TeD2i
-         olnA==
+        h=from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=aK5J+TuS7i0Ceaj4gHzHn0T5R4bSR2NBODkIA+tCmrY=;
+        b=DQJOVK8zaCEPvQwJtlSfpV40L1c8mvAZzTv5RF1R2ea8sPh7+ibElakSaU4X2oOhA0
+         nBdU9uGHhwLfZx8JblH97h1FVEsKHZQY61QXoOChbybgygESVeXhG9po1Rd15Kp6xLzW
+         jswMFQSg/DsF1TrMfRwk0gS2UDk4OoXvolAlQipXNFeEIHGrg3BH+CN0MR9NqssbrPVy
+         ByKdoUPF6FN03qWRvHC6dhf9ALxdnKJ5MQ76h+8EVJUSmCQk823xLyJjel7RhHRFUJXj
+         4UTI92rHllmZGn+RYTOcXeiSgltTmwj4Y0AWMsV4ZWhVGp1N3Usygx9tjpMdA+d/4cep
+         vztQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
-         :mime-version:content-disposition:in-reply-to;
-        bh=t/H/M+0/tJkEKzRLwxItc9wp/ejTIQZxU+fnmnrDqOs=;
-        b=VjvIKRId3IOn8B5Vs0baNbdFJX6fdXUvBZ9Ax4k5AuVS7GijE0ErlShX8N2HmyrQa/
-         zU7OWb9F1Ap1htqHV6PwxjpvP8drx2WNVrywUaTKhfymCoihi8RNGnIzj8wHsE/VCBRk
-         uIXpsk3L1xcvVZ57uVzfW2mShJ12EYDwOkCH45Tt1ja3hNcQ9JdNrQiAq5Glx6GP3GpF
-         /TSCAy9kENkvBxBoYyp8yqB8ArhWIsNckqs569wK0QMExPXWCj7kobKKVVjbqn6UaRMA
-         LJG/n6ZrZaE+QyeZRhMWr4yxMU/Z4gkEnWopIKUIzEbB9czJL6VvE4jmb64+ARSIii4/
-         yG3Q==
-X-Gm-Message-State: APjAAAXfwCr5brMStfp8IpWq3oqG829GYVbN9SWH/ZvRzniBFsVmj/KQ
-        ODQAhuW0WcFwDgK6xZUkNHBhtrX2
-X-Google-Smtp-Source: APXvYqzhMHmFyrlbH8TgGSWoc9sVCHnXVRDEZVVHU2Pshk4pRONZGu0b7y6VAAZa63PzUM5cT6gzEQ==
-X-Received: by 2002:a05:600c:2117:: with SMTP id u23mr1094551wml.18.1575925975330;
-        Mon, 09 Dec 2019 13:12:55 -0800 (PST)
-Received: from ltop.local ([2a02:a03f:40f6:4600:a51f:44c:fbfb:c44])
-        by smtp.gmail.com with ESMTPSA id l17sm732264wro.77.2019.12.09.13.12.53
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=aK5J+TuS7i0Ceaj4gHzHn0T5R4bSR2NBODkIA+tCmrY=;
+        b=QwrrOPMSpc0+22hx/MwqnlE/qM3RiHFlgZLfU1tVqWJFP8U8GdYmaxDNniCIA+26IN
+         R5tTweom6atwjLLbETfSqMAwUSSqk3Z7x+AdPXXED8UPr4+jHfRqsrFFg8F6N5vjFMdm
+         fm2wuDUDyp+Y1LwpoJS8nh5v+l0G/38BGO0boLkGkxQH7zYFXRNHMGjIMrHimLOFjakT
+         FzThdF1/9ypQdsG3mtcqzORUHG4CGdFfYoxOnvrAsQ+ZubzfEZI0l2iS73DG06gJPslJ
+         9CW4p/46ftBaX6vfsSOmtPlEc4Xd/2DzFpW+cACPz4GaXnVpho7jL8axeLIAVz/l2K3x
+         VV/A==
+X-Gm-Message-State: APjAAAUv1C0ubUYEIF0+hw/rtTYHmGHptZt+djaKoteExGkewmwp6xBF
+        nG9T8Q6g869JzbQko7Awi1BsWe+k
+X-Google-Smtp-Source: APXvYqzPlgLi5AfqKUZbjDiXZe+Q2tX291P3EpfWRwUxFrFVDGBsT06SGSlsDM28LdCuZlHhiJ8e+Q==
+X-Received: by 2002:adf:f2d0:: with SMTP id d16mr4412368wrp.110.1575930969071;
+        Mon, 09 Dec 2019 14:36:09 -0800 (PST)
+Received: from localhost.localdomain ([2a02:a03f:40f6:4600:28ec:96ef:ca6d:e5dd])
+        by smtp.gmail.com with ESMTPSA id v17sm943346wrt.91.2019.12.09.14.36.07
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Dec 2019 13:12:54 -0800 (PST)
-Date:   Mon, 9 Dec 2019 22:12:53 +0100
+        Mon, 09 Dec 2019 14:36:08 -0800 (PST)
 From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-To:     Ramsay Jones <ramsay@ramsayjones.plus.com>
-Cc:     linux-sparse@vger.kernel.org
-Subject: Re: [PATCH 0/5] improve diagnostic messages concerning bitfields
-Message-ID: <20191209211253.6nm7jaf32tzgia3j@ltop.local>
-References: <20191208231921.49964-1-luc.vanoostenryck@gmail.com>
- <e6aac4ce-a264-ac7b-dfa2-026eb6a8a532@ramsayjones.plus.com>
+To:     linux-sparse@vger.kernel.org
+Cc:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
+Subject: [PATCH] fix premature examination of dereferenced object
+Date:   Mon,  9 Dec 2019 23:34:05 +0100
+Message-Id: <20191209223405.58657-1-luc.vanoostenryck@gmail.com>
+X-Mailer: git-send-email 2.24.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <e6aac4ce-a264-ac7b-dfa2-026eb6a8a532@ramsayjones.plus.com>
+Content-Transfer-Encoding: 8bit
 Sender: linux-sparse-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-On Mon, Dec 09, 2019 at 05:39:12PM +0000, Ramsay Jones wrote:
-> 
-> 
-> On 08/12/2019 23:19, Luc Van Oostenryck wrote:
-> > These few patches contains some fixes or improvements
-> > of diagnostic concerning the size of bitfields.
-> > 
-> > 
-> > This series is also available at:
-> >   git://github.com/lucvoo/sparse-dev.git bitfield-size
-> 
-> I tested these patches by applying them on top of current 'master'
-> branch (@817270f9). I tested in the usual way (Linux 32-&64-bit and
-> cygwin) including a quick run over git source, without issue.
-> 
-> Today, I noticed that the above branch was based on commit 9b2efc15
-> rather than 'master'. I just did a trial merge of 'luc/bitfield-size'
-> with 'master' and 'git-diff'ed the result against my tested branch
-> head - no difference shown. So, I think we are good! (famous last
-> words) ;-)
+in the fixes 696b243a5ae0 ("fix: evaluate_dereference() unexamined base type"),
+the pointer's examination was done prematurely, before the undereferenceable
+types are filtered out. This allows to examine the base abstract types when
+the expression was in fact not dereferenceable.
 
-Yes, I very often have 2 or three topics active at the same time
-and I tend to let them 'soak' for a few days. I also tend to not
-rebase them without a very good reason. So, it often happens
-that a series I post is based on a later version that the
-current master. Most of the time the active series are
-independents and so their merges are absolutely trivial,
-but not always ...
+Fix that by moving the examination to the top of the SYM_PTR's case
+since only pointers are concerned.
 
-I'll try to use the option '--base' of git format-patch more
-systematically (U've begin to use it a bit lately) and return
-to my previous good habit of publishing the tree of every series
-(I suppose it's always faster than to take them from the emails
-of even from patchwork).
+Fixes: 696b243a5ae0 ("fix: evaluate_dereference() unexamined base type")
+Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
+---
+ evaluate.c                              |  2 +-
+ validation/eval/premature-examination.c | 27 +++++++++++++++++++++++++
+ 2 files changed, 28 insertions(+), 1 deletion(-)
+ create mode 100644 validation/eval/premature-examination.c
+
+diff --git a/evaluate.c b/evaluate.c
+index 19bdab920009..ff6938a5cfb4 100644
+--- a/evaluate.c
++++ b/evaluate.c
+@@ -1817,7 +1817,6 @@ static struct symbol *evaluate_dereference(struct expression *expr)
+ 		ctype = ctype->ctype.base_type;
  
-Anyway, thank you vry much for the testing.
-It's pushed now to the main tree.
--- Luc
+ 	target = ctype->ctype.base_type;
+-	examine_symbol_type(target);
+ 
+ 	switch (ctype->type) {
+ 	default:
+@@ -1827,6 +1826,7 @@ static struct symbol *evaluate_dereference(struct expression *expr)
+ 		*expr = *op;
+ 		return expr->ctype;
+ 	case SYM_PTR:
++		examine_symbol_type(target);
+ 		node = alloc_symbol(expr->pos, SYM_NODE);
+ 		node->ctype.modifiers = target->ctype.modifiers & MOD_SPECIFIER;
+ 		merge_type(node, ctype);
+diff --git a/validation/eval/premature-examination.c b/validation/eval/premature-examination.c
+new file mode 100644
+index 000000000000..bd2ffa90051a
+--- /dev/null
++++ b/validation/eval/premature-examination.c
+@@ -0,0 +1,27 @@
++extern int i;
++
++int foo(void)
++{
++	return *i;
++}
++
++int bar(void)
++{
++	return i[0];
++}
++
++int *qux(void)
++{
++	return &i[0];
++}
++
++/*
++ * check-name: premature-examination
++ * check-command: sparse -Wno-decl $file
++ *
++ * check-error-start
++eval/premature-examination.c:5:16: error: cannot dereference this type
++eval/premature-examination.c:10:17: error: cannot dereference this type
++eval/premature-examination.c:15:18: error: cannot dereference this type
++ * check-error-end
++ */
+
+base-commit: 9b2efc158c5c9700ffe355c59356879df7c9cc12
+-- 
+2.24.0
+
