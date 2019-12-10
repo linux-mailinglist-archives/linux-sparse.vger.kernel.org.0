@@ -2,55 +2,55 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 5C35A119EF6
-	for <lists+linux-sparse@lfdr.de>; Tue, 10 Dec 2019 23:59:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id B41C6119EF7
+	for <lists+linux-sparse@lfdr.de>; Tue, 10 Dec 2019 23:59:50 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727412AbfLJW7t (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Tue, 10 Dec 2019 17:59:49 -0500
-Received: from mail-wr1-f65.google.com ([209.85.221.65]:36726 "EHLO
-        mail-wr1-f65.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1727387AbfLJW7s (ORCPT
+        id S1727415AbfLJW7u (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Tue, 10 Dec 2019 17:59:50 -0500
+Received: from mail-wr1-f67.google.com ([209.85.221.67]:38247 "EHLO
+        mail-wr1-f67.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1727330AbfLJW7u (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Tue, 10 Dec 2019 17:59:48 -0500
-Received: by mail-wr1-f65.google.com with SMTP id z3so21991865wru.3
-        for <linux-sparse@vger.kernel.org>; Tue, 10 Dec 2019 14:59:47 -0800 (PST)
+        Tue, 10 Dec 2019 17:59:50 -0500
+Received: by mail-wr1-f67.google.com with SMTP id y17so21977223wrh.5
+        for <linux-sparse@vger.kernel.org>; Tue, 10 Dec 2019 14:59:48 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=DFUyKwET9lwtSSv7M8XNv8rx6z+WBjnnOhRZq+THPkI=;
-        b=DGek/RHXssskA2rZlKAaPeHw78SG1GnF77dAfG4y0UbjJh0By8cjVY4gNi26cDzFFj
-         fNzenDq8SSH8sh8jYskdFYiRDwv9RewqiFpdv4/kqkTxh/n9GtDTZAvM7SAA+WV9aVEx
-         z0jkcbTofDwEjhZtVf/ob9VDDyhlNopyFO+w8/JVsXMR/qufPwdXDEUvqmUTadnWDeVu
-         I8j11jh4NZR/9/+oz0QmneJy9wrvuUcRRrJI0IL6A7utXYusz+88FVK/eYhhdyhTSLOB
-         QZwFNIEYzYBkMXw84lp4nb/ZhMhUIiXBxlQDrT+Q5Vuj2SD1++Om28NWj+XSDChnONpe
-         a0JA==
+        bh=WsP56QjgXWbas/s2njX9/d1C3XRf3eqUj+LW3UyRMiA=;
+        b=C1ZmcN1tKWXlMTo2Q8TiedbRE5G0Fb6nozAyD3+CmopksIuQHPmVLBT4cU7S6WOaH1
+         it6SHZ5xnblgLKgN1AJ/ZDrLv3Jh02yr5bybjpLGADo1TCyi4HmN5oAiu1tFXwl0eZv0
+         KlLZwC/crWvJjSZi3yE3CIz3VRk8CiAU1VHgv3UhKCOqTNIsufXq5cUWxM4COpRZOyJS
+         +mli8kB9NMXklcIP7u36MlVM0ls1spv4p+BnVhpedoW6IxIZLLuTXLSNDu2UiJuXgVPm
+         A2DxaLA+chFsuaGxSIfs5Ku0H1gOFGHiEV1DKz6K8X9/r3cgqYUox1G33F7MV3u0RD/w
+         le+Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=DFUyKwET9lwtSSv7M8XNv8rx6z+WBjnnOhRZq+THPkI=;
-        b=gHabg/MkENnu9TPK+6/laBzx223DymCDRXEWaH1WR56mfxR3hlgLKuFT7NvMuTY/P+
-         pKQdnf+tQ5X5D5TFCncd3NXKUt6jhb2/SXkFRLPvXM+69QQ4C5LCw6Yt0JmHhNoHt70s
-         zwGkojbd7WkSDUweEsSHCqKMnfU4chGpr+b+8a36ROsuX5fcN7by8IvDqCQMi5YE0jkY
-         D0P85iMoMrxAZYP0kmvt2LIBXIdw8RKRa4CE5EtEPbo/1FNZI+p4/pdXwiU/z1jtzDnX
-         Jul9pfL1Dw3tCgIZq3u8ilGfNuweazCuUPhmOHWuukTCD9gOzqh+BH25E5fyHOhyJuob
-         I3+Q==
-X-Gm-Message-State: APjAAAVrAUH4E6KVm4EQgXKz0TlEk9+jCeYJQOR3w6tTf0Y7mDMwjAm4
-        02xd2eogTGdrSn9qCriXzjeZPswI
-X-Google-Smtp-Source: APXvYqzQrbjiVIZ2xrQjSVE2s23pb8a7frp3WKl+9E9xON29ST0alT1pdKQsF5zPDt9VbZTcVKtvkw==
-X-Received: by 2002:adf:f091:: with SMTP id n17mr6005043wro.387.1576018786766;
-        Tue, 10 Dec 2019 14:59:46 -0800 (PST)
+        bh=WsP56QjgXWbas/s2njX9/d1C3XRf3eqUj+LW3UyRMiA=;
+        b=GpN4evS6J3iqnqNmaiiEFvdp9yqzKSEQkHfg/HT+SfayyHuNQ1oBQB8N4KGIsEUWaH
+         iE69c/hk1MOodZ0IRR0ARa3Fg47yWO9xpoei7sSGtqvm861bgGOmKJLrw69iebIhqE8b
+         /70TdY9aDukHqgZouALljYctkifSxPaSBDLP2z8TZp35bf08zPorsCuMiH0VrIUVRXQW
+         GyIfWAQlRw+kW1ZkY7RmYewWDjJKIad8vNdIxBXW/ZWZMmU2JmtAdqVtjwUHIpPg2M9u
+         k/PB0oGouXXNR7k6vIkRNvOdRwUhUY3LgOQf7UqgPVvLwuyir75rid/5lDq0NBaYTKor
+         2EYg==
+X-Gm-Message-State: APjAAAV2KF3uSJqNSoJrRgsBxDwE31dQuWjJeW4MlBETs0MJljGAW7z+
+        aFuvIyHGXOdFjlFKAtC3yGKYKgld
+X-Google-Smtp-Source: APXvYqyfWad58Bodn60WHin3u2v6yhfQAqQD8f84GhiBeNi5fiCvYUMP4ZesddGZx0UuwUrel0XQhg==
+X-Received: by 2002:a05:6000:1044:: with SMTP id c4mr11711wrx.204.1576018787886;
+        Tue, 10 Dec 2019 14:59:47 -0800 (PST)
 Received: from localhost.localdomain ([2a02:a03f:40f6:4600:ccc5:3de6:2efd:b014])
-        by smtp.gmail.com with ESMTPSA id j21sm33535wmj.39.2019.12.10.14.59.45
+        by smtp.gmail.com with ESMTPSA id j21sm33535wmj.39.2019.12.10.14.59.46
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Dec 2019 14:59:46 -0800 (PST)
+        Tue, 10 Dec 2019 14:59:47 -0800 (PST)
 From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 To:     linux-sparse@vger.kernel.org
 Cc:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-Subject: [PATCH 15/17] fix cost of dereference of symbols with complex type
-Date:   Tue, 10 Dec 2019 23:59:19 +0100
-Message-Id: <20191210225921.94897-16-luc.vanoostenryck@gmail.com>
+Subject: [PATCH 16/17] RFC: allow expansion of accessed constants if 'static const'
+Date:   Tue, 10 Dec 2019 23:59:20 +0100
+Message-Id: <20191210225921.94897-17-luc.vanoostenryck@gmail.com>
 X-Mailer: git-send-email 2.24.0
 In-Reply-To: <20191210225921.94897-1-luc.vanoostenryck@gmail.com>
 References: <20191210225921.94897-1-luc.vanoostenryck@gmail.com>
@@ -61,58 +61,101 @@ Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-Currently, in expand_dereference(), the dereference of a symbol with
-a complex type is considered as costing as high as a non-symbol
-because it's not recognised it's a symbol.
+Currently, constant_symbol_value() safely refuses to convert
+a symbol that is accessed.
 
-However, both cases should have exactly the same cost since they
-address calculation amounts to 'symbol + offset'.
+But accessing a 'static const' object should be fine since
+it should never be modified.
 
-So, instead of taking in account a single level of
-	symbol + offset
-let's use a loop for this in order to handle
-	symbol [+ offset]*
+So, allow to also expand symbol marked as accessed but being
+'static const'.
+
+Note: a simple 'const' should be enough and 'static'
+      doesn't make it 'more const'. In both cases, the
+      object can be modified via a cast to a non-const
+      pointer (which is UB). The only thing that 'static'
+      changes is that *if* the object's address is not
+      taken (so all accesses are const-expanded) then
+      it's not needed to allocate memory for thsi object.
+
+      OTOH, GCC also seems to do some these expansions only
+      if the object is static const. So, I dunno.
 
 Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 ---
- expand.c                              | 10 +++++-----
- validation/expand/cost-deref-nested.c |  1 -
- 2 files changed, 5 insertions(+), 6 deletions(-)
+ expand.c                                |  7 +++++--
+ validation/expand/constant-init-array.c |  4 ++--
+ validation/expand/constant-static.c     | 16 ++++++++++++++++
+ validation/expand/default-init-array.c  |  1 -
+ 4 files changed, 23 insertions(+), 5 deletions(-)
+ create mode 100644 validation/expand/constant-static.c
 
 diff --git a/expand.c b/expand.c
-index cd348bf5833e..36612c8672dd 100644
+index 36612c8672dd..1885a4eaad2a 100644
 --- a/expand.c
 +++ b/expand.c
-@@ -737,12 +737,12 @@ static int expand_dereference(struct expression *expr)
- 	 * Is it "symbol" or "symbol + offset"?
- 	 */
- 	offset = 0;
--	if (unop->type == EXPR_BINOP && unop->op == '+') {
-+	while (unop->type == EXPR_BINOP && unop->op == '+') {
- 		struct expression *right = unop->right;
--		if (right->type == EXPR_VALUE) {
--			offset = right->value;
--			unop = unop->left;
--		}
-+		if (right->type != EXPR_VALUE)
-+			break;
-+		offset += right->value;
-+		unop = unop->left;
- 	}
+@@ -689,9 +689,12 @@ redo:
+ static struct expression *constant_symbol_value(struct symbol *sym, int offset)
+ {
+ 	struct expression *value;
++	unsigned long mods = sym->ctype.modifiers;
  
- 	if (unop->type == EXPR_SYMBOL) {
-diff --git a/validation/expand/cost-deref-nested.c b/validation/expand/cost-deref-nested.c
-index b09602b6acc6..d6b623961378 100644
---- a/validation/expand/cost-deref-nested.c
-+++ b/validation/expand/cost-deref-nested.c
-@@ -14,7 +14,6 @@ static int foo(int c)
+-	if (sym->ctype.modifiers & MOD_ACCESS)
+-		return NULL;
++	if (mods & MOD_ACCESS) {
++		if ((mods & (MOD_STATIC | MOD_CONST)) != (MOD_STATIC | MOD_CONST))
++			return NULL;
++	}
+ 	value = sym->initializer;
+ 	if (!value)
+ 		return NULL;
+diff --git a/validation/expand/constant-init-array.c b/validation/expand/constant-init-array.c
+index 94949be54244..861885630f18 100644
+--- a/validation/expand/constant-init-array.c
++++ b/validation/expand/constant-init-array.c
+@@ -10,6 +10,6 @@ int test_array(int i)
+  * check-command: test-linearize -Wno-decl -fdump-ir $file
+  *
+  * check-output-ignore
+- * check-output-excludes: phisrc\\..*return.*\\$2
+- * check-output-contains: load\\.
++ * check-output-contains: phisrc\\..*return.*\\$2
++ * check-output-excludes: load\\.
+  */
+diff --git a/validation/expand/constant-static.c b/validation/expand/constant-static.c
+new file mode 100644
+index 000000000000..df6673eeef47
+--- /dev/null
++++ b/validation/expand/constant-static.c
+@@ -0,0 +1,16 @@
++static const int a = 3;
++
++static int foo(void)
++{
++	int *p = (int*) &a;
++	return a;
++}
++
++/*
++ * check-name: constant-static
++ * check-command: test-linearize $file
++ *
++ * check-output-ignore
++ * check-output-contains: ret\\.32  *\\$3
++ * check-output-excludes: load\\.
++ */
+diff --git a/validation/expand/default-init-array.c b/validation/expand/default-init-array.c
+index b372ea09534b..5f2e44ef21a3 100644
+--- a/validation/expand/default-init-array.c
++++ b/validation/expand/default-init-array.c
+@@ -8,7 +8,6 @@ int test_array(int i)
  /*
-  * check-name: cost-deref-nested
-  * check-command: test-linearize -fdump-ir $file
+  * check-name: default-init-array
+  * check-command: test-linearize -Wno-decl -fdump-ir $file
 - * check-known-to-fail
   *
   * check-output-ignore
-  * check-output-excludes: cbr
+  * check-output-contains: phisrc\\..*return.*\\$0
 -- 
 2.24.0
 
