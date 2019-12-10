@@ -2,55 +2,55 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id BAAA7119EF4
-	for <lists+linux-sparse@lfdr.de>; Tue, 10 Dec 2019 23:59:46 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id D8F03119EF5
+	for <lists+linux-sparse@lfdr.de>; Tue, 10 Dec 2019 23:59:48 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727313AbfLJW7q (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Tue, 10 Dec 2019 17:59:46 -0500
-Received: from mail-wr1-f68.google.com ([209.85.221.68]:33748 "EHLO
+        id S1727403AbfLJW7s (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Tue, 10 Dec 2019 17:59:48 -0500
+Received: from mail-wr1-f68.google.com ([209.85.221.68]:46855 "EHLO
         mail-wr1-f68.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1727330AbfLJW7q (ORCPT
+        with ESMTP id S1727330AbfLJW7s (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Tue, 10 Dec 2019 17:59:46 -0500
-Received: by mail-wr1-f68.google.com with SMTP id b6so21996417wrq.0
-        for <linux-sparse@vger.kernel.org>; Tue, 10 Dec 2019 14:59:45 -0800 (PST)
+        Tue, 10 Dec 2019 17:59:48 -0500
+Received: by mail-wr1-f68.google.com with SMTP id z7so21857252wrl.13
+        for <linux-sparse@vger.kernel.org>; Tue, 10 Dec 2019 14:59:46 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=kVioipiXHEmhP5HVeMLPs3PQdUVGvSb9ElSwxREjrH4=;
-        b=RYPQfRpOADo33JWRCwPRF4McSH+Jrx7BL880FDqHsHQ+eiuDVW5YFws2DaRCRsT5KG
-         PuoHslgLcVcITrtd3+ivXjh6VMjqORfkrZiEm0KSPZeF/Zr/CYYTk9OirqA9bFBCTKxA
-         Aenm9Qe3/M1R9BKtNuCKk1Hwf/jPTfeYOcc63y5vTjf5ICRGEm2c6OIqG+2ZOdwSAoWd
-         +gH8AAPvlk/0cyUXW79kZmir17I8qhhyo/T6LFihAoHZVXRgYF6CnnX+5naiGzXoEYq2
-         BouiznK8ZZ39TrSRZJDM9NRiWppCdJhbseGusgqjwZe0NerAHiadHuGkfGM2z+DmrXdL
-         DX+w==
+        bh=oaIbsdT6lakziWuf1dkiOeWdtPSd6EsteHwxBEXTC0Q=;
+        b=bUAlFjr46iIL01OdxejMDXKJmmOgO2JSKau4i/id5e4oMoR4ZqPwgU8VGvwVD/70+o
+         F+w9CMnQm8dJY6S7Ik9/wknXvaWY1Ru+6QoYzkoX0a16GrK3OqoZOGzHEnmHy3MLBWwK
+         SY1Fe2HbvwBFuMMrgg0XtdDQCWANogXTgJv1r52ji3Ukfsxy4TDCRd9JASYLjFGPiPGw
+         gHwMjOxI8jKuSy3yRmGhVKOE3UfuL1qH8utU72umS6k/V0jiEKfVod3YaLIycaI+M8hR
+         SlXOT7fTsGZDjZFiQTFACnJUGkJTd1AyFCr93oNvDi+8UueTiXIW3+XsanlqqsnaCr3C
+         MClQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=kVioipiXHEmhP5HVeMLPs3PQdUVGvSb9ElSwxREjrH4=;
-        b=n/8FUd/NFxDyjWTF0RLmSa1kaoywE1O85qxMIyoRjJUJxt0iu4zwklAn6KKmXJOJ2b
-         a1bU89XeeARDPfFKBzLzbtApHhAQ9utCxrW5vre++7RvjbdAUDHW5Vhe8yJbykAtA/7C
-         /TbXrzHf0UJu2HBPZqhexXoy6qlUDI4A3TK0+hEuW7bNp8m4yHaY7XGtKKOtTrIyoYna
-         6q0VJSwXibVfAABqm38QLRqFIe38icsES5AJKDcSxYgzshqO5TSHrKbBm05uEuO7XSbM
-         f/2ZRVZ2AoGlvu/mPl7cggpWslaXrBo8vf2K7ZBesp+gPjWIcMMpWJ54lfAkLN1OOmNJ
-         4T/Q==
-X-Gm-Message-State: APjAAAXjrsReRJFeCRDMNd60A134xVaj90d/Q8J3uR/OXOs+5eGsgTd+
-        pK3kdG2x/Kw6gHX/D94D3ZHycKuO
-X-Google-Smtp-Source: APXvYqxWAkMOOj6eWc4BMZ945/oAGEezjKV7O2IDADZjt3v3k9Qi6w9r5M5kTg4jxq7ba3NMaeKKTQ==
-X-Received: by 2002:adf:df03:: with SMTP id y3mr7075wrl.260.1576018784592;
-        Tue, 10 Dec 2019 14:59:44 -0800 (PST)
+        bh=oaIbsdT6lakziWuf1dkiOeWdtPSd6EsteHwxBEXTC0Q=;
+        b=E0UNSGQiRp/5MfUTqgaRGAQN/Xwa/0HX2GkRDxgnQQIemK8yDnDbIni5YNsAkRJIby
+         BvQzUk23Wj1mVBaunXY5NbfTcKyAmlmy2ZuNt+BoVLdFvee7Q5J4Ug1AZ15kzleOpYyJ
+         OjrpwKLSnonnB5p7FWwuGOgOm7/gL7lRrfqBn7R0Vx1vVbiLy29iHFRt4932GS4MxdCS
+         pJzf8ILMzC6+tSnQuMzZ/axgjt1MiCXPReBwqW9KLRj62ulrtHmoEpShUGV1v0LDSWul
+         yODTLw8XvIp5/g3ai8me2tDll1dk+sx1YoTdNfb3C7bkqBqFcH7EeeaMdd1bX0GOkXBv
+         V8OA==
+X-Gm-Message-State: APjAAAWwUoMRofxEDvyXl23NRt07D6fnIW6wpcX2xvePa38nYdakrBDM
+        lPt3EUUKpjQ7sd7wYlx2GJvfqQzP
+X-Google-Smtp-Source: APXvYqyA3CszOiyKokoqTNfsaMvk8Iy3TImluFLDD40hCRmT6CPPHdnk0FuSwBLSTQe9SgNyLyD9Ow==
+X-Received: by 2002:adf:e6c5:: with SMTP id y5mr10677wrm.210.1576018785669;
+        Tue, 10 Dec 2019 14:59:45 -0800 (PST)
 Received: from localhost.localdomain ([2a02:a03f:40f6:4600:ccc5:3de6:2efd:b014])
-        by smtp.gmail.com with ESMTPSA id j21sm33535wmj.39.2019.12.10.14.59.43
+        by smtp.gmail.com with ESMTPSA id j21sm33535wmj.39.2019.12.10.14.59.44
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Dec 2019 14:59:43 -0800 (PST)
+        Tue, 10 Dec 2019 14:59:44 -0800 (PST)
 From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 To:     linux-sparse@vger.kernel.org
 Cc:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-Subject: [PATCH 13/17] fix expansion of initializer (default)
-Date:   Tue, 10 Dec 2019 23:59:17 +0100
-Message-Id: <20191210225921.94897-14-luc.vanoostenryck@gmail.com>
+Subject: [PATCH 14/17] fix simplify_loads() when doing type punning
+Date:   Tue, 10 Dec 2019 23:59:18 +0100
+Message-Id: <20191210225921.94897-15-luc.vanoostenryck@gmail.com>
 X-Mailer: git-send-email 2.24.0
 In-Reply-To: <20191210225921.94897-1-luc.vanoostenryck@gmail.com>
 References: <20191210225921.94897-1-luc.vanoostenryck@gmail.com>
@@ -61,120 +61,83 @@ Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-Currently, constant_symbol_value() is doing the expansion
-of a constant initializer when an explicit one is found
-but nothing is done if the initilizer is an implicit one.
+When doing loads simplification for a location where
+floats & integers are mixed, loads are systematically
+replaced with the value of their dominating memop (this
+checks if the corresponding write or load overlaps).
 
-Fix this by:
-* adding an helper to lookup the corresponding type from
-  offset;
-* using this helper to get the correct kind for the value:
-  - a 0-valued EXPR_VALUE for integers
-  - a 0.0-valued EXPR_FVALUE for floats.
+However, this must not be done if the involved operations
+are doing some form of integer/float type punning.
+
+Fix this by refusing to convert load of an integer by a
+previous float value or the opposite.
+
+Note: another way to describe this problem would be to say
+      that floats need to have their own memory operations:
+          OP_FSTORE & OP_FLOAD
+      or that instructions need to have some form of 'machine type'
+      in addition of the size (like clang's i32/f32, ...).
 
 Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 ---
- expand.c                                | 65 ++++++++++++++++++++++++-
- validation/expand/default-init-struct.c |  1 -
- 2 files changed, 63 insertions(+), 3 deletions(-)
+ memops.c                                 | 11 +++++++++++
+ validation/memops/type-punning-flt2int.c |  1 -
+ validation/memops/type-punning-int2flt.c |  1 -
+ 3 files changed, 11 insertions(+), 2 deletions(-)
 
-diff --git a/expand.c b/expand.c
-index 9ab259b13a82..cd348bf5833e 100644
---- a/expand.c
-+++ b/expand.c
-@@ -621,6 +621,66 @@ static int expand_addressof(struct expression *expr)
- 	return expand_expression(expr->unop);
+diff --git a/memops.c b/memops.c
+index 5df2c0339415..f071e556da8a 100644
+--- a/memops.c
++++ b/memops.c
+@@ -82,6 +82,15 @@ static int local_pseudo(pseudo_t pseudo)
+ 		&& !address_taken(pseudo);
  }
  
-+///
-+// lookup the type of a struct's memeber at the requested offset
-+static struct symbol *find_member(struct symbol *sym, int offset)
++static bool compatible_loads(struct instruction *a, struct instruction *b)
 +{
-+	struct ptr_list *head, *list;
-+
-+	head = (struct ptr_list *) sym->symbol_list;
-+	list = head;
-+	if (!head)
-+		return NULL;
-+	do {
-+		int nr = list->nr;
-+		int i;
-+		for (i = 0; i < nr; i++) {
-+			struct symbol *ent = (struct symbol *) list->list[i];
-+			int curr = ent->offset;
-+			if (curr == offset)
-+				return ent;
-+			if (curr > offset)
-+				return NULL;
-+		}
-+	} while ((list = list->next) != head);
-+	return NULL;
++	if (is_integral_type(a->type) && is_float_type(b->type))
++		return false;
++	if (is_float_type(a->type) && is_integral_type(b->type))
++		return false;
++	return true;
 +}
 +
-+///
-+// lookup a suitable default initializer value at the requested offset
-+static struct expression *default_initializer(struct symbol *sym, int offset)
-+{
-+	static struct expression value;
-+	struct symbol *type;
-+
-+redo:
-+	switch (sym->type) {
-+	case SYM_NODE:
-+		sym = sym->ctype.base_type;
-+		goto redo;
-+	case SYM_STRUCT:
-+		type = find_member(sym, offset);
-+		if (!type)
-+			return NULL;
-+		break;
-+	case SYM_ARRAY:
-+		type = sym->ctype.base_type;
-+		break;
-+	default:
-+		return NULL;
-+	}
-+
-+	if (is_integral_type(type))
-+		value.type = EXPR_VALUE;
-+	else if (is_float_type(type))
-+		value.type = EXPR_FVALUE;
-+	else
-+		return NULL;
-+
-+	value.ctype = type;
-+	return &value;
-+}
-+
- /*
-  * Look up a trustable initializer value at the requested offset.
-  *
-@@ -646,10 +706,11 @@ static struct expression *constant_symbol_value(struct symbol *sym, int offset)
- 			if (entry->init_offset < offset)
- 				continue;
- 			if (entry->init_offset > offset)
--				return NULL;
-+				break;
- 			return entry->init_expr;
- 		} END_FOR_EACH_PTR(entry);
--		return NULL;
-+
-+		value = default_initializer(sym, offset);
- 	}
- 	return value;
- }
-diff --git a/validation/expand/default-init-struct.c b/validation/expand/default-init-struct.c
-index c843a1abb960..085dd2d6dca9 100644
---- a/validation/expand/default-init-struct.c
-+++ b/validation/expand/default-init-struct.c
-@@ -15,7 +15,6 @@ int test_struct(void)
- /*
-  * check-name: default-init-struct
-  * check-command: test-linearize -Wno-decl -fdump-ir $file
+ static void simplify_loads(struct basic_block *bb)
+ {
+ 	struct instruction *insn;
+@@ -114,6 +123,8 @@ static void simplify_loads(struct basic_block *bb)
+ 							continue;
+ 						goto next_load;
+ 					}
++					if (!compatible_loads(insn, dom))
++						goto next_load;
+ 					/* Yeehaa! Found one! */
+ 					convert_load_instruction(insn, dom->target);
+ 					goto next_load;
+diff --git a/validation/memops/type-punning-flt2int.c b/validation/memops/type-punning-flt2int.c
+index a76c6c1da534..fadaf6876d13 100644
+--- a/validation/memops/type-punning-flt2int.c
++++ b/validation/memops/type-punning-flt2int.c
+@@ -13,7 +13,6 @@ static int foo(void)
+  * check-name: type-punning-float-to-int
+  * check description: must not infer the int value from the float
+  * check-command: test-linearize $file
 - * check-known-to-fail
   *
   * check-output-ignore
-  * check-output-contains: phisrc\\..*return.*\\$0
+  * check-output-contains: load\\.
+diff --git a/validation/memops/type-punning-int2flt.c b/validation/memops/type-punning-int2flt.c
+index c05ce252f305..061b742352c4 100644
+--- a/validation/memops/type-punning-int2flt.c
++++ b/validation/memops/type-punning-int2flt.c
+@@ -13,7 +13,6 @@ static float foo(void)
+  * check-name: type-punning-int-to-float
+  * check description: must not infer the float value from the int
+  * check-command: test-linearize $file
+- * check-known-to-fail
+  *
+  * check-output-ignore
+  * check-output-contains: load\\.
 -- 
 2.24.0
 
