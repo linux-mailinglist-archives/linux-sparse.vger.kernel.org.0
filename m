@@ -2,55 +2,55 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 6061B119EEC
-	for <lists+linux-sparse@lfdr.de>; Tue, 10 Dec 2019 23:59:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id F2DDD119EED
+	for <lists+linux-sparse@lfdr.de>; Tue, 10 Dec 2019 23:59:38 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727319AbfLJW7h (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Tue, 10 Dec 2019 17:59:37 -0500
-Received: from mail-wr1-f67.google.com ([209.85.221.67]:38231 "EHLO
-        mail-wr1-f67.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1727313AbfLJW7h (ORCPT
+        id S1727333AbfLJW7i (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Tue, 10 Dec 2019 17:59:38 -0500
+Received: from mail-wm1-f65.google.com ([209.85.128.65]:54964 "EHLO
+        mail-wm1-f65.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1727313AbfLJW7i (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Tue, 10 Dec 2019 17:59:37 -0500
-Received: by mail-wr1-f67.google.com with SMTP id y17so21976899wrh.5
-        for <linux-sparse@vger.kernel.org>; Tue, 10 Dec 2019 14:59:35 -0800 (PST)
+        Tue, 10 Dec 2019 17:59:38 -0500
+Received: by mail-wm1-f65.google.com with SMTP id b11so5016725wmj.4
+        for <linux-sparse@vger.kernel.org>; Tue, 10 Dec 2019 14:59:37 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=0GjbWAwcLKkqwmmp0UchlI/mK05K5fPhHLmCgtC5tzA=;
-        b=sFmlIKYMETgux8y+wzlUxAhPX5tqo6WtRhAMKtFTH0vlXFMXbDOE1Rkem3o7S2S7nM
-         GBy30tHtw8W2NWayM6a/y74dw3QClDtGOvdJTz4gvoRbccJVXrwuS+iGn+a21o7BPPRd
-         cUEDZblZ966xH1N8i1GrBEJNP7KX8p08Lst6fxcQJF9G9my7dWAxwjImZDqn/s3/XyXr
-         YoNRDppF5mmdswqCC0vWFJtOlVidwy0hCoOzfQwCgqIMvO5A8lv7EiIFT3svpIdpA+vU
-         az8FGOWCwsvb3UK4rZR/QsxZ1Ks1Wr9J5kqNsHuhUZyV7M6IpYc8RO8SaHKT1P5u7z2E
-         YVxg==
+        bh=xOlHcyatID/+Hqqk50CoalJLN9Oe4eJ6EMLnj4fUfsE=;
+        b=uFv0YYzXt2RQ90svAs2TRfJAx2Pb+2A75Sqctd5Zc3hiW723Jj+Vv2/317hjIBC9vN
+         MlIh6X0YZSRvspXS4/By29t7Yc7vWFo0igMjyPUamwObVTtIyndYOwFQe6ecBbjKv5mU
+         CK5MH7j1jdt5BQOZOOdFVpBvg1L/dbvETFp0wxjWJkTtCO6bsxdIPHGiwn9gccXSr31l
+         zT0l4h82gDQqUPro6j0iHQH9VNSiQqTkMhxrQr4Weotd1z8XEI29rv7Mi8DATuX7i1TU
+         0Lgd9OEVquaruIyBq5yifFO/CxORMpd0OfTmYWcNIEO43kZhB0NVNdnVnth4YfFeZAgk
+         IFbQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=0GjbWAwcLKkqwmmp0UchlI/mK05K5fPhHLmCgtC5tzA=;
-        b=IVIYNzKfd3BU7MmK5aKHF10bptqFr6M4LGZNebg0IXGmywoJy23mjUH7YoBapMEJlU
-         G5sy+uAQ1dwVFNdBgaIU2BEt1U+SOU43U+YmylrZJSxgfjEnogFTHr8ItQ5d5IEpH5Er
-         hqc1gpcB+sTUba64nVZXQjj8ozplJr6ConSZO2mLG4cdcrQ+pZN7emd92v+oaiicPRXO
-         tSYccQRZZwA0VQSoWqZ1+J4OtfHW/p16EMrY2hMK3NEmT45oheJDUojf3Mcf0lo4WUHL
-         modmcss4n9StCsviegl8zI1n8QO/A9MOJSq03+bYsZGIEObYCxVUln7fNmFTv26ok0g1
-         XxGQ==
-X-Gm-Message-State: APjAAAXTn6whuSuhc3EdHctL+Dwksft5jrWNOfWcWVu0YlylrWA+fiiF
-        UPw2GRI8nr6RccXgW2BsojLmlID1
-X-Google-Smtp-Source: APXvYqzBiAoFtvC0usogovvZ3fSj/GXdHCDLI0VExs7IL9jz+fg3rTbz2YuVw9kSlYsWSLmMAPTxQw==
-X-Received: by 2002:a05:6000:1044:: with SMTP id c4mr11155wrx.204.1576018774547;
-        Tue, 10 Dec 2019 14:59:34 -0800 (PST)
+        bh=xOlHcyatID/+Hqqk50CoalJLN9Oe4eJ6EMLnj4fUfsE=;
+        b=LHRdBLBtrTi4eLBrIWgKd+Nb0yadl/op593Nt6n9EyNLUclacrEHywOcY/F3qdW+Th
+         ZXbA5bM+2WjfYDcCU9BxWg2Zq3vKJRVlB5rF7cRTuzhVdERkhtevz388cNX5ms4OF1W8
+         Sg+MNTbEV4IlwWDtUSg+2BE4y8dEnbOwldKtFnXDb1ClLUUr2xoNq8PAiNS8SWO4htZY
+         edkNRJRqHoT4+TNiElXocihOanpzrogPTYNCJHmoUo0bX252HW4es5u6pnHJvNk2UnD5
+         M1mLA7gm4beIKIhJCNRs/sYyLYQ7UxWrSrJEAsxqHyE1NbefRRPPBdBSibqoVfCQpXNw
+         rP3g==
+X-Gm-Message-State: APjAAAUF4UU05D5G/98+6t53//WJk7Y+Ck9MzWkm2c4TtuGJIabaYJOE
+        eFjUPuikB+NxQlbwXuYad1HFaJ67
+X-Google-Smtp-Source: APXvYqzfibM1F33Yyu5EkzpS8WA5NCmSqefWT0b/exfOUIw0jgo8FL7FoUC86zQnTFv25f1nitFL8w==
+X-Received: by 2002:a7b:c3d2:: with SMTP id t18mr1372285wmj.90.1576018776203;
+        Tue, 10 Dec 2019 14:59:36 -0800 (PST)
 Received: from localhost.localdomain ([2a02:a03f:40f6:4600:ccc5:3de6:2efd:b014])
-        by smtp.gmail.com with ESMTPSA id j21sm33535wmj.39.2019.12.10.14.59.33
+        by smtp.gmail.com with ESMTPSA id j21sm33535wmj.39.2019.12.10.14.59.34
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Dec 2019 14:59:33 -0800 (PST)
+        Tue, 10 Dec 2019 14:59:35 -0800 (PST)
 From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 To:     linux-sparse@vger.kernel.org
 Cc:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-Subject: [PATCH 05/17] add test for union cast
-Date:   Tue, 10 Dec 2019 23:59:09 +0100
-Message-Id: <20191210225921.94897-6-luc.vanoostenryck@gmail.com>
+Subject: [PATCH 06/17] add test for dereference cost of symbol with complex type
+Date:   Tue, 10 Dec 2019 23:59:10 +0100
+Message-Id: <20191210225921.94897-7-luc.vanoostenryck@gmail.com>
 X-Mailer: git-send-email 2.24.0
 In-Reply-To: <20191210225921.94897-1-luc.vanoostenryck@gmail.com>
 References: <20191210225921.94897-1-luc.vanoostenryck@gmail.com>
@@ -61,47 +61,44 @@ Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-Sparse can't do this yet.
-So, add a testcase for it.
+Currently, in expand_dereference(), the dereference of a symbol with
+a complex type is considered as costing as high as a non-symbol
+because it's not recognised it's a symbol.
+
+Add a testcase for this.
 
 Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 ---
- validation/expand/union-cast.c | 27 +++++++++++++++++++++++++++
- 1 file changed, 27 insertions(+)
- create mode 100644 validation/expand/union-cast.c
+ validation/expand/cost-deref-nested.c | 21 +++++++++++++++++++++
+ 1 file changed, 21 insertions(+)
+ create mode 100644 validation/expand/cost-deref-nested.c
 
-diff --git a/validation/expand/union-cast.c b/validation/expand/union-cast.c
+diff --git a/validation/expand/cost-deref-nested.c b/validation/expand/cost-deref-nested.c
 new file mode 100644
-index 000000000000..a28d01f22b92
+index 000000000000..b09602b6acc6
 --- /dev/null
-+++ b/validation/expand/union-cast.c
-@@ -0,0 +1,27 @@
-+union u {
-+	int i;
-+	struct s {
-+		int a;
-+	} s;
++++ b/validation/expand/cost-deref-nested.c
+@@ -0,0 +1,21 @@
++struct s {
++	struct {
++		int u, v;
++	} a, b;
 +};
 +
-+int foo(void)
++static const struct s s;
++
++static int foo(int c)
 +{
-+	struct s s = { 3 };
-+	union u u = (union u)s;
-+	return u.s.a;
++	return c && s.b.v;
 +}
 +
 +/*
-+ * check-name: union-cast
-+ * check-command: test-linearize -Wno-decl -fdump-ir $file
++ * check-name: cost-deref-nested
++ * check-command: test-linearize -fdump-ir $file
 + * check-known-to-fail
 + *
 + * check-output-ignore
-+ * check-output-excludes: load\\.
-+ *
-+ * check-error-start
-+union-cast.c:11:22: warning: cast to non-scalar
-+union-cast.c:11:22: warning: cast from non-scalar
-+ * check-error-end
++ * check-output-excludes: cbr
 + */
 -- 
 2.24.0
