@@ -2,55 +2,55 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 25CF5119EE6
-	for <lists+linux-sparse@lfdr.de>; Tue, 10 Dec 2019 23:59:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id B2B66119EE8
+	for <lists+linux-sparse@lfdr.de>; Tue, 10 Dec 2019 23:59:32 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727137AbfLJW7a (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Tue, 10 Dec 2019 17:59:30 -0500
-Received: from mail-wm1-f66.google.com ([209.85.128.66]:35955 "EHLO
-        mail-wm1-f66.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1727308AbfLJW7a (ORCPT
+        id S1727308AbfLJW7c (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Tue, 10 Dec 2019 17:59:32 -0500
+Received: from mail-wr1-f68.google.com ([209.85.221.68]:35470 "EHLO
+        mail-wr1-f68.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1727030AbfLJW7c (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Tue, 10 Dec 2019 17:59:30 -0500
-Received: by mail-wm1-f66.google.com with SMTP id p17so5007376wma.1
-        for <linux-sparse@vger.kernel.org>; Tue, 10 Dec 2019 14:59:28 -0800 (PST)
+        Tue, 10 Dec 2019 17:59:32 -0500
+Received: by mail-wr1-f68.google.com with SMTP id g17so21976674wro.2
+        for <linux-sparse@vger.kernel.org>; Tue, 10 Dec 2019 14:59:30 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=Mp4QZuCv/bRaTlgmXO+s2ke2zrCF1j1W/eYiBLPTEbw=;
-        b=G82pAauuBu5s+uTvRRZ+Y+3G4/pRz1HbZbHLnnUzqZNKQOh8DPXNEU6Kni0RSKi32o
-         QuEqMxh8RMh4ytG+YZKVokDqCuE6Ks5C4JwpNvlFDm1dtjfVe1WheCLBJL0KkBJfXtf9
-         UUZpBaTP6W7t/cpeaB2BzpFKRkHfKLUzkulCF6/vLYLv6kGz4RAoXRCUsmyOOfnvQdQH
-         LHXgIhdakagVlFUu+qwZE6xRWUcWo4HSJdvp3f7Lz4oybEpYWfk6n+EkO/g1/QGdDWlP
-         Um03U7TkQ+lEZDfjELv2mck9pIEH43+m5DDUT2lXno0wqv2eV2EYwA91l4Md29NCujNo
-         g3wA==
+        bh=eV6E9o4k7oQg2TyuMgE3WA+OQdQGPvJdxtLgTH97iWo=;
+        b=KiLhcxTMRY9dAVR5yny7ARLWaobQCOcJpmtij1TKRFAxgj02lcYpRGhhv5OCA8Hshe
+         lo5rNty27dHJCggW01TTwndNrbXUisYZty0TY0qC2Wv5bRW2uqybX2E05+aJsP8Ya5//
+         0ry8xkUM5KCU0IAXYfDVkoksQ32c2vRqiothWpBxAQ+cSS9J+AVhmxOg7KmLszfkmj9P
+         GLVwh8aadb9JtujTXfFF9UcoNgVpeSbZ+XgVkv5kEowXAP7fhvPzd9Z+N7HUzxpLo0hj
+         VxzxHmijDRIEqGapZSga8GQ47zM/nrDcSaIJF10IIuV6bA+TkN/PrLCZCt9Czq1evAda
+         mwLA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=Mp4QZuCv/bRaTlgmXO+s2ke2zrCF1j1W/eYiBLPTEbw=;
-        b=M+BT36Py6VRw4VZry2Zc4MUvIqLHreZiBGJ7ZB8t+5AiIqO8YWa0bDAZcf0vH0+l+G
-         ITyfnYOXrLd6spX0X5UIz/ifsti/yKWPgXJbLvo3vUNml5xA4zinsV6d6taKhLvWjHa2
-         SVJ4BM7MGo3193SsnectdAT/+CK0GanEgM+syrfCQEAmy4RERvQHmJxjliAOTOcb/BPn
-         OzE82GzLyram8j9NQHk7y0knRLqjc+L2ontQnglhl3cI9smuYL13qQroQy3WhdroxXDa
-         RAkZ7Z5Ip+mAl6kr5+UcmTHu5B0HlWLsM2sO55Rz8HosomRmwXTJwj4Vsum1qs5ibqOP
-         DSdg==
-X-Gm-Message-State: APjAAAWwRVhCb2tpN6OSGoVHAi4/r4IZ8zllEe4F42hr6bBslgzM3tQg
-        ICsN+AI5nbn/xfB9BV1cElc4qoe8
-X-Google-Smtp-Source: APXvYqx6hvTcxHxx+e3cmPFzM/dUtNKhdyOo08nSJ0cL8Fou/qZ8Q8Z52PVPZoLm6WGHx/xMe2iUHw==
-X-Received: by 2002:a1c:407:: with SMTP id 7mr7512264wme.29.1576018767516;
-        Tue, 10 Dec 2019 14:59:27 -0800 (PST)
+        bh=eV6E9o4k7oQg2TyuMgE3WA+OQdQGPvJdxtLgTH97iWo=;
+        b=fV9po6pA0Rvvx7glnjUUH3NbVGVgzfZWnSOQtt1/bENFu5zw5TCR5V9QTRuAeDKZbw
+         Bi7qTn0BqGaBlXJQOzc29GaowCjjJB+tCId85k6MqRBFJFyYm4ibXpmgVS4JD+MFh0+E
+         muaxlnUYD/z6+J/V6yaulQrnKmPv3jW/7vi64bo7Lh8bn+JsA1Jbou1Iw6YBvxuToYyv
+         0WonaK5nUBi/elmcYxqOr31Y1U8DWXdfuWp9j2LIDE8fmZCdQ+d3KrligLU95ASZmbyj
+         B9UzKMKAnOt0Imsu/o1SkexpPw5kKWt6PPN61DzmCvYnXzuhkiHUG6szu8/Gtw3vaDZW
+         ObTg==
+X-Gm-Message-State: APjAAAWZnJw/pPQXeG41cMZpwf7a968r1HMRS569GYRAR6LicZf2ohi9
+        vWzgyFQAtAE1G18QW76ltbgT28Nu
+X-Google-Smtp-Source: APXvYqy/sqFHn9JDlFUzANqeK2NcPhZVMck35RopbUp3kEQSbGpsGCmyj0wte2ZB7wVNB5h2yp4GPg==
+X-Received: by 2002:adf:9427:: with SMTP id 36mr12034wrq.166.1576018769554;
+        Tue, 10 Dec 2019 14:59:29 -0800 (PST)
 Received: from localhost.localdomain ([2a02:a03f:40f6:4600:ccc5:3de6:2efd:b014])
-        by smtp.gmail.com with ESMTPSA id j21sm33535wmj.39.2019.12.10.14.59.26
+        by smtp.gmail.com with ESMTPSA id j21sm33535wmj.39.2019.12.10.14.59.27
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Dec 2019 14:59:26 -0800 (PST)
+        Tue, 10 Dec 2019 14:59:28 -0800 (PST)
 From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 To:     linux-sparse@vger.kernel.org
 Cc:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-Subject: [PATCH 01/17] split testcases for type punning & constant initializer expansion
-Date:   Tue, 10 Dec 2019 23:59:05 +0100
-Message-Id: <20191210225921.94897-2-luc.vanoostenryck@gmail.com>
+Subject: [PATCH 02/17] add testcase for expansion of default initializers
+Date:   Tue, 10 Dec 2019 23:59:06 +0100
+Message-Id: <20191210225921.94897-3-luc.vanoostenryck@gmail.com>
 X-Mailer: git-send-email 2.24.0
 In-Reply-To: <20191210225921.94897-1-luc.vanoostenryck@gmail.com>
 References: <20191210225921.94897-1-luc.vanoostenryck@gmail.com>
@@ -61,141 +61,70 @@ Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-Several issues were covered by the same testcase.
+Currently, constant_symbol_value() is doing the expansion
+of a constant initializer when an explicit one is found
+but nothing is done for the default/implicit ones.
 
-Fix this by splitting the testcases.
-Also, rename these testcases to a more descriptive name.
+Add a testcase to illustrate this.
 
 Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 ---
- validation/expand/constant-union-flt2int.c    | 21 +++++++++++++++++++
- validation/expand/constant-union-int2flt.c    | 20 ++++++++++++++++++
- .../constant-union-size.c}                    |  6 +++---
- .../type-punning-flt2int.c}                   |  4 ++--
- validation/memops/type-punning-int2flt.c      | 20 ++++++++++++++++++
- 5 files changed, 66 insertions(+), 5 deletions(-)
- create mode 100644 validation/expand/constant-union-flt2int.c
- create mode 100644 validation/expand/constant-union-int2flt.c
- rename validation/{bug-expand-union0.c => expand/constant-union-size.c} (60%)
- rename validation/{bug-expand-union1.c => memops/type-punning-flt2int.c} (68%)
- create mode 100644 validation/memops/type-punning-int2flt.c
+ validation/expand/default-init-array.c  | 16 ++++++++++++++++
+ validation/expand/default-init-struct.c | 23 +++++++++++++++++++++++
+ 2 files changed, 39 insertions(+)
+ create mode 100644 validation/expand/default-init-array.c
+ create mode 100644 validation/expand/default-init-struct.c
 
-diff --git a/validation/expand/constant-union-flt2int.c b/validation/expand/constant-union-flt2int.c
+diff --git a/validation/expand/default-init-array.c b/validation/expand/default-init-array.c
 new file mode 100644
-index 000000000000..1c8f480b6c81
+index 000000000000..b372ea09534b
 --- /dev/null
-+++ b/validation/expand/constant-union-flt2int.c
-@@ -0,0 +1,21 @@
-+union u {
-+	int i;
-+	float f;
-+};
-+
-+static int foo(void)
++++ b/validation/expand/default-init-array.c
+@@ -0,0 +1,16 @@
++int test_array(int i)
 +{
-+	union u u = { .f = 0.123 };
-+	return u.i;
++	static const int a[3] = { [0] = 1, [2] = 3, };
++
++	return a[1];
 +}
 +
 +/*
-+ * check-name: constant-union-float-to-int
-+ * check description: must not infer the int value from the float
-+ * check-command: test-linearize -fdump-ir $file
++ * check-name: default-init-array
++ * check-command: test-linearize -Wno-decl -fdump-ir $file
 + * check-known-to-fail
 + *
 + * check-output-ignore
-+ * check-output-pattern(1): setfval\\.
-+ * check-output-pattern(1): load\\.
++ * check-output-contains: phisrc\\..*return.*\\$0
++ * check-output-excludes: load\\.
 + */
-diff --git a/validation/expand/constant-union-int2flt.c b/validation/expand/constant-union-int2flt.c
+diff --git a/validation/expand/default-init-struct.c b/validation/expand/default-init-struct.c
 new file mode 100644
-index 000000000000..ff0a642ad67d
+index 000000000000..c843a1abb960
 --- /dev/null
-+++ b/validation/expand/constant-union-int2flt.c
-@@ -0,0 +1,20 @@
-+union u {
-+	int i;
-+	float f;
++++ b/validation/expand/default-init-struct.c
+@@ -0,0 +1,23 @@
++struct s {
++	int a;
++	int b;
++	int c;
 +};
 +
-+static float foo(void)
++
++int test_struct(void)
 +{
-+	union u u = { .i = 3 };
-+	return u.f;
++	struct s s = { .a = 1, .c = 3, };
++
++	return s.b;
 +}
 +
 +/*
-+ * check-name: constant-union-int-to-float
-+ * check description: must not infer the float value from the int
-+ * check-command: test-linearize -fdump-ir $file
++ * check-name: default-init-struct
++ * check-command: test-linearize -Wno-decl -fdump-ir $file
 + * check-known-to-fail
 + *
 + * check-output-ignore
-+ * check-output-pattern(1): load\\.
-+ */
-diff --git a/validation/bug-expand-union0.c b/validation/expand/constant-union-size.c
-similarity index 60%
-rename from validation/bug-expand-union0.c
-rename to validation/expand/constant-union-size.c
-index dd6d60c3e291..b6c3ac75ae4b 100644
---- a/validation/bug-expand-union0.c
-+++ b/validation/expand/constant-union-size.c
-@@ -10,9 +10,9 @@ static int foo(void)
- }
- 
- /*
-- * check-name: bug-expand-union
-- * check description: must not infer the value from the float
-- * check-command: test-linearize $file
-+ * check-name: constant-union-size
-+ * check description: the size of the initializer doesn't match
-+ * check-command: test-linearize -fdump-ir $file
-  * check-known-to-fail
-  *
-  * check-output-ignore
-diff --git a/validation/bug-expand-union1.c b/validation/memops/type-punning-flt2int.c
-similarity index 68%
-rename from validation/bug-expand-union1.c
-rename to validation/memops/type-punning-flt2int.c
-index 582a1f4f837e..a76c6c1da534 100644
---- a/validation/bug-expand-union1.c
-+++ b/validation/memops/type-punning-flt2int.c
-@@ -10,8 +10,8 @@ static int foo(void)
- }
- 
- /*
-- * check-name: bug-expand-union
-- * check description: must not infer the value from the float
-+ * check-name: type-punning-float-to-int
-+ * check description: must not infer the int value from the float
-  * check-command: test-linearize $file
-  * check-known-to-fail
-  *
-diff --git a/validation/memops/type-punning-int2flt.c b/validation/memops/type-punning-int2flt.c
-new file mode 100644
-index 000000000000..c05ce252f305
---- /dev/null
-+++ b/validation/memops/type-punning-int2flt.c
-@@ -0,0 +1,20 @@
-+union u {
-+	int i;
-+	float f;
-+};
-+
-+static float foo(void)
-+{
-+	union u u = { .i = 3 };
-+	return u.f;
-+}
-+
-+/*
-+ * check-name: type-punning-int-to-float
-+ * check description: must not infer the float value from the int
-+ * check-command: test-linearize $file
-+ * check-known-to-fail
-+ *
-+ * check-output-ignore
-+ * check-output-contains: load\\.
++ * check-output-contains: phisrc\\..*return.*\\$0
++ * check-output-excludes: load\\.
 + */
 -- 
 2.24.0
