@@ -2,55 +2,55 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id AA72911796B
-	for <lists+linux-sparse@lfdr.de>; Mon,  9 Dec 2019 23:36:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 961FC119EE4
+	for <lists+linux-sparse@lfdr.de>; Tue, 10 Dec 2019 23:59:29 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726230AbfLIWgL (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Mon, 9 Dec 2019 17:36:11 -0500
-Received: from mail-wr1-f67.google.com ([209.85.221.67]:42972 "EHLO
-        mail-wr1-f67.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726175AbfLIWgL (ORCPT
+        id S1727312AbfLJW72 (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Tue, 10 Dec 2019 17:59:28 -0500
+Received: from mail-wm1-f41.google.com ([209.85.128.41]:53183 "EHLO
+        mail-wm1-f41.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1727137AbfLJW72 (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Mon, 9 Dec 2019 17:36:11 -0500
-Received: by mail-wr1-f67.google.com with SMTP id a15so17898450wrf.9
-        for <linux-sparse@vger.kernel.org>; Mon, 09 Dec 2019 14:36:10 -0800 (PST)
+        Tue, 10 Dec 2019 17:59:28 -0500
+Received: by mail-wm1-f41.google.com with SMTP id p9so5021586wmc.2
+        for <linux-sparse@vger.kernel.org>; Tue, 10 Dec 2019 14:59:27 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:mime-version
          :content-transfer-encoding;
-        bh=aK5J+TuS7i0Ceaj4gHzHn0T5R4bSR2NBODkIA+tCmrY=;
-        b=DQJOVK8zaCEPvQwJtlSfpV40L1c8mvAZzTv5RF1R2ea8sPh7+ibElakSaU4X2oOhA0
-         nBdU9uGHhwLfZx8JblH97h1FVEsKHZQY61QXoOChbybgygESVeXhG9po1Rd15Kp6xLzW
-         jswMFQSg/DsF1TrMfRwk0gS2UDk4OoXvolAlQipXNFeEIHGrg3BH+CN0MR9NqssbrPVy
-         ByKdoUPF6FN03qWRvHC6dhf9ALxdnKJ5MQ76h+8EVJUSmCQk823xLyJjel7RhHRFUJXj
-         4UTI92rHllmZGn+RYTOcXeiSgltTmwj4Y0AWMsV4ZWhVGp1N3Usygx9tjpMdA+d/4cep
-         vztQ==
+        bh=OI2JfMIBTIYAXzKPx6WWKoGBPFUKvZEI1Y+QoBgjDg8=;
+        b=He/h0iGFkYjlwASYKpbMozy5pUFW8omd1XqUEqYwD6W/hEeZWLy3WO7Za2WeR8laEQ
+         oe1w5C7CLQr6bY7btzqLti/ceVNpT3F23G+d/R8DBfTzLhbm/Xt4MBnpgzAWIDrsYYlG
+         edH8K388bMyA4/5i/HHKEvyA/Ai0IDdn5sKuD6EL9Eqi9XbW9CtKwjELygitVHpD2mCt
+         8N7tolrIlyR1GtXgpWXlPLZ/GfrLvmrtoJuiQqwzxdMUx6hKoEsIVRUajAIHmabFtoTw
+         V70tA9NUMdBdf+CLAsbfE4l59d4KfrlEn9qGt9m2hhvAO8CvL6wUJsbSg7BqlaOxgmPn
+         +tEQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
          :content-transfer-encoding;
-        bh=aK5J+TuS7i0Ceaj4gHzHn0T5R4bSR2NBODkIA+tCmrY=;
-        b=QwrrOPMSpc0+22hx/MwqnlE/qM3RiHFlgZLfU1tVqWJFP8U8GdYmaxDNniCIA+26IN
-         R5tTweom6atwjLLbETfSqMAwUSSqk3Z7x+AdPXXED8UPr4+jHfRqsrFFg8F6N5vjFMdm
-         fm2wuDUDyp+Y1LwpoJS8nh5v+l0G/38BGO0boLkGkxQH7zYFXRNHMGjIMrHimLOFjakT
-         FzThdF1/9ypQdsG3mtcqzORUHG4CGdFfYoxOnvrAsQ+ZubzfEZI0l2iS73DG06gJPslJ
-         9CW4p/46ftBaX6vfsSOmtPlEc4Xd/2DzFpW+cACPz4GaXnVpho7jL8axeLIAVz/l2K3x
-         VV/A==
-X-Gm-Message-State: APjAAAUv1C0ubUYEIF0+hw/rtTYHmGHptZt+djaKoteExGkewmwp6xBF
-        nG9T8Q6g869JzbQko7Awi1BsWe+k
-X-Google-Smtp-Source: APXvYqzPlgLi5AfqKUZbjDiXZe+Q2tX291P3EpfWRwUxFrFVDGBsT06SGSlsDM28LdCuZlHhiJ8e+Q==
-X-Received: by 2002:adf:f2d0:: with SMTP id d16mr4412368wrp.110.1575930969071;
-        Mon, 09 Dec 2019 14:36:09 -0800 (PST)
-Received: from localhost.localdomain ([2a02:a03f:40f6:4600:28ec:96ef:ca6d:e5dd])
-        by smtp.gmail.com with ESMTPSA id v17sm943346wrt.91.2019.12.09.14.36.07
+        bh=OI2JfMIBTIYAXzKPx6WWKoGBPFUKvZEI1Y+QoBgjDg8=;
+        b=OHchOWWlAph7Cae8BMHPH2EXzgWrcpxJEit5E36asbywDkBDaBvBupCGZlBkS3qy2N
+         ofGAISF+2D98Gw2lFph+e5x6VzllruGgFFuHHtpRgIXT3vd3+OciuMm23sruSzfryiVS
+         0tQ9j0XvhK+zxse+seSkkTjonIDDugFwqPArdiZ6Z8OZd4MdetK7VMD3g2597/LxkAyA
+         TkyAgyyaHy0UyOreQwtgxfmaBFAVKBv8d5oeuhR4vs8zUDDPGLH/M9iWzQBwjVbb0eZB
+         yApuFnv8PiHTo5XTMtpU/qoSMtC51k+J0bOm0f/24iabEPYb5mi9WBG8SpI3/llafttr
+         oMvQ==
+X-Gm-Message-State: APjAAAU4bGdVVbSJUYVgaFqvBt3DwckL5uMh6raljH9H4aTExpboLhCb
+        /Ikj1Vnj2bd9XzJo8PrUtxsBMj9C
+X-Google-Smtp-Source: APXvYqzAYaC298HyEVPDqkTxNAXVFGC9nPie8yuBekCuP8vy/Kg0Zden1M1uxcEx7JdMVM26Bq0LUg==
+X-Received: by 2002:a1c:49c3:: with SMTP id w186mr7964488wma.53.1576018765971;
+        Tue, 10 Dec 2019 14:59:25 -0800 (PST)
+Received: from localhost.localdomain ([2a02:a03f:40f6:4600:ccc5:3de6:2efd:b014])
+        by smtp.gmail.com with ESMTPSA id j21sm33535wmj.39.2019.12.10.14.59.24
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Dec 2019 14:36:08 -0800 (PST)
+        Tue, 10 Dec 2019 14:59:24 -0800 (PST)
 From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 To:     linux-sparse@vger.kernel.org
 Cc:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-Subject: [PATCH] fix premature examination of dereferenced object
-Date:   Mon,  9 Dec 2019 23:34:05 +0100
-Message-Id: <20191209223405.58657-1-luc.vanoostenryck@gmail.com>
+Subject: [PATCH 00/17] improve expansion of constant symbols
+Date:   Tue, 10 Dec 2019 23:59:04 +0100
+Message-Id: <20191210225921.94897-1-luc.vanoostenryck@gmail.com>
 X-Mailer: git-send-email 2.24.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -59,75 +59,75 @@ Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-in the fixes 696b243a5ae0 ("fix: evaluate_dereference() unexamined base type"),
-the pointer's examination was done prematurely, before the undereferenceable
-types are filtered out. This allows to examine the base abstract types when
-the expression was in fact not dereferenceable.
+This series looks as trying to improve an optimization but
+is in fact the result of a (failed) attempt to improve
+the diagnostic of non-constant initializers. Such diagnostics
+are currently only given with -Wconstexpr-not-const which
+follows the rather strict rules given by the standard for
+constant expressions. These rules can be handled at
+evaluation time, when the diagnostics are currently issued
+but we want, at least by default, to accept more general
+expressions as being constant, maybe anything with a value
+known at compile time. This can only be done later, at
+expansion time.
 
-Fix that by moving the examination to the top of the SYM_PTR's case
-since only pointers are concerned.
 
-Fixes: 696b243a5ae0 ("fix: evaluate_dereference() unexamined base type")
-Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
----
- evaluate.c                              |  2 +-
- validation/eval/premature-examination.c | 27 +++++++++++++++++++++++++
- 2 files changed, 28 insertions(+), 1 deletion(-)
- create mode 100644 validation/eval/premature-examination.c
+Luc Van Oostenryck (17):
+  split testcases for type punning & constant initializer expansion
+  add testcase for expansion of default initializers
+  add testcase for addressability of degenerated symbol
+  add testcase for addressability of 'complex' symbols
+  add test for union cast
+  add test for dereference cost of symbol with complex type
+  add test for constant expansion of complex initializer
+  extract mark_addressable() from evaluate_addressof().
+  fix addressability marking in evaluate_addressof()
+  degenerated arrays & functions are addressable too
+  fix expansion of initializer (mismatching size)
+  fix expansion of initializer (mismatching type)
+  fix expansion of initializer (default)
+  fix simplify_loads() when doing type punning
+  fix cost of dereference of symbols with complex type
+  RFC: allow expansion of accessed constants if 'static const'
+  constant expansion of strings
 
-diff --git a/evaluate.c b/evaluate.c
-index 19bdab920009..ff6938a5cfb4 100644
---- a/evaluate.c
-+++ b/evaluate.c
-@@ -1817,7 +1817,6 @@ static struct symbol *evaluate_dereference(struct expression *expr)
- 		ctype = ctype->ctype.base_type;
- 
- 	target = ctype->ctype.base_type;
--	examine_symbol_type(target);
- 
- 	switch (ctype->type) {
- 	default:
-@@ -1827,6 +1826,7 @@ static struct symbol *evaluate_dereference(struct expression *expr)
- 		*expr = *op;
- 		return expr->ctype;
- 	case SYM_PTR:
-+		examine_symbol_type(target);
- 		node = alloc_symbol(expr->pos, SYM_NODE);
- 		node->ctype.modifiers = target->ctype.modifiers & MOD_SPECIFIER;
- 		merge_type(node, ctype);
-diff --git a/validation/eval/premature-examination.c b/validation/eval/premature-examination.c
-new file mode 100644
-index 000000000000..bd2ffa90051a
---- /dev/null
-+++ b/validation/eval/premature-examination.c
-@@ -0,0 +1,27 @@
-+extern int i;
-+
-+int foo(void)
-+{
-+	return *i;
-+}
-+
-+int bar(void)
-+{
-+	return i[0];
-+}
-+
-+int *qux(void)
-+{
-+	return &i[0];
-+}
-+
-+/*
-+ * check-name: premature-examination
-+ * check-command: sparse -Wno-decl $file
-+ *
-+ * check-error-start
-+eval/premature-examination.c:5:16: error: cannot dereference this type
-+eval/premature-examination.c:10:17: error: cannot dereference this type
-+eval/premature-examination.c:15:18: error: cannot dereference this type
-+ * check-error-end
-+ */
+ evaluate.c                                    |  16 ++-
+ expand.c                                      | 124 ++++++++++++++++--
+ memops.c                                      |  11 ++
+ validation/eval/addressable-complex.c         |  23 ++++
+ validation/eval/addressable-degen.c           |  17 +++
+ validation/expand/constant-init-array.c       |  15 +++
+ .../expand/constant-init-nested-array.c       |  15 +++
+ .../expand/constant-init-nested-struct.c      |  23 ++++
+ validation/expand/constant-init-string.c      |  14 ++
+ validation/expand/constant-static.c           |  16 +++
+ validation/expand/constant-union-flt2int.c    |  20 +++
+ validation/expand/constant-union-int2flt.c    |  19 +++
+ .../constant-union-size.c}                    |   7 +-
+ validation/expand/cost-deref-nested.c         |  20 +++
+ validation/expand/default-init-array.c        |  15 +++
+ validation/expand/default-init-struct.c       |  22 ++++
+ validation/expand/union-cast.c                |  27 ++++
+ .../type-punning-flt2int.c}                   |   5 +-
+ validation/memops/type-punning-int2flt.c      |  19 +++
+ 19 files changed, 404 insertions(+), 24 deletions(-)
+ create mode 100644 validation/eval/addressable-complex.c
+ create mode 100644 validation/eval/addressable-degen.c
+ create mode 100644 validation/expand/constant-init-array.c
+ create mode 100644 validation/expand/constant-init-nested-array.c
+ create mode 100644 validation/expand/constant-init-nested-struct.c
+ create mode 100644 validation/expand/constant-init-string.c
+ create mode 100644 validation/expand/constant-static.c
+ create mode 100644 validation/expand/constant-union-flt2int.c
+ create mode 100644 validation/expand/constant-union-int2flt.c
+ rename validation/{bug-expand-union0.c => expand/constant-union-size.c} (56%)
+ create mode 100644 validation/expand/cost-deref-nested.c
+ create mode 100644 validation/expand/default-init-array.c
+ create mode 100644 validation/expand/default-init-struct.c
+ create mode 100644 validation/expand/union-cast.c
+ rename validation/{bug-expand-union1.c => memops/type-punning-flt2int.c} (63%)
+ create mode 100644 validation/memops/type-punning-int2flt.c
+
 
 base-commit: 9b2efc158c5c9700ffe355c59356879df7c9cc12
 -- 
