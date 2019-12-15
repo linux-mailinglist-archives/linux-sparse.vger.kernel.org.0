@@ -2,138 +2,78 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 0D33911FAB9
-	for <lists+linux-sparse@lfdr.de>; Sun, 15 Dec 2019 20:20:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id D6E7A11FABE
+	for <lists+linux-sparse@lfdr.de>; Sun, 15 Dec 2019 20:26:49 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726537AbfLOTUi (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Sun, 15 Dec 2019 14:20:38 -0500
-Received: from avasout04.plus.net ([212.159.14.19]:50983 "EHLO
-        avasout04.plus.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726536AbfLOTUh (ORCPT
+        id S1726267AbfLOT0t (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Sun, 15 Dec 2019 14:26:49 -0500
+Received: from mail-wm1-f67.google.com ([209.85.128.67]:54650 "EHLO
+        mail-wm1-f67.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1726232AbfLOT0t (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Sun, 15 Dec 2019 14:20:37 -0500
-Received: from [10.0.2.15] ([87.115.253.35])
-        by smtp with ESMTPA
-        id gZRSiUceA4Al0gZRTiECTd; Sun, 15 Dec 2019 19:20:35 +0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=plus.com; s=042019;
-        t=1576437635; bh=peNVrdBuZSmyhHe2XK1gVhYBJFrzbxq0EZLs6UFXcmc=;
-        h=Subject:To:References:From:Date:In-Reply-To;
-        b=P9i5Ay4aQGGabG4GdemthN7CWDAoXq4vCU1kK9l8OoCHJS+wEVPMSVzpprAnRRYxs
-         xq092Y5VPgfUM5JoxtwzQiGQM3BKpkAfgWgpxfxuu2ZkjORzjZMPoT6V3+S+shXriU
-         kOrFbPxR3qk3nbgEF7vnOQPXrs1PuJlx70MoqaJsXMvClePKAfzbOPUafIkcNpAF93
-         5PG70HFtJ83ezfU7OzZSN1XQWiG1AzFOiJjb7d4wtPD7MTbyLcNEUMLlevvSLSMZZD
-         GWF2GSzqLVn4uIa4HEp0t1pFPrllvtRX9+1LiY6AF3waM1qzt5DrVac8KF5gZqf9hb
-         V5Zh9alpyKAsg==
-X-Clacks-Overhead: "GNU Terry Pratchett"
-X-CM-Score: 0.00
-X-CNFS-Analysis: v=2.3 cv=GY1pYjfL c=1 sm=1 tr=0
- a=VLDPgNmCULccAgTy/RRLiQ==:117 a=VLDPgNmCULccAgTy/RRLiQ==:17
- a=jpOVt7BSZ2e4Z31A5e1TngXxSK0=:19 a=IkcTkHD0fZMA:10 a=pGLkceISAAAA:8
- a=0thmUIKOXvl-7YHC6kUA:9 a=QEXdDO2ut3YA:10 a=pHzHmUro8NiASowvMSCR:22
- a=n87TN5wuljxrRezIQYnT:22
-X-AUTH: ramsayjones@:2500
+        Sun, 15 Dec 2019 14:26:49 -0500
+Received: by mail-wm1-f67.google.com with SMTP id b19so4364972wmj.4
+        for <linux-sparse@vger.kernel.org>; Sun, 15 Dec 2019 11:26:47 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=date:from:to:cc:subject:message-id:references:mime-version
+         :content-disposition:in-reply-to;
+        bh=6bJTz+mDxtbcJyyP7103sNeBjPBpUjcbUHvU778/z+E=;
+        b=MGLQdNY7dEkZKMytpvqAu/hl7V7UXAYrR73UMv0RCZZnXn4r5rpyrS7/1A3ESOreM3
+         A7KfPgJC42sp5cKi2N3AixGNFWwPTyNXtm+Kmn5NT/8LU8jdAyce1lO+1X0xmGVDt/a/
+         G/XYcJrI/s+fNawZmMpS7v/GglwurQn3RxTMb/nOFiwxL1iWdB/qk7h3JZZWFTXAh63P
+         Z7l5e1QjWHSz2nI9KWWRe8FFuZo0Fl5BrHgDeaupSXdW5Y0redicBKq3t176TOW/6Oet
+         NfAHU/ab9p07OMiiwG6s1SHirUeytfr/XkFTFc/9cfyG3e6AERMvQGC1atzACP4om7/N
+         4pNQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+         :mime-version:content-disposition:in-reply-to;
+        bh=6bJTz+mDxtbcJyyP7103sNeBjPBpUjcbUHvU778/z+E=;
+        b=Xk4SOoMolQMgmH1tUD6arO2+dGZ7BngFX+BDMgSKrWSgq5P2U2Ne33rd1I//qY39mK
+         zzTlhqQ2NYhhfKRJZZ8HM3we2YtriFittfUVRE33D/c+coVaofIFGXJWRzfIPvmJXYSk
+         /w4scXeBzRFLgph/OKtqmkBl46cDilhaT1e3iisVJWguIw+evYngRGmdg3z1jaFkTlfQ
+         d3KjOQ6XSRGZOa/6smZL/EfVSYhM8PsNIbZebKVgqGG7pyjzrPIe3c+sDUk41cyX7wFG
+         ciYZF7KyGGTh5WOUt0nm7D3g+MLS/MHDFpeyggEnZsKTXt2NqgMl1C78lNGVCDBmPN8l
+         sXyA==
+X-Gm-Message-State: APjAAAUxoV0tceNzzqMI+fO28GjA8hH9DKXngYIT7Jhw0KZC9Sv8TEZ0
+        LJ7CWpgBbY4av3ndPRLs7YdQs8oJ
+X-Google-Smtp-Source: APXvYqxcdCwBy6QaWbpeOiVs7bgPVx4FQzktpJWluGeuI5aXhPUMDi0qjMdBqhF9kBfneG4YNp6HYw==
+X-Received: by 2002:a1c:7d8b:: with SMTP id y133mr25490310wmc.165.1576438007087;
+        Sun, 15 Dec 2019 11:26:47 -0800 (PST)
+Received: from ltop.local ([2a02:a03f:40f6:4600:4d3d:d98:1fc5:2616])
+        by smtp.gmail.com with ESMTPSA id n3sm17895386wrs.8.2019.12.15.11.26.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 15 Dec 2019 11:26:46 -0800 (PST)
+Date:   Sun, 15 Dec 2019 20:26:44 +0100
+From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
+To:     Ramsay Jones <ramsay@ramsayjones.plus.com>
+Cc:     linux-sparse@vger.kernel.org
 Subject: Re: [PATCH 3/4] typeof: extract examine_typeof() from
  examine_symbol_type()
-To:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>,
-        linux-sparse@vger.kernel.org
+Message-ID: <20191215192644.rcbtlhsq4trc3lvi@ltop.local>
 References: <20191215110425.76533-1-luc.vanoostenryck@gmail.com>
  <20191215110425.76533-4-luc.vanoostenryck@gmail.com>
-From:   Ramsay Jones <ramsay@ramsayjones.plus.com>
-Message-ID: <c76acb9e-ab0d-23d2-06dc-361187851468@ramsayjones.plus.com>
-Date:   Sun, 15 Dec 2019 19:20:34 +0000
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.2.2
+ <c76acb9e-ab0d-23d2-06dc-361187851468@ramsayjones.plus.com>
 MIME-Version: 1.0
-In-Reply-To: <20191215110425.76533-4-luc.vanoostenryck@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
-X-CMAE-Envelope: MS4wfDXzPDt3MNjgsU8z9N+0of5vs9GOSP2plkQYVU19Funw3/Xx/2jPBVPt7d+y+sVdXp8xZ5I6o/c8BCWfhLMrvjiOa6rpLU8ePkFvGt48VZEPVAy06tPu
- yzKpONBAqXqqaPQbiGrVFvDzEJE2fPQfnjUzh6m5AxYUfOxjv1VhgGe9Nidui1pEopNf0owg2pwiEg==
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <c76acb9e-ab0d-23d2-06dc-361187851468@ramsayjones.plus.com>
 Sender: linux-sparse-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-
-
-On 15/12/2019 11:04, Luc Van Oostenryck wrote:
-> No functional changes here, just moving the code for the
-> conversion of SYM_TYPEOFs in its own function, in preparation
-> for some further changes.
+On Sun, Dec 15, 2019 at 07:20:34PM +0000, Ramsay Jones wrote:
+> On 15/12/2019 11:04, Luc Van Oostenryck wrote:
 > 
-> Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-> ---
->  symbol.c | 41 +++++++++++++++++++++--------------------
->  1 file changed, 21 insertions(+), 20 deletions(-)
-> 
-> diff --git a/symbol.c b/symbol.c
-> index 3655cbb78913..46fe740b4cc1 100644
-> --- a/symbol.c
-> +++ b/symbol.c
-> @@ -453,6 +453,25 @@ static struct symbol *examine_pointer_type(struct symbol *sym)
->  	return sym;
->  }
->  
-> +static struct symbol *examine_typeof(struct symbol *sym)
-> +{
-> +	struct symbol *base = evaluate_expression(sym->initializer);
-> +	unsigned long mod = 0;
-> +
-> +	if (!base)
-> +		base = &bad_ctype;
-> +	if (is_bitfield_type(base))
-> +		warning(base->pos, "typeof applied to bitfield type");
-> +	if (base->type == SYM_NODE) {
-> +		mod |= base->ctype.modifiers & MOD_TYPEOF;
-> +		base = base->ctype.base_type;
-> +	}
-> +	sym->type = SYM_NODE;
-> +	sym->ctype.modifiers = mod;
-> +	sym->ctype.base_type = base;
-> +	return examine_node_type(sym);
-> +}
-> +
->  /*
->   * Fill in type size and alignment information for
->   * regular SYM_TYPE things.
-> @@ -486,26 +505,8 @@ struct symbol *examine_symbol_type(struct symbol * sym)
->  	case SYM_BASETYPE:
->  		/* Size and alignment had better already be set up */
->  		return sym;
-> -	case SYM_TYPEOF: {
-> -		struct symbol *base = evaluate_expression(sym->initializer);
-> -		if (base) {
-> -			unsigned long mod = 0;
-> -
-> -			if (is_bitfield_type(base))
-> -				warning(base->pos, "typeof applied to bitfield type");
-> -			if (base->type == SYM_NODE) {
-> -				mod |= base->ctype.modifiers & MOD_TYPEOF;
-> -				base = base->ctype.base_type;
-> -			}
-> -			sym->type = SYM_NODE;
-> -			sym->ctype.modifiers = mod;
-> -			sym->ctype.base_type = base;
-> -			return examine_node_type(sym);
-> -		}
-> -		sym->type = SYM_NODE;
-> -		sym->ctype.base_type = &bad_ctype;
-> -		return sym;
+> Hmm, it was not immediately clear that the '!base' path did not
+> introduce an (effective) functional change. I suspect that it
+> does not, but I wasn't sure if examine_node_type(sym) for the
+> above 'bad_ctype' symbol would add alignment, bit_size or rank
+> to the symbol (and even if it did, would it matter?).
 
-Hmm, it was not immediately clear that the '!base' path did not
-introduce an (effective) functional change. I suspect that it
-does not, but I wasn't sure if examine_node_type(sym) for the
-above 'bad_ctype' symbol would add alignment, bit_size or rank
-to the symbol (and even if it did, would it matter?).
+Mmmm, yes. It shouldn't matter but I prefer to avoid this.
 
-ATB,
-Ramsay Jones
-
-> -	}
-> +	case SYM_TYPEOF:
-> +		return examine_typeof(sym);
->  	case SYM_PREPROCESSOR:
->  		sparse_error(sym->pos, "ctype on preprocessor command? (%s)", show_ident(sym->ident));
->  		return NULL;
-> 
+Thanks for noticing.
+-- Luc
