@@ -2,121 +2,95 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 141D1121E6E
-	for <lists+linux-sparse@lfdr.de>; Mon, 16 Dec 2019 23:39:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 7C7AB124B3F
+	for <lists+linux-sparse@lfdr.de>; Wed, 18 Dec 2019 16:14:27 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727832AbfLPWiM (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Mon, 16 Dec 2019 17:38:12 -0500
-Received: from mail-wr1-f66.google.com ([209.85.221.66]:40880 "EHLO
-        mail-wr1-f66.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1727857AbfLPWiL (ORCPT
+        id S1727171AbfLRPOQ (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Wed, 18 Dec 2019 10:14:16 -0500
+Received: from mail-io1-f68.google.com ([209.85.166.68]:32833 "EHLO
+        mail-io1-f68.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1727400AbfLRPOE (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Mon, 16 Dec 2019 17:38:11 -0500
-Received: by mail-wr1-f66.google.com with SMTP id c14so9212829wrn.7
-        for <linux-sparse@vger.kernel.org>; Mon, 16 Dec 2019 14:38:10 -0800 (PST)
+        Wed, 18 Dec 2019 10:14:04 -0500
+Received: by mail-io1-f68.google.com with SMTP id z8so2353583ioh.0
+        for <linux-sparse@vger.kernel.org>; Wed, 18 Dec 2019 07:14:04 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=from:to:cc:subject:date:message-id:in-reply-to:references
-         :mime-version:content-transfer-encoding;
-        bh=ffoAOxhvO9fz0FGv6gAzsXl9VjEAP0GpWdtfRsejzQU=;
-        b=I1cq8Rhb1SQqrqSHBcLjBHCT9srI+GqfKJrPugOspTRypOhbrTvm7UK6zODa0vuvvn
-         MCvHRsitCdwUovTLyQwRoirybrqO+nCrI8JXKfE/pFgWi0jTTMi6a0TY/9EVOxWuDLDn
-         sFmaW1Q6yWfgMG2ZCSEqxTj9k4t52tmByAPs9HqLTJoyz8/VIVzqd5FvR0rIb5BuCebp
-         tQWCcZTJ+1heOHFLGu3I2sRc8LbfbYrOF7idsJ0iXw3lunSe+Ho+kW6dVggyuiSb12K2
-         /9WNZ2Yqd7v04W0rxgKmsP3wqPY/cPKZAJHM0wlncxR43RPuesP60RHipbZbJvTbXUNV
-         QQXQ==
+        h=mime-version:reply-to:from:date:message-id:subject:to
+         :content-transfer-encoding;
+        bh=R9l9mbjTMtC+3agOxuj88vgGSGUSi1shzIvbtHPQHDA=;
+        b=RfaUJbE64AqObBUWyZFAX00yFzfv+PMQBeMlfEbyOTSSIZSlP9dNPzblRe9C4/Xp5G
+         OOrfzjlEIPRCszaxaclLviha/Gl6J+8MNE2wJIlQr3g8uWJn+m5NNx6dyOIWXJDzHKAu
+         CFfw6ayoPSChbR+RAE0+B68G/pEf5o1uZqam8GCW/DM3JVJn1rrKg09G5nyaA4x8K46C
+         DidFmOGbhUnnebgzWtKvL2IYqcm0dJ4hRYsroJX5h4wZl5ygcdMBOrPylnEG0iZgtaC4
+         tctA6UVKTV1ZO7eaOpJeM3zJ9lY8Otzi6Az77Sm1wv6CYLTS/yvcKPbBaIHIL7wY9gk+
+         23sQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
-         :references:mime-version:content-transfer-encoding;
-        bh=ffoAOxhvO9fz0FGv6gAzsXl9VjEAP0GpWdtfRsejzQU=;
-        b=J6mQeaz6PswPj32Hqj77AiWhGs7WaPopEQEMqjhU+wSBJvaTWQcCshczB4qJjLWb4i
-         sA2vKmgNFl8UbcqnmMYf9mdEJs9FKhcbhd07gxyeX2KSQIBW5ImbKQx0iorwVUjtQSAQ
-         C0ue9fIRYISJjCPDJej4TTBS6TxiET6WALldg9rU0Due0ShdOB+q8p6cf68Cy0d+cnVA
-         Fs3mCX1RwVKZ4Grqqxk9PIDpCMymPA/bX9YDjzXKNb6XMfqnTrauk1qA7y1qwWqTUmbu
-         Du+nXQ+OOxvn+gqcTgMkuGDid75D/7wEMXCtfL26D3oa0caXtZbOl/NqlPvLSpK3N7XC
-         pyog==
-X-Gm-Message-State: APjAAAXgCXXlN9hyX/8xq18nCpF6tLObgrYZHK/K3XjtYooecEzZTC7g
-        vB6/eejHy6JPvJ2Ls15bOCOBFKv5
-X-Google-Smtp-Source: APXvYqwxUAmRw5YXWsgke1FlXamgQClUO5Ti/uxC1L1xlSFCy1roUDbnkjJYMizL3m4D4zn80QM7Qw==
-X-Received: by 2002:a5d:44ca:: with SMTP id z10mr35198574wrr.266.1576535889606;
-        Mon, 16 Dec 2019 14:38:09 -0800 (PST)
-Received: from localhost.localdomain ([2a02:a03f:40f6:4600:21c4:7316:325b:dfe0])
-        by smtp.gmail.com with ESMTPSA id h17sm24275709wrs.18.2019.12.16.14.38.08
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Dec 2019 14:38:09 -0800 (PST)
-From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-To:     linux-sparse@vger.kernel.org
-Cc:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-Subject: [PATCH 10/10] arch: arch_mach is not needed anymore
-Date:   Mon, 16 Dec 2019 23:37:56 +0100
-Message-Id: <20191216223756.2428-11-luc.vanoostenryck@gmail.com>
-X-Mailer: git-send-email 2.24.0
-In-Reply-To: <20191216223756.2428-1-luc.vanoostenryck@gmail.com>
-References: <20191216223756.2428-1-luc.vanoostenryck@gmail.com>
+        h=x-gm-message-state:mime-version:reply-to:from:date:message-id
+         :subject:to:content-transfer-encoding;
+        bh=R9l9mbjTMtC+3agOxuj88vgGSGUSi1shzIvbtHPQHDA=;
+        b=nLlXrbeJ0sQw1A9h0g6sfI/x+gkeQsdtN4dkFRpIf4Mz+zUSfkEj+2eitamhawI+hI
+         vn3j2HLdoLt8eToRIK53kdvybIwZZZthcTx7DJSKE7hYA4YfcG0mC8CLNHt3JdqbAs8I
+         gerF1/RErEj42yvvWsS+y05z4/P1HohD25LS148onXzyQmuoh3wosXTxlJITj7P9+vdo
+         f4s8s6TPNN9czRhVHDnQGQcXvOyU1LUMuVEW4iGvNQsScyBjy5nN5FsiCSQQWk3H/qHP
+         oEsRiTJVF1QB/qq0VceZviLVSqDJSlaJCIO/ido65nFI+oJSgMEzT18oFFP0zBGs0HA/
+         huoA==
+X-Gm-Message-State: APjAAAVDxpdWNLhdXvjk8fD/tv7Y7yBuGkWLeqnq60MnFutEMdl9RJzA
+        jDzkRVKoNcbQs/ghvYLoqkrdJG4jZKbVQjAoMQ==
+X-Google-Smtp-Source: APXvYqyIz9CrpHcrXivylieLEiE1VxRyGUw+E9DXz6VIYz+kYlOCef915g/qsmML8+OoqrwbsBK3G0eW6o6RBALrF/E=
+X-Received: by 2002:a05:6638:950:: with SMTP id f16mr2789501jad.107.1576682043767;
+ Wed, 18 Dec 2019 07:14:03 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Received: by 2002:a02:6603:0:0:0:0:0 with HTTP; Wed, 18 Dec 2019 07:14:03
+ -0800 (PST)
+Reply-To: dhl.expresscourier102156@outlook.fr
+From:   "MS. MARYANNA B. THOMASON" <info.zennitbankplcnigerian@gmail.com>
+Date:   Wed, 18 Dec 2019 16:14:03 +0100
+Message-ID: <CABHzvr=Pq7-TqhY8TPvFCsr+5-DhDQy=XOg-TM13qqbFWeemfQ@mail.gmail.com>
+Subject: =?UTF-8?Q?Urgent_delivery_Notification_of_your_ATM_MASTER_CARD?=
+        =?UTF-8?Q?_Amount=2C=2415=2E800=E2=80=99000=E2=80=9900=2C?=
+To:     undisclosed-recipients:;
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 Sender: linux-sparse-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-arch_target now points to a structure holding all the
-arch-specificities. So, arch_mach is not needed anymore.
+Attn Dear.
 
-Remove arch_mach.
+Urgent delivery Notification of your ATM MASTER CARD, Dhl-Benin is
+ready for delivery of your ATM Master card worth $15.800=E2=80=99000=E2=80=
+=9900, as
+approved this morning, Date, 18/12/2019. Through the Intruction from
+INTERNATIONAL MONETARY FUNDS, I.M.F official Directors.
 
-Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
----
- lib.c    | 1 -
- lib.h    | 1 -
- target.c | 2 --
- 3 files changed, 4 deletions(-)
+REGISTRATION NO :EG58945
+PARCEL NUMBER: 140479
+Delivery Schuleded now,
+Finally all we required from you is your ATM Card Proccessing Delivery
+fees $19.00 only which you must send to this DHL service to enable us
+dispatch the parcel to your destination today.
 
-diff --git a/lib.c b/lib.c
-index 842423c63d25..40e192a7e7cf 100644
---- a/lib.c
-+++ b/lib.c
-@@ -324,7 +324,6 @@ int arch_msize_long = 0;
- int arch_m64 = ARCH_M64_DEFAULT;
- int arch_big_endian = ARCH_BIG_ENDIAN;
- int arch_fp_abi = FP_ABI_NATIVE;
--int arch_mach = MACH_NATIVE;
- int arch_os = OS_NATIVE;
- int arch_cmodel = CMODEL_UNKNOWN;
- 
-diff --git a/lib.h b/lib.h
-index 290cbc576abe..236235259ab9 100644
---- a/lib.h
-+++ b/lib.h
-@@ -209,7 +209,6 @@ extern int arch_msize_long;
- extern int arch_m64;
- extern int arch_big_endian;
- extern int arch_fp_abi;
--extern int arch_mach;
- extern int arch_os;
- 
- enum {
-diff --git a/target.c b/target.c
-index 1c7a40836175..abfa975672b1 100644
---- a/target.c
-+++ b/target.c
-@@ -134,7 +134,6 @@ void target_config(enum machine mach)
- 	const struct target *target = targets[mach];
- 
- 	arch_target = target;
--	arch_mach = target->mach;
- 	arch_m64 = target->bitness;
- 	arch_big_endian = target->big_endian;
- 
-@@ -179,7 +178,6 @@ void target_init(void)
- 		break;
- 	}
- 	arch_target = target;
--	arch_mach = target->mach;
- 
- 	if (fpie > fpic)
- 		fpic = fpie;
--- 
-2.24.0
+Here is our receiving payment details.
+You are advised to send it Via Money Gram Service.
 
+Receiver's Name--------Alan Ude
+Country-------Benin Republic.
+City/ Address--------Cotonou
+Test Question--------In God
+Answer-------We Trust
+Amount------------$US19.00 only
+Mtcn-------------
+Sender's Name-------
+
+Your delivery  ATM card worth $15.800=E2=80=99000=E2=80=9900,
+Is Due for delivery to your address today upon confirmation of
+required fee from you asap.
+
+Call us on this phone number for any inquiry. +229 62819378
+Awaiting your urgent response.
+
+MS. MARYANNA B. THOMASON, Shipment director, DHL Express
+Courier Company-Benin
