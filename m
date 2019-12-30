@@ -2,101 +2,128 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 344A712D1C8
-	for <lists+linux-sparse@lfdr.de>; Mon, 30 Dec 2019 17:14:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id D0B1312D51A
+	for <lists+linux-sparse@lfdr.de>; Tue, 31 Dec 2019 00:38:19 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726628AbfL3QOu (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Mon, 30 Dec 2019 11:14:50 -0500
-Received: from mail-wr1-f68.google.com ([209.85.221.68]:42507 "EHLO
-        mail-wr1-f68.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726607AbfL3QOu (ORCPT
+        id S1727744AbfL3XiS (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Mon, 30 Dec 2019 18:38:18 -0500
+Received: from mail-wr1-f66.google.com ([209.85.221.66]:40235 "EHLO
+        mail-wr1-f66.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1727740AbfL3XiS (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Mon, 30 Dec 2019 11:14:50 -0500
-Received: by mail-wr1-f68.google.com with SMTP id q6so33032200wro.9
-        for <linux-sparse@vger.kernel.org>; Mon, 30 Dec 2019 08:14:49 -0800 (PST)
+        Mon, 30 Dec 2019 18:38:18 -0500
+Received: by mail-wr1-f66.google.com with SMTP id c14so33972932wrn.7;
+        Mon, 30 Dec 2019 15:38:16 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=2EF2BsHSjH3a+GW6WizYLyFkkOQBhtv+CQLTBigT0Ys=;
-        b=FXCOo7/F7ttiMQmNnp92mQTYYwEL+Ij21g0zRIh416raQ33SqaVVwOfR2zFE69U3LN
-         pa7Ea9SABtLNCohwBgc/1C/XPBXUnkQeLskhFkvbTsJzuPHzKtKl7So6pQJ3A//hASHN
-         nYZxUyS0zb0PvMGaQRB+lQanJeCQdqLx3Hoo21OYV0uB0YqfXq84KAp40w3AR+UBzjGD
-         c6oKlID01eeKZL/3e1NGYnutAH04RhHK1MIILfdi+hzp70C9weYCbSesHiTWSfgSW5QZ
-         kx2V1UeKqgjwELUlN73wf+cn/Og9Nbj2LOR7An7+lw3dbVD7zd7PW9jpxgWwr8wVzPzN
-         2y/Q==
+        h=date:from:to:cc:subject:message-id:references:mime-version
+         :content-disposition:in-reply-to;
+        bh=UV18QxzNw74OQEVccoyAS4yfxDD5XxdtiGTMxWiHN98=;
+        b=TyYUCZR+6kQ+HW3M7eGq7s6+mRivf7dpl+FJeiN1yA+jSfyGVT8m/j5965jlyhfsCi
+         f48uEv+M+ppfKoot4NPQyPbZVNtoJbTE2o2uu+Q0GucOYnkWcDiiFhEfsgWhd4i6ApQa
+         xm4Yo8tExN/cOp5J8mopXd2TxItbzEeGPRFqUzL6Gd3xOLxS/52pXDEZx97pWQPL+nTU
+         1dLDGJbuRXIxtm6PqBKmqNkQeg4CxWpXJPXk7BpD3C1tIgM4c5TOKi0ha6a32EqmbWYj
+         i72x32SE7N7dYTraesZiixd2SFlCV1h/+2SQPPjusC1GVS6qMVqlEOClyVQv9AdBF/My
+         30Uw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=2EF2BsHSjH3a+GW6WizYLyFkkOQBhtv+CQLTBigT0Ys=;
-        b=Eqt0G4beIDJ7yJwO2u7iNqu2MjfZXVAi6FTo/UwK9k8r8inNgu1Obvbp4XatXlg/RA
-         WZgdSAH6PkqBJRW71DPAo5TvHlJHp8RcP129xf2Aascvsp6+8k9sCsd6cBt1zcTQ2H/7
-         iC8OEFIBlGNyn1tM8eLbWVgUyxAy1MAR7WFUzSt9OktaXN8+JIkcRfkrJHf8vf2au66e
-         H9p+brGUdThyBj4TU5oe4laSeXJ4nbJd6f+k3hoF6dpRjbhuf9i5BsYA2JkA5Hbh9cYu
-         weqXhyXZxpke7QnYHYdG7Ik9VoQwV1X2ZZggkq9mcMAG0EOffF3Y+l/cWxa13qeN2hWJ
-         h1FA==
-X-Gm-Message-State: APjAAAUMaQivf4+gdicE3itSKed2TDo6p5+UkNhbS52/U4hL7MPuMhw9
-        dx+7qsJsImIlG9KJ6jj4f9cyPLHH
-X-Google-Smtp-Source: APXvYqwZM2ncaJBc7tOrjvIsQn5ffjHdZuvJCi47a8ga/YslVVrhEa3a/MxGOn/cmW2SJb/LiZAQJg==
-X-Received: by 2002:a5d:6901:: with SMTP id t1mr63244102wru.94.1577722488280;
-        Mon, 30 Dec 2019 08:14:48 -0800 (PST)
-Received: from localhost.localdomain ([2a02:a03f:40c7:f800:40c:3991:cf8:d2ce])
-        by smtp.gmail.com with ESMTPSA id s10sm46559768wrw.12.2019.12.30.08.14.46
+        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+         :mime-version:content-disposition:in-reply-to;
+        bh=UV18QxzNw74OQEVccoyAS4yfxDD5XxdtiGTMxWiHN98=;
+        b=LpR82ZNPFHq5lq5Vc4Rzxik0JpS4RUGid/LAaE9biMPNEWSrx6iy5G9aS3LG0sYs7Y
+         O8JG+RTnDEQ3X2zgp8lOgtfzWvfAEZI3l5Qnmi8kGNbESxDU17uDZLlXEmHml8KGOpJb
+         0t5mMCHj80FfTx3cOLI/pcKkMyuSHGAyzhVkNrOXHWEjGpqI9HJnA+YTQ4JersRYcOzp
+         62d/nebfr0bfCSYo7PSZGd9V/rmnN/0ZdhjbMBN9eGcF0FAqWiP+pEb1bgNs/anHpr/x
+         M5gT4Rc+FDjiJh8SPO139TrhT8XcstmPLprqVYYJ33WugNKiO4PH8qNeucS0XRT4CgqR
+         DS2w==
+X-Gm-Message-State: APjAAAXpgnJkOgBoAIF1BGo8Baa4Mrp45j4N7ra0pxgT6vuoS3sz5NBM
+        aDP+E9FAZF2T8yKsfxIRRcaCWcR7
+X-Google-Smtp-Source: APXvYqyt79dnV1jAfTe4eyYl8+9aO/tZR+atpG6aB8OYE7AhaeLTfgb5r6rvjV6ac+QJN9UGb0HI3w==
+X-Received: by 2002:adf:ec4c:: with SMTP id w12mr1944547wrn.124.1577749096183;
+        Mon, 30 Dec 2019 15:38:16 -0800 (PST)
+Received: from ltop.local ([2a02:a03f:40c7:f800:7c46:7fac:a1c:a5b2])
+        by smtp.gmail.com with ESMTPSA id g21sm888287wmh.17.2019.12.30.15.38.14
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 30 Dec 2019 08:14:47 -0800 (PST)
+        Mon, 30 Dec 2019 15:38:15 -0800 (PST)
+Date:   Tue, 31 Dec 2019 00:38:14 +0100
 From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-To:     linux-sparse@vger.kernel.org
-Cc:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-Subject: [PATCH] ptrlist: fix typos
-Date:   Mon, 30 Dec 2019 17:14:32 +0100
-Message-Id: <20191230161432.76360-1-luc.vanoostenryck@gmail.com>
-X-Mailer: git-send-email 2.24.0
+To:     Kees Cook <keescook@chromium.org>
+Cc:     Eric Biggers <ebiggers@kernel.org>,
+        Peter Zijlstra <peterz@infradead.org>,
+        linux-kernel@vger.kernel.org, Ingo Molnar <mingo@redhat.com>,
+        Will Deacon <will@kernel.org>,
+        Elena Reshetova <elena.reshetova@intel.com>,
+        Thomas Gleixner <tglx@linutronix.de>,
+        Anna-Maria Gleixner <anna-maria@linutronix.de>,
+        Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+        linux-sparse@vger.kernel.org
+Subject: Re: [PATCH] locking/refcount: add sparse annotations to dec-and-lock
+ functions
+Message-ID: <20191230233814.2fgmsgtnhruhklnu@ltop.local>
+References: <20191226152922.2034-1-ebiggers@kernel.org>
+ <20191228114918.GU2827@hirez.programming.kicks-ass.net>
+ <201912301042.FB806E1133@keescook>
+ <20191230191547.GA1501@zzz.localdomain>
+ <201912301131.2C7C51E8C6@keescook>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <201912301131.2C7C51E8C6@keescook>
 Sender: linux-sparse-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-Fix some embarrassing typos.
+On Mon, Dec 30, 2019 at 11:32:31AM -0800, Kees Cook wrote:
+> On Mon, Dec 30, 2019 at 01:15:47PM -0600, Eric Biggers wrote:
+> > 
+> > The annotation needs to go in the .h file, not the .c file, because sparse only
+> > analyzes individual translation units.
+> > 
+> > It needs to be a wrapper macro because it needs to tie the acquisition of the
+> > lock to the return value being true.  I.e. there's no annotation you can apply
+> > directly to the function prototype that means "if this function returns true, it
+> > acquires the lock that was passed in parameter N".
+> 
+> Gotcha. Well, I guess I leave it to Will and Peter to hash out...
+> 
+> Is there a meaningful proposal anywhere for sparse to DTRT here? If
+> not, it seems best to use what you've proposed until sparse reaches the
+> point of being able to do this on its own.
 
-Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
----
- ptrlist.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+What "Right Thing" are you thinking about?
+One of the simplest situation with these conditional locks is:
 
-diff --git a/ptrlist.c b/ptrlist.c
-index 0fb28127498e..3af0b2c5fbaa 100644
---- a/ptrlist.c
-+++ b/ptrlist.c
-@@ -215,7 +215,7 @@ restart:
- 
- ///
- // split a ptrlist block
--// @head: the ptrlist block to be splitted
-+// @head: the ptrlist block to be split
- //
- // A new block is inserted just after @head and the entries
- // at the half end of @head are moved to this new block.
-@@ -363,7 +363,7 @@ out:
- ///
- // remove the last entry of a ptrlist
- // @head: a pointer to the list
--// @return: the last elemant of the list or NULL if the list is empty.
-+// @return: the last element of the list or NULL if the list is empty.
- //
- // :note: this doesn't repack the list
- void * undo_ptr_list_last(struct ptr_list **head)
-@@ -389,7 +389,7 @@ void * undo_ptr_list_last(struct ptr_list **head)
- ///
- // remove the last entry and repack the list
- // @head: a pointer to the list
--// @return: the last elemant of the list or NULL if the list is empty.
-+// @return: the last element of the list or NULL if the list is empty.
- void * delete_ptr_list_last(struct ptr_list **head)
- {
- 	void *ptr = NULL;
--- 
-2.24.0
+	if (test)
+		lock();
 
+	do_stuff();
+
+	if (test)
+		unlock();
+
+No program can check that the second test gives the same result than
+the first one, it's undecidable. I mean, it's undecidable even on
+if single threaded and without interrupts. The best you can do is
+to simulate the whole thing (and be sure your simulation will halt).
+
+As far as I understand, it was the intention behind Sparse's design
+regarding locking ("context in sparse's parlance) to discourage
+such code and instead encourage to write things like:
+
+	if (test) {
+		do_stuff_unlocked();
+	} else {
+		lock();
+		do_stuff_unlocked();
+		unlock();
+	}
+
+where it is easy to check localy that the lock/unlock are balanced.
+
+So, of course Sparse could be improved to prove that some of the
+conditional locks are equivalent to unconditional ones like here
+just above (it already does but only for very simple cases where
+everything is inlined) but I don't thing there is a RT.
+
+-- Luc Van Oostenryck
