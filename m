@@ -2,92 +2,101 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 81A0D12F88B
-	for <lists+linux-sparse@lfdr.de>; Fri,  3 Jan 2020 13:56:02 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 0D84912FDBF
+	for <lists+linux-sparse@lfdr.de>; Fri,  3 Jan 2020 21:20:22 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727539AbgACM4B (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Fri, 3 Jan 2020 07:56:01 -0500
-Received: from userp2120.oracle.com ([156.151.31.85]:39148 "EHLO
-        userp2120.oracle.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1727523AbgACM4B (ORCPT
+        id S1728782AbgACUUQ (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Fri, 3 Jan 2020 15:20:16 -0500
+Received: from mail-io1-f66.google.com ([209.85.166.66]:39293 "EHLO
+        mail-io1-f66.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1727742AbgACUUK (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Fri, 3 Jan 2020 07:56:01 -0500
-Received: from pps.filterd (userp2120.oracle.com [127.0.0.1])
-        by userp2120.oracle.com (8.16.0.27/8.16.0.27) with SMTP id 003CsVvF111253;
-        Fri, 3 Jan 2020 12:55:33 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=date : from : to : cc
- : subject : message-id : references : mime-version : content-type :
- in-reply-to; s=corp-2019-08-05;
- bh=Wda5/QQ/lZcy20YykGuQFXFwBet5NlNxUkhBvzVVF20=;
- b=Off8t2I1g7CRnFrKnqxOSJgFVvKD4a4C7FgjX8B4JnfhOl7JWft8L51VF5R4utAQGQPb
- tGualgGfZ7jh41aN4WyxtAeTigmolthOcYMABDbJEWr76kabwhMfanE1gzoC14b9M3WC
- UVuGRGjAGK2hUl7MovK6XZh5DSpHGB8UJLCV8de3uVEjDCFeQJZgRQC4cz+98R/4S7YS
- FxzO9XIFKfjcO0cZS9+taJOr18tk+f1QnZyZOHhPqtwti67oOA9RCS+1UxxuaUlCoUpT
- CLkgkm47Q+769mgakb2GmLl7MifsFBXU2ezWag2qABx8UwfSzHMF3ZGo92EY+l6bxfDg Ww== 
-Received: from userp3030.oracle.com (userp3030.oracle.com [156.151.31.80])
-        by userp2120.oracle.com with ESMTP id 2x5ypqv5yf-1
-        (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-        Fri, 03 Jan 2020 12:55:33 +0000
-Received: from pps.filterd (userp3030.oracle.com [127.0.0.1])
-        by userp3030.oracle.com (8.16.0.27/8.16.0.27) with SMTP id 003CsQPx123409;
-        Fri, 3 Jan 2020 12:55:32 GMT
-Received: from aserv0121.oracle.com (aserv0121.oracle.com [141.146.126.235])
-        by userp3030.oracle.com with ESMTP id 2xa5fg96fw-1
-        (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-        Fri, 03 Jan 2020 12:55:32 +0000
-Received: from abhmp0009.oracle.com (abhmp0009.oracle.com [141.146.116.15])
-        by aserv0121.oracle.com (8.14.4/8.13.8) with ESMTP id 003CtVX6019787;
-        Fri, 3 Jan 2020 12:55:31 GMT
-Received: from kadam (/129.205.23.165)
-        by default (Oracle Beehive Gateway v4.0)
-        with ESMTP ; Fri, 03 Jan 2020 04:55:30 -0800
-Date:   Fri, 3 Jan 2020 15:55:21 +0300
-From:   Dan Carpenter <dan.carpenter@oracle.com>
-To:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-Cc:     Kees Cook <keescook@chromium.org>,
-        Eric Biggers <ebiggers@kernel.org>,
-        Peter Zijlstra <peterz@infradead.org>,
-        linux-kernel@vger.kernel.org, Ingo Molnar <mingo@redhat.com>,
-        Will Deacon <will@kernel.org>,
-        Elena Reshetova <elena.reshetova@intel.com>,
-        Thomas Gleixner <tglx@linutronix.de>,
-        Anna-Maria Gleixner <anna-maria@linutronix.de>,
-        Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-        linux-sparse@vger.kernel.org
-Subject: Re: [PATCH] locking/refcount: add sparse annotations to dec-and-lock
- functions
-Message-ID: <20200103125521.GJ3911@kadam>
-References: <20191226152922.2034-1-ebiggers@kernel.org>
- <20191228114918.GU2827@hirez.programming.kicks-ass.net>
- <201912301042.FB806E1133@keescook>
- <20191230191547.GA1501@zzz.localdomain>
- <201912301131.2C7C51E8C6@keescook>
- <20191230233814.2fgmsgtnhruhklnu@ltop.local>
+        Fri, 3 Jan 2020 15:20:10 -0500
+Received: by mail-io1-f66.google.com with SMTP id c16so12618783ioh.6
+        for <linux-sparse@vger.kernel.org>; Fri, 03 Jan 2020 12:20:10 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=mime-version:from:date:message-id:subject:to;
+        bh=40ACnQIUnpge54Cj+EODMXbGQ2AM0yGbootCDBdgIh0=;
+        b=JHYDNcOHsw5Vg59sFwNh4MhnXNKJfQKDhV3JhQemZ8O0wjy4NOClQJHVO9/XZY1B2e
+         7N2r8FlVbF9YCIZf1O8PJKqvP+J732CrXrgkZLQFQD6r8xa5PmtrOPXurr4eE1D10/dY
+         mFNu91hy8xJJRta6mrMYIQyNs0OE0ozgPWJvUT4Jmr91vUmPG9p04hCqKp3daJ6nspkN
+         ZTnUyt7jeaXiRVZmI5OCw3hnhqJr3CafoKv3hfbaHkDpeu4215n4LA4JUWv5RDO6VsPp
+         wo4bmuxUPsJ+VBxSxq4NIVVGqRtUU4TTV0YA8c6/GhqTjpJxCcyOyITBnIawjrG3MRiM
+         hUyw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+        bh=40ACnQIUnpge54Cj+EODMXbGQ2AM0yGbootCDBdgIh0=;
+        b=mjdtrgV4UWAxuuxO3F4qmswsQBa9ycAZ/FrkNMq1BWDfh8aIGMwx+vvcjVm01LAIhR
+         nZevjd1WH3pz3uCBWgq2i0tdF4jCjEUZkFPDGZ5s1EymhMxGVoncoY9BC3se/bGIeeWY
+         eLOjAL41f+KYhNbb3zZzo58ygfyF5l0h/aTldkyGEfEdNM2AA20Xf2HwkB4P5CajsaNs
+         EGuGhHxr80lSIoYCvjjL2fe6+gjQGm6cuS6a8azmYy+ZgrnD8YywHCGSFxXexZCnUbq9
+         1m+HFBp5k3hjlFQXZl/sHiW/+dACJQGf0P4rzyFEot4qfasswtXt/mwo6wlFVCoLZlr0
+         0xXQ==
+X-Gm-Message-State: APjAAAXvjmRjE5enrWdMwd9H9J3dCDivq7Bw6T6UunCAvAz0yqR94RJO
+        E47xdHEB5OGzMc+5223I2EavAGUId9czaJiOEUsYHZvFBjM=
+X-Google-Smtp-Source: APXvYqzazOZ1eDGwLjA5b5joJwHBsXYUc3xk3mwbut9BpsYKwbpZffl6B/gnfGOg4rASQDOizOWq9gQ5QJjCh6l6GTs=
+X-Received: by 2002:a37:4141:: with SMTP id o62mr70745354qka.282.1578082808591;
+ Fri, 03 Jan 2020 12:20:08 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20191230233814.2fgmsgtnhruhklnu@ltop.local>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9488 signatures=668685
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=0 malwarescore=0
- phishscore=0 bulkscore=0 spamscore=0 mlxscore=0 mlxlogscore=999
- adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.0.1-1911140001 definitions=main-2001030123
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9488 signatures=668685
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 priorityscore=1501 malwarescore=0
- suspectscore=0 phishscore=0 bulkscore=0 spamscore=0 clxscore=1011
- lowpriorityscore=0 mlxscore=0 impostorscore=0 mlxlogscore=999 adultscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1911140001
- definitions=main-2001030123
+Received: by 2002:ac8:4410:0:0:0:0:0 with HTTP; Fri, 3 Jan 2020 12:20:08 -0800 (PST)
+From:   "Rev.Dr Emmanuel Okoye CEO Ecobank-benin" 
+        <westernunion.benin982@gmail.com>
+Date:   Fri, 3 Jan 2020 21:20:08 +0100
+Message-ID: <CAP=nHBJWiJ9KpSSbF4jP9u5UiU5d_kGjSUyPYDmdB2x1uiJFMw@mail.gmail.com>
+Subject: I promise you must be happy today, God has uplifted you and your
+ family ok
+To:     undisclosed-recipients:;
+Content-Type: text/plain; charset="UTF-8"
 Sender: linux-sparse-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-I re-wrote Smatch's locking check last month to use the cross function
-DB.  Now Smatch can parse refcount_dec_and_lock() directly without any
-modifications or annotations.
+Dear Friend
 
-regards,
-dan carpenter
+i hope all is well with you,if so, glory be to God almighty. I'm very
+happy to inform you, about my success in getting payment funds under
+the cooperation of a new partner from United States of
+America.Presently I am in uk for investment projects with my own share
+of the total sum. I didn't forget your past efforts. IMF finally
+approved your compensation payment funds this morning by prepaid (ATM)
+Debit card of US$12,500.000.00Million Dollars, Since you not received
+this payment yet, I was not certified
+but it is not your fault and not my fault, I hold nothing against
+you.than bank official whom has been detaining the transfer in the
+bank, trying to claim your funds by themselves.
 
+Therefore, in appreciation of your effort I have raised an
+International prepaid (ATM) Debit card of US$12,500.000.00 in your
+favor as compensation to you.
+
+Now, i want you to contact my Diplomatic Agent, His name is Mike Benz
+on His  e-mail Address (mikebenz550@aol.com
+
+ask Him to send the Prepaid (ATM) Debit card to you. Bear in mind that
+the money is in Prepaid (ATM) Debit card, not cash, so you need to
+send to him,
+your full name
+address  where the prepaid (ATM) Debit card will be delivered to you,
+including your cell phone number. Finally, I left explicit
+instructions with him, on how to send the (ATM CARD) to you.
+
+The Prepaid (ATM) Debit card, will be send to you through my
+Diplomatic Agent Mr. Mike Benz immediately you contact him. So contact
+my Diplomatic Agent Mr. Mike Benz immediately you receive this letter.
+Below is his contact information:
+
+NAME : MIKE BENZ
+EMAIL ADDRESS: mikebenz550@aol.com
+Text Him, (256) 284-4886
+
+Request for Delivery of the Prepaid (ATM) Debit card  to you today.
+Note, please I have paid for the whole service fees for you, so the
+only money you will send to my Diplomatic Agent Mr. Mike Benz is
+$50.00 for your prepaid (ATM) Debit card DELIVERY FEE to your address
+ok.
+Let me know once you receive this Card at your address.
+Best regards,
+Rev.Dr, George Adadar
