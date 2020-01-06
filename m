@@ -2,101 +2,79 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 0D84912FDBF
-	for <lists+linux-sparse@lfdr.de>; Fri,  3 Jan 2020 21:20:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 04ADA1314C6
+	for <lists+linux-sparse@lfdr.de>; Mon,  6 Jan 2020 16:26:40 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1728782AbgACUUQ (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Fri, 3 Jan 2020 15:20:16 -0500
-Received: from mail-io1-f66.google.com ([209.85.166.66]:39293 "EHLO
-        mail-io1-f66.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1727742AbgACUUK (ORCPT
+        id S1726454AbgAFP0j (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Mon, 6 Jan 2020 10:26:39 -0500
+Received: from merlin.infradead.org ([205.233.59.134]:42514 "EHLO
+        merlin.infradead.org" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1726296AbgAFP0j (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Fri, 3 Jan 2020 15:20:10 -0500
-Received: by mail-io1-f66.google.com with SMTP id c16so12618783ioh.6
-        for <linux-sparse@vger.kernel.org>; Fri, 03 Jan 2020 12:20:10 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=mime-version:from:date:message-id:subject:to;
-        bh=40ACnQIUnpge54Cj+EODMXbGQ2AM0yGbootCDBdgIh0=;
-        b=JHYDNcOHsw5Vg59sFwNh4MhnXNKJfQKDhV3JhQemZ8O0wjy4NOClQJHVO9/XZY1B2e
-         7N2r8FlVbF9YCIZf1O8PJKqvP+J732CrXrgkZLQFQD6r8xa5PmtrOPXurr4eE1D10/dY
-         mFNu91hy8xJJRta6mrMYIQyNs0OE0ozgPWJvUT4Jmr91vUmPG9p04hCqKp3daJ6nspkN
-         ZTnUyt7jeaXiRVZmI5OCw3hnhqJr3CafoKv3hfbaHkDpeu4215n4LA4JUWv5RDO6VsPp
-         wo4bmuxUPsJ+VBxSxq4NIVVGqRtUU4TTV0YA8c6/GhqTjpJxCcyOyITBnIawjrG3MRiM
-         hUyw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
-        bh=40ACnQIUnpge54Cj+EODMXbGQ2AM0yGbootCDBdgIh0=;
-        b=mjdtrgV4UWAxuuxO3F4qmswsQBa9ycAZ/FrkNMq1BWDfh8aIGMwx+vvcjVm01LAIhR
-         nZevjd1WH3pz3uCBWgq2i0tdF4jCjEUZkFPDGZ5s1EymhMxGVoncoY9BC3se/bGIeeWY
-         eLOjAL41f+KYhNbb3zZzo58ygfyF5l0h/aTldkyGEfEdNM2AA20Xf2HwkB4P5CajsaNs
-         EGuGhHxr80lSIoYCvjjL2fe6+gjQGm6cuS6a8azmYy+ZgrnD8YywHCGSFxXexZCnUbq9
-         1m+HFBp5k3hjlFQXZl/sHiW/+dACJQGf0P4rzyFEot4qfasswtXt/mwo6wlFVCoLZlr0
-         0xXQ==
-X-Gm-Message-State: APjAAAXvjmRjE5enrWdMwd9H9J3dCDivq7Bw6T6UunCAvAz0yqR94RJO
-        E47xdHEB5OGzMc+5223I2EavAGUId9czaJiOEUsYHZvFBjM=
-X-Google-Smtp-Source: APXvYqzazOZ1eDGwLjA5b5joJwHBsXYUc3xk3mwbut9BpsYKwbpZffl6B/gnfGOg4rASQDOizOWq9gQ5QJjCh6l6GTs=
-X-Received: by 2002:a37:4141:: with SMTP id o62mr70745354qka.282.1578082808591;
- Fri, 03 Jan 2020 12:20:08 -0800 (PST)
+        Mon, 6 Jan 2020 10:26:39 -0500
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+        d=infradead.org; s=merlin.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+        References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+        Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+        Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+        List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+         bh=FasDblTVRzo6rSHY9siQrWkIk7A08Z0SsxWwX4908tk=; b=Jd2iIRukT2gpL+bEHVbwcYxtW
+        8s2OSMrjJzx3WE/yFOTRZoWLSLNZXciYHY5q7QJkisLP4rmnVOyVzIduop2LPuk8HXVyljnkkeOEJ
+        26RLsR2xZIfmU9VSqUsT0OqIqPhh358sLzHaBGqXEhSaN4Ze4bA8v8bJ/vBzf+fq7EF+uSF2k4IIb
+        rq3LmMw3kl3FHytWhsAx06X7t51Neq6fwkF9eaN6tmjv+xqkk6YEP3rc/A/L5yS3JMb5sIuuOzHZu
+        3lL+g5wT2p8vSWPENmB9Pos/Dpns9a5Mc6PBfSeEPJMYq2Us/y6lcellgxZ7GWO951JmY2J7Jj5xp
+        4UTIsOArg==;
+Received: from j217100.upc-j.chello.nl ([24.132.217.100] helo=noisy.programming.kicks-ass.net)
+        by merlin.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
+        id 1ioUH0-0003Fa-Mc; Mon, 06 Jan 2020 15:26:31 +0000
+Received: from hirez.programming.kicks-ass.net (hirez.programming.kicks-ass.net [192.168.1.225])
+        (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+        (Client did not present a certificate)
+        by noisy.programming.kicks-ass.net (Postfix) with ESMTPS id 047963012DC;
+        Mon,  6 Jan 2020 16:24:57 +0100 (CET)
+Received: by hirez.programming.kicks-ass.net (Postfix, from userid 1000)
+        id 1FF772B28450D; Mon,  6 Jan 2020 16:26:29 +0100 (CET)
+Date:   Mon, 6 Jan 2020 16:26:29 +0100
+From:   Peter Zijlstra <peterz@infradead.org>
+To:     Kees Cook <keescook@chromium.org>
+Cc:     Eric Biggers <ebiggers@kernel.org>, linux-kernel@vger.kernel.org,
+        Ingo Molnar <mingo@redhat.com>, Will Deacon <will@kernel.org>,
+        Elena Reshetova <elena.reshetova@intel.com>,
+        Thomas Gleixner <tglx@linutronix.de>,
+        Anna-Maria Gleixner <anna-maria@linutronix.de>,
+        Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+        Luc Van Oostenryck <luc.vanoostenryck@gmail.com>,
+        linux-sparse@vger.kernel.org
+Subject: Re: [PATCH] locking/refcount: add sparse annotations to dec-and-lock
+ functions
+Message-ID: <20200106152629.GU2810@hirez.programming.kicks-ass.net>
+References: <20191226152922.2034-1-ebiggers@kernel.org>
+ <20191228114918.GU2827@hirez.programming.kicks-ass.net>
+ <201912301042.FB806E1133@keescook>
+ <20191230191547.GA1501@zzz.localdomain>
+ <201912301131.2C7C51E8C6@keescook>
 MIME-Version: 1.0
-Received: by 2002:ac8:4410:0:0:0:0:0 with HTTP; Fri, 3 Jan 2020 12:20:08 -0800 (PST)
-From:   "Rev.Dr Emmanuel Okoye CEO Ecobank-benin" 
-        <westernunion.benin982@gmail.com>
-Date:   Fri, 3 Jan 2020 21:20:08 +0100
-Message-ID: <CAP=nHBJWiJ9KpSSbF4jP9u5UiU5d_kGjSUyPYDmdB2x1uiJFMw@mail.gmail.com>
-Subject: I promise you must be happy today, God has uplifted you and your
- family ok
-To:     undisclosed-recipients:;
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <201912301131.2C7C51E8C6@keescook>
+User-Agent: Mutt/1.10.1 (2018-07-13)
 Sender: linux-sparse-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-Dear Friend
+On Mon, Dec 30, 2019 at 11:32:31AM -0800, Kees Cook wrote:
 
-i hope all is well with you,if so, glory be to God almighty. I'm very
-happy to inform you, about my success in getting payment funds under
-the cooperation of a new partner from United States of
-America.Presently I am in uk for investment projects with my own share
-of the total sum. I didn't forget your past efforts. IMF finally
-approved your compensation payment funds this morning by prepaid (ATM)
-Debit card of US$12,500.000.00Million Dollars, Since you not received
-this payment yet, I was not certified
-but it is not your fault and not my fault, I hold nothing against
-you.than bank official whom has been detaining the transfer in the
-bank, trying to claim your funds by themselves.
+> Is there a meaningful proposal anywhere for sparse to DTRT here?
 
-Therefore, in appreciation of your effort I have raised an
-International prepaid (ATM) Debit card of US$12,500.000.00 in your
-favor as compensation to you.
+These are what I found going through my Sent folder and Google'ing the
+resulting subjects:
 
-Now, i want you to contact my Diplomatic Agent, His name is Mike Benz
-on His  e-mail Address (mikebenz550@aol.com
+  https://markmail.org/message/4obybcgqscznnx63
+  https://markmail.org/message/pp4ofksgactvgjbd?q=inverted_lock
 
-ask Him to send the Prepaid (ATM) Debit card to you. Bear in mind that
-the money is in Prepaid (ATM) Debit card, not cash, so you need to
-send to him,
-your full name
-address  where the prepaid (ATM) Debit card will be delivered to you,
-including your cell phone number. Finally, I left explicit
-instructions with him, on how to send the (ATM CARD) to you.
+> If
+> not, it seems best to use what you've proposed until sparse reaches the
+> point of being able to do this on its own.
 
-The Prepaid (ATM) Debit card, will be send to you through my
-Diplomatic Agent Mr. Mike Benz immediately you contact him. So contact
-my Diplomatic Agent Mr. Mike Benz immediately you receive this letter.
-Below is his contact information:
-
-NAME : MIKE BENZ
-EMAIL ADDRESS: mikebenz550@aol.com
-Text Him, (256) 284-4886
-
-Request for Delivery of the Prepaid (ATM) Debit card  to you today.
-Note, please I have paid for the whole service fees for you, so the
-only money you will send to my Diplomatic Agent Mr. Mike Benz is
-$50.00 for your prepaid (ATM) Debit card DELIVERY FEE to your address
-ok.
-Let me know once you receive this Card at your address.
-Best regards,
-Rev.Dr, George Adadar
+Or just leave the silly sparse warning, they're easy to ignore.
