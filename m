@@ -2,79 +2,132 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 04ADA1314C6
-	for <lists+linux-sparse@lfdr.de>; Mon,  6 Jan 2020 16:26:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 3B0B21314FF
+	for <lists+linux-sparse@lfdr.de>; Mon,  6 Jan 2020 16:41:31 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726454AbgAFP0j (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Mon, 6 Jan 2020 10:26:39 -0500
-Received: from merlin.infradead.org ([205.233.59.134]:42514 "EHLO
+        id S1726508AbgAFPlb (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Mon, 6 Jan 2020 10:41:31 -0500
+Received: from merlin.infradead.org ([205.233.59.134]:42570 "EHLO
         merlin.infradead.org" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726296AbgAFP0j (ORCPT
+        with ESMTP id S1726296AbgAFPla (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Mon, 6 Jan 2020 10:26:39 -0500
+        Mon, 6 Jan 2020 10:41:30 -0500
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
         d=infradead.org; s=merlin.20170209; h=In-Reply-To:Content-Type:MIME-Version:
         References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
         Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
         Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
         List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
-         bh=FasDblTVRzo6rSHY9siQrWkIk7A08Z0SsxWwX4908tk=; b=Jd2iIRukT2gpL+bEHVbwcYxtW
-        8s2OSMrjJzx3WE/yFOTRZoWLSLNZXciYHY5q7QJkisLP4rmnVOyVzIduop2LPuk8HXVyljnkkeOEJ
-        26RLsR2xZIfmU9VSqUsT0OqIqPhh358sLzHaBGqXEhSaN4Ze4bA8v8bJ/vBzf+fq7EF+uSF2k4IIb
-        rq3LmMw3kl3FHytWhsAx06X7t51Neq6fwkF9eaN6tmjv+xqkk6YEP3rc/A/L5yS3JMb5sIuuOzHZu
-        3lL+g5wT2p8vSWPENmB9Pos/Dpns9a5Mc6PBfSeEPJMYq2Us/y6lcellgxZ7GWO951JmY2J7Jj5xp
-        4UTIsOArg==;
+         bh=Pr+QJhLWon8Zy2xzdYFdw8f98/n5SlmPPCm9dGfNuCU=; b=c3/Johp/zrnjTKuah4azV/J/z
+        jHBViK0l3EwXzBzuZWUdyQQkJKnZL7zuKVNl6K08BVxu6TNGMkua4JmFf7Xu7dw/HiHRLh3zykrEq
+        xkpI8oKCTPBdIwkcAxq8iPS0JA9BHMDYpSRn2oO7DknGdsHH8hwghXZodIVbrM9VFhIi7BmGi2A/Q
+        FA2VwLuNSmgNAZR82xfiBIPmYBdmzxC7U7XVwR7gBr2LG4wZdFGwajQPbhcRS2NrirK6H8pXgWfZ/
+        8qxXNhok1Kaxm9tHDZHUrvpgG/ITQKI9zgSBxOv8FsTPw0g0GPF5FDKYuXKrtGJb8nRcRH/pBwcvY
+        5FW1a2Rpw==;
 Received: from j217100.upc-j.chello.nl ([24.132.217.100] helo=noisy.programming.kicks-ass.net)
         by merlin.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
-        id 1ioUH0-0003Fa-Mc; Mon, 06 Jan 2020 15:26:31 +0000
+        id 1ioUVO-0003LZ-2q; Mon, 06 Jan 2020 15:41:22 +0000
 Received: from hirez.programming.kicks-ass.net (hirez.programming.kicks-ass.net [192.168.1.225])
         (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
         (Client did not present a certificate)
-        by noisy.programming.kicks-ass.net (Postfix) with ESMTPS id 047963012DC;
-        Mon,  6 Jan 2020 16:24:57 +0100 (CET)
+        by noisy.programming.kicks-ass.net (Postfix) with ESMTPS id 513453006E0;
+        Mon,  6 Jan 2020 16:39:47 +0100 (CET)
 Received: by hirez.programming.kicks-ass.net (Postfix, from userid 1000)
-        id 1FF772B28450D; Mon,  6 Jan 2020 16:26:29 +0100 (CET)
-Date:   Mon, 6 Jan 2020 16:26:29 +0100
+        id 3A67D2B2844FB; Mon,  6 Jan 2020 16:41:19 +0100 (CET)
+Date:   Mon, 6 Jan 2020 16:41:19 +0100
 From:   Peter Zijlstra <peterz@infradead.org>
-To:     Kees Cook <keescook@chromium.org>
-Cc:     Eric Biggers <ebiggers@kernel.org>, linux-kernel@vger.kernel.org,
-        Ingo Molnar <mingo@redhat.com>, Will Deacon <will@kernel.org>,
+To:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
+Cc:     Kees Cook <keescook@chromium.org>,
+        Eric Biggers <ebiggers@kernel.org>,
+        linux-kernel@vger.kernel.org, Ingo Molnar <mingo@redhat.com>,
+        Will Deacon <will@kernel.org>,
         Elena Reshetova <elena.reshetova@intel.com>,
         Thomas Gleixner <tglx@linutronix.de>,
         Anna-Maria Gleixner <anna-maria@linutronix.de>,
         Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-        Luc Van Oostenryck <luc.vanoostenryck@gmail.com>,
         linux-sparse@vger.kernel.org
 Subject: Re: [PATCH] locking/refcount: add sparse annotations to dec-and-lock
  functions
-Message-ID: <20200106152629.GU2810@hirez.programming.kicks-ass.net>
+Message-ID: <20200106154119.GV2810@hirez.programming.kicks-ass.net>
 References: <20191226152922.2034-1-ebiggers@kernel.org>
  <20191228114918.GU2827@hirez.programming.kicks-ass.net>
  <201912301042.FB806E1133@keescook>
  <20191230191547.GA1501@zzz.localdomain>
  <201912301131.2C7C51E8C6@keescook>
+ <20191230233814.2fgmsgtnhruhklnu@ltop.local>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <201912301131.2C7C51E8C6@keescook>
+In-Reply-To: <20191230233814.2fgmsgtnhruhklnu@ltop.local>
 User-Agent: Mutt/1.10.1 (2018-07-13)
 Sender: linux-sparse-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-On Mon, Dec 30, 2019 at 11:32:31AM -0800, Kees Cook wrote:
+On Tue, Dec 31, 2019 at 12:38:14AM +0100, Luc Van Oostenryck wrote:
+> On Mon, Dec 30, 2019 at 11:32:31AM -0800, Kees Cook wrote:
+> > On Mon, Dec 30, 2019 at 01:15:47PM -0600, Eric Biggers wrote:
+> > > 
+> > > The annotation needs to go in the .h file, not the .c file, because sparse only
+> > > analyzes individual translation units.
+> > > 
+> > > It needs to be a wrapper macro because it needs to tie the acquisition of the
+> > > lock to the return value being true.  I.e. there's no annotation you can apply
+> > > directly to the function prototype that means "if this function returns true, it
+> > > acquires the lock that was passed in parameter N".
+> > 
+> > Gotcha. Well, I guess I leave it to Will and Peter to hash out...
+> > 
+> > Is there a meaningful proposal anywhere for sparse to DTRT here? If
+> > not, it seems best to use what you've proposed until sparse reaches the
+> > point of being able to do this on its own.
+> 
+> What "Right Thing" are you thinking about?
+> One of the simplest situation with these conditional locks is:
+> 
+> 	if (test)
+> 		lock();
+> 
+> 	do_stuff();
+> 
+> 	if (test)
+> 		unlock();
+> 
+> No program can check that the second test gives the same result than
+> the first one, it's undecidable. I mean, it's undecidable even on
+> if single threaded and without interrupts. The best you can do is
+> to simulate the whole thing (and be sure your simulation will halt).
 
-> Is there a meaningful proposal anywhere for sparse to DTRT here?
+Not quite what we're talking about. Instead consider this:
 
-These are what I found going through my Sent folder and Google'ing the
-resulting subjects:
+The normal flow would be something like:
+
+extern void spin_lock(spinlock_t *lock) __acquires(lock);
+extern void spin_unlock(spinlock_t *lock) __releases(lock);
+
+extern bool _spin_trylock(spinlock_t *lock) __acquires(lock);
+
+#define __cond_lock(x, c) ((c) ? ({ __acquire(x); 1; }) : 0)
+#define spin_trylock(lock) __cond_lock(lock, _spin_lock)
+
+
+	if (spin_trylock(lock)) {
+
+		/* do crap */
+
+		spin_unlock();
+	}
+
+
+So the proposal here:
 
   https://markmail.org/message/4obybcgqscznnx63
-  https://markmail.org/message/pp4ofksgactvgjbd?q=inverted_lock
 
-> If
-> not, it seems best to use what you've proposed until sparse reaches the
-> point of being able to do this on its own.
+would have us write:
 
-Or just leave the silly sparse warning, they're easy to ignore.
+extern bool spin_trylock(spinlock_t *lock) __attribute__((context(lock, 0, spin_trylock(lock));
+
+Basically have sparse do a transform on its own expression tree and
+inject the very same crud we now do manually. This avoids cluttering the
+kernel tree with this nonsense.
