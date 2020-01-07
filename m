@@ -2,113 +2,79 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 5DF70132250
-	for <lists+linux-sparse@lfdr.de>; Tue,  7 Jan 2020 10:29:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 89D37132FFA
+	for <lists+linux-sparse@lfdr.de>; Tue,  7 Jan 2020 20:54:30 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727699AbgAGJ3m (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Tue, 7 Jan 2020 04:29:42 -0500
-Received: from bombadil.infradead.org ([198.137.202.133]:41508 "EHLO
-        bombadil.infradead.org" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1727154AbgAGJ3l (ORCPT
+        id S1728699AbgAGTy0 (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Tue, 7 Jan 2020 14:54:26 -0500
+Received: from mail-ed1-f68.google.com ([209.85.208.68]:34104 "EHLO
+        mail-ed1-f68.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1728647AbgAGTyU (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Tue, 7 Jan 2020 04:29:41 -0500
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-        d=infradead.org; s=bombadil.20170209; h=In-Reply-To:Content-Type:MIME-Version
-        :References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-        Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
-        Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
-        List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
-         bh=sZXc/SFe/LDxQMr1tMtTHpfYzLnb842y8KpXben4b1s=; b=btXi/8aBR87eesFRk9rVTf7MA
-        Lo11ZldNjZKAaB6/9zJZ1gf9NCJZvkST1Vwo004YnQHoByFcCJfif+5Fqu4TzIXw5U0tGlHGJWd+a
-        uAbdPGF/hE+gJrM45w6VbyVJMLfvZdman1WMvJ7duagTokTpaTco+9foSyaY6KC4KEi1apyy3gt3Z
-        MyFzxQQ4CQ3HjQ7Ly+3LO79dRGmdWpV/ITVmEE62USnSeM4Sul7t2Qc2rcdQVThRujD+TAPDdf8sE
-        Ls2wHFbHxc87Oh04zt8FDYANAYG0ibCN0a0J7L1coZDrTWqb/7TS0AcaWpbj9k4F209mloCRCp9DM
-        w5WzTTcmg==;
-Received: from j217100.upc-j.chello.nl ([24.132.217.100] helo=noisy.programming.kicks-ass.net)
-        by bombadil.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
-        id 1iolBA-0000AU-Tt; Tue, 07 Jan 2020 09:29:37 +0000
-Received: from hirez.programming.kicks-ass.net (hirez.programming.kicks-ass.net [192.168.1.225])
-        (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-        (Client did not present a certificate)
-        by noisy.programming.kicks-ass.net (Postfix) with ESMTPS id A39A4304A59;
-        Tue,  7 Jan 2020 10:28:02 +0100 (CET)
-Received: by hirez.programming.kicks-ass.net (Postfix, from userid 1000)
-        id 24B232B5FBC95; Tue,  7 Jan 2020 10:29:35 +0100 (CET)
-Date:   Tue, 7 Jan 2020 10:29:35 +0100
-From:   Peter Zijlstra <peterz@infradead.org>
-To:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-Cc:     Kees Cook <keescook@chromium.org>,
-        Eric Biggers <ebiggers@kernel.org>,
-        linux-kernel@vger.kernel.org, Ingo Molnar <mingo@redhat.com>,
-        Will Deacon <will@kernel.org>,
-        Elena Reshetova <elena.reshetova@intel.com>,
-        Thomas Gleixner <tglx@linutronix.de>,
-        Anna-Maria Gleixner <anna-maria@linutronix.de>,
-        Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-        linux-sparse@vger.kernel.org
-Subject: Re: [PATCH] locking/refcount: add sparse annotations to dec-and-lock
- functions
-Message-ID: <20200107092935.GU2844@hirez.programming.kicks-ass.net>
-References: <20191226152922.2034-1-ebiggers@kernel.org>
- <20191228114918.GU2827@hirez.programming.kicks-ass.net>
- <201912301042.FB806E1133@keescook>
- <20191230191547.GA1501@zzz.localdomain>
- <201912301131.2C7C51E8C6@keescook>
- <20191230233814.2fgmsgtnhruhklnu@ltop.local>
- <20200106154119.GV2810@hirez.programming.kicks-ass.net>
- <20200106175459.tjuhmdrsusax3s4z@ltop.local>
+        Tue, 7 Jan 2020 14:54:20 -0500
+Received: by mail-ed1-f68.google.com with SMTP id l8so649633edw.1
+        for <linux-sparse@vger.kernel.org>; Tue, 07 Jan 2020 11:54:19 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=mime-version:reply-to:from:date:message-id:subject:to;
+        bh=Pi/olKLeaBrqhttAwoMGSoT+Sxp+y5xY3PQr7eygtLM=;
+        b=rePy6dvW+ZH47h+1V5ZzhOdHt3hyIpKxcBqRG6Yxugb8Ug55qYyaTQK4+wINdwq55f
+         jyS7yVvOQ5iMzNISAd+yiqtmzzFVbayzDS39QWeF/dmepISKDIrC01/Pyd16Jkxknswo
+         ZxY/mmXagT/Q6hX/41m7OLd2SMfr8CZO7Ci1IzWbi02KR9YYzIjtqbyhfstjO3po9RzC
+         tRdf7rgiUAYJtfRgzdFxSV7Qq5Jehd/t/PYuqt0rxIFlDCGzailtByweOtMj5bqBnwVk
+         IjZK4uPjcTNDDRooC9FKrWtSPPIiz9LQ6akzqbAN2ioBe4cx30eADGCJ98dfGgAz0k84
+         86YA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:reply-to:from:date:message-id
+         :subject:to;
+        bh=Pi/olKLeaBrqhttAwoMGSoT+Sxp+y5xY3PQr7eygtLM=;
+        b=EaVhPpdYUGZN1f8S6X16JR1JaWR0nPo0vpow0TQyarBNgM/c0BQTEIuZacQVH/eBdk
+         XqhvFuohNFC5X2FekwvfUlf2p2wPSb+819uCPfHT00murdr/fEtwKzcxNiztMYV2IOW3
+         w0Ns5+oFfzHqOtpydgcSRt3qIWTalYClokqss73sM7kL6SjRpj51bldWFhEgbvAyUFZj
+         YtUyBamtahV3ohPa/YRxa6JDs9vX53+TXkHR7WOBi882WVy/kIacYBzCjqraLjY9/2Ar
+         ttejuyQMhvw0GFghlafvCz9JBRIG7YQHNkTw/YCiLQErOJtRJo/qkRkJRQU75fNLxtrW
+         k3/Q==
+X-Gm-Message-State: APjAAAVjB6VZtFcqGr1p3Lr0Mco4I2Le70hGFakiIOrPrT8A+L90/D7g
+        Wkp9MY0VtHh4GsfCWr5+c2p5zUM4d+Q8sfJkoes=
+X-Google-Smtp-Source: APXvYqx1uh7JY9TsleWmDC3UVv1ETHY9DfduKRb8/JpOu+/AEBPnllkLYgtKF65Y7XFrgtyDYVY72zE2SUwJXZDirUk=
+X-Received: by 2002:a17:906:2894:: with SMTP id o20mr1108577ejd.199.1578426859045;
+ Tue, 07 Jan 2020 11:54:19 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20200106175459.tjuhmdrsusax3s4z@ltop.local>
-User-Agent: Mutt/1.10.1 (2018-07-13)
+Received: by 2002:a17:906:72c6:0:0:0:0 with HTTP; Tue, 7 Jan 2020 11:54:18
+ -0800 (PST)
+Reply-To: dhlexpresscouriercompany.nyusa@gmail.com
+From:   "Dr. William Johnson" <currency1000000@gmail.com>
+Date:   Tue, 7 Jan 2020 20:54:18 +0100
+Message-ID: <CAPqfnSFyOwF0m-QsrOdcFV_PCC3TSBr=YQHoQHvH0baKHfeF6Q@mail.gmail.com>
+Subject: contact Dhl office New York to receive your Prepaid ATM Master Card
+ worth $15.8Million US DOLLARS now.
+To:     undisclosed-recipients:;
+Content-Type: text/plain; charset="UTF-8"
 Sender: linux-sparse-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-On Mon, Jan 06, 2020 at 06:54:59PM +0100, Luc Van Oostenryck wrote:
-> On Mon, Jan 06, 2020 at 04:41:19PM +0100, Peter Zijlstra wrote:
-
-> > extern bool spin_trylock(spinlock_t *lock) __attribute__((context(lock, 0, spin_trylock(lock));
-> 
-> Well, allowing arbitrary conditions would be hard/impossible but you're
-> only asking to have the *return value* as condition, right? That looks
-> as reasonably feasible.
-
-Just the return value would cover all the known cases yes. At the time
-I might have been somewhat over ambitious..
-
-> > Basically have sparse do a transform on its own expression tree and
-> > inject the very same crud we now do manually. This avoids cluttering the
-> > kernel tree with this nonsense.
-> 
-> So, a call of a function declared with __acquires() or releases() is
-> interpreted by Sparse as if the call is immediately followed by an
-> increase or a decrease of the context. It wouldn't be very hard to
-> add a new attribute (something like __cond_context) and let Sparse do
-> as if a call to a function with such attribute is directly followed
-> by a test of its return value and a corresponding change in the context.
-> It would boil down to:
-> 
-> 	extern bool spin_trylock(lock) __cond_context(lock);
-> 
-> 	if (spin_trylock(lock)) {
-> 		/* do crap */
-> 		spin_unlock();
-> 	}
-> 
-> behaving like the following code currently would:
-> 
-> 	extern bool spin_trylock(lock);
-> 
-> 	if (spin_trylock(lock)) {
-> 		__acquire(lock);
-> 		/* do crap */
-> 		spin_unlock();
-> 	}
-> 
-> 
-> Would something like this be satisfactory?
-
-Very much so, Thanks!
+ATTN Dear Beneficiary.
+Goodnews
+I have Registered your Prepaid ATM Master Card
+worth $15.800,000.00 US DOLLARS Courier company asigned to deliver it
+to you today.
+So contact Dhl office New York to receive your Prepaid ATM Master Card
+worth $15.8Million US DOLLARS now.
+Contact Person: Mrs. Mary Michael, Director, DHL Courier Company-NY USA. 10218
+Email. dhlexpresscouriercompany.nyusa@gmail.com
+Call the office +(202) 890-8752
+Rec-Confirmed your mailing address to the office as I listed below.
+Your Full Name--------------
+House Address-----------
+Your working Phone Number----------------
+ID copy-------------------------
+Sex-----------------------------
+Note,delivery fee to your address is only $50.00. send it to this
+company urgent on itunes card today so that DHL will deliver this
+Prepaid ATM Master Card to you today according to our finally
+agreement.
+Thanks for coperations,
+Dr. William Johnson
