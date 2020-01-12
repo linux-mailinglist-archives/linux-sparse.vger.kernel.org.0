@@ -2,79 +2,86 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 89D37132FFA
-	for <lists+linux-sparse@lfdr.de>; Tue,  7 Jan 2020 20:54:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id C33AF138582
+	for <lists+linux-sparse@lfdr.de>; Sun, 12 Jan 2020 09:21:50 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1728699AbgAGTy0 (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Tue, 7 Jan 2020 14:54:26 -0500
-Received: from mail-ed1-f68.google.com ([209.85.208.68]:34104 "EHLO
-        mail-ed1-f68.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1728647AbgAGTyU (ORCPT
+        id S1732380AbgALIVt (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Sun, 12 Jan 2020 03:21:49 -0500
+Received: from mail3.iservicesmail.com ([217.130.24.75]:17620 "EHLO
+        mail3.iservicesmail.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1732369AbgALIVt (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Tue, 7 Jan 2020 14:54:20 -0500
-Received: by mail-ed1-f68.google.com with SMTP id l8so649633edw.1
-        for <linux-sparse@vger.kernel.org>; Tue, 07 Jan 2020 11:54:19 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=mime-version:reply-to:from:date:message-id:subject:to;
-        bh=Pi/olKLeaBrqhttAwoMGSoT+Sxp+y5xY3PQr7eygtLM=;
-        b=rePy6dvW+ZH47h+1V5ZzhOdHt3hyIpKxcBqRG6Yxugb8Ug55qYyaTQK4+wINdwq55f
-         jyS7yVvOQ5iMzNISAd+yiqtmzzFVbayzDS39QWeF/dmepISKDIrC01/Pyd16Jkxknswo
-         ZxY/mmXagT/Q6hX/41m7OLd2SMfr8CZO7Ci1IzWbi02KR9YYzIjtqbyhfstjO3po9RzC
-         tRdf7rgiUAYJtfRgzdFxSV7Qq5Jehd/t/PYuqt0rxIFlDCGzailtByweOtMj5bqBnwVk
-         IjZK4uPjcTNDDRooC9FKrWtSPPIiz9LQ6akzqbAN2ioBe4cx30eADGCJ98dfGgAz0k84
-         86YA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:reply-to:from:date:message-id
-         :subject:to;
-        bh=Pi/olKLeaBrqhttAwoMGSoT+Sxp+y5xY3PQr7eygtLM=;
-        b=EaVhPpdYUGZN1f8S6X16JR1JaWR0nPo0vpow0TQyarBNgM/c0BQTEIuZacQVH/eBdk
-         XqhvFuohNFC5X2FekwvfUlf2p2wPSb+819uCPfHT00murdr/fEtwKzcxNiztMYV2IOW3
-         w0Ns5+oFfzHqOtpydgcSRt3qIWTalYClokqss73sM7kL6SjRpj51bldWFhEgbvAyUFZj
-         YtUyBamtahV3ohPa/YRxa6JDs9vX53+TXkHR7WOBi882WVy/kIacYBzCjqraLjY9/2Ar
-         ttejuyQMhvw0GFghlafvCz9JBRIG7YQHNkTw/YCiLQErOJtRJo/qkRkJRQU75fNLxtrW
-         k3/Q==
-X-Gm-Message-State: APjAAAVjB6VZtFcqGr1p3Lr0Mco4I2Le70hGFakiIOrPrT8A+L90/D7g
-        Wkp9MY0VtHh4GsfCWr5+c2p5zUM4d+Q8sfJkoes=
-X-Google-Smtp-Source: APXvYqx1uh7JY9TsleWmDC3UVv1ETHY9DfduKRb8/JpOu+/AEBPnllkLYgtKF65Y7XFrgtyDYVY72zE2SUwJXZDirUk=
-X-Received: by 2002:a17:906:2894:: with SMTP id o20mr1108577ejd.199.1578426859045;
- Tue, 07 Jan 2020 11:54:19 -0800 (PST)
+        Sun, 12 Jan 2020 03:21:49 -0500
+IronPort-SDR: /PCmiUeBN/BeWPkk52ApeQKwqryf5WZnUKnzQ6ck/kfSk/0BnHYw3AGJwv+K9/krwP19LOaGko
+ HzKJmlb5rB+Q==
+IronPort-PHdr: =?us-ascii?q?9a23=3A6l3YnR12orNKLPCismDT+DRfVm0co7zxezQtwd?=
+ =?us-ascii?q?8ZseIfLPad9pjvdHbS+e9qxAeQG9mCsLQe1bWd6v+ocFdDyK7JiGoFfp1IWk?=
+ =?us-ascii?q?1NouQttCtkPvS4D1bmJuXhdS0wEZcKflZk+3amLRodQ56mNBXdrXKo8DEdBA?=
+ =?us-ascii?q?j0OxZrKeTpAI7SiNm82/yv95HJbAhEmTSwbalsIBi3rwjdudQajIl/Iast1x?=
+ =?us-ascii?q?XFpWdFdf5Lzm1yP1KTmBj85sa0/JF99ilbpuws+c1dX6jkZqo0VbNXAigoPG?=
+ =?us-ascii?q?Az/83rqALMTRCT6XsGU2UZiQRHDg7Y5xznRJjxsy/6tu1g2CmGOMD9UL45VS?=
+ =?us-ascii?q?i+46ptVRTkjiALOSMl/27Nj8xxjLtXrQympxxl247UZ5uVO+BifqzDZN8VW2?=
+ =?us-ascii?q?xBUt9NWixdHoOzdZcAD+ofMuZdsYb9oUcOoQKgCgmqHe/hzThIhnno0qw6yu?=
+ =?us-ascii?q?guDwfG1xEkE98ArHjYsND5OaEPWu630abI1y3OYf1W1zfn9obGcQ0vrv6QUr?=
+ =?us-ascii?q?x/asfR1UsiGB/ZglmMtYDpITWY3fkNvWiB6OpgUPqihXQ5pAFtvDev3NonhY?=
+ =?us-ascii?q?nOhoITxVDP6CJ0wJ4rKt2kVkF7e9ClEJxWtyGVLIZ2QtgiTHp0tyog1rIGvp?=
+ =?us-ascii?q?u7cDIKyJQk3hPSbeGMfYuQ4h/7SuqdPDV1iGh4dL+xmxq+61asx+LmWsS60F?=
+ =?us-ascii?q?tHqDdOnMPWuXAXzRPT79CKSv56/ki8xzmCzxvT6uRYIUAskqrbNoIhzqYwlp?=
+ =?us-ascii?q?UNtUTDGTf7mEDsg6+XckUk4Pan6+D7brjpvJOcKYh0hRzkPaQgncy/B/o3Ph?=
+ =?us-ascii?q?IQUGiA4ei81bvj8lPlQLhSkPE6j6vUvIrHKckVuqK1GRFZ34k55xuxDzqqyN?=
+ =?us-ascii?q?EYkmMGLFJBdhKHlY/pO1TWLfDgE/i/n0qjkC1lxvDBOL3hDY7ALnjYkLj6Yb?=
+ =?us-ascii?q?lx8VJTyA02zdxF55JUCakNIOjvVU/pqNzYEhg5PhSww+bmDtV9y4wfVXuUAq?=
+ =?us-ascii?q?+BKqzSq0SI6fw0LumSa48apiz9J+Im5/Hwl385n0ESfa2z0ZsQcnC4EacuH0?=
+ =?us-ascii?q?LMZXvqn8dECn8DpBEzZPLlhUfEUjNJYXu2GaUm6WIBBZqiHLvEE7ignLGblB?=
+ =?us-ascii?q?i8GJIeMnhLFl2WDnDueIWHW+wGYwqdJ8ZglnoPUr33GKE70hT7jALmxqAvEe?=
+ =?us-ascii?q?3S9WVMrZ//2cJq4OvcvREp/zcyBMOYlWGOGTIn1lgUTiM7ifks6Xd2zU2OhP?=
+ =?us-ascii?q?Mg2/E=3D?=
+X-IronPort-Anti-Spam-Filtered: true
+X-IronPort-Anti-Spam-Result: =?us-ascii?q?A2HrAgA40RpelyMYgtkUBjMYGgEBAQE?=
+ =?us-ascii?q?BAQEBAQMBAQEBEQEBAQICAQEBAYFoBAEBAQELAQEBGggBgSWBTVIgEpNQgU0?=
+ =?us-ascii?q?fg0OLY4EAgx4VhgcUDIFbDQEBAQEBNQIBAYRATgEXgQ8kNQgOAgMNAQEFAQE?=
+ =?us-ascii?q?BAQEFBAEBAhABAQEBAQYYBoVzgh0MHgEEAQEBAQMDAwEBDAGDXQcZDzlKTAE?=
+ =?us-ascii?q?OAVODBIJLAQEzhUuYLAGNBA0NAoUdgkkECoEJgRojgTYBjBgagUE/gSMhgis?=
+ =?us-ascii?q?IAYIBgn8BEgFsgkiCWQSNQhIhgQeIKZgXgkEEdolMjAKCNwEPiAGEMQMQgkU?=
+ =?us-ascii?q?PgQmIA4ROgX2jN1d0AYEecTMagiYagSBPGA2IG44tQIEWEAJPjFuCMgEB?=
+X-IPAS-Result: =?us-ascii?q?A2HrAgA40RpelyMYgtkUBjMYGgEBAQEBAQEBAQMBAQEBE?=
+ =?us-ascii?q?QEBAQICAQEBAYFoBAEBAQELAQEBGggBgSWBTVIgEpNQgU0fg0OLY4EAgx4Vh?=
+ =?us-ascii?q?gcUDIFbDQEBAQEBNQIBAYRATgEXgQ8kNQgOAgMNAQEFAQEBAQEFBAEBAhABA?=
+ =?us-ascii?q?QEBAQYYBoVzgh0MHgEEAQEBAQMDAwEBDAGDXQcZDzlKTAEOAVODBIJLAQEzh?=
+ =?us-ascii?q?UuYLAGNBA0NAoUdgkkECoEJgRojgTYBjBgagUE/gSMhgisIAYIBgn8BEgFsg?=
+ =?us-ascii?q?kiCWQSNQhIhgQeIKZgXgkEEdolMjAKCNwEPiAGEMQMQgkUPgQmIA4ROgX2jN?=
+ =?us-ascii?q?1d0AYEecTMagiYagSBPGA2IG44tQIEWEAJPjFuCMgEB?=
+X-IronPort-AV: E=Sophos;i="5.69,424,1571695200"; 
+   d="scan'208";a="304019397"
+Received: from mailrel04.vodafone.es ([217.130.24.35])
+  by mail01.vodafone.es with ESMTP; 12 Jan 2020 09:00:00 +0100
+Received: (qmail 24457 invoked from network); 12 Jan 2020 05:00:21 -0000
+Received: from unknown (HELO 192.168.1.3) (quesosbelda@[217.217.179.17])
+          (envelope-sender <peterwong@hsbc.com.hk>)
+          by mailrel04.vodafone.es (qmail-ldap-1.03) with SMTP
+          for <linux-sparse@vger.kernel.org>; 12 Jan 2020 05:00:21 -0000
+Date:   Sun, 12 Jan 2020 06:00:20 +0100 (CET)
+From:   Peter Wong <peterwong@hsbc.com.hk>
+Reply-To: Peter Wong <peterwonghkhsbc@gmail.com>
+To:     linux-sparse@vger.kernel.org
+Message-ID: <30299451.460802.1578805221374.JavaMail.cash@217.130.24.55>
+Subject: Investment opportunity
 MIME-Version: 1.0
-Received: by 2002:a17:906:72c6:0:0:0:0 with HTTP; Tue, 7 Jan 2020 11:54:18
- -0800 (PST)
-Reply-To: dhlexpresscouriercompany.nyusa@gmail.com
-From:   "Dr. William Johnson" <currency1000000@gmail.com>
-Date:   Tue, 7 Jan 2020 20:54:18 +0100
-Message-ID: <CAPqfnSFyOwF0m-QsrOdcFV_PCC3TSBr=YQHoQHvH0baKHfeF6Q@mail.gmail.com>
-Subject: contact Dhl office New York to receive your Prepaid ATM Master Card
- worth $15.8Million US DOLLARS now.
-To:     undisclosed-recipients:;
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
 Sender: linux-sparse-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-ATTN Dear Beneficiary.
-Goodnews
-I have Registered your Prepaid ATM Master Card
-worth $15.800,000.00 US DOLLARS Courier company asigned to deliver it
-to you today.
-So contact Dhl office New York to receive your Prepaid ATM Master Card
-worth $15.8Million US DOLLARS now.
-Contact Person: Mrs. Mary Michael, Director, DHL Courier Company-NY USA. 10218
-Email. dhlexpresscouriercompany.nyusa@gmail.com
-Call the office +(202) 890-8752
-Rec-Confirmed your mailing address to the office as I listed below.
-Your Full Name--------------
-House Address-----------
-Your working Phone Number----------------
-ID copy-------------------------
-Sex-----------------------------
-Note,delivery fee to your address is only $50.00. send it to this
-company urgent on itunes card today so that DHL will deliver this
-Prepaid ATM Master Card to you today according to our finally
-agreement.
-Thanks for coperations,
-Dr. William Johnson
+Greetings,
+Please read the attached investment proposal and reply for more details.
+Are you interested in loan?
+Sincerely: Peter Wong
+
+
+
+
+----------------------------------------------------
+This email was sent by the shareware version of Postman Professional.
+
