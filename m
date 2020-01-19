@@ -2,72 +2,63 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id CEEA013F974
-	for <lists+linux-sparse@lfdr.de>; Thu, 16 Jan 2020 20:26:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 856D5141F5D
+	for <lists+linux-sparse@lfdr.de>; Sun, 19 Jan 2020 19:44:22 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1729203AbgAPT0i (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Thu, 16 Jan 2020 14:26:38 -0500
-Received: from mail-wr1-f66.google.com ([209.85.221.66]:45920 "EHLO
-        mail-wr1-f66.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1728898AbgAPT0i (ORCPT
+        id S1728655AbgASSoV (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Sun, 19 Jan 2020 13:44:21 -0500
+Received: from mail-il1-f195.google.com ([209.85.166.195]:37501 "EHLO
+        mail-il1-f195.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1728811AbgASSoU (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Thu, 16 Jan 2020 14:26:38 -0500
-Received: by mail-wr1-f66.google.com with SMTP id j42so20324268wrj.12
-        for <linux-sparse@vger.kernel.org>; Thu, 16 Jan 2020 11:26:37 -0800 (PST)
+        Sun, 19 Jan 2020 13:44:20 -0500
+Received: by mail-il1-f195.google.com with SMTP id t8so25514084iln.4
+        for <linux-sparse@vger.kernel.org>; Sun, 19 Jan 2020 10:44:20 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=date:from:to:cc:subject:message-id:references:mime-version
-         :content-disposition:in-reply-to;
-        bh=oHA/bUiimk2IBtTBfCiyAm62uTtV8JQAKYOv2eFpzrE=;
-        b=thhEQX2Or8PAgEI0XCYTMJ4ZMQnhjSTdlD5RJXdSHzWYlTbvB7+m3RCLOpxHFJc/4T
-         7vInoMzhvn1TonjWHOOJSzyLZVqPU6JmnN7YR8PwlNXids9Ah+ATtBON8ONYmutVt/rL
-         mhnYnfivErh/dkh5HsuaqWb9dORz4iqlnI6/76SWOT6mn6aTaW4vuTncMM0gCutwcLs2
-         9X3GT2N8AmoRGXHiHw5l6SHOocHm4QQhwqy6QulwhwbPIfaQ2kiGp0VywQhc3NT5l9Fv
-         WakmZwYFudpnboZSAp7f6rIzXPR1uuQNWdn+YSsL3wZFJGtTdeTRuzqRrlSsFW9RyUQv
-         1Uww==
+        h=mime-version:reply-to:from:date:message-id:subject:to;
+        bh=/o+CA7VDRA7UR3HGeT8+/tYzwEnOXwq5B8ZHP2/HeYc=;
+        b=MveYcniUJUB532f0dlOoihdmkjAHV60cDj8LBHI8M4h+3H+egt8ZCsWSnQoG7CEhld
+         h286H+k74rDzfRQOoY/f9M81WRQr88YRuubiH3HanhIDyXki4cyulA7bNdgdh/npcklQ
+         CvJo43u8PBPBkMgEH5HatRsI+u5tlB3wEJ1Th3FBUvpApZQxsvg7pL4HfvgLhjM/SAbt
+         Wln7BJPpvNYZtoiRQX3zkLZKrm4kgBMldFao5RktgQ8gLQFv0TsxI7xopop5Q61lnjsD
+         O+Nqof9tzp5qXVHsDImBQ0OOhN8D0ZvK4JC9Zw+KV08LpajVcASte5dFUKOIeqnCFHwC
+         Gp1A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
-         :mime-version:content-disposition:in-reply-to;
-        bh=oHA/bUiimk2IBtTBfCiyAm62uTtV8JQAKYOv2eFpzrE=;
-        b=aUgSS3QGwelQIeMM3/RuLx4PnanNcOglBqipRv7Sak7qrbMmKpwNxhO60kxEyJBrpa
-         yobWo/zonnePlHoVMib20bE/eK0RXPyl12vh7vg7BBrzxwlDdkLaYuO0s1mUKsbqhwcf
-         rosHVqxhYUjYD6OmHlYFO83Jbqor8SxEIEVQUzJvYkPf3QP9TizTGe7KJuVYx3mUd/4E
-         QhlXTVMovsu8yXnn1mvTX9quCbvZYiz/b8QCkLuDEB8jUWslJj6F8IdWKoaKktywgs+I
-         mSGPDsmFkgfu4cym6HBcbBKSiRNV3v9dmxoNy9WdwnwooDhzT6ZzTSh94r1YxPk3e3mm
-         p/aw==
-X-Gm-Message-State: APjAAAVxFuE2h1e3ufqdsUO+e8TX4WEXtKdq8tWjqdmnPY/mC+MZXEWg
-        IBa7zFP4vVZlzPA4njVM89QhJUhD
-X-Google-Smtp-Source: APXvYqwTlGL8bTnJaBXQ0oT8CuFM2U8nisdi4OnvMdLd/Tmp48w42Fq0iIvZxGHJy5IJWhJZBMxO7Q==
-X-Received: by 2002:a5d:4204:: with SMTP id n4mr4969776wrq.123.1579202796372;
-        Thu, 16 Jan 2020 11:26:36 -0800 (PST)
-Received: from ltop.local ([2a02:a03f:40c7:f800:8092:a697:f51f:4090])
-        by smtp.gmail.com with ESMTPSA id x10sm30387740wrp.58.2020.01.16.11.26.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 16 Jan 2020 11:26:34 -0800 (PST)
-Date:   Thu, 16 Jan 2020 20:26:32 +0100
-From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-To:     Oleg Nesterov <oleg@redhat.com>
-Cc:     Alexey Gladkov <gladkov.alexey@gmail.com>,
-        linux-sparse@vger.kernel.org
-Subject: Re: [PATCH] show_parse: avoid null pointer dereference in
- do_show_type()
-Message-ID: <20200116192632.niymcq4xv2wgnix4@ltop.local>
-References: <20200116174838.GA32100@redhat.com>
+        h=x-gm-message-state:mime-version:reply-to:from:date:message-id
+         :subject:to;
+        bh=/o+CA7VDRA7UR3HGeT8+/tYzwEnOXwq5B8ZHP2/HeYc=;
+        b=SBuL5y8NQqT8E3b/tdUcVY8FZRSClQzWp6PVEi/9Mn/qRC6UTiMDbr9ukr5v56MM5n
+         QocRk9lYVzRaq4vcX4Q6/2sII9gUdymnKf8rQpzAOdrF5ZGG3u9Uw6vuKD0xow6jo8Jr
+         8T5h4TIXC2valfzp6BorKx/KadepQlOpz+4ivE9Z68ik53NKiodEMDUplek30u6+kHXy
+         YO8thUrttprxZR5BvlfWRy8IhVfYPTuin2wXeB5G1fUTD5T7jdqp1rAPY+J23swOFHRy
+         tsxZfEa3aFV2Kvk5+6fF9tJQN7pxGOsfJxnZ1GiD2oJPRF8XHb5dwXl6Yc7hlYjueIUa
+         kCzg==
+X-Gm-Message-State: APjAAAVJc9Bmi/+6dtJ8yUx00CU8cJ9b8e73a7bgK5A3R2AtA98i3Rcc
+        hWduyCkHf269Ei7QgyZ8I1yp6YfSrwMfuFOOu378KYrJCJgvig==
+X-Google-Smtp-Source: APXvYqzrfoOpFYdPx6ke6uIX585SnMDBN6pXKvD7iN8x9MT//+KimK2aFC33ps3ZC6gjq3Pi1pIlacgfKiFCQZrpYZA=
+X-Received: by 2002:a92:d1c1:: with SMTP id u1mr7477573ilg.66.1579459459106;
+ Sun, 19 Jan 2020 10:44:19 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20200116174838.GA32100@redhat.com>
+Received: by 2002:a02:95c8:0:0:0:0:0 with HTTP; Sun, 19 Jan 2020 10:44:18
+ -0800 (PST)
+Reply-To: favordens@email.com
+From:   Favor Desmond <contecindy5@gmail.com>
+Date:   Sun, 19 Jan 2020 18:44:18 +0000
+Message-ID: <CAOfCPNxgSoAU_ns0j9jYL-ArKfcD=i8NkJvHsR4-OGvFBVDMZg@mail.gmail.com>
+Subject: HELLO
+To:     undisclosed-recipients:;
+Content-Type: text/plain; charset="UTF-8"
 Sender: linux-sparse-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-On Thu, Jan 16, 2020 at 06:48:38PM +0100, Oleg Nesterov wrote:
-> do_show_type() checks sym->type inside the "if (!sym || ...)" block.
-> 
-> While at it, remove the trailing whitespaces.
-
-Thank you! Applied and pushed. 
-
--- Luc
+Hello Dear
+Greetings to you,I am Favor Desmond from Ivory coast currently living
+in  Togo Republic,I would like to know you more, so that i can tell
+you little amount myself and my photo, email address is
+favordens@email.com
+Thanks
+Favor
