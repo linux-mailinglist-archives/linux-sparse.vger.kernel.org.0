@@ -2,95 +2,88 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id F1F1B14326B
-	for <lists+linux-sparse@lfdr.de>; Mon, 20 Jan 2020 20:32:54 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id AF8C41434AF
+	for <lists+linux-sparse@lfdr.de>; Tue, 21 Jan 2020 01:13:27 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726642AbgATTcu (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Mon, 20 Jan 2020 14:32:50 -0500
-Received: from mail-ed1-f65.google.com ([209.85.208.65]:33431 "EHLO
-        mail-ed1-f65.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1727692AbgATTcm (ORCPT
+        id S1727045AbgAUAN1 (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Mon, 20 Jan 2020 19:13:27 -0500
+Received: from mail-wm1-f68.google.com ([209.85.128.68]:39186 "EHLO
+        mail-wm1-f68.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1727009AbgAUAN1 (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Mon, 20 Jan 2020 14:32:42 -0500
-Received: by mail-ed1-f65.google.com with SMTP id r21so641617edq.0
-        for <linux-sparse@vger.kernel.org>; Mon, 20 Jan 2020 11:32:42 -0800 (PST)
+        Mon, 20 Jan 2020 19:13:27 -0500
+Received: by mail-wm1-f68.google.com with SMTP id 20so1165896wmj.4
+        for <linux-sparse@vger.kernel.org>; Mon, 20 Jan 2020 16:13:25 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=mime-version:reply-to:from:date:message-id:subject:to;
-        bh=z7I/Kq2V0EnXiuoACdRbnwoAql3KZ080nwyXVjlruyU=;
-        b=I1roYPqxBJzWtUK/EbeI6Kt4sZi+JdSJm6qJbGHrPRZYvHUSh5jIrCeNC6L/G/f0o1
-         SOUBr7y32ZptFoyqXLV46mqkCVXIPksz6dHNenBfKH5ZmZaxgtbXfnD4DPiQngFU9XCO
-         yyR3xavKr41v/xLWwuSw91WJb2uX+wjZFxyyrAuDZ+hvXvCheAMdiLqD+HrlaysRfXCL
-         GNNQRcxyOsqzXo4wRH2J/upuPpeDO5ZRhzNY4HfuYgHfElCshp5fZYHSWkrBX0jAzQvX
-         wM9NfRj8QHz6JxUFOI+rZ3wcUi7Ikp+pHr28kaxr4n7py/KC1H5pYclpR4JTvoTIZ7Jv
-         h8rg==
+        h=date:from:to:cc:subject:message-id:references:mime-version
+         :content-disposition:in-reply-to;
+        bh=/cssa8WprNG5gYuGF0hl9dsTL34AFtiBImQT/TUXxX4=;
+        b=If6+KxeTEoKh1GAimSdU/hkZSNq5QhxF3NGmiyyCMuOCpHFryn3XVUUql60iyR9ptq
+         HjrFRkbEIMGmJ3mq0+9Evrobd8LEyg0V7+SpbkYL3wCidR5Yct7za7MOh57ajBrNUmCb
+         It23QLHbxRvZXl6kLLm5UyB0NX7hOcxK3TW4Sr2YLtp57xnNiE1YR7aLCBTfP9+BHDqM
+         SCsjyGzbh9jtn8ECt2aRCZCkAnCnbb39FxVyhT0eKqK508ieelXfi6SOWk6tOLfe9Ssz
+         VXmuxew4J/cmt7VLdjHCj2gIaAGCrkIwC8ZpdT8HWkUI4jwVEqoWg6oTNRShiK3YxQFf
+         5jOg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:reply-to:from:date:message-id
-         :subject:to;
-        bh=z7I/Kq2V0EnXiuoACdRbnwoAql3KZ080nwyXVjlruyU=;
-        b=qk/yDayLBEyXX3Igdo14ksPRjVJuRXJHbiijsSPJ4pco2+gIyaAIxbnqnvLy1FuAad
-         TEyB0tt0iLe97/LF2WcRPcmIpPAwhCay93Xxm6g9EJ2bkytlCRRiRbgNNbTDyoWf9pRc
-         uRPOxgS5DChWnre0LJkbN970KUWrySH7sOT1MluprZryhxi2TbFEIX4qvyik3KCoFhMy
-         ROI0iV0dc3Qs8Z9wYYVTvm87/6jTKsmfwujvDfBOep18nHiA4smR/jPuhXe45ggVxmCk
-         KIKkFmRxJ4A7qAwtOE8/WKRSdP765tc+4B5jGjWTLr0jmvHEoadcSXjL3x//7oRWkzD1
-         4Cqg==
-X-Gm-Message-State: APjAAAV6bzavywQWUEmxDLXlGL69Nxv6YachHox+XTAOoSWT2TuPQD9r
-        I5q5jnrCTOfPAvHU2iZ0EOACBhvtY8AapHX2v0w=
-X-Google-Smtp-Source: APXvYqwKjCT5QnfvXWtJkO29cRmoOGR1uhIhw9Ol6eYz9VuYzVaqX/o8Ejt2WLDxZ+bl2CebXLO8AWZ4Emn93SBTQws=
-X-Received: by 2002:a17:906:1fcd:: with SMTP id e13mr898516ejt.333.1579548761316;
- Mon, 20 Jan 2020 11:32:41 -0800 (PST)
+        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+         :mime-version:content-disposition:in-reply-to;
+        bh=/cssa8WprNG5gYuGF0hl9dsTL34AFtiBImQT/TUXxX4=;
+        b=eIg2arDw9/2s1hjFaHm+/aRLjqWjnANHYH35Z3uROnSd6Mt80y6EDLXmKKuSSvZbk5
+         LqNR3PG+dO2MuJpE8RuTQfhuGf2irjjdLQ58JQS2VW7HamvqiR140fC2fgfGaGrki3HX
+         eO8FLX3W/xWXfQzwjda5MpP49wa6U/IHFlXvlyQSwLpkJr6NqPUnUpJBE+LaAQ4M9gCv
+         gkoBYcwmmGz27lyaEw6t5T68kdjQsBUWoun5RrnLNpahs54ug2QZrgDvxt5pyx3QdVFm
+         H0uZLNrV9hVnk0EhK3/iOcAmadcejUh5GQ4HlH1PgZYuV1UwoQ1lwtw8rStYy7S5iHTN
+         XPfw==
+X-Gm-Message-State: APjAAAVdD4gbkAQ449KiS5iuDaFORBBzN9kB37ywgWRl/ya7kjez+XfI
+        VZKgFZ2dzC6Ouy3YB8FIL9w=
+X-Google-Smtp-Source: APXvYqxZUMEhgJgClOawSm/GRl4x+EVAnEz140YESDgNiFxXgYt7cqZhtMBcWGzJvjSqfMX37OAH0A==
+X-Received: by 2002:a7b:cb46:: with SMTP id v6mr1324411wmj.117.1579565605212;
+        Mon, 20 Jan 2020 16:13:25 -0800 (PST)
+Received: from ltop.local ([2a02:a03f:4017:df00:116f:82b4:24e4:426c])
+        by smtp.gmail.com with ESMTPSA id d8sm50905860wre.13.2020.01.20.16.13.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 20 Jan 2020 16:13:24 -0800 (PST)
+Date:   Tue, 21 Jan 2020 01:13:22 +0100
+From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
+To:     john.levon@joyent.com
+Cc:     linux-sparse@vger.kernel.org, Toomas Soome <tsoome@me.com>
+Subject: Re: [PATCH] correct sparcv9 defines
+Message-ID: <20200121001322.zikj2xsacqt765fi@ltop.local>
+References: <20200120103824.20746-1-john.levon@joyent.com>
 MIME-Version: 1.0
-Received: by 2002:a05:6402:22dc:0:0:0:0 with HTTP; Mon, 20 Jan 2020 11:32:40
- -0800 (PST)
-Reply-To: mcclainejohn.13@gmail.com
-From:   "Prof, William Roberts" <eco.bank1204@gmail.com>
-Date:   Mon, 20 Jan 2020 20:32:40 +0100
-Message-ID: <CAOE+jABpcHQWZWhtskhDFbtTqfBe7h065WE2kC1G+jQD+tQiTA@mail.gmail.com>
-Subject: Contact Diplomatic Agent, Mr. Mcclaine John to receive your ATM CARD
- valued the sum of $12.8Million United States Dollars
-To:     undisclosed-recipients:;
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20200120103824.20746-1-john.levon@joyent.com>
 Sender: linux-sparse-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-Attn: Dear Beneficiary,
+On Mon, Jan 20, 2020 at 02:38:24AM -0800, john.levon@joyent.com wrote:
+> From: Toomas Soome <tsoome@me.com>
+> 
+> The SPARCV9 compile check needs to look for __sparcv9 on some systems,
+> and should also define "sparc".
 
-I wish to inform you that the diplomatic agent conveying your ATM CARD
-valued the sum of $12.8Million United States Dollars has misplaced
-your address and he is currently stranded at (George Bush
-International Airport) Houston Texas USA now
-We required you to reconfirm the following information's below to him
-so that he can deliver your Payment CARD to you today or tomorrow
-morning as information provided with open communications via email and
-telephone for security reasons.
-HERE IS THE DETAILS  HE NEED FROM YOU URGENT
-YOUR FULL NAME:========
-ADDRESS:========
-MOBILE NO:========
-NAME OF YOUR NEAREST AIRPORT:========
-A COPY OF YOUR IDENTIFICATION :========
+Hi.
 
-Note; do contact the diplomatic agent immediately through the
-information's listed below
-Contact Person: Diplomatic Agent, Mr. Mcclaine John
-EMAIL: mcclainejohn.13@gmail.com
-Tel:(223) 777-7518
+Thanks for the patch.
+Is it possible to have Toomas' Signed-off-by for this patch?
+No need to resend the patch, just a reply to this email
+saying it's OK is enough.
 
-Contact the diplomatic agent immediately
-because he is waiting to hear from you today with the needed information's.
+>  	case MACH_SPARC32:
+>  		predefine("__sparc__", 1, "1");
+>  		predefine("__sparc", 1, "1");
+> +		predefine("sparc", 1, "1");
 
-NOTE: The Diplomatic agent does not know that the content of the
-consignment box is $12.800,000,00 Million United States Dollars and on
-no circumstances should you let him know the content. The consignment
-was moved from here as family treasures, so never allow him to open
-the box. Please I have paid delivery fees for you but the only money
-you must send to Mcclaine John is your ATM CARD delivery fee $25.00
-only. text Him as you contact Him Immediately
+I'm wondering if there is a real need for this one or if
+it's just to reflect what GCC do? I'm a bit reluctant to
+add it since it lies in the user's namespace. But I'm fine
+to add it if there is a real use case for it (in which case
+I'll just slightly change the patch to not predefine it if
+one of the ISO dialect is selected (via --std=c99, ...)).
 
-Thanks,
-with Regards.
-Prof, William Roberts
-Director DHL COURIER SERVICES-Benin
+-- Luc
