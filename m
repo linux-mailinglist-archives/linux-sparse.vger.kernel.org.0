@@ -2,149 +2,199 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id B3D7515435E
-	for <lists+linux-sparse@lfdr.de>; Thu,  6 Feb 2020 12:46:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 934631549E1
+	for <lists+linux-sparse@lfdr.de>; Thu,  6 Feb 2020 18:01:58 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727609AbgBFLqZ (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Thu, 6 Feb 2020 06:46:25 -0500
-Received: from mail-wr1-f66.google.com ([209.85.221.66]:43312 "EHLO
-        mail-wr1-f66.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1727111AbgBFLqY (ORCPT
+        id S1727607AbgBFRB5 (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Thu, 6 Feb 2020 12:01:57 -0500
+Received: from us-smtp-delivery-1.mimecast.com ([205.139.110.120]:35529 "EHLO
+        us-smtp-1.mimecast.com" rhost-flags-OK-OK-OK-FAIL) by vger.kernel.org
+        with ESMTP id S1726990AbgBFRB5 (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Thu, 6 Feb 2020 06:46:24 -0500
-Received: by mail-wr1-f66.google.com with SMTP id z9so6750126wrs.10
-        for <linux-sparse@vger.kernel.org>; Thu, 06 Feb 2020 03:46:22 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=date:from:to:cc:subject:message-id:references:mime-version
-         :content-disposition:content-transfer-encoding:in-reply-to;
-        bh=BecDWrWqLTj46wRStzWfbRH00samyFoCiOUQRNfW3z0=;
-        b=UJvv4b4Qa4xWerA30y/yqer9HUNZGZTRHVN4Esrn1qKgP/jY19BzFr+8U1cnh3Jdz5
-         YXlhBTceQ5RdaVi+6ZAW/buqU4C9suEiVmvztvzbfX7eKhQW9twElyMj/zYBUawUL8ut
-         tYv7JHFsvVDsbU0lRplSIHwY5Ixd8ydqfCRWXyHk0nANpbWrb9aSrKsBf2EcNkfeeWf2
-         JnIB5VPujMruq49AZqRc3yVlf2tlhneTt7hC3zEyQVwW6Om8ZOXGllyV/e28dbNx1uL5
-         XZr2jTUcWAbESyP2iAQYkL0rO6IUUnRn8TUtW/uwdFgKqK/I6MHZA6i+kbvd2K1ykxPN
-         bzpA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
-         :mime-version:content-disposition:content-transfer-encoding
-         :in-reply-to;
-        bh=BecDWrWqLTj46wRStzWfbRH00samyFoCiOUQRNfW3z0=;
-        b=go7zVP0F5F6J4+dR45/bxm9W8ob7K48/IRUTh3SXMQq9XOSXANa52dZpfsKig30yZ4
-         hvugA/zPGEhY9rujuAhkAnC3wTxO/uPCnlh962pjPwNjSJAVxoMzBKPkpUyvn/lqhCiQ
-         sv3iVTDjtOUZ0tWBvpMPy+ZGkKTCMq8BnInoXtay0f2l0CYrWfaHLAwtnRD14pwCiXIa
-         5E+R/nMcybyUsYEe8SvkBRb18gus/87F8Z9hpjuoepewHYhuGazEK0yDbJ7YM2Lug2AU
-         5HWfoZ9dcUv0bU95WD+0z7Khjtmbk5hk1C8D8oRnalSsZrHHd21SHbirEX10Bg+LCC6z
-         +Pgg==
-X-Gm-Message-State: APjAAAWX9S0uoYbSeY36mipXzdDNzu5SLYgdJornfTJrgJw0Li4N68iw
-        /53zTNnwud0pQy/HkJx6AcU=
-X-Google-Smtp-Source: APXvYqxF3rt89yy1XO7+tvrM8Kn0STc3Vnbq6G2pxkHx0hJLHrSyL/KZ9T5VXFztAbZVaFVH6341HQ==
-X-Received: by 2002:adf:fd43:: with SMTP id h3mr3396601wrs.169.1580989581790;
-        Thu, 06 Feb 2020 03:46:21 -0800 (PST)
-Received: from ltop.local ([2a02:a03f:4017:df00:7c4c:6743:ca73:a9e5])
-        by smtp.gmail.com with ESMTPSA id m3sm3750910wrs.53.2020.02.06.03.46.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 06 Feb 2020 03:46:20 -0800 (PST)
-Date:   Thu, 6 Feb 2020 12:46:19 +0100
-From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-To:     Linus Torvalds <torvalds@linux-foundation.org>
-Cc:     Randy Dunlap <rdunlap@infradead.org>,
-        Linux-Sparse <linux-sparse@vger.kernel.org>
-Subject: Re: sparse problem with Linux kernel v5.5
-Message-ID: <20200206114619.bfszxgs6jmdgroo6@ltop.local>
-References: <6ee65b69-9ffc-78c6-66b7-3ce586687d74@infradead.org>
- <CAHk-=wgQM29j0BJ-b0fTfwA9nc_fiS09Mi2oO8hX34oRxR6+xA@mail.gmail.com>
+        Thu, 6 Feb 2020 12:01:57 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+        s=mimecast20190719; t=1581008515;
+        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+         to:to:cc:cc:mime-version:mime-version:content-type:content-type;
+        bh=bbwpbw/ShtevND2hJZXBrE70dPTfGKk5Wxx8SLC6suc=;
+        b=a/8ksU+nQoDFfpAjSwT52HxZu656zenMiEiJc13XepJe9kqkjdyz7h36eFmnsQJNQOO6az
+        MM3yFhkxb9FXZSfbMINmMqQnCR42Qr7oiYDrVHyYYugdILpWYuQ2Z2lWAz1iK+RMUrYZk9
+        +BCaKNG75rJ2mv0g+KEXQD1Pzilv0Bc=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-266-qxy2m0quNze09dkfHviwfg-1; Thu, 06 Feb 2020 12:01:34 -0500
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
+        (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+        (No client certificate requested)
+        by mimecast-mx01.redhat.com (Postfix) with ESMTPS id ACA94800D5C;
+        Thu,  6 Feb 2020 17:01:33 +0000 (UTC)
+Received: from dhcp-27-174.brq.redhat.com (unknown [10.43.17.70])
+        by smtp.corp.redhat.com (Postfix) with SMTP id CF565100194E;
+        Thu,  6 Feb 2020 17:01:32 +0000 (UTC)
+Received: by dhcp-27-174.brq.redhat.com (nbSMTP-1.00) for uid 1000
+        oleg@redhat.com; Thu,  6 Feb 2020 18:01:33 +0100 (CET)
+Date:   Thu, 6 Feb 2020 18:01:32 +0100
+From:   Oleg Nesterov <oleg@redhat.com>
+To:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
+Cc:     Alexey Gladkov <gladkov.alexey@gmail.com>,
+        linux-sparse@vger.kernel.org
+Subject: [PATCH] dissect: introduce dissect_ctx
+Message-ID: <20200206170132.GA8908@redhat.com>
 MIME-Version: 1.0
+User-Agent: Mutt/1.5.24 (2015-08-30)
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-MC-Unique: qxy2m0quNze09dkfHviwfg-1
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <CAHk-=wgQM29j0BJ-b0fTfwA9nc_fiS09Mi2oO8hX34oRxR6+xA@mail.gmail.com>
 Sender: linux-sparse-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-On Thu, Feb 06, 2020 at 07:18:45AM +0000, Linus Torvalds wrote:
-> On Thu, Feb 6, 2020 at 4:49 AM Randy Dunlap <rdunlap@infradead.org> wrote:
-> >
-> > Also, what is errno 137? (0x89)
->=20
-> I think that's just "killed by signal 9" (the high bit is "killed by
-> signal", the low bits are the signal number).
->=20
-> SIGKILL - oom? What does 'dmesg' say? Maybe there's some exponential
-> memory use triggered by something in that bpf_sk_storage file..
->=20
+Points to the current function or to the global variable in case of
+compound initializer.
 
-Hi Randy,
-What config are you using?
+Kill the ugly test-dissect.c:storage() and change print_usage() to
+report dissect_ctx->ident instead.
 
-Here, on next-20200205 (commit 14b549456391a8b8f812529896b2690c16349734)
-the file bpf_sk_storage.c is not compiled with the default config
-(I suppose because of CONFIG_BPF_SYSCALL).
-With allyesconfig, I see nothing particular ('-fmem-report' added):
-  $ time sparse -fmem-report -D__linux__ -Dlinux -D__STDC__ -Dunix -D__unix=
-__ -Wbitwise -Wno-return-void -Wno-unknown-attribute  -D__x86_64__ --arch=
-=3Dx86 -mlittle-endian -m64 -Wp,-MD,net/core/.bpf_sk_storage.o.d  -nostdinc=
- -isystem /usr/lib/gcc/x86_64-linux-gnu/8/include -I./arch/x86/include -I./=
-arch/x86/include/generated  -I./include -I./arch/x86/include/uapi -I./arch/=
-x86/include/generated/uapi -I./include/uapi -I./include/generated/uapi -inc=
-lude ./include/linux/kconfig.h -include ./include/linux/compiler_types.h -D=
-__KERNEL__ -Wall -Wundef -Werror=3Dstrict-prototypes -Wno-trigraphs -fno-st=
-rict-aliasing -fno-common -fshort-wchar -fno-PIE -Werror=3Dimplicit-functio=
-n-declaration -Werror=3Dimplicit-int -Wno-format-security -std=3Dgnu89 -mno=
--sse -mno-mmx -mno-sse2 -mno-3dnow -mno-avx -m64 -falign-jumps=3D1 -falign-=
-loops=3D1 -mno-80387 -mno-fp-ret-in-387 -mpreferred-stack-boundary=3D3 -msk=
-ip-rax-setup -mtune=3Dgeneric -mno-red-zone -mcmodel=3Dkernel -DCONFIG_X86_=
-X32_ABI -DCONFIG_AS_CFI=3D1 -DCONFIG_AS_CFI_SIGNAL_FRAME=3D1 -DCONFIG_AS_CF=
-I_SECTIONS=3D1 -DCONFIG_AS_SSSE3=3D1 -DCONFIG_AS_AVX=3D1 -DCONFIG_AS_AVX2=
-=3D1 -DCONFIG_AS_AVX512=3D1 -DCONFIG_AS_SHA1_NI=3D1 -DCONFIG_AS_SHA256_NI=
-=3D1 -Wno-sign-compare -fno-asynchronous-unwind-tables -mindirect-branch=3D=
-thunk-extern -mindirect-branch-register -fno-jump-tables -fno-delete-null-p=
-ointer-checks -Wno-frame-address -Wno-format-truncation -Wno-format-overflo=
-w -O2 --param=3Dallow-store-data-races=3D0 -fno-reorder-blocks -fno-ipa-cp-=
-clone -fno-partial-inlining -Wframe-larger-than=3D2048 -fstack-protector-st=
-rong -Wno-unused-but-set-variable -Wimplicit-fallthrough -Wno-unused-const-=
-variable -fno-var-tracking-assignments -pg -mrecord-mcount -mfentry -DCC_US=
-ING_FENTRY -fno-inline-functions-called-once -Wdeclaration-after-statement =
--Wvla -Wno-pointer-sign -Wno-stringop-truncation -fno-strict-overflow -fno-=
-merge-all-constants -fmerge-constants -fno-stack-check -fconserve-stack -We=
-rror=3Ddate-time -Werror=3Dincompatible-pointer-types -Werror=3Ddesignated-=
-init -fmacro-prefix-map=3D./=3D -fcf-protection=3Dnone -Wno-packed-not-alig=
-ned    -fsanitize=3Dkernel-address -fasan-shadow-offset=3D0xdffffc000000000=
-0   --param asan-globals=3D1   --param asan-instrumentation-with-call-thres=
-hold=3D0   --param asan-stack=3D1   --param asan-instrument-allocas=3D1   -=
-fsanitize-coverage=3Dtrace-pc -fsanitize-coverage=3Dtrace-cmp    -DKBUILD_M=
-ODFILE=3D'"net/core/bpf_sk_storage"' -DKBUILD_BASENAME=3D'"bpf_sk_storage"'=
- -DKBUILD_MODNAME=3D'"bpf_sk_storage"' net/core/bpf_sk_storage.c; echo $?
-       allocator:   allocs,      bytes,      total,  %usage,  average
-          tokens:        0,          0,          0,   0.00%,     0.00
-     identifiers:    56223,    2262233,    2490368,  90.84%,    40.24
-         symbols:   799200,  172627200,  173441024,  99.53%,   216.00
-     expressions: 39852179, 2550539456, 2555543552,  99.80%,    64.00
-      statements:   663762,   53100960,   53182464,  99.85%,    80.00
-          scopes:    18206,     291296,     294912,  98.77%,    16.00
-     basic_block:     1736,     180544,     196608,  91.83%,   104.00
-     instruction:     7289,     583120,     589824,  98.86%,    80.00
-          pseudo:     5181,     207240,     229376,  90.35%,    40.00
-     pseudo_user:     6967,     111472,     131072,  85.05%,    16.00
-        ptr list:   961807,  123111296,  123600896,  99.60%,   128.00
-        multijmp:      275,       6600,      32768,  20.14%,    24.00
-       asm rules:      241,       5784,      32768,  17.65%,    24.00
- asm constraints:      218,       6976,      32768,  21.29%,    32.00
-        contexts:       42,        672,      32768,   2.05%,    16.00
-         strings:    11288,     329766,     360448,  91.49%,    29.21
-           bytes:    31957,     125216,     131072,  95.53%,     3.92
-           total: 42416571, 2903489831, 2910322688,  99.77%,    68.45
+Signed-off-by: Oleg Nesterov <oleg@redhat.com>
+---
+ dissect.c      | 17 +++++++++++++++--
+ dissect.h      |  2 ++
+ test-dissect.c | 21 ++++++++-------------
+ 3 files changed, 25 insertions(+), 15 deletions(-)
 
-real	0m5.391s
-user	0m3.594s
-sys	0m1.797s
-0
+diff --git a/dissect.c b/dissect.c
+index 60fccbd..54e11d2 100644
+--- a/dissect.c
++++ b/dissect.c
+@@ -51,6 +51,8 @@
+ 
+ typedef unsigned usage_t;
+ 
++struct symbol *dissect_ctx;
++
+ static struct reporter *reporter;
+ static struct symbol *return_type;
+ 
+@@ -211,7 +213,7 @@ static void report_memdef(struct symbol *sym, struct symbol *mem)
+ 
+ static void examine_sym_node(struct symbol *node, struct symbol *parent)
+ {
+-	struct symbol *base;
++	struct symbol *base, *dctx;
+ 	struct ident *name;
+ 
+ 	if (node->examined)
+@@ -240,6 +242,9 @@ static void examine_sym_node(struct symbol *node, struct symbol *parent)
+ 				return;
+ 			base->evaluated = 1;
+ 
++			dctx = dissect_ctx;
++			dissect_ctx = NULL;
++
+ 			if (base->ident || deanon(base, name, parent))
+ 				reporter->r_symdef(base);
+ 
+@@ -248,6 +253,7 @@ static void examine_sym_node(struct symbol *node, struct symbol *parent)
+ 			DO_LIST(base->symbol_list, mem,
+ 				examine_sym_node(mem, parent);
+ 				report_memdef(parent, mem));
++			dissect_ctx = dctx;
+ 		default:
+ 			return;
+ 		}
+@@ -582,6 +588,7 @@ static struct symbol *do_initializer(struct symbol *type, struct expression *exp
+ static inline struct symbol *do_symbol(struct symbol *sym)
+ {
+ 	struct symbol *type = base_type(sym);
++	struct symbol *dctx = dissect_ctx;
+ 
+ 	reporter->r_symdef(sym);
+ 
+@@ -590,14 +597,20 @@ static inline struct symbol *do_symbol(struct symbol *sym)
+ 		if (!sym->initializer)
+ 			break;
+ 		reporter->r_symbol(U_W_VAL, &sym->pos, sym);
++		if (!dctx)
++			dissect_ctx = sym;
+ 		do_initializer(type, sym->initializer);
++		dissect_ctx = dctx;
+ 
+ 	break; case SYM_FN:
+-		do_sym_list(type->arguments);
++		dissect_ctx = sym;
+ 		return_type = base_type(type);
++		do_sym_list(type->arguments);
+ 		do_statement(U_VOID, sym->ctype.modifiers & MOD_INLINE
+ 					? type->inline_stmt
+ 					: type->stmt);
++		dissect_ctx = dctx;
++		return_type = NULL;
+ 	}
+ 
+ 	return type;
+diff --git a/dissect.h b/dissect.h
+index 1f5b1d9..efe2c0b 100644
+--- a/dissect.h
++++ b/dissect.h
+@@ -25,6 +25,8 @@ struct reporter
+ 	void (*r_member)(unsigned, struct position *, struct symbol *, struct symbol *);
+ };
+ 
++extern struct symbol *dissect_ctx;
++
+ extern void dissect(struct symbol_list *, struct reporter *);
+ 
+ #endif
+diff --git a/test-dissect.c b/test-dissect.c
+index e725eec..d93a2a0 100644
+--- a/test-dissect.c
++++ b/test-dissect.c
+@@ -2,17 +2,6 @@
+ 
+ static unsigned dotc_stream;
+ 
+-static inline char storage(struct symbol *sym)
+-{
+-	int t = sym->type;
+-	unsigned m = sym->ctype.modifiers;
+-
+-	if (m & MOD_INLINE || t == SYM_STRUCT || t == SYM_UNION /*|| t == SYM_ENUM*/)
+-		return sym->pos.stream == dotc_stream ? 's' : 'g';
+-
+-	return (m & MOD_STATIC) ? 's' : (m & MOD_NONLOCAL) ? 'g' : 'l';
+-}
+-
+ static inline const char *show_mode(unsigned mode)
+ {
+ 	static char str[3];
+@@ -32,14 +21,20 @@ static inline const char *show_mode(unsigned mode)
+ static void print_usage(struct position *pos, struct symbol *sym, unsigned mode)
+ {
+ 	static unsigned curr_stream = -1;
++	static struct ident null;
++	struct ident *ctx = &null;
+ 
+ 	if (curr_stream != pos->stream) {
+ 		curr_stream = pos->stream;
+ 		printf("\nFILE: %s\n\n", stream_name(curr_stream));
+ 	}
+ 
+-	printf("%4d:%-3d %c %-5.3s",
+-		pos->line, pos->pos, storage(sym), show_mode(mode));
++	if (dissect_ctx)
++		ctx = dissect_ctx->ident;
++
++	printf("%4d:%-3d %-16.*s %-5.3s",
++		pos->line, pos->pos, ctx->len, ctx->name, show_mode(mode));
++
+ }
+ 
+ static void r_symbol(unsigned mode, struct position *pos, struct symbol *sym)
+-- 
+2.5.0
 
-In short, using 3G of RAM in 5secs without errors.
-
-
--- Luc
 
