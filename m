@@ -2,129 +2,75 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 66DCB157F94
-	for <lists+linux-sparse@lfdr.de>; Mon, 10 Feb 2020 17:20:46 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 15DF415862A
+	for <lists+linux-sparse@lfdr.de>; Tue, 11 Feb 2020 00:32:20 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727120AbgBJQUq (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Mon, 10 Feb 2020 11:20:46 -0500
-Received: from us-smtp-2.mimecast.com ([205.139.110.61]:53037 "EHLO
-        us-smtp-delivery-1.mimecast.com" rhost-flags-OK-OK-OK-FAIL)
-        by vger.kernel.org with ESMTP id S1727722AbgBJQUq (ORCPT
+        id S1727435AbgBJXcT (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Mon, 10 Feb 2020 18:32:19 -0500
+Received: from mail-wm1-f68.google.com ([209.85.128.68]:54635 "EHLO
+        mail-wm1-f68.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1727431AbgBJXcT (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Mon, 10 Feb 2020 11:20:46 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-        s=mimecast20190719; t=1581351644;
-        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-         to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-         in-reply-to:in-reply-to:references:references;
-        bh=RaZshSmUsIJPu8zhrXtw20Xm6n9n3XhpniCiqC6p6ms=;
-        b=jTF/NvcswYinXoX6AwnswqeO3I8ncspJympNkQU8YwaIpSra7xbj+sMBq6O/py2X89L67q
-        2+0waUFbZBwhOROc0ysL+4S9NbQfgEHpI2LIz6Jc2QxV7tjcIPBtR/TIVZw8BG6xbNedcS
-        M9rj7SZmX2M4xHwpNdrkZRC2EgY5GSU=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-154-f7748MgTOkewx9MYZ4sa6w-1; Mon, 10 Feb 2020 11:20:39 -0500
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
-        (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
-        (No client certificate requested)
-        by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 9E865DBA3;
-        Mon, 10 Feb 2020 16:20:38 +0000 (UTC)
-Received: from dhcp-27-174.brq.redhat.com (unknown [10.43.17.70])
-        by smtp.corp.redhat.com (Postfix) with SMTP id C796860BF3;
-        Mon, 10 Feb 2020 16:20:37 +0000 (UTC)
-Received: by dhcp-27-174.brq.redhat.com (nbSMTP-1.00) for uid 1000
-        oleg@redhat.com; Mon, 10 Feb 2020 17:20:40 +0100 (CET)
-Date:   Mon, 10 Feb 2020 17:20:38 +0100
-From:   Oleg Nesterov <oleg@redhat.com>
-To:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
+        Mon, 10 Feb 2020 18:32:19 -0500
+Received: by mail-wm1-f68.google.com with SMTP id g1so1187674wmh.4
+        for <linux-sparse@vger.kernel.org>; Mon, 10 Feb 2020 15:32:16 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=date:from:to:cc:subject:message-id:references:mime-version
+         :content-disposition:in-reply-to;
+        bh=CJ36DjuSRNrEkxWjkUpo3ZDuiGObrxU2sBvXXNnPXBM=;
+        b=EQ+nPZ/UbbA8hdZCu1zEC24OOzdP+SdHsszcLQ8Wjf3hH+zs6vPFL+CcTM3sYY+M1U
+         uPNtwdEl8Ftw2mMYTHOQhSFnHhtLvsaVyViK++PAY3YT4Ex1v2ae0OipA2kAvpSDbmi5
+         uD/X/HyNys0gT5GKCZTGfs6IzPArUFLbfxEbSWfKYfmcbKeZLNrYjqh+bh7UYiIJyXA/
+         SRX4wZ3mS6SdnVpGfmSIS4O1n06xW8owuU5nBp9IiDWLD1rRkR4zVNp9yd8O4muW4aB8
+         54k6Po0Xspef7Y5upXBe6SRrsM7bptXVn93o5c1F9A2TD48W6f4KfTKF6pP3TtuFM6lc
+         6V5A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+         :mime-version:content-disposition:in-reply-to;
+        bh=CJ36DjuSRNrEkxWjkUpo3ZDuiGObrxU2sBvXXNnPXBM=;
+        b=mOSyMFR42Kjw2UJ11Gp3gsE0+QtpqwC5iMPQWn3ISaFhB7YfgSOf2tH9vyALnBpan1
+         DqZxGwi50MRJUV9Oj9U/6grZD4i8XZmFrnEB05ttkOCEARe9zQ0ORkIIR/HuErD1Ohb5
+         O5saPuIPFznhFRTkccKE3AZsUw0/EeCp3w/DCUoDs+5+pdtGpTitynuyxTmhvpIgjBKu
+         vVKIybfpFa5HV3o+fvVScnsQi5KC6kaizwucdSkvV/V7UXIEbmtagnD2AIGCtaURxGM3
+         /3DFQ3P6VMgBZqdk0Hes4MXPW2Y20S5I4PIlhTkw38C4tvoU8NNrz5CxaqBZwRsGYP+o
+         rTPA==
+X-Gm-Message-State: APjAAAWWtryUwgE2yRtx/zIhkBY4EnZIpa9//te8XJYHLCUpbiWZsZ6o
+        eqx46YMO9eeGokE0jwYyxkY=
+X-Google-Smtp-Source: APXvYqyVGtleL2lqHj/Qm5WDEA2QUWngTly08B1f6w21yBBU3ayA0XozNVHQZRAqtGKWWZMhYkFaiw==
+X-Received: by 2002:a7b:c119:: with SMTP id w25mr1488833wmi.112.1581377536253;
+        Mon, 10 Feb 2020 15:32:16 -0800 (PST)
+Received: from ltop.local ([2a02:a03f:4017:df00:88eb:de9b:ef09:3843])
+        by smtp.gmail.com with ESMTPSA id c15sm2613054wrt.1.2020.02.10.15.32.13
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 10 Feb 2020 15:32:15 -0800 (PST)
+Date:   Tue, 11 Feb 2020 00:32:12 +0100
+From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
+To:     Oleg Nesterov <oleg@redhat.com>
 Cc:     Alexey Gladkov <gladkov.alexey@gmail.com>,
         linux-sparse@vger.kernel.org
-Subject: [PATCH 2/2] dissect: enforce sym->kind='f' when it looks like a
- function call
-Message-ID: <20200210162038.GA29643@redhat.com>
+Subject: Re: [PATCH 1/2] dissect: set sym->kind for reporter
+Message-ID: <20200210233212.xfsktwxhewxgtvr3@ltop.local>
 References: <20200210162018.GA29634@redhat.com>
 MIME-Version: 1.0
-In-Reply-To: <20200210162018.GA29634@redhat.com>
-User-Agent: Mutt/1.5.24 (2015-08-30)
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
-X-MC-Unique: f7748MgTOkewx9MYZ4sa6w-1
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
+In-Reply-To: <20200210162018.GA29634@redhat.com>
 Sender: linux-sparse-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-A separate change for documentation purposes.
+On Mon, Feb 10, 2020 at 05:20:18PM +0100, Oleg Nesterov wrote:
+> Change dissect to report ctags-like kind passed in sym->kind.
+> Currently only v,f,s and m kinds are possible.
+> 
+> SYM_UNION doesn't differ from SYM_STRUCT and has ->kind = 's'.
+> 
+> Signed-off-by: Oleg Nesterov <oleg@redhat.com>
 
-dissect() tries to work even if the parsed code is buggy or incomplete,
-thus it makes sense to change expr_symbol() to set kind = 'f' when it
-likely looks like a function name.
+Thanks.
+Both patches applied and pushed.
 
-We can safely abuse EXPR_SYMBOL->op to pass the hint to expr_symbol(),
-it must be 0.
-
-Test-case:
-
-	void call(void)
-	{
-		func();
-	}
-
-before this patch
-
-	1:14                   def f call                             void ( ... )
-	3:17  call             --r v func                             bad type
-
-after:
-
-	1:14                   def f call                             void ( ... )
-	3:17  call             --r f func                             bad type
-
-Signed-off-by: Oleg Nesterov <oleg@redhat.com>
----
- dissect.c      | 4 +++-
- test-dissect.c | 2 +-
- 2 files changed, 4 insertions(+), 2 deletions(-)
-
-diff --git a/dissect.c b/dissect.c
-index 20456b2..d9ca142 100644
---- a/dissect.c
-+++ b/dissect.c
-@@ -166,7 +166,7 @@ static inline struct symbol *expr_symbol(struct expression *expr)
- 			sym = alloc_symbol(expr->pos, SYM_BAD);
- 			bind_symbol(sym, expr->symbol_name, NS_SYMBOL);
- 			sym->ctype.modifiers = MOD_EXTERN;
--			sym->kind = 'v';
-+			sym->kind = expr->op ?: 'v'; /* see EXPR_CALL */
- 		}
- 	}
- 
-@@ -374,6 +374,8 @@ again:
- 		ret = do_expression(mode, expr->cond_false);
- 
- 	break; case EXPR_CALL:
-+		if (expr->fn->type == EXPR_SYMBOL)
-+			expr->fn->op = 'f'; /* for expr_symbol() */
- 		ret = do_expression(U_R_PTR, expr->fn);
- 		if (is_ptr(ret))
- 			ret = ret->ctype.base_type;
-diff --git a/test-dissect.c b/test-dissect.c
-index 81cc89d..ece2253 100644
---- a/test-dissect.c
-+++ b/test-dissect.c
-@@ -55,7 +55,7 @@ static void r_symbol(unsigned mode, struct position *pos, struct symbol *sym)
- 		goto err;
- 
- 	case 'f':
--		if (sym->ctype.base_type->type != SYM_FN)
-+		if (sym->type != SYM_BAD && sym->ctype.base_type->type != SYM_FN)
- 			goto err;
- 	case 'v':
- 		if (sym->type == SYM_NODE || sym->type == SYM_BAD)
--- 
-2.5.0
-
-
+-- Luc
