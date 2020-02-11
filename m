@@ -2,75 +2,139 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 15DF415862A
-	for <lists+linux-sparse@lfdr.de>; Tue, 11 Feb 2020 00:32:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 0CDBF159425
+	for <lists+linux-sparse@lfdr.de>; Tue, 11 Feb 2020 17:01:42 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727435AbgBJXcT (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Mon, 10 Feb 2020 18:32:19 -0500
-Received: from mail-wm1-f68.google.com ([209.85.128.68]:54635 "EHLO
-        mail-wm1-f68.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1727431AbgBJXcT (ORCPT
+        id S1729216AbgBKQBl (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Tue, 11 Feb 2020 11:01:41 -0500
+Received: from us-smtp-delivery-1.mimecast.com ([205.139.110.120]:58940 "EHLO
+        us-smtp-1.mimecast.com" rhost-flags-OK-OK-OK-FAIL) by vger.kernel.org
+        with ESMTP id S1728389AbgBKQBl (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Mon, 10 Feb 2020 18:32:19 -0500
-Received: by mail-wm1-f68.google.com with SMTP id g1so1187674wmh.4
-        for <linux-sparse@vger.kernel.org>; Mon, 10 Feb 2020 15:32:16 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=date:from:to:cc:subject:message-id:references:mime-version
-         :content-disposition:in-reply-to;
-        bh=CJ36DjuSRNrEkxWjkUpo3ZDuiGObrxU2sBvXXNnPXBM=;
-        b=EQ+nPZ/UbbA8hdZCu1zEC24OOzdP+SdHsszcLQ8Wjf3hH+zs6vPFL+CcTM3sYY+M1U
-         uPNtwdEl8Ftw2mMYTHOQhSFnHhtLvsaVyViK++PAY3YT4Ex1v2ae0OipA2kAvpSDbmi5
-         uD/X/HyNys0gT5GKCZTGfs6IzPArUFLbfxEbSWfKYfmcbKeZLNrYjqh+bh7UYiIJyXA/
-         SRX4wZ3mS6SdnVpGfmSIS4O1n06xW8owuU5nBp9IiDWLD1rRkR4zVNp9yd8O4muW4aB8
-         54k6Po0Xspef7Y5upXBe6SRrsM7bptXVn93o5c1F9A2TD48W6f4KfTKF6pP3TtuFM6lc
-         6V5A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
-         :mime-version:content-disposition:in-reply-to;
-        bh=CJ36DjuSRNrEkxWjkUpo3ZDuiGObrxU2sBvXXNnPXBM=;
-        b=mOSyMFR42Kjw2UJ11Gp3gsE0+QtpqwC5iMPQWn3ISaFhB7YfgSOf2tH9vyALnBpan1
-         DqZxGwi50MRJUV9Oj9U/6grZD4i8XZmFrnEB05ttkOCEARe9zQ0ORkIIR/HuErD1Ohb5
-         O5saPuIPFznhFRTkccKE3AZsUw0/EeCp3w/DCUoDs+5+pdtGpTitynuyxTmhvpIgjBKu
-         vVKIybfpFa5HV3o+fvVScnsQi5KC6kaizwucdSkvV/V7UXIEbmtagnD2AIGCtaURxGM3
-         /3DFQ3P6VMgBZqdk0Hes4MXPW2Y20S5I4PIlhTkw38C4tvoU8NNrz5CxaqBZwRsGYP+o
-         rTPA==
-X-Gm-Message-State: APjAAAWWtryUwgE2yRtx/zIhkBY4EnZIpa9//te8XJYHLCUpbiWZsZ6o
-        eqx46YMO9eeGokE0jwYyxkY=
-X-Google-Smtp-Source: APXvYqyVGtleL2lqHj/Qm5WDEA2QUWngTly08B1f6w21yBBU3ayA0XozNVHQZRAqtGKWWZMhYkFaiw==
-X-Received: by 2002:a7b:c119:: with SMTP id w25mr1488833wmi.112.1581377536253;
-        Mon, 10 Feb 2020 15:32:16 -0800 (PST)
-Received: from ltop.local ([2a02:a03f:4017:df00:88eb:de9b:ef09:3843])
-        by smtp.gmail.com with ESMTPSA id c15sm2613054wrt.1.2020.02.10.15.32.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 10 Feb 2020 15:32:15 -0800 (PST)
-Date:   Tue, 11 Feb 2020 00:32:12 +0100
-From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-To:     Oleg Nesterov <oleg@redhat.com>
+        Tue, 11 Feb 2020 11:01:41 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+        s=mimecast20190719; t=1581436900;
+        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+         to:to:cc:cc:mime-version:mime-version:content-type:content-type;
+        bh=3/2bjNRF3KEzijOinhlCi9fz2GsPse2SRNL6TFNtIGg=;
+        b=AwjA7dXq62dnhYHSZdSGlL+aHXqmldeBXTwWeP+q+0UAvs3F5QW59T921ZKG/dDPs8wa7n
+        mq48ajcattcEbCO0TQm2fydBEdphu1Mtr+Qt39T0Yxcfdef5cvbMd+bYjWQe1sphA/eLVm
+        f9eHmYOxfAk5TcfqOVP2KZIihN3Ita8=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-84-v0c7sS20N-OM4w8me9HHSQ-1; Tue, 11 Feb 2020 11:01:38 -0500
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
+        (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+        (No client certificate requested)
+        by mimecast-mx01.redhat.com (Postfix) with ESMTPS id B6E898017CC;
+        Tue, 11 Feb 2020 16:01:37 +0000 (UTC)
+Received: from dhcp-27-174.brq.redhat.com (unknown [10.43.17.70])
+        by smtp.corp.redhat.com (Postfix) with SMTP id DB9555C1B2;
+        Tue, 11 Feb 2020 16:01:36 +0000 (UTC)
+Received: by dhcp-27-174.brq.redhat.com (nbSMTP-1.00) for uid 1000
+        oleg@redhat.com; Tue, 11 Feb 2020 17:01:37 +0100 (CET)
+Date:   Tue, 11 Feb 2020 17:01:36 +0100
+From:   Oleg Nesterov <oleg@redhat.com>
+To:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 Cc:     Alexey Gladkov <gladkov.alexey@gmail.com>,
         linux-sparse@vger.kernel.org
-Subject: Re: [PATCH 1/2] dissect: set sym->kind for reporter
-Message-ID: <20200210233212.xfsktwxhewxgtvr3@ltop.local>
-References: <20200210162018.GA29634@redhat.com>
+Subject: [PATCH] dissect: introduce sym_is_local() for reporter
+Message-ID: <20200211160136.GA14027@redhat.com>
 MIME-Version: 1.0
+User-Agent: Mutt/1.5.24 (2015-08-30)
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-MC-Unique: v0c7sS20N-OM4w8me9HHSQ-1
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20200210162018.GA29634@redhat.com>
 Sender: linux-sparse-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-On Mon, Feb 10, 2020 at 05:20:18PM +0100, Oleg Nesterov wrote:
-> Change dissect to report ctags-like kind passed in sym->kind.
-> Currently only v,f,s and m kinds are possible.
-> 
-> SYM_UNION doesn't differ from SYM_STRUCT and has ->kind = 's'.
-> 
-> Signed-off-by: Oleg Nesterov <oleg@redhat.com>
+Can be used to filter out the usage of local variables.
 
-Thanks.
-Both patches applied and pushed.
+Signed-off-by: Oleg Nesterov <oleg@redhat.com>
+---
+ dissect.c      |  2 +-
+ dissect.h      |  5 +++++
+ test-dissect.c | 18 ++++++++++++++----
+ 3 files changed, 20 insertions(+), 5 deletions(-)
 
--- Luc
+diff --git a/dissect.c b/dissect.c
+index d9ca142..823a348 100644
+--- a/dissect.c
++++ b/dissect.c
+@@ -165,7 +165,7 @@ static inline struct symbol *expr_symbol(struct expression *expr)
+ 		if (!sym) {
+ 			sym = alloc_symbol(expr->pos, SYM_BAD);
+ 			bind_symbol(sym, expr->symbol_name, NS_SYMBOL);
+-			sym->ctype.modifiers = MOD_EXTERN;
++			sym->ctype.modifiers = MOD_EXTERN | MOD_TOPLEVEL;
+ 			sym->kind = expr->op ?: 'v'; /* see EXPR_CALL */
+ 		}
+ 	}
+diff --git a/dissect.h b/dissect.h
+index efe2c0b..178dba5 100644
+--- a/dissect.h
++++ b/dissect.h
+@@ -27,6 +27,11 @@ struct reporter
+ 
+ extern struct symbol *dissect_ctx;
+ 
++static inline bool sym_is_local(struct symbol *sym)
++{
++	return sym->kind == 'v' && !(sym->ctype.modifiers & MOD_TOPLEVEL);
++}
++
+ extern void dissect(struct symbol_list *, struct reporter *);
+ 
+ #endif
+diff --git a/test-dissect.c b/test-dissect.c
+index ece2253..c4b454c 100644
+--- a/test-dissect.c
++++ b/test-dissect.c
+@@ -37,6 +37,16 @@ static void print_usage(struct position *pos, struct symbol *sym, unsigned mode)
+ 
+ }
+ 
++static char symscope(struct symbol *sym)
++{
++	if (sym_is_local(sym)) {
++		if (!dissect_ctx)
++			warning(sym->pos, "no context");
++		return '.';
++	}
++	return ' ';
++}
++
+ static void r_symbol(unsigned mode, struct position *pos, struct symbol *sym)
+ {
+ 	print_usage(pos, sym, mode);
+@@ -44,8 +54,8 @@ static void r_symbol(unsigned mode, struct position *pos, struct symbol *sym)
+ 	if (!sym->ident)
+ 		sym->ident = built_in_ident("__asm__");
+ 
+-	printf("%c %-32.*s %s\n",
+-		sym->kind, sym->ident->len, sym->ident->name,
++	printf("%c %c %-32.*s %s\n",
++		symscope(sym), sym->kind, sym->ident->len, sym->ident->name,
+ 		show_typename(sym->ctype.base_type));
+ 
+ 	switch (sym->kind) {
+@@ -80,8 +90,8 @@ static void r_member(unsigned mode, struct position *pos, struct symbol *sym, st
+ 	/* mem == NULL means entire struct accessed */
+ 	mi = mem ? mem->ident : built_in_ident("*");
+ 
+-	printf("m %.*s.%-*.*s %s\n",
+-		si->len, si->name,
++	printf("%c m %.*s.%-*.*s %s\n",
++		symscope(sym), si->len, si->name,
+ 		32-1 - si->len, mi->len, mi->name,
+ 		show_typename(mem ? mem->ctype.base_type : sym));
+ 
+-- 
+2.5.0
+
+
