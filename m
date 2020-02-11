@@ -2,127 +2,116 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id AF4CF1595E5
-	for <lists+linux-sparse@lfdr.de>; Tue, 11 Feb 2020 18:04:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 3911B159654
+	for <lists+linux-sparse@lfdr.de>; Tue, 11 Feb 2020 18:41:08 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1728356AbgBKREX (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Tue, 11 Feb 2020 12:04:23 -0500
-Received: from us-smtp-2.mimecast.com ([205.139.110.61]:57146 "EHLO
-        us-smtp-delivery-1.mimecast.com" rhost-flags-OK-OK-OK-FAIL)
-        by vger.kernel.org with ESMTP id S1728369AbgBKREW (ORCPT
+        id S1728975AbgBKRlH (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Tue, 11 Feb 2020 12:41:07 -0500
+Received: from mail-pl1-f172.google.com ([209.85.214.172]:37775 "EHLO
+        mail-pl1-f172.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1728797AbgBKRlH (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Tue, 11 Feb 2020 12:04:22 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-        s=mimecast20190719; t=1581440661;
-        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-         to:to:cc:cc:mime-version:mime-version:content-type:content-type;
-        bh=8qv/v+cG9IgjD1iUFD/UHyVg0RB2nfCTyHb2F2OFppk=;
-        b=OtREucHMU15ohW/hMrbyX8eujZEgGtRHXaHvUcBjtmJczIfuDoWVEkCDWzdTysKvTU3f8f
-        H7a+y2k15C7dnPZcX8tTmEytE6PX7MN3Ws3KdpOb0NksZ3q1C+mJqJyRzQD+jbhFyuezlo
-        wA8SwaJFzZSiL1YkAvpeE37z0PErvrg=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-406-ohgZq62cP-Sx1xVuv35R0g-1; Tue, 11 Feb 2020 12:04:18 -0500
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
-        (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
-        (No client certificate requested)
-        by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 2535210054E3;
-        Tue, 11 Feb 2020 17:04:17 +0000 (UTC)
-Received: from dhcp-27-174.brq.redhat.com (unknown [10.43.17.70])
-        by smtp.corp.redhat.com (Postfix) with SMTP id 4A5B65C100;
-        Tue, 11 Feb 2020 17:04:16 +0000 (UTC)
-Received: by dhcp-27-174.brq.redhat.com (nbSMTP-1.00) for uid 1000
-        oleg@redhat.com; Tue, 11 Feb 2020 18:04:16 +0100 (CET)
-Date:   Tue, 11 Feb 2020 18:04:15 +0100
-From:   Oleg Nesterov <oleg@redhat.com>
-To:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-Cc:     Alexey Gladkov <gladkov.alexey@gmail.com>,
-        linux-sparse@vger.kernel.org
-Subject: [PATCH] dissect: move __sparse() callsite from test-dissect.c to
- dissect.c
-Message-ID: <20200211170415.GA18497@redhat.com>
+        Tue, 11 Feb 2020 12:41:07 -0500
+Received: by mail-pl1-f172.google.com with SMTP id c23so4548040plz.4
+        for <linux-sparse@vger.kernel.org>; Tue, 11 Feb 2020 09:41:07 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=pensando.io; s=google;
+        h=subject:references:to:cc:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-transfer-encoding:content-language;
+        bh=9OPbalWHry5yIdJqtF0qAs8oRqLN2ZWbIhLAEBaU5dw=;
+        b=XHj7Hf0+Di+gg5SMmM2GkX3cuIBUp/EpohIMt/wneXr5kNxiYcYQ5tO7hiv2y+uGs5
+         JNJwF5h6p/Mx9CV9/sTOjwrwXiBcmgB/4iQ4LypPIFih5CsXeH9INEV12U6SjuvJvST1
+         5JV/aAqyC/oYjW/0aZEFboSGDxck7a2IfedQpVbc7Xd5pdAB3jd1ENi8nKpCHPqDOmBp
+         LqMNF2MBN3P/6IS83VYG6vEkUDvJTajs/BzZOKOiiwcUHjkB9jOU/pj3tpOihv0wKnsz
+         VyStvGatUR5uxn07ozn4hE7GqTkm+3lDyxuOgmGcmGRwHM3eb4Vwc8byIPN6iMxd2H5a
+         CP/Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:subject:references:to:cc:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-transfer-encoding
+         :content-language;
+        bh=9OPbalWHry5yIdJqtF0qAs8oRqLN2ZWbIhLAEBaU5dw=;
+        b=caycEYmPKzw9Qf9/f5Cwg9Hy9CAI49HHJnl4jEy+lcTqN4ITXb5U8SiZbuDZFvlvqd
+         tFtijTySuzOCqpFuAODYdrcBtwolo1pFvR4IVtrEPmiAC6QwNXeAFkWr+F7FaHTHsz11
+         r0xN+u2zs+pV2t5Mk2flpXWMu5dZTAYZ+DTNMdMGpB5+YoWk5CXn/wdf6E+Tv/xj3vfJ
+         Z1FJheovkoGsy07ln7Q9dM2M2DJgOPGoyv5Gvkl9ADWzH4BZ0qnvdQvZHmLbbuf1YneZ
+         MXQswFehxcYegpOLxOeZkcB1toOhcpYlL+ahgWRfNkPHbO9SypUjFKsblAR+/ef0mb4K
+         8Wrg==
+X-Gm-Message-State: APjAAAXN1cTQQw7z0kWBrg1E0l45APijxtbX2xrknnpoDm64eunsLahy
+        CT8s1zBPtE6/noYtCS7+LQ676w==
+X-Google-Smtp-Source: APXvYqy0Z/UrxEunK2KyEB1ouZhkDmEDfliKIDaTXeeygblkG/D+Jfm7Ko2Act8NEPQn2zPaEmLw5g==
+X-Received: by 2002:a17:90a:d789:: with SMTP id z9mr4990057pju.5.1581442866923;
+        Tue, 11 Feb 2020 09:41:06 -0800 (PST)
+Received: from Shannons-MacBook-Pro.local (static-50-53-47-17.bvtn.or.frontiernet.net. [50.53.47.17])
+        by smtp.gmail.com with ESMTPSA id y16sm4779243pfn.177.2020.02.11.09.41.06
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 11 Feb 2020 09:41:06 -0800 (PST)
+Subject: smatch/sparse complaints on static assertion
+References: <e588417e-1bf4-35e3-d8d9-9911fe29e0f5@pensando.io>
+To:     linux-sparse@vger.kernel.org
+Cc:     Dan Carpenter <dan.carpenter@oracle.com>
+From:   Shannon Nelson <snelson@pensando.io>
+X-Forwarded-Message-Id: <e588417e-1bf4-35e3-d8d9-9911fe29e0f5@pensando.io>
+Message-ID: <ecdd10cb-0022-8f8a-ec36-9d51b3ae85ee@pensando.io>
+Date:   Tue, 11 Feb 2020 09:41:05 -0800
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:68.0)
+ Gecko/20100101 Thunderbird/68.4.2
 MIME-Version: 1.0
-User-Agent: Mutt/1.5.24 (2015-08-30)
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
-X-MC-Unique: ohgZq62cP-Sx1xVuv35R0g-1
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+In-Reply-To: <e588417e-1bf4-35e3-d8d9-9911fe29e0f5@pensando.io>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Content-Language: en-US
 Sender: linux-sparse-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-This is more flexible. For example, we can change dissect() to inspect
-file_scope->symbols too without changing its callers.
+Hi All,
 
-Signed-off-by: Oleg Nesterov <oleg@redhat.com>
----
- dissect.c      |  5 +++--
- dissect.h      |  2 +-
- test-dissect.c | 11 ++---------
- 3 files changed, 6 insertions(+), 12 deletions(-)
+I'm getting complaints from smatch on the ionic network driver's static 
+assertions and am not sure why it was complaining.  Dan Carpenter 
+suggested this might be an issue in sparse with how it is calculating 
+the sizes of the unions.
 
-diff --git a/dissect.c b/dissect.c
-index 823a348..499e0a0 100644
---- a/dissect.c
-+++ b/dissect.c
-@@ -642,8 +642,9 @@ static void do_sym_list(struct symbol_list *list)
- 	DO_LIST(list, sym, do_symbol(sym));
- }
- 
--void dissect(struct symbol_list *list, struct reporter *rep)
-+void dissect(struct reporter *rep, struct string_list *filelist)
- {
- 	reporter = rep;
--	do_sym_list(list);
-+
-+	DO_LIST(filelist, file, do_sym_list(__sparse(file)));
- }
-diff --git a/dissect.h b/dissect.h
-index 178dba5..326d3dc 100644
---- a/dissect.h
-+++ b/dissect.h
-@@ -32,6 +32,6 @@ static inline bool sym_is_local(struct symbol *sym)
- 	return sym->kind == 'v' && !(sym->ctype.modifiers & MOD_TOPLEVEL);
- }
- 
--extern void dissect(struct symbol_list *, struct reporter *);
-+extern void dissect(struct reporter *, struct string_list *);
- 
- #endif
-diff --git a/test-dissect.c b/test-dissect.c
-index c4b454c..4b2d3be 100644
---- a/test-dissect.c
-+++ b/test-dissect.c
-@@ -1,7 +1,5 @@
- #include "dissect.h"
- 
--static unsigned dotc_stream;
--
- static inline const char *show_mode(unsigned mode)
- {
- 	static char str[3];
-@@ -119,15 +117,10 @@ int main(int argc, char **argv)
- 		.r_symbol = r_symbol,
- 		.r_member = r_member,
- 	};
--	struct string_list *filelist = NULL;
--	char *file;
- 
-+	struct string_list *filelist = NULL;
- 	sparse_initialize(argc, argv, &filelist);
--
--	FOR_EACH_PTR(filelist, file) {
--		dotc_stream = input_stream_nr;
--		dissect(__sparse(file), &reporter);
--	} END_FOR_EACH_PTR(file);
-+	dissect(&reporter, filelist);
- 
- 	return 0;
- }
--- 
-2.5.0
+I ran this at the top of a pretty recent net-next tree 
+(v5.5-rc7-1839-g8192c36)
+$ ../smatch/smatch_scripts/kchecker drivers/net/ethernet/pensando/ionic/
+
+And got several copies of this:
+
+drivers/net/ethernet/pensando/ionic/ionic_dev.h:38:1: error: static 
+assertion failed: "sizeof(union ionic_dev_regs) == 4096"
+drivers/net/ethernet/pensando/ionic/ionic_dev.h:40:1: error: static 
+assertion failed: "sizeof(union ionic_dev_cmd_regs) == 2048"
+drivers/net/ethernet/pensando/ionic/ionic_dev.h:56:1: error: static 
+assertion failed: "sizeof(struct ionic_dev_getattr_comp) == 16"
+drivers/net/ethernet/pensando/ionic/ionic_dev.h:57:1: error: static 
+assertion failed: "sizeof(struct ionic_dev_setattr_cmd) == 64"
+drivers/net/ethernet/pensando/ionic/ionic_dev.h:58:1: error: static 
+assertion failed: "sizeof(struct ionic_dev_setattr_comp) == 16"
+drivers/net/ethernet/pensando/ionic/ionic_dev.h:68:1: error: static 
+assertion failed: "sizeof(struct ionic_port_getattr_comp) == 16"
+drivers/net/ethernet/pensando/ionic/ionic_dev.h:78:1: error: static 
+assertion failed: "sizeof(struct ionic_lif_getattr_comp) == 16"
+drivers/net/ethernet/pensando/ionic/ionic_dev.h:79:1: error: static 
+assertion failed: "sizeof(struct ionic_lif_setattr_cmd) == 64"
+drivers/net/ethernet/pensando/ionic/ionic_dev.h:80:1: error: static 
+assertion failed: "sizeof(struct ionic_lif_setattr_comp) == 16"
+drivers/net/ethernet/pensando/ionic/ionic_dev.h:82:1: error: static 
+assertion failed: "sizeof(struct ionic_q_init_cmd) == 64"
+drivers/net/ethernet/pensando/ionic/ionic_dev.h:117:1: error: static 
+assertion failed: "sizeof(struct ionic_vf_setattr_cmd) == 64"
+drivers/net/ethernet/pensando/ionic/ionic_dev.h:120:1: error: static 
+assertion failed: "sizeof(struct ionic_vf_getattr_comp) == 16"
+
+These static assertion lines have been fine up until now and I'm pretty 
+sure they are correct.
+
+Has this issue been seen elsewhere?  Or is there something I can do in 
+our code to get rid of the complaints?
+
+Thanks,
+sln
+
 
 
