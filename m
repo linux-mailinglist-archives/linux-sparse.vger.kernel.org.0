@@ -2,86 +2,103 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id BC503159E2F
-	for <lists+linux-sparse@lfdr.de>; Wed, 12 Feb 2020 01:41:38 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 5BC34159E75
+	for <lists+linux-sparse@lfdr.de>; Wed, 12 Feb 2020 02:01:48 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1728070AbgBLAli (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Tue, 11 Feb 2020 19:41:38 -0500
-Received: from mail-wr1-f66.google.com ([209.85.221.66]:43766 "EHLO
-        mail-wr1-f66.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1728057AbgBLAlh (ORCPT
+        id S1728193AbgBLBBs (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Tue, 11 Feb 2020 20:01:48 -0500
+Received: from mail-pf1-f169.google.com ([209.85.210.169]:46991 "EHLO
+        mail-pf1-f169.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1728128AbgBLBBr (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Tue, 11 Feb 2020 19:41:37 -0500
-Received: by mail-wr1-f66.google.com with SMTP id r11so60646wrq.10
-        for <linux-sparse@vger.kernel.org>; Tue, 11 Feb 2020 16:41:37 -0800 (PST)
+        Tue, 11 Feb 2020 20:01:47 -0500
+Received: by mail-pf1-f169.google.com with SMTP id k29so312662pfp.13
+        for <linux-sparse@vger.kernel.org>; Tue, 11 Feb 2020 17:01:47 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=date:from:to:cc:subject:message-id:references:mime-version
-         :content-disposition:in-reply-to;
-        bh=OfwYrfVNogvS0Sr0A0HDZuUBB66L1y00K2trW1fPHKc=;
-        b=duDSIdIjD3ut8/Qr9KO975mPbCwIijEW/CboIhUvStD4j1g3GymMDCctsN8hsPIBMt
-         d18xFhiTMKoGfenUO5tXkgbw5Atyr3eZ3mAC5RvlpSk+vwMpxmqpU2X77VPGurqDVCby
-         Mdf4Mdm2MTbZRgmtEWPLoOxkiiJCr2fPt1Aa/9fRZldgYOhmTGQzb2RqSzGOqvE+2+kf
-         MXueb1g02W8FOF/SckvQs5DZmEUSJHs9l2WL9u4ZtLZyUDHJ+AuH/OBA3zty+lJ2YgeW
-         KngBWzHjowV/SBGbXOJUszM+LIwlCqx/w52TuhTIum5mrUoelnBNf/8NEblk3h4wUPAW
-         I7MA==
+        d=pensando.io; s=google;
+        h=subject:to:cc:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-transfer-encoding:content-language;
+        bh=aH6WiKgRZO79ki4ihSRSHFVzruz5zkCM2Bp/NgHrJyE=;
+        b=mKCb335k4fn/21jQJF//ysNPTKFGJeThB34fbkzHyX3C5riS1Lo932mZx2TVFF+0KZ
+         JysuaWVoQkaa2auJPsFPLz3+5HTwZrRe05sg+4kNH+gueW3fnV1PERZxdSILl8RrYR1e
+         6cKB7Iq0i2vHeJSFpv78vjJJmY6uL1+K9NdqlTqxRPAZrW+0c1e1sMG/DgLaMKMALhOo
+         SVgMdA1vU7AXdVgXaALzh1nEzWeOuIbSzy2C3/wBMQUv9xJwUcyz/aqz1CEKIqJRSaHC
+         87ZFwZhJOP5bEarTRbsJ4mLPuWtWg/KetYvQHqV4are8mbfIo83TUyYgKpwiCjiEekng
+         8Uxg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
-         :mime-version:content-disposition:in-reply-to;
-        bh=OfwYrfVNogvS0Sr0A0HDZuUBB66L1y00K2trW1fPHKc=;
-        b=H/fuZVduXt62QxdZaV2HYRu6rUpZbQ1U9QMcH71U+Iq9B8zy8aY5lHRvlwXOX1PvFD
-         syezA3Dvbkc3nbjKmwPyCtMrGg+4GIULNccRaNYTpDunP+SZEg5Ok5k0g6XycZ5P1wzq
-         NNDWtdp8dXQBXLLQiMVnHjT/i6LkzfX7fb7Vu/5mKbVMpqg/ws60HAGPa4tSmfYfWS6d
-         OER+j2AGWGuraRG+MFoAWbaBNe69kzeeO0QFuFfg+HtoGMs887LGIZ/aV4dxKN5SQT4L
-         SaQNSxC4gspgwMh4Mv53zcA7NdnRYGP73Htibt+G/bP6vqgVADmehlIE94OETouXB1up
-         gv4w==
-X-Gm-Message-State: APjAAAWktfIrd8zIh4bF9mgA+RqVR9YNzR8zQt33IskaIMni170TH5VO
-        AgaZdr7E/0V8XE5m7giiI54K4mSt1Ok=
-X-Google-Smtp-Source: APXvYqwHETC8ZfrdPS8ZgslMnDHi8rbEy6jxp6zcg7puakmx4MmA8waw9WTkZSWTTUVfbkqOnzng1Q==
-X-Received: by 2002:a5d:4a0f:: with SMTP id m15mr11541756wrq.415.1581468096500;
-        Tue, 11 Feb 2020 16:41:36 -0800 (PST)
-Received: from ltop.local ([2a02:a03f:4017:df00:5f6:4f42:5a99:8d6c])
-        by smtp.gmail.com with ESMTPSA id h13sm8545248wrw.54.2020.02.11.16.41.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 11 Feb 2020 16:41:35 -0800 (PST)
-Date:   Wed, 12 Feb 2020 01:41:35 +0100
-From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-To:     Oleg Nesterov <oleg@redhat.com>
-Cc:     Alexey Gladkov <gladkov.alexey@gmail.com>,
-        linux-sparse@vger.kernel.org
-Subject: Re: [PATCH] dissect: introduce sym_is_local() for reporter
-Message-ID: <20200212004135.cyzcqtwwcuewa4gj@ltop.local>
-References: <20200211160136.GA14027@redhat.com>
+        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-transfer-encoding
+         :content-language;
+        bh=aH6WiKgRZO79ki4ihSRSHFVzruz5zkCM2Bp/NgHrJyE=;
+        b=V9C1SDVfZMT0epG1JZQStcxcr82GmwgWGmlfDFt2bfJSKCp3GKKhzEFEjB0LJL26Nh
+         LMGpkWwRVVeAFG1lo/BuuX1weehBzQEXVFQm9apSNnHewTsVIstHSDw+uwbbnEilwpo7
+         QssZUzYy2kfO+kMVNIXuIcmu+ws27PRbFNK87Szhig4kGO5aTdGoW6w7IDreloArCLDc
+         VrWzdUXyFTQnRIP5jiW2NqYxyxIMCCif7ftJB8m5Sh+qObKWg73FS+JHnlGVGkT/Zufv
+         vBcb7dUzgY6FzOfLqDNrI/fSgtx/dhyo0pFi5H/migUzTCBNnzpeXBrkNmPHeyb+rzHa
+         Dpsg==
+X-Gm-Message-State: APjAAAVbcfa+YFEcrnpEgLt6wqYs3hBzK/b8omoY2ls2oSpV1aLsR7ti
+        p4w3AGUTPasPWL1fWeJCVy+B5g==
+X-Google-Smtp-Source: APXvYqwOfBshHPuoOCb84/6DG75zwEke4UR/4T4wxwle2Wbvw1f1whZtgKqbjWoVi7Od2OE5g6PglA==
+X-Received: by 2002:a62:cece:: with SMTP id y197mr6067425pfg.9.1581469307098;
+        Tue, 11 Feb 2020 17:01:47 -0800 (PST)
+Received: from Shannons-MacBook-Pro.local (static-50-53-47-17.bvtn.or.frontiernet.net. [50.53.47.17])
+        by smtp.gmail.com with ESMTPSA id t11sm79087pgi.15.2020.02.11.17.01.46
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 11 Feb 2020 17:01:46 -0800 (PST)
+Subject: Re: smatch/sparse complaints on static assertion
+To:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
+Cc:     linux-sparse@vger.kernel.org,
+        Dan Carpenter <dan.carpenter@oracle.com>
+References: <e588417e-1bf4-35e3-d8d9-9911fe29e0f5@pensando.io>
+ <ecdd10cb-0022-8f8a-ec36-9d51b3ae85ee@pensando.io>
+ <20200212003128.pieng2rlw7mykhvk@ltop.local>
+From:   Shannon Nelson <snelson@pensando.io>
+Message-ID: <23e34336-22fa-d14d-c765-877abc05df12@pensando.io>
+Date:   Tue, 11 Feb 2020 17:01:45 -0800
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:68.0)
+ Gecko/20100101 Thunderbird/68.4.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20200211160136.GA14027@redhat.com>
+In-Reply-To: <20200212003128.pieng2rlw7mykhvk@ltop.local>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Content-Language: en-US
 Sender: linux-sparse-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-On Tue, Feb 11, 2020 at 05:01:36PM +0100, Oleg Nesterov wrote:
-> Can be used to filter out the usage of local variables.
+On 2/11/20 4:31 PM, Luc Van Oostenryck wrote:
+> On Tue, Feb 11, 2020 at 09:41:05AM -0800, Shannon Nelson wrote:
+>> Hi All,
+>>
+>> I'm getting complaints from smatch on the ionic network driver's static
+>> assertions and am not sure why it was complaining.  Dan Carpenter suggested
+>> this might be an issue in sparse with how it is calculating the sizes of the
+>> unions.
+>>
+>> I ran this at the top of a pretty recent net-next tree
+>> (v5.5-rc7-1839-g8192c36)
+>> $ ../smatch/smatch_scripts/kchecker drivers/net/ethernet/pensando/ionic/
+>>
+>> And got several copies of this:
+>>
+>> drivers/net/ethernet/pensando/ionic/ionic_dev.h:38:1: error: static
+>> assertion failed: "sizeof(union ionic_dev_regs) == 4096"
+> ...
+>   
+>> These static assertion lines have been fine up until now and I'm pretty sure
+>> they are correct.
+>>
+>> Has this issue been seen elsewhere?  Or is there something I can do in our
+>> code to get rid of the complaints?
+> This is caused by the packing of the structs. It's using
+> 	#pragma pack(push, 1) / #pragma pack(pop)
+> which is not supported by Sparse. Packing via __attribute__((packed))
+> is incomplete but the pragmas are currently completly ignored.
+>
+> -- Luc Van Oostenryck
 
-...
- 
-> diff --git a/dissect.h b/dissect.h
-> index efe2c0b..178dba5 100644
-> --- a/dissect.h
-> +++ b/dissect.h
-> @@ -27,6 +27,11 @@ struct reporter
->  
->  extern struct symbol *dissect_ctx;
->  
-> +static inline bool sym_is_local(struct symbol *sym)
-> +{
-> +	return sym->kind == 'v' && !(sym->ctype.modifiers & MOD_TOPLEVEL);
-> +}
-> +
+Ah, that makes sense.  Thanks.
+sln
 
-Shouldn't MOD_STATIC be added to the test?
-It depends on what exactly you want for 'local'.
-
--- Luc
