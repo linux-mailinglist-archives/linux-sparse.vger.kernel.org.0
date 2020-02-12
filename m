@@ -2,105 +2,110 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id F34FE159E7C
-	for <lists+linux-sparse@lfdr.de>; Wed, 12 Feb 2020 02:05:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id F3E2515A435
+	for <lists+linux-sparse@lfdr.de>; Wed, 12 Feb 2020 10:06:37 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1728134AbgBLBFI (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Tue, 11 Feb 2020 20:05:08 -0500
-Received: from mail-pj1-f68.google.com ([209.85.216.68]:38435 "EHLO
-        mail-pj1-f68.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1728120AbgBLBFI (ORCPT
+        id S1728567AbgBLJGh (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Wed, 12 Feb 2020 04:06:37 -0500
+Received: from us-smtp-delivery-1.mimecast.com ([207.211.31.120]:38617 "EHLO
+        us-smtp-1.mimecast.com" rhost-flags-OK-OK-OK-FAIL) by vger.kernel.org
+        with ESMTP id S1728150AbgBLJGh (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Tue, 11 Feb 2020 20:05:08 -0500
-Received: by mail-pj1-f68.google.com with SMTP id j17so114156pjz.3
-        for <linux-sparse@vger.kernel.org>; Tue, 11 Feb 2020 17:05:07 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=pensando.io; s=google;
-        h=subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-transfer-encoding:content-language;
-        bh=I9U01sDDkRumjEWInmnUkatOksPrPZbKHRM/UglzUfg=;
-        b=WxEjGEs6C+mQLEXCPEuUGOYZ+XcMOllwjObDpKVMbZ8BZUqbx62QZSX1pHo+L5reC9
-         Ti/LHzvJmy19sOnlzfFl+5u5yrSKoWYrYrcfGM7vya+/tvnlz7qucZTWy6u7xPO/4JvT
-         fej1yc54F1na2VFPpaNxDysFeFfeIGqn7hCQQhwA8uup9cksZ46kffeqo0T6vVFD6jKW
-         ri9VLcFtBl3pzuKL0PVPbUHVQScwkP/pBZyw0BhIKCbWdkh1sic1JG5vr3iarxawPkyz
-         hbz2+Qwrl7sv4kzi7EBkxYvk3PgwhO8AIbvR+nE7CoGCvlGoMdBi1z5PqSzAnvwX6Mjd
-         AEAA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-transfer-encoding
-         :content-language;
-        bh=I9U01sDDkRumjEWInmnUkatOksPrPZbKHRM/UglzUfg=;
-        b=EpaZJjNDgWIvX1UEKyAxVVe/j2HJNZ+aPnUX8cOedfr2dDUNEx07EjeZWjYrdqVXpN
-         GrPrzN0ivS+H9zkEjrZ0ozsEL62v00XSkWbSB7Acz15PX5ssfMMWY34B1g0G79SuHfNe
-         b3y0nRa/MCBcbBio1oBniWsXtfhUITANGJPzgKIBNEfHSkpV0uzZHAnfc4PNfioWCisN
-         rI9mb81J2i8DqawNrDhzKPgDHSdNrR0uN80136ZB1hlknqXLbvfR0bpj8/Pg0aGTgNjY
-         74poEzYyz3TDhJVuq/4mO9vIzbbwHN0ZFTEhm23ujS+MiVaWAskRPIBOAaAqPxt+y+yg
-         gkWA==
-X-Gm-Message-State: APjAAAWRrHtHmsiuMevclKPsrCBqwVqPW7JCJCfTxz/4dvUZhQKQ/VZn
-        CqgqaHjlTGvU96UNi6fxFAdkwQ==
-X-Google-Smtp-Source: APXvYqwvAfBY15AOJDD8zK32p3dDpjJyy0M9iL3XKjEUmo7xSYbKXwdfB5rb+ZbV9kuZJnBq8Xpw2A==
-X-Received: by 2002:a17:90a:e2ce:: with SMTP id fr14mr6553418pjb.99.1581469507323;
-        Tue, 11 Feb 2020 17:05:07 -0800 (PST)
-Received: from Shannons-MacBook-Pro.local (static-50-53-47-17.bvtn.or.frontiernet.net. [50.53.47.17])
-        by smtp.gmail.com with ESMTPSA id 3sm4747063pjg.27.2020.02.11.17.05.06
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 11 Feb 2020 17:05:06 -0800 (PST)
-Subject: Re: smatch/sparse complaints on static assertion
-To:     Linus Torvalds <torvalds@linux-foundation.org>
-Cc:     Sparse Mailing-list <linux-sparse@vger.kernel.org>,
-        Dan Carpenter <dan.carpenter@oracle.com>
-References: <e588417e-1bf4-35e3-d8d9-9911fe29e0f5@pensando.io>
- <ecdd10cb-0022-8f8a-ec36-9d51b3ae85ee@pensando.io>
- <CAHk-=wi7jGZ+bVbt-UfXOkpEQdHzF3Z2HBjkGdjh8q4dvPPGWQ@mail.gmail.com>
-From:   Shannon Nelson <snelson@pensando.io>
-Message-ID: <78345bc2-5d81-24b8-89fe-45887c58c425@pensando.io>
-Date:   Tue, 11 Feb 2020 17:05:05 -0800
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:68.0)
- Gecko/20100101 Thunderbird/68.4.2
+        Wed, 12 Feb 2020 04:06:37 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+        s=mimecast20190719; t=1581498396;
+        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+         to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+         in-reply-to:in-reply-to:references:references;
+        bh=1kMMzjODc3RgXHq8MAV+JgWbs+N727zK6WWlZeTTpeo=;
+        b=QK0igqHt729FuawY/KrZDA6laVN4T4ayOfVdi6EdPPFTIiQiIaxKcysKc7/pjyAnmZl02Y
+        W/h9JK1JK/ZyS/K3GukP6o5HwUZUWSQOTwKgJNl2zdh50IOCFyoNZ1ni8ziufKUy4pU/Bj
+        ZqQL2Fb9QOfUujiL13vgebZYESGjHqI=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-107-C-DqzZS2O7mbPbLIoH5rlg-1; Wed, 12 Feb 2020 04:06:29 -0500
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
+        (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+        (No client certificate requested)
+        by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 9698713E6;
+        Wed, 12 Feb 2020 09:06:28 +0000 (UTC)
+Received: from dhcp-27-174.brq.redhat.com (unknown [10.43.17.70])
+        by smtp.corp.redhat.com (Postfix) with SMTP id BC1915C12E;
+        Wed, 12 Feb 2020 09:06:27 +0000 (UTC)
+Received: by dhcp-27-174.brq.redhat.com (nbSMTP-1.00) for uid 1000
+        oleg@redhat.com; Wed, 12 Feb 2020 10:06:28 +0100 (CET)
+Date:   Wed, 12 Feb 2020 10:06:27 +0100
+From:   Oleg Nesterov <oleg@redhat.com>
+To:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
+Cc:     Alexey Gladkov <gladkov.alexey@gmail.com>,
+        linux-sparse@vger.kernel.org
+Subject: Re: [PATCH] dissect: introduce sym_is_local() for reporter
+Message-ID: <20200212090626.GA19406@redhat.com>
+References: <20200211160136.GA14027@redhat.com>
+ <20200212004135.cyzcqtwwcuewa4gj@ltop.local>
 MIME-Version: 1.0
-In-Reply-To: <CAHk-=wi7jGZ+bVbt-UfXOkpEQdHzF3Z2HBjkGdjh8q4dvPPGWQ@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Content-Language: en-US
+In-Reply-To: <20200212004135.cyzcqtwwcuewa4gj@ltop.local>
+User-Agent: Mutt/1.5.24 (2015-08-30)
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-MC-Unique: C-DqzZS2O7mbPbLIoH5rlg-1
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 Sender: linux-sparse-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-On 2/11/20 4:36 PM, Linus Torvalds wrote:
-> On Tue, Feb 11, 2020 at 9:41 AM Shannon Nelson <snelson@pensando.io> wrote:
->> drivers/net/ethernet/pensando/ionic/ionic_dev.h:56:1: error: static
->> assertion failed: "sizeof(struct ionic_dev_getattr_comp) == 16"
-> As Luc says, this is because those structures are mis-declared.
+On 02/12, Luc Van Oostenryck wrote:
 >
-> See this, for example:
+> On Tue, Feb 11, 2020 at 05:01:36PM +0100, Oleg Nesterov wrote:
+> > Can be used to filter out the usage of local variables.
 >
->    struct ionic_dev_getattr_comp {
->          u8     status;
->          u8     rsvd[3];
->          union {
->                  __le64  features;
->                  u8      rsvd2[11];
->          };
->          u8     color;
->    };
+> ...
 >
-> and notice how "__le64  features" is a 64-bit entity but it's in a
-> union with a "u8 rsvd2[11];".
+> > diff --git a/dissect.h b/dissect.h
+> > index efe2c0b..178dba5 100644
+> > --- a/dissect.h
+> > +++ b/dissect.h
+> > @@ -27,6 +27,11 @@ struct reporter
+> >
+> >  extern struct symbol *dissect_ctx;
+> >
+> > +static inline bool sym_is_local(struct symbol *sym)
+> > +{
+> > +	return sym->kind == 'v' && !(sym->ctype.modifiers & MOD_TOPLEVEL);
+> > +}
+> > +
 >
-> That makes the whole union align to the same as the __le64 (on x86-32,
-> that's 32-bit, for bad legacy reasons, on everything else it's
-> 64-bit).
->
-> Mark the associated types properly packed individually, rather than
-> use the disgusting "pragma pack()" that should never be used.
->
-> This is not a recent sparse change, it must never have worked.
->
->              Linus
+> Shouldn't MOD_STATIC be added to the test?
 
-Thanks, I'll try to work that into this next net-next cycle.
+perhaps I misread bind_symbol() ... but it seems to me MOD_TOPLEVEL is
+enough. bind_symbol() does
 
-sln
+	scope = block_scope;
+	if (ns == NS_SYMBOL && toplevel(scope)) {
+		mod = MOD_ADDRESSABLE | MOD_TOPLEVEL;
+		...
+		sym->ctype.modifiers |= mod;
+	}
+
+toplevel(block_scope) should be true after start_file_scope() sets
+"block_scope = file_scope" and until start_function_scope(), right?
+
+> It depends on what exactly you want for 'local'.
+
+Yes, it should only return T if the symbol was defined inside some function.
+If we have
+
+	static int I;
+
+in file scope, sym_is_local() should return false and so it does, test-dissect
+outputs
+
+	1:12                   def   v I                                int
+
+Thanks for looking!
+
+Oleg.
 
