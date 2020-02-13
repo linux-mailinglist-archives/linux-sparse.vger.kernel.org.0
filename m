@@ -2,115 +2,87 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 3C31C15A59D
-	for <lists+linux-sparse@lfdr.de>; Wed, 12 Feb 2020 11:04:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 4EB0D15C99C
+	for <lists+linux-sparse@lfdr.de>; Thu, 13 Feb 2020 18:41:35 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1728715AbgBLKEo (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Wed, 12 Feb 2020 05:04:44 -0500
-Received: from us-smtp-2.mimecast.com ([205.139.110.61]:43655 "EHLO
-        us-smtp-delivery-1.mimecast.com" rhost-flags-OK-OK-OK-FAIL)
-        by vger.kernel.org with ESMTP id S1728754AbgBLKEo (ORCPT
+        id S1727671AbgBMRle (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Thu, 13 Feb 2020 12:41:34 -0500
+Received: from mail-wr1-f66.google.com ([209.85.221.66]:45398 "EHLO
+        mail-wr1-f66.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1727076AbgBMRle (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Wed, 12 Feb 2020 05:04:44 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-        s=mimecast20190719; t=1581501883;
-        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-         to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-         in-reply-to:in-reply-to:references:references;
-        bh=xBZck5bzZE4EUv0OCYzqNOJufvtjsvnT6Rw10BX45Og=;
-        b=Q1YjN6Y+b6KO5xqWKITG3tvK+lP/oq3pM6fVH3jB+9Fb8nn7hRxE/2O+VlHQJkEVBFY/no
-        jIFQ0R6mDjb0RwbrRmHN0Vj1d9GvS61/9RDX72XhNtz6QvDz6blcPsEuUiFvh53gkELSpA
-        aq5RUIHIO8zQ6rihhYKXjTvRnX52SdE=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-174-g7tOuGpAMqyNU0LdBIPR_g-1; Wed, 12 Feb 2020 05:04:40 -0500
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
-        (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
-        (No client certificate requested)
-        by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 092278017DF;
-        Wed, 12 Feb 2020 10:04:39 +0000 (UTC)
-Received: from dhcp-27-174.brq.redhat.com (unknown [10.43.17.70])
-        by smtp.corp.redhat.com (Postfix) with SMTP id 2F33A5DA7B;
-        Wed, 12 Feb 2020 10:04:38 +0000 (UTC)
-Received: by dhcp-27-174.brq.redhat.com (nbSMTP-1.00) for uid 1000
-        oleg@redhat.com; Wed, 12 Feb 2020 11:04:38 +0100 (CET)
-Date:   Wed, 12 Feb 2020 11:04:37 +0100
-From:   Oleg Nesterov <oleg@redhat.com>
-To:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
+        Thu, 13 Feb 2020 12:41:34 -0500
+Received: by mail-wr1-f66.google.com with SMTP id g3so7732607wrs.12
+        for <linux-sparse@vger.kernel.org>; Thu, 13 Feb 2020 09:41:32 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=date:from:to:cc:subject:message-id:references:mime-version
+         :content-disposition:in-reply-to;
+        bh=xO55YNCdTcph0RnkKdgshB5XUWimKk0fsSmV+kP957A=;
+        b=PROnHN5pZwfBDbT2dno8eWXMsTcIBpsf+RDLVNkqXVncT5BrQEKpddinZigoE73aVy
+         La8cperjohsCTf2OyWQIXmOnXNFuvc+9cROBmXfr3Sazvb23ly8gEs2xxu/p6Hp5cJDS
+         io6ocqwONecuCVgWbtWGy25yZ6A+A//E9Vtk9wvVHhFoiLG9p+Dso5B2nhrF39hegDmT
+         uhIHlaTFVq7aLdMQGEAgPviyzd/Jx69A4EAj7UFzbvN4WBcrvgv/93YIti0RuYsJ3hkF
+         tMhkHGHuvGs8yoy537ylAyAb3sUZxVnOmcXPZ0xNxsIM+ayyFMZiHmwavLMMsdZJc8c2
+         0Miw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+         :mime-version:content-disposition:in-reply-to;
+        bh=xO55YNCdTcph0RnkKdgshB5XUWimKk0fsSmV+kP957A=;
+        b=kPLg2994NzjPVYpIt46x6XueJ9D+Zkz85hQZt83ExEEYsc/WR5WK3HxzR60tdf9EaA
+         iiBBeGoEXgU/ydtvTKJabdmPyKCZjjhH7hY7jAt7evBuzmqNTlxYUYWcY3TTDgLC/XJf
+         a+QrFC0JziByvM60+odwDYpY9XEKF3YpiOfdHlznkw5Yps3mcXq7fSVyj1VLinLiBqGw
+         M0mRarW1cyP4mY5E/0RhPfIhf1nDIdi6Qf+yXZff7e49EBIzRmVa6vjYxgk2/jaRDOyP
+         +RgT4jKocZ5qYR2O7Cg+nojvDDcUT3EInyNhBcVKPAQ6m2jYC3JYrzlDpXUv5HmyuMq4
+         5IXg==
+X-Gm-Message-State: APjAAAUZ+TYdLZlL0lKdRXqjDlx4rRUVrXHEi1ikdwPUKRcpavOytQDW
+        3UFAYt1+uKyodh5uv4H5sjE=
+X-Google-Smtp-Source: APXvYqzTePH+hwylqvQqvThgVEoHfXjnlXIl5MChXkAjl4ecuW0TVJ/r9TCuEgYqWfjTSvy3+sloFw==
+X-Received: by 2002:a5d:488c:: with SMTP id g12mr23266559wrq.67.1581615692255;
+        Thu, 13 Feb 2020 09:41:32 -0800 (PST)
+Received: from ltop.local ([2a02:a03f:40bd:500:dd61:1fcd:79f7:26a5])
+        by smtp.gmail.com with ESMTPSA id o9sm792663wrw.20.2020.02.13.09.41.30
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 13 Feb 2020 09:41:31 -0800 (PST)
+Date:   Thu, 13 Feb 2020 18:41:30 +0100
+From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
+To:     Oleg Nesterov <oleg@redhat.com>
 Cc:     Alexey Gladkov <gladkov.alexey@gmail.com>,
         linux-sparse@vger.kernel.org
-Subject: [PATCH 2/2] dissect: kill no_member()
-Message-ID: <20200212100437.GA23419@redhat.com>
-References: <20200212100414.GA23415@redhat.com>
+Subject: Re: [PATCH] dissect: introduce sym_is_local() for reporter
+Message-ID: <20200213174130.vzc3tj3l3dj3xrpc@ltop.local>
+References: <20200211160136.GA14027@redhat.com>
+ <20200212004135.cyzcqtwwcuewa4gj@ltop.local>
+ <20200212090626.GA19406@redhat.com>
 MIME-Version: 1.0
-In-Reply-To: <20200212100414.GA23415@redhat.com>
-User-Agent: Mutt/1.5.24 (2015-08-30)
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
-X-MC-Unique: g7tOuGpAMqyNU0LdBIPR_g-1
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
+In-Reply-To: <20200212090626.GA19406@redhat.com>
 Sender: linux-sparse-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-It is trivial and has a single caller, lookup_member().
+On Wed, Feb 12, 2020 at 10:06:27AM +0100, Oleg Nesterov wrote:
+> On 02/12, Luc Van Oostenryck wrote:
+> > It depends on what exactly you want for 'local'.
+> 
+> Yes, it should only return T if the symbol was defined inside some function.
+> If we have
+> 
+> 	static int I;
+> 
+> in file scope, sym_is_local() should return false and so it does, test-dissect
+> outputs
+> 
+> 	1:12                   def   v I                                int
 
-Signed-off-by: Oleg Nesterov <oleg@redhat.com>
----
- dissect.c | 29 ++++++++++++++---------------
- 1 file changed, 14 insertions(+), 15 deletions(-)
-
-diff --git a/dissect.c b/dissect.c
-index 05bddc8..40baf64 100644
---- a/dissect.c
-+++ b/dissect.c
-@@ -119,19 +119,6 @@ static usage_t fix_mode(struct symbol *type, usage_t mode)
- 	return mode;
- }
+OK, then everything is fine.
  
--static inline struct symbol *no_member(struct ident *name)
--{
--	static struct symbol sym = {
--		.type = SYM_BAD,
--		.ctype.base_type = &bad_ctype,
--		.kind = 'm',
--	};
--
--	sym.ident = name;
--
--	return &sym;
--}
--
- static struct symbol *report_member(usage_t mode, struct position *pos,
- 					struct symbol *type, struct symbol *mem)
- {
-@@ -308,8 +295,20 @@ found:
- 
- static struct symbol *lookup_member(struct symbol *type, struct ident *name, int *addr)
- {
--	return __lookup_member(type, name, addr)
--		?: no_member(name);
-+	struct symbol *mem = __lookup_member(type, name, addr);
-+
-+	if (!mem) {
-+		static struct symbol bad_member = {
-+			.type = SYM_BAD,
-+			.ctype.base_type = &bad_ctype,
-+			.kind = 'm',
-+		};
-+
-+		mem = &bad_member;
-+		mem->ident = name;
-+	}
-+
-+	return mem;
- }
- 
- static struct expression *peek_preop(struct expression *expr, int op)
--- 
-2.5.0
+> Thanks for looking!
 
+You're welcome!
+This and the other pending ones are now pushed to main.
 
+-- Luc
