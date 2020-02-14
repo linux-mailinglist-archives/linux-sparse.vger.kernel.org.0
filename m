@@ -2,87 +2,95 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 4EB0D15C99C
-	for <lists+linux-sparse@lfdr.de>; Thu, 13 Feb 2020 18:41:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id E27EA15D692
+	for <lists+linux-sparse@lfdr.de>; Fri, 14 Feb 2020 12:33:28 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727671AbgBMRle (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Thu, 13 Feb 2020 12:41:34 -0500
-Received: from mail-wr1-f66.google.com ([209.85.221.66]:45398 "EHLO
-        mail-wr1-f66.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1727076AbgBMRle (ORCPT
+        id S1726635AbgBNLd2 (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Fri, 14 Feb 2020 06:33:28 -0500
+Received: from us-smtp-2.mimecast.com ([205.139.110.61]:40222 "EHLO
+        us-smtp-delivery-1.mimecast.com" rhost-flags-OK-OK-OK-FAIL)
+        by vger.kernel.org with ESMTP id S1726092AbgBNLd2 (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Thu, 13 Feb 2020 12:41:34 -0500
-Received: by mail-wr1-f66.google.com with SMTP id g3so7732607wrs.12
-        for <linux-sparse@vger.kernel.org>; Thu, 13 Feb 2020 09:41:32 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=date:from:to:cc:subject:message-id:references:mime-version
-         :content-disposition:in-reply-to;
-        bh=xO55YNCdTcph0RnkKdgshB5XUWimKk0fsSmV+kP957A=;
-        b=PROnHN5pZwfBDbT2dno8eWXMsTcIBpsf+RDLVNkqXVncT5BrQEKpddinZigoE73aVy
-         La8cperjohsCTf2OyWQIXmOnXNFuvc+9cROBmXfr3Sazvb23ly8gEs2xxu/p6Hp5cJDS
-         io6ocqwONecuCVgWbtWGy25yZ6A+A//E9Vtk9wvVHhFoiLG9p+Dso5B2nhrF39hegDmT
-         uhIHlaTFVq7aLdMQGEAgPviyzd/Jx69A4EAj7UFzbvN4WBcrvgv/93YIti0RuYsJ3hkF
-         tMhkHGHuvGs8yoy537ylAyAb3sUZxVnOmcXPZ0xNxsIM+ayyFMZiHmwavLMMsdZJc8c2
-         0Miw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
-         :mime-version:content-disposition:in-reply-to;
-        bh=xO55YNCdTcph0RnkKdgshB5XUWimKk0fsSmV+kP957A=;
-        b=kPLg2994NzjPVYpIt46x6XueJ9D+Zkz85hQZt83ExEEYsc/WR5WK3HxzR60tdf9EaA
-         iiBBeGoEXgU/ydtvTKJabdmPyKCZjjhH7hY7jAt7evBuzmqNTlxYUYWcY3TTDgLC/XJf
-         a+QrFC0JziByvM60+odwDYpY9XEKF3YpiOfdHlznkw5Yps3mcXq7fSVyj1VLinLiBqGw
-         M0mRarW1cyP4mY5E/0RhPfIhf1nDIdi6Qf+yXZff7e49EBIzRmVa6vjYxgk2/jaRDOyP
-         +RgT4jKocZ5qYR2O7Cg+nojvDDcUT3EInyNhBcVKPAQ6m2jYC3JYrzlDpXUv5HmyuMq4
-         5IXg==
-X-Gm-Message-State: APjAAAUZ+TYdLZlL0lKdRXqjDlx4rRUVrXHEi1ikdwPUKRcpavOytQDW
-        3UFAYt1+uKyodh5uv4H5sjE=
-X-Google-Smtp-Source: APXvYqzTePH+hwylqvQqvThgVEoHfXjnlXIl5MChXkAjl4ecuW0TVJ/r9TCuEgYqWfjTSvy3+sloFw==
-X-Received: by 2002:a5d:488c:: with SMTP id g12mr23266559wrq.67.1581615692255;
-        Thu, 13 Feb 2020 09:41:32 -0800 (PST)
-Received: from ltop.local ([2a02:a03f:40bd:500:dd61:1fcd:79f7:26a5])
-        by smtp.gmail.com with ESMTPSA id o9sm792663wrw.20.2020.02.13.09.41.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 13 Feb 2020 09:41:31 -0800 (PST)
-Date:   Thu, 13 Feb 2020 18:41:30 +0100
-From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-To:     Oleg Nesterov <oleg@redhat.com>
+        Fri, 14 Feb 2020 06:33:28 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+        s=mimecast20190719; t=1581680006;
+        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+         to:to:cc:cc:mime-version:mime-version:content-type:content-type;
+        bh=VfeeFqoHFUkoAwUNztmsMpxzQB3iCmaSxcliPtPCSB0=;
+        b=dbYXorQVKVsCKKvvfe0samZUHMSIjaEKGBf4lOvVSpSfKWJkJKfqJ3eV6yD/mM6YH7XBSo
+        05actrc3QRkyREvqLRX6htD+0+Tr20RQQEK/mqdHp0TY5Ifo2DbfPBf9o7zpiaWTZWypZQ
+        SrqYkCpIVPYVmWKGuiok48FtaPt5tZ0=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-142--UoPhyy1O0W0KbjVT-Dr0g-1; Fri, 14 Feb 2020 06:33:22 -0500
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+        (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+        (No client certificate requested)
+        by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 97A121005512;
+        Fri, 14 Feb 2020 11:33:21 +0000 (UTC)
+Received: from dhcp-27-174.brq.redhat.com (unknown [10.43.17.70])
+        by smtp.corp.redhat.com (Postfix) with SMTP id BB1B260BF4;
+        Fri, 14 Feb 2020 11:33:20 +0000 (UTC)
+Received: by dhcp-27-174.brq.redhat.com (nbSMTP-1.00) for uid 1000
+        oleg@redhat.com; Fri, 14 Feb 2020 12:33:21 +0100 (CET)
+Date:   Fri, 14 Feb 2020 12:33:20 +0100
+From:   Oleg Nesterov <oleg@redhat.com>
+To:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 Cc:     Alexey Gladkov <gladkov.alexey@gmail.com>,
         linux-sparse@vger.kernel.org
-Subject: Re: [PATCH] dissect: introduce sym_is_local() for reporter
-Message-ID: <20200213174130.vzc3tj3l3dj3xrpc@ltop.local>
-References: <20200211160136.GA14027@redhat.com>
- <20200212004135.cyzcqtwwcuewa4gj@ltop.local>
- <20200212090626.GA19406@redhat.com>
+Subject: [PATCH 1/3] struct_union_enum_specifier: set MOD_TOPLEVEL if
+ toplevel(sym->scope)
+Message-ID: <20200214113320.GA31578@redhat.com>
 MIME-Version: 1.0
+User-Agent: Mutt/1.5.24 (2015-08-30)
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-MC-Unique: -UoPhyy1O0W0KbjVT-Dr0g-1
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20200212090626.GA19406@redhat.com>
 Sender: linux-sparse-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-On Wed, Feb 12, 2020 at 10:06:27AM +0100, Oleg Nesterov wrote:
-> On 02/12, Luc Van Oostenryck wrote:
-> > It depends on what exactly you want for 'local'.
-> 
-> Yes, it should only return T if the symbol was defined inside some function.
-> If we have
-> 
-> 	static int I;
-> 
-> in file scope, sym_is_local() should return false and so it does, test-dissect
-> outputs
-> 
-> 	1:12                   def   v I                                int
+With this change dissect can know the scope of SYM_STRUCT/UNION/ENUM,
+see the next patch.
 
-OK, then everything is fine.
+Note that MOD_TOPLEVEL can be set even if struct/union/enum type is
+private and bind_symbol() is not called.
+
+IIUC nobody else looks at SYM_STRUCT->ctype.modifiers, "make check"
+doesn't show any difference.
+
+Signed-off-by: Oleg Nesterov <oleg@redhat.com>
+---
+ parse.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/parse.c b/parse.c
+index a08165a..4492586 100644
+--- a/parse.c
++++ b/parse.c
+@@ -741,6 +741,8 @@ static struct token *struct_union_enum_specifier(enum type type,
+ 			// symbol being redefined.
+ 			sym = alloc_symbol(token->pos, type);
+ 			bind_symbol(sym, token->ident, NS_STRUCT);
++			if (toplevel(sym->scope))
++				sym->ctype.modifiers |= MOD_TOPLEVEL;
+ 		}
+ 		if (sym->type != type)
+ 			error_die(token->pos, "invalid tag applied to %s", show_typename (sym));
+@@ -772,6 +774,8 @@ static struct token *struct_union_enum_specifier(enum type type,
+ 	}
  
-> Thanks for looking!
+ 	sym = alloc_symbol(token->pos, type);
++	if (toplevel(block_scope))
++		sym->ctype.modifiers |= MOD_TOPLEVEL;
+ 	token = parse(token->next, sym);
+ 	ctx->ctype.base_type = sym;
+ 	token =  expect(token, '}', "at end of specifier");
+-- 
+2.5.0
 
-You're welcome!
-This and the other pending ones are now pushed to main.
 
--- Luc
