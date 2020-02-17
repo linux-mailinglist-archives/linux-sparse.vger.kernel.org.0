@@ -2,109 +2,83 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id AE38915D695
-	for <lists+linux-sparse@lfdr.de>; Fri, 14 Feb 2020 12:34:13 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 1DEAD161CEF
+	for <lists+linux-sparse@lfdr.de>; Mon, 17 Feb 2020 22:46:16 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1728004AbgBNLeN (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Fri, 14 Feb 2020 06:34:13 -0500
-Received: from us-smtp-delivery-1.mimecast.com ([205.139.110.120]:22223 "EHLO
-        us-smtp-1.mimecast.com" rhost-flags-OK-OK-OK-FAIL) by vger.kernel.org
-        with ESMTP id S1726092AbgBNLeN (ORCPT
+        id S1729016AbgBQVqP (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Mon, 17 Feb 2020 16:46:15 -0500
+Received: from mail-wr1-f68.google.com ([209.85.221.68]:39286 "EHLO
+        mail-wr1-f68.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1728935AbgBQVqP (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Fri, 14 Feb 2020 06:34:13 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-        s=mimecast20190719; t=1581680052;
-        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-         to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-         in-reply-to:in-reply-to:references:references;
-        bh=6B0Q0GbmbyD4HrkIpftkWxqb7t9P4EHQkrcrykgsq5M=;
-        b=MAz0GH4BLo89kyA90f+BezV0teT3dDH6exkJMMuola+bbw7LERwyvyy7Sv1yakq5GwSwej
-        m5tY+psLxH7r+y79kAmONX+/g/RGzvJxsEiMuskdEB6A1wdfxVy3B3x+m7C4gFUDN24Pa4
-        vd0sRBBBisWdykmlzKyxehxtA3dxDD4=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-348-CDkEi6EDOBSF13DEqzpjhQ-1; Fri, 14 Feb 2020 06:34:10 -0500
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
-        (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
-        (No client certificate requested)
-        by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 3A3B110CE781;
-        Fri, 14 Feb 2020 11:34:09 +0000 (UTC)
-Received: from dhcp-27-174.brq.redhat.com (unknown [10.43.17.70])
-        by smtp.corp.redhat.com (Postfix) with SMTP id 5E937790F3;
-        Fri, 14 Feb 2020 11:34:08 +0000 (UTC)
-Received: by dhcp-27-174.brq.redhat.com (nbSMTP-1.00) for uid 1000
-        oleg@redhat.com; Fri, 14 Feb 2020 12:34:09 +0100 (CET)
-Date:   Fri, 14 Feb 2020 12:34:07 +0100
-From:   Oleg Nesterov <oleg@redhat.com>
-To:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
+        Mon, 17 Feb 2020 16:46:15 -0500
+Received: by mail-wr1-f68.google.com with SMTP id y11so21492745wrt.6
+        for <linux-sparse@vger.kernel.org>; Mon, 17 Feb 2020 13:46:12 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=date:from:to:cc:subject:message-id:references:mime-version
+         :content-disposition:in-reply-to;
+        bh=AlGyb1ZOoCFIB/ma0N7VmO/Sb46ZeHEfsJR8kylUCes=;
+        b=uDbcEMlW+ZQ5lY3wU57sclsrWh3/O9rUSvqrsJaZDgADQHF/HF0rfxNn4C55mhMozT
+         R6iXz/qDPPw4k3PlcnLw0BAVKz5UiI9nV4eCv+BaMsaqleNvH7hQ85qX1CAx30Ztk+YF
+         MHrZQM4vL+NRuPalXD6fgwV4w243nfkzbPEETZesAXbVhcadTg6icigV3op0honPtU4/
+         p6nGp8QmSieZiWn0PWejRM21uT5ulQLKa9I6qFADGMhNpgldJ1h6a8tTD9bq1wUKNmNX
+         Y/8u0rAgAMQ2J6/Q91C3x4lkQbxNZJy8Gi6YKp129Nr5FSbaDL8ksQ8iMDyEqUJx4sRG
+         g8tw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+         :mime-version:content-disposition:in-reply-to;
+        bh=AlGyb1ZOoCFIB/ma0N7VmO/Sb46ZeHEfsJR8kylUCes=;
+        b=LJx01GI0CMOU7/tXGszpmFVxs7bWpzhjTzKplllthe9vhCRGTtC3aStCglVa1noJ39
+         2fEffHMg0UL6bU2d0AaWZzpmpDJPLFKaJOSVIEymNenHas+JPocaNtwTYCf/SdgAEa1w
+         ppY56mF25wBfSWfI1uJ9MnFgCp6uQkFttBRlfqpDkrhp5TJeR7H/ECQAk5qA7j2Rfdrg
+         ozNp2RRKBUKjKX0Snr9yqsKwRzLAiERDVDRe1wXMt+vPb/Igx7RtNpSK5uC7AmLcaw2z
+         WyB8sgsWuPe7fDuWxAOamR2X1M9sez0ioq9h0MuSUYxEsmmBqp8WFtw1RxZJgmeD1SXl
+         ERdw==
+X-Gm-Message-State: APjAAAUH5GlZuyfZ/JYsKAl9YcNeGZS3B26wIBdnVWsl9RQcAO3PZ0ye
+        wNv07UdbJPYIdLMI/1W/1YI=
+X-Google-Smtp-Source: APXvYqwVsjjXAkgelWOEz7MclDSdeeC2nX+6yFNmjQj8OB/0fgxeCRtxgs1bYs3n7Zp8D8XgsnYJPg==
+X-Received: by 2002:adf:ce87:: with SMTP id r7mr24060727wrn.245.1581975972263;
+        Mon, 17 Feb 2020 13:46:12 -0800 (PST)
+Received: from ltop.local ([2a02:a03f:40bd:500:ac5a:d546:8892:2289])
+        by smtp.gmail.com with ESMTPSA id c141sm777585wme.41.2020.02.17.13.46.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 17 Feb 2020 13:46:11 -0800 (PST)
+Date:   Mon, 17 Feb 2020 22:46:10 +0100
+From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
+To:     Oleg Nesterov <oleg@redhat.com>
 Cc:     Alexey Gladkov <gladkov.alexey@gmail.com>,
         linux-sparse@vger.kernel.org
-Subject: [PATCH 3/3] dissect: enforce MOD_TOPLEVEL if SYM_STRUCT was not
- defined
-Message-ID: <20200214113407.GB31587@redhat.com>
+Subject: Re: [PATCH 1/3] struct_union_enum_specifier: set MOD_TOPLEVEL if
+ toplevel(sym->scope)
+Message-ID: <20200217214610.uxbnfh5zooqve4yc@ltop.local>
 References: <20200214113320.GA31578@redhat.com>
 MIME-Version: 1.0
-In-Reply-To: <20200214113320.GA31578@redhat.com>
-User-Agent: Mutt/1.5.24 (2015-08-30)
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
-X-MC-Unique: CDkEi6EDOBSF13DEqzpjhQ-1
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
+In-Reply-To: <20200214113320.GA31578@redhat.com>
 Sender: linux-sparse-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-A separate change for documentation purposes.
+On Fri, Feb 14, 2020 at 12:33:20PM +0100, Oleg Nesterov wrote:
+> With this change dissect can know the scope of SYM_STRUCT/UNION/ENUM,
+> see the next patch.
+> 
+> Note that MOD_TOPLEVEL can be set even if struct/union/enum type is
+> private and bind_symbol() is not called.
 
-Test-case:
+I don't like that very much. For example: why this is needed for
+struct/union/enum and not other types?
+Should it be possible to use the function toplevel() or add and
+helper for it in scope.c?
 
-	void func(void)
-	{
-		struct UNDEFINED x;
-		x.member = 0;
-	}
+> IIUC nobody else looks at SYM_STRUCT->ctype.modifiers, "make check"
+> doesn't show any difference.
 
-output:
-
-   1:6                    def   f func                             void ( ... )
-   3:26  func             def . v x                                struct UNDEFINED
-   4:9   func             -w- . v x                                struct UNDEFINED
-   4:10  func             -w- . m UNDEFINED.member                 bad type
-
-but in this case is_sym_local(UNDEFINED) = F makes more sense, most
-probably this struct was defined somewhere else but __sparse() didn't
-see its definition.
-
-Change lookup_member() to set MOD_TOPLEVEL if !SYM_STRUCT symbol_list.
-This is not 100% correct, but struct_union_enum_specifier() does the
-same with the following comment:
-
-	// The following test is actually wrong for empty
-	// structs, but (1) they are not C99, (2) gcc does
-	// the same thing, and (3) it's easier.
-
-Signed-off-by: Oleg Nesterov <oleg@redhat.com>
----
- dissect.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/dissect.c b/dissect.c
-index 1465760..f60999e 100644
---- a/dissect.c
-+++ b/dissect.c
-@@ -305,6 +305,8 @@ static struct symbol *lookup_member(struct symbol *type, struct ident *name, int
- 			.kind = 'm',
- 		};
+Yes, it's true and it shouldn't make any difference but still I
+would prefer to not mix symbols and types more than they already are.
  
-+		if (!type->symbol_list)
-+			type->ctype.modifiers |= MOD_TOPLEVEL;
- 		mem = &bad_member;
- 		mem->ident = name;
- 	}
--- 
-2.5.0
-
-
+-- Luc
