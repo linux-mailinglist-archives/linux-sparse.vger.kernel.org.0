@@ -2,62 +2,114 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id A5E54164562
-	for <lists+linux-sparse@lfdr.de>; Wed, 19 Feb 2020 14:25:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 4F008164A59
+	for <lists+linux-sparse@lfdr.de>; Wed, 19 Feb 2020 17:29:20 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727895AbgBSNZl convert rfc822-to-8bit (ORCPT
-        <rfc822;lists+linux-sparse@lfdr.de>); Wed, 19 Feb 2020 08:25:41 -0500
-Received: from scm.imp.edu.mx ([132.247.16.103]:53009 "EHLO scm.imp.edu.mx"
-        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S1727786AbgBSNZk (ORCPT <rfc822;linux-sparse@vger.kernel.org>);
-        Wed, 19 Feb 2020 08:25:40 -0500
-Received: from localhost (localhost [127.0.0.1])
-        by scm.imp.edu.mx (Postfix) with ESMTP id 2330B187FA8;
-        Wed, 19 Feb 2020 06:11:30 -0600 (CST)
-X-Virus-Scanned: by SpamTitan at imp.edu.mx
-Received: from scm.imp.edu.mx (localhost [127.0.0.1])
-        by scm.imp.edu.mx (Postfix) with ESMTP id 5A14D1880A5;
-        Wed, 19 Feb 2020 04:51:49 -0600 (CST)
-Authentication-Results: scm.imp.edu.mx; none
-Received: from imp.edu.mx (unknown [10.249.93.105])
-        by scm.imp.edu.mx (Postfix) with ESMTP id 4DC2018DA05;
-        Wed, 19 Feb 2020 04:51:45 -0600 (CST)
-Received: from localhost (localhost [127.0.0.1])
-        by imp.edu.mx (Postfix) with ESMTP id 358EC180635F48;
-        Wed, 19 Feb 2020 04:51:46 -0600 (CST)
-Received: from imp.edu.mx ([127.0.0.1])
-        by localhost (imp.edu.mx [127.0.0.1]) (amavisd-new, port 10032)
-        with ESMTP id UIsgs9D7FS9M; Wed, 19 Feb 2020 04:51:46 -0600 (CST)
-Received: from localhost (localhost [127.0.0.1])
-        by imp.edu.mx (Postfix) with ESMTP id 15E38180635F44;
-        Wed, 19 Feb 2020 04:51:46 -0600 (CST)
-X-Virus-Scanned: amavisd-new at imp.edu.mx
-Received: from imp.edu.mx ([127.0.0.1])
-        by localhost (imp.edu.mx [127.0.0.1]) (amavisd-new, port 10026)
-        with ESMTP id W32SBc03HzNt; Wed, 19 Feb 2020 04:51:46 -0600 (CST)
-Received: from [45.147.4.119] (unknown [45.147.4.119])
-        by imp.edu.mx (Postfix) with ESMTPSA id AC97D180635F4B;
-        Wed, 19 Feb 2020 04:51:44 -0600 (CST)
-Content-Type: text/plain; charset="iso-8859-1"
+        id S1726722AbgBSQ3U (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Wed, 19 Feb 2020 11:29:20 -0500
+Received: from us-smtp-2.mimecast.com ([205.139.110.61]:55403 "EHLO
+        us-smtp-delivery-1.mimecast.com" rhost-flags-OK-OK-OK-FAIL)
+        by vger.kernel.org with ESMTP id S1726712AbgBSQ3T (ORCPT
+        <rfc822;linux-sparse@vger.kernel.org>);
+        Wed, 19 Feb 2020 11:29:19 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+        s=mimecast20190719; t=1582129758;
+        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+         to:to:cc:cc:mime-version:mime-version:content-type:content-type;
+        bh=UbYnb0jCR7A3oVHTpUkgp0QYW/lTzekLOnCOLG5+pss=;
+        b=HGNNlUIONPi8mtiST09cowBV5lbD7ubLqhkqyHN4bTQ+wZ9C9oHlyBmFV11du/SxrWRSgy
+        L5RHfX5DPS/VSk2/JvYycDVEDqj+Fqnzy7NvJoDO3/sowUvr/fHjCdXrFhdRtyZRDy++S5
+        xt9NbRMTZsUaR4QoVYCNbK/EYJ4lh5Y=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-264-8XdLNDccNLqRshXlRGFXhw-1; Wed, 19 Feb 2020 11:29:14 -0500
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
+        (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+        (No client certificate requested)
+        by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 9174F801E74;
+        Wed, 19 Feb 2020 16:29:13 +0000 (UTC)
+Received: from dhcp-27-174.brq.redhat.com (unknown [10.43.17.70])
+        by smtp.corp.redhat.com (Postfix) with SMTP id B74FE1001B00;
+        Wed, 19 Feb 2020 16:29:12 +0000 (UTC)
+Received: by dhcp-27-174.brq.redhat.com (nbSMTP-1.00) for uid 1000
+        oleg@redhat.com; Wed, 19 Feb 2020 17:29:13 +0100 (CET)
+Date:   Wed, 19 Feb 2020 17:29:11 +0100
+From:   Oleg Nesterov <oleg@redhat.com>
+To:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
+Cc:     Alexey Gladkov <gladkov.alexey@gmail.com>,
+        linux-sparse@vger.kernel.org
+Subject: [PATCH v2 1/2] struct_union_enum_specifier: always initialize
+ sym->scope
+Message-ID: <20200219162911.GA26790@redhat.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8BIT
-Content-Description: Mail message body
-Subject: 19-02-2020
-To:     Recipients <mucios@imp.edu.mx>
-From:   "urs portmann" <mucios@imp.edu.mx>
-Date:   Wed, 19 Feb 2020 21:51:42 +1100
-Reply-To: onube@qq.com
-Message-Id: <20200219105144.AC97D180635F4B@imp.edu.mx>
+User-Agent: Mutt/1.5.24 (2015-08-30)
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-MC-Unique: 8XdLNDccNLqRshXlRGFXhw-1
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 Sender: linux-sparse-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-Guten Morgen,
-                                          19-02-2020
-Wir haben versucht, Sie zu erreichen und haben noch nichts von Ihnen gehört. Haben Sie unsere letzte E-Mail über Ihre S.p.e.n.d.e erhalten? Wenn nicht, melden Sie sich bitte bei uns, um weitere Informationen zu erhalten.
+Currently it is not possible to figure out the scope of the private
+struct/union/enum type, its ->scope is NULL because bind_symbol() is
+not called.
 
-Wir warten darauf, von Ihnen zu hören, sobald Sie diese Nachricht erhalten, die Sie bei der weiteren Vorgehensweise unterstützt.
+Change struct_union_enum_specifier() to set sym->scope = block_scope
+in this case, this is what bind_symbol() does when type has a name.
 
-Mfg
-urs portmann
+Signed-off-by: Oleg Nesterov <oleg@redhat.com>
+---
+ parse.c | 2 ++
+ scope.c | 5 +++++
+ scope.h | 1 +
+ 3 files changed, 8 insertions(+)
+
+diff --git a/parse.c b/parse.c
+index a08165a..3e7c60e 100644
+--- a/parse.c
++++ b/parse.c
+@@ -772,6 +772,8 @@ static struct token *struct_union_enum_specifier(enum type type,
+ 	}
+ 
+ 	sym = alloc_symbol(token->pos, type);
++	/* make toplevel(sym->scope) work */
++	set_current_scope(sym);
+ 	token = parse(token->next, sym);
+ 	ctx->ctype.base_type = sym;
+ 	token =  expect(token, '}', "at end of specifier");
+diff --git a/scope.c b/scope.c
+index cbf2fcf..420c0f5 100644
+--- a/scope.c
++++ b/scope.c
+@@ -40,6 +40,11 @@ struct scope	*block_scope = &builtin_scope,		// regular automatic variables etc
+ 		*file_scope = &builtin_scope,		// static
+ 		*global_scope = &builtin_scope;		// externally visible
+ 
++void set_current_scope(struct symbol *sym)
++{
++	sym->scope = block_scope;
++}
++
+ void bind_scope(struct symbol *sym, struct scope *scope)
+ {
+ 	sym->scope = scope;
+diff --git a/scope.h b/scope.h
+index d9a14aa..3cad514 100644
+--- a/scope.h
++++ b/scope.h
+@@ -53,6 +53,7 @@ extern void end_symbol_scope(void);
+ extern void start_function_scope(void);
+ extern void end_function_scope(void);
+ 
++extern void set_current_scope(struct symbol *);
+ extern void bind_scope(struct symbol *, struct scope *);
+ extern void rebind_scope(struct symbol *, struct scope *);
+ 
+-- 
+2.5.0
+
+
