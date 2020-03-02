@@ -2,106 +2,70 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 306A1172224
-	for <lists+linux-sparse@lfdr.de>; Thu, 27 Feb 2020 16:21:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 0795B175B67
+	for <lists+linux-sparse@lfdr.de>; Mon,  2 Mar 2020 14:17:09 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1729210AbgB0PVX (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Thu, 27 Feb 2020 10:21:23 -0500
-Received: from us-smtp-1.mimecast.com ([205.139.110.61]:51525 "EHLO
-        us-smtp-delivery-1.mimecast.com" rhost-flags-OK-OK-OK-FAIL)
-        by vger.kernel.org with ESMTP id S1729084AbgB0PVX (ORCPT
+        id S1727578AbgCBNRI (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Mon, 2 Mar 2020 08:17:08 -0500
+Received: from mail-wr1-f68.google.com ([209.85.221.68]:39604 "EHLO
+        mail-wr1-f68.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1727589AbgCBNRI (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Thu, 27 Feb 2020 10:21:23 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-        s=mimecast20190719; t=1582816882;
-        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-         to:to:cc:cc:mime-version:mime-version:content-type:content-type;
-        bh=lPgPGshjE6vVYLiZBrTh29HdGWFNQYGx6hNLwJNeTR0=;
-        b=CTzK84CJF9HDcJeoWavAPXV8OwIcrc7h2boIgSUMtvd0OUFnAOG8qqI5y4nTLCSZaRG4Ii
-        O715i+G6nOQada5xLJCvwesgWUP5ppV8MeHS072tRstwgTmi8XvjWFSiOoj9NZpLzzZWpH
-        NoURJAb/7bV8gTC8+RqwNFIvQrqL+PQ=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-290-HX5O7AZAPvG1WzJx7r1xXQ-1; Thu, 27 Feb 2020 10:21:18 -0500
-X-MC-Unique: HX5O7AZAPvG1WzJx7r1xXQ-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
-        (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
-        (No client certificate requested)
-        by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 82A2813E6;
-        Thu, 27 Feb 2020 15:21:17 +0000 (UTC)
-Received: from dhcp-27-174.brq.redhat.com (unknown [10.43.17.70])
-        by smtp.corp.redhat.com (Postfix) with SMTP id AB61719C58;
-        Thu, 27 Feb 2020 15:21:16 +0000 (UTC)
-Received: by dhcp-27-174.brq.redhat.com (nbSMTP-1.00) for uid 1000
-        oleg@redhat.com; Thu, 27 Feb 2020 16:21:17 +0100 (CET)
-Date:   Thu, 27 Feb 2020 16:21:15 +0100
-From:   Oleg Nesterov <oleg@redhat.com>
-To:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
+        Mon, 2 Mar 2020 08:17:08 -0500
+Received: by mail-wr1-f68.google.com with SMTP id y17so12554641wrn.6
+        for <linux-sparse@vger.kernel.org>; Mon, 02 Mar 2020 05:17:07 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=date:from:to:cc:subject:message-id:references:mime-version
+         :content-disposition:in-reply-to;
+        bh=A+CWDgVxl8GMs79Y3b/nbV0n3Vs3nJwWq68W+4+0M4s=;
+        b=gDQKBF0PZv9mxAiP+lfhDgwcUz7isep2z/BnxjvNl2TT0Hj4dbTgovvdb24K1QDEL4
+         0rji7HGk+h6vlPFqIcCiMDmkHgYgd786mpVNxJl8+YQMQq+khjPTuFB1IR/5NflfVMje
+         NwUUMr9b0zNU/iS2RjXZPXVKDh1FREFsN/iHA4gsC9nQYpe9nMv0NjE0MJ3CiaWHk8r1
+         FPNsH/AGDSpGt+dvsNu7JkzWROnJoGlTNoy0YiuWaeNAuad7pKtHo+65+hoKyeZMvyfe
+         ljT+qgrFZTyRr5u+3fKqLAv2IwUyh4bcLc1u0qYsVrpoloWXK9lVgLwnCPlKjdvznOSh
+         qLCw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+         :mime-version:content-disposition:in-reply-to;
+        bh=A+CWDgVxl8GMs79Y3b/nbV0n3Vs3nJwWq68W+4+0M4s=;
+        b=QhyjMMTbLQ+/5G/VkMVTgaVNudpzoOjDLzU0WAGrvHeoPJHhbAIFytjcqcqSoDSQhy
+         7MCfK4XVLcZlKSR8P2T7eDEF/jOTnZZE+Abv/JhERnIZ/U4xL+q/sAbOR6rGE+spGave
+         S/gs//kMTJHVsyyHVWMNSHWzIJcFYg9e2pppg80d2kXFm2bR06f+nDFW2vh2egrGXul+
+         oOYc5QACaV4GE9pREyxgHRlmvcsGUcVvWzeii6CO3iYLzcL1wHW3supg8Sy+6JX8SdEq
+         idOukRgoA91nmNP9FfNGSpFiqaQGclAc1F9XJBQj0ObbkrWS/4Y/bl8reukxNeDzRj0v
+         b3Kg==
+X-Gm-Message-State: ANhLgQ2xu81UnnAR9kjeD7WUOFcnVc5WgE7VlmGIwiChtvLsPpqlnWo6
+        rzIrxnf3rF1q5dK7utkzQT0=
+X-Google-Smtp-Source: ADFU+vtYXzdZEOYM1CfXzgev0VIcXNb3k1LnHSvtjXQdX9v+cxO0oJJZF+1WHVfL7LpSdb1VvFf97w==
+X-Received: by 2002:adf:804c:: with SMTP id 70mr14010810wrk.27.1583155026792;
+        Mon, 02 Mar 2020 05:17:06 -0800 (PST)
+Received: from ltop.local ([2a02:a03f:40bd:500:e8ac:7b18:63cd:7637])
+        by smtp.gmail.com with ESMTPSA id n2sm29387788wro.96.2020.03.02.05.17.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 02 Mar 2020 05:17:05 -0800 (PST)
+Date:   Mon, 2 Mar 2020 14:17:04 +0100
+From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
+To:     Oleg Nesterov <oleg@redhat.com>
 Cc:     Alexey Gladkov <gladkov.alexey@gmail.com>,
         linux-sparse@vger.kernel.org
-Subject: [PATCH] dissect: enforce toplevel() if SYM_STRUCT was not defined
-Message-ID: <20200227152115.GA19970@redhat.com>
+Subject: Re: [PATCH] dissect: enforce toplevel() if SYM_STRUCT was not defined
+Message-ID: <20200302131704.4oiixurruvcmjduj@ltop.local>
+References: <20200227152115.GA19970@redhat.com>
 MIME-Version: 1.0
-User-Agent: Mutt/1.5.24 (2015-08-30)
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
+In-Reply-To: <20200227152115.GA19970@redhat.com>
 Sender: linux-sparse-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-A separate change for documentation purposes.
+On Thu, Feb 27, 2020 at 04:21:15PM +0100, Oleg Nesterov wrote:
+> A separate change for documentation purposes.
 
-Test-case:
+Thanks.
+Applied & pushed.
 
-	void func(void)
-	{
-		struct UNDEFINED x;
-		x.member = 0;
-	}
-
-output:
-
-   1:6                    def   f func                             void ( ... )
-   3:26  func             def . v x                                struct UNDEFINED
-   4:9   func             -w- . v x                                struct UNDEFINED
-   4:10  func             -w- . m UNDEFINED.member                 bad type
-
-but in this case is_sym_local(UNDEFINED) = F makes more sense, most
-probably this struct was defined somewhere else but __sparse() didn't
-see its definition.
-
-Change lookup_member() to set type->scope = file_scope if !symbol_list.
-This is not 100% correct, but struct_union_enum_specifier() does the
-same check with the following comment:
-
-	// The following test is actually wrong for empty
-	// structs, but (1) they are not C99, (2) gcc does
-	// the same thing, and (3) it's easier.
-
-Signed-off-by: Oleg Nesterov <oleg@redhat.com>
----
- dissect.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/dissect.c b/dissect.c
-index c48214b9..1970e46f 100644
---- a/dissect.c
-+++ b/dissect.c
-@@ -304,6 +304,9 @@ static struct symbol *lookup_member(struct symbol *type, struct ident *name, int
- 			.kind = 'm',
- 		};
- 
-+		if (!type->symbol_list)
-+			type->scope = file_scope;
-+
- 		mem = &bad_member;
- 		mem->ident = name;
- 	}
--- 
-2.25.1.362.g51ebf55
-
-
+-- Luc 
