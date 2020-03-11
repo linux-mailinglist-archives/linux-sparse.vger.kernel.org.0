@@ -2,122 +2,144 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id DCA19181412
-	for <lists+linux-sparse@lfdr.de>; Wed, 11 Mar 2020 10:08:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 516431816E5
+	for <lists+linux-sparse@lfdr.de>; Wed, 11 Mar 2020 12:34:01 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1728559AbgCKJH6 (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Wed, 11 Mar 2020 05:07:58 -0400
-Received: from userp2130.oracle.com ([156.151.31.86]:40856 "EHLO
-        userp2130.oracle.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1728444AbgCKJH6 (ORCPT
+        id S1729117AbgCKLeA (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Wed, 11 Mar 2020 07:34:00 -0400
+Received: from us-smtp-1.mimecast.com ([207.211.31.81]:50338 "EHLO
+        us-smtp-delivery-1.mimecast.com" rhost-flags-OK-OK-OK-FAIL)
+        by vger.kernel.org with ESMTP id S1726000AbgCKLeA (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Wed, 11 Mar 2020 05:07:58 -0400
-Received: from pps.filterd (userp2130.oracle.com [127.0.0.1])
-        by userp2130.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 02B94U0X167398;
-        Wed, 11 Mar 2020 09:07:54 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=date : from : to : cc
- : subject : message-id : references : mime-version : content-type :
- in-reply-to; s=corp-2020-01-29;
- bh=qSArWpwHs0jY7VVZekJtWjPziSOUOHQpU5TxgeAQGNs=;
- b=SQBcI8WHalQb35Dn+DLBeNTIBxFkEzia4lL/qgSrGFJlT8uQOcfXokKWuC21M/DCzAvd
- 2kEAr3wOw7yc56wRftghvSlywlqjn337LAQ1ukDtNWI/PDtj0sopJqLMmg5zg+iplT2l
- yNJ1IbTvkW5LaTWtDvqf7TjZcqb06Fs1NEPiWmk/8LrIsQ0C6CxcFXi8DK3keqWuMEJs
- klnZGOwalYriC8POVSq+eUHeYIXnJJFTi7TxuiKUHAdvaA0K+PHSrNB/ZMgHLatFWk5Y
- BXs3vl9TRXEXFPCpIvYyVeD85C0Kq3fE3580a4iZP4UaYhNCUH+cJsL1C8NkI5sdRFl4 Kw== 
-Received: from userp3030.oracle.com (userp3030.oracle.com [156.151.31.80])
-        by userp2130.oracle.com with ESMTP id 2ym31ujc7b-1
-        (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-        Wed, 11 Mar 2020 09:07:54 +0000
-Received: from pps.filterd (userp3030.oracle.com [127.0.0.1])
-        by userp3030.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 02B93jTa002640;
-        Wed, 11 Mar 2020 09:07:54 GMT
-Received: from aserv0121.oracle.com (aserv0121.oracle.com [141.146.126.235])
-        by userp3030.oracle.com with ESMTP id 2yp8qukdj6-1
-        (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-        Wed, 11 Mar 2020 09:07:54 +0000
-Received: from abhmp0018.oracle.com (abhmp0018.oracle.com [141.146.116.24])
-        by aserv0121.oracle.com (8.14.4/8.13.8) with ESMTP id 02B97pl8029837;
-        Wed, 11 Mar 2020 09:07:52 GMT
-Received: from kadam (/10.175.218.27)
-        by default (Oracle Beehive Gateway v4.0)
-        with ESMTP ; Wed, 11 Mar 2020 02:07:51 -0700
-Date:   Wed, 11 Mar 2020 12:07:45 +0300
-From:   Dan Carpenter <dan.carpenter@oracle.com>
-To:     Oleg Nesterov <oleg@redhat.com>
+        Wed, 11 Mar 2020 07:34:00 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+        s=mimecast20190719; t=1583926438;
+        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+         to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+         in-reply-to:in-reply-to:references:references;
+        bh=VdlZ1FD8pPvgQpgof74QunaYx153or2aDGUViBAQ1mE=;
+        b=hH816DrGCIqsuPyBeeYmZgjvsuW0Ahv3IpaCKFKNsLu/nvZMOSkq1VxpmArqkU4AxJULK5
+        gxHCRgX7tWXy8agkjzqY2DXyYfLTPdNoVoPYoq8DyT1hwZ9ajfuviFnWLulbrajN43N08P
+        Tgk571/z3dk45/62YHfp+VnuyWB32LQ=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-195-tYZ-RSZYN861wbxUbNR63w-1; Wed, 11 Mar 2020 07:33:55 -0400
+X-MC-Unique: tYZ-RSZYN861wbxUbNR63w-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
+        (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+        (No client certificate requested)
+        by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 2E223189D6C2;
+        Wed, 11 Mar 2020 11:33:54 +0000 (UTC)
+Received: from dhcp-27-174.brq.redhat.com (unknown [10.43.17.70])
+        by smtp.corp.redhat.com (Postfix) with SMTP id 3017092D27;
+        Wed, 11 Mar 2020 11:33:53 +0000 (UTC)
+Received: by dhcp-27-174.brq.redhat.com (nbSMTP-1.00) for uid 1000
+        oleg@redhat.com; Wed, 11 Mar 2020 12:33:53 +0100 (CET)
+Date:   Wed, 11 Mar 2020 12:33:52 +0100
+From:   Oleg Nesterov <oleg@redhat.com>
+To:     Dan Carpenter <dan.carpenter@oracle.com>
 Cc:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>,
         Alexey Gladkov <gladkov.alexey@gmail.com>,
         linux-sparse@vger.kernel.org
 Subject: Re: [PATCH] Add symantic index utility
-Message-ID: <20200311090745.GD11561@kadam>
+Message-ID: <20200311113351.GA19327@redhat.com>
 References: <20200309152509.6707-1-gladkov.alexey@gmail.com>
  <20200309223701.dbnej7esb4qp56bm@ltop.local>
  <20200310150713.GB19012@redhat.com>
+ <20200311090745.GD11561@kadam>
 MIME-Version: 1.0
+In-Reply-To: <20200311090745.GD11561@kadam>
+User-Agent: Mutt/1.5.24 (2015-08-30)
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20200310150713.GB19012@redhat.com>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9556 signatures=668685
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 phishscore=0 malwarescore=0 mlxscore=0
- adultscore=0 suspectscore=0 bulkscore=0 spamscore=0 mlxlogscore=999
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2001150001
- definitions=main-2003110059
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9556 signatures=668685
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 adultscore=0 lowpriorityscore=0
- spamscore=0 priorityscore=1501 impostorscore=0 bulkscore=0 suspectscore=0
- phishscore=0 mlxlogscore=999 mlxscore=0 malwarescore=0 clxscore=1011
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2001150001
- definitions=main-2003110059
 Sender: linux-sparse-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-On Tue, Mar 10, 2020 at 04:07:14PM +0100, Oleg Nesterov wrote:
-> Annoyingly, this triggers a lot of sparse_error's in pre-process.c:collect_arg().
-> And just in case, of course this is not specific to dissect/sindex, ./sparse or
-> anything else will equally complain.
-> 
-> For example,
-> 
->   1011  static inline bool page_expected_state(struct page *page,
->   1012                                          unsigned long check_flags)
->   1013  {
->   1014          if (unlikely(atomic_read(&page->_mapcount) != -1))
->   1015                  return false;
->   1016
->   1017          if (unlikely((unsigned long)page->mapping |
->   1018                          page_ref_count(page) |
->   1019  #ifdef CONFIG_MEMCG
->   1020                          (unsigned long)page->mem_cgroup |
->   1021  #endif
->   1022                          (page->flags & check_flags)))
->   1023                  return false;
->   1024
->   1025          return true;
->   1026  }
-> 
-> leads to
-> 
-> 	mm/page_alloc.c:1019:1: error: directive in macro's argument list
-> 	mm/page_alloc.c:1021:1: error: directive in macro's argument list
+On 03/11, Dan Carpenter wrote:
+>
+> On Tue, Mar 10, 2020 at 04:07:14PM +0100, Oleg Nesterov wrote:
+> > Annoyingly, this triggers a lot of sparse_error's in pre-process.c:collect_arg().
+> > And just in case, of course this is not specific to dissect/sindex, ./sparse or
+> > anything else will equally complain.
+> >
+> > For example,
+> >
+> >   1011  static inline bool page_expected_state(struct page *page,
+> >   1012                                          unsigned long check_flags)
+> >   1013  {
+> >   1014          if (unlikely(atomic_read(&page->_mapcount) != -1))
+> >   1015                  return false;
+> >   1016
+> >   1017          if (unlikely((unsigned long)page->mapping |
+> >   1018                          page_ref_count(page) |
+> >   1019  #ifdef CONFIG_MEMCG
+> >   1020                          (unsigned long)page->mem_cgroup |
+> >   1021  #endif
+> >   1022                          (page->flags & check_flags)))
+> >   1023                  return false;
+> >   1024
+> >   1025          return true;
+> >   1026  }
+> >
+> > leads to
+> >
+> > 	mm/page_alloc.c:1019:1: error: directive in macro's argument list
+> > 	mm/page_alloc.c:1021:1: error: directive in macro's argument list
+>
+> This does:
+>
+> 	/* Shut up warnings after an error */
+> 	has_error |= ERROR_CURR_PHASE;
+>
+> so we probably end up not seeing some warnings.
 
-This does:
+Heh,
 
-	/* Shut up warnings after an error */
-	has_error |= ERROR_CURR_PHASE;
+	./include/trace/events/neigh.h:127:1: error: directive in macro's argument list
+	./include/trace/events/neigh.h:199:1: error: too many errors
+	
+so we probably end up not seeing some errors ;)
 
-so we probably end up not seeing some warnings.
+> > and it is not immediately clear why. Yes, because "unlikely" is a macro.
+> >
+> > Can't we simply remove this sparse_error() ? "#if" inside the macro's args
+> > is widely used in kernel, gcc doesn't complain, afaics pre-process.c handles
+> > this case correctly.
+>
+> s/correctly/the same as GCC/.  The behavior is undefined in c99.
 
-> 
-> and it is not immediately clear why. Yes, because "unlikely" is a macro.
-> 
-> Can't we simply remove this sparse_error() ? "#if" inside the macro's args
-> is widely used in kernel, gcc doesn't complain, afaics pre-process.c handles
-> this case correctly.
+Yes, yes, this is what I meant.
 
-s/correctly/the same as GCC/.  The behavior is undefined in c99.
+and just in case... there are other cases when GCC and sparse differ,
 
-regards,
-dan carpenter
+	if, within a macro invocation, that macro is redefined, then the new
+	definition takes effect in time for argument pre-expansion, but the
+	original definition is still used for argument replacement. Here is a
+	pathological example:
+
+		#define f(x) x x
+		f (1
+		#undef f
+		#define f 2
+		f)
+
+	which expands to
+
+		1 2 1 2
+
+./sparse -E outputs
+
+	/tmp/M.c:3:1: error: directive in macro's argument list
+	/tmp/M.c:4:1: error: directive in macro's argument list
+	2
+
+
+but I think we don't care.
+
+Oleg.
 
