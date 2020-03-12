@@ -2,155 +2,89 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id D540818341F
-	for <lists+linux-sparse@lfdr.de>; Thu, 12 Mar 2020 16:09:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id ADAE9183889
+	for <lists+linux-sparse@lfdr.de>; Thu, 12 Mar 2020 19:24:26 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727524AbgCLPJR (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Thu, 12 Mar 2020 11:09:17 -0400
-Received: from us-smtp-delivery-1.mimecast.com ([205.139.110.120]:41792 "EHLO
-        us-smtp-1.mimecast.com" rhost-flags-OK-OK-OK-FAIL) by vger.kernel.org
-        with ESMTP id S1727459AbgCLPJR (ORCPT
+        id S1726729AbgCLSY0 (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Thu, 12 Mar 2020 14:24:26 -0400
+Received: from mail-lj1-f194.google.com ([209.85.208.194]:40602 "EHLO
+        mail-lj1-f194.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1726437AbgCLSYZ (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Thu, 12 Mar 2020 11:09:17 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-        s=mimecast20190719; t=1584025755;
-        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-         to:to:cc:cc:mime-version:mime-version:content-type:content-type;
-        bh=dMdtYWxS1sK1A0bAC2M3+3UDlwEsd0DEnOeZo3b9jn8=;
-        b=FS3Z4QOPPdBGJY4FSyQP85v139sJPBgfnIYa4TXW+DxomS2PFvrgw2uKSLi2l0biFGAqbL
-        drbBPF2Lz2Ey+/gaEtk1jXcbw0uO0u36Oqa9kSyrFdJo1AXkyArcM1LBixLWbu4xhqC49X
-        0j6bitqWu+KfVwLAxIKHxKD75+tg8XQ=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-108-0tZ3OPAiMy-rOA68cHlR1A-1; Thu, 12 Mar 2020 11:09:13 -0400
-X-MC-Unique: 0tZ3OPAiMy-rOA68cHlR1A-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
-        (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
-        (No client certificate requested)
-        by mimecast-mx01.redhat.com (Postfix) with ESMTPS id BB0ED800D54;
-        Thu, 12 Mar 2020 15:09:12 +0000 (UTC)
-Received: from dhcp-27-174.brq.redhat.com (unknown [10.43.17.70])
-        by smtp.corp.redhat.com (Postfix) with SMTP id AE8D119C6A;
-        Thu, 12 Mar 2020 15:09:10 +0000 (UTC)
-Received: by dhcp-27-174.brq.redhat.com (nbSMTP-1.00) for uid 1000
-        oleg@redhat.com; Thu, 12 Mar 2020 16:09:12 +0100 (CET)
-Date:   Thu, 12 Mar 2020 16:09:09 +0100
-From:   Oleg Nesterov <oleg@redhat.com>
-To:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-Cc:     Alexey Gladkov <gladkov.alexey@gmail.com>,
-        Dan Carpenter <dan.carpenter@oracle.com>,
-        linux-sparse@vger.kernel.org
-Subject: [PATCH] introduce Wdirective_within_macro
-Message-ID: <20200312150909.GA3403@redhat.com>
+        Thu, 12 Mar 2020 14:24:25 -0400
+Received: by mail-lj1-f194.google.com with SMTP id 19so7586139ljj.7
+        for <linux-sparse@vger.kernel.org>; Thu, 12 Mar 2020 11:24:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linux-foundation.org; s=google;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=2Xa1t0B7gozrraWAOerWu+HQfdF8r3Sd5I+6kPcu5CM=;
+        b=chs6Klac+UK4ZgLoFvEJQ+1HIJwetjRUlkjyYa1BeMsGaXQRQhU8Ldz1zMJ8yDn4wF
+         d1mQR6ZTvgOWrIP/KKeAsyvhwrQqzIYorsf1OWAGXELFNqD+YWcfWSAa/EdGNig0hOBC
+         AvJA6v24ZijKZpg+HwCRQZk0zLKmgveVUBXOA=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=2Xa1t0B7gozrraWAOerWu+HQfdF8r3Sd5I+6kPcu5CM=;
+        b=AjYZPv+TSvLiBNB+iHtNNReq+l+CUqUb0vU8gw/ycOaNg8u+Rpdo6ZPYJYv50kDX7g
+         nOGGXp7TzwxLl3vnn04E3UTQmeQClEhpNp175lPnKYUx6FnDr+l3XtLpKtxvv60m94fZ
+         3sTtm3ZliVLrg4bn0QmBOhoyEwx2Q4xceqDRY/CM+VqhdMLthpbDFcrQkxQzCO2uqgpQ
+         TmQSZn1TqmpRgJVWdhpzKoZiUFG3Af/+cLQ9t2j8UTB47+0bUhXuwxtLnFdzqJ09ZOTj
+         cb1tGjDkVgiTRt9NN2kZewwYXUtBatbjlxLQX8jKuPE2xJxrX2b5H7PC7u8d3Z15O2zQ
+         pTxQ==
+X-Gm-Message-State: ANhLgQ1zpMzUGXWCwKN88RBJyRbbBaC4py3eHm7nDzf9rDaG19+0uiwa
+        awx2mu5f1Brsm91xYYUDbIAbRdMxZ5k=
+X-Google-Smtp-Source: ADFU+vsKiG8KVZOEx+AoAi56ZvReMlVdXc+cG4FJUkaXwkjr4F4ItwTGyxiJfiGdDdjIhdpx4Er2vA==
+X-Received: by 2002:a2e:a173:: with SMTP id u19mr6257201ljl.20.1584037463508;
+        Thu, 12 Mar 2020 11:24:23 -0700 (PDT)
+Received: from mail-lj1-f170.google.com (mail-lj1-f170.google.com. [209.85.208.170])
+        by smtp.gmail.com with ESMTPSA id j17sm12725680ljc.0.2020.03.12.11.24.22
+        for <linux-sparse@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 12 Mar 2020 11:24:22 -0700 (PDT)
+Received: by mail-lj1-f170.google.com with SMTP id d23so7550787ljg.13
+        for <linux-sparse@vger.kernel.org>; Thu, 12 Mar 2020 11:24:22 -0700 (PDT)
+X-Received: by 2002:a2e:5850:: with SMTP id x16mr5567765ljd.209.1584037462064;
+ Thu, 12 Mar 2020 11:24:22 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mutt/1.5.24 (2015-08-30)
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+References: <20200312150909.GA3403@redhat.com>
+In-Reply-To: <20200312150909.GA3403@redhat.com>
+From:   Linus Torvalds <torvalds@linux-foundation.org>
+Date:   Thu, 12 Mar 2020 11:24:06 -0700
+X-Gmail-Original-Message-ID: <CAHk-=wiNPBt4wNkfgSd_utshPkjqQv-z7cg5iCji2jbFAUrLkg@mail.gmail.com>
+Message-ID: <CAHk-=wiNPBt4wNkfgSd_utshPkjqQv-z7cg5iCji2jbFAUrLkg@mail.gmail.com>
+Subject: Re: [PATCH] introduce Wdirective_within_macro
+To:     Oleg Nesterov <oleg@redhat.com>
+Cc:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>,
+        Alexey Gladkov <gladkov.alexey@gmail.com>,
+        Dan Carpenter <dan.carpenter@oracle.com>,
+        Sparse Mailing-list <linux-sparse@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 Sender: linux-sparse-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-When used on linux kernel, sparse issues a lot of "directive in macro's
-argument list" errors, "#if" within a macro invocation is widely used in
-the kernel code.
+On Thu, Mar 12, 2020 at 8:09 AM Oleg Nesterov <oleg@redhat.com> wrote:
+>
+> When used on linux kernel, sparse issues a lot of "directive in macro's
+> argument list" errors, "#if" within a macro invocation is widely used in
+> the kernel code.
 
-Downgrade this sparse_error() to warning() and add the new
--Wdirective-within-macro knob.
+Ack. Downgrading to a warning is a good thing anyway.
 
-Signed-off-by: Oleg Nesterov <oleg@redhat.com>
----
- cgcc                                     | 2 +-
- lib.c                                    | 2 ++
- lib.h                                    | 1 +
- pre-process.c                            | 5 +++--
- validation/preprocessor/preprocessor22.c | 8 ++++----
- 5 files changed, 11 insertions(+), 7 deletions(-)
+I'd even be ok with making the default be "don't warn", and enable
+warnings only if explicitly asked for, or perhaps with "pedantic" (not
+that I think sparse cares about pedantic right now).
 
-diff --git a/cgcc b/cgcc
-index 9c6ad883..9f5897e9 100755
---- a/cgcc
-+++ b/cgcc
-@@ -127,7 +127,7 @@ exit 0;
- 
- sub check_only_option {
-     my ($arg) = @_;
--    return 1 if $arg =~ /^-W(no-?)?(address-space|bitwise|cast-to-as|cast-truncate|constant-suffix|context|decl|default-bitfield-sign|designated-init|do-while|enum-mismatch|external-function-has-definition|init-cstring|memcpy-max-count|non-pointer-null|old-initializer|one-bit-signed-bitfield|override-init-all|paren-string|ptr-subtraction-blows|return-void|sizeof-bool|sparse-all|sparse-error|transparent-union|typesign|undef|unknown-attribute)$/;
-+    return 1 if $arg =~ /^-W(no-?)?(address-space|bitwise|cast-to-as|cast-truncate|constant-suffix|context|decl|default-bitfield-sign|designated-init|directive-within-macro|do-while|enum-mismatch|external-function-has-definition|init-cstring|memcpy-max-count|non-pointer-null|old-initializer|one-bit-signed-bitfield|override-init-all|paren-string|ptr-subtraction-blows|return-void|sizeof-bool|sparse-all|sparse-error|transparent-union|typesign|undef|unknown-attribute)$/;
-     return 1 if $arg =~ /^-v(no-?)?(entry|dead)$/;
-     return 1 if $arg =~ /^-f(dump-ir|memcpy-max-count|diagnostic-prefix)(=\S*)?$/;
-     return 1 if $arg =~ /^-f(mem2reg|optim)(-enable|-disable|=last)?$/;
-diff --git a/lib.c b/lib.c
-index f15e4d99..264a890e 100644
---- a/lib.c
-+++ b/lib.c
-@@ -264,6 +264,7 @@ int Wdecl = 1;
- int Wdeclarationafterstatement = -1;
- int Wdefault_bitfield_sign = 0;
- int Wdesignated_init = 1;
-+int Wdirective_within_macro = 1;
- int Wdo_while = 0;
- int Wimplicit_int = 1;
- int Winit_cstring = 0;
-@@ -740,6 +741,7 @@ static const struct flag warnings[] = {
- 	{ "declaration-after-statement", &Wdeclarationafterstatement },
- 	{ "default-bitfield-sign", &Wdefault_bitfield_sign },
- 	{ "designated-init", &Wdesignated_init },
-+	{ "directive-within-macro", &Wdirective_within_macro },
- 	{ "do-while", &Wdo_while },
- 	{ "enum-mismatch", &Wenum_mismatch },
- 	{ "external-function-has-definition", &Wexternal_function_has_definition },
-diff --git a/lib.h b/lib.h
-index 72651cef..49db0117 100644
---- a/lib.h
-+++ b/lib.h
-@@ -153,6 +153,7 @@ extern int Wdecl;
- extern int Wdeclarationafterstatement;
- extern int Wdefault_bitfield_sign;
- extern int Wdesignated_init;
-+extern int Wdirective_within_macro;
- extern int Wdo_while;
- extern int Wenum_mismatch;
- extern int Wexternal_function_has_definition;
-diff --git a/pre-process.c b/pre-process.c
-index 433d1bf8..e79a447a 100644
---- a/pre-process.c
-+++ b/pre-process.c
-@@ -271,8 +271,9 @@ static struct token *collect_arg(struct token *prev, int vararg, struct position
- 	while (!eof_token(next = scan_next(p))) {
- 		if (next->pos.newline && match_op(next, '#')) {
- 			if (!next->pos.noexpand) {
--				sparse_error(next->pos,
--					     "directive in macro's argument list");
-+				if (Wdirective_within_macro)
-+					warning(next->pos,
-+						"directive in macro's argument list");
- 				preprocessor_line(stream, p);
- 				__free_token(next);	/* Free the '#' token */
- 				continue;
-diff --git a/validation/preprocessor/preprocessor22.c b/validation/preprocessor/preprocessor22.c
-index fb28daaa..277334c6 100644
---- a/validation/preprocessor/preprocessor22.c
-+++ b/validation/preprocessor/preprocessor22.c
-@@ -20,10 +20,10 @@ define_struct(a, {
-  * check-command: sparse -E $file
-  *
-  * check-error-start
--preprocessor/preprocessor22.c:6:1: error: directive in macro's argument list
--preprocessor/preprocessor22.c:8:1: error: directive in macro's argument list
--preprocessor/preprocessor22.c:10:1: error: directive in macro's argument list
--preprocessor/preprocessor22.c:12:1: error: directive in macro's argument list
-+preprocessor/preprocessor22.c:6:1: warning: directive in macro's argument list
-+preprocessor/preprocessor22.c:8:1: warning: directive in macro's argument list
-+preprocessor/preprocessor22.c:10:1: warning: directive in macro's argument list
-+preprocessor/preprocessor22.c:12:1: warning: directive in macro's argument list
-  * check-error-end
-  *
-  * check-output-start
--- 
-2.25.1.362.g51ebf55
+Yes, it's undefined behavior. But sparse does the right thing, and
+it's the better thing to do. And it's not like we're necessarily
+always particularly pedantic about some other cases.
 
+Now, the example where somebody _redefined_ a macro inside the macro
+expansion, that's a different thing. That's just crazy. Maybe we could
+make that "directive in macro argument list" thing be a more nuanced
+flag?
 
+             Linus
