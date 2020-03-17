@@ -2,100 +2,62 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 0891D1860DB
-	for <lists+linux-sparse@lfdr.de>; Mon, 16 Mar 2020 01:46:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id D788618833D
+	for <lists+linux-sparse@lfdr.de>; Tue, 17 Mar 2020 13:11:32 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1729310AbgCPAq1 (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Sun, 15 Mar 2020 20:46:27 -0400
-Received: from mail-wm1-f67.google.com ([209.85.128.67]:51462 "EHLO
-        mail-wm1-f67.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1729294AbgCPAq1 (ORCPT
+        id S1726705AbgCQMLa (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Tue, 17 Mar 2020 08:11:30 -0400
+Received: from sonic316-53.consmr.mail.ne1.yahoo.com ([66.163.187.179]:36571
+        "EHLO sonic316-53.consmr.mail.ne1.yahoo.com" rhost-flags-OK-OK-OK-OK)
+        by vger.kernel.org with ESMTP id S1726490AbgCQMLa (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Sun, 15 Mar 2020 20:46:27 -0400
-Received: by mail-wm1-f67.google.com with SMTP id a132so15834969wme.1
-        for <linux-sparse@vger.kernel.org>; Sun, 15 Mar 2020 17:46:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=date:from:to:cc:subject:message-id:references:mime-version
-         :content-disposition:in-reply-to;
-        bh=orVlvqy4cyOxBTTIV0cI7HhAtW1gpzZGyJU9Sd9iSRk=;
-        b=mFv1ls8RLm8XJWxCE+wM6sTaMpej3PN9n3HNx4wWq1NMtUSwbHIS3Og1OiXaCdcSRp
-         JoIVyyjs+7vS+fUJ6+7k45XatDvMxuE05vLqld4VNX+MlGZblLiPjOh/vNtcA87PWxzK
-         FMr5BU/r4u0z7wbLL2wP2mfRKjjWjSnu2cY29DUn9P1wJcmflwOHVY0KtJ6s/NSZN6J3
-         hsHqG7IZlwXG3PUPqO2GOf4r2AvtwhmA6OVGc8OuspPYIOQDngy/j90La7F1RfF4urlg
-         ZVh7Ctn+7hKU5JGRqtDQLC120HLS/Gdm6wCYTuP9YoMarNWm4uVjW/o0rBOF9MSXbccq
-         KmOQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
-         :mime-version:content-disposition:in-reply-to;
-        bh=orVlvqy4cyOxBTTIV0cI7HhAtW1gpzZGyJU9Sd9iSRk=;
-        b=d+MHpWLKneFAicpQLPqEnmtV3gu06RboJjn4j38IxadJCeYUUc+PUB5yu22hb7z8iX
-         uu8Fuq3w1JpSYZOP2WRp8PghtLteS+N7XgaUtlkkmJRUHKSKvLFaHLmp5BQa+OnwXHDj
-         +PzAmvkfrmIDv9wyP0phiRaqWGqBwF6qJUCPrTg11A9sHNLl9aK88RbrQvH5Bi3Xxp70
-         cLMAM8yBkwGi4ii6UUQUAg7IPNVubhDEWeeT89BvzXfNXXKbNMuAKL0hQK5wJUCM02Re
-         Y++togOs4B5ZwgvqPxhJioSm58ioYtArQDCRlDab1ZzhWfKixYbgZaWLMI1REVaqZeF2
-         K/Vg==
-X-Gm-Message-State: ANhLgQ1wYdRyKguX+9InQegaztDiHU94XHuy3EhBzn7qwZSlKcxHkNJz
-        lZOsFfQLralENRGVy4Xs0CnYu62t
-X-Google-Smtp-Source: ADFU+vvqxkZsOyf5nIB0k/hDHUcfAqeXqsuGTwBrUY2zFPeMwldG2fODnnBXRenez+3VjO1LXgc36w==
-X-Received: by 2002:a1c:f713:: with SMTP id v19mr23298318wmh.113.1584319584031;
-        Sun, 15 Mar 2020 17:46:24 -0700 (PDT)
-Received: from ltop.local ([2a02:a03f:40a4:c800:887e:5f4c:6cd8:4f03])
-        by smtp.gmail.com with ESMTPSA id w1sm25992708wmc.11.2020.03.15.17.46.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 15 Mar 2020 17:46:23 -0700 (PDT)
-Date:   Mon, 16 Mar 2020 01:46:22 +0100
-From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-To:     Oleg Nesterov <oleg@redhat.com>
-Cc:     linux-sparse@vger.kernel.org,
-        Linus Torvalds <torvalds@linux-foundation.org>
-Subject: Re: [PATCH] cpp: silently allow conditional directives within macro
-Message-ID: <20200316004622.hoiz72yi2wloz25g@ltop.local>
-References: <CAHk-=wiNPBt4wNkfgSd_utshPkjqQv-z7cg5iCji2jbFAUrLkg@mail.gmail.com>
- <20200312211630.53710-1-luc.vanoostenryck@gmail.com>
- <20200313161748.GA22910@redhat.com>
+        Tue, 17 Mar 2020 08:11:30 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1584447089; bh=kcevCRoll2+Bsa3FDERpIV72LVcB1A4YV1b5N2AWYBk=; h=Date:From:Reply-To:Subject:References:From:Subject; b=KCMlqjzzwS7inRC819loJS79mPsbkcFh304PAb108zZwC6pa8gLSwkQOksaUWCmP+DDcCZXF52527CmULpQ7BdSVkRvhUJMiVtnhmbC6psyu1gxYdCDQpVpfDeKnOh3/XDytGvhawq4PyZIBVX+wEvjRMk/56f1N94IPcKrSBIpS/0DLdnRtxGHw/FNjso/PBdeRhWRS9sQgDrVl5+tEASVIwm8jp8JWC8ugClr7LMOO3LOjAmg2UFQb2Sahl+KPsuJY7O8AhrKSA4JwwX0GH6Gk6PktJfj5KQ3w1pf43N7SjCqaVRWwwnWe8Z7v8Sw0RjsIoITDOH3HO6mtQxOXFw==
+X-YMail-OSG: nwaTrt4VM1lDCPW_4pvlmdHAB4HAd8ObDxV2jblZS5yJaml5hQx8to41jpdTr.o
+ 6JoVPGukrqUvVKYJ6gZYVzuWzDI52hq6Rw5fdAZ_zBaw9aFChlLxFmd4omp.bcI2uxUdM.BDzeeN
+ Y_hvEBIpkCPoCAm66xPD5jIBbZ0cj1xcDHRWJMhmt9MqOg27xEYgrfkdayuDTydo1p_1KfrBOEw3
+ Cs5s1LGFDulJy2mMdarisTNG79jsqOxAN9t.nKTAkBRFiLCEOWQu2ZsECPjSbs9vvbocqSMdfwK8
+ zkGSsD4wlCb8YiptM2I8udid3A4XpHHFbO6bqpfFSvKVY4J_FUMqZdiPniOBuzEGY.p6tuzAEmQR
+ 9whpr9f7kh9EQfFTTD.9l3nbDMjfplK_aik6oYKaNchOx1SygPXhjMKQnKk.AZOH2VlFT5_cMKpH
+ Dr12NC9pKhCSOY0Ly4w.jvNAVjZYC9q1hO1G3Lmbn2.z8DfYfFOop5oZaBOJ7P6M4_dHZEOgoLrb
+ baIsLMPAgID1yYPnNkmAy6SujtaA2q5SGYm3Aoq8Khb4HipsTrzoPuSzUM_Wy4Vk.J5_ecFkZSnx
+ UDV4uwrsNL5hjpS9Dvk9hbcI2BhQ3RQs4HRNwUq24mvpmJL8onC2W2oH5Ib2HPgWr6tPEV18EN96
+ qTLFCoQxRD9cTOmSa9MHPICEbt.yISk4YVtxOgNlrRkViPOTulYpjDRM2JJVxLoTyQi1crZiDmAl
+ ID0CbX4UbJJfxm0_3guinQWPXF_UqJX39mZR5vhgcfW7aTzAFlQmuRx9XC4BFQMK6TBTJY7gH7.J
+ 79IJZ6JEm59ol7a6IDE.BOSkOBqtlvGzjLxCGhM6RTOfPqgcwze140Faq4fLNyXu77Xmnt9VCelv
+ SbKazh3MHBrHO0fxT229tWoiEh2jWvgpBWPbPZL6ghCPspCfA90g63dMDidVXeTzVaON4txUHYI2
+ rkwxE_Txwv0_WBvC.201Tn3rq_6ht1MOCUqhgjg6odqY_9ghnh0j9mggywGBwXwKhqyNzjuK7N2R
+ qL6gBFODLt5qfK0Sc7fN435k_R_bti4D3Jt8bPzQEirIxTOPPx_XYvrR0cCvNDS3BRJ4Mq0r7ZGc
+ qxsq0_qftRTdi6jr4Um_ci22FuoesgE9L_A45Is5kpevTQ1GwtAeGpH.ytMrONuERJ70lGsBPpPg
+ MtW8WIXf.aSrdetjLNQ6a6uOvAFdrPqvaqXXCB46LMU.BUe6QcaF8d7YgtDunEtzlzaG68UP5cS.
+ sVt0O8vZoU.FuxFxrK3VYR4OAARNv9Z9Mf0ggKFFAJY7wvSQKRVsZKWfBpRYK7REKQ5tNpALOFNu
+ iNovnZRT4ecFBHoBIRBLkfKml6oyci_bdmw--
+Received: from sonic.gate.mail.ne1.yahoo.com by sonic316.consmr.mail.ne1.yahoo.com with HTTP; Tue, 17 Mar 2020 12:11:29 +0000
+Date:   Tue, 17 Mar 2020 12:09:27 +0000 (UTC)
+From:   Stephen Li <stenn6@gabg.net>
+Reply-To: stephli947701@gmail.com
+Message-ID: <1348826789.1834294.1584446967790@mail.yahoo.com>
+Subject: REF
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20200313161748.GA22910@redhat.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+References: <1348826789.1834294.1584446967790.ref@mail.yahoo.com>
+X-Mailer: WebService/1.1.15342 YMailNodin Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.132 Safari/537.36
+To:     unlisted-recipients:; (no To-header on input)
 Sender: linux-sparse-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-On Fri, Mar 13, 2020 at 05:17:48PM +0100, Oleg Nesterov wrote:
-> On 03/12, Luc Van Oostenryck wrote:
-> >
-> > @@ -2098,6 +2103,12 @@ static void handle_preprocessor_line(struct stream *stream, struct token **line,
-> >  		if (false_nesting)
-> >  			goto out;
-> >  	}
-> > +
-> > +	if (expanding) {
-> > +		if (Wdirective_within_macro && !is_cond)
->                     ^^^^^^^^^^^^^^^^^^^^^^^
-> I am not sure Wdirective_within_macro is really useful after this change,
-> I'd suggest to drop my patch but this is up to you.
 
-Yes, it makes much less sense now. I've replaced that by supporting
--pedantic.
- 
-> > +			warning(start->pos, "directive in macro's argument list");
-> > +		expanding = 0;		// warn only once
-> > +	}
-> 
-> then you should probably update preprocessor22.c ? See below.
-> 
-> I am not sure about validation/preprocessor/expand-redef.c added by the
-> previous patch,
 
-Yes, I hadn't updated the testcases because the patch just a RFC
-to see if just allowing the #if/... was OK (but I forgot to mark
-is as such) and they also depended on the previous RFC patch about
-the expansion of newline.
-
-Series updated and pushed now.
-Thanks for the review.
-
--- Luc 
+Greetings,
+I was searching through a local business directory when I found your
+profile. I am Soliciting On-Behalf of my private client who is
+interested in having a serious business investment in your country. If
+you have a valid business, investment or project he can invest
+back to me for more details. Your swift response is highly needed.
+Sincerely
+Stephen Li
+Please response back to me with is my private email below for more details
+stephli947701@gmail.com
