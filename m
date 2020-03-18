@@ -2,58 +2,29 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 5BB1618A195
-	for <lists+linux-sparse@lfdr.de>; Wed, 18 Mar 2020 18:31:33 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 6311618A291
+	for <lists+linux-sparse@lfdr.de>; Wed, 18 Mar 2020 19:47:09 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726864AbgCRRbd (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Wed, 18 Mar 2020 13:31:33 -0400
-Received: from mail-wm1-f66.google.com ([209.85.128.66]:55916 "EHLO
-        mail-wm1-f66.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726822AbgCRRbc (ORCPT
-        <rfc822;linux-sparse@vger.kernel.org>);
-        Wed, 18 Mar 2020 13:31:32 -0400
-Received: by mail-wm1-f66.google.com with SMTP id 6so4371126wmi.5
-        for <linux-sparse@vger.kernel.org>; Wed, 18 Mar 2020 10:31:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=from:to:cc:subject:date:message-id:in-reply-to:references
-         :mime-version:content-transfer-encoding;
-        bh=5X4qd+SLyN5QmOeHsqGfLnUDjVac6191xRqpIk6Hops=;
-        b=pXJtOuH3CNNeaz4nDIUGce9cx2VnO2nCfiGTrO4gBzqk9YTtHzoWYathxe26aJoiqR
-         NBTWZ3UZZzFltScvhjldT3mg1Eu0/dNCN4WeF3LModvF5HD9hWU5Gf9hhTrPQ8v+eNLB
-         Mpv/Cs633C1N/8lBfrYt50cNG9Ym1fOT8BtVF6BNRcc08DAa/E+j/pZvq2n+25d01gOs
-         nVn5XQrZkTW0YQKCyDj1cy4zoKI1a/A4UAUp4wjJQQRVoTMxXmqY6Im1eMv8ZYW9qJOh
-         wlYIN/jVZ6n5AA9/6uHKtN3XYtIiZAxUsnS/GB+vHMx3P/vRPMuBhnDMwWhVD9pGWpSo
-         FnBA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
-         :references:mime-version:content-transfer-encoding;
-        bh=5X4qd+SLyN5QmOeHsqGfLnUDjVac6191xRqpIk6Hops=;
-        b=YqKBWVlUuUNPOKDx+Al73iLG+nMejHgTq7QSk4Xw9k7QzoPG2lgmS4Ffmo+sVC/QYo
-         PpZFSxz8dodRiAZgCxyebvB2fp1o9pFC45JW9l1O/0db7oCFTzlFQFZ7EQuh8fMn37tc
-         z3WkK3EVeXv7IpqyeNOH8G4as8OkmJnHlLKk597IEagPBhPmmm7ExnJN7WjsQ5tUz+QC
-         YJWNQICCdGvXQmFElRrg3mYksO7dS6ScY6muolOV7AZl3f4VmYeEG1X7FKbSiS7UWunX
-         BDB7Frnobcsown8V3cR2v5qYP1PVUA6cbFbpZLNZj00SplzugicfzT7k6I/t7FBZ7p9N
-         hX7g==
-X-Gm-Message-State: ANhLgQ1InymA/EHsZT9Zl4QzRxzFqmzX2HE+kY5l9PXKEU74ht7DBp0w
-        ZtaMoG7rVwKDxT3ARgPpBcTXtvWH
-X-Google-Smtp-Source: ADFU+vtTCmXKzXlXy3ncg10ErCpePfyOhTPz86++57t1W/xsvSBqflPZTSQqavo5uwd2at9ixBeelA==
-X-Received: by 2002:a1c:8097:: with SMTP id b145mr6608308wmd.159.1584552688929;
-        Wed, 18 Mar 2020 10:31:28 -0700 (PDT)
-Received: from localhost.localdomain ([2a02:a03f:b7f9:7600:81ce:3038:2a0a:bf02])
-        by smtp.gmail.com with ESMTPSA id u17sm10268051wrm.43.2020.03.18.10.31.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 18 Mar 2020 10:31:28 -0700 (PDT)
-From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
+        id S1726619AbgCRSrI (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Wed, 18 Mar 2020 14:47:08 -0400
+Received: from monster.unsafe.ru ([5.9.28.80]:41152 "EHLO mail.unsafe.ru"
+        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
+        id S1726506AbgCRSrI (ORCPT <rfc822;linux-sparse@vger.kernel.org>);
+        Wed, 18 Mar 2020 14:47:08 -0400
+X-Greylist: delayed 441 seconds by postgrey-1.27 at vger.kernel.org; Wed, 18 Mar 2020 14:47:07 EDT
+Received: from comp-core-i7-2640m-0182e6.redhat.com (ip-89-102-33-211.net.upcbroadband.cz [89.102.33.211])
+        (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+        (No client certificate requested)
+        by mail.unsafe.ru (Postfix) with ESMTPSA id B6F60C61AE0;
+        Wed, 18 Mar 2020 18:39:44 +0000 (UTC)
+From:   Alexey Gladkov <gladkov.alexey@gmail.com>
 To:     linux-sparse@vger.kernel.org
-Cc:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-Subject: [PATCH 5/5] teach sparse to linearize __builtin_unreachable()
-Date:   Wed, 18 Mar 2020 18:31:20 +0100
-Message-Id: <20200318173120.63939-6-luc.vanoostenryck@gmail.com>
+Cc:     Oleg Nesterov <oleg@redhat.com>,
+        Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
+Subject: [PATCH] sindex: Add option to search by location
+Date:   Wed, 18 Mar 2020 19:39:24 +0100
+Message-Id: <20200318183924.343365-1-gladkov.alexey@gmail.com>
 X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20200318173120.63939-1-luc.vanoostenryck@gmail.com>
-References: <20200318173120.63939-1-luc.vanoostenryck@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Sender: linux-sparse-owner@vger.kernel.org
@@ -61,79 +32,194 @@ Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-__builtin_unreachable() is one of the builtin that shouldn't
-be ignored at IR level since it directly impact the CFG.
+To create plugin for text editor, it may be useful to be able to search
+by position in a file.
 
-So, add the infrastructure put in place in the previous patch
-to generate the OP_UNREACH instruction instead of generating
-a call to a non-existing function "__builtin_unreachable()".
+$ sindex search -l include/uapi/linux/msdos_fs.h:91:8
+(---) fs/fat/dir.c 759 1 fat_ioctl_filldir FAT_IOCTL_FILLDIR_FUNC(fat_ioctl_filldir, __fat_dirent)
+(r--) fs/fat/dir.c 759 1 fat_ioctl_filldir FAT_IOCTL_FILLDIR_FUNC(fat_ioctl_filldir, __fat_dirent)
+(m--) fs/fat/dir.c 759 1 fat_ioctl_filldir FAT_IOCTL_FILLDIR_FUNC(fat_ioctl_filldir, __fat_dirent)
+(def) include/uapi/linux/msdos_fs.h 91 8   long  d_ino;
 
-Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
+$ sindex search -l -m w include/uapi/linux/msdos_fs.h:91:8
+(m--) fs/fat/dir.c 759 1 fat_ioctl_filldir FAT_IOCTL_FILLDIR_FUNC(fat_ioctl_filldir, __fat_dirent)
+
+Another use is to get the full name of symbol in case of a high level
+of nesting:
+
+$ sindex search -e fs/dcache.c:567
+(--r) fs/dcache.c 567 9 __dentry_kill   dentry->d_op->d_prune(dentry);
+(--r) fs/dcache.c 567 15 __dentry_kill   dentry->d_op->d_prune(dentry);
+
+$ sindex search -e --format='%n' fs/dcache.c:567
+dentry.d_op
+dentry_operations.d_prune
+
+$ sindex search -e --format='%n' fs/dcache.c:567:9
+dentry.d_op
+
+Signed-off-by: Alexey Gladkov <gladkov.alexey@gmail.com>
 ---
- linearize.c                              | 7 +++++++
- validation/context-unreachable.c         | 1 -
- validation/linear/builtin_unreachable0.c | 1 -
- validation/linear/builtin_unreachable1.c | 1 -
- 4 files changed, 7 insertions(+), 3 deletions(-)
+ sindex.1 |  8 ++++++
+ sindex.c | 74 ++++++++++++++++++++++++++++++++++++++++++++++++++++++--
+ 2 files changed, 80 insertions(+), 2 deletions(-)
 
-diff --git a/linearize.c b/linearize.c
-index 25d6327bf6f1..615636ed1f83 100644
---- a/linearize.c
-+++ b/linearize.c
-@@ -2536,12 +2536,19 @@ struct entrypoint *linearize_symbol(struct symbol *sym)
-  * Builtin functions
-  */
+diff --git a/sindex.1 b/sindex.1
+index ef39f0f9..e3e14ca3 100644
+--- a/sindex.1
++++ b/sindex.1
+@@ -17,6 +17,8 @@ sindex \- Semantic Indexer for C
+ .B sindex
+ [\fIoptions\fR] \fIsearch\fR [\fIcommand options\fR] [\fIpattern\fR]
+ .br
++.B sindex [\fIoptions\fR] \fIsearch\fR [\fIcommand options\fR] (\fI-e\fR|\fI-l\fR) \fIfilename\fR:\fIlinenr\fR:\fIcolumn\fR
++.br
+ .SH DESCRIPTION
+ .P
+ sindex is the simple to use cscope-like tool based on sparse/dissect.  Unlike
+@@ -75,6 +77,12 @@ specify a kind of symbol (see
+ .BR KIND
+ below).
+ .TP
++\fB-e\fR, \fB--explain\fR
++Show what happens in the specified file position;
++.TP
++\fB-l\fR, \fB--location\fR
++Show usage of symbols from a specific file position;
++.TP
+ \fB-v\fR, \fB--verbose\fR
+ show information about what is being done;
+ .TP
+diff --git a/sindex.c b/sindex.c
+index c950254b..ea092a4a 100644
+--- a/sindex.c
++++ b/sindex.c
+@@ -53,6 +53,13 @@ static char *sindex_search_path = NULL;
+ static char *sindex_search_symbol = NULL;
+ static const char *sindex_search_format = "(%m) %f\t%l\t%c\t%C\t%s";
  
-+static pseudo_t linearize_unreachable(struct entrypoint *ep, struct expression *exp)
-+{
-+	add_unreachable(ep);
-+	return VOID;
-+}
++#define EXPLAIN_LOCATION 1
++#define USAGE_BY_LOCATION 2
++static int sindex_search_by_location;
++static char *sindex_search_filename;
++static int sindex_search_line;
++static int sindex_search_column;
 +
- static struct sym_init {
- 	const char *name;
- 	pseudo_t (*linearize)(struct entrypoint *, struct expression*);
- 	struct symbol_op op;
- } builtins_table[] = {
- 	// must be declared in builtin.c:declare_builtins[]
-+	{ "__builtin_unreachable", linearize_unreachable },
- 	{ }
- };
+ static sqlite3 *sindex_db = NULL;
+ static sqlite3_stmt *lock_stmt = NULL;
+ static sqlite3_stmt *unlock_stmt = NULL;
+@@ -150,6 +157,7 @@ static void show_help_search(int ret)
+ {
+ 	printf(
+ 	    "Usage: %1$s search [options] [pattern]\n"
++	    "   or: %1$s search [options] (-e|-l) filename[:linenr[:column]]\n"
+ 	    "\n"
+ 	    "Utility searches information about symbol by pattern.\n"
+ 	    "The pattern is a glob(7) wildcard pattern.\n"
+@@ -159,6 +167,8 @@ static void show_help_search(int ret)
+ 	    "  -p, --path=PATTERN     Search symbols only in specified directories;\n"
+ 	    "  -m, --mode=MODE        Search only the specified type of access;\n"
+ 	    "  -k, --kind=KIND        Specify a kind of symbol;\n"
++	    "  -e, --explain          Show what happens in the specified file position;\n"
++	    "  -l, --location         Show usage of symbols from a specific file position;\n"
+ 	    "  -v, --verbose          Show information about what is being done;\n"
+ 	    "  -h, --help             Show this text and exit.\n"
+ 	    "\n"
+@@ -339,8 +349,10 @@ static void parse_cmdline_rm(int argc, char **argv)
+ static void parse_cmdline_search(int argc, char **argv)
+ {
+ 	static const struct option long_options[] = {
++		{ "explain", no_argument, NULL, 'e' },
+ 		{ "format", required_argument, NULL, 'f' },
+ 		{ "path", required_argument, NULL, 'p' },
++		{ "location", no_argument, NULL, 'l' },
+ 		{ "mode", required_argument, NULL, 'm' },
+ 		{ "kind", required_argument, NULL, 'k' },
+ 		{ "verbose", no_argument, NULL, 'v' },
+@@ -349,8 +361,14 @@ static void parse_cmdline_search(int argc, char **argv)
+ 	};
+ 	int c;
  
-diff --git a/validation/context-unreachable.c b/validation/context-unreachable.c
-index 3e330403ce01..8664962ea088 100644
---- a/validation/context-unreachable.c
-+++ b/validation/context-unreachable.c
-@@ -12,5 +12,4 @@ static void foo(void)
+-	while ((c = getopt_long(argc, argv, "+f:m:k:p:vh", long_options, NULL)) != -1) {
++	while ((c = getopt_long(argc, argv, "+ef:m:k:p:lvh", long_options, NULL)) != -1) {
+ 		switch (c) {
++			case 'e':
++				sindex_search_by_location = EXPLAIN_LOCATION;
++				break;
++			case 'l':
++				sindex_search_by_location = USAGE_BY_LOCATION;
++				break;
+ 			case 'f':
+ 				sindex_search_format = optarg;
+ 				break;
+@@ -371,7 +389,32 @@ static void parse_cmdline_search(int argc, char **argv)
+ 		}
+ 	}
  
- /*
-  * check-name: context-unreachable
-- * check-known-to-fail
-  */
-diff --git a/validation/linear/builtin_unreachable0.c b/validation/linear/builtin_unreachable0.c
-index 5da9d074ae5f..fb59a3408987 100644
---- a/validation/linear/builtin_unreachable0.c
-+++ b/validation/linear/builtin_unreachable0.c
-@@ -10,7 +10,6 @@ int foo(int p)
- /*
-  * check-name: builtin_unreachable0
-  * check-command: test-linearize -Wno-decl $file
-- * check-known-to-fail
-  *
-  * check-output-start
- foo:
-diff --git a/validation/linear/builtin_unreachable1.c b/validation/linear/builtin_unreachable1.c
-index 280f853d8a07..a83da079a3c9 100644
---- a/validation/linear/builtin_unreachable1.c
-+++ b/validation/linear/builtin_unreachable1.c
-@@ -12,7 +12,6 @@ int foo(int c)
-  * check-name: builtin_unreachable1
-  * check-command: test-linearize -Wno-decl $file
-  *
-- * check-known-to-fail
-  * check-output-start
- foo:
- .L0:
+-	if (optind < argc)
++	if (sindex_search_by_location) {
++		char *str;
++
++		if (optind == argc)
++			sindex_error(1, 0, "one argument required");
++
++		str = argv[optind];
++
++		while (str) {
++			char *ptr;
++
++			if ((ptr = strchr(str, ':')) != NULL)
++				*ptr++ = '\0';
++
++			if (*str != '\0') {
++				if (!sindex_search_filename) {
++					sindex_search_filename = str;
++				} else if (!sindex_search_line) {
++					sindex_search_line = atoi(str);
++				} else if (!sindex_search_column) {
++					sindex_search_column = atoi(str);
++				}
++			}
++			str = ptr;
++		}
++	} else if (optind < argc)
+ 		sindex_search_symbol = argv[optind++];
+ }
+ 
+@@ -1016,6 +1059,33 @@ static void command_search(int argc, char **argv)
+ 			goto fail;
+ 	}
+ 
++	if (sindex_search_by_location == EXPLAIN_LOCATION) {
++		if (query_appendf(query, " AND file.name == %Q", sindex_search_filename) < 0)
++			goto fail;
++		if (sindex_search_line &&
++		    query_appendf(query, " AND sindex.line == %d", sindex_search_line) < 0)
++			goto fail;
++		if (sindex_search_column &&
++		    query_appendf(query, " AND sindex.column == %d", sindex_search_column) < 0)
++			goto fail;
++	} else if (sindex_search_by_location == USAGE_BY_LOCATION) {
++		if (query_appendf(query, " AND sindex.symbol IN (") < 0)
++			goto fail;
++		if (query_appendf(query,
++		                 "SELECT sindex.symbol FROM sindex, file WHERE"
++				 " sindex.file == file.id AND"
++		                 " file.name == %Q", sindex_search_filename) < 0)
++			goto fail;
++		if (sindex_search_line &&
++		    query_appendf(query, " AND sindex.line == %d", sindex_search_line) < 0)
++			goto fail;
++		if (sindex_search_column &&
++		    query_appendf(query, " AND sindex.column == %d", sindex_search_column) < 0)
++			goto fail;
++		if (query_appendf(query, ")") < 0)
++			goto fail;
++	}
++
+ 	if (query_appendf(query, " ORDER BY file.name, sindex.line, sindex.column ASC", sindex_search_path) < 0)
+ 		goto fail;
+ 
 -- 
 2.25.1
 
