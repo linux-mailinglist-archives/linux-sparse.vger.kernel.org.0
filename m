@@ -2,55 +2,55 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id ED05718A190
-	for <lists+linux-sparse@lfdr.de>; Wed, 18 Mar 2020 18:31:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 702C918A192
+	for <lists+linux-sparse@lfdr.de>; Wed, 18 Mar 2020 18:31:28 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727027AbgCRRb0 (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Wed, 18 Mar 2020 13:31:26 -0400
-Received: from mail-wr1-f65.google.com ([209.85.221.65]:42999 "EHLO
-        mail-wr1-f65.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726857AbgCRRb0 (ORCPT
+        id S1726680AbgCRRb1 (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Wed, 18 Mar 2020 13:31:27 -0400
+Received: from mail-wr1-f46.google.com ([209.85.221.46]:43778 "EHLO
+        mail-wr1-f46.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1726822AbgCRRb1 (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Wed, 18 Mar 2020 13:31:26 -0400
-Received: by mail-wr1-f65.google.com with SMTP id v11so31527406wrm.9
-        for <linux-sparse@vger.kernel.org>; Wed, 18 Mar 2020 10:31:25 -0700 (PDT)
+        Wed, 18 Mar 2020 13:31:27 -0400
+Received: by mail-wr1-f46.google.com with SMTP id b2so25252179wrj.10
+        for <linux-sparse@vger.kernel.org>; Wed, 18 Mar 2020 10:31:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=ne6oQI8a7eJWdEtHRAJFQ3/tNSmI1ubmcuR7vcqmsmE=;
-        b=mlecvrE8NXyNqPcsHZKVMhQnBupDAEV91GyvqkPeFS4CeDTFi7ctOiMvmZvKgcW4g6
-         quosAyEj26jtwMNb0ojXEP84ove84ab0ar0/QNQg+caLBU5/xA9Uonrv+bsI76XmgKCw
-         +ZAqmAoBQ6jx70HJMAK39VUWunBkacjXc4QGAiSPWL1an/cuNT0Mx9Eqxpx0j+LZFaZB
-         4JKUGPf9LxXfIjMVxjkbKkRf6PrDM9QmktNnsxxhPGbqx60Hcf8PKYaInudZl8drnctS
-         K6aksI8gNlgVphAA/+UVCzyh7NQ9jS3PcnJwa275a6pkldNy+OzDZ6pfCyqfB84wJX16
-         ZJRA==
+        bh=8eASX61uoLNJMkUk+a2+jRbEoJcbF7uQE30dswMw+1k=;
+        b=HbUkuzXHnDwr4TcCDDeD90IhDWr4VWCyi/7RmDzRWu0/2TYhSYQUQVu8HWC6UJMJqj
+         E8WXbD0IB+0C10k5X6leIEEXg/jUW/QzQGRTk2rqBw4/EuSmIl4Hovb0GJYsQd4cGPyq
+         zsT1dkfiiRsT6frQ04rNkjOq1KFAZeNBGYDAjyzGL39ZApK9ZAz+geeGB0vNjW6L2kF+
+         yJOw/0h4GqszSc47P3CxWKl97CrzfHsvMGk19OdjFSRKAa6FBW+YpAjlJ3AuVDHQrCsZ
+         EjCKBkY9mEw9eUFYm+0QYyCDipXkJNRvEh9yqqBn6vnTCWYX3DiENOdOUwU2opCaEDLB
+         5jTQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=ne6oQI8a7eJWdEtHRAJFQ3/tNSmI1ubmcuR7vcqmsmE=;
-        b=CASg/fQK9dJYc+/UV2yzDV6LDfpVXCrI0b+FIJyrX9HhTHQCd69pzL9Dqm+oShy+GT
-         r/rEQQuwh+J2uR2lC/2/S7UgMpw6UxOtSQ0jVWMCsQBPMUsmlEuMH2hesl/9slmAYeEb
-         +gHOs2Eztt+htlZ9/aFcv+pd4TV6LN2ahvePzWNE0qN7d+mwfsYMiYed37LKYvczGFg7
-         Zds0CI3QumoVKyPvSpZChnR5BwBcMo9DCSyTuv9EZSK/l1Mbtgl7Q0xElzNxNmUlCl8U
-         0GYYcBsXd84TY+NL1G6QUUBB3uTQXAMAULRvgbxwefulV4wGA+lukw9GEHjKbrHU4UYi
-         h5zQ==
-X-Gm-Message-State: ANhLgQ3D/sb1qHhDLr0l/hEYqBVFaVp/3eo/BFDoYGxK/gq14lgp9V0A
-        uJLHgUzMUDHgBFtMXWJwz2QouzY/
-X-Google-Smtp-Source: ADFU+vvO3EZISvWEMTlvPIy77luwaemkHLzzIInKTBKxU5XjoLb7KUGiXDvlOAtBkXGgDqjYCr/5LA==
-X-Received: by 2002:adf:f8cf:: with SMTP id f15mr6575449wrq.79.1584552684275;
-        Wed, 18 Mar 2020 10:31:24 -0700 (PDT)
+        bh=8eASX61uoLNJMkUk+a2+jRbEoJcbF7uQE30dswMw+1k=;
+        b=cW56f8IccaWq3cLj+nscJYj6GuwcyCMPh0JFB9RNJFwRXKnjeIE7vq/5wHxVgu45jm
+         XaaXBZNpujaSs/14zUyCR/Kg81BZq34gEotar8PBNahZdX1UTyiaLateCzLrhgYPBlK9
+         Fbptg9+jJGdeN2kZ1Wd6sHEOnbnBnL5QXF2y6pcorHv1m/OIL+YGI2EzNspFNHHWDz14
+         7Z4Y6nXavxvZXwkRSS9fqVrjLbTjZ+4XFN0iyE1LHWaE4Dy8Qdoa+j3Pfg1I1hxmIEey
+         yON/p3rI/SjNmJobPQh73bcr9STU6r0oH4jeGE+nl/aszn9o1Z7Y/JiysnxS5VvWpEFU
+         Gijw==
+X-Gm-Message-State: ANhLgQ2Gky3GXmEbeSViEdNx6NJ6UxFdpyx6FHMzzBwuUAra43JDga3O
+        qrIwkebFwH1r2UElejIh/sXBxIlz
+X-Google-Smtp-Source: ADFU+vs5Zp0oBEPzVQx2XZvcYoLEGi9kO4NfF9NszpjYJ2bX/7c3YKJPjN/hUsruU2WMbnjRrn3vHg==
+X-Received: by 2002:a5d:55c7:: with SMTP id i7mr6904648wrw.252.1584552685482;
+        Wed, 18 Mar 2020 10:31:25 -0700 (PDT)
 Received: from localhost.localdomain ([2a02:a03f:b7f9:7600:81ce:3038:2a0a:bf02])
-        by smtp.gmail.com with ESMTPSA id u17sm10268051wrm.43.2020.03.18.10.31.23
+        by smtp.gmail.com with ESMTPSA id u17sm10268051wrm.43.2020.03.18.10.31.24
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 18 Mar 2020 10:31:23 -0700 (PDT)
+        Wed, 18 Mar 2020 10:31:24 -0700 (PDT)
 From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 To:     linux-sparse@vger.kernel.org
 Cc:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-Subject: [PATCH 1/5] add testcases for OP_UNREACH
-Date:   Wed, 18 Mar 2020 18:31:16 +0100
-Message-Id: <20200318173120.63939-2-luc.vanoostenryck@gmail.com>
+Subject: [PATCH 2/5] add instruction OP_UNREACH
+Date:   Wed, 18 Mar 2020 18:31:17 +0100
+Message-Id: <20200318173120.63939-3-luc.vanoostenryck@gmail.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20200318173120.63939-1-luc.vanoostenryck@gmail.com>
 References: <20200318173120.63939-1-luc.vanoostenryck@gmail.com>
@@ -63,147 +63,58 @@ X-Mailing-List: linux-sparse@vger.kernel.org
 
 Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 ---
- validation/context-unreachable.c              | 16 ++++++++++
- validation/linear/builtin_unreachable0.c      | 30 +++++++++++++++++++
- ...n_unreachable.c => builtin_unreachable1.c} | 14 ++++-----
- validation/linear/noreturn-unreachable0.c     | 23 ++++++++++++++
- 4 files changed, 76 insertions(+), 7 deletions(-)
- create mode 100644 validation/context-unreachable.c
- create mode 100644 validation/linear/builtin_unreachable0.c
- rename validation/linear/{builtin_unreachable.c => builtin_unreachable1.c} (65%)
- create mode 100644 validation/linear/noreturn-unreachable0.c
+ Documentation/IR.rst | 3 +++
+ linearize.c          | 3 +++
+ opcode.def           | 1 +
+ 3 files changed, 7 insertions(+)
 
-diff --git a/validation/context-unreachable.c b/validation/context-unreachable.c
-new file mode 100644
-index 000000000000..3e330403ce01
---- /dev/null
-+++ b/validation/context-unreachable.c
-@@ -0,0 +1,16 @@
-+int fun(void);
-+
-+static void foo(void)
-+{
-+	__context__(1);
-+	if (!fun()) {
-+		__builtin_unreachable();
-+		return;
-+	}
-+	__context__(-1);
-+}
-+
-+/*
-+ * check-name: context-unreachable
-+ * check-known-to-fail
-+ */
-diff --git a/validation/linear/builtin_unreachable0.c b/validation/linear/builtin_unreachable0.c
-new file mode 100644
-index 000000000000..5da9d074ae5f
---- /dev/null
-+++ b/validation/linear/builtin_unreachable0.c
-@@ -0,0 +1,30 @@
-+extern void die(void) __attribute__((noreturn));
-+
-+int foo(int p)
-+{
-+	if (p == 3)
-+		__builtin_unreachable();
-+	return p;
-+}
-+
-+/*
-+ * check-name: builtin_unreachable0
-+ * check-command: test-linearize -Wno-decl $file
-+ * check-known-to-fail
-+ *
-+ * check-output-start
-+foo:
-+.L0:
-+	<entry-point>
-+	seteq.32    %r2 <- %arg1, $3
-+	cbr         %r2, .L1, .L3
-+
-+.L1:
-+	unreach
-+
-+.L3:
-+	ret.32      %arg1
-+
-+
-+ * check-output-end
-+ */
-diff --git a/validation/linear/builtin_unreachable.c b/validation/linear/builtin_unreachable1.c
-similarity index 65%
-rename from validation/linear/builtin_unreachable.c
-rename to validation/linear/builtin_unreachable1.c
-index 4f13b892af54..280f853d8a07 100644
---- a/validation/linear/builtin_unreachable.c
-+++ b/validation/linear/builtin_unreachable1.c
-@@ -1,15 +1,15 @@
--void function_that_never_returns(void);
-+extern void die(void);
+diff --git a/Documentation/IR.rst b/Documentation/IR.rst
+index 9d6f2299eaf1..33a761662fad 100644
+--- a/Documentation/IR.rst
++++ b/Documentation/IR.rst
+@@ -47,6 +47,9 @@ Terminators
+ 	* .type: type of .cond, must be an integral type
+ 	* .multijmp_list: pairs of case-value - destination basic block
  
- int foo(int c)
- {
- 	if (c)
- 		return 1;
--	function_that_never_returns();
-+	die();
- 	__builtin_unreachable();
- }
++.. op:: OP_UNREACH
++	Mark code as unreachable
++
+ .. op:: OP_COMPUTEDGOTO
+ 	Computed goto / branch to register
  
- /*
-- * check-name: __builtin_unreachable()
-+ * check-name: builtin_unreachable1
-  * check-command: test-linearize -Wno-decl $file
-  *
-  * check-known-to-fail
-@@ -19,13 +19,13 @@ foo:
- 	<entry-point>
- 	cbr         %arg1, .L3, .L2
+diff --git a/linearize.c b/linearize.c
+index 30ed2a302d95..f1e538e23ae1 100644
+--- a/linearize.c
++++ b/linearize.c
+@@ -183,6 +183,7 @@ static const char *opcodes[] = {
+ 	[OP_BR] = "br",
+ 	[OP_CBR] = "cbr",
+ 	[OP_SWITCH] = "switch",
++	[OP_UNREACH] = "unreach",
+ 	[OP_COMPUTEDGOTO] = "jmp *",
+ 	
+ 	/* Binary */
+@@ -399,6 +400,8 @@ const char *show_instruction(struct instruction *insn)
+ 		} END_FOR_EACH_PTR(jmp);
+ 		break;
+ 	}
++	case OP_UNREACH:
++		break;
  
--.L2:
--	call        function_that_never_returns
--	unreach
--
- .L3:
- 	ret.32      $1
+ 	case OP_PHISOURCE: {
+ 		struct instruction *phi;
+diff --git a/opcode.def b/opcode.def
+index 57d827f449b5..2583e2f4a602 100644
+--- a/opcode.def
++++ b/opcode.def
+@@ -10,6 +10,7 @@ OPCODE(RET,             BADOP,    BADOP,    BADOP, 1, OPF_NONE)
+ OPCODE(BR,              BADOP,    BADOP,    BADOP, 0, OPF_NONE)
+ OPCODE(CBR,             BADOP,    BADOP,    BADOP, 1, OPF_NONE)
+ OPCODE(SWITCH,          BADOP,    BADOP,    BADOP, 1, OPF_NONE)
++OPCODE(UNREACH,         BADOP,    BADOP,    BADOP, 0, OPF_NONE)
+ OPCODE(COMPUTEDGOTO,    BADOP,    BADOP,    BADOP, 1, OPF_NONE)
+ OPCODE_RANGE(TERMINATOR, RET, COMPUTEDGOTO)
  
-+.L2:
-+	call        die
-+	unreach
-+
- 
-  * check-output-end
-  */
-diff --git a/validation/linear/noreturn-unreachable0.c b/validation/linear/noreturn-unreachable0.c
-new file mode 100644
-index 000000000000..b76319458e96
---- /dev/null
-+++ b/validation/linear/noreturn-unreachable0.c
-@@ -0,0 +1,23 @@
-+extern void die(void) __attribute__((noreturn));
-+
-+int foo(void)
-+{
-+	die();
-+	return 0;
-+}
-+
-+/*
-+ * check-name: noreturn-unreachable0
-+ * check-command: test-linearize -Wno-decl $file
-+ * check-known-to-fail
-+ *
-+ * check-output-start
-+foo:
-+.L0:
-+	<entry-point>
-+	call        die
-+	unreach
-+
-+
-+ * check-output-end
-+ */
 -- 
 2.25.1
 
