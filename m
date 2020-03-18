@@ -2,55 +2,55 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 6A50218A194
-	for <lists+linux-sparse@lfdr.de>; Wed, 18 Mar 2020 18:31:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 5BB1618A195
+	for <lists+linux-sparse@lfdr.de>; Wed, 18 Mar 2020 18:31:33 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726857AbgCRRba (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Wed, 18 Mar 2020 13:31:30 -0400
-Received: from mail-wm1-f68.google.com ([209.85.128.68]:37033 "EHLO
-        mail-wm1-f68.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726822AbgCRRb3 (ORCPT
+        id S1726864AbgCRRbd (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Wed, 18 Mar 2020 13:31:33 -0400
+Received: from mail-wm1-f66.google.com ([209.85.128.66]:55916 "EHLO
+        mail-wm1-f66.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1726822AbgCRRbc (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Wed, 18 Mar 2020 13:31:29 -0400
-Received: by mail-wm1-f68.google.com with SMTP id d1so2763445wmb.2
-        for <linux-sparse@vger.kernel.org>; Wed, 18 Mar 2020 10:31:28 -0700 (PDT)
+        Wed, 18 Mar 2020 13:31:32 -0400
+Received: by mail-wm1-f66.google.com with SMTP id 6so4371126wmi.5
+        for <linux-sparse@vger.kernel.org>; Wed, 18 Mar 2020 10:31:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=+fjiXzGf9LqCJ4UAA3fxruEU7BmdMiwsdjN4Z6vEUg4=;
-        b=hrIbsmd4boZQiG+lPvL7JXHmprzC2hhl/DlMH5a4tusdOH9xwRQ2WOdJh7yVJkAFmv
-         O75EpX1MY2g4EcsCydxehXUz2b1ob/ybnz/wvYgcKXytr4+LJwIL7uvRdGsaGv3MLQ86
-         15iWpBlSx5SoSXmyteieNertK82y1rO+J9Pd7Krnod5GU7vcvcZPZIuR4vY4w7kjCfk4
-         Zq2qAod2w2+rhSJ+ID11RxkWOuuYD5J8pgkV91uZyUbzuChSUjxmwaBk/o5P2Ee74zSt
-         WspDwBMAj4+JeJaFWgSIxlAfipl7fgY0Za4ORdu9qfluqhNby51yJleoSkhXWFKKadAm
-         k1fg==
+        bh=5X4qd+SLyN5QmOeHsqGfLnUDjVac6191xRqpIk6Hops=;
+        b=pXJtOuH3CNNeaz4nDIUGce9cx2VnO2nCfiGTrO4gBzqk9YTtHzoWYathxe26aJoiqR
+         NBTWZ3UZZzFltScvhjldT3mg1Eu0/dNCN4WeF3LModvF5HD9hWU5Gf9hhTrPQ8v+eNLB
+         Mpv/Cs633C1N/8lBfrYt50cNG9Ym1fOT8BtVF6BNRcc08DAa/E+j/pZvq2n+25d01gOs
+         nVn5XQrZkTW0YQKCyDj1cy4zoKI1a/A4UAUp4wjJQQRVoTMxXmqY6Im1eMv8ZYW9qJOh
+         wlYIN/jVZ6n5AA9/6uHKtN3XYtIiZAxUsnS/GB+vHMx3P/vRPMuBhnDMwWhVD9pGWpSo
+         FnBA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=+fjiXzGf9LqCJ4UAA3fxruEU7BmdMiwsdjN4Z6vEUg4=;
-        b=K0rHsH+ZgLLetkmdwjnWqX8DV2VzqCwTamhBzxUgVPpbKP0wdO03L/VCRN075DkGyp
-         asdUUmgSxEmlqRYIh0jUYDMig+OaQeDckqQyHBN3r9O76uqYBHEjxB/+kfv3crHEU1q2
-         UkI7uBs4SGvqeVtjKlqOPDITTWZVqmVqJZLfiOT9wuD3cnND83kxvYOM/Nvc+A+REJry
-         SyuinPk0bjqCZGDbPZ5OZLephUqrMSzaxtixD7/GbVoq5M4Ut5uh/gsacL3zuNIDiw/Q
-         bDDVefpkdiQ027CB1TYPEqu+M1tu4Cn0o4Rx5DJcmmm86FL/kdWPu3Xs+S5zaZw46AQ8
-         850Q==
-X-Gm-Message-State: ANhLgQ3fOkDoTS5AzYXZjtbuxZzTRXAF+BMB9+osubg50xOlkfEt7N4c
-        wF39muYjHG4CHwuD/m+TjJZeqSFe
-X-Google-Smtp-Source: ADFU+vuCNSlbfs0tpcRddewFWNFS140af23SODt+IAJXr3zYQRWSe9oph6GDi6FO3cN3JUmcG1OCGg==
-X-Received: by 2002:a05:600c:414a:: with SMTP id h10mr6536002wmm.53.1584552687881;
-        Wed, 18 Mar 2020 10:31:27 -0700 (PDT)
+        bh=5X4qd+SLyN5QmOeHsqGfLnUDjVac6191xRqpIk6Hops=;
+        b=YqKBWVlUuUNPOKDx+Al73iLG+nMejHgTq7QSk4Xw9k7QzoPG2lgmS4Ffmo+sVC/QYo
+         PpZFSxz8dodRiAZgCxyebvB2fp1o9pFC45JW9l1O/0db7oCFTzlFQFZ7EQuh8fMn37tc
+         z3WkK3EVeXv7IpqyeNOH8G4as8OkmJnHlLKk597IEagPBhPmmm7ExnJN7WjsQ5tUz+QC
+         YJWNQICCdGvXQmFElRrg3mYksO7dS6ScY6muolOV7AZl3f4VmYeEG1X7FKbSiS7UWunX
+         BDB7Frnobcsown8V3cR2v5qYP1PVUA6cbFbpZLNZj00SplzugicfzT7k6I/t7FBZ7p9N
+         hX7g==
+X-Gm-Message-State: ANhLgQ1InymA/EHsZT9Zl4QzRxzFqmzX2HE+kY5l9PXKEU74ht7DBp0w
+        ZtaMoG7rVwKDxT3ARgPpBcTXtvWH
+X-Google-Smtp-Source: ADFU+vtTCmXKzXlXy3ncg10ErCpePfyOhTPz86++57t1W/xsvSBqflPZTSQqavo5uwd2at9ixBeelA==
+X-Received: by 2002:a1c:8097:: with SMTP id b145mr6608308wmd.159.1584552688929;
+        Wed, 18 Mar 2020 10:31:28 -0700 (PDT)
 Received: from localhost.localdomain ([2a02:a03f:b7f9:7600:81ce:3038:2a0a:bf02])
-        by smtp.gmail.com with ESMTPSA id u17sm10268051wrm.43.2020.03.18.10.31.26
+        by smtp.gmail.com with ESMTPSA id u17sm10268051wrm.43.2020.03.18.10.31.27
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 18 Mar 2020 10:31:27 -0700 (PDT)
+        Wed, 18 Mar 2020 10:31:28 -0700 (PDT)
 From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 To:     linux-sparse@vger.kernel.org
 Cc:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-Subject: [PATCH 4/5] add support for linearization of builtins
-Date:   Wed, 18 Mar 2020 18:31:19 +0100
-Message-Id: <20200318173120.63939-5-luc.vanoostenryck@gmail.com>
+Subject: [PATCH 5/5] teach sparse to linearize __builtin_unreachable()
+Date:   Wed, 18 Mar 2020 18:31:20 +0100
+Message-Id: <20200318173120.63939-6-luc.vanoostenryck@gmail.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20200318173120.63939-1-luc.vanoostenryck@gmail.com>
 References: <20200318173120.63939-1-luc.vanoostenryck@gmail.com>
@@ -61,121 +61,79 @@ Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-Sparse ignores most builtins. A few of them are directly
-interpreted at parsing time (types_compatible_p, offsetof).
-Some others are expanded if their argument(s) are constant
-but that's all.
+__builtin_unreachable() is one of the builtin that shouldn't
+be ignored at IR level since it directly impact the CFG.
 
-However, some of the builtins are significant at the IR
-level and shouldn't thus be ignored.
-
-This patch add the support needed for the linearization of
-these builtins.
+So, add the infrastructure put in place in the previous patch
+to generate the OP_UNREACH instruction instead of generating
+a call to a non-existing function "__builtin_unreachable()".
 
 Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 ---
- builtin.c   |  2 ++
- linearize.c | 32 ++++++++++++++++++++++++++++++++
- symbol.h    |  7 ++++++-
- 3 files changed, 40 insertions(+), 1 deletion(-)
+ linearize.c                              | 7 +++++++
+ validation/context-unreachable.c         | 1 -
+ validation/linear/builtin_unreachable0.c | 1 -
+ validation/linear/builtin_unreachable1.c | 1 -
+ 4 files changed, 7 insertions(+), 3 deletions(-)
 
-diff --git a/builtin.c b/builtin.c
-index 52285a91cd1e..debc22c036ec 100644
---- a/builtin.c
-+++ b/builtin.c
-@@ -418,6 +418,8 @@ void init_builtins(int stream)
- 		sym->op = ptr->op;
- 		sym->builtin = 1;
- 	}
-+
-+	init_linearized_builtins(stream);
- }
- 
- static void declare_builtin(const char *name, struct symbol *rtype, int variadic, ...)
 diff --git a/linearize.c b/linearize.c
-index 19c284c4a456..25d6327bf6f1 100644
+index 25d6327bf6f1..615636ed1f83 100644
 --- a/linearize.c
 +++ b/linearize.c
-@@ -1509,6 +1509,11 @@ static pseudo_t linearize_call_expression(struct entrypoint *ep, struct expressi
+@@ -2536,12 +2536,19 @@ struct entrypoint *linearize_symbol(struct symbol *sym)
+  * Builtin functions
+  */
  
- 	fn = expr->fn;
- 	fntype = fn->ctype;
-+
-+	// handle builtins
-+	if (fntype->op && fntype->op->linearize)
-+		return fntype->op->linearize(ep, expr);
-+
- 	ctype = &fntype->ctype;
- 	if (fntype->type == SYM_NODE)
- 		fntype = fntype->ctype.base_type;
-@@ -2526,3 +2531,30 @@ struct entrypoint *linearize_symbol(struct symbol *sym)
- 		return linearize_fn(sym, base_type);
- 	return NULL;
- }
-+
-+/*
-+ * Builtin functions
-+ */
-+
-+static struct sym_init {
-+	const char *name;
-+	pseudo_t (*linearize)(struct entrypoint *, struct expression*);
-+	struct symbol_op op;
-+} builtins_table[] = {
-+	// must be declared in builtin.c:declare_builtins[]
-+	{ }
-+};
-+
-+void init_linearized_builtins(int stream)
++static pseudo_t linearize_unreachable(struct entrypoint *ep, struct expression *exp)
 +{
-+	struct sym_init *ptr;
-+
-+	for (ptr = builtins_table; ptr->name; ptr++) {
-+		struct symbol *sym;
-+		sym = create_symbol(stream, ptr->name, SYM_NODE, NS_SYMBOL);
-+		if (!sym->op)
-+			sym->op = &ptr->op;
-+		sym->op->type |= KW_BUILTIN;
-+		ptr->op.linearize = ptr->linearize;
-+	}
++	add_unreachable(ep);
++	return VOID;
 +}
-diff --git a/symbol.h b/symbol.h
-index 9ef5a886172f..270ae098cacf 100644
---- a/symbol.h
-+++ b/symbol.h
-@@ -78,7 +78,7 @@ enum keyword {
- 	KW_MODIFIER	= 1 << 1,
- 	KW_QUALIFIER	= 1 << 2,
- 	KW_ATTRIBUTE	= 1 << 3,
--     // KW UNUSED	= 1 << 4,
-+	KW_BUILTIN	= 1 << 4,
- 	KW_ASM		= 1 << 5,
- 	KW_MODE		= 1 << 6,
-      // KW UNUSED	= 1 << 7,
-@@ -112,11 +112,15 @@ struct decl_state {
- 	unsigned char is_ext_visible;
++
+ static struct sym_init {
+ 	const char *name;
+ 	pseudo_t (*linearize)(struct entrypoint *, struct expression*);
+ 	struct symbol_op op;
+ } builtins_table[] = {
+ 	// must be declared in builtin.c:declare_builtins[]
++	{ "__builtin_unreachable", linearize_unreachable },
+ 	{ }
  };
  
-+struct pseudo;
-+struct entrypoint;
-+
- struct symbol_op {
- 	enum keyword type;
- 	int (*evaluate)(struct expression *);
- 	int (*expand)(struct expression *, int);
- 	int (*args)(struct expression *);
-+	struct pseudo *(*linearize)(struct entrypoint *, struct expression *);
+diff --git a/validation/context-unreachable.c b/validation/context-unreachable.c
+index 3e330403ce01..8664962ea088 100644
+--- a/validation/context-unreachable.c
++++ b/validation/context-unreachable.c
+@@ -12,5 +12,4 @@ static void foo(void)
  
- 	/* keywords */
- 	struct token *(*declarator)(struct token *token, struct decl_state *ctx);
-@@ -308,6 +312,7 @@ extern struct symbol *lookup_symbol(struct ident *, enum namespace);
- extern struct symbol *create_symbol(int stream, const char *name, int type, int namespace);
- extern void init_symbols(void);
- extern void init_builtins(int stream);
-+extern void init_linearized_builtins(int stream);
- extern void declare_builtins(void);
- extern void init_ctype(void);
- extern struct symbol *alloc_symbol(struct position, int type);
+ /*
+  * check-name: context-unreachable
+- * check-known-to-fail
+  */
+diff --git a/validation/linear/builtin_unreachable0.c b/validation/linear/builtin_unreachable0.c
+index 5da9d074ae5f..fb59a3408987 100644
+--- a/validation/linear/builtin_unreachable0.c
++++ b/validation/linear/builtin_unreachable0.c
+@@ -10,7 +10,6 @@ int foo(int p)
+ /*
+  * check-name: builtin_unreachable0
+  * check-command: test-linearize -Wno-decl $file
+- * check-known-to-fail
+  *
+  * check-output-start
+ foo:
+diff --git a/validation/linear/builtin_unreachable1.c b/validation/linear/builtin_unreachable1.c
+index 280f853d8a07..a83da079a3c9 100644
+--- a/validation/linear/builtin_unreachable1.c
++++ b/validation/linear/builtin_unreachable1.c
+@@ -12,7 +12,6 @@ int foo(int c)
+  * check-name: builtin_unreachable1
+  * check-command: test-linearize -Wno-decl $file
+  *
+- * check-known-to-fail
+  * check-output-start
+ foo:
+ .L0:
 -- 
 2.25.1
 
