@@ -2,87 +2,118 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 042821A2E24
-	for <lists+linux-sparse@lfdr.de>; Thu,  9 Apr 2020 06:03:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id AC8031A2F1D
+	for <lists+linux-sparse@lfdr.de>; Thu,  9 Apr 2020 08:23:23 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1725985AbgDIEDU (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Thu, 9 Apr 2020 00:03:20 -0400
-Received: from mail-lf1-f51.google.com ([209.85.167.51]:32867 "EHLO
-        mail-lf1-f51.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1725271AbgDIEDU (ORCPT
+        id S1725970AbgDIGXW (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Thu, 9 Apr 2020 02:23:22 -0400
+Received: from mail-wm1-f48.google.com ([209.85.128.48]:38698 "EHLO
+        mail-wm1-f48.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1725828AbgDIGXW (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Thu, 9 Apr 2020 00:03:20 -0400
-Received: by mail-lf1-f51.google.com with SMTP id h6so6886834lfc.0
-        for <linux-sparse@vger.kernel.org>; Wed, 08 Apr 2020 21:03:18 -0700 (PDT)
+        Thu, 9 Apr 2020 02:23:22 -0400
+Received: by mail-wm1-f48.google.com with SMTP id f20so2928073wmh.3
+        for <linux-sparse@vger.kernel.org>; Wed, 08 Apr 2020 23:23:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linux-foundation.org; s=google;
-        h=mime-version:from:date:message-id:subject:to:cc;
-        bh=4X79jS+iYVXO/IU1KnCVanAOuaAuDKW7v0h6Qe3VsVQ=;
-        b=SP04btFgjlnaTrRtJMUDh/46pp4xlp4gZ9y93G9zcbElT+bPRhsL09L0gJjLyoFZMy
-         zcV02mTUSoEqSLtf1eYLnw1VmKFqiidnFMC01nx7MwbAtY9OET0P2fgEjFsMfMllqH2w
-         xFSTsKItwPiglnvadWA6aplBAVFwBeunbZCx4=
+        d=gmail.com; s=20161025;
+        h=date:from:to:cc:subject:message-id:references:mime-version
+         :content-disposition:in-reply-to;
+        bh=noru5HY3SqBBnFYuFR5cInZKSxFay+MBq29p1cMa3Tk=;
+        b=qIAQZY7Z5BxYqLoetMdD301Uw1LD6HDnHV/TYcuISYBAdcgQSG2yDkDIyQaP+53Wry
+         YsTasJxdqxTQy6swltgSgfR283adkGfs5o6ULsTyRECGSBOjbKjSZNFGRru+qKuAOwDt
+         ulpJizFPq/Tg/LrET1ezmp7Rcr0wMagkBeLljs51Ztu5FTIgykDOp4N+W1mD4SzHo996
+         WI5uBsdPZ0KjkJ+D0pRraR9ZlhypOJQrh9QLMxolU7i4QKNJLaBatAlUmEIMTDRVQ07c
+         Iytl6u+lp8hxgtVSyOwJEADIvTchislk03s/7tPZuVKunq5rxi+erReyNeWph/sAhPxW
+         aEAQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
-        bh=4X79jS+iYVXO/IU1KnCVanAOuaAuDKW7v0h6Qe3VsVQ=;
-        b=U7YLGXppe0VhlScim3utrrM9CuGEOfiBn4do2t2MF9587w0mk4IF+h7PCnsOKc38bJ
-         kqYsIAYvL4cDuNiIMhoq8eKIErN/miKCzri2AMEYYv/mEbYOMlzsykah/M+I2OcHk23G
-         gEs3LRG4VyyTUrvWdVW2mS79h0zhXDuLYoDVL5bO3SGLFYMGXfMfYc0te8nGP5CHJXwK
-         FzqYUmQSTf9h34PIeRpS+JsU06ZvqtIJ6rhuJR9BIvd9S5318A8gh6vVqJlmZhfqLGJw
-         1ONtBRybe1xPLDsegRCyJhHVU02yax8P0LTuTWe92HFcnbeeGyLYeDeYIgjJWLqw+tB0
-         PX7g==
-X-Gm-Message-State: AGi0Pubhg+5nnIY1CgTQZ87hpUTvwGTefBioTdhgpT1x5Fs/oU3bP0Ze
-        AzmOPprcizeZuvFWXdEYNNIIRET4XqU=
-X-Google-Smtp-Source: APiQypJV3zNysQYq6254bvM+S7dvQVZ4rUSnAD4jpLOBivBbPD+pcU7a2dAKqR69zi6nfuaD7ldogg==
-X-Received: by 2002:a05:6512:3081:: with SMTP id z1mr1737025lfd.102.1586404996723;
-        Wed, 08 Apr 2020 21:03:16 -0700 (PDT)
-Received: from mail-lj1-f176.google.com (mail-lj1-f176.google.com. [209.85.208.176])
-        by smtp.gmail.com with ESMTPSA id k16sm14583443ljk.64.2020.04.08.21.03.15
-        for <linux-sparse@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 08 Apr 2020 21:03:15 -0700 (PDT)
-Received: by mail-lj1-f176.google.com with SMTP id b1so10013736ljp.3
-        for <linux-sparse@vger.kernel.org>; Wed, 08 Apr 2020 21:03:15 -0700 (PDT)
-X-Received: by 2002:a2e:870f:: with SMTP id m15mr1204033lji.16.1586404995387;
- Wed, 08 Apr 2020 21:03:15 -0700 (PDT)
-MIME-Version: 1.0
-From:   Linus Torvalds <torvalds@linux-foundation.org>
-Date:   Wed, 8 Apr 2020 21:02:59 -0700
-X-Gmail-Original-Message-ID: <CAHk-=wg=Fs=EecQCNNzofn8+QXuB-sYy9m+YVPAmzDesmqFsbg@mail.gmail.com>
-Message-ID: <CAHk-=wg=Fs=EecQCNNzofn8+QXuB-sYy9m+YVPAmzDesmqFsbg@mail.gmail.com>
-Subject: Interesting (?) failure case
-To:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
+        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+         :mime-version:content-disposition:in-reply-to;
+        bh=noru5HY3SqBBnFYuFR5cInZKSxFay+MBq29p1cMa3Tk=;
+        b=cM1Um22i83swNWgN4crJimKFxSE5tX5h4J1haRlmR3pc+icolgVxz8mHfAQ7teEO1j
+         46q+4bfN7ctzpTHx1+2cS62RJtummmlQcwz3a8hs7BK4E7Zibh8PWrjDXZ1gwu0gRvQL
+         GbWKl2TlndTMOMFuWRPZAHCBjI1LmWC+YwVj/YLcMbrG1lFncFpR3D647C3A1PVr288Z
+         r9DsFs8Bz7IFv8SUekLP2/jRFSNkB8FJ6VtbQaa11WV6AVJSbekk4cFcvhDUFi3Z+H1r
+         1QC3U99nPP58HK64MAReRHTShwf09rGXRRhVm+49U9vW8HIoDtAVofUD0LgtO5rha5U7
+         2ZKg==
+X-Gm-Message-State: AGi0PubUK3eCvb3ckI26lkWx3A5u0uVzPOzLMHaCMlw4Ca91M2ewpJJL
+        9Nk6ajyZ8pxNOn/AvEYTFow=
+X-Google-Smtp-Source: APiQypKjM+iN+uTLgOfm4z9qBWXRLcYf2kDywHKRVHAwBPLr6mZmirBBd2s094wpXAZ2rOohB9rkZQ==
+X-Received: by 2002:a1c:2007:: with SMTP id g7mr8288484wmg.70.1586413400706;
+        Wed, 08 Apr 2020 23:23:20 -0700 (PDT)
+Received: from ltop.local ([2a02:a03f:b7f9:7600:41f1:931b:a455:d349])
+        by smtp.gmail.com with ESMTPSA id r5sm2388169wmr.15.2020.04.08.23.23.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 08 Apr 2020 23:23:19 -0700 (PDT)
+Date:   Thu, 9 Apr 2020 08:23:19 +0200
+From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
+To:     Linus Torvalds <torvalds@linux-foundation.org>
 Cc:     Sparse Mailing-list <linux-sparse@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Subject: Re: Interesting (?) failure case
+Message-ID: <20200409062319.ykuewl7z3dc3a55n@ltop.local>
+References: <CAHk-=wg=Fs=EecQCNNzofn8+QXuB-sYy9m+YVPAmzDesmqFsbg@mail.gmail.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAHk-=wg=Fs=EecQCNNzofn8+QXuB-sYy9m+YVPAmzDesmqFsbg@mail.gmail.com>
 Sender: linux-sparse-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-Try linearizing this with 'sparse', and see it fail miserably:
+On Wed, Apr 08, 2020 at 09:02:59PM -0700, Linus Torvalds wrote:
+> Try linearizing this with 'sparse', and see it fail miserably:
+> 
+>    int t(void)
+>    {
+>         goto inside;
+>         return 0 ?
+>                  ({ inside: return 3; 1; })
+>                 :
+>                  2;
+>    }
+> 
+> I came up with that disgusting example after talking to Nick
+> Desaulniers about how sparse does some front-end optimizations early,
+> and it made me go "Hmm... What about.."
 
-   int t(void)
-   {
-        goto inside;
-        return 0 ?
-                 ({ inside: return 3; 1; })
-                :
-                 2;
-   }
+Funny, I worked on something very similar last week:
+	void f(int x, int y)
+	{
+		1 ? x : ({
+	a:
+			 y;
+		});
+		goto a;
+	}
 
-I came up with that disgusting example after talking to Nick
-Desaulniers about how sparse does some front-end optimizations early,
-and it made me go "Hmm... What about.."
+> There are two reasonable approaches for the above:
+> 
+>  - return 3 (due to the "goto inside")
+> 
+>  - tell the user to pound sand for doing crazy things and jumping into
+> a statement expression from outside.
+> 
+> clang does #1. gcc does #2.
+> 
+> sparse does something bad, and just generates garbage silently.
 
-There are two reasonable approaches for the above:
+Yes, the problem is caused at expand_conditional() where one of
+the sides is throwed away if the condition is known. So the label
+doesn't exist anymore and at linearization Sparse ends with a
+jump to an unexisting BB.
 
- - return 3 (due to the "goto inside")
+I tried to simply discard the early optimization in expand but
+then when testing the kernel I got a whole bunch of warnings
+(bad type or dereference of noderef type, I don't remember).
+So it seems that in general (when nobody jump into the expression
+statement) the conditional needs to be simplified before evaluation.
 
- - tell the user to pound sand for doing crazy things and jumping into
-a statement expression from outside.
+I tried also to warn on gotos jumping into an expression statement.
+The idea was to give a new 'label_scope' for each such statement.
+Things are a bit complicated because the labels are implicitly
+declared by the gotos.
 
-clang does #1. gcc does #2.
+I'll need to look a bit more at this.
 
-sparse does something bad, and just generates garbage silently.
-
-             Linus
+-- Luc
