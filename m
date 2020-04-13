@@ -2,58 +2,58 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 857491A699E
-	for <lists+linux-sparse@lfdr.de>; Mon, 13 Apr 2020 18:16:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 16F8A1A699F
+	for <lists+linux-sparse@lfdr.de>; Mon, 13 Apr 2020 18:16:25 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1731404AbgDMQQY (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        id S1731402AbgDMQQY (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
         Mon, 13 Apr 2020 12:16:24 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:38420 "EHLO
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:38426 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1731402AbgDMQQU (ORCPT
+        with ESMTP id S1731400AbgDMQQV (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Mon, 13 Apr 2020 12:16:20 -0400
-Received: from mail-wm1-x344.google.com (mail-wm1-x344.google.com [IPv6:2a00:1450:4864:20::344])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id E59B9C008748
-        for <linux-sparse@vger.kernel.org>; Mon, 13 Apr 2020 09:16:19 -0700 (PDT)
-Received: by mail-wm1-x344.google.com with SMTP id h2so9802740wmb.4
-        for <linux-sparse@vger.kernel.org>; Mon, 13 Apr 2020 09:16:19 -0700 (PDT)
+        Mon, 13 Apr 2020 12:16:21 -0400
+Received: from mail-wm1-x341.google.com (mail-wm1-x341.google.com [IPv6:2a00:1450:4864:20::341])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 62A2FC0A3BDC
+        for <linux-sparse@vger.kernel.org>; Mon, 13 Apr 2020 09:16:21 -0700 (PDT)
+Received: by mail-wm1-x341.google.com with SMTP id d77so9802459wmd.3
+        for <linux-sparse@vger.kernel.org>; Mon, 13 Apr 2020 09:16:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=OzTsH1p1RnezdIbMk73/uYEHpoHGztBYAp/2P07AW2w=;
-        b=BkIyTvk/W5dLXVYkwpUiFIHXOAFpXTNGSKvoBgjxqzn8mKu5wshTZ2NlhiooeQ/v38
-         g5O5ou0qlYiHRWBBsC51Lk3AKtREa3Etm7G1MWbjVrbjANKobHvlWWFmev4b5IErO7h/
-         Vmm2wGFaRwrJBqlDvehZJKVCzGOa9TU37ET2FrpZzR8AxaQMIti3byjgn+UT6i4Ckiqn
-         +r+x8UTDw8H1fXtENUwD1cKHHCDzKzkouV2xLhPH2+/xdvM00BQrFYo+p7BFCY0/VVsV
-         61jhfZG+n6Ce06LraxhyOrwI8g5IDH/o1dz1jdvZm8ycoV7Nl2vMpem+7Fi8yOiokvey
-         aFqg==
+        bh=MRBqevuvOXA0o1VWm6XavN3K2Eyc0stFC4nXLvQSXoI=;
+        b=d3a2lqIk/JmcYLeOniCkSJDelhNTlkQqo1tbcOCzOlZImtu5LzvKZGvjVMDABh2VuL
+         9dk/Gto8RW2HpG3l9qwjtJ5NvQ6EEJufSw2zxPec8THiUmCnsYPhDJ7he4RGqyGywy22
+         n+dZOVw34dyOUQpNRrUWnqbcataSB81k8gqJR9FewQjNEihZ1kgpWvrTqRGdpb/+520m
+         VJ2nram+EAuxMAPrefmlt2kh8Qwn2Ispdd8BFbYzS0v3xjEppc407OG5MnRcJg0N1A3d
+         LoVLn4MRXr8lP+0aimGEMeBtmtnQxCnuwXzeTy1BiNpcIfSwIjuBizYXYN1Fe1A3I8cO
+         STXg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=OzTsH1p1RnezdIbMk73/uYEHpoHGztBYAp/2P07AW2w=;
-        b=ogE+UgYK7kMjzdSjGtiAw0Z0sbpaviQ35n15Tt0ntqL0rIljXGlm8q9pBxsTHIYJzQ
-         NMwzcUR1IA9WrSmauZaEBNQc/jr4zU3qopUTIILBZtznKCmTzHxciBj2G5vsmUFiYzxF
-         xTFpi7+XA517tN1fEX10YOqgYI7u99DyYgAturbSvHYF08BvWGRE+PY1uUt+ZtqBAh0D
-         Bg5ltc6LZF1w2C/4TRyJPm0r7fxIaRwB7L/Rl/V2XgPn3zwLrgC9PhzkCFPo1Bd7Ix3a
-         oIc/rmSZjL+Pk5ycjZi+EJRGZRCEX5q/XIDQUuGUajgumuuCDH1Whvc2ZYmEn1fiKWfL
-         qszg==
-X-Gm-Message-State: AGi0Pubm7Hwgql/blvgXnBwcFZzTqfQfOqWO8QATbVBD8PM4zqxZb/KD
-        N2525YsbDBDAsuq2wlpuF75av7UL
-X-Google-Smtp-Source: APiQypIAhH1uSac6ZlPcHdEMI0qpdDL6b3CqG4iOW9a7HvpHalTimD6kNebds0HkVZ75bkmaDLtMyg==
-X-Received: by 2002:a1c:5502:: with SMTP id j2mr19473223wmb.93.1586794578404;
-        Mon, 13 Apr 2020 09:16:18 -0700 (PDT)
+        bh=MRBqevuvOXA0o1VWm6XavN3K2Eyc0stFC4nXLvQSXoI=;
+        b=nU7Ft8vgm6e7oi0GH/915aG/pUUOs2M1A07aN8O+26pwH/C5mAZnNwxflFARPiGFka
+         wA4d4xHdpRT5TmotR033c/BkOt1CsBx4JT+0JOVjmn13Uk61UE8D0lscVeK+2KbpfV+d
+         kibRG+shBfYXdJ3lP0vUF/LwgC6pIjROben7ms0MizBLb/B9QOLglbRGHvk8pZbEowkm
+         V9tjXE/MeuIvmXKHjouM4el6TP8lFXgr2wsKYvP2u349z0kWMEW7/h5t2/IU1/J6zMhD
+         n1qnEfQqDTMNpGcivZi9Lg3ir2ypzAHbsTz2a4109/JDcC9nFM2t8XPxrqPu/jUYxlmp
+         Z6pQ==
+X-Gm-Message-State: AGi0PuZGJw/BZE9XjIJxlbs9UAFHm4u4EiyphosYo8AJhphXCga1rkey
+        r/m9op59WpysLr8vg9wYO0gz8Yhh
+X-Google-Smtp-Source: APiQypLGGI4U/b3h9e1/SR7UjScAlEPOWYJVq8HhscJ7vICTE/RMIMASkblPrIaOMnqrcfW7c0SZ3A==
+X-Received: by 2002:a7b:c250:: with SMTP id b16mr20115846wmj.100.1586794579537;
+        Mon, 13 Apr 2020 09:16:19 -0700 (PDT)
 Received: from localhost.localdomain ([2a02:a03f:b7f9:7600:75ee:1bf8:e5e6:f950])
-        by smtp.gmail.com with ESMTPSA id m1sm10113838wro.64.2020.04.13.09.16.17
+        by smtp.gmail.com with ESMTPSA id m1sm10113838wro.64.2020.04.13.09.16.18
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 13 Apr 2020 09:16:17 -0700 (PDT)
+        Mon, 13 Apr 2020 09:16:18 -0700 (PDT)
 From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 To:     linux-sparse@vger.kernel.org
 Cc:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-Subject: [PATCH 08/17] bad-goto: catch labels with reserved names
-Date:   Mon, 13 Apr 2020 18:15:56 +0200
-Message-Id: <20200413161605.95900-9-luc.vanoostenryck@gmail.com>
+Subject: [PATCH 09/17] scope: no memset() needed after __alloc_scope()
+Date:   Mon, 13 Apr 2020 18:15:57 +0200
+Message-Id: <20200413161605.95900-10-luc.vanoostenryck@gmail.com>
 X-Mailer: git-send-email 2.26.0
 In-Reply-To: <20200413161605.95900-1-luc.vanoostenryck@gmail.com>
 References: <20200413161605.95900-1-luc.vanoostenryck@gmail.com>
@@ -64,45 +64,37 @@ Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-If a reserved name is used as the destination of a goto,
-its associated label won't be valid and at linearization
-time no BB will can be created for it, resulting in an
-invalid IR.
+When starting some scopes, the newly allocated struct is
+memset'ed with zero but this is unneeded since the allocator
+always returns zeroed memory.
 
-So, catch such gotos at evaluation time and mark the
-function to not be linearized.
+Remove the unneeded call to memset().
 
 Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 ---
- evaluate.c                          | 2 ++
- validation/linear/invalid-labels0.c | 1 -
- 2 files changed, 2 insertions(+), 1 deletion(-)
+ scope.c | 2 --
+ 1 file changed, 2 deletions(-)
 
-diff --git a/evaluate.c b/evaluate.c
-index 14953f195fcc..99a9ee72d11f 100644
---- a/evaluate.c
-+++ b/evaluate.c
-@@ -3751,6 +3751,8 @@ static void evaluate_goto_statement(struct statement *stmt)
- 		sparse_error(stmt->pos, "label '%s' was not declared", show_ident(label->ident));
- 		current_fn->bogus_linear = 1;
- 	}
-+	if (label->namespace == NS_NONE)
-+		current_fn->bogus_linear = 1;
+diff --git a/scope.c b/scope.c
+index 420c0f5a3f51..0e4fb3b42150 100644
+--- a/scope.c
++++ b/scope.c
+@@ -68,7 +68,6 @@ void rebind_scope(struct symbol *sym, struct scope *new)
+ static void start_scope(struct scope **s)
+ {
+ 	struct scope *scope = __alloc_scope(0);
+-	memset(scope, 0, sizeof(*scope));
+ 	scope->next = *s;
+ 	*s = scope;
  }
+@@ -77,7 +76,6 @@ void start_file_scope(void)
+ {
+ 	struct scope *scope = __alloc_scope(0);
  
- struct symbol *evaluate_statement(struct statement *stmt)
-diff --git a/validation/linear/invalid-labels0.c b/validation/linear/invalid-labels0.c
-index ae3bf7283fb8..a15e9d434011 100644
---- a/validation/linear/invalid-labels0.c
-+++ b/validation/linear/invalid-labels0.c
-@@ -11,7 +11,6 @@ void bar(void)
- /*
-  * check-name: invalid-labels0
-  * check-command: test-linearize -Wno-decl $file
-- * check-known-to-fail
-  *
-  * check-output-ignore
-  * check-output-excludes: END
+-	memset(scope, 0, sizeof(*scope));
+ 	scope->next = &builtin_scope;
+ 	file_scope = scope;
+ 
 -- 
 2.26.0
 
