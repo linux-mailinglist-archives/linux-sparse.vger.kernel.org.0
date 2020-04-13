@@ -1,95 +1,111 @@
 Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
-Received: from vger.kernel.org (vger.kernel.org [209.132.180.67])
-	by mail.lfdr.de (Postfix) with ESMTP id 18A021A4A12
-	for <lists+linux-sparse@lfdr.de>; Fri, 10 Apr 2020 21:00:24 +0200 (CEST)
+Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
+	by mail.lfdr.de (Postfix) with ESMTP id 09C911A660A
+	for <lists+linux-sparse@lfdr.de>; Mon, 13 Apr 2020 13:59:26 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726648AbgDJTAW (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Fri, 10 Apr 2020 15:00:22 -0400
-Received: from mail-wr1-f68.google.com ([209.85.221.68]:35479 "EHLO
-        mail-wr1-f68.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726203AbgDJTAW (ORCPT
+        id S1729211AbgDMLty (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Mon, 13 Apr 2020 07:49:54 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43788 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1729183AbgDMLtv (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Fri, 10 Apr 2020 15:00:22 -0400
-Received: by mail-wr1-f68.google.com with SMTP id g3so3330543wrx.2
-        for <linux-sparse@vger.kernel.org>; Fri, 10 Apr 2020 12:00:20 -0700 (PDT)
+        Mon, 13 Apr 2020 07:49:51 -0400
+Received: from mail-il1-x131.google.com (mail-il1-x131.google.com [IPv6:2607:f8b0:4864:20::131])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 3B42EC0085B9
+        for <linux-sparse@vger.kernel.org>; Mon, 13 Apr 2020 04:41:30 -0700 (PDT)
+Received: by mail-il1-x131.google.com with SMTP id i14so8148510ilr.11
+        for <linux-sparse@vger.kernel.org>; Mon, 13 Apr 2020 04:41:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=from:to:cc:subject:date:message-id:mime-version
+        h=mime-version:reply-to:from:date:message-id:subject:to
          :content-transfer-encoding;
-        bh=MRBqevuvOXA0o1VWm6XavN3K2Eyc0stFC4nXLvQSXoI=;
-        b=JRbd2ci/BB0po2Ww0/VC/GVyfy5R8RPAKsTY13aoYq+ukJkdx2uRln4c4ZV62leGHg
-         hmjvFHaS4yC3+oxR+cIBADqg7ikuE1U8dFy10hEd8KnDTzTgNxOTo4D7ER0VZhFZgYVe
-         6OLhwKsQv7fnhLa2bZKsYZPO4B4IYsPI2tUEGeUR0iOd3UzAWr4r/2hIcA8IWcmnmGu2
-         6OXiXCi5k47Ck9HcV0uXl9BRUwUkAn9iFEqXn6JgWVB3AqK7GxytOsoNvENO13RWDS84
-         FDhFrlYGxEs5736QH/n/ox/tH/1tLOQ/76F9EjGZg7HcvO8G0pULV1U0jhfYMig+jQVX
-         QdiA==
+        bh=qlKWExEze9qCqlwbpw1q4+d2Zjr4ETGVa64TcX+dTlk=;
+        b=prjS9vX1/lBHBQnmn8S5eSRPyVAkL53RoKQzE5AAHbxvNYI4a2v2cjTji7kXTppOEc
+         z/YC5TVvRJiGk2ecDbuxQbDezIHvoL12TwU8A8MoLDqkPTvq0EUKN12xVXuoac5P5vPG
+         CDxQUahEZp79myUg0SW4XqnobzWbEdaMDOCEcwJOYEkU2vBAFQtTx1QiAdzIaX9heUrh
+         wXqF9HmIVWbzu+LjtyhWb9YxG3jDJu9H0/2YRuWHtIWQg0GYyRRf+7+N2+T4/5hNzYkA
+         0Td5bmAVNGOZBhXtNLv8DRN8PKs1LisEF6odwJbW1cWSeUhqmMnZAT2UKZl4iJ1E/PV6
+         qofQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=MRBqevuvOXA0o1VWm6XavN3K2Eyc0stFC4nXLvQSXoI=;
-        b=jt88dGuto+azZJjlkZVE62BqOFJfmUOOQ2KWMTuAe2419Jlce4lyRKRseKwFyaQ6+o
-         o6Opjnq2EkCNpMo3q7ul0akI29ETKMFl/1bXGazn2dpdj3yzEdWUqmAowoeTHk49i2m/
-         kvpf0qlIj0jjY8rSOGu3R/bwaIz+u9DwJ4iTo4PANuhwpHczTI1+4910v0OsGbGTX0hI
-         y5dA7fPQCDeyw9IvOD1UmFBhgwYRUUY8gvnpL0qDkfLxkWYcutFIHmwkWNvIJqKfr3Ji
-         t6qiY8t+voux5EJstWx9QmnCNLjWy6ysq+IYnMYolrE8OyvbRdZHm6W0RAm7RTupsvVi
-         xuPg==
-X-Gm-Message-State: AGi0PuYdFv09L+nq+KyeMiM81FgE5QDrfYnWid6R9K2XN36/CDLUMHf+
-        Cmx+YzCQRe/BsBVt9NRa1te3X++R
-X-Google-Smtp-Source: APiQypJgSK+ofjJLN/uzWQDevdgsGvdVVWH5fqQBDJ454JI1otge22QDsfttUqdnY6eE9cdMwjxbzw==
-X-Received: by 2002:adf:dc06:: with SMTP id t6mr3090190wri.385.1586545219296;
-        Fri, 10 Apr 2020 12:00:19 -0700 (PDT)
-Received: from localhost.localdomain ([2a02:a03f:b7f9:7600:957f:f707:be30:7cd4])
-        by smtp.gmail.com with ESMTPSA id d2sm397239wmd.6.2020.04.10.12.00.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 10 Apr 2020 12:00:18 -0700 (PDT)
-From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-To:     linux-sparse@vger.kernel.org
-Cc:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-Subject: [PATCH] no memset() needed after __alloc_scope()
-Date:   Fri, 10 Apr 2020 20:58:16 +0200
-Message-Id: <20200410185816.65557-1-luc.vanoostenryck@gmail.com>
-X-Mailer: git-send-email 2.26.0
+        h=x-gm-message-state:mime-version:reply-to:from:date:message-id
+         :subject:to:content-transfer-encoding;
+        bh=qlKWExEze9qCqlwbpw1q4+d2Zjr4ETGVa64TcX+dTlk=;
+        b=m4O9GGmjmxg2hXTwaYnpjitJKu3raqT//oI+tC2Tsp6aMYd1NB30zFJs58YnQ8LAlT
+         et/JCD7MWp9ARtFEcZAP8C67tAxRideEZ1rNzrstpn4kG4F9ZQDk2SpdMGn0EaEESmxl
+         eQBYTXhy4Q7JHx2VNttyyco2smY4GBcoL+mJz7xYuDyNTXCfT347x6H72Ls1rmcdjNoA
+         hS62YPIgrSEXEdUFVW2COAX9zdqla6Vy3s2YWqR6GR5Rusj2sp26W0vt+Vqy1QVJoRGX
+         NQjRxFiBZcizk1wARsvCfqF5bBRofPVCDNFzHFd82jvD50GTHo3mYMcMRy4IILcX1zlV
+         iWiQ==
+X-Gm-Message-State: AGi0PuYnJRRXHoWBK/wgRbOZIEreWZMtrg+3kZhceWd86w4EmbvU7KSw
+        eJelgKs+v4+wttanZutZ5B7Fme9aIPZli7xVkg==
+X-Google-Smtp-Source: APiQypL8TqJIeu3sv8q1i+SGhGHI+g2m6cjavfj0dEc+5JPmC3aVP4wfZgyktqWXbHy6/UF7VoKUuS2YyJ3E1gwa7Hs=
+X-Received: by 2002:a92:cccb:: with SMTP id u11mr9656514ilq.8.1586778089638;
+ Mon, 13 Apr 2020 04:41:29 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Received: by 2002:a02:5e49:0:0:0:0:0 with HTTP; Mon, 13 Apr 2020 04:41:28
+ -0700 (PDT)
+Reply-To: mgbenin903@gmail.com
+From:   Barrister Robert Richter UN-Attorney at Law Court-Benin 
+        <info.zennitbankplcnigerian@gmail.com>
+Date:   Mon, 13 Apr 2020 13:41:28 +0200
+Message-ID: <CABHzvrngm=rA5Ct9h+JGdbyDfHJmnfntceDPoyJToo8PZn+YZg@mail.gmail.com>
+Subject: I have already sent you first payment US$5000.00 this morning through
+ MONEY Gram service.it is available to pick up in address now.
+To:     undisclosed-recipients:;
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 Sender: linux-sparse-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-When starting some scopes, the newly allocated struct is
-memset'ed with zero but this is unneeded since the allocator
-always returns zeroed memory.
+ATTN DEAR BENEFICIARY.
 
-Remove the unneeded call to memset().
+GOOD NEWS.
 
-Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
----
- scope.c | 2 --
- 1 file changed, 2 deletions(-)
+I have already sent you first payment US$5000.00 this morning through
+MONEY Gram service.it is available to pick up in address now.
 
-diff --git a/scope.c b/scope.c
-index 420c0f5a3f51..0e4fb3b42150 100644
---- a/scope.c
-+++ b/scope.c
-@@ -68,7 +68,6 @@ void rebind_scope(struct symbol *sym, struct scope *new)
- static void start_scope(struct scope **s)
- {
- 	struct scope *scope = __alloc_scope(0);
--	memset(scope, 0, sizeof(*scope));
- 	scope->next = *s;
- 	*s = scope;
- }
-@@ -77,7 +76,6 @@ void start_file_scope(void)
- {
- 	struct scope *scope = __alloc_scope(0);
- 
--	memset(scope, 0, sizeof(*scope));
- 	scope->next = &builtin_scope;
- 	file_scope = scope;
- 
--- 
-2.26.0
+So we advise you to Contact This Money Gram office to pick up your
+transfer $US5000.00 today.
 
+
+Note that your compensation payment funds is total amount $US2.800,000
+Million Dollars.We have instructed the Money Gram Agent,Mr. James
+Gadner to keep sending the transfer to you daily, but the maximum
+amount you will be receiving everyday is US$5000.00. Contact Agent now
+to pick up your first payment $US5000.00 immediately.
+
+Contact Person, Mr. James Gadner, Dir. Money Gram Benin.
+Email: mgbenin903@gmail.com
+Telephone Numbers: +229 62819378/ +229 98477762
+
+HERE IS YOUR PAYMENT DETAILS FOR THE FIRST =C2=A3US5000.00 SENT TODAY.
+
+Track View Website link:
+https://secure.moneygram.com/track
+Sender=E2=80=99s First name: David
+Sender=E2=80=99s Last Name: Joiner
+Money Transfer Control Number (MTCN) (REFERENCE)# 26046856
+
+Contact the Mmoney Gram Urgent and reconfirm your address to the
+office before, they will allow you to pick up the transfer today.
+
+HERE IS WHAT REQUIRED OF YOU.
+
+YOUR FULL NAME---------
+ADDRESS--------------
+COUNTRY-----------------------------
+TELEPHONE NUMBERS-----------------
+
+Note, I paid the transfer fee for you, but only you are required to
+send to the office is $75 only,Been Your Payment File activation fee,
+Send once you contact the office,before you can able to pick up your
+transfer today.
+
+Let me know once you pick up first payment today.
+
+Barrister Robert Richter UN-Attorney at Law Court-Benin
