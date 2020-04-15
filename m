@@ -2,27 +2,27 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 4F6691A9D75
-	for <lists+linux-sparse@lfdr.de>; Wed, 15 Apr 2020 13:46:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 2D8CB1AA042
+	for <lists+linux-sparse@lfdr.de>; Wed, 15 Apr 2020 14:32:04 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S2406070AbgDOLny (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Wed, 15 Apr 2020 07:43:54 -0400
-Received: from mail.kernel.org ([198.145.29.99]:36126 "EHLO mail.kernel.org"
+        id S369192AbgDOMYV (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Wed, 15 Apr 2020 08:24:21 -0400
+Received: from mail.kernel.org ([198.145.29.99]:40010 "EHLO mail.kernel.org"
         rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S2409038AbgDOLnx (ORCPT <rfc822;linux-sparse@vger.kernel.org>);
-        Wed, 15 Apr 2020 07:43:53 -0400
+        id S2409215AbgDOLpp (ORCPT <rfc822;linux-sparse@vger.kernel.org>);
+        Wed, 15 Apr 2020 07:45:45 -0400
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net [73.47.72.35])
         (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
         (No client certificate requested)
-        by mail.kernel.org (Postfix) with ESMTPSA id B9936206A2;
-        Wed, 15 Apr 2020 11:43:51 +0000 (UTC)
+        by mail.kernel.org (Postfix) with ESMTPSA id 4389820768;
+        Wed, 15 Apr 2020 11:45:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=default; t=1586951032;
+        s=default; t=1586951145;
         bh=/KnOurnx6Etk4y412/BZj+JikJrWXkN0RDnFDDfh8k0=;
         h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-        b=SjjA1ah5ILyjFhi03RE14ilQTJMByihrpyrC0dXlleKnai47vz+vIE1TLr37zX9Ra
-         B3x5XCgkyk5MvDiV1744XJNQzol2v2/3+0NgaRKW5VcLD7ba9FZ8cnLJatDDiDNaa3
-         KMfNUsNjBU2qA92vvgp5pExk5XGkAKQTMjojaLbs=
+        b=JY7N4FD/DL/q6Y+z3Gyr7SlMF/hXM3edb2oVt/0ByKa2I0u3+sTvRlBq7dQzzUbhj
+         /HuXBqqkL3VIut2MAZkrCXWCcgN8MaLd8xlIs6BZ3e/F3TaCUQtEWK1bZfx0IW2qKw
+         maJR1+QmruPG5pfofsOeiNt/Xoi4u3ijlj1K0QlA=
 From:   Sasha Levin <sashal@kernel.org>
 To:     linux-kernel@vger.kernel.org, stable@vger.kernel.org
 Cc:     Vegard Nossum <vegard.nossum@oracle.com>,
@@ -33,12 +33,12 @@ Cc:     Vegard Nossum <vegard.nossum@oracle.com>,
         Ian Abbott <abbotti@mev.co.uk>, Joe Perches <joe@perches.com>,
         Linus Torvalds <torvalds@linux-foundation.org>,
         Sasha Levin <sashal@kernel.org>, linux-sparse@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.5 070/106] compiler.h: fix error in BUILD_BUG_ON() reporting
-Date:   Wed, 15 Apr 2020 07:41:50 -0400
-Message-Id: <20200415114226.13103-70-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.4 53/84] compiler.h: fix error in BUILD_BUG_ON() reporting
+Date:   Wed, 15 Apr 2020 07:44:10 -0400
+Message-Id: <20200415114442.14166-53-sashal@kernel.org>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20200415114226.13103-1-sashal@kernel.org>
-References: <20200415114226.13103-1-sashal@kernel.org>
+In-Reply-To: <20200415114442.14166-1-sashal@kernel.org>
+References: <20200415114442.14166-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
