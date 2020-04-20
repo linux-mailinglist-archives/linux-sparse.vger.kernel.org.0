@@ -2,114 +2,92 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id C8E661A9E09
-	for <lists+linux-sparse@lfdr.de>; Wed, 15 Apr 2020 13:51:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id BFFD61B10C6
+	for <lists+linux-sparse@lfdr.de>; Mon, 20 Apr 2020 17:54:21 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S2409506AbgDOLuA (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Wed, 15 Apr 2020 07:50:00 -0400
-Received: from mail.kernel.org ([198.145.29.99]:44178 "EHLO mail.kernel.org"
-        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S2409452AbgDOLs1 (ORCPT <rfc822;linux-sparse@vger.kernel.org>);
-        Wed, 15 Apr 2020 07:48:27 -0400
-Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net [73.47.72.35])
-        (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-        (No client certificate requested)
-        by mail.kernel.org (Postfix) with ESMTPSA id D408F2137B;
-        Wed, 15 Apr 2020 11:48:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=default; t=1586951307;
-        bh=aS6rCUp0LQwVhHJsV5uUa9qCEMgITqc2OzijRDMUb+0=;
-        h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-        b=tFhtEAL4WK1SQf1f5uAhdTokXOM/dRcTqL80zFQVEg7TqSDCYhPIlVpM3SoohKtym
-         3KL3VVQEANxJghnV4li/SPJn+ViNlbCu92WOoYJGuwjspO8YCGWSh+Ba+eKR4q6OO3
-         afmrYY7uqQhBhuQKUdp/geE1GBTW8uSYQ0WIfsXM=
-From:   Sasha Levin <sashal@kernel.org>
-To:     linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Cc:     Vegard Nossum <vegard.nossum@oracle.com>,
-        Andrew Morton <akpm@linux-foundation.org>,
-        Masahiro Yamada <yamada.masahiro@socionext.com>,
-        Daniel Santos <daniel.santos@pobox.com>,
-        Rasmus Villemoes <linux@rasmusvillemoes.dk>,
-        Ian Abbott <abbotti@mev.co.uk>, Joe Perches <joe@perches.com>,
-        Linus Torvalds <torvalds@linux-foundation.org>,
-        Sasha Levin <sashal@kernel.org>, linux-sparse@vger.kernel.org
-Subject: [PATCH AUTOSEL 4.4 10/14] compiler.h: fix error in BUILD_BUG_ON() reporting
-Date:   Wed, 15 Apr 2020 07:48:10 -0400
-Message-Id: <20200415114814.15954-10-sashal@kernel.org>
+        id S1726151AbgDTPyV (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Mon, 20 Apr 2020 11:54:21 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:34536 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-FAIL-OK-FAIL)
+        by vger.kernel.org with ESMTP id S1725875AbgDTPyU (ORCPT
+        <rfc822;linux-sparse@vger.kernel.org>);
+        Mon, 20 Apr 2020 11:54:20 -0400
+Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com [IPv6:2a00:1450:4864:20::442])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 74404C061A0C
+        for <linux-sparse@vger.kernel.org>; Mon, 20 Apr 2020 08:54:20 -0700 (PDT)
+Received: by mail-wr1-x442.google.com with SMTP id k13so11618614wrw.7
+        for <linux-sparse@vger.kernel.org>; Mon, 20 Apr 2020 08:54:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=isovalent-com.20150623.gappssmtp.com; s=20150623;
+        h=from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=xVgYhtfsS037oBTHaLOKwiOV8VQ1lAmSGdFUQ9cPWbo=;
+        b=hOt2QlAkv3Ccb0i0ViJD4YjqFQCIKC8mCmueJcAHVhuklS9oO1W1K85O8qC0THBNA+
+         f5lM2CyffIvk5ujpWaImVXnOf+93Qx1AYripKt8Bu7SJHFzHw7dcTzf34odjozf15JEF
+         SM39fUdwU/cX2RFhU+yHKuHL3A6CF48NjgHbLa3m6Hyo1731bKBiw+274TEN8RJc9gFP
+         D5odkzkAJjNYT0qn6Dd7DWVftYpg0DvgxzP/MY1X0udfTbA7Iwo/xpsFS2RHCR/xrXPx
+         6NhqdfYPwOSvvCYj6dCseQcvjl4YTtKy7nJ4M/Ga1XVVcLUsWBrGlvOlxw0qDxiGe4B1
+         j3Ng==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=xVgYhtfsS037oBTHaLOKwiOV8VQ1lAmSGdFUQ9cPWbo=;
+        b=twTygi3Hipd3VgQbKSYBqsiyiLn1YrnpSprZw+xWbFL/wifoU74gYS8Syy9AyHtndx
+         e9NO+XO38BAsRRWLSL+Qd8kC4kUkc2fzfgJiWLFnC9mqasZ1aRUX9ykWC/p61agg+hM5
+         HcepY4vXEPCaZAQP2P6Ei5IDXJpVzLAWrH4obL6OZcCp88lrIANSb4bXZAMKWc/AhoCP
+         O6HKJXKWWeNWwiU+MHbjrGk504Ew6NopOWsj/roxfVctn4/21p2ePucFZgTzL1OCYQ5b
+         3AjQqzpePBAfvU6Opx3czVjL7gZZ+t5D38lxKbMKZ4w7d8Ozmbf1akIyMM7m1lV931nV
+         tFAg==
+X-Gm-Message-State: AGi0PubCSjZRxEz94bRHOAlCrTVSo5Hw5Xw6tkWuWhmCphGJwQESTrhc
+        ibUkHf8bQ+SaF3GBEr2ABM9NjJL4bcw=
+X-Google-Smtp-Source: APiQypJMjFgTl75agMh4eFitf266zufZuTk/Y22N2IN9SVMkRJvE9TwfmLI4EMFiwCDfHlJhxV6dsA==
+X-Received: by 2002:a5d:65d2:: with SMTP id e18mr19889711wrw.104.1587398058965;
+        Mon, 20 Apr 2020 08:54:18 -0700 (PDT)
+Received: from localhost.localdomain ([194.35.116.120])
+        by smtp.gmail.com with ESMTPSA id h5sm1787471wrp.97.2020.04.20.08.54.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 20 Apr 2020 08:54:18 -0700 (PDT)
+From:   Quentin Monnet <quentin@isovalent.com>
+To:     linux-sparse@vger.kernel.org
+Cc:     Quentin Monnet <quentin@isovalent.com>
+Subject: [PATCH] build: fix LLVM version detection
+Date:   Mon, 20 Apr 2020 16:53:52 +0100
+Message-Id: <20200420155352.11364-1-quentin@isovalent.com>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20200415114814.15954-1-sashal@kernel.org>
-References: <20200415114814.15954-1-sashal@kernel.org>
 MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
 Sender: linux-sparse-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-From: Vegard Nossum <vegard.nossum@oracle.com>
+The regex match used for detecting the LLVM version works for versions
+with a single-digit major number. Now that LLVM v10 is out, detection
+can fail, resulting in sparse-llvm not being built.
 
-[ Upstream commit af9c5d2e3b355854ff0e4acfbfbfadcd5198a349 ]
+Fix detection by extracting the major version number to compare with the
+minimum supported.
 
-compiletime_assert() uses __LINE__ to create a unique function name.  This
-means that if you have more than one BUILD_BUG_ON() in the same source
-line (which can happen if they appear e.g.  in a macro), then the error
-message from the compiler might output the wrong condition.
-
-For this source file:
-
-	#include <linux/build_bug.h>
-
-	#define macro() \
-		BUILD_BUG_ON(1); \
-		BUILD_BUG_ON(0);
-
-	void foo()
-	{
-		macro();
-	}
-
-gcc would output:
-
-./include/linux/compiler.h:350:38: error: call to `__compiletime_assert_9' declared with attribute error: BUILD_BUG_ON failed: 0
-  _compiletime_assert(condition, msg, __compiletime_assert_, __LINE__)
-
-However, it was not the BUILD_BUG_ON(0) that failed, so it should say 1
-instead of 0. With this patch, we use __COUNTER__ instead of __LINE__, so
-each BUILD_BUG_ON() gets a different function name and the correct
-condition is printed:
-
-./include/linux/compiler.h:350:38: error: call to `__compiletime_assert_0' declared with attribute error: BUILD_BUG_ON failed: 1
-  _compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
-
-Signed-off-by: Vegard Nossum <vegard.nossum@oracle.com>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reviewed-by: Masahiro Yamada <yamada.masahiro@socionext.com>
-Reviewed-by: Daniel Santos <daniel.santos@pobox.com>
-Cc: Rasmus Villemoes <linux@rasmusvillemoes.dk>
-Cc: Ian Abbott <abbotti@mev.co.uk>
-Cc: Joe Perches <joe@perches.com>
-Link: http://lkml.kernel.org/r/20200331112637.25047-1-vegard.nossum@oracle.com
-Signed-off-by: Linus Torvalds <torvalds@linux-foundation.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Quentin Monnet <quentin@isovalent.com>
 ---
- include/linux/compiler.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ Makefile | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/include/linux/compiler.h b/include/linux/compiler.h
-index 5508011cc0c79..5f8749440c6af 100644
---- a/include/linux/compiler.h
-+++ b/include/linux/compiler.h
-@@ -502,7 +502,7 @@ static __always_inline void __write_once_size(volatile void *p, void *res, int s
-  * compiler has support to do so.
-  */
- #define compiletime_assert(condition, msg) \
--	_compiletime_assert(condition, msg, __compiletime_assert_, __LINE__)
-+	_compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
- 
- #define compiletime_assert_atomic_type(t)				\
- 	compiletime_assert(__native_word(t),				\
+diff --git a/Makefile b/Makefile
+index 85d15edca948..e93cfd66d0c9 100644
+--- a/Makefile
++++ b/Makefile
+@@ -183,7 +183,8 @@ arch := x32
+ endif
+ ifneq ($(filter ${arch},i386 i486 i586 i686 x86_64 amd64),)
+ LLVM_VERSION:=$(shell $(LLVM_CONFIG) --version)
+-ifeq ($(shell expr "$(LLVM_VERSION)" : '[3-9]\.'),2)
++LLVM_VERSION_MAJOR:=$(firstword $(subst ., ,$(LLVM_VERSION)))
++ifeq ($(shell expr "$(LLVM_VERSION_MAJOR)" '>=' 3),1)
+ LLVM_PROGS := sparse-llvm
+ $(LLVM_PROGS): LD := g++
+ LLVM_LDFLAGS := $(shell $(LLVM_CONFIG) --ldflags)
 -- 
 2.20.1
 
