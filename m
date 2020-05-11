@@ -2,63 +2,86 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 97D6A1BA2AE
-	for <lists+linux-sparse@lfdr.de>; Mon, 27 Apr 2020 13:41:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 08E641CD027
+	for <lists+linux-sparse@lfdr.de>; Mon, 11 May 2020 05:07:10 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727079AbgD0Lln (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Mon, 27 Apr 2020 07:41:43 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:36088 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1727087AbgD0Lll (ORCPT
+        id S1726661AbgEKDHB (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Sun, 10 May 2020 23:07:01 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:46382 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-FAIL-OK-FAIL)
+        by vger.kernel.org with ESMTP id S1725830AbgEKDHA (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Mon, 27 Apr 2020 07:41:41 -0400
-Received: from mail-pg1-x541.google.com (mail-pg1-x541.google.com [IPv6:2607:f8b0:4864:20::541])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id C8079C0085E5
-        for <linux-sparse@vger.kernel.org>; Mon, 27 Apr 2020 04:41:35 -0700 (PDT)
-Received: by mail-pg1-x541.google.com with SMTP id j7so8558126pgj.13
-        for <linux-sparse@vger.kernel.org>; Mon, 27 Apr 2020 04:41:35 -0700 (PDT)
+        Sun, 10 May 2020 23:07:00 -0400
+Received: from mail-qt1-x841.google.com (mail-qt1-x841.google.com [IPv6:2607:f8b0:4864:20::841])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 48AB0C061A0C
+        for <linux-sparse@vger.kernel.org>; Sun, 10 May 2020 20:06:59 -0700 (PDT)
+Received: by mail-qt1-x841.google.com with SMTP id l1so3321604qtp.6
+        for <linux-sparse@vger.kernel.org>; Sun, 10 May 2020 20:06:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=mime-version:reply-to:from:date:message-id:subject:to;
-        bh=F+HbPvxQnRBlqBFKy/zn6110uxUPAWY6eSsMY6+ckPY=;
-        b=uI1U3pP4FazEZaTfkDGgaf1Qyb1hL6AlgZB9tozzlJtw0tc2p0xAeW9BNdbY4A2XuL
-         JYn8lE6gg3HqjBgRaTT8CTSOLDZ9E79yDyBM0EGnWldSdHyzrk+BT/7frJGn/PAhMIrE
-         VCZdq7yfljhgiOOYhIeLP2AIIFXvLFMREe3IREMgf/Wimn5okrCaqK4gkS0+n2Tqfq3c
-         EFYh4cYLyK3nIET0YOm2adzDe5W5QN3hsgSvwW72euh+PRPDs3oxC82+7cfg/ZGTOz8/
-         eTagf6SblJMWIJeJ59y/zg3//EVOq9RPByBfKkQCDUJB6vE62XJLcx9qUgZNIxoYrz8S
-         JAeA==
+        h=from:to:cc:subject:date:message-id;
+        bh=i7IY87usJuGy1QqNB/Z7DvpuA4RuO4wg5MhYltde7Jg=;
+        b=MDCjmAxGHfU1IDC3AKiGgTjxTdrAPdZrxnl1QKNprFxE40cTBVWdmxIh7cZC/SrJZZ
+         Zez+q/KBSrKSsVgZHBwFvmo44PTLpKytiuixSEys3UZP07KFUXc4vMWxsDoUT8/DsuXc
+         rb3OKmMMkC8z2bGa/8VcRh0kFj9aClYXt1LXd7LjuyZXMOS8TiDHgBYVzYfWl+nxQH0z
+         bJ5r+8AbE8TAKW6wNtHHPkqR5kXkqfdlLiAWjW5mBbb5MZSRqEkCNM6wgc8KG26m9q6g
+         452x/uJNJapYBRozcNj2ZYx3zrsvREbtCLifvuwDWtD+K3X0NXNS4f8WRW59NeWgrA15
+         ik7w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:reply-to:from:date:message-id
-         :subject:to;
-        bh=F+HbPvxQnRBlqBFKy/zn6110uxUPAWY6eSsMY6+ckPY=;
-        b=MEl1u1mcyI5hGPvOcRlvvXs5dmVBh8gNgrk21NjZEcrWPymp0YXMyN2ZWPXc9QsEtN
-         UD2yCP8Z150Hw/W3RlDq+Z5ewfjDERk+fY84UCMvYYxkHIGEb4xrmjk2huQQ+/qzrxGZ
-         e85LGMMRzlKm+njQP5n7lmd8PthxFXnGXgwGcI6Fr4P213c/8KtUuSORLx6/EbDBhM7q
-         YYoqgWPZotax/aRaEgJpg9UBTnywVYuxNXQuXdQbHlMos/P0lUbKL2xYrQYJc3YCL9lr
-         ddo9LLVg3UsxNuzF3EKS+4KRVOxTb49pTULGbTmWBfUAizKU6/Yx01PGSK3YhFasasi5
-         jf6g==
-X-Gm-Message-State: AGi0PuYkiwETEC0AfkgcLVjmA9/oMKY3Yd14i0fw/MNSu+/x+NHgJh/l
-        2gw/XRtihsPBl7/Vzn5fQxUmVEcHdCM/8raZHVld6L/p7lw=
-X-Google-Smtp-Source: APiQypJWdjzUZMbeRoAX94bUJV0IgwyoF5kUG7iPo3CBzKxW8lStFNsM/6tz3An/TyzRuH2Qw14DtavsVumw6JVLls0=
-X-Received: by 2002:a6b:7d4a:: with SMTP id d10mr4072296ioq.70.1587987694042;
- Mon, 27 Apr 2020 04:41:34 -0700 (PDT)
-MIME-Version: 1.0
-Received: by 2002:a5d:8f89:0:0:0:0:0 with HTTP; Mon, 27 Apr 2020 04:41:33
- -0700 (PDT)
-Reply-To: convy0090@gmail.com
-From:   Ruben CONVY <andrewboccc@gmail.com>
-Date:   Mon, 27 Apr 2020 12:41:33 +0100
-Message-ID: <CAHVC0+Ag87TMCmfNNwWbxXOFxn5166q8GG5wEfPjwtixj9=EXQ@mail.gmail.com>
-Subject: Why continued silence 2
-To:     undisclosed-recipients:;
-Content-Type: text/plain; charset="UTF-8"
+        h=x-gm-message-state:from:to:cc:subject:date:message-id;
+        bh=i7IY87usJuGy1QqNB/Z7DvpuA4RuO4wg5MhYltde7Jg=;
+        b=c2amKsdnK3Y461FuUDbNFbv33GdxXAcgGnhTotLP5heyXCt8nadMWKNzHYQVyj0Xy7
+         4TM6I76eir9Gi3W5YypXkGX4x4YYd1J3o8z2QjSAx3H19ryouacatnMkeFRC4YcCb0Kd
+         ULcCPRc/Q0hjtaFV4tgFD8+RCakMu+/hDjwZUGe8kbn6u8zFm3eFIPlnWEm/9He/5XlE
+         dMSHLX5AoT41eJ5CJHcXI8tMXXHgXrMgRhBBBnQOBxlkED+l1VpmiWTsaPVv3oncNrKx
+         HymuIGi1qZOXn6ij8kCD/URq5vD0AHt5WsNb4lst4Z9G0I3DRTQQkUN0mJ66xdkaLbTC
+         xgCw==
+X-Gm-Message-State: AGi0Puax86rKfnjTUcXZ50ENB3DDMn5eT4O4B3P0AFgs6ieBfQ4WaVno
+        Jx1+g7x9B/4CEJ+fvhFAxFguSty2
+X-Google-Smtp-Source: APiQypJyXUhf60raLKqNWNqyn6RutbwXpjr5SLvgb34UUqC+ENwopHVPaJwqIYXorvjVqsB21n64Eg==
+X-Received: by 2002:ac8:6159:: with SMTP id d25mr14716723qtm.70.1589166417804;
+        Sun, 10 May 2020 20:06:57 -0700 (PDT)
+Received: from darkstar.. ([2804:14c:5bd4:8264:f66d:4ff:fe73:55f5])
+        by smtp.googlemail.com with ESMTPSA id y28sm2378419qtc.62.2020.05.10.20.06.55
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Sun, 10 May 2020 20:06:57 -0700 (PDT)
+From:   Davidson Francis <davidsondfgl@gmail.com>
+To:     linux-sparse@vger.kernel.org
+Cc:     Davidson Francis <davidsondfgl@gmail.com>
+Subject: [PATCH] show-parse: null pointer dereference in do_show_type()
+Date:   Mon, 11 May 2020 00:06:20 -0300
+Message-Id: <20200511030620.10329-1-davidsondfgl@gmail.com>
+X-Mailer: git-send-email 2.11.0
 Sender: linux-sparse-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-Did you receive my previous email regarding your family inheritance?
-Reply strictly through: convy0090@gmail.com
-Best Regards,
-Ruben CONVY
+In do_show_type() the first if statement allows passing null
+pointers, which can cause a null pointer dereference in some
+cases, which I believe is not the desired behavior.
+
+Fix this by changing the first if statement comparison.
+
+Signed-off-by: Davidson Francis <davidsondfgl@gmail.com>
+---
+ show-parse.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/show-parse.c b/show-parse.c
+index 3aa06e47..11a487bc 100644
+--- a/show-parse.c
++++ b/show-parse.c
+@@ -300,7 +300,7 @@ static void do_show_type(struct symbol *sym, struct type_name *name)
+ 	int fouled = 0;
+ 
+ deeper:
+-	if (!sym || (sym->type != SYM_NODE && sym->type != SYM_ARRAY &&
++	if (sym && (sym->type != SYM_NODE && sym->type != SYM_ARRAY &&
+ 		     sym->type != SYM_BITFIELD)) {
+ 		const char *s;
+ 		size_t len;
+-- 
+2.11.0
+
