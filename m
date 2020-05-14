@@ -2,107 +2,166 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id BF06A1D402E
-	for <lists+linux-sparse@lfdr.de>; Thu, 14 May 2020 23:37:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id C67C31D40D0
+	for <lists+linux-sparse@lfdr.de>; Fri, 15 May 2020 00:22:45 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726553AbgENVhQ (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Thu, 14 May 2020 17:37:16 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:45940 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726241AbgENVhP (ORCPT
+        id S1728347AbgENWWn (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Thu, 14 May 2020 18:22:43 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:53094 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-FAIL-OK-FAIL)
+        by vger.kernel.org with ESMTP id S1728456AbgENWWn (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Thu, 14 May 2020 17:37:15 -0400
-Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com [IPv6:2a00:1450:4864:20::444])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 0C3DEC061A0C;
-        Thu, 14 May 2020 14:37:14 -0700 (PDT)
-Received: by mail-wr1-x444.google.com with SMTP id s8so673423wrt.9;
-        Thu, 14 May 2020 14:37:13 -0700 (PDT)
+        Thu, 14 May 2020 18:22:43 -0400
+Received: from mail-wm1-x344.google.com (mail-wm1-x344.google.com [IPv6:2a00:1450:4864:20::344])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 27F2BC061A0C
+        for <linux-sparse@vger.kernel.org>; Thu, 14 May 2020 15:22:43 -0700 (PDT)
+Received: by mail-wm1-x344.google.com with SMTP id g12so88835wmh.3
+        for <linux-sparse@vger.kernel.org>; Thu, 14 May 2020 15:22:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=date:from:to:cc:subject:message-id:references:mime-version
          :content-disposition:in-reply-to;
-        bh=UTNcFMsyU7qMTj+Msz+3dKqMrWgXHBSTaDPVzfMIy0o=;
-        b=I4lk1Zk1S8ttXMbZI6jdcMANUjNUIZmOkh+aGd6dTfQgGwHOFBvx67fI9Nh/WCKZsp
-         Q5VdvJmxi4jTWD+wuwGXCDT1bA9EYk0ZK5LznDIImmj4GpAn6vjjAHrSjwnQmqNjx+V6
-         32YoxCvNT50ILys+3jxyBgz7EuErBOxMISu2Xpe2lSOtNGwUFP1ooWd1uzFnlY4seypc
-         HMXWvJUP1K5lFl1D+HzAqix/k77IjCRx4NJhw6KKNcuCNerqRniJej0O4kmpFE+t2DuE
-         PIOrtlAqwpVVmLDg4pdJSwfb7MviBpIntn/C2RnQ51B4lKjkHr3xE8zDL8DtrkJubmwS
-         /Qrw==
+        bh=rSTE5jh+NagD67+7MugC4M2xlcH8IUWuYQ7rPnFlVB0=;
+        b=miq1T6aDPflkCaGvayzKrtDRkPC+i5Vy2zOF/dsh2Jz8i8hOCMtGrJhx6BnTZepqeP
+         W5KP1e+cH9/ztlUJll/6X4KbRiP5e7Hj7O8rc0pJIRFNdvR+eUtAWIBc4iUtz7E54Iix
+         1D+GwpcU+hIreLHNRhYhEDEdulJUob7cFkUGbU8NnkcULgYtqs1V/trhQ9W2Nh6olF0/
+         vPYpHKVEdjYJ5k05oK9i77lV8X+Som4BYbJh2Yg+8ARBCqRDMjN5IKj6rcsc5FC1Ov3i
+         ZOl72X4LpCUTvcRe5pM8rucgNiYNEYwiQ80X7H1dpnX+K+R3WNZvvgW+ouszRsmCw8E4
+         hv/w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:date:from:to:cc:subject:message-id:references
          :mime-version:content-disposition:in-reply-to;
-        bh=UTNcFMsyU7qMTj+Msz+3dKqMrWgXHBSTaDPVzfMIy0o=;
-        b=ahW+zNZV3CEb/1NCSCPyYTANSkKDAG9p3mhrDBxkuzqL7+H5Z5j/2Kylt8DkgBrlA2
-         a8goU5IFsb+MNjBAR/jCX23UkJeDLus5iT7EoZNay42OnhyfCnDi8SoVYsJf5cOnftUG
-         r+0+8YrP/aVSja1WU82NyGUf9AjktdGg/Mjp/MdxwuWwjLYkdwt0+md76kLC7tMJ7tEt
-         maM/hK5cwSvagPHhYsxaWIZSzQBvswN+WXP8Gk0GoJuxm9sieBbE0C1K+6MApOuoyT7g
-         kYNrAhN2y1L693Pxzzj8pbkqa5nsQMyukl2aLNH75CmrfaY+kQwgrFhN4RafFPGrJL7c
-         ABPw==
-X-Gm-Message-State: AOAM533ZYUuAKd578FhBJIqdIg+w4uQkkeVaKrz2dETCPMyo4Jjz86oN
-        i6wgnghkOftOJNzXq4ZuzWU=
-X-Google-Smtp-Source: ABdhPJwcecpM+gf6ON/f9yYLtxyj7GLZU68X/3Qk/t2c3ASoL6CMfyuvFO4GkhCsKvqX7nHLW2u9iw==
-X-Received: by 2002:adf:e5cd:: with SMTP id a13mr499173wrn.266.1589492232440;
-        Thu, 14 May 2020 14:37:12 -0700 (PDT)
-Received: from ltop.local ([2a02:a03f:b7f9:7600:49b3:709e:5c4a:780d])
-        by smtp.gmail.com with ESMTPSA id s8sm310188wrt.69.2020.05.14.14.37.11
+        bh=rSTE5jh+NagD67+7MugC4M2xlcH8IUWuYQ7rPnFlVB0=;
+        b=tEg7mJPht1TAqpN/CVwLvzxPM/ct0UaybmqlSsFs2rBghKZBOcMQ2CVHgu8UPlkJf3
+         8Ul8qQFHPw61A44KASynypmqlnhmC5oqDg/z5q+X7qOS0MuPWfr28PxmTmdAHVy8z2+W
+         rGQ91mrmxqYFxuSVdEOl7cfUJwUgRoscEIaETcTyLEBhYlgP59jT616PMRPaPlm2E+wZ
+         MDPmp2wgOgI1Zmpojh0aFefUC+K5gx0TcFl+Y4ADn2PlDrtncGiQZHMJzBbdGemFYcMC
+         0YAXmJ0AyYmMvcgel0LWWQ/N3Jyaig1lncwqwoddDil3PNKota1RVpjbWh6yvuFrUIsF
+         IShw==
+X-Gm-Message-State: AOAM530LQtnzQzsYXQ6+aO8rHnpXDHkASscR5wkDx7wrKz96CmZc0y+x
+        ifAUPjqAoN4VJJlc1tRoseDivhgP
+X-Google-Smtp-Source: ABdhPJytjUHoAws4xUHehosV9sh2WLFQdARcprtvsjbOm3OWrKwQcOoa+V8yPycAuRWPhEU3mmuA5A==
+X-Received: by 2002:a1c:65c1:: with SMTP id z184mr533800wmb.60.1589494961845;
+        Thu, 14 May 2020 15:22:41 -0700 (PDT)
+Received: from ltop.local (5.221-244-81.adsl-dyn.isp.belgacom.be. [81.244.221.5])
+        by smtp.gmail.com with ESMTPSA id x23sm695295wmj.6.2020.05.14.15.22.40
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 14 May 2020 14:37:11 -0700 (PDT)
-Date:   Thu, 14 May 2020 23:37:10 +0200
+        Thu, 14 May 2020 15:22:40 -0700 (PDT)
+Date:   Fri, 15 May 2020 00:22:39 +0200
 From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-To:     Junio C Hamano <gitster@pobox.com>
-Cc:     Ramsay Jones <ramsay@ramsayjones.plus.com>,
-        =?utf-8?B?xJBvw6BuIFRy4bqnbiBDw7RuZw==?= Danh 
-        <congdanhqx@gmail.com>, git@vger.kernel.org,
-        linux-sparse@vger.kernel.org
-Subject: Re: [PATCH 1/4] C: s/0/NULL/ for pointer type
-Message-ID: <20200514213710.vxm6vrkggdfad6kd@ltop.local>
-References: <cover.1587648870.git.congdanhqx@gmail.com>
- <c4fac2ae9d10bc426cb26e4a102b808549696763.1587648870.git.congdanhqx@gmail.com>
- <1df91aa4-dda5-64da-6ae3-5d65e50a55c5@ramsayjones.plus.com>
- <xmqqd07xem9l.fsf@gitster.c.googlers.com>
+To:     Linus Torvalds <torvalds@linux-foundation.org>
+Cc:     Sparse Mailing-list <linux-sparse@vger.kernel.org>
+Subject: Re: [PATCH 15/17] scope: give a scope for labels & gotos
+Message-ID: <20200514222227.n3hvic3lndz5qcjv@ltop.local>
+References: <20200413161605.95900-16-luc.vanoostenryck@gmail.com>
+ <CAHk-=wiy-BFXMpmm9-GNT_WtDKVLeR0ki4OTj83xPk=npuNSHA@mail.gmail.com>
+ <20200413185452.pgj75pj5g7a42kik@ltop.local>
+ <CAHk-=wjMSeVVQHZ23=HJ3V-yYPooeuHNHmZtexUVRKg_e5VMXA@mail.gmail.com>
+ <CAHk-=whNLSTtSsmMD5a6D3s_LtjEYwZPWOSvUdz4mCd5kFO26Q@mail.gmail.com>
+ <20200413233900.t7fczyyqrees5gwr@ltop.local>
+ <20200414074934.urvzzgpi2a36jdf2@ltop.local>
+ <CAHk-=wiahqumRaQkkcQ_kFhknA9z==DCWNKK-j0GRJH7GUtPEw@mail.gmail.com>
+ <20200414230908.kb44bx5fgu3hzq7r@ltop.local>
+ <CAHk-=whoCQ9hiNsNS_PKJGt+dxhXng8+YLJ-CzGG0eESfv0f0g@mail.gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <xmqqd07xem9l.fsf@gitster.c.googlers.com>
+In-Reply-To: <CAHk-=whoCQ9hiNsNS_PKJGt+dxhXng8+YLJ-CzGG0eESfv0f0g@mail.gmail.com>
 Sender: linux-sparse-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-On Thu, Apr 23, 2020 at 05:54:30PM -0700, Junio C Hamano wrote:
-> Ramsay Jones <ramsay@ramsayjones.plus.com> writes:
+On Tue, Apr 14, 2020 at 05:59:18PM -0700, Linus Torvalds wrote:
+> On Tue, Apr 14, 2020 at 4:09 PM Luc Van Oostenryck
+> <luc.vanoostenryck@gmail.com> wrote:
+> >
+> > +                       if (s->scope != s->declared_scope) {
+> >
+> > This comparison can never succeed for labels declared with __label__
+> > because s->scope is a block scope and s->declared_scope a label one.
 > 
-> > Actually, I have a patch somewhere which suppressed the sparse warning
-> > for the '= { 0 }' token sequence used in these initializations. However,
-> > I don't seem to be able to find them at the moment! :(
+> Hold on.. I'm sure I tested it.
 > 
-> AHHHHHhhhhhhhh.  
+> Oh.
 > 
-> Thanks for reminding.  Yeah, I recall that the concensus of those
-> who were vocal in that old discussion [*1*] was that "= { 0 }"
-> should be taken as an idiom and should not be subject to s/0/NULL/
-> conversion.
+> What I tested wasn't what I sent you, and I'd fixed things due to the
+> testing but not updated the patch file.
 > 
-> > [Luc, this topic came up on the sparse and kernel mailing-lists at one
-> > point, but I didn't get around to posting my patch to the list - something
-> > came up. Hopefully, I will find some time to find it and post it soon.]
+> Oops.
 > 
+> The test is supposed to be
 > 
-> [References]
+>                         if (s->declared_scope != label_scope) {
 > 
-> *1*
+> which is the whole point of that 'declared_scope'.
 > 
-> https://lore.kernel.org/git/e6796c60-a870-e761-3b07-b680f934c537@ramsayjones.plus.com/
+> So the concept of the patch is that the 'declared_scope' (and
+> 'label_scope') are the same kind of scope (and comparable): it is the
+> applicability of the label itself (either the whole function or some
+> sub-expression statement).
+> 
+> And the the visibility of the -symbol- ends up being different, and is
+> the s->scope thing.
+> 
+> But while my testing wasn't quite as limited as my wrong-version patch
+> implied, it _was_ limited. So it might miss some other case.
 
 Sorry for the late reply.
 
-I hadn't seen this old discussion but I vaguely remember 2 emails about
-this problem, probaly on lkml, without a real discussion, but where the
-opinion was the opposite.
+Yes, it's working OK wth this change but there are several issues that
+make me think that this approach is not ideal:
 
-Personally, I prefer '= { }' but yes it's not legit and it seems that
-some compilers don't like it. I'll be glad to add an option to Sparse
-to shut up the warnings now given by '{ 0 }'.
+1) these 2 functions would give very different error message:
+	void foo(void)
+	{
+		goto l;
+		({ l: 0; });
+	}
+
+	void bar(void)
+	{
+		({ l: 0; });
+		goto l;
+	}
+
+  The first one gives the 'warning: jumping inside statement expression'
+  while the second one can only give 'warning: goto with undeclared label'
+  because indeed the 'l' label inside the statement isn't visible anymore.
+  This second warning is of coure less informative than the first one
+  but what I really find abnormal is that the warning would be different
+  depending on the fact that the goto comes before or after the label
+  definition. This seems incorrect to me, confusing and is different
+  from GCC (clang doesn't seems to mind).
+
+2) in the following case, no warning can be given:
+	void foo(void)
+	{
+	l:
+		({
+		l:
+			goto l;
+			0;
+		});
+		goto l;
+	}
+  
+   In this case both label definition are in a different scope and each goto
+   sees its own label. This is different than GCC which would complain
+   about 'l' being redeclared.
+
+   There was also another issue related to the fact that GCC put all
+   labels in a single namespace bit I forgot the details.
+
+
+These two problems are linked to the fact of using the local namespace
+for labels while GCC use a single one for all of them.
+But well, then again I can't say I'm fully happy with my solution
+using the label scope not for the labels but for their definition
+and uses (gotos & label expressions) and then comparing these with
+the helper is_in_scope().
+
+I dunno. I've fixed a number of details, I'll repost everything soon.
 
 -- Luc
