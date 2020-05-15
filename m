@@ -2,115 +2,101 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 9313D1D4119
-	for <lists+linux-sparse@lfdr.de>; Fri, 15 May 2020 00:32:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 27C3A1D4F56
+	for <lists+linux-sparse@lfdr.de>; Fri, 15 May 2020 15:36:36 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1728667AbgENWc6 (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Thu, 14 May 2020 18:32:58 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:54696 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-FAIL-OK-FAIL)
-        by vger.kernel.org with ESMTP id S1728662AbgENWc6 (ORCPT
+        id S1726228AbgEONga (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Fri, 15 May 2020 09:36:30 -0400
+Received: from userp2120.oracle.com ([156.151.31.85]:43976 "EHLO
+        userp2120.oracle.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1726141AbgEONga (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Thu, 14 May 2020 18:32:58 -0400
-Received: from mail-lf1-x12d.google.com (mail-lf1-x12d.google.com [IPv6:2a00:1450:4864:20::12d])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 2C8ACC061A0C
-        for <linux-sparse@vger.kernel.org>; Thu, 14 May 2020 15:32:58 -0700 (PDT)
-Received: by mail-lf1-x12d.google.com with SMTP id 8so162098lfp.4
-        for <linux-sparse@vger.kernel.org>; Thu, 14 May 2020 15:32:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linux-foundation.org; s=google;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc:content-transfer-encoding;
-        bh=aRTZNpfDgqCtoWCob+jYBxYztV32cVSeGYQXMKCr+K8=;
-        b=bEeNraX837hLt+ZspGiSmjuLQwyEpwjzLSweoon6YDdDAhGL8FA+XgYGS+Zd2B6Ot9
-         kqd8HwXLLxV3a1sWb9pF2T9xOz+fGdJbST2AKT3JeN0llO22xBnLhIXkAuRPHErInS7d
-         3Te2rbWkvn3RJO8ev8X5U0TXCUomRevrDnHx8=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc:content-transfer-encoding;
-        bh=aRTZNpfDgqCtoWCob+jYBxYztV32cVSeGYQXMKCr+K8=;
-        b=AmV395R0Pe1N776g7A4rb6FfvqTUw2I633MV3O7x+zjexUNZe+iIAtwz3uGHZSEV2g
-         MPxt4hRbc6zld57Hx+kYEG9J0oY0OpDeIk25Tx8bGN4qWxZWyNtUcNk6agbofCtlmHWO
-         odLIL+2y+bAOqTxs76M8gRr//EuQ8fsNVYKygMAAKe0208zXA9qGeSr6w0xggFATDuia
-         Kg+fp0Od4UrWQqNUpIc50Nx5b68LdZrRzwKYtzpg5Ue5JVJek+5I6ObYTZjxU4iPRlGn
-         RFdI6Tk/4wd8pb1yu3YnIWRxsHT5S+KVhM9mGNswbhdFXAHeqEm5HF4qUYAP2QXnOxVg
-         UFTg==
-X-Gm-Message-State: AOAM530yYCQWCG5oLh+rC5+auPVcgvTAMtKg0/owCTvDGmzlpUXiFRkV
-        7taYD1aDZUbOCwGCsyIPUTPgRo4dUuU=
-X-Google-Smtp-Source: ABdhPJxTnkdUyvkuBVFV1a53xojJ1vJ2DTaiKGOYzWBpYokNUA1D1rCO3WZ5laauYuaxSJk76VaCtQ==
-X-Received: by 2002:ac2:5182:: with SMTP id u2mr271112lfi.64.1589495576291;
-        Thu, 14 May 2020 15:32:56 -0700 (PDT)
-Received: from mail-lf1-f48.google.com (mail-lf1-f48.google.com. [209.85.167.48])
-        by smtp.gmail.com with ESMTPSA id k22sm115941ljj.85.2020.05.14.15.32.55
-        for <linux-sparse@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 14 May 2020 15:32:55 -0700 (PDT)
-Received: by mail-lf1-f48.google.com with SMTP id z22so176821lfd.0
-        for <linux-sparse@vger.kernel.org>; Thu, 14 May 2020 15:32:55 -0700 (PDT)
-X-Received: by 2002:ac2:58c8:: with SMTP id u8mr267022lfo.142.1589495574785;
- Thu, 14 May 2020 15:32:54 -0700 (PDT)
-MIME-Version: 1.0
-References: <20200514140451.GD2078@kadam> <CAHk-=wih1XbdV_MQ2OkcYPx2xZkvuhWKcLaZ=_wd8+5r3yLJQA@mail.gmail.com>
- <20200514205604.f4uxvv7lf4wrg4un@ltop.local>
-In-Reply-To: <20200514205604.f4uxvv7lf4wrg4un@ltop.local>
-From:   Linus Torvalds <torvalds@linux-foundation.org>
-Date:   Thu, 14 May 2020 15:32:38 -0700
-X-Gmail-Original-Message-ID: <CAHk-=wh_1ycEjZGN+qFBP8==XPF-+wsiyJ0=-J5JSMDMxmo32g@mail.gmail.com>
-Message-ID: <CAHk-=wh_1ycEjZGN+qFBP8==XPF-+wsiyJ0=-J5JSMDMxmo32g@mail.gmail.com>
-Subject: Re: complain about re-declared functions with different modifiers
+        Fri, 15 May 2020 09:36:30 -0400
+Received: from pps.filterd (userp2120.oracle.com [127.0.0.1])
+        by userp2120.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 04FDHCEf189831;
+        Fri, 15 May 2020 13:36:26 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=date : from : to : cc
+ : subject : message-id : references : mime-version : content-type :
+ in-reply-to; s=corp-2020-01-29;
+ bh=yht5AN7nsRlTHkemAY/khU4KOVoRzUM5PZbvrdLC00A=;
+ b=JQ/y6vRMD2/e1IsJyOWkm1CFBcT3ShT9vs/Ll+LIgBtVv6UKVl01MZNhQ3obJYNjhs6g
+ kw0KJ15yxhiTnNNPZDLBzloOKkuYySu6LqQY4s1mIgOdwZHnkaWT1M50x0YL4CSlTohi
+ MnNBRK1EpF8rpSAOasew9V3dckMqbUPT5dAKJQP3zlpryctZ76tcr8R2Kr0M61pwjm6U
+ yQXwjICps447Wxv/slg0RiD7SdqjQ+ybnOIU7kadPgf3QDuruhpKFvhkqqKZBoN2lW01
+ tT0WnugPXGMMnbn+mJl2CsKz9RTEgvCU9gmFzp4lVyPdTKHISHxey8kRRxrSwK/jHwKO kg== 
+Received: from aserp3030.oracle.com (aserp3030.oracle.com [141.146.126.71])
+        by userp2120.oracle.com with ESMTP id 311nu5kgtj-1
+        (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+        Fri, 15 May 2020 13:36:26 +0000
+Received: from pps.filterd (aserp3030.oracle.com [127.0.0.1])
+        by aserp3030.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 04FDIBI9169444;
+        Fri, 15 May 2020 13:36:25 GMT
+Received: from userv0122.oracle.com (userv0122.oracle.com [156.151.31.75])
+        by aserp3030.oracle.com with ESMTP id 3100yevk6g-1
+        (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+        Fri, 15 May 2020 13:36:24 +0000
+Received: from abhmp0007.oracle.com (abhmp0007.oracle.com [141.146.116.13])
+        by userv0122.oracle.com (8.14.4/8.14.4) with ESMTP id 04FDaNNm032137;
+        Fri, 15 May 2020 13:36:23 GMT
+Received: from kadam (/41.57.98.10)
+        by default (Oracle Beehive Gateway v4.0)
+        with ESMTP ; Fri, 15 May 2020 06:36:22 -0700
+Date:   Fri, 15 May 2020 16:36:17 +0300
+From:   Dan Carpenter <dan.carpenter@oracle.com>
 To:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-Cc:     Dan Carpenter <dan.carpenter@oracle.com>,
+Cc:     Linus Torvalds <torvalds@linux-foundation.org>,
         Sparse Mailing-list <linux-sparse@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Subject: Re: complain about re-declared functions with different modifiers
+Message-ID: <20200515133617.GF2078@kadam>
+References: <20200514140451.GD2078@kadam>
+ <CAHk-=wih1XbdV_MQ2OkcYPx2xZkvuhWKcLaZ=_wd8+5r3yLJQA@mail.gmail.com>
+ <20200514205604.f4uxvv7lf4wrg4un@ltop.local>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20200514205604.f4uxvv7lf4wrg4un@ltop.local>
+User-Agent: Mutt/1.9.4 (2018-02-28)
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9621 signatures=668687
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 bulkscore=0 malwarescore=0 phishscore=0
+ adultscore=0 suspectscore=0 mlxscore=0 mlxlogscore=999 spamscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2004280000
+ definitions=main-2005150116
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9621 signatures=668687
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 malwarescore=0 phishscore=0 mlxscore=0
+ adultscore=0 priorityscore=1501 mlxlogscore=999 impostorscore=0
+ suspectscore=0 spamscore=0 lowpriorityscore=0 cotscore=-2147483648
+ bulkscore=0 clxscore=1011 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2004280000 definitions=main-2005150116
 Sender: linux-sparse-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-On Thu, May 14, 2020 at 1:56 PM Luc Van Oostenryck
-<luc.vanoostenryck@gmail.com> wrote:
->
+On Thu, May 14, 2020 at 10:56:04PM +0200, Luc Van Oostenryck wrote:
+> Not sure if it's related to Dan's problem or not but with the
+> following code:
+> 
+> 	static inline int foo(void)
+> 	{
+> 		return 1;
+> 	}
+> 	
+> 	extern int foo(void);
+> 	
+> 	int dummy(void)
+> 	{
+> 		return foo();
+> 	}
+> 
 > the static definition of foo() and the extern declaration are
 > distinct symbols (in the sense that neither has its sym->same_symbol
 > pointing to the other). As far as I understand, this is correct
-> because they have a different 'scope'.
+> because they have a different 'scope'. The problem occurs later,
+> when doing the lookup in dummy(): which symbol should be returned?
 
-So it looks like gcc disagrees.
+Yeah.  That's it.  When I see the call, I want to parse the statements
+so I need the symbol with the implementation.
 
-Gcc thinks they are the same symbol. It allows you to re-define it as
-static vs external, but it needs to be defined to the same thing.
+regards,
+dan carpenter
 
-So yes, "extern" and "static" have different external visibility, but
-the scope of the symbol is the same (file scope), and it's the same
-symbol.
-
-I didn't check the standard for how it's supposed to work, but I wrote
-this silly test program:
-
-
-    static int __attribute__((noinline)) external(void) { return 0; }
-    static int __attribute__((noinline)) internal(void) { return 1; }
-
-    extern int __attribute__((alias("external"))) a(void);
-    static int __attribute__((alias("internal"))) a(void);
-
-    int main(int argc, char **argv)
-    {
-        return a();
-    }
-
-to see which one gcc would pick - if it considered them separate symbols.
-
-And gcc refuses to compile it with
-
-   error: redefinition of =E2=80=98a=E2=80=99
-
-which is admittedly very sane.
-
-So I think sparse is in the wrong here, and we should consider both
-external and static symbols to be in the same scope and conflict with
-each other unless their declarations match.
-
-                 Linus
