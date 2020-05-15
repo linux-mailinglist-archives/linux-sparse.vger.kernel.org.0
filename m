@@ -2,76 +2,86 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 352E01D55A2
-	for <lists+linux-sparse@lfdr.de>; Fri, 15 May 2020 18:12:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id D305E1D55B3
+	for <lists+linux-sparse@lfdr.de>; Fri, 15 May 2020 18:18:08 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726226AbgEOQMD (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Fri, 15 May 2020 12:12:03 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:50590 "EHLO
+        id S1726162AbgEOQSI (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Fri, 15 May 2020 12:18:08 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:51682 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-FAIL-OK-FAIL)
-        by vger.kernel.org with ESMTP id S1726183AbgEOQMD (ORCPT
+        by vger.kernel.org with ESMTP id S1726144AbgEOQSI (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Fri, 15 May 2020 12:12:03 -0400
-Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com [IPv6:2a00:1450:4864:20::42d])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id E3F61C061A0C
-        for <linux-sparse@vger.kernel.org>; Fri, 15 May 2020 09:12:02 -0700 (PDT)
-Received: by mail-wr1-x42d.google.com with SMTP id w7so4130867wre.13
-        for <linux-sparse@vger.kernel.org>; Fri, 15 May 2020 09:12:02 -0700 (PDT)
+        Fri, 15 May 2020 12:18:08 -0400
+Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com [IPv6:2a00:1450:4864:20::42f])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id C538EC061A0C
+        for <linux-sparse@vger.kernel.org>; Fri, 15 May 2020 09:18:07 -0700 (PDT)
+Received: by mail-wr1-x42f.google.com with SMTP id l11so4272183wru.0
+        for <linux-sparse@vger.kernel.org>; Fri, 15 May 2020 09:18:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=date:from:to:cc:subject:message-id:references:mime-version
-         :content-disposition:in-reply-to;
-        bh=SDU5gyH1GAJ5+bztG/WWIPLPk0sMhEz8CbcMyt27xdo=;
-        b=Yxpic7dooDJBInEZAbBheTsZE/RC8uoXPZpFYghNKItScXNIhpje9cNfE0X0ry7Ll5
-         JQThF15u6sj53EhvNmMcOSDmZyBB4q00WgTFxaCvFMEgVlkmkPbGjlOqjBZ0ROnHaooC
-         bjiDnSU/YKjicMULLO/Rz9GX3mE0H7rJO9uc13PxMHphZrUx52xWkpGiIwLHtNsKZ182
-         12FM5N/nNUYkl0ZhBJ+QCOfKBcFhFYBZUT8Yq5oO1UWxEC7y8CP4H+khZ9eDS1baWXj2
-         d1gfzP7lBaLI1cOcegbQwWCtmK5BpsvzjLk7jDy1iJDBp5Rj9/kreIFEMhRu0mL5r1QV
-         XhEw==
+         :content-disposition:content-transfer-encoding:in-reply-to;
+        bh=HaNVRM1O+Rwdmc4EId2x5HIRYuuHBmlgTX6TI7Dwf+k=;
+        b=IWbQ/NOsbtLV1S6iqQ9TYgoJAWu3zvrFnsggSiFwXmm6G6uWxv3WVQx3uma3IjXvbm
+         LZbjszWaAO+HQ2YklkbAnggWUBHWMBElXBfLuYGgVmV+7LFsftIuIBAEfLDi/+z42Xqu
+         rB8C16ENVURz3QJt0eWT0mm/JTHIkH6bvG+VVaEpaVwB11Hs2EDNyWGSWxoIA03VAFXz
+         MTsBKI0fViAkPe2E1FBuOpJ7AtJoXiBHN9YOPux0eotqd6JXsqGui8mug81BwZwPLVzY
+         GZpC+60TIHOhhzH7fcZR7L5WKyQQGWFHu4DF6drSspgTt+kOj/ZqZW/5Wn89gfn7cP2I
+         qcaw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:date:from:to:cc:subject:message-id:references
-         :mime-version:content-disposition:in-reply-to;
-        bh=SDU5gyH1GAJ5+bztG/WWIPLPk0sMhEz8CbcMyt27xdo=;
-        b=p9WLgVpPoh2YMmoDVsInW1lagfdzx+1halGofqS/4Ysi91rZG1JEUjEvWiTw6dDoNc
-         hHPoTqJ3SoAvaacpCa4rShdmk7MDNqSMWM/0j8awUnaaySx/Ic/jBSml6vieIW6jNjCX
-         DV3ZUuBGJ0ueiZcMke/A61CVIcpir647makVrrTFlTFZtpWuGpE8dl1bS3ofiQ8OqeZ1
-         dp4Ni3aznqRwbb3Xx7xmy0z/we5cm4eqmImOATYJs3t4IXFWfIvhwbif5zOUwBEvnZ/u
-         KXlW8izdFFN3pc2dlmeVvSW11lfk2yvVxlWBLq7uM4WwxLxlHtQTQafjKOmovUKpAJVn
-         t3gQ==
-X-Gm-Message-State: AOAM532dixKV90J1pHk5xRaBNI0DoRzTlM5l/FkJ/OclsgN1tOP60s9i
-        hHV9xT9RdjfQLw8KLiihj2NXqfFl
-X-Google-Smtp-Source: ABdhPJwezX5/cxmy9WgWhjmQFVi9vTVwQsZJmJ8YN3uQ5Y/mJhfjjZoTPcyrU023EVp3F/TQ0/m6/g==
-X-Received: by 2002:adf:a298:: with SMTP id s24mr4994278wra.184.1589559121516;
-        Fri, 15 May 2020 09:12:01 -0700 (PDT)
+         :mime-version:content-disposition:content-transfer-encoding
+         :in-reply-to;
+        bh=HaNVRM1O+Rwdmc4EId2x5HIRYuuHBmlgTX6TI7Dwf+k=;
+        b=sabBwFJTGJiGnd8gA1L4G6hMErQD5Iuub5guiAdWjU2AuZ22X2s0RhjpOWVlsl4Dg0
+         6TWhuLWuQCT7EWXUAPj9BVHZ4gLtgV7R5PS/BtCcpIxEAYPFuapp2FPH1KiXlXKIz3Z9
+         Ts6ZYKD6plCd0nwEJujj8OIHg9b6FUtNz5a87b/MRMK49FsmyCqC+CJ3CQAuE4lBe3jS
+         aRW6nza9X9qS0VQ481UVDy6PVgbhQNarTZV66rShbfH3rnn+gheQn7pea6KrahdwCRz1
+         xzgHHmzDSETPBO7g9ZZIpCxd4lN3jCUd1mArS7n/V3ixxgYsLFlF+WobaYKMvVMzSjm9
+         3JRg==
+X-Gm-Message-State: AOAM531OzTxpWLLPGagWKV2i7qCagDT2R4sBBnqVz0NMOLG09A3l8l93
+        9oGtd80bs0+tR68mQPCr9FenE1jv
+X-Google-Smtp-Source: ABdhPJygZhl4cPkZVLC0mhnj1EikZ3RsJmhOhYq/P8sdNNeSUyIVKS0r+IXmb/sC+VDwxoV7IE7jMA==
+X-Received: by 2002:a05:6000:4:: with SMTP id h4mr5016686wrx.36.1589559486635;
+        Fri, 15 May 2020 09:18:06 -0700 (PDT)
 Received: from ltop.local ([2a02:a03f:b7f9:7600:2165:33bb:5acc:e0bf])
-        by smtp.gmail.com with ESMTPSA id 81sm4674690wme.16.2020.05.15.09.12.00
+        by smtp.gmail.com with ESMTPSA id j16sm4202296wru.13.2020.05.15.09.18.05
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 15 May 2020 09:12:00 -0700 (PDT)
-Date:   Fri, 15 May 2020 18:11:59 +0200
+        Fri, 15 May 2020 09:18:05 -0700 (PDT)
+Date:   Fri, 15 May 2020 18:18:05 +0200
 From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-To:     Dan Carpenter <dan.carpenter@oracle.com>
-Cc:     Linus Torvalds <torvalds@linux-foundation.org>,
+To:     Linus Torvalds <torvalds@linux-foundation.org>
+Cc:     Dan Carpenter <dan.carpenter@oracle.com>,
         Sparse Mailing-list <linux-sparse@vger.kernel.org>
 Subject: Re: complain about re-declared functions with different modifiers
-Message-ID: <20200515161159.esquifvwlcgtzirj@ltop.local>
+Message-ID: <20200515161805.3xcxg3woquhbpspc@ltop.local>
 References: <20200514140451.GD2078@kadam>
  <CAHk-=wih1XbdV_MQ2OkcYPx2xZkvuhWKcLaZ=_wd8+5r3yLJQA@mail.gmail.com>
  <20200514205604.f4uxvv7lf4wrg4un@ltop.local>
- <20200515133617.GF2078@kadam>
+ <CAHk-=wh_1ycEjZGN+qFBP8==XPF-+wsiyJ0=-J5JSMDMxmo32g@mail.gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20200515133617.GF2078@kadam>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAHk-=wh_1ycEjZGN+qFBP8==XPF-+wsiyJ0=-J5JSMDMxmo32g@mail.gmail.com>
 Sender: linux-sparse-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-On Fri, May 15, 2020 at 04:36:17PM +0300, Dan Carpenter wrote:
-> Yeah.  That's it.  When I see the call, I want to parse the statements
-> so I need the symbol with the implementation.
+On Thu, May 14, 2020 at 03:32:38PM -0700, Linus Torvalds wrote:
+> 
+> And gcc refuses to compile it with
+> 
+>    error: redefinition of ‘a’
+> 
+> which is admittedly very sane.
+> 
+> So I think sparse is in the wrong here, and we should consider both
+> external and static symbols to be in the same scope and conflict with
+> each other unless their declarations match.
 
-OK, thanks. I'll look at this this WE. 
+Yes, I agree. I'll see what can be done for this.
 
 -- Luc
