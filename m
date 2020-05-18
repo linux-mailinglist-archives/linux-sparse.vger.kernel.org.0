@@ -2,58 +2,58 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 81E2A1D8BB6
+	by mail.lfdr.de (Postfix) with ESMTP id F046C1D8BB7
 	for <lists+linux-sparse@lfdr.de>; Tue, 19 May 2020 01:43:14 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727943AbgERXmP (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Mon, 18 May 2020 19:42:15 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:59662 "EHLO
+        id S1727957AbgERXmQ (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Mon, 18 May 2020 19:42:16 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:59666 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726407AbgERXmP (ORCPT
+        with ESMTP id S1726407AbgERXmQ (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Mon, 18 May 2020 19:42:15 -0400
-Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com [IPv6:2a00:1450:4864:20::343])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id F0A34C061A0C
-        for <linux-sparse@vger.kernel.org>; Mon, 18 May 2020 16:42:14 -0700 (PDT)
-Received: by mail-wm1-x343.google.com with SMTP id n5so1387681wmd.0
-        for <linux-sparse@vger.kernel.org>; Mon, 18 May 2020 16:42:14 -0700 (PDT)
+        Mon, 18 May 2020 19:42:16 -0400
+Received: from mail-wm1-x341.google.com (mail-wm1-x341.google.com [IPv6:2a00:1450:4864:20::341])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id DE68BC061A0C
+        for <linux-sparse@vger.kernel.org>; Mon, 18 May 2020 16:42:15 -0700 (PDT)
+Received: by mail-wm1-x341.google.com with SMTP id z72so1367922wmc.2
+        for <linux-sparse@vger.kernel.org>; Mon, 18 May 2020 16:42:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=9QAqgJPxIiJc8Ymy1iro5tWnsOOnV3A+GjqcB040jqI=;
-        b=DO+bhJPzM4gN70NlWmGFp/l7KAHZ7h+7CZiUd6cn8sbPk0mjItLn2gU+rgDDRnTKI+
-         /KtdeWIsykipKFNeymmp4kjKznrpXdKl95uOKRfVuSPKEh9ryv3JH1u4K6OaNwyfGvVR
-         pPNtnmQrav/yK4KtLhtd3Nruu0TGy3ylIzVV0naCapgvqEkwbtrArNhRz51wz+c8SMYg
-         TCVGi5dle1c/89Fq36iLxUlR39aJeO3Ohn5Gpcx8Xsn2nzphOaDdyCSvFJMCRPQaE6V2
-         hnaFns7zBx+mrCHRtdmo/7+7qyfOkM3+X0q16/3cGojKkL864RMDa9sJFC7s/6qYyeRP
-         uAVQ==
+        bh=sV/DS1/J9QjRIX7ZRotxk2KLRHajomK+z5I5VIt2HBg=;
+        b=YjXQ63UYPMdh38w7r4BNFbEW6fxGBTO1rl161JD1O27EtmCDUn9zlvn9M/bC5ifgdI
+         4HYEz4G3wtTADrhESn+PLK5QF7MiTwI6N0C2ab5tsGE5X/Qfwf9impOI0hI7LNuBz7u9
+         Xlg9AZ06XkdmLUL3KcaJ9uE02oBn32omATSUuMFtAdqdc7qAA5R27gtNP4bV+CFyHx7+
+         SMAv3fcuIBXmTW6JEMax0c1NuHZ8oF5oQkEeLST/6TKiWDS6/z0OIrAE8O+7/2ImeCN2
+         stpl2KAW8F0SjfflLo0OvsTO87Rx8r8n0DLuOeU6NGq074JK1VRsxZF9r0sAKbPuqYHN
+         xQmg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=9QAqgJPxIiJc8Ymy1iro5tWnsOOnV3A+GjqcB040jqI=;
-        b=SRC+nylGUvO8OfZizRENWgoZRvZYbnsXWdmqPsn6oM/I/Q4tv/Ahc/T3okFPA8Mz6X
-         2G/L6BehkzrJM2JbMwdSfHTWroXp1t6ZGZP4F4/2CZ0pNAkuEqA4qT3kBMmP8+eAR+9j
-         9nBFhxCnr6edPylbaEnUOnNQZ1uLzDRKVYTQRf3V2dxiloLpjivogZM5uSYouczhn8ba
-         t9fbfmxi/sQqmyc7EYJ7Kb5dZ3gzwtnmomeG6PUnI6F809/P7RCtKQW4RshKamaMcLRo
-         m6DX5W0RqI3J6Xkrz7E1LT2B97DOAwHxvEu9q8nXkI5SFLnZO+rsMvxTOKFqn72NNggH
-         WkMA==
-X-Gm-Message-State: AOAM531XiSKnkuxJQjRPMC0W7JBWkfQO/nOfDO0GWq876W46UblcIsZi
-        q0S8b4dKPtYjNowCDeiM6ESIYzf7
-X-Google-Smtp-Source: ABdhPJy/53m8gOwCV4xDVkTfaMG2Q9JjxVwuz1xjVx7/cw24bYLLrESrzqSPskirtkVmKcBlM0SvAw==
-X-Received: by 2002:a7b:c198:: with SMTP id y24mr1912192wmi.186.1589845333390;
-        Mon, 18 May 2020 16:42:13 -0700 (PDT)
+        bh=sV/DS1/J9QjRIX7ZRotxk2KLRHajomK+z5I5VIt2HBg=;
+        b=Jh/mONpRbLqO7Uh8E1H2VRhAUaHOMYUFDJhRUZiRJv4dm40VWxrRhd85s7GaKm8jdo
+         jNdvvPEzuvPZDOEFJw2bKhKwiXdIUV3zi6eM/1AoBQY9BUppT2L5w7IquYQpAq6Lwy4q
+         FpB0ZPOBqBjt7clcQXtHYYGA2DLOoyRo/IFNfvbLtBBGBmtdH/poPUQWfaYciH4rRWRc
+         d0rS95/ryf/4CUBXdjNji3D0KefRUUyWfpTF6syevZmDSpW9jnmpp6v9tM7PI9XDf8m3
+         Np+0dV04wLETChrNQVYFaeD9ai1MX1ODvg7aXJCA4tfhiK2QlO0+/VWNINNROrh7mwWJ
+         CGmw==
+X-Gm-Message-State: AOAM531mlnIJ2z/8mnzMG+7A2MoY1DrADKp921mdVKz3RvYfJhArTl4e
+        93pu4grgttxuYtA94oYrnJWj6ZGA
+X-Google-Smtp-Source: ABdhPJxYEvA6ZxQ2MUiNaZNqc4RXWew3dz9MLRNO6HW0GMBFV0ERasoct5bmzibCUaVnioC6ajRYiQ==
+X-Received: by 2002:a1c:790b:: with SMTP id l11mr1886596wme.2.1589845334404;
+        Mon, 18 May 2020 16:42:14 -0700 (PDT)
 Received: from localhost.localdomain ([2a02:a03f:b7f9:7600:98be:2081:4f7:29e4])
-        by smtp.gmail.com with ESMTPSA id l11sm1597264wmf.28.2020.05.18.16.42.12
+        by smtp.gmail.com with ESMTPSA id l11sm1597264wmf.28.2020.05.18.16.42.13
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 18 May 2020 16:42:12 -0700 (PDT)
+        Mon, 18 May 2020 16:42:13 -0700 (PDT)
 From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 To:     linux-sparse@vger.kernel.org
 Cc:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-Subject: [PATCH 1/3] attribute: '__tls' is just another 'declaration' modifier
-Date:   Tue, 19 May 2020 01:42:05 +0200
-Message-Id: <20200518234207.84150-2-luc.vanoostenryck@gmail.com>
+Subject: [PATCH 2/3] attribute: 'inline' is just another 'declaration' modifier
+Date:   Tue, 19 May 2020 01:42:06 +0200
+Message-Id: <20200518234207.84150-3-luc.vanoostenryck@gmail.com>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20200518234207.84150-1-luc.vanoostenryck@gmail.com>
 References: <20200518234207.84150-1-luc.vanoostenryck@gmail.com>
@@ -73,50 +73,42 @@ to parse this attribute.
 
 Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 ---
- parse.c  | 6 +++---
+ parse.c  | 4 ++--
  symbol.h | 4 ++--
- 2 files changed, 5 insertions(+), 5 deletions(-)
+ 2 files changed, 4 insertions(+), 4 deletions(-)
 
 diff --git a/parse.c b/parse.c
-index 9e7b74f98638..81b2116fcf8b 100644
+index 81b2116fcf8b..8e4be227cec1 100644
 --- a/parse.c
 +++ b/parse.c
-@@ -1400,14 +1400,14 @@ static unsigned long decl_modifiers(struct decl_state *ctx)
+@@ -1399,7 +1399,7 @@ static unsigned long decl_modifiers(struct decl_state *ctx)
+ 	};
  	unsigned long mods = ctx->ctype.modifiers & MOD_DECLARE;
  	ctx->ctype.modifiers &= ~MOD_DECLARE;
- 	return mod[ctx->storage_class] | (ctx->is_inline ? MOD_INLINE : 0)
--		| (ctx->is_tls ? MOD_TLS : 0)
+-	return mod[ctx->storage_class] | (ctx->is_inline ? MOD_INLINE : 0)
++	return mod[ctx->storage_class]
  		| (ctx->is_ext_visible ? MOD_EXT_VISIBLE : 0) | mods;
  }
  
- static void set_storage_class(struct position *pos, struct decl_state *ctx, int class)
+@@ -1475,7 +1475,7 @@ static struct token *attribute_force(struct token *token, struct symbol *attr, s
+ 
+ static struct token *inline_specifier(struct token *next, struct decl_state *ctx)
  {
-+	int is_tls = ctx->ctype.modifiers & MOD_TLS;
- 	/* __thread can be used alone, or with extern or static */
--	if (ctx->is_tls && (class != SStatic && class != SExtern)) {
-+	if (is_tls && (class != SStatic && class != SExtern)) {
- 		sparse_error(*pos, "__thread can only be used alone, or with "
- 				"extern or static");
- 		return;
-@@ -1458,7 +1458,7 @@ static struct token *thread_specifier(struct token *next, struct decl_state *ctx
- 	/* This GCC extension can be used alone, or with extern or static */
- 	if (!ctx->storage_class || ctx->storage_class == SStatic
- 			|| ctx->storage_class == SExtern) {
--		ctx->is_tls = 1;
-+		apply_qualifier(&next->pos, &ctx->ctype, MOD_TLS);
- 	} else {
- 		sparse_error(next->pos, "__thread can only be used alone, or "
- 				"with extern or static");
+-	ctx->is_inline = 1;
++	apply_qualifier(&next->pos, &ctx->ctype, MOD_INLINE);
+ 	return next;
+ }
+ 
 diff --git a/symbol.h b/symbol.h
-index 7241f13df4e4..95f90a5c33be 100644
+index 95f90a5c33be..26f92ca79492 100644
 --- a/symbol.h
 +++ b/symbol.h
 @@ -108,7 +108,7 @@ struct decl_state {
  	struct ident **ident;
  	struct symbol_op *mode;
  	unsigned long f_modifiers;		// function attributes
--	unsigned char prefer_abstract, is_inline, storage_class, is_tls;
-+	unsigned char prefer_abstract, is_inline, storage_class;
+-	unsigned char prefer_abstract, is_inline, storage_class;
++	unsigned char prefer_abstract, storage_class;
  	unsigned char is_ext_visible;
  	unsigned char autotype;
  };
@@ -124,8 +116,8 @@ index 7241f13df4e4..95f90a5c33be 100644
  /* do not warn when these are duplicated */
  #define MOD_DUP_OK	(MOD_UNUSED|MOD_GNU_INLINE)
  /* must be part of the declared symbol, not its type */
--#define MOD_DECLARE	(MOD_STORAGE|MOD_GNU_INLINE|MOD_UNUSED|MOD_PURE|MOD_NORETURN|MOD_EXT_VISIBLE)
-+#define MOD_DECLARE	(MOD_STORAGE|MOD_TLS|MOD_GNU_INLINE|MOD_UNUSED|MOD_PURE|MOD_NORETURN|MOD_EXT_VISIBLE)
+-#define MOD_DECLARE	(MOD_STORAGE|MOD_TLS|MOD_GNU_INLINE|MOD_UNUSED|MOD_PURE|MOD_NORETURN|MOD_EXT_VISIBLE)
++#define MOD_DECLARE	(MOD_STORAGE|MOD_INLINE|MOD_TLS|MOD_GNU_INLINE|MOD_UNUSED|MOD_PURE|MOD_NORETURN|MOD_EXT_VISIBLE)
  
  
  
