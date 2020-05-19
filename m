@@ -2,59 +2,59 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id BA3DA1D8CAF
+	by mail.lfdr.de (Postfix) with ESMTP id 871C01D8CAD
 	for <lists+linux-sparse@lfdr.de>; Tue, 19 May 2020 02:57:52 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727958AbgESA5r (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Mon, 18 May 2020 20:57:47 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43158 "EHLO
+        id S1727964AbgESA5s (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Mon, 18 May 2020 20:57:48 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43162 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1727902AbgESA5q (ORCPT
+        with ESMTP id S1727902AbgESA5r (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Mon, 18 May 2020 20:57:46 -0400
-Received: from mail-ej1-x644.google.com (mail-ej1-x644.google.com [IPv6:2a00:1450:4864:20::644])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 81D46C061A0C
-        for <linux-sparse@vger.kernel.org>; Mon, 18 May 2020 17:57:46 -0700 (PDT)
-Received: by mail-ej1-x644.google.com with SMTP id n24so2399215ejd.0
-        for <linux-sparse@vger.kernel.org>; Mon, 18 May 2020 17:57:46 -0700 (PDT)
+        Mon, 18 May 2020 20:57:47 -0400
+Received: from mail-ej1-x641.google.com (mail-ej1-x641.google.com [IPv6:2a00:1450:4864:20::641])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 7C823C061A0C
+        for <linux-sparse@vger.kernel.org>; Mon, 18 May 2020 17:57:47 -0700 (PDT)
+Received: by mail-ej1-x641.google.com with SMTP id x1so10368319ejd.8
+        for <linux-sparse@vger.kernel.org>; Mon, 18 May 2020 17:57:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=IQT82X9PRucFb49eAkG88b6rnRLPWhnKOkI9EuyB26w=;
-        b=AHo5WuUnIQ6DYto7AZuEI/1/nKZbNuEyO8nr7dNC4+F4Ooutbs7NkhLTBll4zq5LlV
-         aeC1T6F36YfBSy8j2dF0Pk9dEXcjm//55alhmSKjCVddB2+UqheidbcxqsOuvaJzsBxH
-         lepGQ+zk8Z8sn24rkDbSA154bb+h+Myr8Eled6+lW2QjkfiHQ7gJ2OTAXri2Ic8tXm7U
-         WvNx2MoqbmDnrbcDYWL5UuTjXbB9JGFQXNJcgNfEdu9MeC8bbzcDhToJGJr4/F188P24
-         Ae2Htv5ESau+VsSNMlQLDaOcJu8bo1S4oSZPsEHBU+bzaKXCpexZVfTStBjl2/fnbvS2
-         Zehg==
+        bh=X4vym3m30bXrDqT8nFaLYfKbXkGFM2zXixe1XrD0pyU=;
+        b=pZUhU3GtibK7qtP49ZNjpGo1yBQSpNM1u0ZDuRV+Lnt7IqPi/TIp9edySZkOl02d5x
+         dSZnFGIvUMQMaxM2t2Ea2MJhLCdDfz4zSmLH1iQkyMg0fYk3nu3YGfPIb+CjPpT022R8
+         lD/Uii9+QDWHnVxsybZjJL27kxEYTO+Hcikp/IJ4mbYKhYzUBHSji71EKwyVEKIVh/y/
+         9RCfryKf2Qy75ZIO7zpr42ISPaZR3R6jnpkXwrUPb66hXvxX7By75Dy7ZYMSApwRuNS6
+         2kNbOaSwaJAnmPGpHZ8m0K8WsVEP4KlkdqKzDgHbtlk2O4ENa2If6Z4q5YS9VVw9CqAc
+         b/Lw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=IQT82X9PRucFb49eAkG88b6rnRLPWhnKOkI9EuyB26w=;
-        b=H2zap599wdk9hie+TJaXxiqVx07Dv69xekIAMRry3oG2xt0b4Lbdfww6+DdSCXbthr
-         reATa5ZxNnuEeYpnI+l0XYGICSZt/kyNyrQEq+iFs8r2sbb75FJZMaTwmpw699Jmvb7w
-         MMsrwWH8vYOjZ71i7i7U2do2P/TKtawcHNmMot9+cl0WpYz9hg811l+Y/Im06hpL+f+D
-         GEU72RUOgb40rTZTDQRHgrfGF/OcLjVe3hNpmuYF8VygwxW19ZAvpWWiSCPvKwDFzCRH
-         XOklbaDt3KdcqNqsyTd496e2+LepPBNpdYOUoQLiJwtLWtzMNPnRzVZZSrYVo5YRxang
-         a3Kw==
-X-Gm-Message-State: AOAM531+iBeU/+MUWQ8j9PYCohAB33wWM220pbUsBZCn8IUWA9MFs86X
-        gXEKKojUuBVQuW5W2N6HvZaZ+Z5F
-X-Google-Smtp-Source: ABdhPJyUXs0JAHAA/jvoo4DR4uA4UZv5F6+Jamn/5C/7ph2hjspjbj59hWa+AB+v7kxxk8tXgS+YGQ==
-X-Received: by 2002:a17:907:39b:: with SMTP id ss27mr14578139ejb.209.1589849865064;
+        bh=X4vym3m30bXrDqT8nFaLYfKbXkGFM2zXixe1XrD0pyU=;
+        b=lzz8kpekRaYxe6dInlmOevC2sg6hmVJrNYtrttNa6MiFHs6+COQZAJXoCx28aRDzUf
+         kVK2z7kkezfqXeOiBsvoYqaJ52cDzkrvsttmaPZO0j8Lo93/1C2Uyfa51x/sybNQ1dut
+         QoL0vbYdghq7SPRy94SEMUQX6iYK5iUYdah+Y4K2J42dBA4G2CbgbSUFFHRomkTgIJPF
+         D4EeVG6/0xMJQe+ZVi0JxATvoAI3cJkcDACBeWbIt+KWg3ndSSECf7Tb+8eflYg0WAG2
+         eGTzG2IDbZ3yf+lUDUWVxfmCHPwDCLRP3HI78BDkDMbUVHFyQ84LZbZHiWjCzlejpIPq
+         Imrg==
+X-Gm-Message-State: AOAM532R/gb405hITuhxyVUPYrFO7r4ID1alazdY/0fqKL9r5efeQtRi
+        ReKQ4Xut2iACFm+K3bbVRJFrIkZt
+X-Google-Smtp-Source: ABdhPJx4K0NPPFuvADRLBwR1nX6djcWfYPkou5k7EAQbPX9wG3EfiMxwPYRN5fbRCkTfpsCe02NIbQ==
+X-Received: by 2002:a17:906:584e:: with SMTP id h14mr16724943ejs.257.1589849865918;
         Mon, 18 May 2020 17:57:45 -0700 (PDT)
 Received: from localhost.localdomain ([2a02:a03f:b7f9:7600:98be:2081:4f7:29e4])
-        by smtp.gmail.com with ESMTPSA id h25sm702737ejx.7.2020.05.18.17.57.44
+        by smtp.gmail.com with ESMTPSA id h25sm702737ejx.7.2020.05.18.17.57.45
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 18 May 2020 17:57:44 -0700 (PDT)
+        Mon, 18 May 2020 17:57:45 -0700 (PDT)
 From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 To:     linux-sparse@vger.kernel.org
 Cc:     Linus Torvalds <torvalds@linux-foundation.org>,
         Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-Subject: [PATCH v1 12/28] scope: no memset() needed after __alloc_scope()
-Date:   Tue, 19 May 2020 02:57:12 +0200
-Message-Id: <20200519005728.84594-13-luc.vanoostenryck@gmail.com>
+Subject: [PATCH v1 13/28] scope: move scope opening/ending inside compound_statement()
+Date:   Tue, 19 May 2020 02:57:13 +0200
+Message-Id: <20200519005728.84594-14-luc.vanoostenryck@gmail.com>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20200519005728.84594-1-luc.vanoostenryck@gmail.com>
 References: <20200519005728.84594-1-luc.vanoostenryck@gmail.com>
@@ -65,37 +65,83 @@ Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-When starting some scopes, the newly allocated struct is
-memset'ed with zero but this is unneeded since the allocator
-always returns zeroed memory.
+A compound statement starts and ends a block scope, so
+it's better to start & end this scope inside the function
+parsing the statement: compound_statement.
+The only exception is for the body of a function where
+the scope also enclose the parameter declaration but that
+is fine since the function is special anyway.
 
-Remove the unneeded call to memset().
+Move the calls to start & close the block scope inside
+compound_statement() and directly call statement_list()
+for the function body.
 
 Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 ---
- scope.c | 2 --
- 1 file changed, 2 deletions(-)
+ expression.c |  2 --
+ parse.c      | 13 ++++++-------
+ 2 files changed, 6 insertions(+), 9 deletions(-)
 
-diff --git a/scope.c b/scope.c
-index 420c0f5a3f51..0e4fb3b42150 100644
---- a/scope.c
-+++ b/scope.c
-@@ -68,7 +68,6 @@ void rebind_scope(struct symbol *sym, struct scope *new)
- static void start_scope(struct scope **s)
+diff --git a/expression.c b/expression.c
+index 5b9bddfe456e..78e577cf10a1 100644
+--- a/expression.c
++++ b/expression.c
+@@ -71,9 +71,7 @@ struct token *parens_expression(struct token *token, struct expression **expr, c
+ 		struct statement *stmt = alloc_statement(token->pos, STMT_COMPOUND);
+ 		*expr = e;
+ 		e->statement = stmt;
+-		start_symbol_scope();
+ 		token = compound_statement(token->next, stmt);
+-		end_symbol_scope();
+ 		token = expect(token, '}', "at end of statement expression");
+ 	} else
+ 		token = parse_expression(token, expr);
+diff --git a/parse.c b/parse.c
+index 9e7b74f98638..e23c5b64e8be 100644
+--- a/parse.c
++++ b/parse.c
+@@ -2555,11 +2555,7 @@ static struct token *statement(struct token *token, struct statement **tree)
+ 	}
+ 
+ 	if (match_op(token, '{')) {
+-		stmt->type = STMT_COMPOUND;
+-		start_symbol_scope();
+ 		token = compound_statement(token->next, stmt);
+-		end_symbol_scope();
+-		
+ 		return expect(token, '}', "at end of compound statement");
+ 	}
+ 			
+@@ -2666,7 +2662,10 @@ static struct token *parameter_type_list(struct token *token, struct symbol *fn)
+ 
+ struct token *compound_statement(struct token *token, struct statement *stmt)
  {
- 	struct scope *scope = __alloc_scope(0);
--	memset(scope, 0, sizeof(*scope));
- 	scope->next = *s;
- 	*s = scope;
++	stmt->type = STMT_COMPOUND;
++	start_symbol_scope();
+ 	token = statement_list(token, &stmt->stmts);
++	end_symbol_scope();
+ 	return token;
  }
-@@ -77,7 +76,6 @@ void start_file_scope(void)
- {
- 	struct scope *scope = __alloc_scope(0);
  
--	memset(scope, 0, sizeof(*scope));
- 	scope->next = &builtin_scope;
- 	file_scope = scope;
+@@ -2818,15 +2817,15 @@ static struct token *parse_function_body(struct token *token, struct symbol *dec
+ 		decl->ctype.modifiers |= MOD_EXTERN;
  
+ 	stmt = start_function(decl);
+-
+ 	*p = stmt;
++
+ 	FOR_EACH_PTR (base_type->arguments, arg) {
+ 		declare_argument(arg, base_type);
+ 	} END_FOR_EACH_PTR(arg);
+ 
+-	token = compound_statement(token->next, stmt);
+-
++	token = statement_list(token->next, &stmt->stmts);
+ 	end_function(decl);
++
+ 	if (!(decl->ctype.modifiers & MOD_INLINE))
+ 		add_symbol(list, decl);
+ 	check_declaration(decl);
 -- 
 2.26.2
 
