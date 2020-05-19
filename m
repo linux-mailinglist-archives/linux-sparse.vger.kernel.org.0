@@ -2,59 +2,59 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id C24E11D8CA2
-	for <lists+linux-sparse@lfdr.de>; Tue, 19 May 2020 02:57:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 3AAF71D8CA3
+	for <lists+linux-sparse@lfdr.de>; Tue, 19 May 2020 02:57:48 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726731AbgESA5f (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Mon, 18 May 2020 20:57:35 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43106 "EHLO
+        id S1726953AbgESA5g (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Mon, 18 May 2020 20:57:36 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43110 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726720AbgESA5e (ORCPT
+        with ESMTP id S1726720AbgESA5f (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Mon, 18 May 2020 20:57:34 -0400
+        Mon, 18 May 2020 20:57:35 -0400
 Received: from mail-ed1-x543.google.com (mail-ed1-x543.google.com [IPv6:2a00:1450:4864:20::543])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 6D32FC061A0C
-        for <linux-sparse@vger.kernel.org>; Mon, 18 May 2020 17:57:34 -0700 (PDT)
-Received: by mail-ed1-x543.google.com with SMTP id k19so10173590edv.9
-        for <linux-sparse@vger.kernel.org>; Mon, 18 May 2020 17:57:34 -0700 (PDT)
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 7B9F7C061A0C
+        for <linux-sparse@vger.kernel.org>; Mon, 18 May 2020 17:57:35 -0700 (PDT)
+Received: by mail-ed1-x543.google.com with SMTP id d24so2277077eds.11
+        for <linux-sparse@vger.kernel.org>; Mon, 18 May 2020 17:57:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=F1Q47XVPvaJmdxhAnXLV3TDObJIiy+X0uI1Xw3tp+nk=;
-        b=OZ7LIR81BpOHVbn5g54Pt9ivVCabPqc3z/rN0h/9TZD5HrZA+mhzQPSraS1IuFm/6L
-         YjR0hVCDMPANobyMHofwAZtuAXL9mWAkIqwlcU3jhNrXrsDO73NM6YZBtlC7xPo2it/9
-         0lbt0aDIzG60QslbeICwG5fVMJNiM1gJlzfJgGVswaC7mbZbAnUaJOsm0GfwtQDXbhsT
-         OFwZcOW4N4V1IkKhMJg5EwsZqXilHggMHiEa4KslXUSiwINRCg11A/s4fowED4QqVaEk
-         2T7rgtfacV23+m0ildCtxJja5Q+g/69s6R4WDDgnWYG04MyumFETxJL+RdZAULZMj0lE
-         iYYg==
+        bh=PfH3blhLQMIqm+mCPO+9CfeDIa1SdHzMMT4/wDfuPQI=;
+        b=JMwhn2LQdNIwSuefOJBKJrCP4AHBzpdAvCIG3//0A3mAXMw8MxcHPhCf6NTZ7L3Jfm
+         GWsdN5+ZyAQZc0IyBfSj+7oazWc+xE0voXgqfyxof2nQtPUwEmF7UgDtEGXMIB/Vvcin
+         dxNn1OdUeaGoWhKckqFQRptrDFl7DxV90iAn/63e7Y+cTQZmcYW/+c8wfigPpsqkHU3C
+         U26cAhGYetKjuH+aN4VZZPv/gp6FK+jUsze1Wo+/EIhr+dP4g/iNF8TTVFIj67i7hWCv
+         NUzFF3sKuHRBpzmhQ7YNmRCMccmItKPnRQVDVVETJ7Ap+CSVU76iG32SuJO4H6BZeUsx
+         ejjA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=F1Q47XVPvaJmdxhAnXLV3TDObJIiy+X0uI1Xw3tp+nk=;
-        b=bANdSBoAEqe0bWMK+NXkplyLEpVDMtTmshuUnlIMOy/Fi5ggi8CgsN53RnsvdGSDQU
-         RT7SsiU8wr+FafVa6b2PFdH4zThPx8R6VC30AtxoZdvCK5JxcHVRbJZsaLK02ASASAVu
-         Rgt5bzbrtJ2XPtlFTVNe+MkanOwB/q2ZTfCG449cV2jTK1E91PwM5SWLgBRRWN0oRgyj
-         GI46h8vZjvm3IApM6DnIuivczLIZxLetf3LRIXHB+JX18uv994xJdfj4r+DOOQ+Fzm3I
-         bJiQiELDLkz2bY2KlN55zwYKZxP4BjhBNCvVueXi9w478pHxQcK9QDZxAJmknlE3wszk
-         1zIg==
-X-Gm-Message-State: AOAM5303QmDos4tHE2LevVY+F8cUMLEMYMCNpGZXe0jqawxRijPB5UXP
-        gjdcOC4czwKYx/MeyToNiM15B39g
-X-Google-Smtp-Source: ABdhPJxL2f0j8+icRDmf9x9TbhusAbAJnZlgQMU7lteUdEDFfIOn8sC6f96O2W0hhTJBzmCB09r/xw==
-X-Received: by 2002:a50:ed06:: with SMTP id j6mr3073455eds.209.1589849852953;
-        Mon, 18 May 2020 17:57:32 -0700 (PDT)
+        bh=PfH3blhLQMIqm+mCPO+9CfeDIa1SdHzMMT4/wDfuPQI=;
+        b=oOJkatUV6q64tIqKP2tdYhFW33Hmw3jteHF2GkVouJyJ26IGgjSN7helChFUt6+bgd
+         pHBgaQ4k72zQt0t9q0XV+0ehX2Sz+XyZKpw9rMXnErfW7H8uMw4Bqvrh5HUu8qPoDHxF
+         PhL6xm+S1DtOZ9b6qJ9mTc4xaw8kY0PBerPHpnrCQFx62VORsxVOOlFo8MxH4S6CLGyQ
+         FzWc+BdFwm9MZyD7bFfwtG3OrFwOwIVuJOMFpoMn6GpQShPV/pUIF2xmbdAy7ud2luNK
+         YqW5ipiMtPEmJ2JBJj7iJoZ92nahf/LeTa7GoqxbEUXCn4VKM6KY0ju3mRk3DdK0kQdI
+         6rGw==
+X-Gm-Message-State: AOAM533BfRLI7CV828m1+3P8BmYfq9xM6tl2EInpxdOof0W5LMN/sDo/
+        cbpg7+XrIWlNOfBSypAGEWj5XwZA
+X-Google-Smtp-Source: ABdhPJxnpVwYNFGjwTC3UPdmf+eVwZjzh70KAX54gJw2PP0VlvkroGfEoj6Z6wosc28fTYn8c/W89w==
+X-Received: by 2002:a05:6402:783:: with SMTP id d3mr15561073edy.295.1589849853938;
+        Mon, 18 May 2020 17:57:33 -0700 (PDT)
 Received: from localhost.localdomain ([2a02:a03f:b7f9:7600:98be:2081:4f7:29e4])
-        by smtp.gmail.com with ESMTPSA id h25sm702737ejx.7.2020.05.18.17.57.32
+        by smtp.gmail.com with ESMTPSA id h25sm702737ejx.7.2020.05.18.17.57.33
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 18 May 2020 17:57:32 -0700 (PDT)
+        Mon, 18 May 2020 17:57:33 -0700 (PDT)
 From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 To:     linux-sparse@vger.kernel.org
 Cc:     Linus Torvalds <torvalds@linux-foundation.org>,
         Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-Subject: [PATCH v1 01/28] misc: fix testcase typeof-safe
-Date:   Tue, 19 May 2020 02:57:01 +0200
-Message-Id: <20200519005728.84594-2-luc.vanoostenryck@gmail.com>
+Subject: [PATCH v1 02/28] misc: s/fntype/rettype/
+Date:   Tue, 19 May 2020 02:57:02 +0200
+Message-Id: <20200519005728.84594-3-luc.vanoostenryck@gmail.com>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20200519005728.84594-1-luc.vanoostenryck@gmail.com>
 References: <20200519005728.84594-1-luc.vanoostenryck@gmail.com>
@@ -65,64 +65,52 @@ Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-This testcase was marked as known-to-fail but it was
-simply the expected error messages that were missing.
+In evaluate_return_expression(), it's checked if the type of
+the return statement match the function return type.
 
-So, slightly reorganize the test a little bit, add the
-expected messages and remove the 'known-to-fail' tag.
+But, the variable used to hold this type is named 'fntype'
+which is slightly confusing.
+
+So, rename the variable holding the return type to 'rettype'
+and only use 'fntype' for the one hoding the full function type.
 
 Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 ---
- validation/typeof-safe.c | 26 ++++++++++++++++++++------
- 1 file changed, 20 insertions(+), 6 deletions(-)
+ evaluate.c | 11 ++++++-----
+ 1 file changed, 6 insertions(+), 5 deletions(-)
 
-diff --git a/validation/typeof-safe.c b/validation/typeof-safe.c
-index 614863fba381..508bd39204c5 100644
---- a/validation/typeof-safe.c
-+++ b/validation/typeof-safe.c
-@@ -2,16 +2,24 @@
- 
- static void test_safe(void)
+diff --git a/evaluate.c b/evaluate.c
+index b7bb1f52aa91..54cd5fa136e6 100644
+--- a/evaluate.c
++++ b/evaluate.c
+@@ -3450,13 +3450,14 @@ void evaluate_symbol_list(struct symbol_list *list)
+ static struct symbol *evaluate_return_expression(struct statement *stmt)
  {
--	int __safe obj, *ptr;
--	typeof(obj) var = obj;
--	typeof(ptr) ptr2 = ptr;
-+	int obj;
-+	int __safe *ptr;
-+
-+	int __safe *ptr2 = ptr;
-+	typeof(ptr) ptr3 = ptr;
- 	typeof(*ptr) var2 = obj;
--	typeof(*ptr) *ptr3 = ptr;
--	typeof(obj) *ptr4 = ptr;
-+	int __safe  var3 = obj;
-+	int *ptr4 = &obj;
-+	int *ptr4 = ptr;		// KO
-+
-+	typeof(*ptr) sobj;
-+	typeof(&sobj) ptr5 = &obj;
-+	typeof(&sobj) ptr6 = ptr;	// KO
-+
- 	obj = obj;
- 	ptr = ptr;
--	ptr = &obj;
- 	obj = *ptr;
-+	ptr = (int __safe *) &obj;
+ 	struct expression *expr = stmt->expression;
+-	struct symbol *fntype;
++	struct symbol *fntype, *rettype;
+ 
+ 	evaluate_expression(expr);
+-	fntype = current_fn->ctype.base_type;
+-	if (!fntype || fntype == &void_ctype) {
++	fntype = current_fn;
++	rettype = fntype->ctype.base_type;
++	if (!rettype || rettype == &void_ctype) {
+ 		if (expr && expr->ctype != &void_ctype)
+-			expression_error(expr, "return expression in %s function", fntype?"void":"typeless");
++			expression_error(expr, "return expression in %s function", rettype?"void":"typeless");
+ 		if (expr && Wreturn_void)
+ 			warning(stmt->pos, "returning void-valued expression");
+ 		return NULL;
+@@ -3468,7 +3469,7 @@ static struct symbol *evaluate_return_expression(struct statement *stmt)
+ 	}
+ 	if (!expr->ctype)
+ 		return NULL;
+-	compatible_assignment_types(expr, fntype, &stmt->expression, "return expression");
++	compatible_assignment_types(expr, rettype, &stmt->expression, "return expression");
+ 	return NULL;
  }
  
- /*
-@@ -19,5 +27,11 @@ static void test_safe(void)
-  * check-known-to-fail
-  *
-  * check-error-start
-+typeof-safe.c:13:21: warning: incorrect type in initializer (different modifiers)
-+typeof-safe.c:13:21:    expected int *ptr4
-+typeof-safe.c:13:21:    got int [safe] *ptr
-+typeof-safe.c:17:30: warning: incorrect type in initializer (different modifiers)
-+typeof-safe.c:17:30:    expected int *ptr6
-+typeof-safe.c:17:30:    got int [safe] *ptr
-  * check-error-end
-  */
 -- 
 2.26.2
 
