@@ -2,59 +2,59 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 3AAF71D8CA3
+	by mail.lfdr.de (Postfix) with ESMTP id A80751D8CA4
 	for <lists+linux-sparse@lfdr.de>; Tue, 19 May 2020 02:57:48 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726953AbgESA5g (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Mon, 18 May 2020 20:57:36 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43110 "EHLO
+        id S1727063AbgESA5h (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Mon, 18 May 2020 20:57:37 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43114 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726720AbgESA5f (ORCPT
+        with ESMTP id S1726720AbgESA5g (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Mon, 18 May 2020 20:57:35 -0400
+        Mon, 18 May 2020 20:57:36 -0400
 Received: from mail-ed1-x543.google.com (mail-ed1-x543.google.com [IPv6:2a00:1450:4864:20::543])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 7B9F7C061A0C
-        for <linux-sparse@vger.kernel.org>; Mon, 18 May 2020 17:57:35 -0700 (PDT)
-Received: by mail-ed1-x543.google.com with SMTP id d24so2277077eds.11
-        for <linux-sparse@vger.kernel.org>; Mon, 18 May 2020 17:57:35 -0700 (PDT)
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 8CB43C061A0C
+        for <linux-sparse@vger.kernel.org>; Mon, 18 May 2020 17:57:36 -0700 (PDT)
+Received: by mail-ed1-x543.google.com with SMTP id l25so5517211edj.4
+        for <linux-sparse@vger.kernel.org>; Mon, 18 May 2020 17:57:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=PfH3blhLQMIqm+mCPO+9CfeDIa1SdHzMMT4/wDfuPQI=;
-        b=JMwhn2LQdNIwSuefOJBKJrCP4AHBzpdAvCIG3//0A3mAXMw8MxcHPhCf6NTZ7L3Jfm
-         GWsdN5+ZyAQZc0IyBfSj+7oazWc+xE0voXgqfyxof2nQtPUwEmF7UgDtEGXMIB/Vvcin
-         dxNn1OdUeaGoWhKckqFQRptrDFl7DxV90iAn/63e7Y+cTQZmcYW/+c8wfigPpsqkHU3C
-         U26cAhGYetKjuH+aN4VZZPv/gp6FK+jUsze1Wo+/EIhr+dP4g/iNF8TTVFIj67i7hWCv
-         NUzFF3sKuHRBpzmhQ7YNmRCMccmItKPnRQVDVVETJ7Ap+CSVU76iG32SuJO4H6BZeUsx
-         ejjA==
+        bh=4pWvkaY7AmvjjsIhWfGifrtoVE7kdnnfBuqGqX1759c=;
+        b=GENKh4IadX978DTrzIG1/JNE5XERgPYcrptPqXDIta1/OSQ9VzvHIFjHXYSaN09igi
+         4CRylbkfflYLzdtwGddtOHi4P/vlHSl0//FsMCzjYARckXqddGsGrwGR5hhuPCfHKGI/
+         6fu8lxKkXPPl/hfDfK90pR75lvHUvucSHzFJISbR8+GReFTUeAIW9Q8qrpyQLEfS2a/O
+         /ueLQrmV+SKFVf5R5pSWNHRrNblcOpr/G56p6Ao05TPGKn3cBIhNIsmCxjsYV2rfhLnC
+         hB8bP8k3t5Xc2awm1yd0n42jWaeBo99ttm5aRUBWf80tekFCbED6jPtdjOybejzBMAOs
+         cX+g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=PfH3blhLQMIqm+mCPO+9CfeDIa1SdHzMMT4/wDfuPQI=;
-        b=oOJkatUV6q64tIqKP2tdYhFW33Hmw3jteHF2GkVouJyJ26IGgjSN7helChFUt6+bgd
-         pHBgaQ4k72zQt0t9q0XV+0ehX2Sz+XyZKpw9rMXnErfW7H8uMw4Bqvrh5HUu8qPoDHxF
-         PhL6xm+S1DtOZ9b6qJ9mTc4xaw8kY0PBerPHpnrCQFx62VORsxVOOlFo8MxH4S6CLGyQ
-         FzWc+BdFwm9MZyD7bFfwtG3OrFwOwIVuJOMFpoMn6GpQShPV/pUIF2xmbdAy7ud2luNK
-         YqW5ipiMtPEmJ2JBJj7iJoZ92nahf/LeTa7GoqxbEUXCn4VKM6KY0ju3mRk3DdK0kQdI
-         6rGw==
-X-Gm-Message-State: AOAM533BfRLI7CV828m1+3P8BmYfq9xM6tl2EInpxdOof0W5LMN/sDo/
-        cbpg7+XrIWlNOfBSypAGEWj5XwZA
-X-Google-Smtp-Source: ABdhPJxnpVwYNFGjwTC3UPdmf+eVwZjzh70KAX54gJw2PP0VlvkroGfEoj6Z6wosc28fTYn8c/W89w==
-X-Received: by 2002:a05:6402:783:: with SMTP id d3mr15561073edy.295.1589849853938;
-        Mon, 18 May 2020 17:57:33 -0700 (PDT)
+        bh=4pWvkaY7AmvjjsIhWfGifrtoVE7kdnnfBuqGqX1759c=;
+        b=j/YlNsjo+1SESG3BgUBCweeS7T1XMf2qQAxE4aeOsI2eB4a4j1ajCZBjXTqleGq4+t
+         yhVvc8JY7kEvVg/6LWoT71KrBnXTK86imV4t/kLuNwxBH5glk5ywo/hJGybe9irMGDiw
+         5wu4SEcq0iHMvefQdCjNvVN8MR69pChAJkol+tKKKcShHfBgX1oPtDdGlDfnKYH+B5t8
+         /eHL6k8SNkooRoE4lo9eaSrV7VgFhxRIoZy9u+18tOoJrc77tCWaSBMqFhXQVNIJN/5D
+         I85pPQ6F5x3pdoduSarVBJt6pc4MHH5P4P3jieY3LX8HgkJTICDZ3Vs48S8vBabZnzl9
+         OqfA==
+X-Gm-Message-State: AOAM531WcUopu/F7sDXCYR3ThyBSy/vpgfNUhTJ3OMJDBm0BzFE91kIH
+        SeeLqWbZPQOQG1dX1WQIA6lBdcQB
+X-Google-Smtp-Source: ABdhPJwz+kOnQ8524ZOn1xVcq6E2UFTmrS9hx/6er9iJC8G+1Et22QSMplQK5LhRxftVd2+dLAOQnw==
+X-Received: by 2002:a05:6402:8c7:: with SMTP id d7mr15685516edz.113.1589849855040;
+        Mon, 18 May 2020 17:57:35 -0700 (PDT)
 Received: from localhost.localdomain ([2a02:a03f:b7f9:7600:98be:2081:4f7:29e4])
-        by smtp.gmail.com with ESMTPSA id h25sm702737ejx.7.2020.05.18.17.57.33
+        by smtp.gmail.com with ESMTPSA id h25sm702737ejx.7.2020.05.18.17.57.34
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 18 May 2020 17:57:33 -0700 (PDT)
+        Mon, 18 May 2020 17:57:34 -0700 (PDT)
 From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 To:     linux-sparse@vger.kernel.org
 Cc:     Linus Torvalds <torvalds@linux-foundation.org>,
         Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-Subject: [PATCH v1 02/28] misc: s/fntype/rettype/
-Date:   Tue, 19 May 2020 02:57:02 +0200
-Message-Id: <20200519005728.84594-3-luc.vanoostenryck@gmail.com>
+Subject: [PATCH v1 03/28] misc: always use the node for current_fn
+Date:   Tue, 19 May 2020 02:57:03 +0200
+Message-Id: <20200519005728.84594-4-luc.vanoostenryck@gmail.com>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20200519005728.84594-1-luc.vanoostenryck@gmail.com>
 References: <20200519005728.84594-1-luc.vanoostenryck@gmail.com>
@@ -65,51 +65,55 @@ Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-In evaluate_return_expression(), it's checked if the type of
-the return statement match the function return type.
+At evaluation time and at expansion time, current_fn is set
+to the function's base type (SYM_FN) but at parse time it's
+set to its parent type (SYM_NODE).
 
-But, the variable used to hold this type is named 'fntype'
-which is slightly confusing.
+Since current_fn is used to access the corresponding ident,
+it should be set to the node type, not the base.
 
-So, rename the variable holding the return type to 'rettype'
-and only use 'fntype' for the one hoding the full function type.
+So, always set current_fn to the node type.
 
 Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 ---
- evaluate.c | 11 ++++++-----
- 1 file changed, 6 insertions(+), 5 deletions(-)
+ evaluate.c | 4 ++--
+ expand.c   | 2 +-
+ 2 files changed, 3 insertions(+), 3 deletions(-)
 
 diff --git a/evaluate.c b/evaluate.c
-index b7bb1f52aa91..54cd5fa136e6 100644
+index 54cd5fa136e6..c18ae81df5ad 100644
 --- a/evaluate.c
 +++ b/evaluate.c
-@@ -3450,13 +3450,14 @@ void evaluate_symbol_list(struct symbol_list *list)
- static struct symbol *evaluate_return_expression(struct statement *stmt)
- {
- 	struct expression *expr = stmt->expression;
--	struct symbol *fntype;
-+	struct symbol *fntype, *rettype;
+@@ -3422,7 +3422,7 @@ static struct symbol *evaluate_symbol(struct symbol *sym)
+ 		if (sym->definition && sym->definition != sym)
+ 			return evaluate_symbol(sym->definition);
+ 
+-		current_fn = base_type;
++		current_fn = sym;
+ 
+ 		examine_fn_arguments(base_type);
+ 		if (!base_type->stmt && base_type->inline_stmt)
+@@ -3453,7 +3453,7 @@ static struct symbol *evaluate_return_expression(struct statement *stmt)
+ 	struct symbol *fntype, *rettype;
  
  	evaluate_expression(expr);
--	fntype = current_fn->ctype.base_type;
--	if (!fntype || fntype == &void_ctype) {
-+	fntype = current_fn;
-+	rettype = fntype->ctype.base_type;
-+	if (!rettype || rettype == &void_ctype) {
+-	fntype = current_fn;
++	fntype = current_fn->ctype.base_type;
+ 	rettype = fntype->ctype.base_type;
+ 	if (!rettype || rettype == &void_ctype) {
  		if (expr && expr->ctype != &void_ctype)
--			expression_error(expr, "return expression in %s function", fntype?"void":"typeless");
-+			expression_error(expr, "return expression in %s function", rettype?"void":"typeless");
- 		if (expr && Wreturn_void)
- 			warning(stmt->pos, "returning void-valued expression");
- 		return NULL;
-@@ -3468,7 +3469,7 @@ static struct symbol *evaluate_return_expression(struct statement *stmt)
- 	}
- 	if (!expr->ctype)
- 		return NULL;
--	compatible_assignment_types(expr, fntype, &stmt->expression, "return expression");
-+	compatible_assignment_types(expr, rettype, &stmt->expression, "return expression");
- 	return NULL;
- }
+diff --git a/expand.c b/expand.c
+index e75598781b6c..ab296c730efd 100644
+--- a/expand.c
++++ b/expand.c
+@@ -918,7 +918,7 @@ static int expand_symbol_call(struct expression *expr, int cost)
+ 			struct symbol *fn = def->ctype.base_type;
+ 			struct symbol *curr = current_fn;
+ 
+-			current_fn = fn;
++			current_fn = def;
+ 			evaluate_statement(expr->statement);
+ 			current_fn = curr;
  
 -- 
 2.26.2
