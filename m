@@ -2,59 +2,59 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 69E5A1D8CB2
+	by mail.lfdr.de (Postfix) with ESMTP id D52861D8CB3
 	for <lists+linux-sparse@lfdr.de>; Tue, 19 May 2020 02:57:53 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726696AbgESA5u (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Mon, 18 May 2020 20:57:50 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43176 "EHLO
+        id S1727987AbgESA5w (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Mon, 18 May 2020 20:57:52 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43180 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1727973AbgESA5u (ORCPT
+        with ESMTP id S1727973AbgESA5v (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Mon, 18 May 2020 20:57:50 -0400
-Received: from mail-ed1-x541.google.com (mail-ed1-x541.google.com [IPv6:2a00:1450:4864:20::541])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 31079C05BD0A
-        for <linux-sparse@vger.kernel.org>; Mon, 18 May 2020 17:57:50 -0700 (PDT)
-Received: by mail-ed1-x541.google.com with SMTP id e10so10222082edq.0
-        for <linux-sparse@vger.kernel.org>; Mon, 18 May 2020 17:57:50 -0700 (PDT)
+        Mon, 18 May 2020 20:57:51 -0400
+Received: from mail-ed1-x543.google.com (mail-ed1-x543.google.com [IPv6:2a00:1450:4864:20::543])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 573CDC061A0C
+        for <linux-sparse@vger.kernel.org>; Mon, 18 May 2020 17:57:51 -0700 (PDT)
+Received: by mail-ed1-x543.google.com with SMTP id l25so5517608edj.4
+        for <linux-sparse@vger.kernel.org>; Mon, 18 May 2020 17:57:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=oIuZ1mZuSbaARFWKgFIy6HiDUVCOeosRlutqdcOm5ug=;
-        b=h+xsl+2jBwkqtHHYruIHQqkdZbbLsaex5BkNc7PBPmzqoLYIpEjKar7dAoxC/k/i8s
-         mChMnTWuf9answ2JlOm49+W/ng4tCT2KIdF0ys6hUsbHR8QFjr8EdC0ebkgQBW7adoYA
-         65QRzDSVHZ/jUnXOi8KW66tclKHjGArO+9Lszjzex3iwu1k1gkpEiJqyF3cqI+QsCQvu
-         mxRw22uK6CIFBKk/J61rWVOVmU5PeYi/75WrKpSxjcUQ/K86pR9z9soN7cFcc6AOnqd9
-         AaKVDRz7ONh4N1DYWmSHo3BmPj3qVazuYH9W9zIKY0EysjaP0ojtKjRZn8Z40iTLCCGQ
-         jQfw==
+        bh=8ulpsVXCCrKnCSDR5o7Y9WoDKzSav53ebbzGAADXZMk=;
+        b=puP6Coi+KF8qnQ8AzJRpZabmDJv+rO3R+5wrf78tZiQvpitWAnHh+z/yFZMRzfKLxS
+         3eWzuqkzUs7MH/C3z+C9pyC/YvCJWbvDML9iUth9seqRLKCthgEoM8FgNS5tgbilYi2B
+         j7l8klukYIkTZUjJdnY8tNpsNq+nirHaA3UkpO3DparPzlSUqFX8+1s8eghKtvOh9ocG
+         003aAvH9BkRautKPfewKCjiRglc4ZZInCi7QTPwODJmMHvkMHFqkq87QCtZSfcd7cppK
+         M4XubVkwJ61K1rKRfmpJ9cwdqMY7ZU4dwR15s19uIeHhZG0qk4ObiXiMIzrTvNgq6kKG
+         D1vA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=oIuZ1mZuSbaARFWKgFIy6HiDUVCOeosRlutqdcOm5ug=;
-        b=Ryf/R/J9JO+jA21hRecwshCHSTvnvxXtBVXYlSe5/u80VujkUYuzbXUNnGr2WXhTJb
-         w0XDOwUqHKulKAjnbuIdWjHCiUGIZw5gwa1wDCv/a7/+ginNhfIgCnP1mHjZ3AePH4NX
-         CIH1ukAq4n7XeRyTFw6wD/X//Ktk0YE/s9uhv6vOlL+nUZzjsZ6ITMl6PJF3DjjqtXs8
-         kLUUw8LDcfJISsDMSYnpsu/hYK8m7KatkT6Wc73/qMSKl3Qv4HkWog9ifG3Pldq+zGx/
-         GtLXtR0LImLmiYPkgvA2PBSyWgbu3M9oEQWW/rfv3N1u5z3Uxi/vej/1SUwp6haKeGfg
-         sXgg==
-X-Gm-Message-State: AOAM531Ps8WPiPKzof8gWTH5aHtH8XbQpbbgJINBmgE5jmZs8Cse6mKo
-        dYNsRas/NOKgB88EJFC7C0irTabB
-X-Google-Smtp-Source: ABdhPJweRQiH3K/cP+AUAx7Rd6ABHTMkssxgHw3SuWtpo4bPCz3PBdPjtCzztJJwSK9AlxUtBSOzBA==
-X-Received: by 2002:a50:f40e:: with SMTP id r14mr15177561edm.241.1589849868763;
-        Mon, 18 May 2020 17:57:48 -0700 (PDT)
+        bh=8ulpsVXCCrKnCSDR5o7Y9WoDKzSav53ebbzGAADXZMk=;
+        b=Kd2rUSQB/WqEEZJ1/smaRwcueE1Y2d/PtK5kxKjlWkaWbKrN7WkebFmpuf8BoxJKWO
+         syRvDxIUGBIoxT33pmFpG0agRPozdXCyUM/g7A9YLq656t7H3hT1UI+wmHiTxbgCaEDr
+         4YeFkZpAhKzqSB0kyAETZFwJac1uPljPM7V/0FuOICEEuks8lq56vs1NOUwYHjl1iBwQ
+         1Cpg769IV2nS2qRFYiwLXA2pSeAvyZdNfd8N4qAePNDfFuaaSVe3bXMxeanmw9zb4VS5
+         GGltU0hKZrW3ippJdRJ9lc9kjCpjA14P29lCsqe3LLv0hzbb9/bzF4rguuRxJvXtXPVX
+         DztA==
+X-Gm-Message-State: AOAM531UdUBRDjsTfbJAXdlmUqqNU2q6qjZ2ECH/SDONMZS4qyKUjKSA
+        SKk8h6acSMFUhh9HnJKnlzpopEJy
+X-Google-Smtp-Source: ABdhPJyKAnanv1LW4rG+U2nEQJ7CEDDqp6L9hLT8UO6K8y5XR9IB798H2zZDvHXECWDyrsGzynZPIg==
+X-Received: by 2002:a50:98a2:: with SMTP id j31mr15513353edb.79.1589849869835;
+        Mon, 18 May 2020 17:57:49 -0700 (PDT)
 Received: from localhost.localdomain ([2a02:a03f:b7f9:7600:98be:2081:4f7:29e4])
         by smtp.gmail.com with ESMTPSA id h25sm702737ejx.7.2020.05.18.17.57.48
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 18 May 2020 17:57:48 -0700 (PDT)
+        Mon, 18 May 2020 17:57:49 -0700 (PDT)
 From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 To:     linux-sparse@vger.kernel.org
 Cc:     Linus Torvalds <torvalds@linux-foundation.org>,
         Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-Subject: [PATCH v1 16/28] scope: __label__ is special
-Date:   Tue, 19 May 2020 02:57:16 +0200
-Message-Id: <20200519005728.84594-17-luc.vanoostenryck@gmail.com>
+Subject: [PATCH v1 17/28] scope: s/{start,end}_symbol_scope/{start,end}_block_scope/
+Date:   Tue, 19 May 2020 02:57:17 +0200
+Message-Id: <20200519005728.84594-18-luc.vanoostenryck@gmail.com>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20200519005728.84594-1-luc.vanoostenryck@gmail.com>
 References: <20200519005728.84594-1-luc.vanoostenryck@gmail.com>
@@ -65,32 +65,108 @@ Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-Labels declared wth __label__ are special because they must follow
-the block scope normally used for variables instad of using the
-scope used for labels.
+The functions {start,end}_symbol_scope() haven't been renamed
+when separated scope have been introduced for functions & blocks.
+But these functions only start & end a block scope.
 
-So, use bind_symbol_scoped() instead of first using bind_symbol()
-and then changing the namespace.
+So, rename them to their more direct name: {start,end}_block_scope().
 
 Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 ---
- parse.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+ parse.c | 12 ++++++------
+ scope.c |  4 ++--
+ scope.h |  4 ++--
+ 3 files changed, 10 insertions(+), 10 deletions(-)
 
 diff --git a/parse.c b/parse.c
-index e23c5b64e8be..29e3f939166d 100644
+index 29e3f939166d..ecc33765e1ef 100644
 --- a/parse.c
 +++ b/parse.c
-@@ -2569,8 +2569,7 @@ static struct token *label_statement(struct token *token)
- 	while (token_type(token) == TOKEN_IDENT) {
- 		struct symbol *sym = alloc_symbol(token->pos, SYM_LABEL);
- 		/* it's block-scope, but we want label namespace */
--		bind_symbol(sym, token->ident, NS_SYMBOL);
--		sym->namespace = NS_LABEL;
-+		bind_symbol_with_scope(sym, token->ident, NS_LABEL, block_scope);
- 		fn_local_symbol(sym);
- 		token = token->next;
- 		if (!match_op(token, ','))
+@@ -2230,7 +2230,7 @@ static void start_iterator(struct statement *stmt)
+ {
+ 	struct symbol *cont, *brk;
+ 
+-	start_symbol_scope();
++	start_block_scope();
+ 	cont = alloc_symbol(stmt->pos, SYM_NODE);
+ 	bind_symbol(cont, &continue_ident, NS_ITERATOR);
+ 	brk = alloc_symbol(stmt->pos, SYM_NODE);
+@@ -2245,7 +2245,7 @@ static void start_iterator(struct statement *stmt)
+ 
+ static void end_iterator(struct statement *stmt)
+ {
+-	end_symbol_scope();
++	end_block_scope();
+ }
+ 
+ static struct statement *start_function(struct symbol *sym)
+@@ -2290,7 +2290,7 @@ static void start_switch(struct statement *stmt)
+ {
+ 	struct symbol *brk, *switch_case;
+ 
+-	start_symbol_scope();
++	start_block_scope();
+ 	brk = alloc_symbol(stmt->pos, SYM_NODE);
+ 	bind_symbol(brk, &break_ident, NS_ITERATOR);
+ 
+@@ -2310,7 +2310,7 @@ static void end_switch(struct statement *stmt)
+ {
+ 	if (!stmt->switch_case->symbol_list)
+ 		warning(stmt->pos, "switch with no cases");
+-	end_symbol_scope();
++	end_block_scope();
+ }
+ 
+ static void add_case_statement(struct statement *stmt)
+@@ -2662,9 +2662,9 @@ static struct token *parameter_type_list(struct token *token, struct symbol *fn)
+ struct token *compound_statement(struct token *token, struct statement *stmt)
+ {
+ 	stmt->type = STMT_COMPOUND;
+-	start_symbol_scope();
++	start_block_scope();
+ 	token = statement_list(token, &stmt->stmts);
+-	end_symbol_scope();
++	end_block_scope();
+ 	return token;
+ }
+ 
+diff --git a/scope.c b/scope.c
+index 0e4fb3b42150..cc54f1e1760b 100644
+--- a/scope.c
++++ b/scope.c
+@@ -84,7 +84,7 @@ void start_file_scope(void)
+ 	block_scope = scope;
+ }
+ 
+-void start_symbol_scope(void)
++void start_block_scope(void)
+ {
+ 	start_scope(&block_scope);
+ }
+@@ -129,7 +129,7 @@ void new_file_scope(void)
+ 	start_file_scope();
+ }
+ 
+-void end_symbol_scope(void)
++void end_block_scope(void)
+ {
+ 	end_scope(&block_scope);
+ }
+diff --git a/scope.h b/scope.h
+index 3cad514ac128..83741459eb6a 100644
+--- a/scope.h
++++ b/scope.h
+@@ -47,8 +47,8 @@ extern void start_file_scope(void);
+ extern void end_file_scope(void);
+ extern void new_file_scope(void);
+ 
+-extern void start_symbol_scope(void);
+-extern void end_symbol_scope(void);
++extern void start_block_scope(void);
++extern void end_block_scope(void);
+ 
+ extern void start_function_scope(void);
+ extern void end_function_scope(void);
 -- 
 2.26.2
 
