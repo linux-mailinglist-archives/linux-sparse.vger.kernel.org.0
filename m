@@ -2,59 +2,59 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id ECF861D8CA9
-	for <lists+linux-sparse@lfdr.de>; Tue, 19 May 2020 02:57:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 65AA61D8CAA
+	for <lists+linux-sparse@lfdr.de>; Tue, 19 May 2020 02:57:51 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727936AbgESA5n (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        id S1727941AbgESA5n (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
         Mon, 18 May 2020 20:57:43 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43140 "EHLO
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43144 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1727902AbgESA5m (ORCPT
+        with ESMTP id S1727902AbgESA5n (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Mon, 18 May 2020 20:57:42 -0400
-Received: from mail-ed1-x541.google.com (mail-ed1-x541.google.com [IPv6:2a00:1450:4864:20::541])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 61183C061A0C
-        for <linux-sparse@vger.kernel.org>; Mon, 18 May 2020 17:57:42 -0700 (PDT)
-Received: by mail-ed1-x541.google.com with SMTP id i16so5747232edv.1
-        for <linux-sparse@vger.kernel.org>; Mon, 18 May 2020 17:57:42 -0700 (PDT)
+        Mon, 18 May 2020 20:57:43 -0400
+Received: from mail-ed1-x543.google.com (mail-ed1-x543.google.com [IPv6:2a00:1450:4864:20::543])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 47B21C061A0C
+        for <linux-sparse@vger.kernel.org>; Mon, 18 May 2020 17:57:43 -0700 (PDT)
+Received: by mail-ed1-x543.google.com with SMTP id h16so10185526eds.5
+        for <linux-sparse@vger.kernel.org>; Mon, 18 May 2020 17:57:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=pB++fVfY03fTCT4OcxHp+ClN+k9CRnpgEhj7IaKfZQM=;
-        b=CJNbWXQG2r+wxu5s2X6qR2Jnvq7hlY4iTuArXbTIdy+lbOBPl3v37cSQ5sosaZsoQY
-         iXdofibzm0h/rD9P5x/tlQpbaaj/Ej6s6LrtUqgpNWnEBM5XxySJMK8PofqergPjNvxB
-         g2Zmv37RflctBqBZKjk0MrCCAjuB0QxplFIbb5V/fuQS1CVAiAcz8BgW4Papp0vFOlYK
-         SHZvpVh/sAnRpPjCeJIlFIqRS8PjgA5BlRrXGL7WCfauTMpSKyxLbs4wxyLMtSsJS04z
-         uMNpXY/0+Gi/R6r5pHgK6Iq1u1ixhltdG5++y5HmW27EVkTGsFmMSamOjWcTIou2y1Eb
-         jG9A==
+        bh=UG51ooTfaYv5vCoYOtf6ZhoFwnevEjq0nW8SAZ+myvY=;
+        b=kqBz4MaNstPBAVOp08Hw72+7R+zHzxq4P8dW5uLL3F5YSAbDFRaPTbd5ueuOkBfui3
+         xUHJ9YS/feTn1Ap46zJEPQjCu43UKiwzLkcvs0h/WdmnOzYGg8a1hisnVxv3Fe2oo4cI
+         Spkpd5vd2GtpyrhzARlQgRl0i/2GNbo4KAIhDW39nevgAE1hVqxMPxig9Yuq+INfozsl
+         SG9A7prNCTi/m3rqtcBDYDV1PbLydsa/ggiA03yP+6hkZgPwUesL9oKX9pV2GxgdV9ej
+         o+hhQ/j8mzhC+wyvU0k+kSvoXDJmJpIzLKqDGO8gs7reNNTb6QKacgDAWmlYTQRzrjC1
+         HOug==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=pB++fVfY03fTCT4OcxHp+ClN+k9CRnpgEhj7IaKfZQM=;
-        b=mvhPRV1A2/71oxXeXtm+u2rWEVPOr1yRzn1Zo4uIYicNPCXGpmHK57yuwNnIJsRsth
-         oOxnyZOeBfdMYk1SjVaAS8ejqCBkqrdspeTbhROZEOrt85URV7p0G4fdS79kb+Y76UwM
-         eCo51CJ2zly70x3crwWGuL91ZTgv9jBzeY15nJ9YYYtbWhfQTdh+5Bro0pp3zp51xRHJ
-         0y4TLTdEln0kTuUz1vFchapBAxyg2Mj9tWCIb1/85o+ULL9a4gqJEH8sBjHlCu0MVR/8
-         KJK9XihK8e+8yvk2nJlQbviBAYbYQ+sYyc3UgUyrQOpAtQW5/fWDEqAh9qGmALV/zjB6
-         ETpQ==
-X-Gm-Message-State: AOAM532hHZvkdQ49mm2WcN6C1Bu/B3Jex06JM0KdGp3TpBbQnjEiC5e6
-        bNTAez4tTa0xbfGVuaN7XnYU+O/m
-X-Google-Smtp-Source: ABdhPJwT5KShBBL50WLjkMKuGV3crY3hrt5vA9LjIgzQYiIaEa79GFbfbUORp9DI8ybcMPoSuFB/Ag==
-X-Received: by 2002:a05:6402:2032:: with SMTP id ay18mr15691712edb.281.1589849860883;
-        Mon, 18 May 2020 17:57:40 -0700 (PDT)
+        bh=UG51ooTfaYv5vCoYOtf6ZhoFwnevEjq0nW8SAZ+myvY=;
+        b=Tx/F6MRNSjdI5xBrzYVG7G/kz3V10SjaMkDpFk/HQvGARHYoV3sVJvA1X+S6zOZm/m
+         3+3qLs1BX6H1u0Ilt8GdJGv5xIoajIclBy1HS+dxgS1K/ZZnU/IIdYhIBpOd2uf/LrqV
+         ux4a/k33NXSSEjQWlOdN/LlT5W+HquW++IaoZUcyFxZ1SDbxTzJlEFZ59DIkihEgfyhL
+         XWbcARXNQxIbqrd2CytimH2+VkvsbSgqREBrElBxyOuadPMhxfaryUMzTGp09dAlvlWA
+         XVOgwioLUNgmmS/n2DR2ZDJtdwg+EhBmMoGKcI+e18x0XNJ0Ca9rugQ5UJnYOPGl5TbC
+         VOKA==
+X-Gm-Message-State: AOAM530lgOIc+yHwLegM8IZrcU0usKxXp5efeTkzby85cjqoqV1N9zCC
+        dH7rb6dy4zEMUaeoZ+p0XXtcbLO/
+X-Google-Smtp-Source: ABdhPJztJ+Z6ppeUd5+dQ0alyjX/5+Gu3aFbgpVVV39sQO3SICNR2mOnKgeS1AVChzEd7AAVLTI3EQ==
+X-Received: by 2002:aa7:d891:: with SMTP id u17mr3160699edq.129.1589849861852;
+        Mon, 18 May 2020 17:57:41 -0700 (PDT)
 Received: from localhost.localdomain ([2a02:a03f:b7f9:7600:98be:2081:4f7:29e4])
-        by smtp.gmail.com with ESMTPSA id h25sm702737ejx.7.2020.05.18.17.57.39
+        by smtp.gmail.com with ESMTPSA id h25sm702737ejx.7.2020.05.18.17.57.41
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 18 May 2020 17:57:40 -0700 (PDT)
+        Mon, 18 May 2020 17:57:41 -0700 (PDT)
 From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 To:     linux-sparse@vger.kernel.org
 Cc:     Linus Torvalds <torvalds@linux-foundation.org>,
         Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-Subject: [PATCH v1 08/28] bad-goto: reorg test in evaluate_goto_statement()
-Date:   Tue, 19 May 2020 02:57:08 +0200
-Message-Id: <20200519005728.84594-9-luc.vanoostenryck@gmail.com>
+Subject: [PATCH v1 09/28] bad-goto: simplify testing of undeclared labels
+Date:   Tue, 19 May 2020 02:57:09 +0200
+Message-Id: <20200519005728.84594-10-luc.vanoostenryck@gmail.com>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20200519005728.84594-1-luc.vanoostenryck@gmail.com>
 References: <20200519005728.84594-1-luc.vanoostenryck@gmail.com>
@@ -65,36 +65,29 @@ Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-No functional changes here, only changing the code structure
-to prepare more incoming changes.
+There is no need to do a lookup: checking if the label's
+symbol is in the NS_LABEL namespace and is lacking an
+associated statement is enough and much simpler.
 
 Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 ---
- evaluate.c | 10 +++++++---
- 1 file changed, 7 insertions(+), 3 deletions(-)
+ evaluate.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
 diff --git a/evaluate.c b/evaluate.c
-index c18ae81df5ad..4bdd5ed05842 100644
+index 4bdd5ed05842..d4b462274add 100644
 --- a/evaluate.c
 +++ b/evaluate.c
-@@ -3742,10 +3742,14 @@ static void evaluate_goto_statement(struct statement *stmt)
- {
- 	struct symbol *label = stmt->goto_label;
- 
--	if (label && !label->stmt && label->ident && !lookup_keyword(label->ident, NS_KEYWORD))
-+	if (!label) {
-+		// no label associated, may be a computed goto
-+		evaluate_expression(stmt->goto_expression);
-+		return;
-+	}
-+	if (!label->stmt && label->ident && !lookup_keyword(label->ident, NS_KEYWORD)) {
+@@ -3747,7 +3747,8 @@ static void evaluate_goto_statement(struct statement *stmt)
+ 		evaluate_expression(stmt->goto_expression);
+ 		return;
+ 	}
+-	if (!label->stmt && label->ident && !lookup_keyword(label->ident, NS_KEYWORD)) {
++
++	if (label->namespace == NS_LABEL && !label->stmt) {
  		sparse_error(stmt->pos, "label '%s' was not declared", show_ident(label->ident));
--
--	evaluate_expression(stmt->goto_expression);
-+	}
+ 	}
  }
- 
- struct symbol *evaluate_statement(struct statement *stmt)
 -- 
 2.26.2
 
