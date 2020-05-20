@@ -2,112 +2,137 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id B350A1DA6B7
-	for <lists+linux-sparse@lfdr.de>; Wed, 20 May 2020 02:41:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 676BC1DA6BA
+	for <lists+linux-sparse@lfdr.de>; Wed, 20 May 2020 02:44:17 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726348AbgETAlz (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Tue, 19 May 2020 20:41:55 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:40110 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726178AbgETAly (ORCPT
+        id S1726348AbgETAoR (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Tue, 19 May 2020 20:44:17 -0400
+Received: from avasout02.plus.net ([212.159.14.17]:32814 "EHLO
+        avasout02.plus.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1726178AbgETAoQ (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Tue, 19 May 2020 20:41:54 -0400
-Received: from mail-pj1-x1041.google.com (mail-pj1-x1041.google.com [IPv6:2607:f8b0:4864:20::1041])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id A6DDAC061A0E
-        for <linux-sparse@vger.kernel.org>; Tue, 19 May 2020 17:41:54 -0700 (PDT)
-Received: by mail-pj1-x1041.google.com with SMTP id nu7so464190pjb.0
-        for <linux-sparse@vger.kernel.org>; Tue, 19 May 2020 17:41:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=date:from:to:cc:subject:message-id:references:mime-version
-         :content-disposition:in-reply-to;
-        bh=uH0QnXvEu7EJo54/lh8u+7dzn0Xtqr4VIWNf0xry5nU=;
-        b=Eg/MjFwMPxR/0ttgJWNN9UhJ89dr/nL0/kcpkNvasU5R3rQrADHTZthJfu/ZlO0TuE
-         pIyRruPxCHaTCmaAFJfFjkzX4ryoYQRDRe3HoV3SXmAxTQK3V/ToFYYJ9MTIqB0ha7wE
-         NW5vRsEUp/sdQg71pbiwqc/gsHrEFXe7c8mQ8fDNvaUP1wBBURVQ3hk7btYBdutgstSL
-         VCSrIIbPGft+q+TlULxgkfgrKrZbQ5Jz/EyyuVjrfA6rGVnJ5mmIa4qneU71+CnkY5+L
-         OZW9brdB0vO22XtVW2v+UlzQAlPjbpdAkBZfYJHZ/fpv6ckrunT3q2NC7a7rJKXE4y10
-         B64Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
-         :mime-version:content-disposition:in-reply-to;
-        bh=uH0QnXvEu7EJo54/lh8u+7dzn0Xtqr4VIWNf0xry5nU=;
-        b=VUw+is2xVbo0MbtiGXSRT8Ftgs61Hl2BmxoMCIxFx9y0hl7nAtY4vOpooiZAT0PDiy
-         WtolzzC6cgFTC0DAXR4tqkyg/BWGjCQ8/DyVhcGKqErdyXPjOL4r8FUlZS1+vUoLB3v2
-         IGek2P+Ldifgf5a0MVNyaBWb96QerhzW2xOkl2G0M0IVOKrCtvZp9SEQpkuUUA8xV9pr
-         1+tovFpWhViBq2h1x7B1FUygC+fLKlvFXLzgnc7lrXttn4SUrgadI9NnQ7ZDMoWml5nc
-         Ac51XYhVDbu/AMVRS40WxYmLZfcREjlapwzR0XM8Sj5vaPLIIiIQ2itkbb3NsynzE4K9
-         A8+A==
-X-Gm-Message-State: AOAM532IXboUKPw0WPFg6KKt+dhg5wyebMU7mXepGn1mKVkTXisc/IgO
-        ibrBT8ZsORS24m4xdlh4vrgkAx1K
-X-Google-Smtp-Source: ABdhPJzVg0gRxlqlmCKV7S4/8rmXl7wsAbWjruGCUMURdDEEgW5BEFtwfe9JSlc/8TeplymM1holQw==
-X-Received: by 2002:a17:90b:1101:: with SMTP id gi1mr2393368pjb.117.1589935314162;
-        Tue, 19 May 2020 17:41:54 -0700 (PDT)
-Received: from localhost ([2402:800:6374:cedc:d509:3e82:1f34:e3c4])
-        by smtp.gmail.com with ESMTPSA id m9sm484346pgd.1.2020.05.19.17.41.53
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 19 May 2020 17:41:53 -0700 (PDT)
-Date:   Wed, 20 May 2020 07:41:51 +0700
-From:   =?utf-8?B?xJBvw6BuIFRy4bqnbiBDw7RuZw==?= Danh 
-        <congdanhqx@gmail.com>
-To:     Ramsay Jones <ramsay@ramsayjones.plus.com>
-Cc:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>,
-        linux-sparse@vger.kernel.org, Junio C Hamano <gitster@pobox.com>
-Subject: Re: [SPARSE PATCH] univ-init: conditionally accept { 0 } without
- warnings
-Message-ID: <20200520004151.GB12509@danh.dev>
-References: <20200518235446.84256-1-luc.vanoostenryck@gmail.com>
- <2fcda487-733b-8ed1-e1f4-6c6204a68569@ramsayjones.plus.com>
+        Tue, 19 May 2020 20:44:16 -0400
+Received: from [10.0.2.15] ([217.32.115.138])
+        by smtp with ESMTPA
+        id bCqDjxW0dU8CkbCqEjjS4r; Wed, 20 May 2020 01:44:15 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=plus.com; s=042019;
+        t=1589935455; bh=bDA25GRDIhULB8pYd45VTwk7YLzQPFzxr+YnMSz5PYQ=;
+        h=Subject:To:Cc:References:From:Date:In-Reply-To;
+        b=k3zTgDnyURSEH9OO3cJRZD//NW6YsO1/k+8Vi0JRSMA4kyyaneJFKiAR7MbNVg5uT
+         zsVBkz2nGceGa3hgsfb5jhdUy9ypOsfkyxl8pQ2btNclaWlKbel0UfkpRRp9jmyosR
+         +lAM/SLHWBqBkJCyK53rf/hIWqTkeixnJK4uI1pHpJ+f6X39dTw556hgPqKPvhzORr
+         Zz0iBui959f5VBm+iFoYVbttcdgvLLzr6cn4IAUMOE42TW1iaSjO96hA84vwuG6vMU
+         +U184DkY33YSFw8m/IQsJ2FJB/Qdcqx1Ng2tPSa1sFcSzZyGdatJTk6Dpfxl3IZSKz
+         6kyC4IPYbGQbw==
+X-Clacks-Overhead: "GNU Terry Pratchett"
+X-CM-Score: 0.00
+X-CNFS-Analysis: v=2.3 cv=G/eH7+s5 c=1 sm=1 tr=0
+ a=T9WNts+jH3PhiGdS1gtV5Q==:117 a=T9WNts+jH3PhiGdS1gtV5Q==:17
+ a=IkcTkHD0fZMA:10 a=pGLkceISAAAA:8 a=WjOqeF7SBlhIr3EU0vgA:9 a=QEXdDO2ut3YA:10
+X-AUTH: ramsayjones@:2500
+Subject: Re: [PATCH v1 14/28] scope: extract bind_symbol_with_scope() from
+ bind_symbol()
+To:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>,
+        linux-sparse@vger.kernel.org
+Cc:     Linus Torvalds <torvalds@linux-foundation.org>
+References: <20200519005728.84594-1-luc.vanoostenryck@gmail.com>
+ <20200519005728.84594-15-luc.vanoostenryck@gmail.com>
+From:   Ramsay Jones <ramsay@ramsayjones.plus.com>
+Message-ID: <94c72b94-814a-ee32-b107-523f43ad9299@ramsayjones.plus.com>
+Date:   Wed, 20 May 2020 01:44:12 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.7.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <2fcda487-733b-8ed1-e1f4-6c6204a68569@ramsayjones.plus.com>
+In-Reply-To: <20200519005728.84594-15-luc.vanoostenryck@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
+X-CMAE-Envelope: MS4wfO0zfUpEPoYIXMdto7yBBuHTKoDhjWTlSIca/4gxyEbU6kEQdZuCQNklvFyan4wDtv3KCrp3wYBnPTGyGj59rt0EV71AAEWRUDjKNpg4gCybfspWKn0V
+ 10+gzRAFPVlSTHLFMCWl6TVQa5IZ6GEubheXFIfFN+TgzmW64mqY0fEi+67XYizR/66b/6Ax5awHPg==
 Sender: linux-sparse-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-Hi Luc,
 
-On 2020-05-20 01:22:22+0100, Ramsay Jones <ramsay@ramsayjones.plus.com> wrote:
-> > In standard C '{ 0 }' is valid to initialize any compound object.
-> > OTOH, Sparse allows '{ }' for the same purpose but:
-> > 1) '{ }' is not standard
-> > 2) Sparse warns when using '0' to initialize pointers.
-> > 
-> > Some projects (git) legitimately like to be able to use the
-> > standard '{ 0 }' without the null-pointer warnings
-> > 
-> > So, add a new warning flag (-Wno-universal-initializer) to
-> > handle '{ 0 }' as '{ }', suppressing the warnings.
+
+On 19/05/2020 01:57, Luc Van Oostenryck wrote:
+> In most cases, the scope that must be used for a symbol is
+> given by its namespace.
 > 
-> Hmm, I didn't think this would use a warning flag at all!
+> However, in some situations a different scope must be used.
+> This is then set, for exemple by doing the lookup with
+
+s/exemple/example/
+
+ATB,
+Ramsay Jones
+
+> the wrong namespace (but corresponding to the desired scope)
+> and changing it just after to its correct value.
 > 
-> I remember the discussion (on lkml and sparse ml) in which
-> there was general agreement that '{}' would be preferred
-> solution (if only it was standard C!). However, I thought
-> that (since some compilers don't support it e.g. msvc) the
-> next best solution would be for sparse to suppress the
-> warning if given the '= { 0 }' token sequence. (ie. no mention
-> of it being conditional on a option).
-
-I'm also in the camp of favouring no -W at all.
-But, have another -W is fine to me.
-
-> > Suggestions for a better name than this -W[no-]universal-initializer
-> > are warmly welcome.
+> To avoid these contortions, extract from bind_symbol() a version
+> where the scope can be explicitly given: bind_symbol_with_scope().
 > 
-> Heh, you know that I am no good at naming things - but this may well
-> give the impression of a C++ like 'int i{}' type initializer!
-
-From this discussion in GCC's BugZilla [1], I think compiler people
-tend to call that style as zero-initialization, or universal zero
-initialization.
-
-[1]: https://gcc.gnu.org/bugzilla/show_bug.cgi?id=53119#c12
-
-
-
--- 
-Danh
+> Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
+> ---
+>  symbol.c | 13 +++++++++----
+>  symbol.h |  1 +
+>  2 files changed, 10 insertions(+), 4 deletions(-)
+> 
+> diff --git a/symbol.c b/symbol.c
+> index c2e6f0b426b3..7044ab3f78ce 100644
+> --- a/symbol.c
+> +++ b/symbol.c
+> @@ -671,9 +671,8 @@ static void inherit_static(struct symbol *sym)
+>  	}
+>  }
+>  
+> -void bind_symbol(struct symbol *sym, struct ident *ident, enum namespace ns)
+> +void bind_symbol_with_scope(struct symbol *sym, struct ident *ident, enum namespace ns, struct scope *scope)
+>  {
+> -	struct scope *scope;
+>  	if (sym->bound) {
+>  		sparse_error(sym->pos, "internal error: symbol type already bound");
+>  		return;
+> @@ -690,7 +689,6 @@ void bind_symbol(struct symbol *sym, struct ident *ident, enum namespace ns)
+>  	sym->ident = ident;
+>  	sym->bound = 1;
+>  
+> -	scope = block_scope;
+>  	if (ns == NS_SYMBOL && toplevel(scope)) {
+>  		unsigned mod = MOD_ADDRESSABLE | MOD_TOPLEVEL;
+>  
+> @@ -704,11 +702,18 @@ void bind_symbol(struct symbol *sym, struct ident *ident, enum namespace ns)
+>  		}
+>  		sym->ctype.modifiers |= mod;
+>  	}
+> +	bind_scope(sym, scope);
+> +}
+> +
+> +void bind_symbol(struct symbol *sym, struct ident *ident, enum namespace ns)
+> +{
+> +	struct scope *scope = block_scope;;
+> +
+>  	if (ns == NS_MACRO)
+>  		scope = file_scope;
+>  	if (ns == NS_LABEL)
+>  		scope = function_scope;
+> -	bind_scope(sym, scope);
+> +	bind_symbol_with_scope(sym, ident, ns, scope);
+>  }
+>  
+>  struct symbol *create_symbol(int stream, const char *name, int type, int namespace)
+> diff --git a/symbol.h b/symbol.h
+> index 50dba78a654a..c297c778dfdf 100644
+> --- a/symbol.h
+> +++ b/symbol.h
+> @@ -332,6 +332,7 @@ extern void show_type_list(struct symbol *);
+>  extern void show_symbol_list(struct symbol_list *, const char *);
+>  extern void add_symbol(struct symbol_list **, struct symbol *);
+>  extern void bind_symbol(struct symbol *, struct ident *, enum namespace);
+> +extern void bind_symbol_with_scope(struct symbol *, struct ident *, enum namespace, struct scope *);
+>  
+>  extern struct symbol *examine_symbol_type(struct symbol *);
+>  extern struct symbol *examine_pointer_target(struct symbol *);
+> 
