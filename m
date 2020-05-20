@@ -2,52 +2,52 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 0A0AA1DA6BF
-	for <lists+linux-sparse@lfdr.de>; Wed, 20 May 2020 02:45:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 47E751DA6C1
+	for <lists+linux-sparse@lfdr.de>; Wed, 20 May 2020 02:47:31 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726318AbgETApy (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Tue, 19 May 2020 20:45:54 -0400
-Received: from avasout02.plus.net ([212.159.14.17]:32933 "EHLO
+        id S1726447AbgETAra (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Tue, 19 May 2020 20:47:30 -0400
+Received: from avasout02.plus.net ([212.159.14.17]:33069 "EHLO
         avasout02.plus.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726178AbgETApx (ORCPT
+        with ESMTP id S1726432AbgETAra (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Tue, 19 May 2020 20:45:53 -0400
+        Tue, 19 May 2020 20:47:30 -0400
 Received: from [10.0.2.15] ([217.32.115.138])
         by smtp with ESMTPA
-        id bCrmjxW58U8CkbCrnjjS7C; Wed, 20 May 2020 01:45:52 +0100
+        id bCtLjxW9xU8CkbCtMjjS9G; Wed, 20 May 2020 01:47:29 +0100
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=plus.com; s=042019;
-        t=1589935552; bh=GhFm6Hgld0vImgHD+M7PXyAnNKNe80ioKGLoFnU8vLY=;
+        t=1589935649; bh=C1t0cu+TMwIiYjjbqry1CIanNoaVbndprY7lCynZ6qk=;
         h=Subject:To:Cc:References:From:Date:In-Reply-To;
-        b=o7kfBOV4QDxPomFvp8XJwikui1wr4JyOKVuZAsAx8x/bhK1M+Xf1I04IAg315N6JV
-         WUAsueac12Jr0DB/ojyPJRUzvZwCA9gEsjMaGDWqsyfYRxEvdtWnGmeBW+O0jnvgwV
-         y/DE8IfyNvPoSrpcT68SWG0KAL2ki9wIh0I8phvAGPQx2W1WnPReC25HkWetoC0t5O
-         F9VmJn1UuihwwC9QJvBz1mgpVldv3i9TvEXdoYTWvGG1bvowkH/DthkqQhvfNB76im
-         XmzrTmn3sHrtc+xsGgcwIDnkaWuRQkTA/ctqzFY8Yk5f338PsJGzAxvQqQqN82kZtb
-         3PdtmSWNL015Q==
+        b=GueSV0Ew31Xc7OIAa0Lg+l1nUlz1myKhuJXPk7IG1BzO9nJ1TfdKJN6tT4quHm1Nh
+         WxsrpOaHfvL2hH3/0CRf2oP/jUzPj39O4Yoq6/silCfSpEvO8AaALUcq2/YFKtzHnp
+         3gC7gwv4izN2zg8NJ/bygRxezCQtjsk1LRvCj2izWv8B0ZzVNdFoC3JLMSS2NOW5+j
+         CUk61RUrMMEWfEqDLPYQNuAjW6C7UTSSnQVJZgPQrcSfItq9XGkAAVqnPiRjhhGeg6
+         iiJUFcjoHUyUdlTtacc/BMpLfoEzM1reabvZJnooeO92OYrCzt3NtbepctIAws9slY
+         PV58lUb2dL5TQ==
 X-Clacks-Overhead: "GNU Terry Pratchett"
 X-CM-Score: 0.00
 X-CNFS-Analysis: v=2.3 cv=G/eH7+s5 c=1 sm=1 tr=0
  a=T9WNts+jH3PhiGdS1gtV5Q==:117 a=T9WNts+jH3PhiGdS1gtV5Q==:17
- a=IkcTkHD0fZMA:10 a=pGLkceISAAAA:8 a=iaJHp8L9BLmbSu1TwIcA:9 a=QEXdDO2ut3YA:10
+ a=IkcTkHD0fZMA:10 a=pGLkceISAAAA:8 a=tnOg-Hp3dCQt5_B6Xr4A:9 a=QEXdDO2ut3YA:10
 X-AUTH: ramsayjones@:2500
-Subject: Re: [PATCH v1 15/28] scope: __func__ is special
+Subject: Re: [PATCH v1 16/28] scope: __label__ is special
 To:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>,
         linux-sparse@vger.kernel.org
 Cc:     Linus Torvalds <torvalds@linux-foundation.org>
 References: <20200519005728.84594-1-luc.vanoostenryck@gmail.com>
- <20200519005728.84594-16-luc.vanoostenryck@gmail.com>
+ <20200519005728.84594-17-luc.vanoostenryck@gmail.com>
 From:   Ramsay Jones <ramsay@ramsayjones.plus.com>
-Message-ID: <cbeaeb8a-698b-56e2-6e31-90547de54e89@ramsayjones.plus.com>
-Date:   Wed, 20 May 2020 01:45:50 +0100
+Message-ID: <92c02efb-7733-cca8-981d-b3d0c5b7909e@ramsayjones.plus.com>
+Date:   Wed, 20 May 2020 01:47:27 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.7.0
 MIME-Version: 1.0
-In-Reply-To: <20200519005728.84594-16-luc.vanoostenryck@gmail.com>
+In-Reply-To: <20200519005728.84594-17-luc.vanoostenryck@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-GB
 Content-Transfer-Encoding: 7bit
-X-CMAE-Envelope: MS4wfET0LPyZU3EHMovmmQ6uxBKaY0NRyTg6ywFfX8Zacvs9xfEfE+TfIeU1ySndODSEwSTYcKKAF9B/NP+4z/bjU3ilF/nCbHhLk1UZKt6hB19ZuLhS6m+K
- kM2Reu7pVV92jpURRuCAL8cTmh7ascvb/JeHHEZE+CmnAwypn0ED1rvAQGKy580HjPEcd1tlq624LQ==
+X-CMAE-Envelope: MS4wfLHE7adZFaZVvnCyYGgHYHFbmPOuk9jNq3IuKNCpQ6ahj2Wlo0/xa3Ay58q4B3MJW3NgtGrJ3EDkvgSOwPVbpgJz6+ulPW5aCTPhFMOaHSjRQDEOAMRe
+ dJmq/EiHgHGzcMddlWE7cL+Q5VTC0nhKTzaNDVxhi+vW8E4+y4ncucwhzV2Cjk+lb616xIWZVfHE5A==
 Sender: linux-sparse-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
@@ -56,40 +56,39 @@ X-Mailing-List: linux-sparse@vger.kernel.org
 
 
 On 19/05/2020 01:57, Luc Van Oostenryck wrote:
-> __func__ needs to be in the namepsace for symbols: NS_SYMBOL
-> but doesn't follow the usual scope rules of them: it always
-> needs to be declared in the function scope.
+> Labels declared wth __label__ are special because they must follow
+> the block scope normally used for variables instad of using the
+
+s/instad/instead/
+
+> scope used for labels.
 > 
 > So, use bind_symbol_scoped() instead of first using bind_symbol()
 
-s/bind_symbol_scoped/bind_symbol_with_scope/
+s/bind_symbol_scoped/bind/symbol_with_scope/
 
 ATB,
 Ramsay Jones
 
 > and then changing the namespace.
-> Also change the comment to better express that it's the scope
-> that is the unusual thing.
 > 
 > Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 > ---
->  expression.c | 5 ++---
->  1 file changed, 2 insertions(+), 3 deletions(-)
+>  parse.c | 3 +--
+>  1 file changed, 1 insertion(+), 2 deletions(-)
 > 
-> diff --git a/expression.c b/expression.c
-> index 78e577cf10a1..ffb3c2dce4d5 100644
-> --- a/expression.c
-> +++ b/expression.c
-> @@ -122,9 +122,8 @@ static struct symbol *handle_func(struct token *token)
->  	decl->ctype.modifiers = MOD_STATIC;
->  	decl->endpos = token->pos;
->  
-> -	/* function-scope, but in NS_SYMBOL */
-> -	bind_symbol(decl, ident, NS_LABEL);
-> -	decl->namespace = NS_SYMBOL;
-> +	/* NS_SYMBOL but in function-scope */
-> +	bind_symbol_with_scope(decl, ident, NS_SYMBOL, function_scope);
->  
->  	len = current_fn->ident->len;
->  	string = __alloc_string(len + 1);
+> diff --git a/parse.c b/parse.c
+> index e23c5b64e8be..29e3f939166d 100644
+> --- a/parse.c
+> +++ b/parse.c
+> @@ -2569,8 +2569,7 @@ static struct token *label_statement(struct token *token)
+>  	while (token_type(token) == TOKEN_IDENT) {
+>  		struct symbol *sym = alloc_symbol(token->pos, SYM_LABEL);
+>  		/* it's block-scope, but we want label namespace */
+> -		bind_symbol(sym, token->ident, NS_SYMBOL);
+> -		sym->namespace = NS_LABEL;
+> +		bind_symbol_with_scope(sym, token->ident, NS_LABEL, block_scope);
+>  		fn_local_symbol(sym);
+>  		token = token->next;
+>  		if (!match_op(token, ','))
 > 
