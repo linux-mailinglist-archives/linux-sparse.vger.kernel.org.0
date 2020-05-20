@@ -2,87 +2,409 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id DCDCC1DA35D
-	for <lists+linux-sparse@lfdr.de>; Tue, 19 May 2020 23:16:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 200971DA68E
+	for <lists+linux-sparse@lfdr.de>; Wed, 20 May 2020 02:30:04 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726304AbgESVQm (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Tue, 19 May 2020 17:16:42 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:36102 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726283AbgESVQl (ORCPT
+        id S1726352AbgETA36 (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Tue, 19 May 2020 20:29:58 -0400
+Received: from avasout02.plus.net ([212.159.14.17]:60393 "EHLO
+        avasout02.plus.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1726178AbgETA36 (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Tue, 19 May 2020 17:16:41 -0400
-Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com [IPv6:2a00:1450:4864:20::32c])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 83016C08C5C0
-        for <linux-sparse@vger.kernel.org>; Tue, 19 May 2020 14:16:41 -0700 (PDT)
-Received: by mail-wm1-x32c.google.com with SMTP id f13so645602wmc.5
-        for <linux-sparse@vger.kernel.org>; Tue, 19 May 2020 14:16:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=date:from:to:cc:subject:message-id:references:mime-version
-         :content-disposition:in-reply-to;
-        bh=USTYOqR4vhpfNtB5L2L+Z2oXDbViSTfEAISoFcynu0I=;
-        b=ZRU7nl9579+zPah8C7BBMM/Ik/gHsH7sEAWglG6TgjUTdc+YcWJOpeOgSt4VoRvi8/
-         Zybp6YfK/3VPjK2gu8l34k1aplGlhxihgyf49tD7oBKNKZwwWEy6kO3Zz6LYoN59vwEf
-         UucKlXA3hlrbdk1l7S70K0yXEOM1YpKGLqXK5jGu4fujK3Z1QONPCW7HPRgUu+TyImsX
-         OIWKDIv+Hsj0k6V+m6q87Niuoj27tLehbEF3ryjbi1lksNWlI2kdgOGcPFrUfxV9UPw2
-         4N1Fry0KfcoPD+y9HM+iKHSLRtq2PYK/nMSWy+NT5VvqEvw1oRqvmFCOwKP9w4L8oJFM
-         CKcg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
-         :mime-version:content-disposition:in-reply-to;
-        bh=USTYOqR4vhpfNtB5L2L+Z2oXDbViSTfEAISoFcynu0I=;
-        b=lh/SmIWvBG3wkncoFuUAG0nl99nGLlLiF/1LIREJqEJDGf48niimijKSVhhmPhzxEO
-         BkTj9e/vBuf7pnDfIoZv3FcGx7x8aUBKsSzJJv7xjqjYG7G68zrmfuCUs5fm1QEjYQSp
-         DpneMn9x6jpeAxPIh1dHDF5g82QTpQehb2QOyqNg8jLZMDe3tBkyITLVgL9s968MH9sL
-         o9BhQCPnhrZVYXPKA6KqV2jLBxBq/f8zhrEq9pLMkM0ETBjsT0Ly8wBWlM8b3vKsOvz+
-         9a3FbIzSFR5MzB3rGHX0i8hm+7bPg+ENzeCBL5M9+nDAeCOZFLqHeUfegCvSf7ZVK1ds
-         ewMA==
-X-Gm-Message-State: AOAM530KC2KUR8Ar05kxmxUPKf+BO4d3yrmkw3ugRM99vU+1S3n5Mu7I
-        LEeTaIp1F37SuEGRMiWr1SRhsGRK
-X-Google-Smtp-Source: ABdhPJxd4DS43qY3aGwPc98UenRVrVZOg78vgnoORqC6aLJL9AC5OSV4jtV9WR7ZGJElUc+zu1kyuQ==
-X-Received: by 2002:a7b:ce08:: with SMTP id m8mr1235916wmc.97.1589923000237;
-        Tue, 19 May 2020 14:16:40 -0700 (PDT)
-Received: from ltop.local ([2a02:a03f:b7f9:7600:d8cf:13ec:5b9:8f3c])
-        by smtp.gmail.com with ESMTPSA id 81sm1033298wme.16.2020.05.19.14.16.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 19 May 2020 14:16:38 -0700 (PDT)
-Date:   Tue, 19 May 2020 23:16:37 +0200
-From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-To:     Linus Torvalds <torvalds@linux-foundation.org>
-Cc:     Sparse Mailing-list <linux-sparse@vger.kernel.org>
-Subject: Re: [SPARSE v2 00/28] detect invalid branches
-Message-ID: <20200519211637.4hjorseu675acihh@ltop.local>
-References: <20200519005728.84594-1-luc.vanoostenryck@gmail.com>
- <CAHk-=wiaZgBKwC2-ku3UeV4Rdv=tPcKLAfjy96PbJSntcLBWHw@mail.gmail.com>
+        Tue, 19 May 2020 20:29:58 -0400
+X-Greylist: delayed 450 seconds by postgrey-1.27 at vger.kernel.org; Tue, 19 May 2020 20:29:56 EDT
+Received: from [10.0.2.15] ([217.32.115.138])
+        by smtp with ESMTPA
+        id bCV5jxVBxU8CkbCV6jjRsH; Wed, 20 May 2020 01:22:25 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=plus.com; s=042019;
+        t=1589934145; bh=tY2X+JNgPGn/ZmP3v2IWYUVzyAgn9AbpWGguthMlMQY=;
+        h=Subject:To:Cc:References:From:Date:In-Reply-To;
+        b=XUL/6A2ERodbBO5i/Lkems0Q8pEp5Q0+zVF4q7CD2OgB5MwzyJvG4LZ7xe3O/QjoL
+         mKvTFYHdnu/tAPYALaygVBVld+Gy1d+xB4/kPii56QJSIiMoNZw8UZwPFrNoG3pfC1
+         QClsyLoeZnnjlqyWLACc8H1O8uByl+sbF9EaeRhWfqAydc40/a8WXSIjp0lIMxOVDj
+         em1HCsE6AYMa0vILcxoHtHkQzATimqxbaEttoGA+tT4tBrEbadZaKwC+aBXHU7gWpX
+         1Nt6zcJCJ9hndv3HoR4LXLlt1sSLFc2X3fIErcNPt6ko/KwG2ymkAUteIBp7G9b32k
+         CvqTb4uRozH/A==
+X-Clacks-Overhead: "GNU Terry Pratchett"
+X-CM-Score: 0.00
+X-CNFS-Analysis: v=2.3 cv=G/eH7+s5 c=1 sm=1 tr=0
+ a=T9WNts+jH3PhiGdS1gtV5Q==:117 a=T9WNts+jH3PhiGdS1gtV5Q==:17
+ a=IkcTkHD0fZMA:10 a=VwQbUJbxAAAA:8 a=EBOSESyhAAAA:8 a=pGLkceISAAAA:8
+ a=cmKacqvLyizzH-8oQhwA:9 a=MSz_YJCaXf13EPuf:21 a=ej4SejPpcWoUd9X5:21
+ a=QEXdDO2ut3YA:10 a=AjGcO6oz07-iQ99wixmX:22 a=yJM6EZoI5SlJf8ks9Ge_:22
+X-AUTH: ramsayjones@:2500
+Subject: Re: [SPARSE PATCH] univ-init: conditionally accept { 0 } without
+ warnings
+To:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>,
+        linux-sparse@vger.kernel.org
+Cc:     Junio C Hamano <gitster@pobox.com>,
+        =?UTF-8?B?xJBvw6BuIFRy4bqnbiBDw7RuZyBEYW5o?= <congdanhqx@gmail.com>
+References: <20200518235446.84256-1-luc.vanoostenryck@gmail.com>
+From:   Ramsay Jones <ramsay@ramsayjones.plus.com>
+Message-ID: <2fcda487-733b-8ed1-e1f4-6c6204a68569@ramsayjones.plus.com>
+Date:   Wed, 20 May 2020 01:22:22 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.7.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAHk-=wiaZgBKwC2-ku3UeV4Rdv=tPcKLAfjy96PbJSntcLBWHw@mail.gmail.com>
+In-Reply-To: <20200518235446.84256-1-luc.vanoostenryck@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
+X-CMAE-Envelope: MS4wfOotb4SiGZRf9C/j6/Tx1v68k3OB7y4MnokH/ijvuYUl07/G+L7t3WleZdvQS8Ubh5gjmp/x3+BhNEpZGMTGAjta3iRuun57Lwr4mFEm5XmA3K7wOTi9
+ 18n1XvmlalZAxDJ6NF35f9SDKgub4oiPgWHItclOi1Hz2zgM0JzZ9QZnMd7tOrgp7qSh4wc65d3xPQ==
 Sender: linux-sparse-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-On Mon, May 18, 2020 at 06:41:07PM -0700, Linus Torvalds wrote:
-> On Mon, May 18, 2020 at 5:57 PM Luc Van Oostenryck
-> <luc.vanoostenryck@gmail.com> wrote:
-> >
-> > The goals of the patches in this series are:
-> > *) to detect such gotos at evaluation time;
-> > *) issue a sensible error message;
-> > *) avoid the linearization of functions with invalid gotos.
-> 
-> Ack. Apart from that one question I had, which I didn't actually
-> verify whether it was a problem for the insane test-case I posted.
-> 
-> I only _read_ the patches, I didn't actually apply and test them in any way.
+Hi Luc,
 
-Sure, I understand that very well. I tend to give to this kind of
-series a decent amount of testing and its mostly fully automatic
-anyway (and, I think, the tests cover well most situations),
-but having another eye and another opinion on the patches is very
-much appreciated.
+Sorry for not getting back to you sooner on this (you would
+think I was busy! ;-D ).
 
--- Luc
+I have now found (one of) the patch(es) I was referring to before
+(as a patch file on a memory stick - don't ask!).
+
+On 19/05/2020 00:54, Luc Van Oostenryck wrote:
+> In standard C '{ 0 }' is valid to initialize any compound object.
+> OTOH, Sparse allows '{ }' for the same purpose but:
+> 1) '{ }' is not standard
+> 2) Sparse warns when using '0' to initialize pointers.
+> 
+> Some projects (git) legitimately like to be able to use the
+> standard '{ 0 }' without the null-pointer warnings
+> 
+> So, add a new warning flag (-Wno-universal-initializer) to
+> handle '{ 0 }' as '{ }', suppressing the warnings.
+
+Hmm, I didn't think this would use a warning flag at all!
+
+I remember the discussion (on lkml and sparse ml) in which
+there was general agreement that '{}' would be preferred
+solution (if only it was standard C!). However, I thought
+that (since some compilers don't support it e.g. msvc) the
+next best solution would be for sparse to suppress the
+warning if given the '= { 0 }' token sequence. (ie. no mention
+of it being conditional on a option).
+
+> 
+> Reference: https://lore.kernel.org/git/1df91aa4-dda5-64da-6ae3-5d65e50a55c5@ramsayjones.plus.com/
+> Reference: https://lore.kernel.org/git/e6796c60-a870-e761-3b07-b680f934c537@ramsayjones.plus.com/
+> Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
+> ---
+> 
+> Suggestions for a better name than this -W[no-]universal-initializer
+> are warmly welcome.
+
+Heh, you know that I am no good at naming things - but this may well
+give the impression of a C++ like 'int i{}' type initializer!
+
+> 
+> -- Luc
+> 
+> 
+>  lib.c                      |  2 ++
+>  lib.h                      |  1 +
+>  parse.c                    |  7 +++++++
+>  sparse.1                   |  8 ++++++++
+>  token.h                    |  7 +++++++
+>  validation/Wuniv-init-ko.c | 14 ++++++++++++++
+>  validation/Wuniv-init-ok.c | 11 +++++++++++
+>  7 files changed, 50 insertions(+)
+>  create mode 100644 validation/Wuniv-init-ko.c
+>  create mode 100644 validation/Wuniv-init-ok.c
+> 
+> diff --git a/lib.c b/lib.c
+> index f9ec285e8fea..9ee8d3cf6b21 100644
+> --- a/lib.c
+> +++ b/lib.c
+> @@ -295,6 +295,7 @@ int Wtransparent_union = 0;
+>  int Wtypesign = 0;
+>  int Wundef = 0;
+>  int Wuninitialized = 1;
+> +int Wuniversal_initializer = 1;
+>  int Wunknown_attribute = 0;
+>  int Wvla = 1;
+>  
+> @@ -782,6 +783,7 @@ static const struct flag warnings[] = {
+>  	{ "typesign", &Wtypesign },
+>  	{ "undef", &Wundef },
+>  	{ "uninitialized", &Wuninitialized },
+> +	{ "universal-initializer", &Wuniversal_initializer },
+>  	{ "unknown-attribute", &Wunknown_attribute },
+>  	{ "vla", &Wvla },
+>  };
+> diff --git a/lib.h b/lib.h
+> index b18295a889cb..5e6db111170a 100644
+> --- a/lib.h
+> +++ b/lib.h
+> @@ -184,6 +184,7 @@ extern int Wtransparent_union;
+>  extern int Wtypesign;
+>  extern int Wundef;
+>  extern int Wuninitialized;
+> +extern int Wuniversal_initializer;
+>  extern int Wunknown_attribute;
+>  extern int Wvla;
+>  
+> diff --git a/parse.c b/parse.c
+> index a29c67c8cf41..48494afc6f2c 100644
+> --- a/parse.c
+> +++ b/parse.c
+> @@ -2750,6 +2750,13 @@ static struct token *initializer_list(struct expression_list **list, struct toke
+>  {
+>  	struct expression *expr;
+>  
+> +	// '{ 0 }' is equivalent to '{ }' unless wanting all possible
+> +	// warnings about using '0' to initialize a null-pointer.
+> +	if (!Wuniversal_initializer) {
+> +		if (match_token_zero(token) && match_op(token->next, '}'))
+> +			token = token->next;
+> +	}
+> +
+
+Ha! This made me LOL! (see my patch below).
+
+So simple. (I did think, at first, that deleting the '0' token was
+not a good idea - then I realized that it's more like skipping/ignoring
+the token than deleting it.)
+
+I wish I had thought of it.
+
+I have similar code in 'initializer()', rather than 'initializer_list()',
+but I don't think it makes a big difference (you have already 'passed'
+the initial '{' token).
+
+>  	for (;;) {
+>  		token = single_initializer(&expr, token);
+>  		if (!expr)
+> diff --git a/sparse.1 b/sparse.1
+> index 574caef3acbb..50e928392573 100644
+> --- a/sparse.1
+> +++ b/sparse.1
+> @@ -428,6 +428,14 @@ However, this behavior can lead to subtle errors.
+>  
+>  Sparse does not issue these warnings by default.
+>  .
+> +.TP
+> +.B \-Wuniversal\-initializer
+> +Do not suppress warnings about 0 used to initialize a null-pointer
+> +when using '{ 0 }' as initializer.
+> +
+> +Sparse issues these warnings by default.  To turn them off, use
+> +\fB\-Wno\-universal\-initializer\fR.
+> +.
+>  .SH MISC OPTIONS
+>  .TP
+>  .B \-\-arch=\fIARCH\fR
+> diff --git a/token.h b/token.h
+> index 292db167e4a8..33a6eda1cc53 100644
+> --- a/token.h
+> +++ b/token.h
+> @@ -241,4 +241,11 @@ static inline int match_ident(struct token *token, struct ident *id)
+>  	return token->pos.type == TOKEN_IDENT && token->ident == id;
+>  }
+>  
+> +static inline int match_token_zero(struct token *token)
+> +{
+> +	if (token_type(token) != TOKEN_NUMBER)
+> +		return false;
+> +	return token->number[0] == '0' && !token->number[1];
+> +}
+> +
+>  #endif
+> diff --git a/validation/Wuniv-init-ko.c b/validation/Wuniv-init-ko.c
+> new file mode 100644
+> index 000000000000..315c211a5db6
+> --- /dev/null
+> +++ b/validation/Wuniv-init-ko.c
+> @@ -0,0 +1,14 @@
+> +struct s {
+> +	void *ptr;
+> +};
+> +
+> +
+> +static struct s s = { 0 };
+> +
+> +/*
+> + * check-name: univ-init-ko
+> + *
+> + * check-error-start
+> +Wuniv-init-ko.c:6:23: warning: Using plain integer as NULL pointer
+> + * check-error-end
+> + */
+> diff --git a/validation/Wuniv-init-ok.c b/validation/Wuniv-init-ok.c
+> new file mode 100644
+> index 000000000000..c39647517323
+> --- /dev/null
+> +++ b/validation/Wuniv-init-ok.c
+> @@ -0,0 +1,11 @@
+> +struct s {
+> +	void *ptr;
+> +};
+> +
+> +
+> +static struct s s = { 0 };
+> +
+> +/*
+> + * check-name: univ-init-ok
+> + * check-command: sparse -Wno-universal-initializer $file
+> + */
+> 
+
+The patch below was (I think) my third attempt. If memory serves
+me, the first patch attempted to determine the '{0}' initializer
+from the 'struct expession *' passed to bad_null() alone. However,
+that did not allow me to distinguish '= { 0 }' from '= { 0, }',
+so I needed to backup from evaluation to the parse.
+
+Also, I remember that I wasn't happy with the test cases - this code
+(should) affect the initialization of arrays of pointers, but I have
+not even written any tests, let alone tried them! :(
+
+Also, I didn't test the initialization of embedded struct/array fields
+(and what should happen anyway? should '{ 0 }' also work for initializing
+the sub-structure(s), or should it only work at the top-level?).
+
+Also, I have just noticed, it seems that I can't decide if it should
+be called 'zero aggregate initializer' or 'aggregate zero initializer'! :-P
+
+ATB,
+Ramsay Jones
+
+-- >8 --
+Subject: [PATCH] bad_null: suppress 0/NULL pointer warnings with '{0}'
+
+Signed-off-by: Ramsay Jones <ramsay@ramsayjones.plus.com>
+---
+ evaluate.c                       |  3 ++-
+ expression.h                     |  1 +
+ parse.c                          | 30 +++++++++++++++++++++++
+ validation/aggregate_zero_init.c | 42 ++++++++++++++++++++++++++++++++
+ 4 files changed, 75 insertions(+), 1 deletion(-)
+ create mode 100755 validation/aggregate_zero_init.c
+
+diff --git a/evaluate.c b/evaluate.c
+index b7bb1f52..a95e157e 100644
+--- a/evaluate.c
++++ b/evaluate.c
+@@ -820,8 +820,9 @@ const char *type_difference(struct ctype *c1, struct ctype *c2,
+ 
+ static void bad_null(struct expression *expr)
+ {
+-	if (Wnon_pointer_null)
++	if (Wnon_pointer_null && !expr->zero_init) {
+ 		warning(expr->pos, "Using plain integer as NULL pointer");
++	}
+ }
+ 
+ static unsigned long target_qualifiers(struct symbol *type)
+diff --git a/expression.h b/expression.h
+index 3b79e0f1..4bcfe0aa 100644
+--- a/expression.h
++++ b/expression.h
+@@ -150,6 +150,7 @@ struct asm_operand {
+ struct expression {
+ 	enum expression_type type:8;
+ 	unsigned flags:8;
++	unsigned zero_init:1;
+ 	int op;
+ 	struct position pos;
+ 	struct symbol *ctype;
+diff --git a/parse.c b/parse.c
+index a29c67c8..44aea888 100644
+--- a/parse.c
++++ b/parse.c
+@@ -2762,12 +2762,42 @@ static struct token *initializer_list(struct expression_list **list, struct toke
+ 	return token;
+ }
+ 
++static int is_zero_token(struct token *token)
++{
++	return token_type(token) == TOKEN_NUMBER && !strcmp(token->number, "0");
++}
++
++/*
++ * starting with token, do we have an '{ 0 }' zero aggregate initializer
++ * token sequence?
++*/
++static int is_zero_aggregate_init(struct token *token)
++{
++	if (token && match_op(token, '{') &&
++	    token->next && is_zero_token(token->next) &&
++	    token->next->next && match_op(token->next->next, '}'))
++		return 1;
++	return 0;
++}
++
++static void set_zero_init(struct expression_list *list)
++{
++	if (expression_list_size(list) == 1) {
++		struct expression *expr = first_expression(list);
++		if (expr)
++			expr->zero_init = 1;
++	}
++}
++
+ struct token *initializer(struct expression **tree, struct token *token)
+ {
+ 	if (match_op(token, '{')) {
+ 		struct expression *expr = alloc_expression(token->pos, EXPR_INITIALIZER);
++		int zero_init = is_zero_aggregate_init(token);
+ 		*tree = expr;
+ 		token = initializer_list(&expr->expr_list, token->next);
++		if (zero_init)
++			set_zero_init(expr->expr_list);
+ 		return expect(token, '}', "at end of initializer");
+ 	}
+ 	return assignment_expression(token, tree);
+diff --git a/validation/aggregate_zero_init.c b/validation/aggregate_zero_init.c
+new file mode 100755
+index 00000000..805adbfa
+--- /dev/null
++++ b/validation/aggregate_zero_init.c
+@@ -0,0 +1,42 @@
++#define NULL ((void *)0)
++
++struct ptrfirst {
++	char *ptr;
++	int scalar;
++};
++
++struct scalarfirst {
++	int scalar;
++	char *ptr;
++};
++
++static struct ptrfirst s1;
++static struct scalarfirst s2;
++
++static struct ptrfirst si1 = { 0 };
++static struct scalarfirst si2 = { 0 };
++
++static struct ptrfirst si3 = { 0, 0 };
++static struct scalarfirst si4 = { 0, 0 };
++
++static struct ptrfirst si5 = { NULL, 0 };
++static struct scalarfirst si6 = { 0, NULL };
++
++static struct ptrfirst si7 = { 0, };
++static struct scalarfirst si8 = { 0, };
++
++static void func(void)
++{
++	struct ptrfirst a1 = { 0 };
++	struct scalarfirst a1 = { 0 };
++}
++/*
++ * check-name: zero aggregate initializer suppresses NULL pointer warnings
++ *
++ * check-error-start
++aggregate_zero_init.c:19:32: warning: Using plain integer as NULL pointer
++aggregate_zero_init.c:20:38: warning: Using plain integer as NULL pointer
++aggregate_zero_init.c:25:32: warning: Using plain integer as NULL pointer
++ * check-error-end
++ */
++
+-- 
+2.26.2
+
