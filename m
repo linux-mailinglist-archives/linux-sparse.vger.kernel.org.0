@@ -2,147 +2,136 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id BB1A01DB893
-	for <lists+linux-sparse@lfdr.de>; Wed, 20 May 2020 17:42:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id E9CFC1DB90D
+	for <lists+linux-sparse@lfdr.de>; Wed, 20 May 2020 18:13:02 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727039AbgETPm2 (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Wed, 20 May 2020 11:42:28 -0400
-Received: from avasout07.plus.net ([84.93.230.235]:34523 "EHLO
-        avasout07.plus.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726510AbgETPm2 (ORCPT
+        id S1726443AbgETQNC (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Wed, 20 May 2020 12:13:02 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:44166 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1726436AbgETQNC (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Wed, 20 May 2020 11:42:28 -0400
-X-Greylist: delayed 450 seconds by postgrey-1.27 at vger.kernel.org; Wed, 20 May 2020 11:42:27 EDT
-Received: from [10.0.2.15] ([217.32.115.138])
-        by smtp with ESMTPA
-        id bQkAjshGh0wwMbQkBj20Cp; Wed, 20 May 2020 16:34:55 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=plus.com; s=042019;
-        t=1589988896; bh=ozCrtgQAtWU4HPkS5sh+KznCmofBf7/HAS3/8Plzf1Y=;
-        h=Subject:From:To:References:Date:In-Reply-To;
-        b=oHAw9nQ4Iy6cqgvelG4t4Df+xncskhVjlke1kjf1biljn0RvMMKfpQvKc0P1I/efW
-         3GZsSTP5V/rO3wHWaTSK3eFXFcIy7xqs2imeCW2yzzoeKDKX8s+VnSeVeJuh15136n
-         BbYmPK/NMY+9gdeh6KGghRoeiDlXNgH9nQaDgFaUW+fbJw0XS1qx+mFNWT3iTnLKn0
-         OIk2Kd1ZkgUnPVlkyq3rTExEQMonXciU5JkEEdAQ3ohwsegvfkl0WOt9xnev1xGt3b
-         PdM2ORuYzUa8gMnxsAgUNEJHCFUHIQVRJpmLwoisSqBn3G1E3zUDO96UorjMn9IG7o
-         vNxTE3HAyztnA==
-X-Clacks-Overhead: "GNU Terry Pratchett"
-X-CM-Score: 0.00
-X-CNFS-Analysis: v=2.3 cv=b/4pHuOx c=1 sm=1 tr=0
- a=T9WNts+jH3PhiGdS1gtV5Q==:117 a=T9WNts+jH3PhiGdS1gtV5Q==:17
- a=IkcTkHD0fZMA:10 a=pGLkceISAAAA:8 a=__Hyq5l-Wme8eTUUGhkA:9 a=QEXdDO2ut3YA:10
-X-AUTH: ramsayjones@:2500
+        Wed, 20 May 2020 12:13:02 -0400
+Received: from mail-ed1-x544.google.com (mail-ed1-x544.google.com [IPv6:2a00:1450:4864:20::544])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id BBCB7C061A0E
+        for <linux-sparse@vger.kernel.org>; Wed, 20 May 2020 09:13:01 -0700 (PDT)
+Received: by mail-ed1-x544.google.com with SMTP id bs4so3650746edb.6
+        for <linux-sparse@vger.kernel.org>; Wed, 20 May 2020 09:13:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=date:from:to:cc:subject:message-id:references:mime-version
+         :content-disposition:content-transfer-encoding:in-reply-to;
+        bh=0hrVDdROrst7TwL4mnbQ8Tc/dEMlP3A8Xb/RoBKku4Q=;
+        b=GRCDK2FF4h7E/Hd1vC1p/1OyxmtHZNbC54yvmy7cFIkyu0w0dbt9ulsm3SpivgoVoG
+         2k/5Bh7cvfUETyBCSq8qEYrtsyzLqrBh+7oWx8dnoDWvAd+594Wox8KEiQ7M1ZPZgfEG
+         +XsKZUmPUXgm7z15FITF443A2u2iMdJGBX3RfhvuPTILzG0vwsve81KL4rYYcrHKmWDS
+         sVNzJDhE8bo4b1AC4ZBLvRwvBtQbswrZ6px2Rjhf8rm3dcccr6KtkLv8MJ6GLZH7R6Ms
+         L2l+HPLyUfuBPZLqCdQdz/e2tdx2Y3Y7SXAn4z2iZEZfspufHjbjmZlhrkC03Nu+uwCp
+         jsNw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+         :mime-version:content-disposition:content-transfer-encoding
+         :in-reply-to;
+        bh=0hrVDdROrst7TwL4mnbQ8Tc/dEMlP3A8Xb/RoBKku4Q=;
+        b=SiHku0+jxvTUjmxRpqCB25VjqzAR5dJGpcF/w4Lhhe+iwFqqKapaKWizbGBBH13W4n
+         fHQboh1n8HuHAqvjnOfc+t3CTBQF5PNWn6k/sZ9CGUW23twySCQ6TckJnpg/hNOm27jM
+         qaDcjcTUZTrVhZNAQvID+rHavljNGAggewYiwTImpnZWmzFFMdgXdIOclHCpqnYmzs5Y
+         SneVQdueA1mKjOUfncmbppz4yVllTZ5tkkU0/pamIHl/6BlUG7pPY0htkpC+B/EoQ1zX
+         jGYMBuFAMSUPKNBd2rc3cMgq/6gXTwI5wlstYcwL1N9amjqc4yewolnyJSdH73kUYzXB
+         Ks3g==
+X-Gm-Message-State: AOAM533lw0zT3gnw+SiBf1x/oRdA4wAnb4GjvD7FN46fGF2EMijYrhSz
+        RiczsI+uiWCwKKPAChwRvI4ZJkfq
+X-Google-Smtp-Source: ABdhPJy8kVZBX+At6JcJp1iRqzDel85bpBkBpDrJZm8yM5oy3mpavzf4saiFvRx6IJ7f2qcVfQFMgA==
+X-Received: by 2002:aa7:ca13:: with SMTP id y19mr4019566eds.30.1589991180498;
+        Wed, 20 May 2020 09:13:00 -0700 (PDT)
+Received: from ltop.local ([2a02:a03f:b7f9:7600:5522:715b:4ca2:a444])
+        by smtp.gmail.com with ESMTPSA id nj6sm2249779ejb.99.2020.05.20.09.12.59
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 20 May 2020 09:12:59 -0700 (PDT)
+Date:   Wed, 20 May 2020 18:12:59 +0200
+From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
+To:     Ramsay Jones <ramsay@ramsayjones.plus.com>
+Cc:     linux-sparse@vger.kernel.org
 Subject: Re: [PATCH v1 01/28] misc: fix testcase typeof-safe
-From:   Ramsay Jones <ramsay@ramsayjones.plus.com>
-To:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>,
-        linux-sparse@vger.kernel.org
+Message-ID: <20200520161259.u4raoc4bujauzu5y@ltop.local>
 References: <20200519005728.84594-1-luc.vanoostenryck@gmail.com>
  <20200519005728.84594-2-luc.vanoostenryck@gmail.com>
  <422723ea-00aa-ee89-72aa-f4dddbd8da06@ramsayjones.plus.com>
-Message-ID: <2de08a4e-ce53-8694-da00-c2c90334da65@ramsayjones.plus.com>
-Date:   Wed, 20 May 2020 16:34:53 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
+ <2de08a4e-ce53-8694-da00-c2c90334da65@ramsayjones.plus.com>
 MIME-Version: 1.0
-In-Reply-To: <422723ea-00aa-ee89-72aa-f4dddbd8da06@ramsayjones.plus.com>
 Content-Type: text/plain; charset=utf-8
-Content-Language: en-GB
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-CMAE-Envelope: MS4wfNUWEug+G/un09oO/oapG8DygCwLzqceWFXhIoP+gncjOhzn/DStQCi3ebc6zyiSwyBD+tKe+A75kE6XC+3Mq1rafqgjW/0+xJ8Q/T3bE18oK/aJRv4f
- +1vw0O4clxcwJ0Al+d5usslxXaT0VkhPOrLJoze6GnF67zCMjw51WyF83/mYpq87YFZIJWWgXCzXFA==
+In-Reply-To: <2de08a4e-ce53-8694-da00-c2c90334da65@ramsayjones.plus.com>
 Sender: linux-sparse-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
+On Wed, May 20, 2020 at 04:34:53PM +0100, Ramsay Jones wrote:
+> On 20/05/2020 01:33, Ramsay Jones wrote:
+> > On 19/05/2020 01:57, Luc Van Oostenryck wrote:
+> >> +	int __safe  var3 = obj;
+> >> +	int *ptr4 = &obj;
+> >> +	int *ptr4 = ptr;		// KO
+> > 
+> > ptr4 declared twice - and sparse didn't complain?
 
-
-On 20/05/2020 01:33, Ramsay Jones wrote:
-> On 19/05/2020 01:57, Luc Van Oostenryck wrote:
->> This testcase was marked as known-to-fail but it was
->> simply the expected error messages that were missing.
->>
->> So, slightly reorganize the test a little bit, add the
->> expected messages and remove the 'known-to-fail' tag.
->>
->> Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
->> ---
->>  validation/typeof-safe.c | 26 ++++++++++++++++++++------
->>  1 file changed, 20 insertions(+), 6 deletions(-)
->>
->> diff --git a/validation/typeof-safe.c b/validation/typeof-safe.c
->> index 614863fba381..508bd39204c5 100644
->> --- a/validation/typeof-safe.c
->> +++ b/validation/typeof-safe.c
->> @@ -2,16 +2,24 @@
->>  
->>  static void test_safe(void)
->>  {
->> -	int __safe obj, *ptr;
->> -	typeof(obj) var = obj;
->> -	typeof(ptr) ptr2 = ptr;
->> +	int obj;
->> +	int __safe *ptr;
->> +
->> +	int __safe *ptr2 = ptr;
->> +	typeof(ptr) ptr3 = ptr;
->>  	typeof(*ptr) var2 = obj;
->> -	typeof(*ptr) *ptr3 = ptr;
->> -	typeof(obj) *ptr4 = ptr;
->> +	int __safe  var3 = obj;
->> +	int *ptr4 = &obj;
->> +	int *ptr4 = ptr;		// KO
+Yes, I was surprised by this too.
+ 
+> Heh, I had a slightly different example in the test case
+> for my '{0}' initializer patch (but involving different
+> types as well).
 > 
-> ptr4 declared twice - and sparse didn't complain?
+> I had a quick look at this and tried to use 'git-bisect' to
+> isolate the change which broke this. However, I couldn't find
+> a version of sparse that worked correctly! :D (I went all the
+> way back to v0.4.2 before giving up - several tagged releases
+> didn't even compile without some fix-ups, including v0.4.2).
 
-Heh, I had a slightly different example in the test case
-for my '{0}' initializer patch (but involving different
-types as well).
+Yes, it's quite annoying when bisecting, but well ...
+ 
+> Just FYI, this was my test-case:
+> 
+>   $ cat -n test-dup-decl.c
+>        1	#ifdef WORKS_OK
+>        2	static int sobj;
+>        3	static int *sptr4 = &sobj;
+>        4	static int *sptr4 = 0;
+>        5	#endif
+>        6	
+>        7	static void func(void)
+>        8	{
+>        9		int obj, *ptr;
+>       10		int *ptr4 = &obj;
+>       11		int *ptr4 = ptr;
+>       12		int a;
+>       13		float a;
+>       14	}
+>   $ 
+> 
+>   $ gcc -c test-dup-decl.c
+>   test-dup-decl.c: In function ‘func’:
+>   test-dup-decl.c:11:7: error: redefinition of ‘ptr4’
+>     int *ptr4 = ptr;
+>          ^~~~
+>   test-dup-decl.c:10:7: note: previous definition of ‘ptr4’ was here
+>     int *ptr4 = &obj;
+>          ^~~~
+>   test-dup-decl.c:13:8: error: conflicting types for ‘a’
+>     float a;
+>           ^
+>   test-dup-decl.c:12:6: note: previous declaration of ‘a’ was here
+>     int a;
+>         ^
+>   $ 
+> 
+>   $ ./sparse test-dup-decl.c
+>   $ 
 
-I had a quick look at this and tried to use 'git-bisect' to
-isolate the change which broke this. However, I couldn't find
-a version of sparse that worked correctly! :D (I went all the
-way back to v0.4.2 before giving up - several tagged releases
-didn't even compile without some fix-ups, including v0.4.2).
+It seems that sparse detect the redefinition when the symbols are global
+but not when they're local.
 
-Just FYI, this was my test-case:
-
-  $ cat -n test-dup-decl.c
-       1	#ifdef WORKS_OK
-       2	static int sobj;
-       3	static int *sptr4 = &sobj;
-       4	static int *sptr4 = 0;
-       5	#endif
-       6	
-       7	static void func(void)
-       8	{
-       9		int obj, *ptr;
-      10		int *ptr4 = &obj;
-      11		int *ptr4 = ptr;
-      12		int a;
-      13		float a;
-      14	}
-  $ 
-
-  $ gcc -c test-dup-decl.c
-  test-dup-decl.c: In function ‘func’:
-  test-dup-decl.c:11:7: error: redefinition of ‘ptr4’
-    int *ptr4 = ptr;
-         ^~~~
-  test-dup-decl.c:10:7: note: previous definition of ‘ptr4’ was here
-    int *ptr4 = &obj;
-         ^~~~
-  test-dup-decl.c:13:8: error: conflicting types for ‘a’
-    float a;
-          ^
-  test-dup-decl.c:12:6: note: previous declaration of ‘a’ was here
-    int a;
-        ^
-  $ 
-
-  $ ./sparse test-dup-decl.c
-  $ 
-
-ATB,
-Ramsay Jones
-
-
+Thanks for noticing this.
+-- Luc
