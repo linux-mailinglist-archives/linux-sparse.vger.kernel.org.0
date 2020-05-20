@@ -2,52 +2,53 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 00F9C1DA6D1
-	for <lists+linux-sparse@lfdr.de>; Wed, 20 May 2020 02:56:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id BB1A01DB893
+	for <lists+linux-sparse@lfdr.de>; Wed, 20 May 2020 17:42:32 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726318AbgETA4b (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Tue, 19 May 2020 20:56:31 -0400
-Received: from avasout02.plus.net ([212.159.14.17]:33458 "EHLO
-        avasout02.plus.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726178AbgETA4a (ORCPT
+        id S1727039AbgETPm2 (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Wed, 20 May 2020 11:42:28 -0400
+Received: from avasout07.plus.net ([84.93.230.235]:34523 "EHLO
+        avasout07.plus.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1726510AbgETPm2 (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Tue, 19 May 2020 20:56:30 -0400
+        Wed, 20 May 2020 11:42:28 -0400
+X-Greylist: delayed 450 seconds by postgrey-1.27 at vger.kernel.org; Wed, 20 May 2020 11:42:27 EDT
 Received: from [10.0.2.15] ([217.32.115.138])
         by smtp with ESMTPA
-        id bD23jxWSjU8CkbD24jjSEV; Wed, 20 May 2020 01:56:29 +0100
+        id bQkAjshGh0wwMbQkBj20Cp; Wed, 20 May 2020 16:34:55 +0100
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=plus.com; s=042019;
-        t=1589936189; bh=3uohJmfES7jMrd9FCEK7W4p6y/MFBzCotVSeJRPUBTM=;
-        h=Subject:To:Cc:References:From:Date:In-Reply-To;
-        b=BrD9GQn5YBRr49aPcpKPQXOEQA8eOQZthyzjmq5Zle8arYXalmVMcwmMiNZwRmIGl
-         fywyUe8aJ84+22XeiKiSDjQ8lI2ZODFs1vLFJ8CDfMG1GWu22frspnlRaUKR5l0ami
-         Psia+GzCwYbF5Vwod2FXfnBR3FNfGf/jP1U2cO8BT0xZXTgNSpUR9WNXnP7ECbfoxS
-         ftr3f7eIdZW6NJ5rWFzv4ulzB1rseorPnU25GjEsVeuoR6Tl6q0vKsgTisYpLYQs1z
-         rMEqO5uYAp9gc/gaNl50FZTPc+/v5T5EggLGEhNdFPtE7/vxeG9shjiSZIq1umBIMM
-         LkUlmiPtBYLkQ==
+        t=1589988896; bh=ozCrtgQAtWU4HPkS5sh+KznCmofBf7/HAS3/8Plzf1Y=;
+        h=Subject:From:To:References:Date:In-Reply-To;
+        b=oHAw9nQ4Iy6cqgvelG4t4Df+xncskhVjlke1kjf1biljn0RvMMKfpQvKc0P1I/efW
+         3GZsSTP5V/rO3wHWaTSK3eFXFcIy7xqs2imeCW2yzzoeKDKX8s+VnSeVeJuh15136n
+         BbYmPK/NMY+9gdeh6KGghRoeiDlXNgH9nQaDgFaUW+fbJw0XS1qx+mFNWT3iTnLKn0
+         OIk2Kd1ZkgUnPVlkyq3rTExEQMonXciU5JkEEdAQ3ohwsegvfkl0WOt9xnev1xGt3b
+         PdM2ORuYzUa8gMnxsAgUNEJHCFUHIQVRJpmLwoisSqBn3G1E3zUDO96UorjMn9IG7o
+         vNxTE3HAyztnA==
 X-Clacks-Overhead: "GNU Terry Pratchett"
 X-CM-Score: 0.00
-X-CNFS-Analysis: v=2.3 cv=G/eH7+s5 c=1 sm=1 tr=0
+X-CNFS-Analysis: v=2.3 cv=b/4pHuOx c=1 sm=1 tr=0
  a=T9WNts+jH3PhiGdS1gtV5Q==:117 a=T9WNts+jH3PhiGdS1gtV5Q==:17
- a=IkcTkHD0fZMA:10 a=pGLkceISAAAA:8 a=hgWT5SG7uF_KschTBVsA:9 a=QEXdDO2ut3YA:10
+ a=IkcTkHD0fZMA:10 a=pGLkceISAAAA:8 a=__Hyq5l-Wme8eTUUGhkA:9 a=QEXdDO2ut3YA:10
 X-AUTH: ramsayjones@:2500
-Subject: Re: [PATCH v1 25/28] bad-goto: check declaration of label expressions
+Subject: Re: [PATCH v1 01/28] misc: fix testcase typeof-safe
+From:   Ramsay Jones <ramsay@ramsayjones.plus.com>
 To:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>,
         linux-sparse@vger.kernel.org
-Cc:     Linus Torvalds <torvalds@linux-foundation.org>
 References: <20200519005728.84594-1-luc.vanoostenryck@gmail.com>
- <20200519005728.84594-26-luc.vanoostenryck@gmail.com>
-From:   Ramsay Jones <ramsay@ramsayjones.plus.com>
-Message-ID: <f75a85c4-c5c1-baab-7c8e-6bf14a925764@ramsayjones.plus.com>
-Date:   Wed, 20 May 2020 01:56:27 +0100
+ <20200519005728.84594-2-luc.vanoostenryck@gmail.com>
+ <422723ea-00aa-ee89-72aa-f4dddbd8da06@ramsayjones.plus.com>
+Message-ID: <2de08a4e-ce53-8694-da00-c2c90334da65@ramsayjones.plus.com>
+Date:   Wed, 20 May 2020 16:34:53 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.7.0
 MIME-Version: 1.0
-In-Reply-To: <20200519005728.84594-26-luc.vanoostenryck@gmail.com>
+In-Reply-To: <422723ea-00aa-ee89-72aa-f4dddbd8da06@ramsayjones.plus.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
-X-CMAE-Envelope: MS4wfMfTi2jA+Qze+t0/gj2mEhYddbaEYHWTLh1cj6RTBeP/Dpm2E3KxJ56pZlcIy+mJcA+rRXD7UBFxAM47cZCnM8uTpg8VmXwWABpJgWCw2FNZHxy9+KoO
- a5IhYiBg6J/d+wL7qAeGFHdBpFDHuLgiYg8Xc/DAEjyxNUdsbFTu1n2YkvNoGRc1XAl9ksmcv5eV6Q==
+Content-Transfer-Encoding: 8bit
+X-CMAE-Envelope: MS4wfNUWEug+G/un09oO/oapG8DygCwLzqceWFXhIoP+gncjOhzn/DStQCi3ebc6zyiSwyBD+tKe+A75kE6XC+3Mq1rafqgjW/0+xJ8Q/T3bE18oK/aJRv4f
+ +1vw0O4clxcwJ0Al+d5usslxXaT0VkhPOrLJoze6GnF67zCMjw51WyF83/mYpq87YFZIJWWgXCzXFA==
 Sender: linux-sparse-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
@@ -55,58 +56,93 @@ X-Mailing-List: linux-sparse@vger.kernel.org
 
 
 
-On 19/05/2020 01:57, Luc Van Oostenryck wrote:
-> Issue an error when taking the address of an undeclared label
-> and mark the mark the function as improper for linearization
+On 20/05/2020 01:33, Ramsay Jones wrote:
+> On 19/05/2020 01:57, Luc Van Oostenryck wrote:
+>> This testcase was marked as known-to-fail but it was
+>> simply the expected error messages that were missing.
+>>
+>> So, slightly reorganize the test a little bit, add the
+>> expected messages and remove the 'known-to-fail' tag.
+>>
+>> Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
+>> ---
+>>  validation/typeof-safe.c | 26 ++++++++++++++++++++------
+>>  1 file changed, 20 insertions(+), 6 deletions(-)
+>>
+>> diff --git a/validation/typeof-safe.c b/validation/typeof-safe.c
+>> index 614863fba381..508bd39204c5 100644
+>> --- a/validation/typeof-safe.c
+>> +++ b/validation/typeof-safe.c
+>> @@ -2,16 +2,24 @@
+>>  
+>>  static void test_safe(void)
+>>  {
+>> -	int __safe obj, *ptr;
+>> -	typeof(obj) var = obj;
+>> -	typeof(ptr) ptr2 = ptr;
+>> +	int obj;
+>> +	int __safe *ptr;
+>> +
+>> +	int __safe *ptr2 = ptr;
+>> +	typeof(ptr) ptr3 = ptr;
+>>  	typeof(*ptr) var2 = obj;
+>> -	typeof(*ptr) *ptr3 = ptr;
+>> -	typeof(obj) *ptr4 = ptr;
+>> +	int __safe  var3 = obj;
+>> +	int *ptr4 = &obj;
+>> +	int *ptr4 = ptr;		// KO
+> 
+> ptr4 declared twice - and sparse didn't complain?
 
-s/mark the mark the/mark the/
+Heh, I had a slightly different example in the test case
+for my '{0}' initializer patch (but involving different
+types as well).
+
+I had a quick look at this and tried to use 'git-bisect' to
+isolate the change which broke this. However, I couldn't find
+a version of sparse that worked correctly! :D (I went all the
+way back to v0.4.2 before giving up - several tagged releases
+didn't even compile without some fix-ups, including v0.4.2).
+
+Just FYI, this was my test-case:
+
+  $ cat -n test-dup-decl.c
+       1	#ifdef WORKS_OK
+       2	static int sobj;
+       3	static int *sptr4 = &sobj;
+       4	static int *sptr4 = 0;
+       5	#endif
+       6	
+       7	static void func(void)
+       8	{
+       9		int obj, *ptr;
+      10		int *ptr4 = &obj;
+      11		int *ptr4 = ptr;
+      12		int a;
+      13		float a;
+      14	}
+  $ 
+
+  $ gcc -c test-dup-decl.c
+  test-dup-decl.c: In function ‘func’:
+  test-dup-decl.c:11:7: error: redefinition of ‘ptr4’
+    int *ptr4 = ptr;
+         ^~~~
+  test-dup-decl.c:10:7: note: previous definition of ‘ptr4’ was here
+    int *ptr4 = &obj;
+         ^~~~
+  test-dup-decl.c:13:8: error: conflicting types for ‘a’
+    float a;
+          ^
+  test-dup-decl.c:12:6: note: previous declaration of ‘a’ was here
+    int a;
+        ^
+  $ 
+
+  $ ./sparse test-dup-decl.c
+  $ 
 
 ATB,
 Ramsay Jones
 
-> since the resulting IR would be invalid.
-> 
-> Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-> ---
->  evaluate.c                            | 1 +
->  validation/label-scope-cgoto.c        | 1 -
->  validation/linear/label-scope-cgoto.c | 1 -
->  3 files changed, 1 insertion(+), 2 deletions(-)
-> 
-> diff --git a/evaluate.c b/evaluate.c
-> index b272e3f642b2..63d75d9031d1 100644
-> --- a/evaluate.c
-> +++ b/evaluate.c
-> @@ -3344,6 +3344,7 @@ struct symbol *evaluate_expression(struct expression *expr)
->  
->  	case EXPR_LABEL:
->  		expr->ctype = &ptr_ctype;
-> +		check_label_declaration(expr->pos, expr->label_symbol);
->  		return &ptr_ctype;
->  
->  	case EXPR_TYPE:
-> diff --git a/validation/label-scope-cgoto.c b/validation/label-scope-cgoto.c
-> index c5d278d3d654..1edb9948d8cf 100644
-> --- a/validation/label-scope-cgoto.c
-> +++ b/validation/label-scope-cgoto.c
-> @@ -65,7 +65,6 @@ l:		 1;
->  /*
->   * check-name: label-scope-cgoto
->   * check-command: sparse -Wno-decl $file
-> - * check-known-to-fail
->   *
->   * check-error-start
->  label-scope-cgoto.c:12:19: error: label 'l' used outside statement expression
-> diff --git a/validation/linear/label-scope-cgoto.c b/validation/linear/label-scope-cgoto.c
-> index 592f1ce4f664..0eba05aea3c7 100644
-> --- a/validation/linear/label-scope-cgoto.c
-> +++ b/validation/linear/label-scope-cgoto.c
-> @@ -3,7 +3,6 @@
->  /*
->   * check-name: linear/label-scope-cgoto
->   * check-command: test-linearize -Wno-decl -I. $file
-> - * check-known-to-fail
->   *
->   * check-error-ignore
->   * check-output-ignore
-> 
+
