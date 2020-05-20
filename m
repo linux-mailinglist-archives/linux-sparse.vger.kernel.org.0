@@ -2,114 +2,112 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 9810F1DA6AE
-	for <lists+linux-sparse@lfdr.de>; Wed, 20 May 2020 02:37:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id B350A1DA6B7
+	for <lists+linux-sparse@lfdr.de>; Wed, 20 May 2020 02:41:55 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726432AbgETAhG (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Tue, 19 May 2020 20:37:06 -0400
-Received: from avasout02.plus.net ([212.159.14.17]:60705 "EHLO
-        avasout02.plus.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726178AbgETAhG (ORCPT
+        id S1726348AbgETAlz (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Tue, 19 May 2020 20:41:55 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:40110 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1726178AbgETAly (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Tue, 19 May 2020 20:37:06 -0400
-Received: from [10.0.2.15] ([217.32.115.138])
-        by smtp with ESMTPA
-        id bCjIjxVjUU8CkbCjJjjRzL; Wed, 20 May 2020 01:37:05 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=plus.com; s=042019;
-        t=1589935025; bh=eV/OGpEityrxFkjtQJaY2H65Rb4VictGD8lx+jXSBfw=;
-        h=Subject:To:Cc:References:From:Date:In-Reply-To;
-        b=bfYl8LbeTPypEWVVidjCMj+40fdlu/NEM02i+uPX2rT7FW47UwgU4iiFYCRHoBjg/
-         H+bpfdsgIapacYwVE09sxV3CaVhz//BC64Qg0dY5OLvyIIEIb0w0BaAgoJo4RUT+7t
-         Gdipm3s+t9/tys7d0ux5HWam3FiMtG41YWzLmMOc2d06eQ8XrDJa3AiuwzeQ51PjQe
-         6cjx1445LatiDqTiGl1W9aRYnK6T6vzQFIJsrIEdTzmLGNA1L3t8XOqCcPZgiIjj7v
-         qvdj9YKX7ZVBkMu9R/u1cG9DKUpgThfhBsm6vlxFvR84uMC4+UUvr8Z2HOKFuk6CU7
-         +P9uVVa38/HqA==
-X-Clacks-Overhead: "GNU Terry Pratchett"
-X-CM-Score: 0.00
-X-CNFS-Analysis: v=2.3 cv=G/eH7+s5 c=1 sm=1 tr=0
- a=T9WNts+jH3PhiGdS1gtV5Q==:117 a=T9WNts+jH3PhiGdS1gtV5Q==:17
- a=IkcTkHD0fZMA:10 a=pGLkceISAAAA:8 a=33cvvYJdE7E_9u47BhcA:9 a=QEXdDO2ut3YA:10
-X-AUTH: ramsayjones@:2500
-Subject: Re: [PATCH v1 03/28] misc: always use the node for current_fn
-To:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>,
-        linux-sparse@vger.kernel.org
-Cc:     Linus Torvalds <torvalds@linux-foundation.org>
-References: <20200519005728.84594-1-luc.vanoostenryck@gmail.com>
- <20200519005728.84594-4-luc.vanoostenryck@gmail.com>
-From:   Ramsay Jones <ramsay@ramsayjones.plus.com>
-Message-ID: <0883c784-5ad0-e536-239e-6ed086cf624d@ramsayjones.plus.com>
-Date:   Wed, 20 May 2020 01:37:03 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
+        Tue, 19 May 2020 20:41:54 -0400
+Received: from mail-pj1-x1041.google.com (mail-pj1-x1041.google.com [IPv6:2607:f8b0:4864:20::1041])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id A6DDAC061A0E
+        for <linux-sparse@vger.kernel.org>; Tue, 19 May 2020 17:41:54 -0700 (PDT)
+Received: by mail-pj1-x1041.google.com with SMTP id nu7so464190pjb.0
+        for <linux-sparse@vger.kernel.org>; Tue, 19 May 2020 17:41:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=date:from:to:cc:subject:message-id:references:mime-version
+         :content-disposition:in-reply-to;
+        bh=uH0QnXvEu7EJo54/lh8u+7dzn0Xtqr4VIWNf0xry5nU=;
+        b=Eg/MjFwMPxR/0ttgJWNN9UhJ89dr/nL0/kcpkNvasU5R3rQrADHTZthJfu/ZlO0TuE
+         pIyRruPxCHaTCmaAFJfFjkzX4ryoYQRDRe3HoV3SXmAxTQK3V/ToFYYJ9MTIqB0ha7wE
+         NW5vRsEUp/sdQg71pbiwqc/gsHrEFXe7c8mQ8fDNvaUP1wBBURVQ3hk7btYBdutgstSL
+         VCSrIIbPGft+q+TlULxgkfgrKrZbQ5Jz/EyyuVjrfA6rGVnJ5mmIa4qneU71+CnkY5+L
+         OZW9brdB0vO22XtVW2v+UlzQAlPjbpdAkBZfYJHZ/fpv6ckrunT3q2NC7a7rJKXE4y10
+         B64Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+         :mime-version:content-disposition:in-reply-to;
+        bh=uH0QnXvEu7EJo54/lh8u+7dzn0Xtqr4VIWNf0xry5nU=;
+        b=VUw+is2xVbo0MbtiGXSRT8Ftgs61Hl2BmxoMCIxFx9y0hl7nAtY4vOpooiZAT0PDiy
+         WtolzzC6cgFTC0DAXR4tqkyg/BWGjCQ8/DyVhcGKqErdyXPjOL4r8FUlZS1+vUoLB3v2
+         IGek2P+Ldifgf5a0MVNyaBWb96QerhzW2xOkl2G0M0IVOKrCtvZp9SEQpkuUUA8xV9pr
+         1+tovFpWhViBq2h1x7B1FUygC+fLKlvFXLzgnc7lrXttn4SUrgadI9NnQ7ZDMoWml5nc
+         Ac51XYhVDbu/AMVRS40WxYmLZfcREjlapwzR0XM8Sj5vaPLIIiIQ2itkbb3NsynzE4K9
+         A8+A==
+X-Gm-Message-State: AOAM532IXboUKPw0WPFg6KKt+dhg5wyebMU7mXepGn1mKVkTXisc/IgO
+        ibrBT8ZsORS24m4xdlh4vrgkAx1K
+X-Google-Smtp-Source: ABdhPJzVg0gRxlqlmCKV7S4/8rmXl7wsAbWjruGCUMURdDEEgW5BEFtwfe9JSlc/8TeplymM1holQw==
+X-Received: by 2002:a17:90b:1101:: with SMTP id gi1mr2393368pjb.117.1589935314162;
+        Tue, 19 May 2020 17:41:54 -0700 (PDT)
+Received: from localhost ([2402:800:6374:cedc:d509:3e82:1f34:e3c4])
+        by smtp.gmail.com with ESMTPSA id m9sm484346pgd.1.2020.05.19.17.41.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 19 May 2020 17:41:53 -0700 (PDT)
+Date:   Wed, 20 May 2020 07:41:51 +0700
+From:   =?utf-8?B?xJBvw6BuIFRy4bqnbiBDw7RuZw==?= Danh 
+        <congdanhqx@gmail.com>
+To:     Ramsay Jones <ramsay@ramsayjones.plus.com>
+Cc:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>,
+        linux-sparse@vger.kernel.org, Junio C Hamano <gitster@pobox.com>
+Subject: Re: [SPARSE PATCH] univ-init: conditionally accept { 0 } without
+ warnings
+Message-ID: <20200520004151.GB12509@danh.dev>
+References: <20200518235446.84256-1-luc.vanoostenryck@gmail.com>
+ <2fcda487-733b-8ed1-e1f4-6c6204a68569@ramsayjones.plus.com>
 MIME-Version: 1.0
-In-Reply-To: <20200519005728.84594-4-luc.vanoostenryck@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
-X-CMAE-Envelope: MS4wfFibggz241SWHsIKH9sRLkSENtW8/c/CppFvrTphav91/OPpTjo3BkiMmCR8YAbB0ABQzixy9lealrI0Umm4FaGBikbiBDYgb2xTat3hwWzNg2QdDC/6
- Q1gd5yWeBN80PT90WzDKxvOZxVLQisWEvkbXOskccR/+7iSX7d6F4JW8xs2Q2S7W89gSNZa/TeFZ2A==
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <2fcda487-733b-8ed1-e1f4-6c6204a68569@ramsayjones.plus.com>
 Sender: linux-sparse-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
+Hi Luc,
+
+On 2020-05-20 01:22:22+0100, Ramsay Jones <ramsay@ramsayjones.plus.com> wrote:
+> > In standard C '{ 0 }' is valid to initialize any compound object.
+> > OTOH, Sparse allows '{ }' for the same purpose but:
+> > 1) '{ }' is not standard
+> > 2) Sparse warns when using '0' to initialize pointers.
+> > 
+> > Some projects (git) legitimately like to be able to use the
+> > standard '{ 0 }' without the null-pointer warnings
+> > 
+> > So, add a new warning flag (-Wno-universal-initializer) to
+> > handle '{ 0 }' as '{ }', suppressing the warnings.
+> 
+> Hmm, I didn't think this would use a warning flag at all!
+> 
+> I remember the discussion (on lkml and sparse ml) in which
+> there was general agreement that '{}' would be preferred
+> solution (if only it was standard C!). However, I thought
+> that (since some compilers don't support it e.g. msvc) the
+> next best solution would be for sparse to suppress the
+> warning if given the '= { 0 }' token sequence. (ie. no mention
+> of it being conditional on a option).
+
+I'm also in the camp of favouring no -W at all.
+But, have another -W is fine to me.
+
+> > Suggestions for a better name than this -W[no-]universal-initializer
+> > are warmly welcome.
+> 
+> Heh, you know that I am no good at naming things - but this may well
+> give the impression of a C++ like 'int i{}' type initializer!
+
+From this discussion in GCC's BugZilla [1], I think compiler people
+tend to call that style as zero-initialization, or universal zero
+initialization.
+
+[1]: https://gcc.gnu.org/bugzilla/show_bug.cgi?id=53119#c12
 
 
-On 19/05/2020 01:57, Luc Van Oostenryck wrote:
-> At evaluation time and at expansion time, current_fn is set
-> to the function's base type (SYM_FN) but at parse time it's
-> set to its parent type (SYM_NODE).
-> 
-> Since current_fn is used to access the corresponding ident,
-> it should be set to the node type, not the base.
-> 
-> So, always set current_fn to the node type.
-> 
-> Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-> ---
->  evaluate.c | 4 ++--
->  expand.c   | 2 +-
->  2 files changed, 3 insertions(+), 3 deletions(-)
-> 
-> diff --git a/evaluate.c b/evaluate.c
-> index 54cd5fa136e6..c18ae81df5ad 100644
-> --- a/evaluate.c
-> +++ b/evaluate.c
-> @@ -3422,7 +3422,7 @@ static struct symbol *evaluate_symbol(struct symbol *sym)
->  		if (sym->definition && sym->definition != sym)
->  			return evaluate_symbol(sym->definition);
->  
-> -		current_fn = base_type;
-> +		current_fn = sym;
->  
->  		examine_fn_arguments(base_type);
->  		if (!base_type->stmt && base_type->inline_stmt)
-> @@ -3453,7 +3453,7 @@ static struct symbol *evaluate_return_expression(struct statement *stmt)
->  	struct symbol *fntype, *rettype;
->  
->  	evaluate_expression(expr);
-> -	fntype = current_fn;
-> +	fntype = current_fn->ctype.base_type;
 
-Ah, OK, question answered!
-
-ATB,
-Ramsay Jones
-
->  	rettype = fntype->ctype.base_type;
->  	if (!rettype || rettype == &void_ctype) {
->  		if (expr && expr->ctype != &void_ctype)
-> diff --git a/expand.c b/expand.c
-> index e75598781b6c..ab296c730efd 100644
-> --- a/expand.c
-> +++ b/expand.c
-> @@ -918,7 +918,7 @@ static int expand_symbol_call(struct expression *expr, int cost)
->  			struct symbol *fn = def->ctype.base_type;
->  			struct symbol *curr = current_fn;
->  
-> -			current_fn = fn;
-> +			current_fn = def;
->  			evaluate_statement(expr->statement);
->  			current_fn = curr;
->  
-> 
+-- 
+Danh
