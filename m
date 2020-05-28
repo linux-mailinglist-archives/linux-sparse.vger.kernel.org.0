@@ -2,55 +2,146 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 0CA381E4355
-	for <lists+linux-sparse@lfdr.de>; Wed, 27 May 2020 15:18:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id CD7691E5A00
+	for <lists+linux-sparse@lfdr.de>; Thu, 28 May 2020 09:59:17 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1730235AbgE0NSn (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Wed, 27 May 2020 09:18:43 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:33346 "EHLO
+        id S1726861AbgE1H7J (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Thu, 28 May 2020 03:59:09 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:37834 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1725267AbgE0NSn (ORCPT
+        with ESMTP id S1726774AbgE1H7I (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Wed, 27 May 2020 09:18:43 -0400
-X-Greylist: delayed 131 seconds by postgrey-1.37 at lindbergh.monkeyblade.net; Wed, 27 May 2020 06:18:42 PDT
-Received: from msa13.plala.or.jp (msa13.plala.or.jp [IPv6:2400:7800:0:502e::13])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTP id 47A32C08C5C1
-        for <linux-sparse@vger.kernel.org>; Wed, 27 May 2020 06:18:42 -0700 (PDT)
-Received: from mwebp13 ([172.23.13.133]) by msa11.plala.or.jp with ESMTP
-          id <20200527130828.KRSY32305.msa11.plala.or.jp@mwebp13>;
-          Wed, 27 May 2020 22:08:28 +0900
-Date:   Wed, 27 May 2020 22:08:28 +0900
-From:   "Mrs.Judith Rice" <hamurafujimi@tmail.plala.or.jp>
-Reply-To: jonesevansje@gmail.com
-Message-ID: <20200527220828.CT7ZD.794.root@mwebp13>
-Subject: Spende
+        Thu, 28 May 2020 03:59:08 -0400
+Received: from mail-wm1-x341.google.com (mail-wm1-x341.google.com [IPv6:2a00:1450:4864:20::341])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 26D8DC05BD1E
+        for <linux-sparse@vger.kernel.org>; Thu, 28 May 2020 00:59:08 -0700 (PDT)
+Received: by mail-wm1-x341.google.com with SMTP id j198so3914971wmj.0
+        for <linux-sparse@vger.kernel.org>; Thu, 28 May 2020 00:59:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20161025;
+        h=date:from:to:cc:subject:message-id:references:mime-version
+         :content-disposition:content-transfer-encoding:in-reply-to
+         :user-agent;
+        bh=/k5PRZqrTr/okP/ue5AUSy+6fHt8kWqrhC3KChUGYlE=;
+        b=f06X9bMILNGRerqSPyRUBylhnUHAyyk+VuMHZxYr8BmHOkV+aOhGS6lYLatqUsg+FJ
+         WzjMl+sMuJI1Ujrzqb7qyecJzbgkPUhnMiF/L7hBH7q7OTRT8FUNnWdprgqB0UjHHGZB
+         vt8agbDswCGjrwcKoQ2ljNeDVpcm0ungs40XB6jhy1imuPjrQwd+sNa8vvCONPO/Ebin
+         2N0PRzBff5aOD/2LydaK2zdYgRfbUjU7zNeel6H7CNfIjuNS50fUpSfdaNgfc4tJHZwE
+         trBjlHiEgpJJIqKjaWgaxrRBklrYlozg05PtTAxG6wNyEst0R2oMn1mP4a5E/ZkTFw1s
+         Yc3Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+         :mime-version:content-disposition:content-transfer-encoding
+         :in-reply-to:user-agent;
+        bh=/k5PRZqrTr/okP/ue5AUSy+6fHt8kWqrhC3KChUGYlE=;
+        b=KpnzMQfzufutZJ5DuGSOFMwt2ClsFxQ7Jlz5hWNCez2rT4ISl9DaXH93dcbez9KkC2
+         Vsa/g3vr23zx/kg24/UVvUPd1ovuSL4PXuhsMa7D/8kfTiIuszWfptBBJOLsDpRTuGZI
+         +8jm8BlkMA9lmtomLSGcxBXNMe8r+T7Gnk2UB05vQhs0FC7ugeVpicFi8ORSGx5djV5X
+         i5DtZZQka0hmsnaxtWGr0rZiWYvkmxqpYVhGDEaSC3YSX3FdOuRcEIIgokjoL4k8eTpj
+         r5uI8nr79VoiLUHxSCl3FVRU+mDy9AJXh1ibM8wCMepwWShbBfhwOMM2jchJ3b9b0VKO
+         B/xg==
+X-Gm-Message-State: AOAM531wlp4QvGHFaEu5g91+WqBVn7ZC/xwLxY3X/AX7PJ3PBY0hh+aw
+        dRKEUtsuCcMMLuC92x6rFEuxWA==
+X-Google-Smtp-Source: ABdhPJz8hbY7QI6ZmAP07xr1w3ABtn59eI5lHeeg/9O0ZaDlaJSV/s26Z5yge3qDhTRGa+y8nI6ePg==
+X-Received: by 2002:a1c:810a:: with SMTP id c10mr2106423wmd.107.1590652746531;
+        Thu, 28 May 2020 00:59:06 -0700 (PDT)
+Received: from google.com ([100.105.32.75])
+        by smtp.gmail.com with ESMTPSA id d13sm5375172wmb.39.2020.05.28.00.59.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 28 May 2020 00:59:05 -0700 (PDT)
+Date:   Thu, 28 May 2020 09:59:00 +0200
+From:   Marco Elver <elver@google.com>
+To:     Borislav Petkov <bp@suse.de>
+Cc:     kbuild test robot <lkp@intel.com>, kbuild-all@lists.01.org,
+        linux-kernel@vger.kernel.org, x86@kernel.org,
+        linux-sparse@vger.kernel.org, luc.vanoostenryck@gmail.com,
+        arnd@arndb.de, will@kernel.org
+Subject: Re: [tip:locking/kcsan 12/12] /bin/bash: line 1: 61526 Segmentation
+ fault  sparse ...
+Message-ID: <20200528075900.GA236442@google.com>
+References: <202005280727.lXn1VnTw%lkp@intel.com>
+ <20200527235442.GC1805@zn.tnic>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-2022-jp
-Content-Transfer-Encoding: 7bit
-X-Priority: 3 (Normal)
-Sensitivity: Normal
-X-VirusScan: Outbound; mvir-ac11; Wed, 27 May 2020 22:08:28 +0900
-To:     unlisted-recipients:; (no To-header on input)
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20200527235442.GC1805@zn.tnic>
+User-Agent: Mutt/1.13.2 (2019-12-18)
 Sender: linux-sparse-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-Attn:
+On Thu, 28 May 2020, Borislav Petkov wrote:
 
-Es tut uns leid, dass wir Sie aufgrund eines Mismanagent of Beneficaries-Fonds von unseren ernannten Zonal Managern versp&#228;tet kontaktiert haben. Bitte beachten Sie, dass Sie qualifiziert sind, die Zahlung von 900.000,00 USD an der ATM-Karte mit neunhunderttausend Dollar zu erhalten.
+> On Thu, May 28, 2020 at 07:39:31AM +0800, kbuild test robot wrote:
+> > tree:   https://git.kernel.org/pub/scm/linux/kernel/git/tip/tip.git loc=
+king/kcsan
+> > head:   a5dead405f6be1fb80555bdcb77c406bf133fdc8
+> > commit: a5dead405f6be1fb80555bdcb77c406bf133fdc8 [12/12] compiler_types=
+=2Eh: Optimize __unqual_scalar_typeof compilation time
+> > config: i386-randconfig-s002-20200527 (attached as .config)
+> > compiler: gcc-9 (Debian 9.3.0-13) 9.3.0
+> > reproduce:
+> >         # apt-get install sparse
+> >         # sparse version: v0.6.1-240-gf0fe1cd9-dirty
+> >         git checkout a5dead405f6be1fb80555bdcb77c406bf133fdc8
+> >         # save the attached .config to linux build tree
+> >         make W=3D1 C=3D1 ARCH=3Di386 CF=3D'-fdiagnostic-prefix -D__CHEC=
+K_ENDIAN__'
+> >=20
+> > If you fix the issue, kindly add following tag as appropriate
+> > Reported-by: kbuild test robot <lkp@intel.com>
+> >=20
+> > All errors (new ones prefixed by >>, old ones prefixed by <<):
+>=20
+> I'll say.
+>=20
+> Looking at the subject, that broke the 0day bot too. :-)
+>=20
+> /me trims it.
+>=20
+> Looks like we need __CHECKER__ ifdeffery somewhere but it is too late
+> for me to think straight so tomorrow...
 
-Als Entsch&#228;digung von WORLD BANK / IWF (Internationaler W&#228;hrungsfonds) f&#252;r die automatisch &#252;ber einen E-Mail-Wahlautomaten gezogenen, die in der Vergangenheit noch nicht abgeschlossene Transaktionen hatten.
+Ouch. The below should be all we need, assuming it's the best we can do
+for sparse right now.
 
-F&#252;r weitere Informationen kontaktieren Sie bitte Rev.EVANS JONES ( jonesevansje@gmail.com )
+Thanks,
+-- Marco
 
-Bitte senden Sie ihm Ihre pers&#246;nlichen Daten wie:
+------ >8 ------
 
-Vollst&#228;ndiger Name:
-Wohnanschrift:
-Telefonnummer:
-Herkunftsland:
+=46rom: Marco Elver <elver@google.com>
+Date: Thu, 28 May 2020 09:43:13 +0200
+Subject: [PATCH] compiler_types.h: Use unoptimized __unqual_scalar_typeof f=
+or
+ sparse
 
-Gr&#252;&#223;e,
-Mrs. Judith Rice
+If the file is being checked with sparse, use the unoptimized version of
+__unqual_scalar_typeof(), since sparse does not support _Generic.
+
+Reported-by: kbuild test robot <lkp@intel.com>
+Signed-off-by: Marco Elver <elver@google.com>
+---
+ include/linux/compiler_types.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/include/linux/compiler_types.h b/include/linux/compiler_types.h
+index a529fa263906..c1ee20812a8c 100644
+--- a/include/linux/compiler_types.h
++++ b/include/linux/compiler_types.h
+@@ -246,7 +246,7 @@ struct ftrace_likely_data {
+  * __unqual_scalar_typeof(x) - Declare an unqualified scalar type, leaving
+  *			       non-scalar types unchanged.
+  */
+-#if defined(CONFIG_CC_IS_GCC) && CONFIG_GCC_VERSION < 40900
++#if (defined(CONFIG_CC_IS_GCC) && CONFIG_GCC_VERSION < 40900) || defined(_=
+_CHECKER__)
+ /*
+  * We build this out of a couple of helper macros in a vain attempt to
+  * help you keep your lunch down while reading it.
+--=20
+2.27.0.rc0.183.gde8f92d652-goog
 
