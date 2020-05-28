@@ -2,71 +2,45 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 0FEFF1E6EDA
-	for <lists+linux-sparse@lfdr.de>; Fri, 29 May 2020 00:26:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 2E34F1E6F25
+	for <lists+linux-sparse@lfdr.de>; Fri, 29 May 2020 00:34:18 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S2437062AbgE1W0O convert rfc822-to-8bit (ORCPT
-        <rfc822;lists+linux-sparse@lfdr.de>); Thu, 28 May 2020 18:26:14 -0400
-Received: from mail.kernel.org ([198.145.29.99]:32780 "EHLO mail.kernel.org"
-        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S2437074AbgE1W0G (ORCPT <rfc822;linux-sparse@vger.kernel.org>);
-        Thu, 28 May 2020 18:26:06 -0400
-From:   bugzilla-daemon@bugzilla.kernel.org
-Authentication-Results: mail.kernel.org; dkim=permerror (bad message/signature format)
-To:     linux-sparse@vger.kernel.org
-Subject: [Bug 207959] Don't warn about the universal zero initializer for a
- structure with the 'designated_init' attribute.
-Date:   Thu, 28 May 2020 22:26:01 +0000
-X-Bugzilla-Reason: None
-X-Bugzilla-Type: changed
-X-Bugzilla-Watch-Reason: AssignedTo tools_sparse@kernel-bugs.kernel.org
-X-Bugzilla-Product: Tools
-X-Bugzilla-Component: Sparse
-X-Bugzilla-Version: unspecified
-X-Bugzilla-Keywords: 
-X-Bugzilla-Severity: enhancement
-X-Bugzilla-Who: torvalds@linux-foundation.org
-X-Bugzilla-Status: NEW
-X-Bugzilla-Resolution: 
-X-Bugzilla-Priority: P1
-X-Bugzilla-Assigned-To: tools_sparse@kernel-bugs.kernel.org
-X-Bugzilla-Flags: 
-X-Bugzilla-Changed-Fields: 
-Message-ID: <bug-207959-200559-Of344ruqqL@https.bugzilla.kernel.org/>
-In-Reply-To: <bug-207959-200559@https.bugzilla.kernel.org/>
-References: <bug-207959-200559@https.bugzilla.kernel.org/>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8BIT
-X-Bugzilla-URL: https://bugzilla.kernel.org/
-Auto-Submitted: auto-generated
+        id S2437227AbgE1WeJ convert rfc822-to-8bit (ORCPT
+        <rfc822;lists+linux-sparse@lfdr.de>); Thu, 28 May 2020 18:34:09 -0400
+Received: from mail.bnv.gob.ve ([201.249.200.115]:35496 "EHLO
+        correo.bnv.gob.ve" rhost-flags-OK-OK-OK-FAIL) by vger.kernel.org
+        with ESMTP id S2437219AbgE1WeG (ORCPT
+        <rfc822;linux-sparse@vger.kernel.org>);
+        Thu, 28 May 2020 18:34:06 -0400
+Received: from localhost (localhost.bnv.gob.ve [127.0.0.1])
+        by correo.bnv.gob.ve (Postfix) with ESMTP id 78E8238E1634;
+        Thu, 28 May 2020 13:47:14 -0400 (-04)
+Received: from correo.bnv.gob.ve ([127.0.0.1])
+        by localhost (correo.bnv.gob.ve [127.0.0.1]) (amavisd-new, port 10032)
+        with ESMTP id U6dsUst17YfV; Thu, 28 May 2020 13:47:14 -0400 (-04)
+Received: from localhost (localhost.bnv.gob.ve [127.0.0.1])
+        by correo.bnv.gob.ve (Postfix) with ESMTP id 5BCEE38E28A5;
+        Thu, 28 May 2020 12:46:30 -0400 (-04)
+X-Virus-Scanned: amavisd-new at bnv.gob.ve
+Received: from correo.bnv.gob.ve ([127.0.0.1])
+        by localhost (correo.bnv.gob.ve [127.0.0.1]) (amavisd-new, port 10026)
+        with ESMTP id SmZQlhpTHqkc; Thu, 28 May 2020 12:46:30 -0400 (-04)
+Received: from [10.19.23.127] (unknown [105.0.4.230])
+        by correo.bnv.gob.ve (Postfix) with ESMTPSA id 5582238E0A19;
+        Thu, 28 May 2020 12:30:06 -0400 (-04)
+Content-Type: text/plain; charset="iso-8859-1"
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8BIT
+Content-Description: Mail message body
+Subject: Spende von 2.000.000,00 Euro
+To:     Recipients <manuel@info.com>
+From:   "manuel franco" <manuel@info.com>
+Date:   Thu, 28 May 2020 18:29:55 +0200
+Reply-To: manuelfrancospende11@gmail.com
+Message-Id: <20200528163007.5582238E0A19@correo.bnv.gob.ve>
 Sender: linux-sparse-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-https://bugzilla.kernel.org/show_bug.cgi?id=207959
-
---- Comment #4 from Linus Torvalds (torvalds@linux-foundation.org) ---
-On Thu, May 28, 2020 at 2:24 PM <bugzilla-daemon@bugzilla.kernel.org> wrote:
->
-> Well, that's really the point.
-> The problem Sparse also gives the warnings corresponding to clang's -Wnonnull
-> and my understanding is that these warnings are desired for the kernel even
-> when coming from using '{ 0 }'.
-
-In the kernel, the empty initializer is be the usual way to create a
-zero initializer. So yes, { 0 } may exist, but it generally should be
-used for initializing something that is known to be an integer. And if
-it's a pointer, it should warn, because '0' should never have been a
-valid pointer, traditional C or not.
-
-It's not like we use pedantic and portable standard C to begin with.
-
-So yeah, the sparse defaults may be a bit kernel-centric.
-
-             Linus
-
--- 
-You are receiving this mail because:
-You are watching the assignee of the bug.
+Ich bin Manuel Franco, ich spende Ihnen 2.000.000,00 Euro. Nehmen Sie jetzt Kontakt mit mir auf, damit wir fortfahren können.
