@@ -2,100 +2,80 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 897321E9262
-	for <lists+linux-sparse@lfdr.de>; Sat, 30 May 2020 17:49:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 7118D1E92F1
+	for <lists+linux-sparse@lfdr.de>; Sat, 30 May 2020 19:51:42 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1729063AbgE3Ptw (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Sat, 30 May 2020 11:49:52 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:51330 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1728927AbgE3Ptv (ORCPT
+        id S1728927AbgE3Rvl (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Sat, 30 May 2020 13:51:41 -0400
+Received: from avasout06.plus.net ([212.159.14.18]:34876 "EHLO
+        avasout06.plus.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1725808AbgE3Rvl (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Sat, 30 May 2020 11:49:51 -0400
-Received: from mail-ed1-x543.google.com (mail-ed1-x543.google.com [IPv6:2a00:1450:4864:20::543])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 86612C03E969
-        for <linux-sparse@vger.kernel.org>; Sat, 30 May 2020 08:49:51 -0700 (PDT)
-Received: by mail-ed1-x543.google.com with SMTP id g9so4012771edw.10
-        for <linux-sparse@vger.kernel.org>; Sat, 30 May 2020 08:49:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=2mKdorzHdg1zfAzwiPQJ7Wg5NC+xM/HsolBkJYeGg4Y=;
-        b=hCogE2j5KzQyE5AaC0DfElFtp9ySfy+DDPl97t/FG8ub09tPSGm9NHjJk4X7dy8d7J
-         rckiTYy3xUzJkgj02crqoDaWjdYBiuvRievb7C670fMyrTT95AqQeDHzH4rACQcokml5
-         PtgoKu+xplm29Q7isq2uMZxp0Naz0xPbGOCUKtcX0blPX0vtLIOsUVblenjs+nxpEcGT
-         lEuewxiXRSXHpkVULhNV0KUHKj5QBv5cmhsyAngBorJBaTXMAgmWZt8bdrjUUa06+l9s
-         Xa+uGVgjU4cRrRsCyvQeiyW7PVJOS7FRu0DrIIjf9y6UnwTTQopxcjd5wEO4bDoXR2Th
-         WT7Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=2mKdorzHdg1zfAzwiPQJ7Wg5NC+xM/HsolBkJYeGg4Y=;
-        b=afbZOKBg+Kg3K7ixwMXC7ZHJm60b+VorVUzz78rBFNYDG/bqWwTUqkcpQUR/coUff6
-         DDVWZrsFVk6xEQ9o1ecGb6GcnUpF72MV5AEPWWeVdo6RoDZl8TJo9R9c3eEk3Lpvwe5S
-         mfJ27JrEsP6NtQapTWq58PkkNa/scGOZHmFZ5WQadGvgKeE2oTzqK2Jai5Pv90sS1bu0
-         bRg6Vw9ZLHq9aaKKwM5/nNlgt8YttGblh+fUUFBV8oZHGrPNSVA9T1VVu09wdSvOe0gW
-         KW6eaP3nBfzt8inpx05tQ1PRSugSQ6zdWjsw9mA+NSs5k+Ehlqe3mw4zjEjeTgmMVuKT
-         b5Bw==
-X-Gm-Message-State: AOAM532Q84OeetsG+lR3NIWFCrIXBS5OTsyTnXn23JqdOAK4iiLwH6uB
-        9wxFFRagc3j9dPz8VU4Nfi/+RIf7
-X-Google-Smtp-Source: ABdhPJwQBa04mtAEejebNOjIqgr5k3QcGV9QKnJOe9e77RXVFSRCEh5C5Vp7/U6sA/YvspcW5CIn6g==
-X-Received: by 2002:a05:6402:1604:: with SMTP id f4mr3206848edv.379.1590853790043;
-        Sat, 30 May 2020 08:49:50 -0700 (PDT)
-Received: from localhost.localdomain ([2a02:a03f:b7f9:7600:d1bf:eddd:8052:1a96])
-        by smtp.gmail.com with ESMTPSA id b21sm10347670edt.15.2020.05.30.08.49.48
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 30 May 2020 08:49:48 -0700 (PDT)
-From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-To:     linux-sparse@vger.kernel.org
-Cc:     Asher Gordon <AsDaGo@posteo.net>,
-        Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-Subject: [PATCH] univ-init: set default to -Wno-universal-initializer
-Date:   Sat, 30 May 2020 17:49:45 +0200
-Message-Id: <20200530154945.44985-1-luc.vanoostenryck@gmail.com>
-X-Mailer: git-send-email 2.26.2
+        Sat, 30 May 2020 13:51:41 -0400
+Received: from [10.0.2.15] ([217.32.115.138])
+        by smtp with ESMTPA
+        id f5dyjsK9jkvt5f5dzjMYD1; Sat, 30 May 2020 18:51:39 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=plus.com; s=042019;
+        t=1590861099; bh=sfTN8x5+cZtVMo5PaWrw/FBtsbshScwGJJVxbk28c6o=;
+        h=To:Cc:From:Subject:Date;
+        b=GSUUzwafqx8/Gq8Y5CNlaouChKd/CpGmAi7TqtjC0cXwYPMsGRXZY8zMBR5dyhgdL
+         rQTw42ooneHNWw0w7fzUznzrzivi0jIaIyCkOKeO7jo3p33JF77f3jUP89ny4hcmEb
+         0tZ2UnCD5o5ytn0wUZzggWOMpCc6en5CdzauXjzdkt3+CyeP/x1SFHW7NMdTDvMihh
+         7oIFkkzESSS2KjvG5C2FFKt2CLVnhS/24iO5PPxaRkysMkA/+UPO7ydiFx9uArt1RU
+         /KEGLxsTYUcAs+daIhu68ZqkKfRrMGFxJ/t+jJJHVX0PjT2mRZnEmdwIOzRIFV1FGe
+         On4PXh18dArxw==
+X-Clacks-Overhead: "GNU Terry Pratchett"
+X-CM-Score: 0.00
+X-CNFS-Analysis: v=2.3 cv=ENCdL2RC c=1 sm=1 tr=0
+ a=T9WNts+jH3PhiGdS1gtV5Q==:117 a=T9WNts+jH3PhiGdS1gtV5Q==:17
+ a=IkcTkHD0fZMA:10 a=EBOSESyhAAAA:8 a=xx88a3B_w9vGXJkaf-YA:9
+ a=7Zwj6sZBwVKJAoWSPKxL6X1jA+E=:19 a=QEXdDO2ut3YA:10 a=yJM6EZoI5SlJf8ks9Ge_:22
+X-AUTH: ramsayjones@:2500
+To:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
+Cc:     Sparse Mailing-list <linux-sparse@vger.kernel.org>
+From:   Ramsay Jones <ramsay@ramsayjones.plus.com>
+Subject: [PATCH] evaluate: mark evaluate_generic_selection() as static
+Message-ID: <37ef319f-ed1e-071d-ff4b-cb3a997fbf65@ramsayjones.plus.com>
+Date:   Sat, 30 May 2020 18:51:38 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.7.0
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
+X-CMAE-Envelope: MS4wfFS12czxvzOKIbyoSwuhKjhvD1dpl5Up5tptRYLjs6HQa2m2PXhPJFegIMBWeFyu2+EJuGwQf0Zoq8G7ykpGBrd7Pj9t6JVj5kQAhBv0qZM6lj/bsy3l
+ pi3zSYQr6yGb4T1ekF42w15ahRuOr4G6/MLoVAdqVWL2/VmWqOcYgLsDmRU/jz04ZjLfcfP7GI5+NA==
 Sender: linux-sparse-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-'{ 0 }' is the standard idiom for the universal zero initializer '{ }'.
 
-But if the '0' is taken literally, warnings can be issued, for exemple
-for 'using 0 as NULL pointer' or for 'using a positional initializer'
-when the attribute 'designated_init' is used.
-These warnings were not intended to be issued for this initializer
-and are confusing and annoying when people have to use or want to
-use standard code or ignore that '{ }' is fine to use with GCC,
-clang or Sparse.
+Commit c100a7ab (add support for _Generic, 2020-05-28) added the
+function evaluate_generic_selection() as an external symbol, without
+providing an external declaration in a header file. This causes
+sparse to issue a warning as part of the 'selfcheck' target.
 
-So, set sparse default to -Wno-universal-initializer, suppressing
-any warnings caused by using '{ 0 }' instead of '{ }'.
+Since this function does not (currently) need to be an external symbol,
+mark it as static.
 
-Reference: https://lore.kernel.org/git/e6796c60-a870-e761-3b07-b680f934c537@ramsayjones.plus.com/
-Reference: https://gcc.gnu.org/bugzilla/show_bug.cgi?id=95379
-Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
+Signed-off-by: Ramsay Jones <ramsay@ramsayjones.plus.com>
 ---
- lib.c | 2 +-
+ evaluate.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/lib.c b/lib.c
-index 9ee8d3cf6b21..37c09d914c56 100644
---- a/lib.c
-+++ b/lib.c
-@@ -295,7 +295,7 @@ int Wtransparent_union = 0;
- int Wtypesign = 0;
- int Wundef = 0;
- int Wuninitialized = 1;
--int Wuniversal_initializer = 1;
-+int Wuniversal_initializer = 0;
- int Wunknown_attribute = 0;
- int Wvla = 1;
+diff --git a/evaluate.c b/evaluate.c
+index 5f2b7d6f..8d2e6869 100644
+--- a/evaluate.c
++++ b/evaluate.c
+@@ -3280,7 +3280,7 @@ static int type_selection(struct symbol *ctrl, struct symbol *type)
+ 	return !type_difference(&c, &t, 0, 0);
+ }
  
+-struct symbol *evaluate_generic_selection(struct expression *expr)
++static struct symbol *evaluate_generic_selection(struct expression *expr)
+ {
+ 	struct type_expression *map;
+ 	struct expression *res;
 -- 
 2.26.2
-
