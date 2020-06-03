@@ -2,100 +2,102 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id C33CF1ED123
-	for <lists+linux-sparse@lfdr.de>; Wed,  3 Jun 2020 15:47:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 7B89C1ED13F
+	for <lists+linux-sparse@lfdr.de>; Wed,  3 Jun 2020 15:49:10 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1725904AbgFCNrK (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Wed, 3 Jun 2020 09:47:10 -0400
-Received: from avasout07.plus.net ([84.93.230.235]:36401 "EHLO
-        avasout07.plus.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1725881AbgFCNrK (ORCPT
+        id S1726116AbgFCNs7 (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Wed, 3 Jun 2020 09:48:59 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:50124 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1726021AbgFCNsx (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Wed, 3 Jun 2020 09:47:10 -0400
-Received: from [10.0.2.15] ([217.32.115.138])
-        by smtp with ESMTPA
-        id gTjWj935i0wwMgTjXj8NMI; Wed, 03 Jun 2020 14:47:08 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=plus.com; s=042019;
-        t=1591192028; bh=P20o4FQerPOvazwdeA7xgeps8jXdteZCaN0LZx25fmM=;
-        h=Subject:From:To:References:Date:In-Reply-To;
-        b=GZhCE3cAyF2PRt96IcFACVTR24QPhOE9GeaHUsmVro5ERu5WZFsnexfAJ29t3wD5V
-         DTmnoyV1XGNEYExWzgFK2Guy4RURxz0RWZDR2LUkfaXICS5+ejmGSEEuiGAD6047GK
-         b2wZkbeEbritpMQTS5xQ+d99KhXC1JhAWQNd6gUv7S8PYeAyq/LpU9cxHf2RZn+xIx
-         o+8RVH9iWk+qcppWX1llEokfRgAHrglboMldeB6PEKBi9CuY6ICkgeodN5JlTJ6i0Q
-         oHyqvKLy7J27e362L3TYGhufPBwa1x+ktSD221uPbwFF0LMwu8ZURCEHov7m9yd3Ct
-         jJVz1gqxLxMAA==
-X-Clacks-Overhead: "GNU Terry Pratchett"
-X-CM-Score: 0.00
-X-CNFS-Analysis: v=2.3 cv=b/4pHuOx c=1 sm=1 tr=0
- a=T9WNts+jH3PhiGdS1gtV5Q==:117 a=T9WNts+jH3PhiGdS1gtV5Q==:17
- a=IkcTkHD0fZMA:10 a=pGLkceISAAAA:8 a=zbbe8oHl7hlBIGIYIhIA:9 a=QEXdDO2ut3YA:10
-X-AUTH: ramsayjones@:2500
-Subject: Re: [PATCH] univ-init: scalar initializer needs some additional
- checks
-From:   Ramsay Jones <ramsay@ramsayjones.plus.com>
-To:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>,
-        linux-sparse@vger.kernel.org
-References: <20200602163336.32667-1-luc.vanoostenryck@gmail.com>
- <34e42c7f-6c9d-b8e5-6ee1-2988b1099176@ramsayjones.plus.com>
-Message-ID: <99851c7e-e96a-aa5d-9184-d6e17e31e3d3@ramsayjones.plus.com>
-Date:   Wed, 3 Jun 2020 14:47:04 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.8.0
+        Wed, 3 Jun 2020 09:48:53 -0400
+Received: from mail-lj1-x241.google.com (mail-lj1-x241.google.com [IPv6:2a00:1450:4864:20::241])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 4F89EC0085CF
+        for <linux-sparse@vger.kernel.org>; Wed,  3 Jun 2020 06:48:50 -0700 (PDT)
+Received: by mail-lj1-x241.google.com with SMTP id s1so2845263ljo.0
+        for <linux-sparse@vger.kernel.org>; Wed, 03 Jun 2020 06:48:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=mime-version:reply-to:sender:from:date:message-id:subject:to;
+        bh=H8rDQEJouwBJIElP/Vpqq+PrvTZxQQy2H7A/MvyMMB0=;
+        b=LImzFWfFZ5MGhzJT1qzCsgEXVo7xW37sUIdrDLCKiXHQE0/Tq0rYX6Af/ld5dvlhmE
+         opFt8B8vUrhAfyxGIRs7eIQZmnu+cHCt7Dz4gEu/fnBWHDlMa8iVHDbM7XgqJUtNcgor
+         I4Oj1yGJ3ygOniFn6Dr+FHDS5BV48N/ldz+eBwWbR5/ADnYCL6KuztRZu9mrKJOxMODU
+         fmVICwwGmTYXXsgICTxE6unupuMdGq6+YZvkWKysZVLYK3Wwxrg7U2ecMo3WGycHWcU1
+         w35jxyjuynpm30G3kj/I18A4vO2Y2WN0kfTajUkGc1Xe9t84eQuWhnB4AGlAS8dbrawc
+         iC3A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:reply-to:sender:from:date
+         :message-id:subject:to;
+        bh=H8rDQEJouwBJIElP/Vpqq+PrvTZxQQy2H7A/MvyMMB0=;
+        b=SrZsnlWpXIKkOnM93gwFEYlMicvkRs0HsEbryLYr5C5p1YcHuSNvdGB+QkYEhLPBXW
+         sUfNLV2U9nP5EARcpvDu4xdWe/+5bTjbjOsoVrrc69vzqIUVpnLg4jzq3EkWcwIzfgL8
+         s8g0mYT/kHRa1ewgKA4IKPxEB2UPG20ijMF/hiAbyx1I7rAoK037RsGDOFZ4oEj+lkeA
+         Reak86jNHUJhXEocpxtbPOe5r3BEKKsGKLwKql9aCHw8Jw3UWxC11RZ3vB9zEOdZFitG
+         SgHHqqX6NpP0MdvwMK0o0Pz+Yi61MP2WVKIaI3YiyZWc5n5KMhPoq00KV85cxMM+fQ21
+         DpYQ==
+X-Gm-Message-State: AOAM533kNQZ2V9GidIno7pXqXPX5VB8IIoYauLDiDdmXFx8jXh/mHD3l
+        +GshI6WHejFo8hPywWKw7TgCOWajcIrxJLP5N8hnKzNruks=
+X-Google-Smtp-Source: ABdhPJzc66PsPJ7uf2JiXrqj7zfh07Ra5BpBms0TPKeexmxkWkfXYY+ch/Os+E85wJbdOE6Lm+0ANdybV/7KRG4HAcU=
+X-Received: by 2002:a05:6512:308e:: with SMTP id z14mr2566308lfd.29.1591192127287;
+ Wed, 03 Jun 2020 06:48:47 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <34e42c7f-6c9d-b8e5-6ee1-2988b1099176@ramsayjones.plus.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
-X-CMAE-Envelope: MS4wfNaUKaz8fvyDdNKGwjHuB8jMo0MTborxzBPPsQD7QWMrq+jzUYxTUwzQAje03NZWwVSzYob5uLf/VHlRnCurJx1vpvP3xW9SlBXf8rh6X531W3rLKUQ3
- D9I27lQVtcBpWkmHU7EfHiwTKz9Z0pGLNTttnEEEDRG4KvqnAIGI0zFbZEgcLhsfdlYGqyuEPH1w/g==
+Reply-To: susanjones.wife@gmail.com
+Received: by 2002:a19:a405:0:0:0:0:0 with HTTP; Wed, 3 Jun 2020 06:48:46 -0700 (PDT)
+From:   "Mrs.Susan Jones" <joneswife.susan@gmail.com>
+Date:   Wed, 3 Jun 2020 14:48:46 +0100
+X-Google-Sender-Auth: aH2vam-ZraP3yG1gz3ryctMgTE4
+Message-ID: <CALBhdBfusXWup1N4iFuTS3D1AZxWbZbTDS_qa-wA3FkbkE7MrQ@mail.gmail.com>
+Subject: HELLO: I AM MRS SUSAN JONES
+To:     undisclosed-recipients:;
+Content-Type: text/plain; charset="UTF-8"
 Sender: linux-sparse-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
+-- 
+OUR GOLDEN OPPORTUNITY
 
+Hello Dear Friend,
 
-On 03/06/2020 02:01, Ramsay Jones wrote:
+Complement of the day, i hope you are doing great today. However, I am
+Mrs.Susan Jones, an auditor with one of the new generation banks here
+in Burkina Faso.
 
-> On 02/06/2020 17:33, Luc Van Oostenryck wrote:
-[snip]
-> I applied this patch just now and everything worked fine. In addition,
-> the tests from my patch also passed, once I had remembered to add the
-> -Wno-universal-initializer to the 'check-command' - because I do not
-> have the patch which changes the default for that warning.
-> 
-> The only thing which gave me pause ...
-> 
->> Fixes: 537e3e2daebd37d69447e65535fc94e82b38fc18
->> Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
->> ---
->>  evaluate.c                 |  3 +++
->>  expression.h               |  1 +
->>  parse.c                    | 15 ++++++++-------
->>  validation/Wuniv-init-ko.c | 16 ++++++++++++++++
->>  validation/Wuniv-init-ok.c | 18 ++++++++++++++++++
->>  5 files changed, 46 insertions(+), 7 deletions(-)
->>
->> diff --git a/evaluate.c b/evaluate.c
->> index 8d2e68692a48..16553eb3481b 100644
->> --- a/evaluate.c
->> +++ b/evaluate.c
->> @@ -2608,6 +2608,9 @@ static void handle_list_initializer(struct expression *expr,
->>  	struct expression *e, *last = NULL, *top = NULL, *next;
->>  	int jumped = 0;
->>  
->> +	if (expr->zero_init)
->> +		expr->expr_list = NULL;
-> 
-> ... was the potential memory leak here. (OK it wouldn't be a
-> huge leak, but still!).
+I am writing you this letter based on the latest development at my
+Department. i discovered some abandoned huge amount of money, Ten
+Million, Five hundred thousand  United States Dollars.($10.500.000).
+Now I am only contacting you as a foreigner because this money cannot
+be approved to a local bank account here, but can only be approved to
+any foreign account and foreign beneficiary because the money is in US
+dollars
 
-Heh, as soon as my head hit the pillow I realised that, due to extensive
-use of memory pools/arenas, this is a rather silly comment! ;-)
+This will be  a legitimate transaction once you accept to build trust
+with me and follow simple instruction doing the transfer process,
+until the total sum transfer out of the bank here to your own bank
+account any where in the world, and I agreed to share the total money
+50/50 with you once you successful confirmed it in your bank account.
+But any expenses doing the transfer process will be deduct from the
+amount before sharing, If you are interested to work with me and
+provide a good receiving bank account, get back to me as soon as
+possible with the following details below.
 
-[Ah, well, it was 2am!]
+Your full name
+Your Profession
+Your direct mobile phone number
+Your Scanned International passport or any of your identity
 
-ATB,
-Ramsay Jones
+NOTE: PLEASE IT YOU ARE NOT INTERESTED DON'T BORDER TO RESPOND BACK TO
+AVOID TIME WASTED.
 
+As soon as I receive these data's, I will forward to you the
+application form which you will send to the bank for the claim and
+transfer of the fund into your bank account as the  new beneficial.
 
+I am waiting to hear from you soon
+
+Yours
+Mrs.Susan Jones
