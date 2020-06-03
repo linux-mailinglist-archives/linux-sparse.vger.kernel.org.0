@@ -2,100 +2,216 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id CBECE1EC03D
-	for <lists+linux-sparse@lfdr.de>; Tue,  2 Jun 2020 18:42:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id E246D1EC661
+	for <lists+linux-sparse@lfdr.de>; Wed,  3 Jun 2020 03:01:17 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726420AbgFBQmD (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Tue, 2 Jun 2020 12:42:03 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:51538 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726217AbgFBQmC (ORCPT
+        id S1726589AbgFCBBL (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Tue, 2 Jun 2020 21:01:11 -0400
+Received: from avasout06.plus.net ([212.159.14.18]:60702 "EHLO
+        avasout06.plus.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1726112AbgFCBBL (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Tue, 2 Jun 2020 12:42:02 -0400
-Received: from mail-ed1-x542.google.com (mail-ed1-x542.google.com [IPv6:2a00:1450:4864:20::542])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 8697EC05BD1E
-        for <linux-sparse@vger.kernel.org>; Tue,  2 Jun 2020 09:42:02 -0700 (PDT)
-Received: by mail-ed1-x542.google.com with SMTP id o26so7694313edq.0
-        for <linux-sparse@vger.kernel.org>; Tue, 02 Jun 2020 09:42:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=date:from:to:cc:subject:message-id:references:mime-version
-         :content-disposition:in-reply-to;
-        bh=jHWPXDhC3dlwkh2FMy2fiFAyCNn0wpmE4JceJy1NATk=;
-        b=pBHLfQAZwWSss1iMUENX0nbJGMFdUOBT4nS+zACfEOixHiRTPxibw2Zbs7YtNu3oEi
-         tTJw7ykTsp7A7xGZ08jb8Riqckh9Xf2t2Rssm/YiSUW+uVHt1d2DWM+aA1XQVU67Azwo
-         rHcY+DRagkmMSDIIuHr6eqB0c5Msz0cWTsfXIYztRHf/n+oYQSoi2PksFIFe3aixP9l7
-         DTZvhwHOF/zQo/pWcyGdpI5gVMwmFw67l/LcvPAFsxya8QU83aB+GFxIA6OLwfqUteaH
-         T49lw4hpL1HLiujYLRZic7N63mXAMU3Xpe0Gjo34ho3Z1tQ90c5Pnz45NGeMiCPuFV4p
-         2mGg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
-         :mime-version:content-disposition:in-reply-to;
-        bh=jHWPXDhC3dlwkh2FMy2fiFAyCNn0wpmE4JceJy1NATk=;
-        b=BDqRdUo+aDt4Nq31O/FohWn/zaxTCmrMo+/+o1M3+VAAzXyMWwfvvqSGRVC7u3chr4
-         5fAMpeOd9fXqPLqvBnc5XdYIoICrs63gWads5iChZcVSUMG7YQFj/d2Hozk7wK9qRWBQ
-         ln2fnhWYUTPH3YzJFK6hhSvWFIeHlKl6XPgfmK0jgSWlgGKqQuYecpHDRbFF6VM++hAh
-         lagxhSKzkxTVFVV6fkqwEfEZ4JbWM3IiN7cVHdX0jcxTWOry5YXBi/wycnOE89mpmyrf
-         ykQvW7wQ+BZbi1B+j8+8gF8EDS3R1t1zqgvA8e93/1CcWfJraJyeMnWBQiaGTgwU6T4k
-         4UQg==
-X-Gm-Message-State: AOAM532FRhmgHcbiwlyHjTD6R7LNUWAbYUvQBI2KZhSHR6oaIIiQUH0a
-        dZAAcCxTBlARcK8WGO17DUiPUKb/
-X-Google-Smtp-Source: ABdhPJwCPCQttv4DV9sF/mUyOjMPsR4l/P3pzsiG8KS/z1PSFGreqUcCvfyXbPFxWU8QfOCuKecEkQ==
-X-Received: by 2002:a50:9517:: with SMTP id u23mr5951366eda.332.1591116121252;
-        Tue, 02 Jun 2020 09:42:01 -0700 (PDT)
-Received: from ltop.local ([2a02:a03f:b7f9:7600:6c23:5e0e:18a3:ef6])
-        by smtp.gmail.com with ESMTPSA id h16sm1878734ejq.62.2020.06.02.09.42.00
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 02 Jun 2020 09:42:00 -0700 (PDT)
-Date:   Tue, 2 Jun 2020 18:41:58 +0200
-From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-To:     Ramsay Jones <ramsay@ramsayjones.plus.com>
-Cc:     linux-sparse@vger.kernel.org
-Subject: Re: [SPARSE PATCH] univ-init: conditionally accept { 0 } without
- warnings
-Message-ID: <20200602164158.lovn2dsuc2g74l55@ltop.local>
-References: <20200518235446.84256-1-luc.vanoostenryck@gmail.com>
- <2fcda487-733b-8ed1-e1f4-6c6204a68569@ramsayjones.plus.com>
+        Tue, 2 Jun 2020 21:01:11 -0400
+Received: from [10.0.2.15] ([217.32.115.138])
+        by smtp with ESMTPA
+        id gHmFjxXyzkvt5gHmGjOFYG; Wed, 03 Jun 2020 02:01:09 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=plus.com; s=042019;
+        t=1591146069; bh=Tuw68DHXIgvbDkTbRHQmV6iej2StRnjIDqdleXf0fcM=;
+        h=Subject:To:References:From:Date:In-Reply-To;
+        b=lBYWdDtYszaaYeWulwzZ8mU8lzWOFci33/xn/+qYyRJyqmi0SWltJV/NYuWhL/dEq
+         qsaXERst7XZguMEnJrbYGb9ipQFx6ngHGtrvyZBPZGO3gEmIB01IxBdywhjWopsJAC
+         H7aDgdlIX++2gp2JXHYuQY8C+Ut4exf9qgcoCrUrs2/j1oUSFXqwOLkpiG1GX5xc8n
+         hflkEVgoR2fR+Sbr2ZY+PTQYA5L+5vpD38yl7CK2U48RiJenBNX+fM2rw1mFJppV2U
+         z5PJfeZZzzRhRxSS94j6L2AKthZXIVI3H0NSH0uDUB/d0X06r8UUsLm+Mniww/ZpAp
+         res+qu7pgGGtw==
+X-Clacks-Overhead: "GNU Terry Pratchett"
+X-CM-Score: 0.00
+X-CNFS-Analysis: v=2.3 cv=ENCdL2RC c=1 sm=1 tr=0
+ a=T9WNts+jH3PhiGdS1gtV5Q==:117 a=T9WNts+jH3PhiGdS1gtV5Q==:17
+ a=IkcTkHD0fZMA:10 a=pGLkceISAAAA:8 a=SgCTawaUmYbhrOVWtCMA:9 a=QEXdDO2ut3YA:10
+X-AUTH: ramsayjones@:2500
+Subject: Re: [PATCH] univ-init: scalar initializer needs some additional
+ checks
+To:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>,
+        linux-sparse@vger.kernel.org
+References: <20200602163336.32667-1-luc.vanoostenryck@gmail.com>
+From:   Ramsay Jones <ramsay@ramsayjones.plus.com>
+Message-ID: <34e42c7f-6c9d-b8e5-6ee1-2988b1099176@ramsayjones.plus.com>
+Date:   Wed, 3 Jun 2020 02:01:07 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.8.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <2fcda487-733b-8ed1-e1f4-6c6204a68569@ramsayjones.plus.com>
+In-Reply-To: <20200602163336.32667-1-luc.vanoostenryck@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
+X-CMAE-Envelope: MS4wfNqOT1eqOPvzY88J1CnANQGCHWYsrh/HKk/yWuMTIyTS2B6dxoHS4a5JZwe2709ZoqNK/tlRsfa/RCunDDRA4LErCbTUVanU/4S4fiUiGH3SsO73+/Aq
+ KY0VWwcqDi/pdrlW4CpNovkSkxsJBV/M1h3A4dfBZqOuw3BcX/CnhbnOJ0Hv3cKqET8i2QT1rnaysQ==
 Sender: linux-sparse-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-On Wed, May 20, 2020 at 01:22:22AM +0100, Ramsay Jones wrote:
-> >  
-> > diff --git a/parse.c b/parse.c
-> > index a29c67c8cf41..48494afc6f2c 100644
-> > --- a/parse.c
-> > +++ b/parse.c
-> > @@ -2750,6 +2750,13 @@ static struct token *initializer_list(struct expression_list **list, struct toke
-> >  {
-> >  	struct expression *expr;
-> >  
-> > +	// '{ 0 }' is equivalent to '{ }' unless wanting all possible
-> > +	// warnings about using '0' to initialize a null-pointer.
-> > +	if (!Wuniversal_initializer) {
-> > +		if (match_token_zero(token) && match_op(token->next, '}'))
-> > +			token = token->next;
-> > +	}
-> > +
-> 
-> Ha! This made me LOL! (see my patch below).
-> 
-> So simple. (I did think, at first, that deleting the '0' token was
-> not a good idea - then I realized that it's more like skipping/ignoring
-> the token than deleting it.)
-> 
-> I wish I had thought of it.
 
-Well, it ended that it wasn't that smart after all because it
-caused several regressions when used with scalars.
-So, I finally had to do a sort of hybrid between your version
-(for the parsing) and mine (dropping the '0' element from the list,
-but now, later, at evaluation time).
 
--- Luc
+On 02/06/2020 17:33, Luc Van Oostenryck wrote:
+> Currently, -Wno-universal-initializer is simply implemented
+> by simply replacing '{ 0 }' by '{ }'.
+> 
+> However, this is a bit too simple when it concerns scalars
+> initialized with '{ 0 }' because:
+> * sparse & GCC issued warnings for empty scalar initializers
+> * initializing a pointer with '{ }' is extra bad.
+> 
+> So, restore the old behaviour for scalar initializers.
+> This is done by leaving '{ 0 }' as-is at parse time and changing
+> it as '{ }' only at evaluation time for compound initializers.
+> 
+
+I applied this patch just now and everything worked fine. In addition,
+the tests from my patch also passed, once I had remembered to add the
+-Wno-universal-initializer to the 'check-command' - because I do not
+have the patch which changes the default for that warning.
+
+The only thing which gave me pause ...
+
+> Fixes: 537e3e2daebd37d69447e65535fc94e82b38fc18
+> Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
+> ---
+>  evaluate.c                 |  3 +++
+>  expression.h               |  1 +
+>  parse.c                    | 15 ++++++++-------
+>  validation/Wuniv-init-ko.c | 16 ++++++++++++++++
+>  validation/Wuniv-init-ok.c | 18 ++++++++++++++++++
+>  5 files changed, 46 insertions(+), 7 deletions(-)
+> 
+> diff --git a/evaluate.c b/evaluate.c
+> index 8d2e68692a48..16553eb3481b 100644
+> --- a/evaluate.c
+> +++ b/evaluate.c
+> @@ -2608,6 +2608,9 @@ static void handle_list_initializer(struct expression *expr,
+>  	struct expression *e, *last = NULL, *top = NULL, *next;
+>  	int jumped = 0;
+>  
+> +	if (expr->zero_init)
+> +		expr->expr_list = NULL;
+
+... was the potential memory leak here. (OK it wouldn't be a
+huge leak, but still!).
+
+ATB,
+Ramsay Jones
+
+> +
+>  	FOR_EACH_PTR(expr->expr_list, e) {
+>  		struct expression **v;
+>  		struct symbol *type;
+> diff --git a/expression.h b/expression.h
+> index 64aa1fc23309..07fe8502e15e 100644
+> --- a/expression.h
+> +++ b/expression.h
+> @@ -159,6 +159,7 @@ DECLARE_ALLOCATOR(type_expression);
+>  struct expression {
+>  	enum expression_type type:8;
+>  	unsigned flags:8;
+> +	unsigned zero_init:1;
+>  	int op;
+>  	struct position pos;
+>  	struct symbol *ctype;
+> diff --git a/parse.c b/parse.c
+> index 687c8c0c235c..9569efdc68b3 100644
+> --- a/parse.c
+> +++ b/parse.c
+> @@ -2783,13 +2783,6 @@ static struct token *initializer_list(struct expression_list **list, struct toke
+>  {
+>  	struct expression *expr;
+>  
+> -	// '{ 0 }' is equivalent to '{ }' unless wanting all possible
+> -	// warnings about using '0' to initialize a null-pointer.
+> -	if (!Wuniversal_initializer) {
+> -		if (match_token_zero(token) && match_op(token->next, '}'))
+> -			token = token->next;
+> -	}
+> -
+>  	for (;;) {
+>  		token = single_initializer(&expr, token);
+>  		if (!expr)
+> @@ -2807,6 +2800,14 @@ struct token *initializer(struct expression **tree, struct token *token)
+>  	if (match_op(token, '{')) {
+>  		struct expression *expr = alloc_expression(token->pos, EXPR_INITIALIZER);
+>  		*tree = expr;
+> +		if (!Wuniversal_initializer) {
+> +			struct token *next = token->next;
+> +			// '{ 0 }' is equivalent to '{ }' except for some
+> +			// warnings, like using 0 to initialize a null-pointer.
+> +			if (match_token_zero(next) && match_op(next->next, '}'))
+> +				expr->zero_init = 1;
+> +		}
+> +
+>  		token = initializer_list(&expr->expr_list, token->next);
+>  		return expect(token, '}', "at end of initializer");
+>  	}
+> diff --git a/validation/Wuniv-init-ko.c b/validation/Wuniv-init-ko.c
+> index 315c211a5db6..bd77a0af55bd 100644
+> --- a/validation/Wuniv-init-ko.c
+> +++ b/validation/Wuniv-init-ko.c
+> @@ -4,11 +4,27 @@ struct s {
+>  
+>  
+>  static struct s s = { 0 };
+> +static int a = { 0 };
+> +static int b = { };
+> +static int c = { 1, 2 };
+> +static struct s *ptr = { 0 };
+> +
+> +struct o {
+> +	struct i {
+> +		int a;
+> +	};
+> +};
+> +
+> +static struct o o = { 0 };
+>  
+>  /*
+>   * check-name: univ-init-ko
+>   *
+>   * check-error-start
+>  Wuniv-init-ko.c:6:23: warning: Using plain integer as NULL pointer
+> +Wuniv-init-ko.c:8:16: error: invalid initializer
+> +Wuniv-init-ko.c:9:16: error: invalid initializer
+> +Wuniv-init-ko.c:10:26: warning: Using plain integer as NULL pointer
+> +Wuniv-init-ko.c:18:23: warning: missing braces around initializer
+>   * check-error-end
+>   */
+> diff --git a/validation/Wuniv-init-ok.c b/validation/Wuniv-init-ok.c
+> index c39647517323..1f0c3dcb0c02 100644
+> --- a/validation/Wuniv-init-ok.c
+> +++ b/validation/Wuniv-init-ok.c
+> @@ -4,8 +4,26 @@ struct s {
+>  
+>  
+>  static struct s s = { 0 };
+> +static int a = { 0 };
+> +static int b = { };
+> +static int c = { 1, 2 };
+> +static struct s *ptr = { 0 };
+> +
+> +struct o {
+> +	struct i {
+> +		int a;
+> +	};
+> +};
+> +
+> +static struct o o = { 0 };
+>  
+>  /*
+>   * check-name: univ-init-ok
+>   * check-command: sparse -Wno-universal-initializer $file
+> + *
+> + * check-error-start
+> +Wuniv-init-ok.c:8:16: error: invalid initializer
+> +Wuniv-init-ok.c:9:16: error: invalid initializer
+> +Wuniv-init-ok.c:10:26: warning: Using plain integer as NULL pointer
+> + * check-error-end
+>   */
+> 
