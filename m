@@ -2,99 +2,104 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 2F6601ED7FB
-	for <lists+linux-sparse@lfdr.de>; Wed,  3 Jun 2020 23:16:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 798251F01B7
+	for <lists+linux-sparse@lfdr.de>; Fri,  5 Jun 2020 23:29:44 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726147AbgFCVQl (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Wed, 3 Jun 2020 17:16:41 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:34752 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1725922AbgFCVQl (ORCPT
+        id S1728227AbgFEV3a (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Fri, 5 Jun 2020 17:29:30 -0400
+Received: from avasout02.plus.net ([212.159.14.17]:58133 "EHLO
+        avasout02.plus.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1728247AbgFEV33 (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Wed, 3 Jun 2020 17:16:41 -0400
-Received: from mail-ed1-x541.google.com (mail-ed1-x541.google.com [IPv6:2a00:1450:4864:20::541])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id BEF66C08C5C0
-        for <linux-sparse@vger.kernel.org>; Wed,  3 Jun 2020 14:16:40 -0700 (PDT)
-Received: by mail-ed1-x541.google.com with SMTP id t21so266800edr.12
-        for <linux-sparse@vger.kernel.org>; Wed, 03 Jun 2020 14:16:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=date:from:to:cc:subject:message-id:references:mime-version
-         :content-disposition:in-reply-to;
-        bh=JtZuS4VhQfRNVSEZegRyFMXYRB9Y55HzonWx5sQdXjI=;
-        b=ZJiXhXYrLMWh7XnVa3zb1+rWuRs4CLLpygGRCwPx0CZ0cqC9tXb8D0WoHIYM9pBY8U
-         EoA4lXdjcnf10X3A+manFJjaJrwWesvu3WDZPBd4X314ZdTdoRbZcOY/wYLV3jjDSryV
-         dDnUHfHVq8ziMVImglsWokG/oIItzDmXMWw/PCa6LWUdTwdVdFBCFWmUd867rg2zJfT9
-         oZHF56CzOxk9F5vdGCH+i+HsHQHu5Ri6uF5z2rCstx6W42Arb0Kg+U5U3EmNpI30Lv42
-         wF9sQj8fq7cBBjGhmEpZTvkE6ti7HmRM3aIKt9AJcW6vLeCh1uWtjEMGHHDLjPYHmzp/
-         rEGA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
-         :mime-version:content-disposition:in-reply-to;
-        bh=JtZuS4VhQfRNVSEZegRyFMXYRB9Y55HzonWx5sQdXjI=;
-        b=Y39Fth4GU2a4r6UwxjfFHDQd2hNpR9Bm2lFztzh64Lj2tC36gONUx2GTQ5i1Ml8Lew
-         QzO3jWaU5OG7pp8gAjs2Rr+yt70zNXlNEb4rcTfQkPKSQLNCqxmMxJM7uuhIe7ZQ1viW
-         iMXrzZgHX46f57kLtssYn2XEK+SXVxbF9qw2YLtrgtIEI4e71M/Ii8BuFh4TI5av36aw
-         mp9mGMHEfu0Zo6Ja8zsPbwEB+6ugQcEQU2xKFTtxqvaQqfwkzHQ3Eptl8s5xpIdeHigu
-         qnP5fLyijs3P25qBwq4mvfma3S4mpUYAQyBm9F6ICymObzsVKJeUWInhdCZNiNnk5HhI
-         ZUbg==
-X-Gm-Message-State: AOAM5337slFl4HIwJh4wXgEX6rbmoACrSSz2kQkk2ywILIzT/Xx5BPDN
-        qtjR73xYk1lgjLvffG1UiXOI0O+I
-X-Google-Smtp-Source: ABdhPJzYSx0uZ8kFGNictSkgNbMF0rcy2Z5fADRzHQbjkb/3u49dyTe6vCOvFahZHzWB93jYpgoMGA==
-X-Received: by 2002:a05:6402:1441:: with SMTP id d1mr1294572edx.93.1591218999530;
-        Wed, 03 Jun 2020 14:16:39 -0700 (PDT)
-Received: from ltop.local ([2a02:a03f:b7f9:7600:2893:79f5:e096:e13d])
-        by smtp.gmail.com with ESMTPSA id b21sm389606edv.31.2020.06.03.14.16.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 03 Jun 2020 14:16:38 -0700 (PDT)
-Date:   Wed, 3 Jun 2020 23:16:35 +0200
-From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-To:     Ramsay Jones <ramsay@ramsayjones.plus.com>
-Cc:     linux-sparse@vger.kernel.org
-Subject: Re: [PATCH] univ-init: scalar initializer needs some additional
- checks
-Message-ID: <20200603211635.ufhlujbchvlhbhib@ltop.local>
-References: <20200602163336.32667-1-luc.vanoostenryck@gmail.com>
- <34e42c7f-6c9d-b8e5-6ee1-2988b1099176@ramsayjones.plus.com>
+        Fri, 5 Jun 2020 17:29:29 -0400
+Received: from [10.0.2.15] ([217.32.115.138])
+        by smtp with ESMTPA
+        id hJu3jLAAiU8CkhJu4jskAf; Fri, 05 Jun 2020 22:29:28 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=plus.com; s=042019;
+        t=1591392568; bh=Bh8v3vl5r7bRGXFejZZyjq9X/QDPbmC+ddu7LFKIBoU=;
+        h=To:Cc:From:Subject:Date;
+        b=PSz3zD5SBzr9fdNuDzQLph7YcPLlFrVfupP7eKuIqEUKNTte3QvMYMICwZv6iFB/R
+         kgDiIwhnsSVzfgdOnknJ41h0ux99AwMROML5G7ragZh7iyDGoClkO+rfZX7AHHDVBM
+         v6jtavYAKS45IuSdS5nXEBhFoN1Ea08UGAiptujQ04zwQZuSCsBfWZlng8e7ieCIVy
+         Y9zyCCH7NUnqACCyc0Pd3YFphCs2v27tTxF7cKJqnZ98v5UW5xy2GvSCyQOiEm79Pe
+         5OzuYm20AddLKKPXYdMTKrLve2q605CFGzl57evTx8MVTVgbGARQty3VTvIW43cJmH
+         Ta5lOzqwLC1dg==
+X-Clacks-Overhead: "GNU Terry Pratchett"
+X-CM-Score: 0.00
+X-CNFS-Analysis: v=2.3 cv=G/eH7+s5 c=1 sm=1 tr=0
+ a=T9WNts+jH3PhiGdS1gtV5Q==:117 a=T9WNts+jH3PhiGdS1gtV5Q==:17
+ a=IkcTkHD0fZMA:10 a=EBOSESyhAAAA:8 a=hwmg5cgAUQ9dR8X308wA:9
+ a=zlS0bKvIMV3p8Tn9:21 a=Virk85TY38tXI5Qz:21 a=QEXdDO2ut3YA:10
+ a=yJM6EZoI5SlJf8ks9Ge_:22
+X-AUTH: ramsayjones@:2500
+To:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
+Cc:     Sparse Mailing-list <linux-sparse@vger.kernel.org>
+From:   Ramsay Jones <ramsay@ramsayjones.plus.com>
+Subject: [PATCH] pre-process: fix a compiler array subscript type warning
+Message-ID: <fbb9ba2b-14fa-c6e1-a730-80d35547ea52@ramsayjones.plus.com>
+Date:   Fri, 5 Jun 2020 22:29:24 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.8.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <34e42c7f-6c9d-b8e5-6ee1-2988b1099176@ramsayjones.plus.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-GB
+Content-Transfer-Encoding: 8bit
+X-CMAE-Envelope: MS4wfH6wk71s3i4JiaK3jK7bjFiWXg2hHWYM8gls60bFJvT3/wCGNdzJHvsbTB90/7o+XsaSFNStCGSFlDV9+MJGAkOa3Z17mwaSR1HJ0iKQK/JbXTsLlD3W
+ E0GAnSJ7Q2swu3pTjIfD4XAm+Ivw+ernm1fX6KwIHtjsSJlCwh553j7rtYRujj7WWSEWNjbKMn0G9A==
 Sender: linux-sparse-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-On Wed, Jun 03, 2020 at 02:01:07AM +0100, Ramsay Jones wrote:
-> 
-> I applied this patch just now and everything worked fine. In addition,
-> the tests from my patch also passed, once I had remembered to add the
-> -Wno-universal-initializer to the 'check-command' - because I do not
-> have the patch which changes the default for that warning.
 
-I should have added that this patch was meant to be applied before
-the one for the default :(
+On cygwin, the <ctype.h> header is written in such a way as to cause
+a gcc compiler warning if a plain 'char' is passed to the character
+classification macros (in this case isdigit). The result is defined
+only if the parameter is representable as an unsigned char, or if it
+is EOF.
+
+When passing a 'char' type argument to isdigit(), the compiler warns
+like so:
+
+    CC      pre-process.o
+  In file included from pre-process.c:33:
+  pre-process.c: In function ‘predefine’:
+  pre-process.c:1429:18: warning: array subscript has type ‘char’ [-Wchar-subscripts]
+   1429 |   if (isdigit(buf[0])) {
+        |               ~~~^~~
+
+In order to suppress the warning, cast the argument of isdigit() to
+an 'unsigned char' type.
+
+Signed-off-by: Ramsay Jones <ramsay@ramsayjones.plus.com>
+---
+
+Hi Luc,
+
+Having not done so in a while, last night I updated my cygwin
+installation. This resulted in updates to the versions of the
+libc/headers/gcc, among other things. (eg. gcc is now v9.3.0).
+
+This patch fixes the new compiler warning that results!
+
+ATB,
+Ramsay Jones
+
+ pre-process.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/pre-process.c b/pre-process.c
+index c8725dc8..d96035e2 100644
+--- a/pre-process.c
++++ b/pre-process.c
+@@ -1426,7 +1426,7 @@ void predefine(const char *name, int weak, const char *fmt, ...)
+ 		va_end(ap);
  
-> The only thing which gave me pause ...
-> 
-> > diff --git a/evaluate.c b/evaluate.c
-> > index 8d2e68692a48..16553eb3481b 100644
-> > --- a/evaluate.c
-> > +++ b/evaluate.c
-> > @@ -2608,6 +2608,9 @@ static void handle_list_initializer(struct expression *expr,
-> >  	struct expression *e, *last = NULL, *top = NULL, *next;
-> >  	int jumped = 0;
-> >  
-> > +	if (expr->zero_init)
-> > +		expr->expr_list = NULL;
-> 
-> ... was the potential memory leak here. (OK it wouldn't be a
-> huge leak, but still!).
-
-Well yes [replying to your other mail too). It doesn't matter much here
-but it's also easy to free the list, which is what I've done.
-
-Thanks for giving a look at all of this.
-Both patches are now applied.
--- Luc
+ 		value = __alloc_token(0);
+-		if (isdigit(buf[0])) {
++		if (isdigit((unsigned char)buf[0])) {
+ 			token_type(value) = TOKEN_NUMBER;
+ 			value->number = xstrdup(buf);
+ 		} else {
+-- 
+2.27.0
