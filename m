@@ -2,59 +2,61 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 79A2A1F5D26
+	by mail.lfdr.de (Postfix) with ESMTP id E5FEC1F5D27
 	for <lists+linux-sparse@lfdr.de>; Wed, 10 Jun 2020 22:27:45 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726956AbgFJU1o (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Wed, 10 Jun 2020 16:27:44 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:34504 "EHLO
+        id S1728674AbgFJU1p (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Wed, 10 Jun 2020 16:27:45 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:34506 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1728674AbgFJU1o (ORCPT
+        with ESMTP id S1728675AbgFJU1p (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Wed, 10 Jun 2020 16:27:44 -0400
-Received: from mail-ej1-x643.google.com (mail-ej1-x643.google.com [IPv6:2a00:1450:4864:20::643])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 22ACAC03E96B
+        Wed, 10 Jun 2020 16:27:45 -0400
+Received: from mail-ej1-x641.google.com (mail-ej1-x641.google.com [IPv6:2a00:1450:4864:20::641])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id DFD2EC03E96B
         for <linux-sparse@vger.kernel.org>; Wed, 10 Jun 2020 13:27:44 -0700 (PDT)
-Received: by mail-ej1-x643.google.com with SMTP id y13so4103572eju.2
+Received: by mail-ej1-x641.google.com with SMTP id o15so4037859ejm.12
         for <linux-sparse@vger.kernel.org>; Wed, 10 Jun 2020 13:27:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=ODpVbW7WwjBI2M34X+L4Y/wgtGw/G6dxAnWOO7KPZ3o=;
-        b=Lu5nJYBO/rjQlTisqWN9cJP1q3ESU2M8PFNTNKtqkGrq+PgpvRiNbQa3VmLh2AKd4c
-         vBHXw8XqZWZ+ahYaMkjfvG6jO0hRzZTK8ukTxHv/DIjX8oeM2sQKsjselsydqEZzN+KI
-         NA9Sdi7mUKMhTmmxjKsT7M1i8sAKYUDldqveIbVTqoFPMy8MXTQQh3dPo/VyECXKbEpt
-         hfZD+8wcpq5gW1rLB6sS+KavNJ+FoiylElRVmAA8RyKTNcqtoUqqd4mqwzphPUXGqsL9
-         SdYLjVAAAYk+p8Uw4h10RlfTp9TJfNxcNzkgQoFgmy+ti3zvsqx3FbSkqkCfk+lxKdIL
-         ip4A==
+        h=from:to:cc:subject:date:message-id:in-reply-to:references
+         :mime-version:content-transfer-encoding;
+        bh=aYBGZWua1F5iQuSBJGWjVUrw+r6uHuupKvRnQCAPLPg=;
+        b=ro+zwyJy32lRgYlIm1lhaigIXeKnFAbF3e1OkLUdXMlR91rsPHZmrSGYXPcwW8QASd
+         wtvCZAS4/nOrJfEixI52Re8YiB2Gund5iN+JrTWS49e5I56MExpvKP5s240R+ureF+C6
+         LljIodPvxvsc7FP17RTGyEGdl/TyD369hj5zefgVtWPrFukiNyxnBVWw7SiPbfEy8ll8
+         8B50hGanbV2Cbe9+7rnAt5rMCtJ2tw9HyQhhNtrDRbHkd6At3Sg5QEZDxjv0d2xI7Zih
+         4pEZztKD98qvnUR7xtnwYCk2nBWOl68VsU7Z6vrnVSZUXpla/H62jyM85Tkv9hy0pKBK
+         dtaQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=ODpVbW7WwjBI2M34X+L4Y/wgtGw/G6dxAnWOO7KPZ3o=;
-        b=CcHJZg9/dRAgLyoweAQC0oqUU8vSxbylBH1A0fyMsPzWi4zwBfQXWZ6ES4jwlr920/
-         5pP94Hif5vcKNx3vDF2zhrHy0/NAxterBTmzIw7skbKFqfEHmlDqjNx3qmIrN9YKMn7g
-         4YlzsrtksyRCDcnDapDsnvTVKVlGoeqP7pbznFYdHyvuOUnLnkhDRHvf9L1WHWZRNO3x
-         REjVt/OG73su9JJzpiMqYlSQyWYurVzPTKT9XQ8IsWCc4tv7K0IXKYbr9RRtIhMTA3Sk
-         GD1YZ91K+OTeSsB1GiCMCZUSf2KGSG2dlyuaJ+buJ1sc1XqIX63/pEBaGhTbbTSYGJYC
-         2k9A==
-X-Gm-Message-State: AOAM530lQ28X/KwDZpayDbU+8E08cD3854iPnjy/0t6GnaKGCWMvywOD
-        wy+K1VVOe43jj8AU7i9nk6t0MDVh
-X-Google-Smtp-Source: ABdhPJzzHP1GEeZ1+nqFUv/d8Qw6y14NNzvwOLTEa7RrYZwCSOae6i1bpCbM62UMoV960GoCX4GsCQ==
-X-Received: by 2002:a17:906:c53:: with SMTP id t19mr5454135ejf.143.1591820862426;
-        Wed, 10 Jun 2020 13:27:42 -0700 (PDT)
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+         :references:mime-version:content-transfer-encoding;
+        bh=aYBGZWua1F5iQuSBJGWjVUrw+r6uHuupKvRnQCAPLPg=;
+        b=XNfVAowaaywpklag27jHbesl/kH8hKIT8EjM1xxu4n6FaefpbOKDOHQoSMIBuuqRth
+         2yxrExUyYs6hiqnZiSEZXKFVBQu2G8m9XI6XuL5GW5sWpsRREAYc1/dvbpCydlm0XDdx
+         94exXPVHFuqReSOiE44OIXe+HrC52Yj4YacNRM9nQMmCUWFkgn/uaBcPO1GwBFAxcw0E
+         5zvv2W8a1J8N1Ph4AWZtNVbiyekGGxaOg52hxNNoyYRV8D8OoL6My6uqJ9l+CCNX+XmJ
+         C9n/5JFmHSbgPfDCBD0+MioZNrrGuhZlGnGpj2SEDF8W9c7z2G/G9tqRsXk4BS/Jcx0Z
+         2oww==
+X-Gm-Message-State: AOAM532j5haBDKjiuwED6KQ2l2Af3JtETBT0l+lJDKNp78BkCP1P17d/
+        XfYf0wWCB8Q6WgwrlNCk7Zu6XeEe
+X-Google-Smtp-Source: ABdhPJzU7DNocNiv3xp6yg09ajint14dPaw0G/oT5V2uUpcqr8VzhFcFj1WMk/qjoFxaO1K9t0ZMmg==
+X-Received: by 2002:a17:906:7848:: with SMTP id p8mr5401997ejm.244.1591820863343;
+        Wed, 10 Jun 2020 13:27:43 -0700 (PDT)
 Received: from localhost.localdomain ([2a02:a03f:b7f9:7600:4870:48de:5f59:675a])
-        by smtp.gmail.com with ESMTPSA id m91sm391895ede.96.2020.06.10.13.27.41
+        by smtp.gmail.com with ESMTPSA id m91sm391895ede.96.2020.06.10.13.27.42
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 10 Jun 2020 13:27:41 -0700 (PDT)
+        Wed, 10 Jun 2020 13:27:42 -0700 (PDT)
 From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 To:     linux-sparse@vger.kernel.org
 Cc:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-Subject: [PATCH 0/7] move arch-specific builtins to their own table
-Date:   Wed, 10 Jun 2020 22:27:28 +0200
-Message-Id: <20200610202735.84968-1-luc.vanoostenryck@gmail.com>
+Subject: [PATCH 1/7] builtin: can be initialized later
+Date:   Wed, 10 Jun 2020 22:27:29 +0200
+Message-Id: <20200610202735.84968-2-luc.vanoostenryck@gmail.com>
 X-Mailer: git-send-email 2.27.0
+In-Reply-To: <20200610202735.84968-1-luc.vanoostenryck@gmail.com>
+References: <20200610202735.84968-1-luc.vanoostenryck@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Sender: linux-sparse-owner@vger.kernel.org
@@ -62,48 +64,42 @@ Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-The goal of this to avoid the declaration of arch-specific builtins
-when the architecture doesn't match. As nice side-effects it also:
-* add support for arch-specific builtins in their target-<arch>.c
-* let these builtins declarations be done via a table (it was done
-  via a serie of function calls, one by builtin).
-* add minimal support for the architectures Alpha, Blackfin & Nios2.
+The itialization of the buitins can be done later,
+after that the types have been initialized.
 
-These changes are motivated by a recent report from the kbuild test
-bot (which seems to find lately much more sparse-related issues
-in the kernel than it used to, often address-space & endianness
-problems).
+So move the call to init_builtins() to just before declare_builtins().
+This will allow some other small improvements.
 
+Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
+---
+ lib.c    | 1 +
+ symbol.c | 1 -
+ 2 files changed, 1 insertion(+), 1 deletion(-)
 
-Luc Van Oostenryck (7):
-  builtin: can be initialized later
-  builtin: use a table for the builtins
-  builtin: unify the 2 tables of builtins
-  builtin: add support for arch-specific builtins
-  arch: add specificities for Nios2
-  arch: add specificities for Blackfin
-  arch: add specificities for Alpha
-
- Makefile       |   3 +
- builtin.c      | 439 ++++++++++++++++++++++---------------------------
- builtin.h      |  15 ++
- lib.c          |   2 +-
- machine.h      |   5 +
- symbol.c       |   1 -
- symbol.h       |   1 -
- target-alpha.c |  30 ++++
- target-bfin.c  |  26 +++
- target-nios2.c |  31 ++++
- target.c       |   6 +
- target.h       |   7 +
- 12 files changed, 321 insertions(+), 245 deletions(-)
- create mode 100644 builtin.h
- create mode 100644 target-alpha.c
- create mode 100644 target-bfin.c
- create mode 100644 target-nios2.c
-
-
-base-commit: 42323db3955557b223268ec4196acb77308ab204
+diff --git a/lib.c b/lib.c
+index 8f071bfe96ef..aa1c1d656b9d 100644
+--- a/lib.c
++++ b/lib.c
+@@ -1595,6 +1595,7 @@ struct symbol_list *sparse_initialize(int argc, char **argv, struct string_list
+ 
+ 		predefined_macros();
+ 		create_builtin_stream();
++		init_builtins(0);
+ 		declare_builtins();
+ 
+ 		list = sparse_initial();
+diff --git a/symbol.c b/symbol.c
+index 7044ab3f78ce..6ee521ba48d8 100644
+--- a/symbol.c
++++ b/symbol.c
+@@ -783,7 +783,6 @@ void init_symbols(void)
+ #include "ident-list.h"
+ 
+ 	init_parser(stream);
+-	init_builtins(stream);
+ }
+ 
+ // For fix-sized types
 -- 
 2.27.0
 
