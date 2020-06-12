@@ -2,191 +2,97 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id AA4CA1F718F
-	for <lists+linux-sparse@lfdr.de>; Fri, 12 Jun 2020 03:04:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id C0EAD1F7BD0
+	for <lists+linux-sparse@lfdr.de>; Fri, 12 Jun 2020 18:48:36 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726349AbgFLBEy (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Thu, 11 Jun 2020 21:04:54 -0400
-Received: from avasout06.plus.net ([212.159.14.18]:33228 "EHLO
-        avasout06.plus.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726305AbgFLBEy (ORCPT
+        id S1726275AbgFLQsg (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Fri, 12 Jun 2020 12:48:36 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:49154 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1726268AbgFLQsf (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Thu, 11 Jun 2020 21:04:54 -0400
-Received: from [10.0.2.15] ([217.32.115.138])
-        by smtp with ESMTPA
-        id jY7ojFM95kvt5jY7pjVmJJ; Fri, 12 Jun 2020 02:04:53 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=plus.com; s=042019;
-        t=1591923893; bh=c1FOANmAhH9ImCXuju1ZAIYjeQKv71Sv2GyDMqQZeeQ=;
-        h=Subject:To:References:From:Date:In-Reply-To;
-        b=dh4i0x0CbM6xdM4O1e8hYefIY0DW76Qt3wY99Tg4j8uarwYqXl+A7w/fljf5vN8Qz
-         xJ0wdeXH+YfMCLCs/DXrMdOWtY+9VTZxVLukHZzCPViKyE6jEurqkcGDo8mq/sfmom
-         7Exr9ex+4pqhd2YYlSBmbVHR41nKab6et8wAdLqnGxlxzWDAcXCiK7Br9NDdB9q6Q/
-         MUpQvp8HmifMILt6mTxKDwzjTGWUGVX2PNHq6Q+qrl5NVaVaf/3TnzpwCBPnuXZpa2
-         md9q4h/XxfcUFpIe1a+DwhQmeahg6JExK72XjD1/z1FLG0VRg87ZnVy3yOu/SqWCQl
-         xMwq+VKEt192g==
-X-Clacks-Overhead: "GNU Terry Pratchett"
-X-CM-Score: 0.00
-X-CNFS-Analysis: v=2.3 cv=ENCdL2RC c=1 sm=1 tr=0
- a=T9WNts+jH3PhiGdS1gtV5Q==:117 a=T9WNts+jH3PhiGdS1gtV5Q==:17
- a=IkcTkHD0fZMA:10 a=pGLkceISAAAA:8 a=bJ2xgcK0NfG3o-Vqk8wA:9 a=QEXdDO2ut3YA:10
-X-AUTH: ramsayjones@:2500
-Subject: Re: [PATCH 5/7] arch: add specificities for Nios2
-To:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>,
-        linux-sparse@vger.kernel.org
+        Fri, 12 Jun 2020 12:48:35 -0400
+Received: from mail-ej1-x643.google.com (mail-ej1-x643.google.com [IPv6:2a00:1450:4864:20::643])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 5BBB5C03E96F
+        for <linux-sparse@vger.kernel.org>; Fri, 12 Jun 2020 09:48:35 -0700 (PDT)
+Received: by mail-ej1-x643.google.com with SMTP id gl26so10711119ejb.11
+        for <linux-sparse@vger.kernel.org>; Fri, 12 Jun 2020 09:48:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=date:from:to:cc:subject:message-id:references:mime-version
+         :content-disposition:in-reply-to;
+        bh=NYEiXrL8e6rUsvawCHIWBEx3abUoxvKsTwuqAz8SaA4=;
+        b=vbXgXvkQ++Ma48sCCjzMoCBgdRyR/qzcHp6IhB71dHAnVK4+w9u+nxGGVLH1tHIjvE
+         8G3uKNQ+1ok8Q3kKs6NNaZ1fD+7fkBPqB5/pQh+S277LoTZlGkCR/Ps0Nn8If+9gl79t
+         RVj9XHxR+Fh6VFz3DiLPrgrGh9qnfkmIdtc4Wx21kDpMJhXp++SOmru9y70R8/u7XmJt
+         LKrvDLwNvh4z+BJlede2rMTVrihLO4WL/A2AZ6RMf7qm6E+wfc7WVFznx9A5PPQRm21H
+         AfFipig139JffQJ8Zg5s1n3vbM580dp+sODmtLUttx4JD4o/RmTOJhLROBVRcHhs/gOs
+         JMPw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+         :mime-version:content-disposition:in-reply-to;
+        bh=NYEiXrL8e6rUsvawCHIWBEx3abUoxvKsTwuqAz8SaA4=;
+        b=qBMTOzFwLYe4dorlUGw9qteDezq41HqktviHwHkwny0i8vpNZkRvIo+00hUyK8ZEIu
+         fs3LmaQHHDUmp4TcIegDQK55iGhd2pqlYiQTFD/N9dvkAjQwjofm1DWcaOzngcTLxeNC
+         vU8ZRI3amTzRFnkYwYjd6PR/b0AavU55n5TAAMDDyJeaDSJqVt5jq8lV6r00JD8zSgdv
+         +Y0ddhH1tMsfw1ve/I8W+lrjvxzgecs/pW5DI3C/6FvHpyE0C9WfgclBOEYmwYA2Tb4E
+         7ehMIVsDi8xSP5bc7HMCuUkKsXoXXV4KvBNkywA6o0sQLRCul//5Ocv7fU+8lLaGbcBx
+         RuJA==
+X-Gm-Message-State: AOAM5316mtp6FexgrEw+0jw2ET10ajer4FUlPdnroxdL0Fcp6H42Knyt
+        L+ygo7FoKVc03gFXX8AVmRWrCmDA
+X-Google-Smtp-Source: ABdhPJw1bmTIxsgHRuPkfO56WifUZJFgOQ8xOupL4Wng/KsdD1hLUKUJSy8Ex0zd2pF58h3kEDgzmg==
+X-Received: by 2002:a17:906:81cc:: with SMTP id e12mr14660556ejx.67.1591980514105;
+        Fri, 12 Jun 2020 09:48:34 -0700 (PDT)
+Received: from ltop.local ([2a02:a03f:b7f9:7600:1143:792f:f1d8:ffcf])
+        by smtp.gmail.com with ESMTPSA id cx13sm3385892edb.20.2020.06.12.09.48.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 12 Jun 2020 09:48:33 -0700 (PDT)
+Date:   Fri, 12 Jun 2020 18:48:32 +0200
+From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
+To:     Ramsay Jones <ramsay@ramsayjones.plus.com>
+Cc:     linux-sparse@vger.kernel.org
+Subject: Re: [PATCH 2/7] builtin: use a table for the builtins
+Message-ID: <20200612164832.fkkfvqcbjh7ivea7@ltop.local>
 References: <20200610202735.84968-1-luc.vanoostenryck@gmail.com>
- <20200610202735.84968-6-luc.vanoostenryck@gmail.com>
-From:   Ramsay Jones <ramsay@ramsayjones.plus.com>
-Message-ID: <3452bdc1-cc47-4f55-98ea-a84075e56c7e@ramsayjones.plus.com>
-Date:   Fri, 12 Jun 2020 02:04:50 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.8.0
+ <20200610202735.84968-3-luc.vanoostenryck@gmail.com>
+ <62b18141-89be-d0e0-a848-8cf096d0f160@ramsayjones.plus.com>
 MIME-Version: 1.0
-In-Reply-To: <20200610202735.84968-6-luc.vanoostenryck@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
-X-CMAE-Envelope: MS4wfMao23pRRDe7FG3KzNETG003GoCihcaCDwD3J0dIcNx05bxkolkVNNzBhDa1+DfnyF4+s2zvbbuHQ8sEnCjeKH7VzzkgnYxv+f0WFCtv4dj0nlyAZzX6
- KTpVvo0YyzzRNkjmkXuFEEEeZ0TrXZpGgUE8rC79D5NwOVvM3n7xmUCYML/UJfz2BqgZ/RnEXfnaPA==
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <62b18141-89be-d0e0-a848-8cf096d0f160@ramsayjones.plus.com>
 Sender: linux-sparse-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-
-
-On 10/06/2020 21:27, Luc Van Oostenryck wrote:
-> The real goal here is in fact to move the nios2-specfic
-> builtins out of the main builtins table.
-
-I had to do a search for Nois II - do people actually run Linux
-on these? :-P
-
-This and all remaining patches look good.
-
-Thanks.
-
-ATB,
-Ramsay Jones
-
+On Fri, Jun 12, 2020 at 01:56:20AM +0100, Ramsay Jones wrote:
+> On 10/06/2020 21:27, Luc Van Oostenryck wrote:
+> > 
+> > A table is table is preferable but a complication for doing this
 > 
-> Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-> ---
->  Makefile       |  1 +
->  builtin.c      |  5 -----
->  machine.h      |  1 +
->  target-nios2.c | 31 +++++++++++++++++++++++++++++++
->  target.c       |  2 ++
->  target.h       |  1 +
->  6 files changed, 36 insertions(+), 5 deletions(-)
->  create mode 100644 target-nios2.c
+> s/table is table is/table is/
+
+Thanks for noticing this typo (and the ones in the other patches).
+ 
+> > +static void declare_one_builtin(const struct builtin_fn *entry)
+> > +{
+> > +	struct symbol *sym = create_symbol(0, entry->name, SYM_NODE, NS_SYMBOL);
 > 
-> diff --git a/Makefile b/Makefile
-> index e93cfd66d0c9..69fae4828e62 100644
-> --- a/Makefile
-> +++ b/Makefile
-> @@ -70,6 +70,7 @@ LIB_OBJS += target-arm64.o
->  LIB_OBJS += target-default.o
->  LIB_OBJS += target-m68k.o
->  LIB_OBJS += target-mips.o
-> +LIB_OBJS += target-nios2.o
->  LIB_OBJS += target-ppc.o
->  LIB_OBJS += target-riscv.o
->  LIB_OBJS += target-s390.o
-> diff --git a/builtin.c b/builtin.c
-> index dcf8200ec002..9442fb5b89ef 100644
-> --- a/builtin.c
-> +++ b/builtin.c
-> @@ -578,11 +578,6 @@ static const struct builtin_fn builtins_common[] = {
->  	{ "__builtin_bfin_ssync", &void_ctype, 0 },
->  	{ "__builtin_bfin_norm_fr1x32", &int_ctype, 0, { &int_ctype }},
->  
-> -	// Nios-II-specific
-> -	{ "__builtin_rdctl", &int_ctype, 0, { &int_ctype }},
-> -	{ "__builtin_wrctl", &void_ctype, 0, { &int_ctype, &int_ctype }},
-> -	{ "__builtin_custom_ini", &int_ctype, 0, { &int_ctype }},
-> -
->  	{ }
->  };
->  
-> diff --git a/machine.h b/machine.h
-> index 9c17dd6aa620..a211345c80ce 100644
-> --- a/machine.h
-> +++ b/machine.h
-> @@ -33,6 +33,7 @@ enum machine {
->  	MACH_SPARC32,	MACH_SPARC64,
->  	MACH_S390,	MACH_S390X,
->  	MACH_M68K,
-> +	MACH_NIOS2,
->  	MACH_UNKNOWN
->  };
->  
-> diff --git a/target-nios2.c b/target-nios2.c
-> new file mode 100644
-> index 000000000000..05f0926e2df9
-> --- /dev/null
-> +++ b/target-nios2.c
-> @@ -0,0 +1,31 @@
-> +#include "symbol.h"
-> +#include "target.h"
-> +#include "machine.h"
-> +#include "builtin.h"
-> +
-> +
-> +static void predefine_nios2(const struct target *self)
-> +{
-> +	predefine("__NIOS2__", 1, "1");
-> +	predefine("__nios2__", 1, "1");
-> +
-> +	if (arch_big_endian)
-> +		predefine("__nios2_big_endian__", 1, "1");
-> +	else
-> +		predefine("__nios2_little_endian__", 1, "1");
-> +}
-> +
-> +static const struct builtin_fn builtins_nios2[] = {
-> +	{ "__builtin_rdctl", &int_ctype, 0, { &int_ctype }},
-> +	{ "__builtin_wrctl", &void_ctype, 0, { &int_ctype, &int_ctype }},
-> +	{ "__builtin_custom_ini", &int_ctype, 0, { &int_ctype }},
-> +	{ }
-> +};
-> +
-> +const struct target target_nios2 = {
-> +	.mach = MACH_NIOS2,
-> +	.bitness = ARCH_LP32,
-> +
-> +	.predefine = predefine_nios2,
-> +	.builtins = builtins_nios2,
-> +};
-> diff --git a/target.c b/target.c
-> index abfa975672b1..0ef0eb5a14ae 100644
-> --- a/target.c
-> +++ b/target.c
-> @@ -63,6 +63,7 @@ static const struct target *targets[] = {
->  	[MACH_X86_64] =		&target_x86_64,
->  	[MACH_MIPS32] =		&target_mips32,
->  	[MACH_MIPS64] =		&target_mips64,
-> +	[MACH_NIOS2] =		&target_nios2,
->  	[MACH_PPC32] =		&target_ppc32,
->  	[MACH_PPC64] =		&target_ppc64,
->  	[MACH_RISCV32] =	&target_riscv32,
-> @@ -89,6 +90,7 @@ enum machine target_parse(const char *name)
->  		{ "i386",	MACH_I386,	32, },
->  		{ "m68k",	MACH_M68K,	32, },
->  		{ "mips",	MACH_MIPS32,	0,  },
-> +		{ "nios2",	MACH_NIOS2,	32, },
->  		{ "powerpc",	MACH_PPC32,	0,  },
->  		{ "ppc",	MACH_PPC32,	0,  },
->  		{ "riscv",	MACH_RISCV32,	0,  },
-> diff --git a/target.h b/target.h
-> index 1202c0be1ac9..4c184d8f2fbe 100644
-> --- a/target.h
-> +++ b/target.h
-> @@ -85,6 +85,7 @@ extern const struct target target_arm64;
->  extern const struct target target_m68k;
->  extern const struct target target_mips32;
->  extern const struct target target_mips64;
-> +extern const struct target target_nios2;
->  extern const struct target target_ppc32;
->  extern const struct target target_ppc64;
->  extern const struct target target_riscv32;
+> So, assuming stream 0 here as well ...
 > 
+> > -static void declare_builtin(const char *name, struct symbol *rtype, int variadic, ...)
+> > -{
+> > -	int stream = 0;			// FIXME
+> 
+> ... and, yes, here is the FIXME (so my memory is not as bad
+> as I thought!).
+> 
+> This all looks good.
+
+Well yes ... I don't really like the situation, though.
+I probably should do something like adding a #define builtin_stream 0
+and use this.
+ 
+Thnaks to bring my attention to this.
+-- Luc
