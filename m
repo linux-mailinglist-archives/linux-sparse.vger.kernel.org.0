@@ -2,242 +2,105 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 19B391F8ADA
-	for <lists+linux-sparse@lfdr.de>; Sun, 14 Jun 2020 23:10:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 5F5AA1F8B02
+	for <lists+linux-sparse@lfdr.de>; Sun, 14 Jun 2020 23:54:51 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726938AbgFNVKP (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Sun, 14 Jun 2020 17:10:15 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:47876 "EHLO
+        id S1727924AbgFNVyu (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Sun, 14 Jun 2020 17:54:50 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:54728 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726896AbgFNVKP (ORCPT
+        with ESMTP id S1727918AbgFNVyt (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Sun, 14 Jun 2020 17:10:15 -0400
-Received: from mail-ej1-x644.google.com (mail-ej1-x644.google.com [IPv6:2a00:1450:4864:20::644])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 9B705C03E97C
-        for <linux-sparse@vger.kernel.org>; Sun, 14 Jun 2020 14:10:14 -0700 (PDT)
-Received: by mail-ej1-x644.google.com with SMTP id gl26so15255783ejb.11
-        for <linux-sparse@vger.kernel.org>; Sun, 14 Jun 2020 14:10:14 -0700 (PDT)
+        Sun, 14 Jun 2020 17:54:49 -0400
+Received: from mail-ej1-x641.google.com (mail-ej1-x641.google.com [IPv6:2a00:1450:4864:20::641])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 86B7EC05BD43
+        for <linux-sparse@vger.kernel.org>; Sun, 14 Jun 2020 14:54:49 -0700 (PDT)
+Received: by mail-ej1-x641.google.com with SMTP id x1so15337400ejd.8
+        for <linux-sparse@vger.kernel.org>; Sun, 14 Jun 2020 14:54:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=8THyH/pq/bp0gEMzSwobqK+fGj9m+cObUS7uen1HQ/Y=;
-        b=PgZuL1Ysn+nwliGDVq7AM2CLPrx9yurrX9NtRaTmEeHnoSsGtny1mPEcLgrmleelar
-         YB+78V1j3c6wyA6bcmjCrdXRP/3b/Qy16dLyGtDzK1dmv6q7GszGDZVu7Ds4vXxXK0Oh
-         YiUOcrWfsBn73bW8cIXwyb0u5hMqppt12PogEamUp+ZPg2LZyXY4G5skijPyD4G2i53B
-         NLEQrrEMJARW14rOzORZo28Z8uOwZUjelJsBULPQOYb9hyhVnbrsjTgig0/sfVo+EhL/
-         2Cm/FotSJ1QlpslEomymg2RQpBjIdhsbEPtOLk52vV74lQtV8j8sVX/JYXlBWJwjw4XX
-         38CA==
+        h=date:from:to:cc:subject:message-id:references:mime-version
+         :content-disposition:in-reply-to;
+        bh=3ovCTvdBmD+KnglYNReH8vviHMgyeCC1W22NQpU1D3A=;
+        b=oiwaHCnTcpdGUEOBauGFqXbQiFbA0NV252SzJyAR/e5vGU1lIhuSLbIqD1NMj5DrfE
+         QOYxhU2melm/z2AuRcm90+o6nRvPXv7fM7kP/pczz+PSKBlFwMTgny5kriJA0xIxTWm1
+         ZOPz+L46AnXQXCNnZKSN1pasfUQrz6hQYIJng9IYlxgSYylaRjQQV92zZFkoZIuyFYhw
+         knVb6vtnHfH++1fLNSqQotkF24pPzoYcGYORPEvd0yp/KTu6SbmX+/VAf8l7EgdRUDNV
+         JGTyw2QRQMXrxbTGdua887rdonWaEklMyMBfRYQCUoVpvRQE23DPWiiiPcCizk9/1TgB
+         KZLA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=8THyH/pq/bp0gEMzSwobqK+fGj9m+cObUS7uen1HQ/Y=;
-        b=cslNj6I/qbMZVvRhcmQ6o+ER/PzbAsn9pT9FSBYzJzyrwUeulDak3iHKqUs+odv836
-         hgAaaVVCbyTaft96MXgQxccICUFuY4ZiPWdhogH4Cd9ABTPVxHzCpASXT08LqgJNM9N9
-         /4ZEqhrIg0VGi4g0fEhUo5h5H043kjPjpnlqIMkMWUvoCOcl5Ozp5LEZYAMAm886gRcy
-         +c00NIwXvVkGj+yZtvcpeYFwok/S+3lS+rVInIacTlwyJvm8t70p2T69IGez8SWK2Skj
-         1vRVQ3geyAqMQzq3WgLC+Kj/n6j6f8eSbD8krMyCz0URX+Od4+F1rqNDrAt2oKE5Eey0
-         HPJw==
-X-Gm-Message-State: AOAM532BhsSNjwdPIeW7tECU65w+F9MYWpReJnS/ZQhF8Wq0yE6jVIqe
-        81oeLS0xvJ3ARkcKVCOQMmbBgiIM
-X-Google-Smtp-Source: ABdhPJwAUGUY4g+pQsrgJByyxFvxeVxwzCgexEACT/HWmyPvWzQwWbRYjIRM4ZIssKDCMhTzpOi0Zw==
-X-Received: by 2002:a17:906:33ce:: with SMTP id w14mr10072012eja.35.1592169012840;
-        Sun, 14 Jun 2020 14:10:12 -0700 (PDT)
-Received: from localhost.localdomain ([2a02:a03f:b7f9:7600:d91c:9a32:92ae:d7bf])
-        by smtp.gmail.com with ESMTPSA id b24sm7125872edw.70.2020.06.14.14.10.11
+        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+         :mime-version:content-disposition:in-reply-to;
+        bh=3ovCTvdBmD+KnglYNReH8vviHMgyeCC1W22NQpU1D3A=;
+        b=TQ93tF5J1JQDRnLF6GW9htRd7DXoZ1diROhAORP+pThVggHHsiBD4DDpzCfQXm+4e2
+         nS6uApuvrQkbAAUv/LA+l3FYtqBL1Ui1LPKzfMe9U/xTegnGIDSAv82EmbaG2HsQwdfo
+         TwoSM3NRTwICEtZfl/cvmgtC3vC6SWKqbHUFka1Sb/eF7xJPiIH+XAo+ucgTsJbNSNZU
+         BImU6XGxKLzb8NTHkDg2Hog9me6anwy4CvaDRVQc/TEGxkivrf1fliTMEp3DKN78gYgb
+         3aUyfwFs8qsKYvhWmpJ4jL89v6qLpfpXDprDWHWE6PQnUbwZkeA9aj5r+U89sj/QHz8M
+         QQgA==
+X-Gm-Message-State: AOAM530M0hcVEQBx+iDmxr+FhODDeLvBupqcjUsB8HQZk00fldVjarTe
+        BD54xPYu6/wd8WpIzIJskz9Vuqrd
+X-Google-Smtp-Source: ABdhPJyQX22md1IBtlkIrIX8anU50s2D7CPTV4cKM6et138CitG+CpYOyBEujcD+yspO5ic4dBVHxA==
+X-Received: by 2002:a17:906:cb97:: with SMTP id mf23mr11287060ejb.468.1592171688036;
+        Sun, 14 Jun 2020 14:54:48 -0700 (PDT)
+Received: from ltop.local ([2a02:a03f:b7f9:7600:d91c:9a32:92ae:d7bf])
+        by smtp.gmail.com with ESMTPSA id k2sm7888710ejc.20.2020.06.14.14.54.46
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 14 Jun 2020 14:10:11 -0700 (PDT)
+        Sun, 14 Jun 2020 14:54:47 -0700 (PDT)
+Date:   Sun, 14 Jun 2020 23:54:45 +0200
 From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-To:     linux-sparse@vger.kernel.org
-Cc:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>,
-        Ramsay Jones <ramsay@ramsayjones.plus.com>
-Subject: [PATCH] doc: reindent the sublists in the relnotes
-Date:   Sun, 14 Jun 2020 23:10:08 +0200
-Message-Id: <20200614211008.24700-1-luc.vanoostenryck@gmail.com>
-X-Mailer: git-send-email 2.27.0
+To:     Ramsay Jones <ramsay@ramsayjones.plus.com>
+Cc:     linux-sparse@vger.kernel.org
+Subject: Re: [ANNOUNCE] Sparse v0.6.2-rc1
+Message-ID: <20200614215445.rtfbx23ve57fhlbr@ltop.local>
+References: <20200613020735.iqb2vd23jpomisbq@ltop.local>
+ <c80024d2-6d91-4fe7-a919-3edcf4a9b80a@ramsayjones.plus.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <c80024d2-6d91-4fe7-a919-3edcf4a9b80a@ramsayjones.plus.com>
 Sender: linux-sparse-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-The html-generated version of the release notes looked
-terrible because the used indentation was too small.
+On Sun, Jun 14, 2020 at 08:35:51PM +0100, Ramsay Jones wrote:
+> 
+> 
+> On 13/06/2020 03:07, Luc Van Oostenryck wrote:
+> > Sparse v0.6.2-rc1 is now out.
+> 
+> Tested in the usual places (Linux Mint 19.3, 64-bit and 32-bit and
+> 64-bit cygwin) and in the usual way; no issues found!
 
-Fix this by indenting the sublists by 4 instead of 2
+Thanks a lot. Here I tested it on 64-bit Debian (latest + unstable)
+and Ubuntu, and also on ARM64, ARM(32), ppc64, sparc64, mips64.
+I'll give a try later to some BSD.
 
-Reported-by: Ramsay Jones <ramsay@ramsayjones.plus.com>
-Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
----
- Documentation/release-notes/v0.6.2.rst | 136 ++++++++++++-------------
- 1 file changed, 67 insertions(+), 69 deletions(-)
+> Well, I say no issues - I did notice some spelling errors and
+> the formatting of the release notes does not look correct to
+> me (https://sparse.docs.kernel.org/en/latest/release-notes/v0.6.2.html).
+> Unfortunately, I don't know anything about the documentation tools
+> you are using, so I can't try to fix this. (It seems to be the only
+> attempt at nested 'bulleted lists', ...)
 
-diff --git a/Documentation/release-notes/v0.6.2.rst b/Documentation/release-notes/v0.6.2.rst
-index 7439724c3d45..3d0e4ba06967 100644
---- a/Documentation/release-notes/v0.6.2.rst
-+++ b/Documentation/release-notes/v0.6.2.rst
-@@ -9,92 +9,90 @@ V0.6.2
- 
- * add support for _Generic
- 
--* fully propagate declarations downward
--  For example, it means that code like:
-+* fully propagate declarations downward.
-+    For example, it means that code like:
- 
-         static int foo(void);
-         int foo(void) { return 0; }
- 
--  now behaves as expected: foo() is effectively static
-+    now behaves as expected: foo() is effectively static.
- 
- * multi-arch:
--  * allow a single sparse executable to be used for multiple architectures
--  * add support for -mcmodel & -f{pic,PIC,pie,PIE}, mainly for RISC-V
--  * add new option, --arch=$ARCH, to specify the target architecture
--  * move all arch-specific code into separate files (target-$ARCH.c)
--  * try to support the various floating-point ABIs on ARM
--  * fix wchar_t & wint_t for openbsd
--  * add missing predefines for PPC
--  * add missing predfines: __amd64 & __amd64__
--  * sparc32 on SunOS/Solaris uses 128-bit long double
--  * fix wchar_t & wint_t on SunOS/Solaris
--  * teach sparse about -fshort-wchar
--  * keep cygwin specifics with i386/x86-64 specifics
--  * keep BSD & Darwin specifics with i386/x86-64 specifics
--  * fix the signedness of plain chars
--  * add support for s390 (ILP32)
--  * add predefine for __mips__
--  * predefine "i386" if needed
--  * pre-define __unix__ and friends
--  * add necessary defined for sunos-derived systems
--  * improved detection of the native OS
-+    * allow a single sparse executable to be used for multiple architectures
-+    * add support for -mcmodel & -f{pic,PIC,pie,PIE}, mainly for RISC-V
-+    * add new option, --arch=$ARCH, to specify the target architecture
-+    * move all arch-specific code into separate files (target-$ARCH.c)
-+    * try to support the various floating-point ABIs on ARM
-+    * fix wchar_t & wint_t for openbsd
-+    * add missing predefines for PPC
-+    * add missing predfines: __amd64 & __amd64__
-+    * sparc32 on SunOS/Solaris uses 128-bit long double
-+    * fix wchar_t & wint_t on SunOS/Solaris
-+    * teach sparse about -fshort-wchar
-+    * keep cygwin specifics with i386/x86-64 specifics
-+    * keep BSD & Darwin specifics with i386/x86-64 specifics
-+    * fix the signedness of plain chars
-+    * add support for s390 (ILP32)
-+    * add predefine for __mips__
-+    * predefine "i386" if needed
-+    * pre-define __unix__ and friends
-+    * add necessary defined for sunos-derived systems
-+    * improved detection of the native OS
- 
--* warnings
--  * improve diagnostic message about wrong redeclaration
--  * conditionally accept { 0 } without warnings
--  * add -Wexternal-function-has-definition
--  * display the bitfield name in error messages
--  * oversized bitfields are now errors
--  * add an option to suppress warning 'no newline at EOF'
--  * warn when jumping into statement expressions
--  * warn when using undefined labels
--  * warn on defined but unused labels
-+* warnings:
-+    * improve diagnostic message about wrong redeclaration
-+    * conditionally accept { 0 } without warnings
-+    * add -Wexternal-function-has-definition
-+    * display the bitfield name in error messages
-+    * oversized bitfields are now errors
-+    * add an option to suppress warning 'no newline at EOF'
-+    * warn when jumping into statement expressions
-+    * warn when using undefined labels
-+    * warn on defined but unused labels
- 
- * attributes:
--  * allows '__<attribute-name>__' for all attributes.
--  * improve handling of function attributes
--  * separate modifiers into type/declaration
--  * add support for attributes 'unused' & 'gnu_inline'
--  * simplify parsing of inline/__tls/__visible
--  * better handle function-only attributes
--  * teach sparse about gnu_inline
--
--* typeof:
--  * ensure that typeofs are evaluated before using show_typename()
--  * use a single way to expand typeofs
-+    * allows '__<attribute-name>__' for all attributes.
-+    * improve handling of function attributes
-+    * separate modifiers into type/declaration
-+    * add support for attributes 'unused' & 'gnu_inline'
-+    * simplify parsing of inline/__tls/__visible
-+    * better handle function-only attributes
-+    * teach sparse about gnu_inline
- 
- * cgcc:
--  * use -fshort-char for Cygwin
--  * add support for riscv32 & riscv64
--  * don't define __CYGWIN32__ on 64-bit
--  * filter-out sparse-specific -msize-long & -msize-llp64
--  * use -mfloat-abi=hard for armhf
--  * define _BIG_ENDIAN when needed
--  * remove definition of _STRING_ARCH_unaligned (defined by glibc)
--  * removed unneeded predefines for integers (now defined by sparse)
--  * better multi-arch support by using --arch=$ARCH
-+    * use -fshort-char for Cygwin
-+    * add support for riscv32 & riscv64
-+    * don't define __CYGWIN32__ on 64-bit
-+    * filter-out sparse-specific -msize-long & -msize-llp64
-+    * use -mfloat-abi=hard for armhf
-+    * define _BIG_ENDIAN when needed
-+    * remove definition of _STRING_ARCH_unaligned (defined by glibc)
-+    * removed unneeded predefines for integers (now defined by sparse)
-+    * better multi-arch support by using --arch=$ARCH
- 
- * testsuite:
--  * avoid standard includes in the tests
--  * fix testcase with non-constant initializer
-+    * avoid standard includes in the tests
-+    * fix testcase with non-constant initializer
-     
- * IR
--  * add support for the linearization of builtins
--  * generate OP_UNREACH from  __builtin_unreachable()
--  * add OP_UNREACH after calls to __noreturn functions
-+    * add support for the linearization of builtins
-+    * generate OP_UNREACH from  __builtin_unreachable()
-+    * add OP_UNREACH after calls to __noreturn functions
- 
- * doc:
--  * do not use obsolete sphinx's AutodocReporter
--  * add basic doc about the type system
--  * doc is now accessible as: https://sparse.docs.kernel.org
-+    * do not use obsolete sphinx's AutodocReporter
-+    * add basic doc about the type system
-+    * doc is now accessible as: https://sparse.docs.kernel.org
- 
- * misc:
--  * add support for '-std=c17/c18'
--  * simplify testing of which version of the standard is used
--  * various improvements to the 'dissect' tool
--  * simplify the parsing of type specifiers
--  * improve diagnostic messages concerning bitfields
--  * fix premature examination of dereferenced object
--  * various fixes for the expansion of constant symbols
--  * fix type compatibility of _Atomic types
-+    * add support for '-std=c17/c18'
-+    * simplify testing of which version of the standard is used
-+    * ensure that typeofs are evaluated before using show_typename()
-+    * use a single way to expand typeofs
-+    * various improvements to the 'dissect' tool
-+    * simplify the parsing of type specifiers
-+    * improve diagnostic messages concerning bitfields
-+    * fix premature examination of dereferenced object
-+    * various fixes for the expansion of constant symbols
-+    * fix type compatibility of _Atomic types
- 
--- 
-2.27.0
+Yes, I saw that too now. I thought I had fixed it but visibly it
+wasn't. It should be really fixed now.
 
+[(Just FYI) The format of the doc is either reStructuredText
+(.rst) or MarkDown (.md). Both are much less simple than they
+appear to be but they have the huge advantage to almost look
+as if there is no markup at all/as if written 'naturally' in
+ASCII. Much much more readable than man-pages or html markup.
+
+The system used to generate the resulting HTML is Sphinx.
+It has the huge advantage to be very easy to install/to have
+near-zero dependencies: it's just a single python package.
+To use it, it's enough to just 'cd Documentation; make html'
+and the result can be found in 'build/html'. But I confess,
+most of the time, I'm too lazy to do that, I just push it
+on github which trigger a build on readthedocs.io (which
+then nicely send me an email if there is an error).]
+
+-- Luc
