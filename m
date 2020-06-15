@@ -2,94 +2,93 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id D4B051F9D9A
-	for <lists+linux-sparse@lfdr.de>; Mon, 15 Jun 2020 18:39:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 3E5951F9D9F
+	for <lists+linux-sparse@lfdr.de>; Mon, 15 Jun 2020 18:40:29 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1730622AbgFOQjF (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Mon, 15 Jun 2020 12:39:05 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:58116 "EHLO
+        id S1730135AbgFOQk2 (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Mon, 15 Jun 2020 12:40:28 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:58334 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1729966AbgFOQjE (ORCPT
+        with ESMTP id S1729966AbgFOQk1 (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Mon, 15 Jun 2020 12:39:04 -0400
-Received: from mail-vs1-xe32.google.com (mail-vs1-xe32.google.com [IPv6:2607:f8b0:4864:20::e32])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 8B20BC061A0E
-        for <linux-sparse@vger.kernel.org>; Mon, 15 Jun 2020 09:39:04 -0700 (PDT)
-Received: by mail-vs1-xe32.google.com with SMTP id r11so9733063vsj.5
-        for <linux-sparse@vger.kernel.org>; Mon, 15 Jun 2020 09:39:04 -0700 (PDT)
+        Mon, 15 Jun 2020 12:40:27 -0400
+Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com [IPv6:2a00:1450:4864:20::635])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id A3526C061A0E
+        for <linux-sparse@vger.kernel.org>; Mon, 15 Jun 2020 09:40:27 -0700 (PDT)
+Received: by mail-ej1-x635.google.com with SMTP id f7so18154165ejq.6
+        for <linux-sparse@vger.kernel.org>; Mon, 15 Jun 2020 09:40:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=KK8GeQWYPhrarpVp4wZck8HXUhuF3bCgcBRRAfWIHHk=;
-        b=shf7U/5FgywTzxhXekpmtWjb6Qpeoc/q/pe+rcZNxCwyB9MrAiu3Mq9AXV4NuVNDcm
-         f+u3H8XK1swULXCgLfop772ABfY2kY+HE67UyouM5r5DVOKYRIP4GrOwWAlQ6Nb0ocrX
-         t3fk8CaB1BwQVgsuax55PioDUl4pcqiRUzN64vAIgzJG4G3LV8QQ6KcvcjcS8SoB/Ai+
-         LLGba9PBbl+w2H2RITHu4vICRzcvCldoaQdU+jGe0oEuZHnnWIhd+lfiLTsShvEkBtGT
-         IHf/5/Tt8skT+RNjrQGOx1BH007FrGu5LnoGytrCmoL8ZfCd669Rb0rcB92L+fG+H0ef
-         ogFQ==
+        h=from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=BgEtV+T7DHfTuptEBiWtJG8NpgOmEM8aoYHy+jgm52c=;
+        b=rR3+mKAU6Zt/gXuH7QWTb30NQKzQDd3KJvRQwJdRbkGEyOpdc9CpT5ig9sM7XbkenL
+         sFzUc0pLhl91S9f8oDbt//qfA9K78Haxyoay7LSC90p/v7nnxYZsqw3Z+2Po1L20kHj8
+         GeZwAdBckl/3bXmzNGBkus6+edwV3xAqrTMAsegr4SaLJZUuIIUZl1r2H5GbvbgVs9eZ
+         11+iPTkTynWM102PJ8KTAnmae5G2uXZO4LfthMrLNvNb8rjx/zRHem3011W4GhM1vXzB
+         sZ88+tO0tCG582Pvuc9VA7Q4E0sVOCapJIuAI2Lhv3+cTA7s0zLDAC9ip0WJ+3QSpF3T
+         7VTA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=KK8GeQWYPhrarpVp4wZck8HXUhuF3bCgcBRRAfWIHHk=;
-        b=ERc0XR6VeOUpMWn5QA+cadUy+l23RffTO8ad2Nl7aqVX2zuFSTlM2l5k2B/eGcWXdG
-         +gqKrxUHI9/x4DlfjPFwljXB7+lUAcMR6tFTdPtPLQIG+IeQ2AezTE6hXHx5F9oU2nB5
-         UIoT24qxjaMGJGnak0peNAIEUx2oweo56ZAPaUYyyhJZZdxOfDIMHIYzUMF0uQxxS3E3
-         jx0lIKzrjWv/BGOSs0DE+voyEN4LNM1WCymRt6/+uWLVuUHbNgy5bvk86KDJq0gHoGrr
-         cvfJSMdRaiEuxCojui9hlhhswXqRMK6y5d648EIeM4zNqZGhI9ujCCDy6FQ7KVoxTSkF
-         rB1A==
-X-Gm-Message-State: AOAM5337Qh9JJiYva5h525hX4Fia03LBLG/9RDfY39K6uwTX0izvPfB6
-        EDongcSrTf6jV2TSpb9npK2TgK097QSx0L/VcU86yQ==
-X-Google-Smtp-Source: ABdhPJx+00sYwJH/THYWGibT4XG5Bm3UdagFuhLtlTNwEnzjIahWoJ07LU4edLMyHSc9nZx9VfnLm4kfm0Mvh6KCwWk=
-X-Received: by 2002:a67:26c3:: with SMTP id m186mr7055027vsm.144.1592239143312;
- Mon, 15 Jun 2020 09:39:03 -0700 (PDT)
-MIME-Version: 1.0
-References: <20200613020735.iqb2vd23jpomisbq@ltop.local> <c80024d2-6d91-4fe7-a919-3edcf4a9b80a@ramsayjones.plus.com>
- <20200614215445.rtfbx23ve57fhlbr@ltop.local> <d540f450-c72e-5c51-ffba-32d7eb800137@ramsayjones.plus.com>
-In-Reply-To: <d540f450-c72e-5c51-ffba-32d7eb800137@ramsayjones.plus.com>
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=BgEtV+T7DHfTuptEBiWtJG8NpgOmEM8aoYHy+jgm52c=;
+        b=jnkafTYLPpSRzARMTg5fih0l+kA8+g7u64noVts6t7B6e9RC+0lyycaKdCxsnuSu+1
+         oXwriOM1R7+p67tIwAuNjohdvsNK0ublCGSP17ORiCuMVoPj+irjzLL4XszrhY6iGBDW
+         mtL1vy8ofKnKaSDpEifRZ2951IOWjdQViGcVT9FWNKnLTjeeG+Qdlh1DYbdQBiKmUEAG
+         maAiIln/zq191AIqwo7SNKwbaOh5PahvEfbz3/ii2Rn+e4kbgBb/wAqX6+psSp7A7Vhn
+         RmmoVrj4LtcqssUs5ZdL2eaT/XneW+wsUfCLoS+xhu8pQH2UrShjF3XHHMI0y01THt0c
+         i1XQ==
+X-Gm-Message-State: AOAM530FOEghSoaOelBwgcDj4OhPtkg7cI9pxxhPKLTSFHkVAjWdY6pr
+        yxh8hDw4ZbiVB1kK4z7ZKHHZQ5hX
+X-Google-Smtp-Source: ABdhPJyt626ZtGJ6j2o5tZBiAnGiweqRSSVHIeZ7kfT6NBqMwx/deCWDDaqGVHXrbhmjMCY9OuYkZQ==
+X-Received: by 2002:a17:907:20db:: with SMTP id qq27mr25766592ejb.232.1592239225499;
+        Mon, 15 Jun 2020 09:40:25 -0700 (PDT)
+Received: from localhost.localdomain ([2a02:a03f:b7f9:7600:2438:c4f9:4ba4:a33e])
+        by smtp.gmail.com with ESMTPSA id 36sm8726143edl.31.2020.06.15.09.40.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 15 Jun 2020 09:40:24 -0700 (PDT)
 From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-Date:   Mon, 15 Jun 2020 18:38:52 +0200
-Message-ID: <CAExDi1RbuRvkQb0DAYZUdwj+XQvVn91D8rU_-_bkybfCqi10eg@mail.gmail.com>
-Subject: Re: [ANNOUNCE] Sparse v0.6.2-rc1
-To:     Ramsay Jones <ramsay@ramsayjones.plus.com>
-Cc:     Linux-Sparse <linux-sparse@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+To:     linux-sparse@vger.kernel.org
+Cc:     Ramsay Jones <ramsay@ramsayjones.plus.com>,
+        Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
+Subject: [PATCH] doc: minimal version for Sphinx is 1.7
+Date:   Mon, 15 Jun 2020 18:40:22 +0200
+Message-Id: <20200615164022.59492-1-luc.vanoostenryck@gmail.com>
+X-Mailer: git-send-email 2.27.0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 Sender: linux-sparse-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-On Mon, Jun 15, 2020 at 12:37:28AM +0100, Ramsay Jones wrote:
-> I just installed python-sphinx (on LM 19.3 it is the python2
-> version) to give it a try, and it failed:
->
->   $ make html
->   Running Sphinx v1.6.7
+Because of the changes needed after the removal of the obsolete
+sphinx.ext.autodoc.AutodocReporter, the minimal version of Sphinx
+is 1.7 (the first one containing switch_source_input()).
 
-This is probably too old (running 3.0 here but IIRC 2.7 or
-2.8 should be OK).
+So, update this information in the conf file.
 
->   making output directory...
->
->   Extension error:
->   Could not import extension cdoc (exception: cannot import name switch_source_input)
+Fixes: b741a793e63c0fd4a333cd575ac2339f5a9b2698
+Reported-by: Ramsay Jones <ramsay@ramsayjones.plus.com>
+Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
+---
+ Documentation/conf.py | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Ah yes, I forgot about this one.
-This is a very small python module I created to extract the
-doc from the C files. It's the file Documentation/sphinx/cdoc.py.
-There is another one (ir.py) to keep the IR doc bearable.
-Both are specified on the top of the config file
-(Documentation/conf.py) which should give the info needed
-to load them.
+diff --git a/Documentation/conf.py b/Documentation/conf.py
+index 90583908c5ed..bd2532f7c777 100644
+--- a/Documentation/conf.py
++++ b/Documentation/conf.py
+@@ -21,7 +21,7 @@ import datetime
+ 
+ # -- General configuration ------------------------------------------------
+ 
+-needs_sphinx = '1.3'
++needs_sphinx = '1.7'
+ 
+ # Add any Sphinx extension module names here, as strings. They can be
+ # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
+-- 
+2.27.0
 
-After checking, IIUC, switch_source_input exists only since
-Sphinx 1.7 (and it's used by this extension only recently because
-AutoReporter was obsolete and was removed in recent versions).
-
-> It's too late to try and fix it tonight ... (also LM 20 is currently
-> in beta, so I will be trading up soon) :D
-
-Yes, sure :)
-
--- Luc
