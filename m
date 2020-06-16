@@ -2,100 +2,84 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id B02891FC040
-	for <lists+linux-sparse@lfdr.de>; Tue, 16 Jun 2020 22:51:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 024451FC078
+	for <lists+linux-sparse@lfdr.de>; Tue, 16 Jun 2020 22:57:39 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726464AbgFPUvt (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Tue, 16 Jun 2020 16:51:49 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:37390 "EHLO
+        id S1727085AbgFPU5c (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Tue, 16 Jun 2020 16:57:32 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:38284 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726303AbgFPUvt (ORCPT
+        with ESMTP id S1726428AbgFPU5c (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Tue, 16 Jun 2020 16:51:49 -0400
-Received: from mail-ej1-x642.google.com (mail-ej1-x642.google.com [IPv6:2a00:1450:4864:20::642])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id E2977C061573
-        for <linux-sparse@vger.kernel.org>; Tue, 16 Jun 2020 13:51:48 -0700 (PDT)
-Received: by mail-ej1-x642.google.com with SMTP id o15so23172734ejm.12
-        for <linux-sparse@vger.kernel.org>; Tue, 16 Jun 2020 13:51:48 -0700 (PDT)
+        Tue, 16 Jun 2020 16:57:32 -0400
+Received: from mail-ed1-x542.google.com (mail-ed1-x542.google.com [IPv6:2a00:1450:4864:20::542])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 049E0C061573
+        for <linux-sparse@vger.kernel.org>; Tue, 16 Jun 2020 13:57:32 -0700 (PDT)
+Received: by mail-ed1-x542.google.com with SMTP id x25so231717edr.8
+        for <linux-sparse@vger.kernel.org>; Tue, 16 Jun 2020 13:57:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=date:from:to:cc:subject:message-id:references:mime-version
          :content-disposition:in-reply-to;
-        bh=bWMjw/0wLB367m810HDwMWco1ddR//QAScn43S6cogU=;
-        b=KPYUFVK+HruTh3h6q0r3CEos3mzyFr5OVq0oRGjfOaRoUIZOk9REb/iy1Zn9hogx2h
-         Fw5AUeCigmzGGDg5C0pqIT0/UvjxsYXtVORFT3Im26LqD3oZrJI58+L18nuhqe+alRaw
-         zM+/tw0Dseqf/NuYaZv+ptwI395ZA+H4E5B9W+RqgL+SMXbMvrZ9+Aw6k83hPyVJI642
-         Vuilu+qGYlzgqJwaRza1R/zu+h8PuJKwDAvQQ8e7UolcxDb+uvFDYBpoyDuOeqJuNBZi
-         sxlbn9GVg0/2McnkED7b2p+MnHUMkGjzQVnOJs9nCuI4Hl/md0ivMMdq+YfzMDSLI2hh
-         NW6w==
+        bh=/NHjiju9UwYWr/4U9mbHJNayg9eK4hoh8Gjb4JgesOg=;
+        b=YJzBynoFSZseQvW4RrPchVaCOfSTTCQUGCK+VLB3wtV5rlVDGct6jbUno2iYwwNdpN
+         4Yq5qog2d7xYzUdZuuB4j6hSAzYGLUi8P341hvdqt/PauA54z8aHUUGTEzlXFeCKkYah
+         yYZ9JSn6tTzfIITXdWdagpoEUukm2roWCwseil+ng+Kb8en/NJwmfYfuGssl9wENQuWF
+         H2y2jio4/LAE3DmNfK1OORAulX2y1UMCXAMrsfGeumO5i6qAAMMK59rwFcw3rwnfmrpa
+         FM8xmDpUIg4uUzkwINwmWFcvSu8Nu9ACwwdwI4oA+k0tiQOaclhNm75S6FhcDgyjLZgY
+         Eiuw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:date:from:to:cc:subject:message-id:references
          :mime-version:content-disposition:in-reply-to;
-        bh=bWMjw/0wLB367m810HDwMWco1ddR//QAScn43S6cogU=;
-        b=h6EzcJtEXuIIWqiEbKArbFHL/5L7NfAJ1ZiwSr4xVJ1OofuuPIRSRDVCeH8FYjTqy4
-         Bp5dLC9YvKf6xzUjB7olMhnsiSKWGwzV0iz0XB5cmlBvUEMwCvqV87agAQWjYj0kJPYE
-         ajyHbuTQV0sVBxLVJ1jsJlKd0l32JDgvPp36eAs0XdQwgUmn9H71EPRcxQq1gMXEKqNc
-         TOnfV994hUkrhWdyU1mB8JcIFEzxGjJG+XLwisYsPVM72EIjTerIQYIj8KhZwM+zkaf5
-         wmRrICyAVvwcYEXMaZwzkE5k9oXk9F0b9t1d4/sQMi7UV2Yn/qUU/9UT8A5ezsCYuvio
-         vYNw==
-X-Gm-Message-State: AOAM530qh4a9lxQIDNHtTeYj6bKMmBMBtTNJCim2B+K0TZCBbCiTkY5y
-        9oz4/C+j1nr7aBGTBlANg4k=
-X-Google-Smtp-Source: ABdhPJyAmYWNxROiwqcCSboVxhXa8wCsbW2OCmi2T0S490BNj+71aTZ5NUaKvOY+4JEC7TViZ39YaA==
-X-Received: by 2002:a17:906:365a:: with SMTP id r26mr4420570ejb.466.1592340707633;
-        Tue, 16 Jun 2020 13:51:47 -0700 (PDT)
+        bh=/NHjiju9UwYWr/4U9mbHJNayg9eK4hoh8Gjb4JgesOg=;
+        b=LdXz4/cxampCsKO62IEuKFbiOWLd57Jz98K0ryFSdZVJhZsN0RFciUWB2EghMpfUb0
+         uHWHOV4fIU/Zms+4kZ3MNjGTpYuyRLbrfubgQU01cug/HE1Pc5tNEwuO552CCiFRSrVE
+         yZYZKTjqQ5RUiZ3n515agAF82tgjYVnJhNbsiKrogJeaYMR2Ut11ZCaWtmA08pbMYV/+
+         XrcS+JQGfQxRJXfgjH/VqP39lFKLMmvGFHCsDeU3uFe5C5ut8dr5Lt4k3yitaCWezUmc
+         99MHeOXi7jQnmwtLH67CWu3mc2lT8/vi6EKfjBxmK32NmMHnE/kqqqJ+d3Qgw6h3gPyG
+         DS1A==
+X-Gm-Message-State: AOAM530ah7b9e79wtohENDXHlQB4G6xUX+/z9InNJ59AY232gb6gnrPt
+        D6LucBxzi9A9K9Ac1reKoxK8qC2H
+X-Google-Smtp-Source: ABdhPJwApFJoaBBxf6N/3AbgEYQj3Z9kQWj0Kqnlo9qlM7ImEkU/pUYvseMS/N2fnLpYnGEMSp+0xg==
+X-Received: by 2002:aa7:da42:: with SMTP id w2mr4209629eds.176.1592341050811;
+        Tue, 16 Jun 2020 13:57:30 -0700 (PDT)
 Received: from ltop.local ([2a02:a03f:b7f9:7600:5034:6797:70f1:e20a])
-        by smtp.gmail.com with ESMTPSA id ck11sm11864680ejb.41.2020.06.16.13.51.46
+        by smtp.gmail.com with ESMTPSA id p13sm10781079edx.69.2020.06.16.13.57.29
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 16 Jun 2020 13:51:46 -0700 (PDT)
-Date:   Tue, 16 Jun 2020 22:51:45 +0200
+        Tue, 16 Jun 2020 13:57:29 -0700 (PDT)
+Date:   Tue, 16 Jun 2020 22:57:29 +0200
 From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-To:     Linus Torvalds <torvalds@linux-foundation.org>
-Cc:     Sparse Mailing-list <linux-sparse@vger.kernel.org>
-Subject: Re: [PATCH] predefine: add a macro telling about named address spaces
-Message-ID: <20200616205145.gtg3vybznxfx62tx@ltop.local>
-References: <20200616005012.66141-1-luc.vanoostenryck@gmail.com>
- <CAHk-=whHKXbJS62Nrcsn6cy0EcHh3PrGbESBkM0MOAjFx-CVsQ@mail.gmail.com>
+To:     Ramsay Jones <ramsay@ramsayjones.plus.com>
+Cc:     linux-sparse@vger.kernel.org
+Subject: Re: [PATCH] doc: add intro stolen from the wiki
+Message-ID: <20200616205729.gaz5vz47tawohkq5@ltop.local>
+References: <20200616001122.65350-1-luc.vanoostenryck@gmail.com>
+ <1d164023-8e9d-8950-7fec-b1bd7b673c31@ramsayjones.plus.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <CAHk-=whHKXbJS62Nrcsn6cy0EcHh3PrGbESBkM0MOAjFx-CVsQ@mail.gmail.com>
+In-Reply-To: <1d164023-8e9d-8950-7fec-b1bd7b673c31@ramsayjones.plus.com>
 Sender: linux-sparse-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-On Tue, Jun 16, 2020 at 12:13:18PM -0700, Linus Torvalds wrote:
-> On Mon, Jun 15, 2020 at 5:50 PM Luc Van Oostenryck
-> <luc.vanoostenryck@gmail.com> wrote:
-> >
-> > Sparse supports named address spaces since v0.6.0-rc1.
-> > This gives much nicer warnings ('... __user' instead of '... <asn:1>')
-> > but this featres is not yet used in the kernel since it could be
-> > a problem for people using an older version of Sparse.
+On Tue, Jun 16, 2020 at 02:38:26AM +0100, Ramsay Jones wrote:
+> On 16/06/2020 01:11, Luc Van Oostenryck wrote:
+> > The wiki has a small into, perfectable but nice
 > 
-> Actually, I think it's more that nobody has sent a tested patch.
-
-Yes, I should have done this many months ago. I admit that it bothers
-me when people complain that something doesn't work with sparse and
-it's just that they using an old version (sometimes quite old).
- 
-> I don't think it's a big burden to say "you need a newer version of
-> sparse" for kernel checkers, and in fact a number of the problems
-> people report then get answered with "update your sparse version"
-> anyway for other reasons.
+> s/into/intro/ or s/into/introduction/
+> s/perfectable but/which could be improved, but is/
 > 
-> In fact, I'd personally like to just make the kernel use _Generic()
-> everywhere now that we started getting our toes wet, but the fact that
-> we would have to require gcc-4.9 (instead of gcc-4.8 which is
-> currently the minimum version) is holding us back.
+> > enough while the doc here has no such thing.
 > 
-> So I'd be perfectly happy to take a patch to do the ASN names, and to
-> remove the __CHECKER__ thing that holds us back from using _Generic()
-> with sparse. And just document that you need to have a recent enough
-> release..
+> s/enough/enough,/
+> 
+> > 
+> > So, copy the intro from the wiki into the entrypoint
+> 
+> s/intro/introduction/ maybe.
 
-OK. The one for the ASNs is already prepared anyway and I'll do the
-one for _Generic() tomorrow.
-
--- Luc
+Fixed now. Thank you.
+-- Luc 
