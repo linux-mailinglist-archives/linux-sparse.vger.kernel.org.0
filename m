@@ -2,59 +2,59 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 033551FC0AD
-	for <lists+linux-sparse@lfdr.de>; Tue, 16 Jun 2020 23:11:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id BE6141FF445
+	for <lists+linux-sparse@lfdr.de>; Thu, 18 Jun 2020 16:10:21 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726091AbgFPVLL (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Tue, 16 Jun 2020 17:11:11 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:40390 "EHLO
+        id S1730245AbgFROKO (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Thu, 18 Jun 2020 10:10:14 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:52100 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1725768AbgFPVLK (ORCPT
+        with ESMTP id S1730622AbgFROJ6 (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Tue, 16 Jun 2020 17:11:10 -0400
+        Thu, 18 Jun 2020 10:09:58 -0400
 Received: from mail-ej1-x644.google.com (mail-ej1-x644.google.com [IPv6:2a00:1450:4864:20::644])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id A238FC061573
-        for <linux-sparse@vger.kernel.org>; Tue, 16 Jun 2020 14:11:10 -0700 (PDT)
-Received: by mail-ej1-x644.google.com with SMTP id n24so23292545ejd.0
-        for <linux-sparse@vger.kernel.org>; Tue, 16 Jun 2020 14:11:10 -0700 (PDT)
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id D8810C0613ED
+        for <linux-sparse@vger.kernel.org>; Thu, 18 Jun 2020 07:09:55 -0700 (PDT)
+Received: by mail-ej1-x644.google.com with SMTP id mb16so6585521ejb.4
+        for <linux-sparse@vger.kernel.org>; Thu, 18 Jun 2020 07:09:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:mime-version
          :content-transfer-encoding;
-        bh=m5mImBfhjupddSIyOzvHlv0zH9yYSYGlSzBTALSy5MI=;
-        b=siB8XyewO2DBfFvgDQ666TGmlOqTRwN0T0lSYCOAzboL6StBiWXpOU6PfHUX49Wy6E
-         PcR8kl2rFnEiM5a84CRgdwoSI5oyJYi02pClDYnYPZkcH+SfsQHVfE64Bq5WcHmqBVsJ
-         VV6bqv+2lcrdzMz9Bn8+wAGQ13ymxizdFs/B5RJwGBy334O+oVA21Yp8BoqX0kHHlMts
-         164DADalH/GAv6+vNMcn+pweFO74ePuBiADxjaKgzLeM/kHXI4B/l3foQlBDpjPpwYvV
-         FwuzrOBTGob5CK2wUN/jvNNmc55Nj+7jPyl4MT1+J9UVUcTkf6IeG1BBjZAiAI7267fa
-         o56Q==
+        bh=ABRwHxAcLNkboBfvPFRpCG8LZWv4rqcq7jzrC46klk4=;
+        b=g3JtQlvgSkV14a/CimWm7cxtFch8wfA2Qp4PfJ4JyDqfNhm1bvo/CCpz+BR0CHYWXw
+         fuqjqq7bxThnh1OBzCbOz/xD1KmvYiGv+OcIesDnPuZH3LNp0fJz5rB7i4Nc/4ZQakCk
+         uj7bdAXWFhD1O686aGPd4qRu1b3LKYdH0T8pzNoDCcdnCEy1SM4mTKMfa1RzOJSLDBp1
+         W00+ypdwHrpsMhb4r181Y9a/QA4QIXEaAsGKXMSMMnxxlUOCmT+6wtI04wLAa8oHbWBJ
+         nQGQdyxpIEL4eZxxby2WHZzXdfO0UCe1y4Aj/3ZV4FJveElE1+s9gvZU/J38h5mkmjXr
+         VZXA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
          :content-transfer-encoding;
-        bh=m5mImBfhjupddSIyOzvHlv0zH9yYSYGlSzBTALSy5MI=;
-        b=RnhUdo7gZUVq1C1DS3rkRyVMe9HlxA2ulDivVFOjhpdNPJTJCHbJ9EUZ41iCgLQ7k/
-         7pjKRKnyVRYVPNYVL4eQPb+jpmX95UuTLcU5G0pPxlPwpIzoJh3vOe/j/zU+lL0inizK
-         EcKlt9wGegoPMF0tnGu+FRIvsvertINAY7Y3UwJbKit/xOThBTokSI820Ip+dZ1atTH5
-         AGZjVuGTKCG8acL+gsMFMAtp0FMOXWu2yRUApKTWMLliM7fvkr/r+amcaq21+zaW+WVN
-         YeE5mrGbCJS2QyyeJNdbswHwWV6a/pb4W+VtfcR2fORT/2NFBb2kff0hTw8Ktu1ZjIF9
-         iHRg==
-X-Gm-Message-State: AOAM530J1Hg//HK89ahKUQuY9DVA8RdpKRIPUhtDMB0+VdZUJzpkhMlC
-        C3QQGwL6NgpLP1TkNzYyFaAlB9qf
-X-Google-Smtp-Source: ABdhPJwCeztkZPm+6eLAiC8BL4/Nju56R1dnNZNN/ocYISNgvOLAf64fLHfPv+hici7xvuHiPz9usQ==
-X-Received: by 2002:a17:907:42d2:: with SMTP id ng2mr4417214ejb.301.1592341869203;
-        Tue, 16 Jun 2020 14:11:09 -0700 (PDT)
-Received: from localhost.localdomain ([2a02:a03f:b7f9:7600:5034:6797:70f1:e20a])
-        by smtp.gmail.com with ESMTPSA id j5sm10735287edk.53.2020.06.16.14.11.08
+        bh=ABRwHxAcLNkboBfvPFRpCG8LZWv4rqcq7jzrC46klk4=;
+        b=G+SM9pV2rLXzwYl3z2n76zAaTlsANKuTuk4zgp+CygXmC3OFjP5l6sEStgVfXj2ztU
+         dY0zIiBFY89WevkveC97EXgKCvcMGvFA8YEwY3O+ydoe6pdv1/HQ/RmJsml+MxHoAlyo
+         Eo4DUJU26U0r5WXESnGeNQUFL7mVaXwgtvhR3xGrgtct7O8KiRxr7FJNpVr609XYCD2x
+         Uo8KV/NXuXbUrZ27T4m3cuj0sgTWvUe37Hirtf0mN0Ilmps113HrIe3oKM102S9xwX2q
+         Y7O2CJHhKHE+li8DRz7V6N3OfkCAUUS3Y33/q68xhFruka+dFMq8bLF3UaPEID41h2QO
+         sf/g==
+X-Gm-Message-State: AOAM533DcF/f32pFTjKWVWRXlGIxKVn2f67Zm2H5jIWGaIo7243vUQeM
+        D6EF/4hwa3gnNdhuDYEWT4ZHG1QEzlTkSg==
+X-Google-Smtp-Source: ABdhPJydBTuwQ8sGgV/irzCMRBqhXv2WIEsut//r8nLdZrCwA7TjCxMIQgSxtOkN4ChjCRkWfmipAw==
+X-Received: by 2002:a17:906:2dc7:: with SMTP id h7mr4277293eji.15.1592489394509;
+        Thu, 18 Jun 2020 07:09:54 -0700 (PDT)
+Received: from garrit-VirtualBox.fritz.box ([94.31.102.44])
+        by smtp.gmail.com with ESMTPSA id f17sm2201643edj.32.2020.06.18.07.09.53
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 16 Jun 2020 14:11:08 -0700 (PDT)
-From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-To:     linux-sparse@vger.kernel.org
-Cc:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-Subject: [PATCH] testsuite: be less paranoid with timeout
-Date:   Tue, 16 Jun 2020 23:11:06 +0200
-Message-Id: <20200616211106.78251-1-luc.vanoostenryck@gmail.com>
-X-Mailer: git-send-email 2.27.0
+        Thu, 18 Jun 2020 07:09:53 -0700 (PDT)
+From:   garritfra <garritfranke@gmail.com>
+To:     luc.vanoostenryck@gmail.com, linux-sparse@vger.kernel.org
+Cc:     garritfra <garritfranke@gmail.com>
+Subject: [PATCH] ir-validate: remove orphan comments
+Date:   Thu, 18 Jun 2020 16:09:14 +0200
+Message-Id: <20200618140913.25321-1-garritfranke@gmail.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Sender: linux-sparse-owner@vger.kernel.org
@@ -62,36 +62,56 @@ Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-For some testcases, the testsuite use the command 'timeout'
-to ensure that the test finish after a reasonable amount of
-time. This is mainly used for some testcases which, in the past,
-were stuck in an infinite loop. This the command 'timeout' is
-used with an extra option (-k 1s) to issue a second kill signal
-in case the first one would have been ignored.
+Please let me know if these comments have a right to be there, but I
+think they are orphans and can be removed.
 
-However, this extra option is not supported on all implementations
-(Alpine) and its use seems a bit paranoid for sparse.
-
-So, remove this extra option.
-
-Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
+Signed-off-by: Garrit Franke <garritfranke@gmail.com>
 ---
- validation/test-suite | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ optimize.c | 7 -------
+ 1 file changed, 7 deletions(-)
 
-diff --git a/validation/test-suite b/validation/test-suite
-index 64a3e08fb4dd..a22f70135fb3 100755
---- a/validation/test-suite
-+++ b/validation/test-suite
-@@ -338,7 +338,7 @@ do_test()
- 	# do we want a timeout?
- 	pre_cmd=""
- 	if [ $check_timeout -ne 0 ]; then
--		pre_cmd="timeout -k 1s $check_timeout"
-+		pre_cmd="timeout $check_timeout"
- 	fi
+diff --git a/optimize.c b/optimize.c
+index e8cb7fc3..31d94e61 100644
+--- a/optimize.c
++++ b/optimize.c
+@@ -75,7 +75,6 @@ repeat:
+ 	 */
+ 	do {
+ 		simplify_memops(ep);
+-		//ir_validate(ep);
+ 		do {
+ 			repeat_phase = 0;
+ 			clean_up_insns(ep);
+@@ -86,15 +85,11 @@ repeat:
  
- 	shift
+ 			if (repeat_phase & REPEAT_SYMBOL_CLEANUP)
+ 				simplify_memops(ep);
+-			//ir_validate(ep);
+ 		} while (repeat_phase);
+ 		pack_basic_blocks(ep);
+-		//ir_validate(ep);
+ 		if (repeat_phase & REPEAT_CFG_CLEANUP)
+ 			kill_unreachable_bbs(ep);
+-		//ir_validate(ep);
+ 	} while (repeat_phase);
+-	//ir_validate(ep);
+ 
+ 	vrfy_flow(ep);
+ 
+@@ -111,13 +106,11 @@ repeat:
+ 	 * again
+ 	 */
+ 	if (simplify_flow(ep)) {
+-		//ir_validate(ep);
+ 		clear_liveness(ep);
+ 		if (repeat_phase & REPEAT_CFG_CLEANUP)
+ 			kill_unreachable_bbs(ep);
+ 		goto repeat;
+ 	}
+-	//ir_validate(ep);
+ 
+ 	/* Finally, add deathnotes to pseudos now that we have them */
+ 	if (dbg_dead)
 -- 
-2.27.0
+2.25.1
 
