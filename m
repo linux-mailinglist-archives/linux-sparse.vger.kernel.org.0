@@ -2,58 +2,58 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id D69831FFCEA
-	for <lists+linux-sparse@lfdr.de>; Thu, 18 Jun 2020 22:49:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 4FF381FFCEB
+	for <lists+linux-sparse@lfdr.de>; Thu, 18 Jun 2020 22:49:41 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1728249AbgFRUtk (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        id S1725912AbgFRUtk (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
         Thu, 18 Jun 2020 16:49:40 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:57512 "EHLO
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:57514 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1725912AbgFRUti (ORCPT
+        with ESMTP id S1728196AbgFRUtj (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Thu, 18 Jun 2020 16:49:38 -0400
-Received: from mail-ej1-x642.google.com (mail-ej1-x642.google.com [IPv6:2a00:1450:4864:20::642])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 0C9DBC06174E
-        for <linux-sparse@vger.kernel.org>; Thu, 18 Jun 2020 13:49:38 -0700 (PDT)
-Received: by mail-ej1-x642.google.com with SMTP id o15so7827440ejm.12
-        for <linux-sparse@vger.kernel.org>; Thu, 18 Jun 2020 13:49:37 -0700 (PDT)
+        Thu, 18 Jun 2020 16:49:39 -0400
+Received: from mail-ej1-x641.google.com (mail-ej1-x641.google.com [IPv6:2a00:1450:4864:20::641])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 44BA6C0613EE
+        for <linux-sparse@vger.kernel.org>; Thu, 18 Jun 2020 13:49:39 -0700 (PDT)
+Received: by mail-ej1-x641.google.com with SMTP id n24so7898424ejd.0
+        for <linux-sparse@vger.kernel.org>; Thu, 18 Jun 2020 13:49:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=mT489bCQBQG6RV/gV4wFL+B7Jnjg2vXG/18r21Ye15A=;
-        b=p41ttb1lVgHtZ/u7ouvCLLCU9cc86wUO7ZM3bnr8C+Cws6LazLhrSVACKCNIW+kHcD
-         z8Lpcfwn7Xlsan8qzupWxsCW3/Yio120nL2oxVTErWcvTkCQOYn/0VErYU6Z0PYX/C4y
-         LUl8afZGplo+KO8/57aQg5AvmWt08n50q44/UWHlO22MUcapvVGYZfp7mFaULRLN9HyL
-         stTSwaNcXYmEhONIxfqYdeXLFGQnm+siSCpYHy04dLELF7pmUdxlxas0XBdJMfCyWxgv
-         d7vriQAJ0k3/aYQ8zZeI8ojT6+TthvRh38d7MScrQEGqY3nJdNrnkp/Lgd4tbTg6yeIO
-         rMUw==
+        bh=sz98MQSw+43ZlPZFydM8yE1484f/qrL810vDtRcD7U0=;
+        b=TcltcenQa+27KOTBqrcm05HKkvyldA8JqkDsM2X28o1F8Uk7MbEaZl6OPri5iqhp03
+         IP7F/Kfq8Bywa5uUgu+5mwuznqyWBKAzfKHw8blt70IZ6PjAGOOpEc1WqAKenYc/Zstz
+         zmdVVvvqTkR46EtqJBr/zzRkPZAPWKlt2LhfN4A62a+f7K8BEJWFYOe+9F3aCUbVTXzR
+         Aps6huQ3K1SpBvKSrd68SDoBH6y/R/I5IhsepnXjZnDg9zOSWpEWNpA1RQYTxvLaOUa0
+         AuaKyppw47dfmq+wKoxT2ZLL0By9Eghk1LIclQCKAmB/41dnXjux2iaX6wSDYr35XvaM
+         +vzw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=mT489bCQBQG6RV/gV4wFL+B7Jnjg2vXG/18r21Ye15A=;
-        b=LGlyh6d4OJppoffcShQX146zOPSE3zHwUeIIDmOMIfBXFzWsMvLTfgimYY0etBy50E
-         byvBIVDQkklZgvM/R86OJhnWS7FvzFZft4cSnERZYvxOQ1SBU0HEyvP+S9osj+XK8Eqs
-         vUCAW2ca89DCFjUswM7WS8o6bwKVZeZ93DmB1xBvvTZ6zIYaQk3bE8f1xHGJAvYDD3/V
-         oftQFMtqQi278zcVvMmfqzZdNbQobew05uRbiDjAsxgK1Vo1r8JZf8d7afACxa+pMpR1
-         j+nBtNtm7nPrsn7klES/+q0GRA7ZL92UF3OivT66+EL9mjK3axVIwq9Kr2JfdBlMxgyH
-         aFLg==
-X-Gm-Message-State: AOAM532OO2FleNI2lki04TUnMRmT/hutqGTC9z1bCYRmdwfsadvC+jOK
-        ERg+xrBGeLVeo4UEz51kT9X7Hr2S
-X-Google-Smtp-Source: ABdhPJzlvgLKw0Qh8Kg1BYVgiUnaJr/6pogtJ43O9Mk5uI1L/D+GPfnzAkQqKdPEErTy5HUhU2ledw==
-X-Received: by 2002:a17:906:f8c2:: with SMTP id lh2mr538842ejb.112.1592513376497;
-        Thu, 18 Jun 2020 13:49:36 -0700 (PDT)
+        bh=sz98MQSw+43ZlPZFydM8yE1484f/qrL810vDtRcD7U0=;
+        b=QcNP+sOzzdEOR+jKDDC46XtVLLMf/VQQFXEPgURyOzcfEWYY71IKB/iTdIsHCprDHJ
+         su7LJrydTJX3irBBRORGTVVh4p7sw0DiNAnc5d9jglAiHkUXWXoiztaBA084N1tJFAlo
+         1DvZlJGKZWFVnPOrE5MYp3c3d0YbZn0Z6r5D67AU5Joes81Kq2geQ6/tVRa2bLsHJMOk
+         gFlH1MveQKkUhOWzj023E+8tnF0sG74Ze2GBczZAKZqkVl1bSkm1KPTrK88a0P+aclO3
+         fHOQWktNfBA0E853tG4HfbDICB6ZtN8dsXZP0hOX09B6xBZS72cOEpCAR8wxNYbWDf0W
+         Y+dQ==
+X-Gm-Message-State: AOAM530fIz0hErAk/nIHqMDFgtUUe65a8M2MCIvf1c6tPUseZuPGQIb4
+        145FxUjT7DHZBhnjDY+6txbgjxMK
+X-Google-Smtp-Source: ABdhPJzTf/+szdZdI22d2ZbUQiqgtQe21baCQTTFLB1weq3nCGkwaFT4PpwwifhPT/wE8F3Y+8T6gw==
+X-Received: by 2002:a17:906:e4b:: with SMTP id q11mr527859eji.302.1592513377694;
+        Thu, 18 Jun 2020 13:49:37 -0700 (PDT)
 Received: from localhost.localdomain ([2a02:a03f:b7f9:7600:4c3c:7f8a:3583:598e])
-        by smtp.gmail.com with ESMTPSA id s15sm2913160edw.54.2020.06.18.13.49.35
+        by smtp.gmail.com with ESMTPSA id s15sm2913160edw.54.2020.06.18.13.49.36
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 18 Jun 2020 13:49:36 -0700 (PDT)
+        Thu, 18 Jun 2020 13:49:37 -0700 (PDT)
 From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 To:     linux-sparse@vger.kernel.org
 Cc:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-Subject: [PATCH 3/5] pre-process: add support for builtin macros
-Date:   Thu, 18 Jun 2020 22:47:14 +0200
-Message-Id: <20200618204716.3896-4-luc.vanoostenryck@gmail.com>
+Subject: [PATCH 4/5] pre-process: add support for __has_feature() & __has_extension()
+Date:   Thu, 18 Jun 2020 22:47:15 +0200
+Message-Id: <20200618204716.3896-5-luc.vanoostenryck@gmail.com>
 X-Mailer: git-send-email 2.27.0
 In-Reply-To: <20200618204716.3896-1-luc.vanoostenryck@gmail.com>
 References: <20200618204716.3896-1-luc.vanoostenryck@gmail.com>
@@ -64,109 +64,115 @@ Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-Sparse support the expansion of one-symbol-builtin macros like __FILE__.
-It also support builtin macros with an argument, like 'defined()'
-or '__has_attribute()'.
-
-However, these last one are only expanded inside a pre-processor
-conditional expression. This is correct for 'defined()' but macros
-like '__has_attribute()' should be expanded in all contexts,
-like user defined macros.
-
-So, add support for the general expansion of such macros.
+Add the trivial methods for the expansion of these macros with:
+c_alignas, c_alignof, c_generic_selections and c_static_assert.
 
 Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 ---
- pre-process.c | 34 ++++++++++++++++++++++++++++++++++
- symbol.h      |  2 ++
- 2 files changed, 36 insertions(+)
+ ident-list.h                          |  4 ++
+ pre-process.c                         | 54 +++++++++++++++++++++++++++
+ validation/preprocessor/has-feature.c |  1 -
+ 3 files changed, 58 insertions(+), 1 deletion(-)
 
+diff --git a/ident-list.h b/ident-list.h
+index 75740b9d9f77..a3a282587c67 100644
+--- a/ident-list.h
++++ b/ident-list.h
+@@ -61,6 +61,10 @@ IDENT(defined);
+ IDENT(once);
+ IDENT(__has_attribute);
+ IDENT(__has_builtin);
++IDENT(c_alignas);
++IDENT(c_alignof);
++IDENT(c_generic_selections);
++IDENT(c_static_assert);
+ __IDENT(pragma_ident, "__pragma__", 0);
+ __IDENT(__VA_ARGS___ident, "__VA_ARGS__", 0);
+ __IDENT(__func___ident, "__func__", 0);
 diff --git a/pre-process.c b/pre-process.c
-index 059a7c1d9b7b..d2e13400711e 100644
+index d2e13400711e..7a39b1715f31 100644
 --- a/pre-process.c
 +++ b/pre-process.c
-@@ -777,6 +777,9 @@ static int expand(struct token **list, struct symbol *sym)
- 		expand_arguments(nargs, args);
- 	}
- 
-+	if (sym->expand)
-+		return sym->expand(token, args) ? 0 : 1;
-+
- 	expanding->tainted = 1;
- 
- 	last = token->next;
-@@ -2000,6 +2003,34 @@ static int handle_nondirective(struct stream *stream, struct token **line, struc
+@@ -2003,6 +2003,58 @@ static int handle_nondirective(struct stream *stream, struct token **line, struc
  	return 1;
  }
  
-+static void create_arglist(struct symbol *sym, int count)
++static bool expand_has_extension(struct token *token, struct arg *args)
 +{
-+	struct token *token;
-+	struct token **next;
++	struct token *arg = args[0].expanded;
++	struct ident *ident;
++	bool val = false;
 +
-+	if (!count)
-+		return;
-+
-+	token = __alloc_token(0);
-+	token_type(token) = TOKEN_ARG_COUNT;
-+	token->count.normal = count;
-+	sym->arglist = token;
-+	next = &token->next;
-+
-+	while (count--) {
-+		struct token *id, *uses;
-+		id = __alloc_token(0);
-+		token_type(id) = TOKEN_IDENT;
-+		uses = __alloc_token(0);
-+		token_type(uses) = TOKEN_ARG_COUNT;
-+		uses->count.normal = 1;
-+
-+		*next = id;
-+		id->next = uses;
-+		next = &uses->next;
++	if (token_type(arg) != TOKEN_IDENT) {
++		sparse_error(arg->pos, "identifier expected");
++		return false;
 +	}
-+	*next = &eof_token_entry;
++
++	ident = arg->ident;
++	if (ident == &c_alignas_ident)
++		val = true;
++	else if (ident == &c_alignof_ident)
++		val = true;
++	else if (ident == &c_generic_selections_ident)
++		val = true;
++	else if (ident == &c_static_assert_ident)
++		val = true;
++
++	replace_with_bool(token, val);
++	return 1;
 +}
- 
- static void init_preprocessor(void)
++
++static bool expand_has_feature(struct token *token, struct arg *args)
++{
++	struct token *arg = args[0].expanded;
++	struct ident *ident;
++	bool val = false;
++
++	if (token_type(arg) != TOKEN_IDENT) {
++		sparse_error(arg->pos, "identifier expected");
++		return false;
++	}
++
++	ident = arg->ident;
++	if (standard >= STANDARD_C11) {
++		if (ident == &c_alignas_ident)
++			val = true;
++		else if (ident == &c_alignof_ident)
++			val = true;
++		else if (ident == &c_generic_selections_ident)
++			val = true;
++		else if (ident == &c_static_assert_ident)
++			val = true;
++	}
++
++	replace_with_bool(token, val);
++	return 1;
++}
++
+ static void create_arglist(struct symbol *sym, int count)
  {
-@@ -2041,6 +2072,7 @@ static void init_preprocessor(void)
- 	static struct {
- 		const char *name;
- 		void (*expand_simple)(struct token *);
-+		bool (*expand)(struct token *, struct arg *args);
- 	} dynamic[] = {
- 		{ "__LINE__",		expand_line },
- 		{ "__FILE__",		expand_file },
-@@ -2067,6 +2099,8 @@ static void init_preprocessor(void)
- 		struct symbol *sym;
- 		sym = create_symbol(stream, dynamic[i].name, SYM_NODE, NS_MACRO);
- 		sym->expand_simple = dynamic[i].expand_simple;
-+		if ((sym->expand = dynamic[i].expand) != NULL)
-+			create_arglist(sym, 1);
- 	}
+ 	struct token *token;
+@@ -2081,6 +2133,8 @@ static void init_preprocessor(void)
+ 		{ "__TIME__",		expand_time },
+ 		{ "__COUNTER__",	expand_counter },
+ 		{ "__INCLUDE_LEVEL__",	expand_include_level },
++		{ "__has_extension",	NULL, expand_has_extension },
++		{ "__has_feature",	NULL, expand_has_feature },
+ 	};
  
- 	counter_macro = 0;
-diff --git a/symbol.h b/symbol.h
-index 6b483101548a..e256322e83a2 100644
---- a/symbol.h
-+++ b/symbol.h
-@@ -114,6 +114,7 @@ struct decl_state {
+ 	for (i = 0; i < ARRAY_SIZE(normal); i++) {
+diff --git a/validation/preprocessor/has-feature.c b/validation/preprocessor/has-feature.c
+index 3ab7c3e039fa..e0f2e7f63cda 100644
+--- a/validation/preprocessor/has-feature.c
++++ b/validation/preprocessor/has-feature.c
+@@ -12,7 +12,6 @@ __has_feature()??? Quesako?
+ /*
+  * check-name: has-feature
+  * check-command: sparse -E $file
+- * check-known-to-fail
+  *
+  * check-output-start
  
- struct pseudo;
- struct entrypoint;
-+struct arg;
- 
- struct symbol_op {
- 	enum keyword type;
-@@ -161,6 +162,7 @@ struct symbol {
- 			struct token *arglist;
- 			struct scope *used_in;
- 			void (*expand_simple)(struct token *);
-+			bool (*expand)(struct token *, struct arg *args);
- 		};
- 		struct /* NS_PREPROCESSOR */ {
- 			int (*handler)(struct stream *, struct token **, struct token *);
 -- 
 2.27.0
 
