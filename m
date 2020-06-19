@@ -2,83 +2,93 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 0F8A41FFDC5
-	for <lists+linux-sparse@lfdr.de>; Fri, 19 Jun 2020 00:15:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 8E2BB200E02
+	for <lists+linux-sparse@lfdr.de>; Fri, 19 Jun 2020 17:06:04 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727037AbgFRWPp (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Thu, 18 Jun 2020 18:15:45 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:42454 "EHLO
+        id S2391088AbgFSPEG (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Fri, 19 Jun 2020 11:04:06 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:56194 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726282AbgFRWPo (ORCPT
+        with ESMTP id S2391097AbgFSPEF (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Thu, 18 Jun 2020 18:15:44 -0400
-Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com [IPv6:2a00:1450:4864:20::52f])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 71418C06174E
-        for <linux-sparse@vger.kernel.org>; Thu, 18 Jun 2020 15:15:44 -0700 (PDT)
-Received: by mail-ed1-x52f.google.com with SMTP id d15so6039541edm.10
-        for <linux-sparse@vger.kernel.org>; Thu, 18 Jun 2020 15:15:44 -0700 (PDT)
+        Fri, 19 Jun 2020 11:04:05 -0400
+Received: from mail-ej1-x641.google.com (mail-ej1-x641.google.com [IPv6:2a00:1450:4864:20::641])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 6D1A9C06174E
+        for <linux-sparse@vger.kernel.org>; Fri, 19 Jun 2020 08:04:04 -0700 (PDT)
+Received: by mail-ej1-x641.google.com with SMTP id w16so10536273ejj.5
+        for <linux-sparse@vger.kernel.org>; Fri, 19 Jun 2020 08:04:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=date:from:to:subject:message-id:mime-version:content-disposition;
-        bh=PEHYN8YGUdl8377eatNoCmh7xylKV7c1/hbMKlMS6Dc=;
-        b=Fab4ZTOom0k8jjcMGULy4KsnjFbhWspKzCPsZ+1/+yAFGPhCGX7NaCepI2QFd905f4
-         0NJm1HpQJOM4wyFDtLCPW+Muibp5WL7ScPCOdZT9v+QZ0SoMmMWG3QzO8jeSltAmHh+K
-         Mpg+RQF8yDl2/4qZUGy7sI0CEAWewsAFgv1/+w6UQqV/VeZf/qzxWVeoV4hnea3WoTny
-         rmqkbzEQgWngYODmyL/yyQ/XCLHr4Nty5+I2Z6pY4o7ybeDP5D8DfWCxEcGJ0SN0tQf4
-         AsuTbGfSht+SgmFzg7EV6IwaKlYkQxW3j7OkqVRtVBzpeMsBJRl9kdnGsQAVp1mlx4jK
-         pRww==
+        h=from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=D4lKxN+pjUdVzQyVVZGlx9xbvJI92Vd/XGeUrAK4FRc=;
+        b=WKRFtvLdTspPP8uYVy9sWEpOwi870RKRYaqO+1tAEZiOu4tED8i6j3cPx521T2fGmu
+         dgJQWNx6Jy4wGCVAKC4lSHISEMskV3CYVGu80cGfZSsE25J68yc0QNFMiBqE3BQof6jZ
+         VF2e1XPHjW1kN9EYknSPXlCCum1yNtPFLgRScn3qHLfVctnTQ+L+eAJsjoFWLGalauKd
+         pG0d7gb2cW9fCl3TeqpIrFXkW0AexoiTNnLLMWeGamObni4NspzQWgvYHq+Sm3+d2rb2
+         Fa1nshsaFoCG2YZNsHtIZGO0MEc5EoripNTXimLpFo7xQ+PscMjRUXjIw2pfY8FCfEgQ
+         YcVg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:date:from:to:subject:message-id:mime-version
-         :content-disposition;
-        bh=PEHYN8YGUdl8377eatNoCmh7xylKV7c1/hbMKlMS6Dc=;
-        b=Yp8VXUJvX1Wpiz/lbaE80P8bmEQMVPGbNRoEnmfAw176SZJSHKGGxOcArnt87SJOFz
-         SKJIh0GnA67OReqd1byiaCNCEQ5/detP4nBZDzdyJNICiXUuzemg6jIdBuilbZRy+okg
-         bABIQA7U/cirWXdg1zaawhsSutp5Vg+imzvPcfLDADTQNGJX36KEdpQTVTuijJacQ8Uu
-         ObGHpBudImq+51RbexqFa40SvYHc44TYjdmmJ5XuCgsffBFK8jYqDgN2/MCyNmlftVIA
-         A2CWo/PHt8/UD+vBcLhbqdEgD4ydD7NXsTqIx+bQrBKvhI9GckFX1Yz4Mq9uZGwnEcSr
-         6CCA==
-X-Gm-Message-State: AOAM533MROm1QCaajS4M9hm9x7vtMCcYNIxkjsF0SsMGinvOM+eGGGz2
-        0QHNtvNmnZaP76y1d4tJJbw9kRbC
-X-Google-Smtp-Source: ABdhPJxkirLHhLv2XxIFxWqIx+DJsnjd+gd4Thyxf6G4ouE6NUqvez++g2LRsBwHOoff0OlC86g22A==
-X-Received: by 2002:aa7:d388:: with SMTP id x8mr373427edq.380.1592518542567;
-        Thu, 18 Jun 2020 15:15:42 -0700 (PDT)
-Received: from ltop.local ([2a02:a03f:b7f9:7600:4c3c:7f8a:3583:598e])
-        by smtp.gmail.com with ESMTPSA id bd19sm3093212edb.2.2020.06.18.15.15.41
-        for <linux-sparse@vger.kernel.org>
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=D4lKxN+pjUdVzQyVVZGlx9xbvJI92Vd/XGeUrAK4FRc=;
+        b=H6jmw/jkMcct2FDPjRwQLk5p7FY60giJKTfvHapswU96mK6pbkykr4cUxCm5el2GEj
+         5z8aLpKK7T95XBUpSqSCWFM0R1GS3qknzh142pZtyESBLaF8mTMgMc7WBbTOjHAndKai
+         1ebVD3XevGIq8wab6KORYSovqjCgdqBf8+M70rL9m4/2ZGEACLGWnRNjWoavxkNyDYle
+         Ojty76jeqpTx45As8JStsOoqOTRE/Nq3lDNSWZU1G6cqqSINw1FNk+GjyypcYtVmGl8R
+         KUcFuNVPN3x97/00L4MVBEjbHYcLRfw2BmS2gwvdbkf/kUn65j5tsnjCsGl+IgnmStHe
+         iu+A==
+X-Gm-Message-State: AOAM5301u+UtBJjgcbhKMKHDCgYSfto+D5ZARF4CzdusT5bOyJMEMz1y
+        taXD7KK/d/QhANWtXkCDOuNcXWlc
+X-Google-Smtp-Source: ABdhPJx49p5r1sX5OBql/xJ0H13OZjekxL/puYuK4nqP5hl/43L3Fw3paHWzj4qzYdLd6mFuCtPmKA==
+X-Received: by 2002:a17:906:a88a:: with SMTP id ha10mr4190466ejb.353.1592579042763;
+        Fri, 19 Jun 2020 08:04:02 -0700 (PDT)
+Received: from localhost.localdomain ([2a02:a03f:b7f9:7600:5db0:70:8732:dad2])
+        by smtp.gmail.com with ESMTPSA id k22sm4852307edr.93.2020.06.19.08.04.01
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 18 Jun 2020 15:15:41 -0700 (PDT)
-Date:   Fri, 19 Jun 2020 00:15:40 +0200
+        Fri, 19 Jun 2020 08:04:01 -0700 (PDT)
 From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 To:     linux-sparse@vger.kernel.org
-Subject: [ANNOUNCE] Sparse v0.6.2-rc2
-Message-ID: <20200618221540.gvibhjj5fxiu4g4h@ltop.local>
+Cc:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
+Subject: [PATCH 0/5] Fixes for generic selection
+Date:   Fri, 19 Jun 2020 17:02:55 +0200
+Message-Id: <20200619150300.63695-1-luc.vanoostenryck@gmail.com>
+X-Mailer: git-send-email 2.27.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
 Sender: linux-sparse-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-Sparse v0.6.2-rc2 is now out.
+This series contains:
+* the controlling expression must be lvalue-converted,
+  array-to-pointer & function-to-pointer converted.
+  These are the rules following the resolution of DR481
+  and are also used for C17 (and are followed by both
+  GCC & clang).
+* validate the type of the associations.
 
-The source code can be found at its usual repository:
-  git://git.kernel.org/pub/scm/devel/sparse/sparse.git v0.6.1-rc2
-
-The tarballs can be found at:
-    https://www.kernel.org/pub/software/devel/sparse/dist/
-with the following sha256sum:
-    37347a72ed5c5465008d3f3f473f7c2fee68ad608887018f889dd65f97174b20  sparse-0.6.2-rc2.tar.gz
-    685dfe9d7342b499e8137585bcf50bf4e42d548448b46a0ab578f3be5d212f2a  sparse-0.6.2-rc2.tar.xz
+These patches are available for testing & review at:
+  git://git.kernel.org/pub/scm/devel/sparse/sparse.git fix-gensel
 
 
-The changes since the -rc1 pre-release are:
-* a bunch of spelling corrections in the documentation
-* enum attributes are now parsed (and ignored)
-* some build fixes for old versions of gcc or sqlite
-* 'make CXX=...' can now be used to specify the C++ compiler
-* the testsuite don't use anymore the option '-k' of 'timeout'
-* remove commented-out code in optimize.c
+Note: A small inconsistency remains: a plain char
+      will match a signed char or a unsigned char.
 
--- Luc
+Luc Van Oostenryck (5):
+  gensel: add testcases from DR481
+  gensel: use temporary variable in generic selection
+  gensel: controlling expression must be lvalue converted
+  gensel: controlling expression must be pointer-converted
+  gensel: validate the type of the associations
+
+ evaluate.c                 | 33 ++++++++++++++++++++++++++++++---
+ validation/generic-dr481.c | 17 +++++++++++++++++
+ 2 files changed, 47 insertions(+), 3 deletions(-)
+ create mode 100644 validation/generic-dr481.c
+
+-- 
+2.27.0
+
