@@ -2,78 +2,134 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 07E0F202415
-	for <lists+linux-sparse@lfdr.de>; Sat, 20 Jun 2020 16:12:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 81CF92029D6
+	for <lists+linux-sparse@lfdr.de>; Sun, 21 Jun 2020 11:39:35 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1728175AbgFTOM3 (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Sat, 20 Jun 2020 10:12:29 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43102 "EHLO
+        id S1728012AbgFUJje (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Sun, 21 Jun 2020 05:39:34 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:45482 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1728171AbgFTOM2 (ORCPT
+        with ESMTP id S1726112AbgFUJje (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Sat, 20 Jun 2020 10:12:28 -0400
-Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com [IPv6:2a00:1450:4864:20::631])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 0D17BC06174E
-        for <linux-sparse@vger.kernel.org>; Sat, 20 Jun 2020 07:12:27 -0700 (PDT)
-Received: by mail-ej1-x631.google.com with SMTP id w6so2015977ejq.6
-        for <linux-sparse@vger.kernel.org>; Sat, 20 Jun 2020 07:12:27 -0700 (PDT)
+        Sun, 21 Jun 2020 05:39:34 -0400
+Received: from mail-ej1-x641.google.com (mail-ej1-x641.google.com [IPv6:2a00:1450:4864:20::641])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B28C3C061794
+        for <linux-sparse@vger.kernel.org>; Sun, 21 Jun 2020 02:39:33 -0700 (PDT)
+Received: by mail-ej1-x641.google.com with SMTP id dp18so14876680ejc.8
+        for <linux-sparse@vger.kernel.org>; Sun, 21 Jun 2020 02:39:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=date:from:to:cc:subject:message-id:references:mime-version
-         :content-disposition:in-reply-to;
-        bh=/XXAuJHW2JH96mQ6qh7lHaCkpSVjPZpHBirl03+zqXc=;
-        b=E++rICiwXe1nWauDmvBXPz+pg+zxiM5TKfBVwEtKut6puHu8mZnB7Ra3Qg6rWDW9Yb
-         mBNvZwgAdc6l8impp2hE2vMF1bZJ2ZYWEjeHEHkenSefug0cyFxz9qICCQ9wEuBd78lq
-         qo/7jBVGtiI6qpiagwAG2R2U9w0PMSBkdTVqnS10pckt/2d8ns/kV6MpPMUsxNtxAaJj
-         p2zDva4S9w1uxOBonmHVPn8mchz9hOi0xyw4xRpwIrl3ajxH1FkvnPXHffveyAq6SUZf
-         oGAnRSRyCb7e1JAM7yU6+5X5ipnaSDZB8UiGvAgGr7tvyYohQ/1mlNmGZdg6AEo6Idkp
-         7V3g==
+        h=from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=4SSUNZ3GPolvD8d8XZjw/5EghHL+gBAqVq4vh37ogvk=;
+        b=BujovfpattVl3euwmGC+JEobIHnH8CmyEFhdZDCjWv67hea4BNZijA8Bfnq0FsXnu8
+         dlSETm1K9wJ1jWesJiDX6G0Ro8U74OYVh68BSJHTkHtmTa89NqcnRMIt+jEP5kNCWYBl
+         GZRw4RRM/gRXi+EYHEyrxCEjMAx2RpdmlBF+6fO6TZnKgGFrZv6EzxMLiHJ5V4QkrmVW
+         JWzQqvTj+732cTZz5kUuv6r1LXIAZg8aJdl8+P+38/ZhfZq7V/g/P5iYUd2pn8V7qLD2
+         8zlIbuSB1x8HKiI1qXoQpKaxX3fTIDP4p8MU7bN6vUVH522TQZhOK4lINijDHfjXkM0o
+         htFg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
-         :mime-version:content-disposition:in-reply-to;
-        bh=/XXAuJHW2JH96mQ6qh7lHaCkpSVjPZpHBirl03+zqXc=;
-        b=hOs+iivX0J0A6/ejNJvCa/EPd8mZe4MJSyFB4GTBXxG9lceNoUSPvzSR/AqHo4T/P3
-         Olf+EwxTx958l0Ct1e8hDDsjsj67HUvw6wkL+sX1pcHxp0uhMf+oxf6qH3qfs3i82w9L
-         Dwg57Nvtbo4rZ2YL53isqKE1hlnxT76D8EptvRsCrgoLF9k8iWAnfMijqBWcBkc1tIkA
-         CcP0W1M1GXj/FN2Mr29/vkACOZtOnw1zmedXt2QkAhVRj4jq17NnwUZ7EKbUxtnIllFd
-         DeATIpf5DcRWG4BuNdmXTUgoQ38P9AIb1PRljr4rKmV46JM034/6E++ea5yKuRmZNJrH
-         2hyA==
-X-Gm-Message-State: AOAM532ywc9DAZQ5z180D3IrbA6u5Zu9BmT/RgWPdee4uC437t71mZb6
-        A+4bo7pb+UeD8pdX8v5EzkjXQMZM
-X-Google-Smtp-Source: ABdhPJyI4aqnshQT3ofnPVkthEwRnjsFUSRzb+saiH7FBVYhhBKmR1xonEv5m/XK++9ndhAIamjOJw==
-X-Received: by 2002:a17:906:76c4:: with SMTP id q4mr8506263ejn.371.1592662346508;
-        Sat, 20 Jun 2020 07:12:26 -0700 (PDT)
-Received: from ltop.local ([2a02:a03f:b7f9:7600:44f8:43e:83bd:4b8d])
-        by smtp.gmail.com with ESMTPSA id a13sm7262630eju.59.2020.06.20.07.12.25
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=4SSUNZ3GPolvD8d8XZjw/5EghHL+gBAqVq4vh37ogvk=;
+        b=U5R826eNFGhdS3IZoJp/2FJPenYBmjzy4CM8/fgyGk59YJAdOcX6z0BMMAR1+Mss50
+         hQZcy9KAZRjkxG/Jtb4pwwT53MbWVF3pmZufh0RZQIoqftGGg2Omj0rnjCcfbEichUrz
+         FS/WvppoEogaXigGGqu8XdJvTd2EC1PPWL4upoTVeUAgnhcsreSFV+NK/QkzdoVb/XfY
+         DQC/4330vle5rnHZj8KtJAwqsad5ATrBbb8lRZnDBYg6FWR04vjOzXbEADbAgWzeyRjE
+         FaAcCbEd4s1qOETIisiBqWS4ynDNmPWTZdFM+nX1brLvHT9/IrKPHEraPnntoE/J4597
+         YOqg==
+X-Gm-Message-State: AOAM532fc8p14x5rnQ0RlNJCBpe3bJMSb+lW1rJq31Fo5k6F2aQHBs/k
+        jcj6nS2gnS1Pky55w5P/F7SHZ8no
+X-Google-Smtp-Source: ABdhPJwAsVmgW+tI1/Q1tRIaznGWEffrVBkOAASxxU0aa9aDjIjOJm655Xr7Nx6u+JQuSXXeF0qXvA==
+X-Received: by 2002:a17:906:360b:: with SMTP id q11mr11424277ejb.290.1592732372071;
+        Sun, 21 Jun 2020 02:39:32 -0700 (PDT)
+Received: from localhost.localdomain ([2a02:a03f:b7f9:7600:f92d:f5d6:1b8e:b25])
+        by smtp.gmail.com with ESMTPSA id q14sm9828350edj.47.2020.06.21.02.39.30
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 20 Jun 2020 07:12:25 -0700 (PDT)
-Date:   Sat, 20 Jun 2020 16:12:25 +0200
+        Sun, 21 Jun 2020 02:39:31 -0700 (PDT)
 From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-To:     Ramsay Jones <ramsay@ramsayjones.plus.com>
-Cc:     linux-sparse@vger.kernel.org
-Subject: Re: [ANNOUNCE] Sparse v0.6.2-rc2
-Message-ID: <20200620141225.q74amobti2us4onq@ltop.local>
-References: <20200618221540.gvibhjj5fxiu4g4h@ltop.local>
- <ce3f1a29-e7d1-a18b-dec9-a0e794c6d7ac@ramsayjones.plus.com>
+To:     linux-sparse@vger.kernel.org
+Cc:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
+Subject: [PATCH] doc: add some info to the main page
+Date:   Sun, 21 Jun 2020 11:39:28 +0200
+Message-Id: <20200621093928.40272-1-luc.vanoostenryck@gmail.com>
+X-Mailer: git-send-email 2.27.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ce3f1a29-e7d1-a18b-dec9-a0e794c6d7ac@ramsayjones.plus.com>
+Content-Transfer-Encoding: 8bit
 Sender: linux-sparse-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-On Sat, Jun 20, 2020 at 01:11:13AM +0100, Ramsay Jones wrote:
-> 
-> 
-> On 18/06/2020 23:15, Luc Van Oostenryck wrote:
-> > Sparse v0.6.2-rc2 is now out.
-> 
-> As expected, no issues found during testing. :-D
-> 
-> Thanks!
+Add some info about:
+* how to get sparse
+* how to install it,
+* the mailing list and how to report bugs.
 
-Thank you to you!
--- Luc
+Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
+---
+ Documentation/index.rst | 40 ++++++++++++++++++++++++++++++----------
+ 1 file changed, 30 insertions(+), 10 deletions(-)
+
+diff --git a/Documentation/index.rst b/Documentation/index.rst
+index 415da4bb27af..737f442323b5 100644
+--- a/Documentation/index.rst
++++ b/Documentation/index.rst
+@@ -25,23 +25,43 @@ by Christopher Li in 2009 and by Luc Van Oostenryck in late 2018.
+ Getting Sparse
+ --------------
+ 
+-You can find released versions of sparse at http://www.kernel.org/pub/software/devel/sparse/dist/
++You can find tarballs of released versions of Sparse at
++http://www.kernel.org/pub/software/devel/sparse/dist/.
+ 
+-Obtaining sparse via Git
+-~~~~~~~~~~~~~~~~~~~~~~~~
+-
+-Sparse uses the `Git version control system <http://git-scm.com/>`_. You can obtain the most recent version of sparse directly from the Git repository with the command::
++The most recent version can be obtained directly from the Git
++repository with the command::
+ 
+ 	git clone git://git.kernel.org/pub/scm/devel/sparse/sparse.git
+ 
+-You can also `browse the Git repository <https://git.kernel.org/pub/scm/devel/sparse/sparse.git>`_.
++You can also `browse the Git repository <https://git.kernel.org/pub/scm/devel/sparse/sparse.git>`_
++or use the mirror at https://github.com/lucvoo/sparse.
++
++Once you have the sources, to build Sparse and install it in your ~/bin
++directory, just do::
++
++	cd sparse
++	make
++	make install
++
++To install it in another directory, use::
++
++	make PREFIX=<some directory> install
++
++Contributing and reporting bugs
++-------------------------------
+ 
+-Mailing list
+-~~~~~~~~~~~~
++Submission of patches and reporting of bugs, as well as discussions
++related to Sparse, should be done via the mailing list:
++linux-sparse@vger.kernel.org.
++You do not have to be subscribed to the list to send a message there.
++Previous discussions and bug reports are available on the list
++archives at https://marc.info/?l=linux-sparse.
+ 
+-Discussions about sparse occurs on the sparse mailing list, linux-sparse@vger.kernel.org. To subscribe to the list, send an email with ``subscribe linux-sparse`` in the body to ``majordomo@vger.kernel.org``.
++To subscribe to the list, send an email with
++``subscribe linux-sparse`` in the body to ``majordomo@vger.kernel.org``.
+ 
+-You can browse the list archives at https://marc.info/?l=linux-sparse.
++Bugs can also be reported and tracked via the Linux kernel's bugzilla:
++http://bugzilla.kernel.org/enter_bug.cgi?component=Sparse&product=Tools.
+ 
+ User documentation
+ ------------------
+-- 
+2.27.0
+
