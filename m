@@ -2,59 +2,96 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 7A58B203BE8
-	for <lists+linux-sparse@lfdr.de>; Mon, 22 Jun 2020 18:02:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id D0F042043BD
+	for <lists+linux-sparse@lfdr.de>; Tue, 23 Jun 2020 00:39:01 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1729278AbgFVQCl (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Mon, 22 Jun 2020 12:02:41 -0400
-Received: from sonic302-21.consmr.mail.ne1.yahoo.com ([66.163.186.147]:41785
-        "EHLO sonic302-21.consmr.mail.ne1.yahoo.com" rhost-flags-OK-OK-OK-OK)
-        by vger.kernel.org with ESMTP id S1729737AbgFVQCW (ORCPT
+        id S1730943AbgFVWjB (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Mon, 22 Jun 2020 18:39:01 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:48780 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1730785AbgFVWjB (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Mon, 22 Jun 2020 12:02:22 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1592841741; bh=cK2qy9Lv5SAgMg9nAvfVmkJPj46H3ss3vOVyjpHm6Nk=; h=Date:From:Reply-To:Subject:References:From:Subject; b=imnMzKvnrwdEkzevY9v55JCHWrS7mFcRp2xLflBpdsWBX5v32iTt1Jwj292Sqyxc6zTWfVf6UW3RltjDxv8H8ZAxxFg96tpPBoXA2f/GRkfTuiNcUr3yDzOGiHeT9IqR//B+9C8c9YoGDJPnAeuuKcQvLl1HS8J+STK4/r0WZ3jbtWFF0MKDjydg+AbeXShoRDHqwsqAaAi7D9jDq8wNDWBIR81puaAh7APGDPK32RqjpFS85hxXrbmotW59Gm/gC9SoLB52q4udtwMI++FS4HYmIHt+kUh9tNcMAsNUvFYo0HWMN59EiLf7lYGm/4AR40adfmghUfkmt4dYpTZmZQ==
-X-YMail-OSG: AhKkJLAVM1lDQ3XPPTTJWpEw.A_YPk4v7tBrtMEv9XTYrBN0vKxPyUyPokZyCLH
- 0NPJEnbM.Ixt5u0eXkMwZesEBqS.rCtCLJgnod2Yg.I9TXOm0suNzcmJ92mBaA3mHgRFUusjI.6E
- 3Gu4LEq019.le8uhDgpgUZ.YgtmiKAQJK6Bd4WPLqozbdEc8urSPipLpvwJTvKec65xmptWyRiVv
- 5wejfhjut7ltVV2EWvbGnxpPsKrHXW63gZY0z7W.qC8yTTTM6xXIAPM6OYdYDYNn.6t5yJFWlC1P
- OIdbZEYbWLsjaYGAZ3nhw68imywZs7JgVqTzxfR4ZQQxpuo3K8t9CM9O0hpOCt10FP__XXwyrmrD
- TCoCE7B_Edu3G.zjOUn_rksR4jYB.m1Rp.1vZ_bLxnQwCiAul5Wqfj8PNdUGzT.zvxnBCUVqWq9J
- 8hXM6oMyn8gklCF.R8KCTVo6NRJRq4thjGWIexrpJEGu0QolvkJTIALFEd6_slAReLmAOEup3xKy
- .77XY9y0L2WZlQcf1QY4ryEv90HkLK9R59Zd1MxuC8qefRgY6y6xUFmVBWO8SDJCCjnQpB48PRDP
- pRTSfD8hEjxrcMoyLQRR8ik6SRBEuL1N.zoJ2juJT7TtdJItukcqyaFlw7VOC6cm49vWb13NtnZ0
- gQ2bWEWTG5v0uAlc54_ulltpKs.Fgm6hkagBtyzunEJ52PGAuturV.LPWyLoBYPiB1KC1HlV8gI8
- yJqtTplsyPL2eALndgi_xv5WXRslUdVun50zfx9iDK5v_kT1lyZrnl7BpPa5N7roHYs5FCR3fGlt
- 00HJ7sf.lnan3Im8PEbT96k38NwI6o6wqQk3XTx1x0TOib38VwKLgaWNY916uiRI1upzFCMVqmW6
- hKW.i_z2qDWeeQaZVyBhDmfLTpSCKpEZXqJt.HWEa0uB7F6lyRoT1rQEzhMY_zbISz6YbRmtNDlq
- VLlEzjYA6uILpMVD7EkmwXGP0XOJgDIix93HShigByDXDbmOlbnVPelpKvxPRFg3gnhpf.0Rc47i
- 08Ic.liUMCD9zHGFCga9cXgoGaM8kFbRyDB3CB8uLHuuV8rIwOstkm24RLt0t3H1wtfuP85AC7r8
- v042NbRsPX1Mj80LTxFt.KStV8ND4Dc1.IiPBslhVUpEA9f2YrGnkjCHG4.U4j0M0U489djAouYX
- y9F8lECiGIH30pwUi5p9NUzViYBtaTM7ID67rbGjIKdkEdFs14rCm3KSzct0U2izLUB1NerwsRiF
- IQWasnNhp61WOxqpf4zyo6bEJMCV1B8QkTG.8HvHCcJtAwYQhWHkE5SwAzxSGopkwGBC4.Xf9
-Received: from sonic.gate.mail.ne1.yahoo.com by sonic302.consmr.mail.ne1.yahoo.com with HTTP; Mon, 22 Jun 2020 16:02:21 +0000
-Date:   Mon, 22 Jun 2020 16:02:19 +0000 (UTC)
-From:   Karim Zakari <kariim1960z@gmail.com>
-Reply-To: kzakari04@gmail.com
-Message-ID: <1507214802.1850985.1592841739314@mail.yahoo.com>
-Subject: URGENT REPLY.
+        Mon, 22 Jun 2020 18:39:01 -0400
+Received: from mail-ed1-x542.google.com (mail-ed1-x542.google.com [IPv6:2a00:1450:4864:20::542])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 0459AC061573
+        for <linux-sparse@vger.kernel.org>; Mon, 22 Jun 2020 15:39:01 -0700 (PDT)
+Received: by mail-ed1-x542.google.com with SMTP id y6so14925760edi.3
+        for <linux-sparse@vger.kernel.org>; Mon, 22 Jun 2020 15:39:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=ZmXkXhvb56a+O+Cf1od6o810RfNCiKE5avBRNms9uxg=;
+        b=luQkJlKMO7xbvQonXz0BHUa0KlHH7vgJjdcjOhIsLFxOTSnKeQcvaSxwgJquHSqMWC
+         Pi7TAuI+CQYkArjFHu1eIjlXMoEMIMSZ17O2tL9+ba0+PxVSBPibJIC2Q52Q/R0JRS7W
+         waxFFqp7wr0q/sCjNVp32e6mexAKW7hcVLo6oJkC8CsUVUiAx0vpGWelc62p/97BMs4R
+         BdDSqzpj4YimMD56Lzoirm6CmsxkEnfc9w0HSgRNIvMkV7TkcMfWBT/XRRIm9PnkOW5j
+         kUo/5eQU0FaUgcllDgfoYv4FUIVK+3S0bS0uySqoZp0iAqsHFJNAJtUB1fnQakyYG7EL
+         7QgQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=ZmXkXhvb56a+O+Cf1od6o810RfNCiKE5avBRNms9uxg=;
+        b=bb0WQE4KcS6DkvdSUW5wakXG4bBJBeyxFQdtXbLpEYbVWK0ysprNkfdyyvSEyed8JE
+         CTGImC9Ly/HQzchD0ckCclp6h3wh696aPkCcD2l2A1nQiAnI6wHZfn7YHGN7OjL9UbuK
+         xINOvUUffa3C+zHTyjmDzFpYRNjG9kJy3XDHfMLuAQHTxTFzthvuq4eRMCLsfZhl6Kgy
+         hFQsKDRCGNXl/lIuyOF5xfxvnFrrq07HKy05cM/jqbD/vo7frMte/AP84n2tZjnmzRSF
+         ubMSReIlzBbR9D0wVfvyxxnrE8EZ71YS0SUBXK7Cg0hRXf30dLgearB5TxVZ/cVSafP6
+         5LzQ==
+X-Gm-Message-State: AOAM531RLqh1ruscDuQZUULNCgRNVKxzeAPQ2CDQhXbP6KVI4p8KmwTL
+        10q9LYuZfLWE030oMpoU95LOKlGI
+X-Google-Smtp-Source: ABdhPJxFib1Am/5S0yquUqw8MPv+ArupVe4FJPgL655sGgqCoU3zSyFRCI8fOdkrFC2WfLlucjbZ5Q==
+X-Received: by 2002:aa7:c752:: with SMTP id c18mr18756969eds.55.1592865539425;
+        Mon, 22 Jun 2020 15:38:59 -0700 (PDT)
+Received: from localhost.localdomain ([2a02:a03f:b7f9:7600:1000:aea:1de2:ed50])
+        by smtp.gmail.com with ESMTPSA id p4sm3939980eja.9.2020.06.22.15.38.57
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 22 Jun 2020 15:38:58 -0700 (PDT)
+From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
+To:     linux-sparse@vger.kernel.org
+Cc:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>,
+        Ramsay Jones <ramsay@ramsayjones.plus.com>
+Subject: [PATCH] gensel: remove unneeded test/uninitialized warning
+Date:   Tue, 23 Jun 2020 00:38:54 +0200
+Message-Id: <20200622223854.87802-1-luc.vanoostenryck@gmail.com>
+X-Mailer: git-send-email 2.27.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-References: <1507214802.1850985.1592841739314.ref@mail.yahoo.com>
-X-Mailer: WebService/1.1.16138 YMailNodin Mozilla/5.0 (Windows NT 6.1; ) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.106 Safari/537.36
-To:     unlisted-recipients:; (no To-header on input)
+Content-Transfer-Encoding: 8bit
 Sender: linux-sparse-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
+When evaluation generic selections, it is tested if the type in
+the selection is a SYM_NODE or not, but:
+* all these are SYM_NODE
+* the variable for the base type would be uninitialized
+  if not a SYM_NODE.
 
+So, remove the test and unconditionally set the base type.
 
-Good-Day Friend,
+Reported-by: Ramsay Jones <ramsay@ramsayjones.plus.com>
+Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
+---
+ evaluate.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
- Hope you are doing great Today. I have a proposed business deal worthy (US$16.5 Million Dollars) that will benefit both parties. This is legitimate' legal and your personality will not be compromised.
+diff --git a/evaluate.c b/evaluate.c
+index aa0f208006bb..461c2547285f 100644
+--- a/evaluate.c
++++ b/evaluate.c
+@@ -3304,9 +3304,7 @@ static struct symbol *evaluate_generic_selection(struct expression *expr)
+ 		if (!evaluate_symbol(stype))
+ 			continue;
+ 
+-		if (stype->type == SYM_NODE)
+-			base = stype->ctype.base_type;
+-
++		base = stype->ctype.base_type;
+ 		if (base->type == SYM_ARRAY && base->array_size) {
+ 			get_expression_value_silent(base->array_size);
+ 			if (base->array_size->type == EXPR_VALUE)
+-- 
+2.27.0
 
-Waiting for your response for more details, As you are willing to execute this business opportunity with me.
-
-Sincerely Yours,
-Mr. Karim Zakari.
