@@ -2,112 +2,59 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id A1844202CA8
-	for <lists+linux-sparse@lfdr.de>; Sun, 21 Jun 2020 22:18:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 7A58B203BE8
+	for <lists+linux-sparse@lfdr.de>; Mon, 22 Jun 2020 18:02:52 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1730604AbgFUUSv (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Sun, 21 Jun 2020 16:18:51 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:58486 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1730572AbgFUUSv (ORCPT
+        id S1729278AbgFVQCl (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Mon, 22 Jun 2020 12:02:41 -0400
+Received: from sonic302-21.consmr.mail.ne1.yahoo.com ([66.163.186.147]:41785
+        "EHLO sonic302-21.consmr.mail.ne1.yahoo.com" rhost-flags-OK-OK-OK-OK)
+        by vger.kernel.org with ESMTP id S1729737AbgFVQCW (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Sun, 21 Jun 2020 16:18:51 -0400
-Received: from mail-ej1-x642.google.com (mail-ej1-x642.google.com [IPv6:2a00:1450:4864:20::642])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 08FEDC061794
-        for <linux-sparse@vger.kernel.org>; Sun, 21 Jun 2020 13:18:51 -0700 (PDT)
-Received: by mail-ej1-x642.google.com with SMTP id l12so15839367ejn.10
-        for <linux-sparse@vger.kernel.org>; Sun, 21 Jun 2020 13:18:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=date:from:to:cc:subject:message-id:references:mime-version
-         :content-disposition:content-transfer-encoding:in-reply-to;
-        bh=xcxNKWEdrZMD/P8dO5ztXQWb8NwHPdE8F8+iI+ek7t4=;
-        b=QEDCCDfQsJC1L2NaR2WQLPPKOn3LOVoM/mUp0CrZf2AMqeqeglT7ZgjnuKOkmIJnJy
-         kUDldnR8FNtCYga6CLyjPOZqyYjKs7j2saPUv72OEb6xFM34HFK3x4yGkqm2AWxXHUU+
-         S1en4XA6KiC6z5nKDv4IKSTYUnOaX4hLl3t0Ma4KKotoPsiC+wx9WuTCogdluEpkOd0B
-         NPDoxtCXxU3zMW+z6evNzTivZoOMwRiGFMBlsu2M1o8E29/4oihezCCw9u9eNp8JUJaz
-         i1hHqJhcRgvuSIZJrMFVNfcuiRZ5xR0TImx4ncTZKIOmG96FBdtC4MGuPrxXjEU2KnfY
-         hH5g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
-         :mime-version:content-disposition:content-transfer-encoding
-         :in-reply-to;
-        bh=xcxNKWEdrZMD/P8dO5ztXQWb8NwHPdE8F8+iI+ek7t4=;
-        b=n525OvYabovHtUZlq8L8dHMYebmd3wQ0MkJaDWxBMEVLzRdtBChz5NeYwmUwdtbU2g
-         5DC/DdIzVydG08xz+W/CaRnN3uO/P9kMm9zCJnEutS6myCnlXuHoXhdVjySqte+qF4mV
-         FJkvUI7Rixs55d9Xzr57MwFCMnGzMVF5fbYcvcz84C6lmtYnn2N+v+diLxFo5xdxPhXC
-         W0MdrSsHn5pspgPGkzKfs9mLusSyrYsYygg6RlkWmfygBgeab8C1vOP873jq131LxsTL
-         sdt2UmDbgtufYspEGIE0xwS2xdKMxudVJVaYfaY12m8fhyGukXE3yOOnjHk2nP2T4pKK
-         lBYQ==
-X-Gm-Message-State: AOAM531CzV0FiQh39/Naj4gj0PZHeKsfMWLHF2qVLnaO+lMZIT+pP/TF
-        zAG4+Ie7tg0gQp7ENjLHzaQ2YyLM
-X-Google-Smtp-Source: ABdhPJx16nUf0uIDXm4KYo6QEDqEcMqPAJzgALGv1xy/Ecydb0kg5kmv6QzWXXqgKe4e/+SKMx23ig==
-X-Received: by 2002:a17:906:4a17:: with SMTP id w23mr6729950eju.360.1592770729767;
-        Sun, 21 Jun 2020 13:18:49 -0700 (PDT)
-Received: from ltop.local ([2a02:a03f:b7f9:7600:45d4:9765:feb4:e780])
-        by smtp.gmail.com with ESMTPSA id o90sm10731299edb.60.2020.06.21.13.18.48
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 21 Jun 2020 13:18:49 -0700 (PDT)
-Date:   Sun, 21 Jun 2020 22:18:04 +0200
-From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-To:     Ramsay Jones <ramsay@ramsayjones.plus.com>
-Cc:     Sparse Mailing-list <linux-sparse@vger.kernel.org>
-Subject: Re: [PATCH] evaluate.c: fix a gcc 'may be used uninitialized' warning
-Message-ID: <20200621201804.iww6chjwknkldo7n@ltop.local>
-References: <b3ff0d78-ceea-768e-339c-22466b84b81d@ramsayjones.plus.com>
+        Mon, 22 Jun 2020 12:02:22 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1592841741; bh=cK2qy9Lv5SAgMg9nAvfVmkJPj46H3ss3vOVyjpHm6Nk=; h=Date:From:Reply-To:Subject:References:From:Subject; b=imnMzKvnrwdEkzevY9v55JCHWrS7mFcRp2xLflBpdsWBX5v32iTt1Jwj292Sqyxc6zTWfVf6UW3RltjDxv8H8ZAxxFg96tpPBoXA2f/GRkfTuiNcUr3yDzOGiHeT9IqR//B+9C8c9YoGDJPnAeuuKcQvLl1HS8J+STK4/r0WZ3jbtWFF0MKDjydg+AbeXShoRDHqwsqAaAi7D9jDq8wNDWBIR81puaAh7APGDPK32RqjpFS85hxXrbmotW59Gm/gC9SoLB52q4udtwMI++FS4HYmIHt+kUh9tNcMAsNUvFYo0HWMN59EiLf7lYGm/4AR40adfmghUfkmt4dYpTZmZQ==
+X-YMail-OSG: AhKkJLAVM1lDQ3XPPTTJWpEw.A_YPk4v7tBrtMEv9XTYrBN0vKxPyUyPokZyCLH
+ 0NPJEnbM.Ixt5u0eXkMwZesEBqS.rCtCLJgnod2Yg.I9TXOm0suNzcmJ92mBaA3mHgRFUusjI.6E
+ 3Gu4LEq019.le8uhDgpgUZ.YgtmiKAQJK6Bd4WPLqozbdEc8urSPipLpvwJTvKec65xmptWyRiVv
+ 5wejfhjut7ltVV2EWvbGnxpPsKrHXW63gZY0z7W.qC8yTTTM6xXIAPM6OYdYDYNn.6t5yJFWlC1P
+ OIdbZEYbWLsjaYGAZ3nhw68imywZs7JgVqTzxfR4ZQQxpuo3K8t9CM9O0hpOCt10FP__XXwyrmrD
+ TCoCE7B_Edu3G.zjOUn_rksR4jYB.m1Rp.1vZ_bLxnQwCiAul5Wqfj8PNdUGzT.zvxnBCUVqWq9J
+ 8hXM6oMyn8gklCF.R8KCTVo6NRJRq4thjGWIexrpJEGu0QolvkJTIALFEd6_slAReLmAOEup3xKy
+ .77XY9y0L2WZlQcf1QY4ryEv90HkLK9R59Zd1MxuC8qefRgY6y6xUFmVBWO8SDJCCjnQpB48PRDP
+ pRTSfD8hEjxrcMoyLQRR8ik6SRBEuL1N.zoJ2juJT7TtdJItukcqyaFlw7VOC6cm49vWb13NtnZ0
+ gQ2bWEWTG5v0uAlc54_ulltpKs.Fgm6hkagBtyzunEJ52PGAuturV.LPWyLoBYPiB1KC1HlV8gI8
+ yJqtTplsyPL2eALndgi_xv5WXRslUdVun50zfx9iDK5v_kT1lyZrnl7BpPa5N7roHYs5FCR3fGlt
+ 00HJ7sf.lnan3Im8PEbT96k38NwI6o6wqQk3XTx1x0TOib38VwKLgaWNY916uiRI1upzFCMVqmW6
+ hKW.i_z2qDWeeQaZVyBhDmfLTpSCKpEZXqJt.HWEa0uB7F6lyRoT1rQEzhMY_zbISz6YbRmtNDlq
+ VLlEzjYA6uILpMVD7EkmwXGP0XOJgDIix93HShigByDXDbmOlbnVPelpKvxPRFg3gnhpf.0Rc47i
+ 08Ic.liUMCD9zHGFCga9cXgoGaM8kFbRyDB3CB8uLHuuV8rIwOstkm24RLt0t3H1wtfuP85AC7r8
+ v042NbRsPX1Mj80LTxFt.KStV8ND4Dc1.IiPBslhVUpEA9f2YrGnkjCHG4.U4j0M0U489djAouYX
+ y9F8lECiGIH30pwUi5p9NUzViYBtaTM7ID67rbGjIKdkEdFs14rCm3KSzct0U2izLUB1NerwsRiF
+ IQWasnNhp61WOxqpf4zyo6bEJMCV1B8QkTG.8HvHCcJtAwYQhWHkE5SwAzxSGopkwGBC4.Xf9
+Received: from sonic.gate.mail.ne1.yahoo.com by sonic302.consmr.mail.ne1.yahoo.com with HTTP; Mon, 22 Jun 2020 16:02:21 +0000
+Date:   Mon, 22 Jun 2020 16:02:19 +0000 (UTC)
+From:   Karim Zakari <kariim1960z@gmail.com>
+Reply-To: kzakari04@gmail.com
+Message-ID: <1507214802.1850985.1592841739314@mail.yahoo.com>
+Subject: URGENT REPLY.
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <b3ff0d78-ceea-768e-339c-22466b84b81d@ramsayjones.plus.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+References: <1507214802.1850985.1592841739314.ref@mail.yahoo.com>
+X-Mailer: WebService/1.1.16138 YMailNodin Mozilla/5.0 (Windows NT 6.1; ) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.106 Safari/537.36
+To:     unlisted-recipients:; (no To-header on input)
 Sender: linux-sparse-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-On Sun, Jun 21, 2020 at 08:34:31PM +0100, Ramsay Jones wrote:
-> 
-> Signed-off-by: Ramsay Jones <ramsay@ramsayjones.plus.com>
-> ---
-> 
-> Hi Luc,
-> 
-> Thanks for v0.6.2! :-D
-> 
-> However, I am seeing a gcc compiler warning:
-> 
->     CC      evaluate.o
->   evaluate.c: In function ‘evaluate_generic_selection’:
->   evaluate.c:3310:38: warning: ‘base’ may be used uninitialized in this function [-Wmaybe-uninitialized]
->      if (base->type == SYM_ARRAY && base->array_size) {
->                                     ~~~~^~~~~~~~~~~~
-> 
-> This patch is just an FYI/quick-fix for this warning. The patch
-> I wanted to send, moved the declaration of the base symbol into
-> a new block at the 'if (stype->type == SYM_NODE)' conditional,
-> which would now include the (indented) SYM_ARRAY conditional
-> block. This, of course, meant that the SYM_ARRAY conditional was
-> indented too far to the right ... ;-)
-> 
-> [perhaps this argues for that code to be refactored into a function]
 
-I just saw this warning too. Of course, *after* the release is made.
- 
-What I had in made while writing the code was:
-		base = stype;
-		if (stype->type == SYM_NODE)
-			base = stype->ctype.base_type;
 
-Your patch here below will work correctly but is not semantically
-correct if stype->type != SYM_NODE. Fortunately, it's guaranteed
-to always be a SYM_NODE (typename() is so). So, I'll probably
-commit the following:
+Good-Day Friend,
 
--               if (stype->type == SYM_NODE)
--                       base = stype->ctype.base_type;
--
-+               base = stype->ctype.base_type;
+ Hope you are doing great Today. I have a proposed business deal worthy (US$16.5 Million Dollars) that will benefit both parties. This is legitimate' legal and your personality will not be compromised.
 
-Thanks for the bug report and for giving a try to the release.
--- Luc
+Waiting for your response for more details, As you are willing to execute this business opportunity with me.
+
+Sincerely Yours,
+Mr. Karim Zakari.
