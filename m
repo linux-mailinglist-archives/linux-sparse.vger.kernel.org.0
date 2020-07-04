@@ -2,59 +2,61 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 46F2A214637
+	by mail.lfdr.de (Postfix) with ESMTP id B36AA214638
 	for <lists+linux-sparse@lfdr.de>; Sat,  4 Jul 2020 15:57:54 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726807AbgGDN5x (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Sat, 4 Jul 2020 09:57:53 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:33476 "EHLO
+        id S1726911AbgGDN5y (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Sat, 4 Jul 2020 09:57:54 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:33480 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726738AbgGDN5w (ORCPT
+        with ESMTP id S1726738AbgGDN5x (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Sat, 4 Jul 2020 09:57:52 -0400
-Received: from mail-ej1-x641.google.com (mail-ej1-x641.google.com [IPv6:2a00:1450:4864:20::641])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 8C7E0C061794
-        for <linux-sparse@vger.kernel.org>; Sat,  4 Jul 2020 06:57:52 -0700 (PDT)
-Received: by mail-ej1-x641.google.com with SMTP id n26so23419504ejx.0
-        for <linux-sparse@vger.kernel.org>; Sat, 04 Jul 2020 06:57:52 -0700 (PDT)
+        Sat, 4 Jul 2020 09:57:53 -0400
+Received: from mail-ej1-x642.google.com (mail-ej1-x642.google.com [IPv6:2a00:1450:4864:20::642])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 6101BC061794
+        for <linux-sparse@vger.kernel.org>; Sat,  4 Jul 2020 06:57:53 -0700 (PDT)
+Received: by mail-ej1-x642.google.com with SMTP id w6so37383318ejq.6
+        for <linux-sparse@vger.kernel.org>; Sat, 04 Jul 2020 06:57:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=u1CMVvnYD7d7dx8lSLsXGg9ppSJEyuO03qJbqB/U3HM=;
-        b=Da7Kkqs1TG6H9A0aJwfECCOe0nNzsJU1cZ1b1UxQyUrejDqjxoPtrKphwdUYcjc7sY
-         LjDaO8d3zeaOEv+1r3z4ULtJjvOVeqw/LleiShAhrFlcO4PZYwK07Y75MhCYPrTsFhzX
-         ih6l6MzoCyrSyOQ2eZOU3vJMByQ+4CdpHfr1ecPTS+gj3RfHMs6wGfVHE0S0sojgj5hx
-         xTkyMiptVIsMGVpkyYQVrxR7FHKwqAvoyymYQ37z7QTrkxnr6C2VvzLKP/shqdnsI5CS
-         RZhu5/xhoBFwYfFQmtmTO/qUjujuglGBVBlB5q0KZyrM1r3mIcNIcZGr2RgtWVY1ckhQ
-         2ddQ==
+        h=from:to:cc:subject:date:message-id:in-reply-to:references
+         :mime-version:content-transfer-encoding;
+        bh=COXeAUL18hdrSXD+At7C4xdndPcfAFyxiVsz37xMwc8=;
+        b=Li5dPY79OKarHWfSp05g37TMdd1TqA8Vot1TPE4fk9NPurmhs5ME1VxA5oTWF5Av4i
+         w05xSGQv6xOrbvDGF+B0iG7OgISLNZKDkjKFTG3MCKfLyi3lGFb0Ok0iKy/zQoTKkdSV
+         CRBHob+hQpeypy95JqN4wRPoweaooKxagzhvq6ciuHDnulua1/4DBW99mBnf3Y+VXn74
+         qZ+u04QAkec9Ccf04zumXP3mjLv1VvGyDrCZeXHu4XlZjY4UVPWCtwtST6/15Al+g6P1
+         CaNsF6qgmBbj+jbWR21d6eHoXOoauNFj/skID/2woPTmfFgGdKPTlsgAVeJmVZQVcrE7
+         Wpqw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=u1CMVvnYD7d7dx8lSLsXGg9ppSJEyuO03qJbqB/U3HM=;
-        b=mtT5aA9xsQEFLqQw3sKkmGlgz/n3ZSkt5XoOUW7NE+mqZZc7Kyj7hitXNW4LIjs3hs
-         mor57SEyTgmZzPvuO6BDH4BIOxBEwfDgvIlO6VRF8kO/lEt0PRDJX7F6Y0Mz8EHF60wA
-         x6A1VN3KWn9O5bIpvvxNk6PGPFAFY8YGdaWnTZApc4GXydbdweJEH2Tvk1YqeJLNf7xT
-         ftKBtOOrc0/2KrkcIyLDBSI0wINZORTkXOYJjcH9uooE1WaxDFEldo9AySj60LOrtQfK
-         qu9osc4LqY1m7BEqCQjZvzOAxr7h81FZ2iIQuIxG79Q28Ag8qhN77Ozg8hyQuGYbIjcN
-         OrfA==
-X-Gm-Message-State: AOAM532hpINWrp4WDIwe2Yg0YJda0DVK6kyz3XUw+Zi8MDQqH+VAZlq7
-        odqflcNOUDYcYO+74g311lnqCCoE
-X-Google-Smtp-Source: ABdhPJwogwQ33B+swLMmjuRGRKRgAie1Ss+UMEBurxdNry3gSZLLd6TrDfHssBT2E+JdVt0YdD/+KQ==
-X-Received: by 2002:a17:906:d784:: with SMTP id pj4mr35478171ejb.405.1593871070931;
-        Sat, 04 Jul 2020 06:57:50 -0700 (PDT)
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+         :references:mime-version:content-transfer-encoding;
+        bh=COXeAUL18hdrSXD+At7C4xdndPcfAFyxiVsz37xMwc8=;
+        b=PIa+FaxJBqlmWBIu2Goer5VzKpmn6uX97ePsC+fPeGPq6+ErV8QFXq7kCk/zNA8luM
+         0Ch8adZ2xguYIVCUdoRrC4C5wrO4QgFXpwNNNbjL/TPe/yxDBYmOx/g5BMKXAAK0bes+
+         P1Z8sdRU8b3J2eC7XluWANNDxGYAOwbmCSae8C4T0zF2o05Q6SQ8RUWdeMHbFqcyKKkK
+         vgV9rZKvs1z7eyf2cxPd+lM5QwPZcqjnEq3uhl2ChuWVbHEzB7/fzIhD62TAduwJyVbL
+         x/MAzpX4vliQqgyS4ftFYTLv3SVKmv2Apv4S9tRtTfptScev0I49/EnpF14pdjJvbIzV
+         dAyA==
+X-Gm-Message-State: AOAM5328LLSQWcOvachlSJfG7qdgxemz/Sk6Y1caqGqMh7uOyt33jdjV
+        IE5dfRvRSGulEI2FFBu/S+HflLqc
+X-Google-Smtp-Source: ABdhPJxFsC9qGwstmFa7O3LpH90tP+JRDpGNKYIo0gNiYqnhtr9h6FaIrCPcNJSv5vQYOLclHxjavg==
+X-Received: by 2002:a17:906:1187:: with SMTP id n7mr31075163eja.161.1593871071785;
+        Sat, 04 Jul 2020 06:57:51 -0700 (PDT)
 Received: from localhost.localdomain ([2a02:a03f:b7f9:7600:41c2:9e8d:5955:8578])
-        by smtp.gmail.com with ESMTPSA id w18sm16348297edv.11.2020.07.04.06.57.50
+        by smtp.gmail.com with ESMTPSA id w18sm16348297edv.11.2020.07.04.06.57.51
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 04 Jul 2020 06:57:50 -0700 (PDT)
+        Sat, 04 Jul 2020 06:57:51 -0700 (PDT)
 From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 To:     linux-sparse@vger.kernel.org
 Cc:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-Subject: [PATCH 0/3] teach sparse about arch specific asm constraints
-Date:   Sat,  4 Jul 2020 15:57:44 +0200
-Message-Id: <20200704135747.87752-1-luc.vanoostenryck@gmail.com>
+Subject: [PATCH 1/3] add support for arch specific asm constraints
+Date:   Sat,  4 Jul 2020 15:57:45 +0200
+Message-Id: <20200704135747.87752-2-luc.vanoostenryck@gmail.com>
 X-Mailer: git-send-email 2.27.0
+In-Reply-To: <20200704135747.87752-1-luc.vanoostenryck@gmail.com>
+References: <20200704135747.87752-1-luc.vanoostenryck@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Sender: linux-sparse-owner@vger.kernel.org
@@ -63,26 +65,57 @@ List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
 When evaluating asm operands it must be known if they correspond
-to a memory operand or not. This is done by looking at the constraint.
-In most case it's enough to look at the common constraints but
-PPC & S390 have some specific constraints for memory operands.
-Other kinds of operands may also need arch-specific constraints.
-    
-This series adds support for processing arch-specific constraints
-and let sparse know about PPC & S390 constraints for memory operands.
+to a memory operand or not in order to process/ignore the 'noderef'
+attribute.
 
+This is done for operands specified with the common constraints
+but not for the machine specific constraints.
 
-Luc Van Oostenryck (3):
-  add support for arch specific asm constraints
-  add memory asm constraint for PPC
-  add memory asm constraint for S390
+So, add support for processing machine specific constraints.
 
- evaluate.c    |  5 ++++-
- target-ppc.c  | 13 +++++++++++++
- target-s390.c | 13 +++++++++++++
- target.h      |  3 ++-
- 4 files changed, 32 insertions(+), 2 deletions(-)
+Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
+---
+ evaluate.c | 5 ++++-
+ target.h   | 3 ++-
+ 2 files changed, 6 insertions(+), 2 deletions(-)
 
+diff --git a/evaluate.c b/evaluate.c
+index 3b9aec3c13c0..f515ce6f2de6 100644
+--- a/evaluate.c
++++ b/evaluate.c
+@@ -3642,7 +3642,10 @@ static void parse_asm_constraint(struct asm_operand *op)
+ 			return;
+ 
+ 		default:
+-			// FIXME: arch-specific (and multi-letter) constraints
++			if (arch_target->asm_constraint)
++				str = arch_target->asm_constraint(op, c, str);
++
++			// FIXME: multi-letter constraints
+ 			break;
+ 		}
+ 	}
+diff --git a/target.h b/target.h
+index 8640026cc6d4..3ef0d520f83c 100644
+--- a/target.h
++++ b/target.h
+@@ -53,7 +53,7 @@ extern int pointer_alignment;
+ extern int bits_in_enum;
+ extern int enum_alignment;
+ 
+-
++struct asm_operand;
+ struct builtin_fn;
+ 
+ struct target {
+@@ -77,6 +77,7 @@ struct target {
+ 
+ 	void (*init)(const struct target *self);
+ 	void (*predefine)(const struct target *self);
++	const char *(*asm_constraint)(struct asm_operand *op, int c, const char *str);
+ };
+ 
+ extern const struct target target_default;
 -- 
 2.27.0
 
