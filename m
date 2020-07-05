@@ -2,58 +2,58 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 3FD38214C92
+	by mail.lfdr.de (Postfix) with ESMTP id EE468214C93
 	for <lists+linux-sparse@lfdr.de>; Sun,  5 Jul 2020 15:02:44 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727031AbgGENCn (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Sun, 5 Jul 2020 09:02:43 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:47748 "EHLO
+        id S1727057AbgGENCo (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Sun, 5 Jul 2020 09:02:44 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:47750 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1727053AbgGENCn (ORCPT
+        with ESMTP id S1727053AbgGENCo (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Sun, 5 Jul 2020 09:02:43 -0400
-Received: from mail-ej1-x644.google.com (mail-ej1-x644.google.com [IPv6:2a00:1450:4864:20::644])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 305BCC08C5DE
-        for <linux-sparse@vger.kernel.org>; Sun,  5 Jul 2020 06:02:43 -0700 (PDT)
-Received: by mail-ej1-x644.google.com with SMTP id p20so39548121ejd.13
-        for <linux-sparse@vger.kernel.org>; Sun, 05 Jul 2020 06:02:43 -0700 (PDT)
+        Sun, 5 Jul 2020 09:02:44 -0400
+Received: from mail-ej1-x642.google.com (mail-ej1-x642.google.com [IPv6:2a00:1450:4864:20::642])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 12E77C061794
+        for <linux-sparse@vger.kernel.org>; Sun,  5 Jul 2020 06:02:44 -0700 (PDT)
+Received: by mail-ej1-x642.google.com with SMTP id dp18so39584686ejc.8
+        for <linux-sparse@vger.kernel.org>; Sun, 05 Jul 2020 06:02:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=hfkNsG4Ak/hs2nUpGg9DlhfS8mppNAS7YLoSweae/2U=;
-        b=YmxxW8PnwG5FX5RO1kHjNyFK/U05BmJrcuRrMZmkEnYy5fYBjjLelbSLfaa+2AJnQy
-         vbgX5KVL8NGEfGkAJ+0LRBy5iPDsUFaDYMUo2ZVPGUF41dr2uUqsgRdncZmos6s1Bp7g
-         vyy6ZIkJvXIHmJ/I8y+VuP8ur6seqfSSvq0AR7btE21Pua3f3biAImh9IMlarEJvelF1
-         JBGrGwXCWAaqcWEDvaFPeITLhbw7F3uq0A/togtJp2rcaghZ+GIZ8GKHZqYxLa/kWP8e
-         Y1T0/0aKrhp1638w5illpLgSdtdXLTWbxwG1cwOJs9oDPA7Tf8UlqdUGhuFo+VpsuO50
-         7ekw==
+        bh=dgtvhZLfdp9O3gftKqMBNkndvT7e8+IujNOk46Vo20Q=;
+        b=s8SH+BOdas6H+4zvjIcvB7RBDRScWq69MTq7953t6ZLFtRepY7oy7gSqgPTxcD1354
+         YT/54NNWY1vmGuS0Oc/AjqUPzWaVLme+U7tlI0XTzD47OKDDbx2ECBE8eNRJpNzPcdH6
+         CYkAosoB+N2U5e2V2sKqVvi6ZksaDiyx+LK6/JiOL1hlIZMb/GuKn2idhDJMNjB6pUqX
+         2z0/KauJ/vFeywfXPyaxRBC7c3Rd9T0KQbpfKTsJSi77GcKKCL+BbAX2X6XUE7R5W9Y8
+         b0HVUFpCSjtG/d+P50GpbfPJcAI8F2y4gW3XCmSuCt8MIygQVxEFUjYufesqVdSf74gl
+         sk4Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=hfkNsG4Ak/hs2nUpGg9DlhfS8mppNAS7YLoSweae/2U=;
-        b=scrNWy6BDpbaZRfprzuMM79BmJ/v9MZoBxdych3fM+bFNF6Y7Z60bsQzIchCEo/+J4
-         HnadbwR9HCbooQpmpLJ6v8OHpRL3erhSQXjwGkyBaLUEMPTu3BOmZudDT+v1PREsZsBm
-         AqVL1RaRbbP1cOVkE2hnopQWGYqaZIuy8whNB/KA6s10S/wQ8yWl+uRpqJz3sfWBf8Eq
-         uPRJWcA1+eIgUUvmrpPaSnjje4upeWb+1rTCWoofVSMXhbkGA713ijUeKsPlqFICwuMj
-         LYdeP7DmlmJrQNUMyPkIUQX4jrOnBSOvrTCPA3lBlF/GxnhVBgVL5JDgGTuDSi2X9YCp
-         4Bkg==
-X-Gm-Message-State: AOAM533gm8zeaMhZIvxuRr8XIHkoQXK/pldEnXfmZ+Ub0aAiTuc6y/Y1
-        HwKCGLQP7/+6EXzh24jnuLXHaU/o
-X-Google-Smtp-Source: ABdhPJxhtJtsbyiEyKYjQzCQauE+0dgcEz99oaacPckh1b+gEqTz/Ipa5Dt2jUrjzKEvHN+c+Fe99Q==
-X-Received: by 2002:a17:906:4d4c:: with SMTP id b12mr38741348ejv.506.1593954161618;
-        Sun, 05 Jul 2020 06:02:41 -0700 (PDT)
+        bh=dgtvhZLfdp9O3gftKqMBNkndvT7e8+IujNOk46Vo20Q=;
+        b=i1RPzxwVwtQVOcczo3dFJdPnfmjYPErG9I1h3HDKEUrrSiFAhdkZqzxuNeJHhDwyKS
+         a7SDhNjZGf/D+bKECa7e92ThRfHt2Zm8JYodf0xIBsEHtH7OQ2YfubeF0VdIBt0/luIU
+         ssUaQipFolIgqxrtiD0yIlKMxSyJ3fx/2JutbJCFQ5qsNnC2pyuLfk5N7nVY4yHSkeDz
+         39OvfzffHgoOszPPpKjWH/q38xg71Q7ru52RROrvBERzoB8ih+jegdy3n/uBqhwtxGwZ
+         E8Z46clXPdqsAUrkiW2knETJFwjAMp17FbrZmWtRpbDeRoCmcUwVGyYvYDpVRKDsSWSn
+         stEw==
+X-Gm-Message-State: AOAM5315zdlj3bEC7HDZ80m3tcGwLfSD4ASS3tOzS/ONjMEXVKlPl9xw
+        l/GJ/XeBUJCWuxJEhEgaUy2cMvpJ
+X-Google-Smtp-Source: ABdhPJypwY8IYgrloAf/kuNKi4R9tjLflZLcdx30WRcdI8Fbp7ShLQ1rENx37+f8TJvKZo17iyIZPw==
+X-Received: by 2002:a17:906:2a5b:: with SMTP id k27mr38424331eje.82.1593954162574;
+        Sun, 05 Jul 2020 06:02:42 -0700 (PDT)
 Received: from localhost.localdomain ([2a02:a03f:b7f9:7600:a542:d3fb:b75a:dec5])
-        by smtp.gmail.com with ESMTPSA id x16sm19535945edr.52.2020.07.05.06.02.40
+        by smtp.gmail.com with ESMTPSA id x16sm19535945edr.52.2020.07.05.06.02.41
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 05 Jul 2020 06:02:41 -0700 (PDT)
+        Sun, 05 Jul 2020 06:02:42 -0700 (PDT)
 From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 To:     linux-sparse@vger.kernel.org
 Cc:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-Subject: [PATCH 14/15] cleanup: move parsing helpers to parse.c
-Date:   Sun,  5 Jul 2020 15:02:19 +0200
-Message-Id: <20200705130220.26230-15-luc.vanoostenryck@gmail.com>
+Subject: [PATCH 15/15] cleanup: move hexval() to utils.c
+Date:   Sun,  5 Jul 2020 15:02:20 +0200
+Message-Id: <20200705130220.26230-16-luc.vanoostenryck@gmail.com>
 X-Mailer: git-send-email 2.27.0
 In-Reply-To: <20200705130220.26230-1-luc.vanoostenryck@gmail.com>
 References: <20200705130220.26230-1-luc.vanoostenryck@gmail.com>
@@ -64,112 +64,102 @@ Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-lib.c contains 2-3 helpers for parsing. Move them to parse.c.
+Now lib.c contains almost nothing else than library entrypoints.
+
+Move a small utility, hexval(), to utils.c to complete this cleanup.
 
 Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 ---
- lib.c   | 38 --------------------------------------
- parse.c | 38 ++++++++++++++++++++++++++++++++++++++
- 2 files changed, 38 insertions(+), 38 deletions(-)
+ lib.c   | 17 -----------------
+ lib.h   |  2 --
+ utils.c | 17 +++++++++++++++++
+ utils.h |  4 ++++
+ 4 files changed, 21 insertions(+), 19 deletions(-)
 
 diff --git a/lib.c b/lib.c
-index fd1fe6cb3ba5..f512be2e1a43 100644
+index f512be2e1a43..57c89a16448e 100644
 --- a/lib.c
 +++ b/lib.c
-@@ -50,44 +50,6 @@
+@@ -50,23 +50,6 @@
  #include "bits.h"
  
  
--struct token *skip_to(struct token *token, int op)
+-unsigned int hexval(unsigned int c)
 -{
--	while (!match_op(token, op) && !eof_token(token))
--		token = token->next;
--	return token;
--}
--
--static struct token bad_token = { .pos.type = TOKEN_BAD };
--struct token *expect(struct token *token, int op, const char *where)
--{
--	if (!match_op(token, op)) {
--		if (token != &bad_token) {
--			bad_token.next = token;
--			sparse_error(token->pos, "Expected %s %s", show_special(op), where);
--			sparse_error(token->pos, "got %s", show_token(token));
--		}
--		if (op == ';')
--			return skip_to(token, op);
--		return &bad_token;
+-	int retval = 256;
+-	switch (c) {
+-	case '0'...'9':
+-		retval = c - '0';
+-		break;
+-	case 'a'...'f':
+-		retval = c - 'a' + 10;
+-		break;
+-	case 'A'...'F':
+-		retval = c - 'A' + 10;
+-		break;
 -	}
--	return token->next;
+-	return retval;
 -}
 -
--///
--// issue an error message on new parsing errors
--// @token: the current token
--// @errmsg: the error message
--// If the current token is from a previous error, an error message
--// has already been issued, so nothing more is done.
--// Otherwise, @errmsg is displayed followed by the current token.
--void unexpected(struct token *token, const char *errmsg)
--{
--	if (token == &bad_token)
--		return;
--	sparse_error(token->pos, "%s", errmsg);
--	sparse_error(token->pos, "got %s", show_token(token));
--}
--
- unsigned int hexval(unsigned int c)
+ static void do_warn(const char *type, struct position pos, const char * fmt, va_list args)
  {
- 	int retval = 256;
-diff --git a/parse.c b/parse.c
-index 70d8b237ce5e..cea208395090 100644
---- a/parse.c
-+++ b/parse.c
-@@ -655,6 +655,44 @@ void init_parser(int stream)
- }
+ 	static char buffer[512];
+diff --git a/lib.h b/lib.h
+index 81253a3e7ee5..46483f2bed5c 100644
+--- a/lib.h
++++ b/lib.h
+@@ -45,8 +45,6 @@
+ #endif
  
  
-+struct token *skip_to(struct token *token, int op)
+-extern unsigned int hexval(unsigned int c);
+-
+ struct position {
+ 	unsigned int type:6,
+ 		     stream:14,
+diff --git a/utils.c b/utils.c
+index 094df3f9bf1c..72fff00ff91b 100644
+--- a/utils.c
++++ b/utils.c
+@@ -8,6 +8,23 @@
+ #include <stdio.h>
+ 
+ 
++unsigned int hexval(unsigned int c)
 +{
-+	while (!match_op(token, op) && !eof_token(token))
-+		token = token->next;
-+	return token;
-+}
-+
-+static struct token bad_token = { .pos.type = TOKEN_BAD };
-+struct token *expect(struct token *token, int op, const char *where)
-+{
-+	if (!match_op(token, op)) {
-+		if (token != &bad_token) {
-+			bad_token.next = token;
-+			sparse_error(token->pos, "Expected %s %s", show_special(op), where);
-+			sparse_error(token->pos, "got %s", show_token(token));
-+		}
-+		if (op == ';')
-+			return skip_to(token, op);
-+		return &bad_token;
++	int retval = 256;
++	switch (c) {
++	case '0'...'9':
++		retval = c - '0';
++		break;
++	case 'a'...'f':
++		retval = c - 'a' + 10;
++		break;
++	case 'A'...'F':
++		retval = c - 'A' + 10;
++		break;
 +	}
-+	return token->next;
++	return retval;
 +}
 +
-+///
-+// issue an error message on new parsing errors
-+// @token: the current token
-+// @errmsg: the error message
-+// If the current token is from a previous error, an error message
-+// has already been issued, so nothing more is done.
-+// Otherwise, @errmsg is displayed followed by the current token.
-+void unexpected(struct token *token, const char *errmsg)
-+{
-+	if (token == &bad_token)
-+		return;
-+	sparse_error(token->pos, "%s", errmsg);
-+	sparse_error(token->pos, "got %s", show_token(token));
-+}
-+
- // Add a symbol to the list of function-local symbols
- static void fn_local_symbol(struct symbol *sym)
+ void *xmemdup(const void *src, size_t len)
  {
+ 	return memcpy(__alloc_bytes(len), src, len);
+diff --git a/utils.h b/utils.h
+index 7bd14f467799..079fb02a3e94 100644
+--- a/utils.h
++++ b/utils.h
+@@ -8,6 +8,10 @@
+ #include <stddef.h>
+ #include <stdarg.h>
+ 
++///
++// return the value coresponding to an hexadecimal digit
++unsigned int hexval(unsigned int c);
++
+ ///
+ // duplicate a memory buffer in a newly allocated buffer.
+ // @src: a pointer to the memory buffer to be duplicated
 -- 
 2.27.0
 
