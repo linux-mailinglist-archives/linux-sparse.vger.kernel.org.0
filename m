@@ -2,90 +2,103 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 04B92214E29
-	for <lists+linux-sparse@lfdr.de>; Sun,  5 Jul 2020 19:27:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 3ACB7214EA1
+	for <lists+linux-sparse@lfdr.de>; Sun,  5 Jul 2020 20:51:01 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727111AbgGER15 (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Sun, 5 Jul 2020 13:27:57 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:60200 "EHLO
+        id S1728021AbgGESvA (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Sun, 5 Jul 2020 14:51:00 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:44684 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726538AbgGER15 (ORCPT
+        with ESMTP id S1727931AbgGESvA (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Sun, 5 Jul 2020 13:27:57 -0400
-Received: from mail-lf1-x141.google.com (mail-lf1-x141.google.com [IPv6:2a00:1450:4864:20::141])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id A027CC061794
-        for <linux-sparse@vger.kernel.org>; Sun,  5 Jul 2020 10:27:56 -0700 (PDT)
-Received: by mail-lf1-x141.google.com with SMTP id y13so21263639lfe.9
-        for <linux-sparse@vger.kernel.org>; Sun, 05 Jul 2020 10:27:56 -0700 (PDT)
+        Sun, 5 Jul 2020 14:51:00 -0400
+Received: from mail-qv1-xf43.google.com (mail-qv1-xf43.google.com [IPv6:2607:f8b0:4864:20::f43])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id C6AC1C061794
+        for <linux-sparse@vger.kernel.org>; Sun,  5 Jul 2020 11:50:59 -0700 (PDT)
+Received: by mail-qv1-xf43.google.com with SMTP id di5so11382897qvb.11
+        for <linux-sparse@vger.kernel.org>; Sun, 05 Jul 2020 11:50:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linux-foundation.org; s=google;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=jrGT6G0G5sT5xOUIdCU9qWxMdzQthpWsYTCf6aUdbIc=;
-        b=h4/XXWip2qRAny3whxdjD52ZMEnRIiAsEvaBVXhhxG4K1IXP14KoN3KGUB8MohsErF
-         Ylwvp7YUZjY09VP6cGlUKHKoSzttHaQUJw+aztPNbzojTvKvYnlCxHSNKgUjcV3hwg9t
-         Z4+0ZaDv+ZzciG05Ox72C19TCZdqrSi3j4/ng=
+        d=gmail.com; s=20161025;
+        h=from:to:cc:subject:date:message-id;
+        bh=QDJADeECKg7tEkGDHdFaJk9Zd+F2vQ/lL3CJplFnwIg=;
+        b=sagEVhod6V9wDCmBLpdDAlkr5/MUy8MPMm6vvk+/9IOXPW2xIaDW45ESErgAU+1IY2
+         bcuGYUJTg4K2Rt+RVWz9F4kd51uQdzhcKgSSYt2EtgqGu0D8wLuVeN7JPOoHW4hZ1ZSb
+         wtfJ7NWLdg2pEuVleQ8GPWuA9uTBdU1I6+gtAzkkXbb0ziAIYJKAE4QXyfMKMkdecxGj
+         RdvNyyNrZpYwG45eOU9u7L9fLWhas9FJsQhIJD9T21MsVsBnIi773FkYylerPAVar1M0
+         AFH5xyDGwJaDDvptdAeSoH+iSI46Q6eF53qEIiysl8Li6b5OG60DSCSOEprNGsPoBNMV
+         Uqxg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=jrGT6G0G5sT5xOUIdCU9qWxMdzQthpWsYTCf6aUdbIc=;
-        b=S3KrXfE7FgTEF3SzNln9S6xwUAENcOVZgRuFDzIQbF9wXllg59iuX2gsx6oaCW71QE
-         QQvJBmjN3DpbnSmMeBBdlBL77E/JEgmlpFzCPnfrmOF322tyhUsGfukgDivryHOQcdUU
-         Zpi8LwAcJLYPQ+oUM+3pKpyrUI8c6CmPV/w30w3Mv5XxcdnFQwPkV2tt3bgMWLE7q0od
-         vsnB4gGfCGymJbunU1Xt5Kde1yQstf4a1pRkXk+UlyJ40L1Wv+oE4ufqVN46bP/e0Gel
-         pYLQeLKk5aATMupumlN+juzwBTxDjUa/LqoS0b3Q2scQcpkEqVH7npu6eM8yUBZK22mB
-         rhrg==
-X-Gm-Message-State: AOAM533GkzgT/KuZjg+S/vVLhGkFoNISEFKUPX945SKzOqlIjr/gqLIw
-        PybZGcjDYiySWfZCB/0xsqZmFJBfFpQ=
-X-Google-Smtp-Source: ABdhPJz8Gzkyq5ESA04vljobhyS/oPMccZDI48VJdWA3mjPHd6GT3klG/mA8W9uQBFwVZTZUWJE2dg==
-X-Received: by 2002:a19:ccc5:: with SMTP id c188mr27736105lfg.163.1593970073462;
-        Sun, 05 Jul 2020 10:27:53 -0700 (PDT)
-Received: from mail-lj1-f180.google.com (mail-lj1-f180.google.com. [209.85.208.180])
-        by smtp.gmail.com with ESMTPSA id w4sm7338809ljw.16.2020.07.05.10.27.52
-        for <linux-sparse@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 05 Jul 2020 10:27:52 -0700 (PDT)
-Received: by mail-lj1-f180.google.com with SMTP id h22so35427466lji.9
-        for <linux-sparse@vger.kernel.org>; Sun, 05 Jul 2020 10:27:52 -0700 (PDT)
-X-Received: by 2002:a2e:9c92:: with SMTP id x18mr19424862lji.70.1593970072314;
- Sun, 05 Jul 2020 10:27:52 -0700 (PDT)
-MIME-Version: 1.0
-References: <20200705130220.26230-1-luc.vanoostenryck@gmail.com> <20200705130220.26230-15-luc.vanoostenryck@gmail.com>
-In-Reply-To: <20200705130220.26230-15-luc.vanoostenryck@gmail.com>
-From:   Linus Torvalds <torvalds@linux-foundation.org>
-Date:   Sun, 5 Jul 2020 10:27:36 -0700
-X-Gmail-Original-Message-ID: <CAHk-=wh-Eb-LZawa7fH7BOmbq-t8t8GvaY7o9bEW9cGXZgKGsQ@mail.gmail.com>
-Message-ID: <CAHk-=wh-Eb-LZawa7fH7BOmbq-t8t8GvaY7o9bEW9cGXZgKGsQ@mail.gmail.com>
-Subject: Re: [PATCH 14/15] cleanup: move parsing helpers to parse.c
-To:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-Cc:     Sparse Mailing-list <linux-sparse@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+        h=x-gm-message-state:from:to:cc:subject:date:message-id;
+        bh=QDJADeECKg7tEkGDHdFaJk9Zd+F2vQ/lL3CJplFnwIg=;
+        b=KydCki14nEAfYrewYe4mZ8oqLktrkmxGc1kmTCMFIm1HtdkzRWTWFabxd+h/0HcSfv
+         mJtccQSud0o85wWL197Xv0Lacz8nSG7QWK1b0/dwWcaSNC2mUTeaDpXYusZ3sh19f8T4
+         hShRbEd2LEabBjUq7MBtluDepKzK2HVJ/S7CegpB8QDPyyOmGM3zKHc84BS23Psnpect
+         n9deYxLDqNr9i/fVIR7zIstAV4ilgyLqxRxpTNR3CzIynAoYBe5523vwZTBp+uR1PrAo
+         fIrr58ZhrgG7NzWG3br29bL5tAUsy4jLrvba5cJmtcmVuGjAapE31GG35niHIX888/L5
+         ZTTQ==
+X-Gm-Message-State: AOAM530fqcUczXZOkN4teCiNpkZWZgoI+ZeZbprB0KkYhXleNjYg7Nj1
+        kXGD6XRbAdkGHdhe3a/Csl5fntJ0NOA=
+X-Google-Smtp-Source: ABdhPJwytN4Ch8tirT32nSggqahzldE4dcgHT4EEv/0r2kkjiUV3cv7XOK5eEyZjwlC27vk1MLyNKA==
+X-Received: by 2002:a0c:b246:: with SMTP id k6mr43632374qve.146.1593975058632;
+        Sun, 05 Jul 2020 11:50:58 -0700 (PDT)
+Received: from darkstar.. ([2804:d45:9905:9600:f66d:4ff:fe73:55f5])
+        by smtp.googlemail.com with ESMTPSA id c27sm15590795qkl.125.2020.07.05.11.50.56
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Sun, 05 Jul 2020 11:50:57 -0700 (PDT)
+From:   Davidson Francis <davidsondfgl@gmail.com>
+To:     linux-sparse@vger.kernel.org
+Cc:     Davidson Francis <davidsondfgl@gmail.com>
+Subject: [PATCH] test-inspect: reset locale after gtk_init()
+Date:   Sun,  5 Jul 2020 15:50:13 -0300
+Message-Id: <20200705185013.8578-1-davidsondfgl@gmail.com>
+X-Mailer: git-send-email 2.11.0
 Sender: linux-sparse-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-On Sun, Jul 5, 2020 at 6:02 AM Luc Van Oostenryck
-<luc.vanoostenryck@gmail.com> wrote:
->
-> lib.c contains 2-3 helpers for parsing. Move them to parse.c.
+The test-inspect tool uses GTK to visualize symbol nodes. It turns
+out that gtk_init() implicitly sets the locale to the system locale,
+and since Sparse uses strtod()/strtold() for parsing floating-point
+numbers in expressions, parsing becomes locale-dependent.
 
-This makes sense, because it's not a "library" function if it's only
-used in one place.
+Since the system's locale may be different from "C", test-inspect
+may be unable to parse float numbers.
 
-HOWEVER.
+Steps to reproduce:
+    $ echo "int main(void){3.14;}" > test.c
+    $ LC_ALL="fr_FR.UTF-8" test-inspect test.c
+Output:
+    test.c:1:16: error: constant 3.14 is not a valid number
 
-When doing things like this, please also mark the resulting function
-static and remove the declaration from lib.h.
+Fix this by resetting the locale right after gtk_init().
 
-Otherwise it's entirely pointless, I feel.
+Signed-off-by: Davidson Francis <davidsondfgl@gmail.com>
+---
+ test-inspect.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-Either it's a library function that gets used from other places (and
-lib.c/lib.h is an appropriate place), or it's a parsing-only helper
-function that _doesn't_ get used from other places (and it should be
-moved to parse.c and be static).
+diff --git a/test-inspect.c b/test-inspect.c
+index 63754cb3..a59cd902 100644
+--- a/test-inspect.c
++++ b/test-inspect.c
+@@ -6,6 +6,7 @@
+ #include <ctype.h>
+ #include <unistd.h>
+ #include <fcntl.h>
++#include <locale.h>
+ 
+ #include "lib.h"
+ #include "allocate.h"
+@@ -31,6 +32,7 @@ int main(int argc, char **argv)
+ 	struct symbol_list *view_syms = NULL;
+ 
+ 	gtk_init(&argc,&argv);
++	setlocale(LC_ALL, "C");
+ 	expand_symbols(sparse_initialize(argc, argv, &filelist));
+ 	FOR_EACH_PTR(filelist, file) {
+ 		struct symbol_list *syms = sparse(file);
+-- 
+2.11.0
 
-Not this half-way state that this patch seems to create.
-
-               Linus
