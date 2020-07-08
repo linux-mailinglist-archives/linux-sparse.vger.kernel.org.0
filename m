@@ -2,58 +2,58 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 0CA62219477
-	for <lists+linux-sparse@lfdr.de>; Thu,  9 Jul 2020 01:42:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 0171621947A
+	for <lists+linux-sparse@lfdr.de>; Thu,  9 Jul 2020 01:42:05 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726320AbgGHXmB (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Wed, 8 Jul 2020 19:42:01 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:51090 "EHLO
+        id S1726122AbgGHXmE (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Wed, 8 Jul 2020 19:42:04 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:51100 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726278AbgGHXmB (ORCPT
+        with ESMTP id S1726268AbgGHXmE (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Wed, 8 Jul 2020 19:42:01 -0400
-Received: from mail-ej1-x643.google.com (mail-ej1-x643.google.com [IPv6:2a00:1450:4864:20::643])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id F07BCC061A0B
-        for <linux-sparse@vger.kernel.org>; Wed,  8 Jul 2020 16:42:00 -0700 (PDT)
-Received: by mail-ej1-x643.google.com with SMTP id lx13so290058ejb.4
-        for <linux-sparse@vger.kernel.org>; Wed, 08 Jul 2020 16:42:00 -0700 (PDT)
+        Wed, 8 Jul 2020 19:42:04 -0400
+Received: from mail-ed1-x544.google.com (mail-ed1-x544.google.com [IPv6:2a00:1450:4864:20::544])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 99981C08C5C1
+        for <linux-sparse@vger.kernel.org>; Wed,  8 Jul 2020 16:42:03 -0700 (PDT)
+Received: by mail-ed1-x544.google.com with SMTP id dg28so382316edb.3
+        for <linux-sparse@vger.kernel.org>; Wed, 08 Jul 2020 16:42:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=bWrDCZEz3T9JwfRoOmoWHcDsRZzaJrqs9bYrVl8ZG3c=;
-        b=WN4KxaWeQx/sRA0OoEnCLELrlwP/dJIsE8jFg80jGlJVIOI0E/u3YYnN4dijZKjKyI
-         o4n5wQRhOuFgwciUyyFffxfOAR1RMFBo/aserY8a21oZDOSUk6V1cq7ptwZsgdEZKcj1
-         fDMEw8jaAd97IqX/VLKu9ii+6UIpMkO8cRM33KNm9QyslMrUIMnZARa87wLsI/sFzCMa
-         MrU+NCywSgi0wh91FIFRxreVgkdwLaWhy/qEU2OTxhV1zZLUiKJpo1Rxf903a/GJfFVE
-         Q5mKInege5Ii5JBURUIFm6tsPe62PJb6b4jqOQzqKRnki9ZlQwv3tddLJqSDT7nsoGTO
-         TAIg==
+        bh=B6qSerHAot6Iga27ezvBn9aESRi0lcSfGwZpY7M7ubw=;
+        b=KfZpvlzbacjYjr5+6U81gq7Epud6q6In6TM1d7qcYtrQWZFii9tvB/7JAk7jF96EYr
+         b/y1b2wJAzZGYGido78Lb/Eoq6jg/n+Aa3ueaJWYBEjh9HFPDm0daGj7CYOdoHp/sq4o
+         B8eMPnd7WvSV0cdOXgeaYwh5ARGRxfZA64PAHOUhRKS02dOg0HvSsTYh/zxcR1mKmit2
+         RDyVHk5VXe/XhzUAy+Edmw/wmmuAm57RsyLtAn5Rw7qjtk2nmRtRpmp/dMcOFl/AY/H8
+         r8YOG1gygfdk0QxGmdGJgoRVKBQwmRyID2Q14gm1JY3qSQAJE7/X/HddXeB9yHnvs4mQ
+         Yjlg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=bWrDCZEz3T9JwfRoOmoWHcDsRZzaJrqs9bYrVl8ZG3c=;
-        b=KKu0hNoy/X2o8rbRylyrFWU31Lx4HnOw+o5c7aq/R0rfL8DG4VuVHBs/lHAkmH70NF
-         eFODpSQqtC5knGfGzO8+32PSZxf/uSOzgKH/uyMz3Rwxu+nV8fFjEMWbHsYSNlUkh/61
-         Nl9B1nbR7cDGaT6g5mof61iLJHB8oqWCvREeb9jrEnx5btfaZpmyfk1IEguJ8ph1R5f9
-         otwr4ZiASk2iTFD2S0qxtEjy0jtATQcwEQwW5oPCxfisY7iHWlB6C7YKZYwGHfU35Uec
-         nJLnrnNJX5CHTryDGVwWwZW0q5U2/FiXnXPdFFw56xR7Udc9/G0LdOh4khZTs69Zi0OL
-         N4cw==
-X-Gm-Message-State: AOAM533bs2n+JoeN7CMPXQXTCwsZQiFm4Fg2LhnAgNZ64i6AP5uRa6Ts
-        rTKObhiYapGGtPmEtLjEFoRVFB0U
-X-Google-Smtp-Source: ABdhPJyo/Rxr5HMbmOlDnCSvPHqssux4x34agVva7o4iyIGkyaeljNzTWAEjX2/daQ1k0suU5v+7Fg==
-X-Received: by 2002:a17:906:3146:: with SMTP id e6mr45202767eje.2.1594251719509;
-        Wed, 08 Jul 2020 16:41:59 -0700 (PDT)
+        bh=B6qSerHAot6Iga27ezvBn9aESRi0lcSfGwZpY7M7ubw=;
+        b=dklsGJrLF8h5s6GXPqG2zvmIduo+w8yjtcGo1Qae9zIlz33TjvHL+SsHBQrNL1mHyv
+         +0YO04kFASGML8EC5swIitBcXbxTHj0s1nTavDndfUgIrRrF7dZEEt5nsqDWDBHiETzY
+         ge3M3vkHgvMy562uXZmo1mrSkM2n8bwUMRx2+i/jB2xAcDzJ4RxI+fMX1OKg+wwS8Hwb
+         +pGyOlG/tnMVQKuu63qqjzcNpV3uaPyHA7Qgr3xiI7fxcKHvSHJXbFKy2F+VblzvsulS
+         3cy5YbITq8A4seoNTiAhr2ecqqOWb9xje8tviwU+tFyimj1rDJb4OOrqZIecAYnAFtpm
+         zb6A==
+X-Gm-Message-State: AOAM532YpTVF6dxlaoSh1WAI+q2pN82Ze5HLJennsz+ghT4cBaAOwP94
+        ObK4RFRP0QfFEMunYzGK4SYttK0J
+X-Google-Smtp-Source: ABdhPJxKIVkalVSO0lwgKKZ373IcYNXZUDcV9G21pUnzgFRcYIOD+BFhMJN+xTPRri/7s4PQSzLxjQ==
+X-Received: by 2002:aa7:c305:: with SMTP id l5mr65051441edq.163.1594251720628;
+        Wed, 08 Jul 2020 16:42:00 -0700 (PDT)
 Received: from localhost.localdomain ([2a02:a03f:b7f9:7600:8478:3ba8:10ed:37ab])
-        by smtp.gmail.com with ESMTPSA id z25sm616464ejd.38.2020.07.08.16.41.58
+        by smtp.gmail.com with ESMTPSA id z25sm616464ejd.38.2020.07.08.16.41.59
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 08 Jul 2020 16:41:59 -0700 (PDT)
+        Wed, 08 Jul 2020 16:42:00 -0700 (PDT)
 From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 To:     linux-sparse@vger.kernel.org
 Cc:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-Subject: [PATCH 3/9] predefine: add __linux__ & __linux
-Date:   Thu,  9 Jul 2020 01:41:45 +0200
-Message-Id: <20200708234151.57845-4-luc.vanoostenryck@gmail.com>
+Subject: [PATCH 4/9] predefine: no __unix__ for Darwin
+Date:   Thu,  9 Jul 2020 01:41:46 +0200
+Message-Id: <20200708234151.57845-5-luc.vanoostenryck@gmail.com>
 X-Mailer: git-send-email 2.27.0
 In-Reply-To: <20200708234151.57845-1-luc.vanoostenryck@gmail.com>
 References: <20200708234151.57845-1-luc.vanoostenryck@gmail.com>
@@ -64,36 +64,27 @@ Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-These are already defined in cgcc but not yet by sparse
-itself. So, add them now.
+On Darwin, '__unix__' & '__unix' doesn't seem to be predefined.
+Don't ask me why.
 
 Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 ---
- predefine.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
+ predefine.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/predefine.c b/predefine.c
-index d05b1018fdce..0e9f73eb2340 100644
+index 0e9f73eb2340..7583b1afc32e 100644
 --- a/predefine.c
 +++ b/predefine.c
-@@ -216,10 +216,16 @@ void predefined_macros(void)
- 		predefine_nostd("unix");
- 	}
+@@ -210,7 +210,7 @@ void predefined_macros(void)
+ 	if (arch_target->predefine)
+ 		arch_target->predefine(arch_target);
  
--	if (arch_os == OS_SUNOS) {
-+	switch (arch_os) {
-+	case OS_LINUX:
-+		predefine("__linux__", 1, "1");
-+		predefine("__linux", 1, "1");
-+		break;
-+	case OS_SUNOS:
- 		predefine("__sun__", 1, "1");
- 		predefine("__sun", 1, "1");
- 		predefine_nostd("sun");
- 		predefine("__svr4__", 1, "1");
-+		break;
- 	}
- }
+-	if (arch_os >= OS_UNIX) {
++	if (arch_os >= OS_UNIX && arch_os != OS_DARWIN) {
+ 		predefine("__unix__", 1, "1");
+ 		predefine("__unix", 1, "1");
+ 		predefine_nostd("unix");
 -- 
 2.27.0
 
