@@ -2,58 +2,58 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 0171621947A
-	for <lists+linux-sparse@lfdr.de>; Thu,  9 Jul 2020 01:42:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 8AC05219479
+	for <lists+linux-sparse@lfdr.de>; Thu,  9 Jul 2020 01:42:04 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726122AbgGHXmE (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        id S1726278AbgGHXmE (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
         Wed, 8 Jul 2020 19:42:04 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:51100 "EHLO
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:51096 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726268AbgGHXmE (ORCPT
+        with ESMTP id S1726122AbgGHXmD (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Wed, 8 Jul 2020 19:42:04 -0400
-Received: from mail-ed1-x544.google.com (mail-ed1-x544.google.com [IPv6:2a00:1450:4864:20::544])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 99981C08C5C1
+        Wed, 8 Jul 2020 19:42:03 -0400
+Received: from mail-ej1-x644.google.com (mail-ej1-x644.google.com [IPv6:2a00:1450:4864:20::644])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 0DAF3C061A0B
         for <linux-sparse@vger.kernel.org>; Wed,  8 Jul 2020 16:42:03 -0700 (PDT)
-Received: by mail-ed1-x544.google.com with SMTP id dg28so382316edb.3
-        for <linux-sparse@vger.kernel.org>; Wed, 08 Jul 2020 16:42:03 -0700 (PDT)
+Received: by mail-ej1-x644.google.com with SMTP id w16so285821ejj.5
+        for <linux-sparse@vger.kernel.org>; Wed, 08 Jul 2020 16:42:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=B6qSerHAot6Iga27ezvBn9aESRi0lcSfGwZpY7M7ubw=;
-        b=KfZpvlzbacjYjr5+6U81gq7Epud6q6In6TM1d7qcYtrQWZFii9tvB/7JAk7jF96EYr
-         b/y1b2wJAzZGYGido78Lb/Eoq6jg/n+Aa3ueaJWYBEjh9HFPDm0daGj7CYOdoHp/sq4o
-         B8eMPnd7WvSV0cdOXgeaYwh5ARGRxfZA64PAHOUhRKS02dOg0HvSsTYh/zxcR1mKmit2
-         RDyVHk5VXe/XhzUAy+Edmw/wmmuAm57RsyLtAn5Rw7qjtk2nmRtRpmp/dMcOFl/AY/H8
-         r8YOG1gygfdk0QxGmdGJgoRVKBQwmRyID2Q14gm1JY3qSQAJE7/X/HddXeB9yHnvs4mQ
-         Yjlg==
+        bh=zMvGraCOnputRbcP0HQl37K0zR7Yb8mGU2hxQIM4aPs=;
+        b=BHAiUxZQXo/D6jiSfSwV6BhdCMa/wYAN/+Xh7LwJjIZswZv4y9mY8qbAbbFoo6SuMK
+         8vibx1NWv7BkUIMwdBFY+nHIHEWmeIrDoXE98p9Jy5I12bVYGnzwVv6I+4UTl+TnA9uy
+         qXyHH3rxBYVmRmI9k2DnMcWWeRPlOaDEEZsEzHE9Wlp7eXy6ebSqtoMThB0ZFA01k88E
+         tU82lpLpT9ytxbV/Ge0BMaNS/Q1JKINYdZ7tNIpL6TNmzv3X7Ik9qDaTbC02A8NGqdP0
+         sBZ6OfjhaZDyQn6uBHtY40Ju9VDe6Swe652lX7L8N2rg0J/Y1W+W+UTuxJPSMT0tt/21
+         HOog==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=B6qSerHAot6Iga27ezvBn9aESRi0lcSfGwZpY7M7ubw=;
-        b=dklsGJrLF8h5s6GXPqG2zvmIduo+w8yjtcGo1Qae9zIlz33TjvHL+SsHBQrNL1mHyv
-         +0YO04kFASGML8EC5swIitBcXbxTHj0s1nTavDndfUgIrRrF7dZEEt5nsqDWDBHiETzY
-         ge3M3vkHgvMy562uXZmo1mrSkM2n8bwUMRx2+i/jB2xAcDzJ4RxI+fMX1OKg+wwS8Hwb
-         +pGyOlG/tnMVQKuu63qqjzcNpV3uaPyHA7Qgr3xiI7fxcKHvSHJXbFKy2F+VblzvsulS
-         3cy5YbITq8A4seoNTiAhr2ecqqOWb9xje8tviwU+tFyimj1rDJb4OOrqZIecAYnAFtpm
-         zb6A==
-X-Gm-Message-State: AOAM532YpTVF6dxlaoSh1WAI+q2pN82Ze5HLJennsz+ghT4cBaAOwP94
-        ObK4RFRP0QfFEMunYzGK4SYttK0J
-X-Google-Smtp-Source: ABdhPJxKIVkalVSO0lwgKKZ373IcYNXZUDcV9G21pUnzgFRcYIOD+BFhMJN+xTPRri/7s4PQSzLxjQ==
-X-Received: by 2002:aa7:c305:: with SMTP id l5mr65051441edq.163.1594251720628;
-        Wed, 08 Jul 2020 16:42:00 -0700 (PDT)
+        bh=zMvGraCOnputRbcP0HQl37K0zR7Yb8mGU2hxQIM4aPs=;
+        b=hFh0y2VLpALESX9S/AvbKNNPFpXsvXRYFuY6EEgsaV1QpIe6hPf2HhswjDnuwoSErV
+         Ote8R6rJF6Z9O4RleF026fyEfKmUq329BXlJ60iK1pvEMWCymT3QFd7B0vwJoVXWRLsH
+         em2hmjno+uQlPcwWk1LxNoZozi9QvR718aOP0p5hYmeIVdAk32H5As3gmSZBY9Ul3k6A
+         fYGd+kvyZCOo0vSJDxKIOn8v+BO15B/QexpfF+V2Dqw5mg0QQybdl08ofip2Z3+aGlZM
+         8SnkUAByuvqbxJfCl1IYiXNYAcRdMfN9Go2ku2+5PmYiH85/IiuW81CLNVBKzJNVollF
+         KJLg==
+X-Gm-Message-State: AOAM533a89VKUgfDt4PDF/7VEOfGmhKnKR47tKlTRRD518hCxPlSQKDD
+        j8de2kYbmAqHMzIk05K2uDbtcBxk
+X-Google-Smtp-Source: ABdhPJyCJMOm2hURgi1nC0RG+yQI+sSYNAZg7G9vfSlOR7TpxY8O/ciCj/DDGYfcx9HUqBlRgAJ3Rw==
+X-Received: by 2002:a17:906:40d6:: with SMTP id a22mr55850026ejk.133.1594251721586;
+        Wed, 08 Jul 2020 16:42:01 -0700 (PDT)
 Received: from localhost.localdomain ([2a02:a03f:b7f9:7600:8478:3ba8:10ed:37ab])
-        by smtp.gmail.com with ESMTPSA id z25sm616464ejd.38.2020.07.08.16.41.59
+        by smtp.gmail.com with ESMTPSA id z25sm616464ejd.38.2020.07.08.16.42.00
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 08 Jul 2020 16:42:00 -0700 (PDT)
+        Wed, 08 Jul 2020 16:42:01 -0700 (PDT)
 From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 To:     linux-sparse@vger.kernel.org
 Cc:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-Subject: [PATCH 4/9] predefine: no __unix__ for Darwin
-Date:   Thu,  9 Jul 2020 01:41:46 +0200
-Message-Id: <20200708234151.57845-5-luc.vanoostenryck@gmail.com>
+Subject: [PATCH 5/9] x86: fixes types for NetBSD & OpenBSD
+Date:   Thu,  9 Jul 2020 01:41:47 +0200
+Message-Id: <20200708234151.57845-6-luc.vanoostenryck@gmail.com>
 X-Mailer: git-send-email 2.27.0
 In-Reply-To: <20200708234151.57845-1-luc.vanoostenryck@gmail.com>
 References: <20200708234151.57845-1-luc.vanoostenryck@gmail.com>
@@ -64,27 +64,44 @@ Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-On Darwin, '__unix__' & '__unix' doesn't seem to be predefined.
-Don't ask me why.
+On NetBSD & OpenBSD, some types are not defined like on Linux.
+
+Fix this.
 
 Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 ---
- predefine.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ target-x86.c | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
 
-diff --git a/predefine.c b/predefine.c
-index 0e9f73eb2340..7583b1afc32e 100644
---- a/predefine.c
-+++ b/predefine.c
-@@ -210,7 +210,7 @@ void predefined_macros(void)
- 	if (arch_target->predefine)
- 		arch_target->predefine(arch_target);
+diff --git a/target-x86.c b/target-x86.c
+index 01117bb6ecc8..62323aecc52b 100644
+--- a/target-x86.c
++++ b/target-x86.c
+@@ -29,6 +29,8 @@ static void init_x86_common(const struct target *target)
+ 		wint_ctype = &int_ctype;
+ 		break;
+ 	case OS_OPENBSD:
++		size_t_ctype = &ulong_ctype;
++		ssize_t_ctype = &long_ctype;
+ 		wchar_ctype = &int_ctype;
+ 		wint_ctype = &int_ctype;
+ 		break;
+@@ -72,6 +74,15 @@ static void init_x86_64(const struct target *target)
+ 		break;
+ 	case OS_FREEBSD:
+ 		break;
++	case OS_NETBSD:
++		wint_ctype = &int_ctype;
++		break;
++	case OS_OPENBSD:
++		int64_ctype = &llong_ctype;
++		uint64_ctype = &ullong_ctype;
++		intmax_ctype = &llong_ctype;
++		uintmax_ctype = &ullong_ctype;
++		break;
+ 	}
+ }
  
--	if (arch_os >= OS_UNIX) {
-+	if (arch_os >= OS_UNIX && arch_os != OS_DARWIN) {
- 		predefine("__unix__", 1, "1");
- 		predefine("__unix", 1, "1");
- 		predefine_nostd("unix");
 -- 
 2.27.0
 
