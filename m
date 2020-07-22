@@ -2,54 +2,92 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id DDEA1227683
-	for <lists+linux-sparse@lfdr.de>; Tue, 21 Jul 2020 05:17:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 391CD22A15B
+	for <lists+linux-sparse@lfdr.de>; Wed, 22 Jul 2020 23:28:22 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1728576AbgGUDRV (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Mon, 20 Jul 2020 23:17:21 -0400
-Received: from [211.196.21.11] ([211.196.21.11]:53206 "EHLO
-        iscure03.localdomain" rhost-flags-FAIL-FAIL-OK-FAIL)
-        by vger.kernel.org with ESMTP id S1725857AbgGUDRU (ORCPT
+        id S1728497AbgGVV2V (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Wed, 22 Jul 2020 17:28:21 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:60680 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1726525AbgGVV2V (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Mon, 20 Jul 2020 23:17:20 -0400
-Received: from Shop01 (unknown [127.0.0.1])
-        by iscure03.localdomain (Postfix) with SMTP id 99A7A2AE13C;
-        Mon, 20 Jul 2020 12:16:01 +0900 (KST)
-Received: from (HELO 2v45) [146.142.217.126] by Shop01 with ESMTP id 55558734; Sun, 19 Jul 2020 12:09:37 -0400
-Message-ID: <qoap--$$2--7c-9c@95ql.c.sm7vtdb>
-From:   "MOORE GATES LTD" <TEXT@TEXT.COM>
-Reply-To: "MOORE GATES LTD" <TEXT@TEXT.COM>
-To:     linux-man@vger.kernel.org
-Subject: FROM MR. MOORE
-Date:   Sun, 19 Jul 20 12:09:37 GMT
-X-Mailer: Internet Mail Service (5.5.2650.21)
+        Wed, 22 Jul 2020 17:28:21 -0400
+Received: from mail-ej1-x644.google.com (mail-ej1-x644.google.com [IPv6:2a00:1450:4864:20::644])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id DD000C0619DC
+        for <linux-sparse@vger.kernel.org>; Wed, 22 Jul 2020 14:28:20 -0700 (PDT)
+Received: by mail-ej1-x644.google.com with SMTP id o18so3894940eje.7
+        for <linux-sparse@vger.kernel.org>; Wed, 22 Jul 2020 14:28:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=EIZpSG9182uT5FAv0tsO/0ytptixECeBmYVpBxyNbQQ=;
+        b=EAIfrn8XYkgVqC4cxYx2ULWGm+A1BOBRxqYCn0buLuDO4Hp4ISDiK0+UwjV1Uye2GH
+         4t5bgFyW8N/FeZdtc89vTAGebsZ2/ILiJ6sC3CXd1HF4EG4P2l0H7RldIt6TRYM0XhOw
+         Ug6jr80QllJtQeSaYxWlzo0rQ7/f2g7Zb2EsbwU1lc+S/5suGfytaqv7kasvgpVYTyPn
+         XItHj13KuU4K8VovDx1ap4QzTIz2lkWQwk0gBbdUnwwdB66hFIN751WDXdCdfvkjt9W6
+         RbLfdn/bcRc9WeTPseT1CyQGFk5aZ3mkVMdXujgfQqEAsEqQaCnqqdDTPe0RzJUD7Rr/
+         YNJQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=EIZpSG9182uT5FAv0tsO/0ytptixECeBmYVpBxyNbQQ=;
+        b=XT/FEr+6o7wRhUu8HKrlmoOoqaD4X5JP5S2k6WzOiKUaUzsiGLnw8hrgmgQbyTq9v1
+         VSws/lil7KQqDPr+vr/n3iVSrPHUbzhEChEDMxAXrh471DP/HjgIITMpje52SCLKhulW
+         TkXxmTh59ftZNO9zvWrT/rAK05J7jDD1mxxRdbPhGz+w2CV8iMWAC2/CuNMly7gznHE+
+         6RxeUD0+cxUDpunamlfhKnD0qhnzF+yE4kNcJyilr2roB2Xm0CJN0jy3k70hQ5IcA37g
+         57QtrfHFthncbfc7IzbzeyZuPwx0LTcWVrOZqAueWDYvm2zffZgHg6sbhQ/ys8jgddr7
+         LkVw==
+X-Gm-Message-State: AOAM533bIe+P2llxJgcOhJIBB7JUrR369ap7G++qAifoys+NQp4GTJR+
+        KVMUqsoTHjR9NXwYw7tPEJvPu5gM
+X-Google-Smtp-Source: ABdhPJz8zKOIt9qIGeIM5xqAeQZ4NU9xqVIRzoCuUaVNsxPjCf36DrrJ9PGnvvW4x3YNXIBXCgLtPA==
+X-Received: by 2002:a17:906:3152:: with SMTP id e18mr1486077eje.137.1595453299210;
+        Wed, 22 Jul 2020 14:28:19 -0700 (PDT)
+Received: from localhost.localdomain ([2a02:a03f:a7fb:e200:905b:ad5c:bc87:c79e])
+        by smtp.gmail.com with ESMTPSA id k15sm544973eji.49.2020.07.22.14.28.17
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 22 Jul 2020 14:28:18 -0700 (PDT)
+From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
+To:     linux-sparse@vger.kernel.org
+Cc:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
+Subject: [PATCH] option: accept 'sparse -U ...'
+Date:   Wed, 22 Jul 2020 23:28:04 +0200
+Message-Id: <20200722212804.36493-1-luc.vanoostenryck@gmail.com>
+X-Mailer: git-send-email 2.27.0
 MIME-Version: 1.0
-Content-Type: multipart/alternative;
-        boundary="D9F2D5A2__"
-X-Priority: 1
-X-MSMail-Priority: High
+Content-Transfer-Encoding: 8bit
 Sender: linux-sparse-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
+The '-D' flag was fixed to accept whitespace before the argument
+but the '-U' flag wasn't. So, fix this now.
 
---D9F2D5A2__
-Content-Type: text/plain;
-Content-Transfer-Encoding: quoted-printable
+Fixes: 7f1011b311e9329f53d73f88de495ea64071eb77
+Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
+---
+ options.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-Dear Beloved,
-Peace of the Lord be with you and family, I am Fitzpatrick Moore a
-United Kingdom Citizen, I have ($ 25M) Twenty five Million united
-states dollars with a finance House in United State. I will want you
-to help me collect this deposit and dispatch it to charity
-organizations. You will take out 30% of these funds for your
-assistance to help ME disburse this fund to charities. I will like you
-to acknowledge the receipt of this e-mail as soon as possible and
-treats with absolute confidentiality and sincerity. Please reply to my
-Email: (moorefitzpatrick@gmail.com)
-Yours Sincerely,
-Fitzpatrick Moore
-
---D9F2D5A2__--
+diff --git a/options.c b/options.c
+index a2e15bb75c0d..f7e81b84d749 100644
+--- a/options.c
++++ b/options.c
+@@ -782,6 +782,12 @@ static char **handle_switch_s(const char *arg, char **next)
+ static char **handle_switch_U(char *arg, char **next)
+ {
+ 	const char *name = arg + 1;
++
++	if (*name == '\0') {
++		name = *++next;
++		if (!name)
++			die("argument to `-U' is missing");
++	}
+ 	add_pre_buffer("#undef %s\n", name);
+ 	return next;
+ }
+-- 
+2.27.0
 
