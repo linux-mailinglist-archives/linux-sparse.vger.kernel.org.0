@@ -2,107 +2,49 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 020FF22BA52
-	for <lists+linux-sparse@lfdr.de>; Fri, 24 Jul 2020 01:46:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 05D2422C934
+	for <lists+linux-sparse@lfdr.de>; Fri, 24 Jul 2020 17:30:08 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1728181AbgGWXqx (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Thu, 23 Jul 2020 19:46:53 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:51104 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1728178AbgGWXqw (ORCPT
+        id S1726987AbgGXP3m (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Fri, 24 Jul 2020 11:29:42 -0400
+Received: from [125.140.134.231] ([125.140.134.231]:53505 "EHLO
+        WIN-DAONO245HJF" rhost-flags-FAIL-FAIL-OK-FAIL) by vger.kernel.org
+        with ESMTP id S1726947AbgGXP3m (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Thu, 23 Jul 2020 19:46:52 -0400
-Received: from mail-ed1-x544.google.com (mail-ed1-x544.google.com [IPv6:2a00:1450:4864:20::544])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 45B36C0619D3
-        for <linux-sparse@vger.kernel.org>; Thu, 23 Jul 2020 16:46:52 -0700 (PDT)
-Received: by mail-ed1-x544.google.com with SMTP id by13so5735861edb.11
-        for <linux-sparse@vger.kernel.org>; Thu, 23 Jul 2020 16:46:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=from:to:cc:subject:date:message-id:in-reply-to:references
-         :mime-version:content-transfer-encoding;
-        bh=BPsyU1n8ZQ5VfNOjzlC2B5oiSHtFFi4AIZfwcOsCEDU=;
-        b=M1tGjZvj8lGGcHOppJ1FE1ehVZYeN5h2nD/GzvGZ4IxbYfWjc3zLN0osqZTXsNsd8U
-         25WTYv2All2jr0pf2j3M5TkeVFLdG1CK+gWkRDdX3U3mcOUGLI12WRF1T/5e+YvGfGGJ
-         GoyzYkJYTAP2r9JJzPlxVq9dDBn9W07AQaQAT9HyKTWydo/Qe8T+QlgSMgIv4STusQJg
-         Vv7YOmhLjwtM2dkOwlaXjAxEi1P6KLOHrssuad7AKjDwbOILDLe+AUVDQ+xHx/InCS0+
-         pSaeN13nsFnddj0wwbwC0bddikf4+lRF3iua5rco1a/rdcP7vGvrOSwXoM9u0CGuCbFv
-         WNYQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
-         :references:mime-version:content-transfer-encoding;
-        bh=BPsyU1n8ZQ5VfNOjzlC2B5oiSHtFFi4AIZfwcOsCEDU=;
-        b=aESYZncbRkwhR/5PwiapJYUR0gR+szoRh7KG1FXVZTQ/VmthxtInbfKiV2lpFspSau
-         sOHNQRkokPaBqCmmo3+w3nwJaTTCmSRK03g1a7Lo302m1/sMRKYs4eF+ny3/AU1HJhfy
-         swEcAt2ead9TksPHXRkkOEC6YU8Hg8R7HJ4eYKwitY8HhULhgpQ+vUgAuHI92gugmqm8
-         YxcoXIEPeB+2ImMpr27emjc7UWkNXpXk4psRMBvWqac3MDZq7R5bIxJvsSUC1RF4Bp4X
-         xX36w4wqooRiBbsj8paxVnp7dueOU94HcktZAGC4YoGW+fLWyrUQh2/8TbNPeEQQOI12
-         u/6w==
-X-Gm-Message-State: AOAM533e7+8Y2tiMVBv2K+hdIOfWdOTl1BmjUqjVHfppFvdA06RTbNou
-        S9PGq7h3PsxIxChkBt0a87iYWrgT
-X-Google-Smtp-Source: ABdhPJwjzwKfhxjB2xztaVVOTtCKv6lIWOBUN5/K+KHPCTKNNHThrtfywEHURG5f8cUqvTQkKaJl5A==
-X-Received: by 2002:a05:6402:b2b:: with SMTP id bo11mr1483504edb.154.1595548010857;
-        Thu, 23 Jul 2020 16:46:50 -0700 (PDT)
-Received: from localhost.localdomain ([2a02:a03f:a7fb:e200:a981:5f61:c34f:8c32])
-        by smtp.gmail.com with ESMTPSA id bq8sm3086975ejb.103.2020.07.23.16.46.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 23 Jul 2020 16:46:50 -0700 (PDT)
-From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-To:     linux-sparse@vger.kernel.org
-Cc:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-Subject: [PATCH 6/6] allow [*] in array declarators
-Date:   Fri, 24 Jul 2020 01:46:41 +0200
-Message-Id: <20200723234641.78462-7-luc.vanoostenryck@gmail.com>
-X-Mailer: git-send-email 2.27.0
-In-Reply-To: <20200723234641.78462-1-luc.vanoostenryck@gmail.com>
-References: <20200723234641.78462-1-luc.vanoostenryck@gmail.com>
+        Fri, 24 Jul 2020 11:29:42 -0400
+Received: from User ([66.154.113.229]) by WIN-DAONO245HJF with Microsoft SMTPSVC(8.5.9600.16384);
+         Sat, 25 Jul 2020 00:23:35 +0900
+Reply-To: <christopherwang36@gmail.com>
+From:   "CHRISTOPHER WANG" <christopherwang36@gmail.com>
+Subject: INVESTMENT
+Date:   Fri, 24 Jul 2020 08:23:53 -0700
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain;
+        charset="Windows-1251"
+Content-Transfer-Encoding: 7bit
+X-Priority: 3
+X-MSMail-Priority: Normal
+X-Mailer: Microsoft Outlook Express 6.00.2600.0000
+X-MimeOLE: Produced By Microsoft MimeOLE V6.00.2600.0000
+Message-ID: <WIN-DAONO245HJFgqGM008ef917@WIN-DAONO245HJF>
+X-OriginalArrivalTime: 24 Jul 2020 15:23:36.0067 (UTC) FILETIME=[66408530:01D661CE]
+To:     unlisted-recipients:; (no To-header on input)
 Sender: linux-sparse-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-Since C99, a '*' is allowed in an abstract array declarator to
-specify that the array is a VLA with a yet-to-be-determined size.
 
-So, accept this construction (but still ignore it for now).
 
-Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
----
- parse.c                                     | 7 ++++++-
- validation/abstract-array-declarator-star.c | 1 -
- 2 files changed, 6 insertions(+), 2 deletions(-)
+Good day,
 
-diff --git a/parse.c b/parse.c
-index c7ca3dce7f6b..6db70f1a95e9 100644
---- a/parse.c
-+++ b/parse.c
-@@ -1717,7 +1717,12 @@ static struct token *abstract_array_declarator(struct token *token, struct symbo
- 		has_static |= (sym->op->type & KW_STATIC);
- 		token = token->next;
- 	}
--	token = assignment_expression(token, &expr);
-+	if (match_op(token, '*') && match_op(token->next, ']')) {
-+		// FIXME: '[*]' is treated like '[]'
-+		token = token->next;
-+	} else {
-+		token = assignment_expression(token, &expr);
-+	}
- 	sym->array_size = expr;
- 	return token;
- }
-diff --git a/validation/abstract-array-declarator-star.c b/validation/abstract-array-declarator-star.c
-index fdbdff19840d..fc42da3ae6c9 100644
---- a/validation/abstract-array-declarator-star.c
-+++ b/validation/abstract-array-declarator-star.c
-@@ -5,5 +5,4 @@ void ok9(int a[const volatile restrict *]);
+You were recommended by a mutual associate. I write you regarding an investment of bearer bonds I made on behalf of a client. 
+
+       The investment was made in 2009 and has been under my management. The said investor is deceased. The window is now available to assign these bonds to any name or company of my choice. I have all the necessary information to achieve this within 10 banking days.
+      
+       The total value of the bond is 100million pounds sterling, in a million pound denominations.
+      
+        If you can handle this, do contact me at your earliest convenience via my email christopherwang36@gmail.com
+So we can discuss the final details Thank you.
  
- /*
-  * check-name: abstract-array-declarator-star
-- * check-known-to-fail
-  */
--- 
-2.27.0
-
+Mr CHRISTOPHER WANG
