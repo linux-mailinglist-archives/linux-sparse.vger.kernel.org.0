@@ -2,90 +2,63 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id B0CF323162B
-	for <lists+linux-sparse@lfdr.de>; Wed, 29 Jul 2020 01:11:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 665A02317EC
+	for <lists+linux-sparse@lfdr.de>; Wed, 29 Jul 2020 05:02:21 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1729744AbgG1XLD (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Tue, 28 Jul 2020 19:11:03 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:60138 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1729654AbgG1XLC (ORCPT
+        id S1731163AbgG2DCU convert rfc822-to-8bit (ORCPT
+        <rfc822;lists+linux-sparse@lfdr.de>); Tue, 28 Jul 2020 23:02:20 -0400
+Received: from customer-201-134-139-73.uninet-ide.com.mx ([201.134.139.73]:59350
+        "EHLO correo.tlalpan.gob.mx" rhost-flags-OK-FAIL-OK-FAIL)
+        by vger.kernel.org with ESMTP id S1728401AbgG2DCU (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Tue, 28 Jul 2020 19:11:02 -0400
-Received: from mail-ej1-x642.google.com (mail-ej1-x642.google.com [IPv6:2a00:1450:4864:20::642])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 62F94C061794
-        for <linux-sparse@vger.kernel.org>; Tue, 28 Jul 2020 16:11:02 -0700 (PDT)
-Received: by mail-ej1-x642.google.com with SMTP id c16so1962989ejx.12
-        for <linux-sparse@vger.kernel.org>; Tue, 28 Jul 2020 16:11:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=date:from:to:cc:subject:message-id:references:mime-version
-         :content-disposition:in-reply-to;
-        bh=qM/etghxYezbiGaChzDWipJ4XCJyz7oT6Lt6x+okX7o=;
-        b=Iq4lAx21Ap0NVhdUMBdgBS7PuzoHh1ZCoR/xfnGYXyn16p75xgip/K9p4HONgl8t7r
-         UvuW1MwJh9GLLX/JmS19Q5YknhSoSzJ9HrAQ8yVQQCEppDSjlraSvmIRIOrB4n3oScCl
-         Hnmo1qPmCSJJqpQ8jmjYoaGaanIljhXtCp+9zYAujytWP8EFtSKO50B+fPGYhPvOtn1x
-         s7eFvv57FdUNLxLaQewVaxJg+IBYxtRownuXkSl5siTGxFYoflkIRtQqTobMlyyp1+Pb
-         nzLTo/8HxRaHdSJUFIPSEs7XZ2SZqz53qFY6mSATnIoV4DQJ+CwH+xtedLKe/RmyRoby
-         n7Bw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
-         :mime-version:content-disposition:in-reply-to;
-        bh=qM/etghxYezbiGaChzDWipJ4XCJyz7oT6Lt6x+okX7o=;
-        b=is+Aiv67smFcbLiQjjxjupEpRUV8Dx1I6dB0Pjw2vskDPzBxM5COjQQjbrzgmTQMqe
-         BLd8GAVGaOGGyWISv0Fb3vbl92qMtQBkVW3gagrSb74TF9Yn/hxNHlZ8jhyE6AY2ccw4
-         QGggnm5TOglJfvYhLiFQD/1PaiXb0dUjT83jzIeri+oF7STJxSSqxX+jis/GY76okMtt
-         09+NXf9L5xxcvQUNQ9gwts6J5VAu9Jwp7MMLhvV/Q6EILm3+4DRi6nfByEdgY0t/EQQW
-         szCRRWgFcUzRLT8Qf5TS36cbAmP6XMoLG3AB1a5txM6z+dhmOuriTs6mkWvBrBnlfVgE
-         y0qA==
-X-Gm-Message-State: AOAM532mJBP6o44HiOUe76lDJmTsShU3wW9lfKpmCWeG+QJi/CwYG0eE
-        1KLLK5S/GrBpmknmRdSapWA=
-X-Google-Smtp-Source: ABdhPJwJSTMTnQLjeX7+0ljI0LKrjQbyoLMetJGjnYBdrwNjmTQ5gHvddJ9gtAr62adpihS2QvckhA==
-X-Received: by 2002:a17:906:c0d9:: with SMTP id bn25mr27164235ejb.176.1595977861181;
-        Tue, 28 Jul 2020 16:11:01 -0700 (PDT)
-Received: from ltop.local ([2a02:a03f:a7fb:e200:e898:a163:5b77:8589])
-        by smtp.gmail.com with ESMTPSA id x1sm78372ejv.11.2020.07.28.16.10.59
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 28 Jul 2020 16:11:00 -0700 (PDT)
-Date:   Wed, 29 Jul 2020 01:10:58 +0200
-From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-To:     Oleg Nesterov <oleg@redhat.com>
-Cc:     Alexey Gladkov <gladkov.alexey@gmail.com>,
-        linux-sparse@vger.kernel.org
-Subject: Re: [PATCH] dissect: add support for _Generic
-Message-ID: <20200728231058.3yakpfw3dqslxq5t@ltop.local>
-References: <20200728183507.422662-1-gladkov.alexey@gmail.com>
- <20200728194937.GA2467@redhat.com>
+        Tue, 28 Jul 2020 23:02:20 -0400
+Received: from localhost (localhost [127.0.0.1])
+        by correo.tlalpan.gob.mx (Postfix) with ESMTP id C869C573C33;
+        Tue, 28 Jul 2020 11:31:20 -0500 (CDT)
+Received: from correo.tlalpan.gob.mx ([127.0.0.1])
+        by localhost (correo.tlalpan.gob.mx [127.0.0.1]) (amavisd-new, port 10032)
+        with ESMTP id lYDbxjlDRmW0; Tue, 28 Jul 2020 11:31:20 -0500 (CDT)
+Received: from localhost (localhost [127.0.0.1])
+        by correo.tlalpan.gob.mx (Postfix) with ESMTP id DE8A2573CB3;
+        Tue, 28 Jul 2020 06:01:22 -0500 (CDT)
+X-Virus-Scanned: amavisd-new at tlalpan.gob.mx
+Received: from correo.tlalpan.gob.mx ([127.0.0.1])
+        by localhost (correo.tlalpan.gob.mx [127.0.0.1]) (amavisd-new, port 10026)
+        with ESMTP id GZIAQX6G0Oy3; Tue, 28 Jul 2020 06:01:22 -0500 (CDT)
+Received: from [10.85.108.11] (unknown [105.8.2.12])
+        by correo.tlalpan.gob.mx (Postfix) with ESMTPSA id F046C4783FC;
+        Tue, 28 Jul 2020 04:04:24 -0500 (CDT)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20200728194937.GA2467@redhat.com>
+Content-Transfer-Encoding: 8BIT
+Content-Description: Mail message body
+Subject: =?utf-8?q?Covid_19_Wohlt=C3=A4tigkeitsfonds?=
+To:     Recipients <aguayenergia@tlalpan.gob.mx>
+From:   ''Tayeb Souami'' <aguayenergia@tlalpan.gob.mx>
+Date:   Tue, 28 Jul 2020 11:08:40 +0200
+Reply-To: Tayebsouam.spende@gmail.com
+Message-Id: <20200728090424.F046C4783FC@correo.tlalpan.gob.mx>
 Sender: linux-sparse-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-On Tue, Jul 28, 2020 at 09:49:38PM +0200, Oleg Nesterov wrote:
-> On 07/28, Alexey Gladkov wrote:
-> >
-> > No special support needed for _Generic,
-> 
-> Hmm. I am already sleeping and didn't read the _Generic code yet... but
-> shouldn't dissect() inspect ->control/map/def?
-> 
-> That said,
-> 
-> > so just suppress the warning
-> > about unknown type.
-> 
-> probably better than nothing, lets shut up the warning first.
+Lieber Freund,
 
-OK, since there is some urgency, I applied it directly but
-my first reaction was also "eh, you can't just ignore
-EXPR_GENERIC / pretend it's one of the top-level expression".
-OTOH, I wonder what can be done without first evaluating
-(the type of) the controlling expression and the types of the map
-(if I understand correctly, evaluation is avoided in dissect).
+Ich bin Herr Tayeb Souami, New Jersey, Vereinigte Staaten von Amerika, der Mega-Gewinner von $ 315million In Mega Millions Jackpot, spende ich an 5 zufällige Personen, wenn Sie diese E-Mail erhalten, dann wurde Ihre E-Mail nach einem Spinball ausgewählt.Ich habe den größten Teil meines Vermögens auf eine Reihe von Wohltätigkeitsorganisationen und Organisationen verteilt.Ich habe mich freiwillig dazu entschieden, die Summe von € 2.000.000,00 an Sie als eine der ausgewählten 5 zu spenden, um meine Gewinne zu überprüfen, sehen Sie bitte meine You Tube Seite unten.
 
--- Luc
+UHR MICH HIER: https://www.youtube.com/watch?v=Z6ui8ZDQ6Ks
+
+
+Das ist dein Spendencode: [TS530342018]
+
+
+Antworten Sie mit dem SPENDE-CODE an diese
+
+E-Mail:Tayebsouam.spende@gmail.com
+
+
+Ich hoffe, Sie und Ihre Familie glücklich zu machen.
+
+Grüße
+Herr Tayeb Souami
