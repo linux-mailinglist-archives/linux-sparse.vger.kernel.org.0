@@ -2,58 +2,58 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id D64BE23FEB4
-	for <lists+linux-sparse@lfdr.de>; Sun,  9 Aug 2020 16:17:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id DF1B323FEB5
+	for <lists+linux-sparse@lfdr.de>; Sun,  9 Aug 2020 16:17:43 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726207AbgHIORk (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Sun, 9 Aug 2020 10:17:40 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:59946 "EHLO
+        id S1726242AbgHIORn (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Sun, 9 Aug 2020 10:17:43 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:59952 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726175AbgHIORj (ORCPT
+        with ESMTP id S1726175AbgHIORl (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Sun, 9 Aug 2020 10:17:39 -0400
-Received: from mail-ed1-x542.google.com (mail-ed1-x542.google.com [IPv6:2a00:1450:4864:20::542])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 30D0CC061756
-        for <linux-sparse@vger.kernel.org>; Sun,  9 Aug 2020 07:17:39 -0700 (PDT)
-Received: by mail-ed1-x542.google.com with SMTP id df16so4566822edb.9
-        for <linux-sparse@vger.kernel.org>; Sun, 09 Aug 2020 07:17:39 -0700 (PDT)
+        Sun, 9 Aug 2020 10:17:41 -0400
+Received: from mail-ej1-x641.google.com (mail-ej1-x641.google.com [IPv6:2a00:1450:4864:20::641])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 7BF96C061756
+        for <linux-sparse@vger.kernel.org>; Sun,  9 Aug 2020 07:17:40 -0700 (PDT)
+Received: by mail-ej1-x641.google.com with SMTP id t10so2484115ejs.8
+        for <linux-sparse@vger.kernel.org>; Sun, 09 Aug 2020 07:17:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=vMR958jp0vJQLVfI8K9AS2+BZAqdKo73Q3KMou+/moQ=;
-        b=gry5PTbivruLgld4ypi/vmVPyk8xtr+NuWfI6p1m5CV44pQnMiPkXfn5mHex3fLn1v
-         Ci05jjqRp3wzsjdwm5xnN9K3NA6IZbC6iGEMByeuvdWypVFCa+0l+Mai7QxB1gYkfIgs
-         si9ObMddq0RvK2mAJddF2Bk5vHGq0vYYbSQHt61+cZUQam3rdIugsOJ58ocu3zoq3244
-         p/lW2PcrKVbXz6iTLwaWt1DlcNOS76HYJi4YUMtyhMrQTt0EAoW2YZ/FAQXSgERr0p9f
-         kAYUUCuNDMH1wgroTA01Zv1uQfzDTwf4lFRHgULVux6ES8Pr0Q+H3OJXm4xr1yciuTu5
-         dfug==
+        bh=tihCaIaZ8hO8FrGKsGmEVleU+9e1Nh2kqy6MJhKG7B0=;
+        b=ivaNQ3szIjcJwCQtSIPpQFimUWq15bm6Q+6zErXOQcYomcPHIVxKP2LHaWqfweTzkG
+         JJojF4HevIAi43s0vS/PXO8DQQBNjumY7MRBByd4qhYSlyHXoDcW4CyOVV5LvVF1sBMa
+         t+iFurLDDhPQsVUyYyNaKlSQIOfFJKXBsi9GnODhtV71MDZfvFO61lSZEqKQj5A1W5Gx
+         71xcjnMaGfL75WiZhAxE6I734R+sb3r+fA6U6D8Ai2eXsWCQncyo2X8zcwIlsdItGS2L
+         McjE46gfs/uVgXSlODh/BJ0gcS8KZQwniMaJN15l+y46UNX6Q8HPJJOokYLcauDiY6sl
+         Ko/A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=vMR958jp0vJQLVfI8K9AS2+BZAqdKo73Q3KMou+/moQ=;
-        b=Bw0wPOJCLBI7WXaaUJ6WVQ72DoZZQ05q2tuUghQzMuwRyjzxTuEjeUihhibUl4N1B3
-         gA0GTn3aWsWzaB0zvHzoFpmAchAyh+tXR/EbFUHmthR7rHAN091QRjambTcC9fhqiabs
-         0xlwNZqYrl8t0OonHJEbqB8rXOlt2xjHX2OLQyoEazqEnWJhsWorNGwoqOL0HsN8M3fu
-         epDaEd8I+v44Uu6wl9dSE6Yug00YNlVoLjRxoLCuZgN4EAMkbgL+Xq0ripRU5GocOswi
-         cS7yeCMU/92QVPpr35UE3Dx6xB4BvQsQAcdZgI0pZyCis8eUswE4smwA94zzgmyrYMFD
-         1XiQ==
-X-Gm-Message-State: AOAM531RJVDwG/PGoaqH887+Ggv+c17w2WYDV/Wc3kqDE1RPt6tIpukL
-        xlpiKGnQl+7d0Kf9+yc6vBO5gmbj
-X-Google-Smtp-Source: ABdhPJxLVceopFBtPML8e9QrADIlcLPR9LEk4E6tl6oL5ZsoDNDCyxtNpY3XZhGZZaSjC0O37W1jyg==
-X-Received: by 2002:a05:6402:1386:: with SMTP id b6mr1077777edv.296.1596982657676;
-        Sun, 09 Aug 2020 07:17:37 -0700 (PDT)
+        bh=tihCaIaZ8hO8FrGKsGmEVleU+9e1Nh2kqy6MJhKG7B0=;
+        b=LzNJTvXT9XWF9zH9v4vq1NH/H+WkeTfVu0qMKKCsxZgkwDGRRrW0EPgiYpiIraretH
+         M9ssC4awyrVX3mSBjRUY82HMgzxbzcvaCbfeUqft8mtL4DD1RykN04Ls9rPxeFOS5CfO
+         JENG0AzShPQKz5YiSWv6/hem3cAREtbmjxYGbOBfIb3lmgvyhNIYFWU6Srx41qKNWomX
+         PnLlWIeO8fRwraWnnvlg6srM4S7ym3K2TgaJ6+gC6hisR28eQUQbClymPMhY8UAvTTgT
+         f4+QVWy+q1OdwoAbQSnTTiCEA7CIkXBVXcv2+8rb9jPrZ65cmq5Cx62f9L3ZbKknshZH
+         PKqA==
+X-Gm-Message-State: AOAM530NnLaFm4IpmA+tSKSGltXQZwOMyUGev97zMqBqdDDU+Ual5qDr
+        PTQQv0AR5RUX9ka3BKbAQ7STRieU
+X-Google-Smtp-Source: ABdhPJwTnh2ZL92U9IEH0XNcZ0E/Sknse7xQso6mTCsYXDCMNXrscOrW429HVOxZAtdKxqtFhMiwRg==
+X-Received: by 2002:a17:906:9512:: with SMTP id u18mr15960602ejx.207.1596982658966;
+        Sun, 09 Aug 2020 07:17:38 -0700 (PDT)
 Received: from localhost.localdomain ([2a02:a03f:a7fb:e200:788a:816d:ff27:8087])
-        by smtp.gmail.com with ESMTPSA id p1sm9917956edu.11.2020.08.09.07.17.36
+        by smtp.gmail.com with ESMTPSA id p1sm9917956edu.11.2020.08.09.07.17.37
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 09 Aug 2020 07:17:37 -0700 (PDT)
+        Sun, 09 Aug 2020 07:17:38 -0700 (PDT)
 From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 To:     linux-sparse@vger.kernel.org
 Cc:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-Subject: [PATCH 2/5] doc: simplify the toctree
-Date:   Sun,  9 Aug 2020 16:17:28 +0200
-Message-Id: <20200809141731.32433-3-luc.vanoostenryck@gmail.com>
+Subject: [PATCH 3/5] doc: add index to the sidebar
+Date:   Sun,  9 Aug 2020 16:17:29 +0200
+Message-Id: <20200809141731.32433-4-luc.vanoostenryck@gmail.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20200809141731.32433-1-luc.vanoostenryck@gmail.com>
 References: <20200809141731.32433-1-luc.vanoostenryck@gmail.com>
@@ -64,69 +64,31 @@ Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-Combine the 'user' documentation with the one for developers
-and add captions for each sections in order to have this
-structuration visible in the sidebar.
+It's very useful to be able to access the index from the sidebar
+but no change in the configuration seems to allow this. Trying
+to abuse the toctree give the same result.
+
+So, add it directly via the template system.
 
 Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 ---
- Documentation/index.rst | 28 +++++++---------------------
- 1 file changed, 7 insertions(+), 21 deletions(-)
+ Documentation/templates/layout.html | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-diff --git a/Documentation/index.rst b/Documentation/index.rst
-index cbe0521b7091..e8e40c0cd109 100644
---- a/Documentation/index.rst
-+++ b/Documentation/index.rst
-@@ -63,42 +63,28 @@ To subscribe to the list, send an email with
- Bugs can also be reported and tracked via the Linux kernel's bugzilla:
- http://bugzilla.kernel.org/enter_bug.cgi?component=Sparse&product=Tools.
- 
--User documentation
--------------------
--.. toctree::
--   :maxdepth: 1
--
--   annotations
- 
--Developer documentation
-------------------------
- .. toctree::
-+   :caption: Documentation
-    :maxdepth: 1
- 
--   test-suite
-+   annotations
-    dev-options
-+   types
-    api
-    IR
--   types
-+   test-suite
-+   doc-guide
- 
--How to contribute
-------------------
- .. toctree::
-+   :caption: How to contribute
-    :maxdepth: 1
- 
-    submitting-patches
-    TODO
- 
--Documentation
---------------
--.. toctree::
--   :maxdepth: 1
--
--   doc-guide
--
--Release Notes
---------------
- .. toctree::
-+   :caption: Release Notes
-    :maxdepth: 1
- 
-    release-notes/index
+diff --git a/Documentation/templates/layout.html b/Documentation/templates/layout.html
+new file mode 100644
+index 000000000000..a2fe215fcef6
+--- /dev/null
++++ b/Documentation/templates/layout.html
+@@ -0,0 +1,8 @@
++{% extends "!layout.html" %}
++{% block menu %}
++    {{ super() }}
++    <p class="caption"><span class="caption-text">Index</span></p>
++    <ul>
++    <li class="toctree-l1"><a class="reference internal" href="{{ pathto('genindex') }}">Index</a></li>
++    </ul>
++{% endblock %}
 -- 
 2.28.0
 
