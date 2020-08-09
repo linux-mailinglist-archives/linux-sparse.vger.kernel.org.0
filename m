@@ -2,58 +2,58 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 187C3240006
-	for <lists+linux-sparse@lfdr.de>; Sun,  9 Aug 2020 22:53:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 93347240007
+	for <lists+linux-sparse@lfdr.de>; Sun,  9 Aug 2020 22:53:40 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726392AbgHIUxi (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Sun, 9 Aug 2020 16:53:38 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:35634 "EHLO
+        id S1726403AbgHIUxk (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Sun, 9 Aug 2020 16:53:40 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:35636 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726396AbgHIUxi (ORCPT
+        with ESMTP id S1726396AbgHIUxj (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Sun, 9 Aug 2020 16:53:38 -0400
-Received: from mail-ej1-x642.google.com (mail-ej1-x642.google.com [IPv6:2a00:1450:4864:20::642])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id DF352C061756
-        for <linux-sparse@vger.kernel.org>; Sun,  9 Aug 2020 13:53:37 -0700 (PDT)
-Received: by mail-ej1-x642.google.com with SMTP id a26so7420669ejc.2
-        for <linux-sparse@vger.kernel.org>; Sun, 09 Aug 2020 13:53:37 -0700 (PDT)
+        Sun, 9 Aug 2020 16:53:39 -0400
+Received: from mail-ed1-x541.google.com (mail-ed1-x541.google.com [IPv6:2a00:1450:4864:20::541])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id ABAC8C061756
+        for <linux-sparse@vger.kernel.org>; Sun,  9 Aug 2020 13:53:38 -0700 (PDT)
+Received: by mail-ed1-x541.google.com with SMTP id bs17so4989409edb.1
+        for <linux-sparse@vger.kernel.org>; Sun, 09 Aug 2020 13:53:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=sROBVrf/B4od4o0cJu0K2fHnIqYEHEOYftCZZrRpOCM=;
-        b=ADLe2Ph6E8vGhd8DBKtwRnx9522XXioxEMuFk6rdF5JXkyGxzBFM8tI7OneLZBxrk5
-         H2WcsYxOef9ZpdZt878QUYtdJOydmQWA2XDIntSqmAOUrTHhXuclg9YPpfyqkUR2Xhn4
-         GOifOEWFGYMfhpGjPjnNV37ZBtqAZQmgIMh2aaSp3oTT7P6MKe1Zy6BeEdVU4EQSin5j
-         oeS9cJ2XyTFqhXEGOBKM3vnogabjDSFy4g4MEp4sfGezqWqIUcqYt+zmyhPIrXgMDOcQ
-         Egvq/2fkfuSxnKqIvpCPKgUqU0YmRL2uF5FTToaLs8eUmOjuvyiKcZjWpdQ4DsTRod8O
-         bkPg==
+        bh=n8MVILbPVkAthU68h6numub/5je9Hm949nrIiW7mSmI=;
+        b=iv5RedwubF4WLtC7c6YfTMrEIerFKyH+Fi2fPpBxXh9t/0ojjgrB6m87aBjNjzqOMe
+         yxV82gCTBGirSj9yaMARyjifXc21+H/RQwBr5il+t1JEgK2HjgD6kJ7pGZJ7mBzibMnM
+         cMsi1ncwUhZHOCrh9oGZ2i/bxBHbTRiqLTXYg17i5mH8zdEiFPYF8OQSRpQxDwyVCVgC
+         jOMSUcdNF0i87L7quuzUCqisBXqAgTAECN0NJR37wkkzXY2rjoCPHCodn2lolyf9rjbj
+         xSph4PXuZS3BlfUs7Nu1EcvaTYRBvpzI2kAqBrB7SmEDsWXO9EbUlSTni8snzaxpeeh3
+         YwwA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=sROBVrf/B4od4o0cJu0K2fHnIqYEHEOYftCZZrRpOCM=;
-        b=rVwEmDLrICe1KodhYIpD954zaNXx5xmiQW/xHWnBMsMcJ9DKkjhYfcpbr5ruVmBl5Y
-         hgMa0OFgaXNzO+Xf+A0KIBKzQWH7GzdbHxKyyWG+Zu3xsh4gazKU7NniXHpKJgo+Wb3Q
-         +vTw2/QWZrhBj0e2zOOApjETe8ILxtuWnp2JsOew2PzlqZZ+6pOoN5jEBct4DSiViNsr
-         PZb6nNz0bESoSDGVFnnbdxFtSiMKs4qMUUFIPSvLynbOh4daKryWIiJQmKqH7ElW75mW
-         3oahUSx2DUs549urf+uvll2cz9hYcfs27rkHB8YF2DfsNVUBPntG2nx4sm0Z5SquGwed
-         rHNA==
-X-Gm-Message-State: AOAM531BwdK2iaYBnyGHb7tliBUEn8kjP1xDA8uT50gvlcD8g9RTJdrZ
-        d3u9iThG5PUhNMP+BZPIskQe9JQw
-X-Google-Smtp-Source: ABdhPJy3B/lp+r97ehwNl94i5YRQk95A7rsxaIIIOTv3mFT8jr1755Fm5zdfk9JN3pOs0KGXMh11EA==
-X-Received: by 2002:a17:906:cb0a:: with SMTP id lk10mr2899335ejb.209.1597006416262;
-        Sun, 09 Aug 2020 13:53:36 -0700 (PDT)
+        bh=n8MVILbPVkAthU68h6numub/5je9Hm949nrIiW7mSmI=;
+        b=eDdKNyynC3IN5jjhBg7S+t7UzcR3Jg9KYrv9n4D7ptTe1rA92Vj/h5XbmD5cEO1iPu
+         mQwgwhLQZuQ23BJGrIzfPyZ1TzNWVK1I0ObF9KWU+g218isUukRx+GmNRQ+koRJ/35jk
+         rLdnJd8d/iOLO4x8h4O8mCKMX7Son4SVzeF+BLUY8s+uIouhfCAN7UEiUzZ1OQz9Kywo
+         K4L1Skb+U6qur79MbhDvct1eBLug6pZZTCvf/IFIEiODAq/FHk7u+Fm/xAfy8F8l53hh
+         H8BQik+X51gfinZccfcprdv2YHHQTFSY4yrshZgAB/SkazsUliswwNMYGosUOgDhvDJy
+         I+kQ==
+X-Gm-Message-State: AOAM533S9bQ9RzccjkTL506RxXHxn891XcYQ7ijTNHDnz3iWL/0wKVBE
+        TpqqZT2gIEsIgk1yMKQ1PpB5g6z2
+X-Google-Smtp-Source: ABdhPJxQl1U7Ze1K3SWr/Cim9UtEGaLZ67w8yauR72JBvu+I6ooPH96ZC43MYAUEeDShEtUVdvuIkA==
+X-Received: by 2002:a05:6402:b45:: with SMTP id bx5mr18646844edb.22.1597006417144;
+        Sun, 09 Aug 2020 13:53:37 -0700 (PDT)
 Received: from localhost.localdomain ([2a02:a03f:a7fb:e200:b5f4:fb07:8fe3:ee8e])
-        by smtp.gmail.com with ESMTPSA id m20sm11258203ejk.90.2020.08.09.13.53.35
+        by smtp.gmail.com with ESMTPSA id m20sm11258203ejk.90.2020.08.09.13.53.36
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 09 Aug 2020 13:53:35 -0700 (PDT)
+        Sun, 09 Aug 2020 13:53:36 -0700 (PDT)
 From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 To:     linux-sparse@vger.kernel.org
 Cc:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-Subject: [PATCH 03/10] attribute: fold parse_asm_declarator() into handle_asm_name()
-Date:   Sun,  9 Aug 2020 22:53:22 +0200
-Message-Id: <20200809205329.42811-4-luc.vanoostenryck@gmail.com>
+Subject: [PATCH 04/10] attribute: remove argument 'keywords' from handle_attributes()
+Date:   Sun,  9 Aug 2020 22:53:23 +0200
+Message-Id: <20200809205329.42811-5-luc.vanoostenryck@gmail.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20200809205329.42811-1-luc.vanoostenryck@gmail.com>
 References: <20200809205329.42811-1-luc.vanoostenryck@gmail.com>
@@ -64,77 +64,128 @@ Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-An asm name is not really a declarator, it must only be placed
-*after* a declarator and is directly handled by handle_asm_name().
-It's thus not needed and possibly confusing to treat it like a
-generic declarator.
+Now that the asm names are handled in handle_asm(), the 'keywords'
+argument of handle_attributes() is no more needed since it always
+must be 'KW_ATTRIBUTE'.
 
-So, fold parse_asm_declarator() into handle_asm_name() and remove it.
+So, remove this argument.
+
+Note: this is preparation work to later make the distinction between
+      function/variable/type/label/... attributes.
 
 Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 ---
- parse.c | 20 ++++++++------------
- 1 file changed, 8 insertions(+), 12 deletions(-)
+ parse.c | 25 ++++++++++++-------------
+ 1 file changed, 12 insertions(+), 13 deletions(-)
 
 diff --git a/parse.c b/parse.c
-index cf897e5d2804..73ec579cfa7f 100644
+index 73ec579cfa7f..ec675f20ef01 100644
 --- a/parse.c
 +++ b/parse.c
-@@ -54,7 +54,7 @@ static struct token *handle_attributes(struct token *token, struct decl_state *c
+@@ -49,7 +49,7 @@ struct symbol_list *function_computed_target_list;
+ struct statement_list *function_computed_goto_list;
+ 
+ static struct token *statement(struct token *token, struct statement **tree);
+-static struct token *handle_attributes(struct token *token, struct decl_state *ctx, unsigned int keywords);
++static struct token *handle_attributes(struct token *token, struct decl_state *ctx);
+ 
  typedef struct token *declarator_t(struct token *, struct decl_state *);
  static declarator_t
- 	struct_specifier, union_specifier, enum_specifier,
--	attribute_specifier, typeof_specifier, parse_asm_declarator,
-+	attribute_specifier, typeof_specifier,
- 	typedef_specifier, inline_specifier, auto_specifier,
- 	register_specifier, static_specifier, extern_specifier,
- 	thread_specifier, const_qualifier, volatile_qualifier;
-@@ -363,7 +363,6 @@ static struct symbol_op range_op = {
+@@ -756,7 +756,7 @@ static struct token *struct_union_enum_specifier(enum type type,
+ 	struct symbol *sym;
+ 	struct position *repos;
  
- static struct symbol_op asm_op = {
- 	.type = KW_ASM,
--	.declarator = parse_asm_declarator,
- 	.statement = parse_asm_statement,
- 	.toplevel = toplevel_asm_declaration,
- };
-@@ -1744,6 +1743,7 @@ static struct token *declarator(struct token *token, struct decl_state *ctx);
+-	token = handle_attributes(token, ctx, KW_ATTRIBUTE);
++	token = handle_attributes(token, ctx);
+ 	if (token_type(token) == TOKEN_IDENT) {
+ 		sym = lookup_symbol(token->ident, NS_STRUCT);
+ 		if (!sym ||
+@@ -956,7 +956,7 @@ static struct token *parse_enum_declaration(struct token *token, struct symbol *
+ 		struct symbol *sym;
  
- static struct token *handle_asm_name(struct token *token, struct decl_state *ctx)
+ 		// FIXME: only 'deprecated' should be accepted
+-		next = handle_attributes(next, &ctx, KW_ATTRIBUTE);
++		next = handle_attributes(next, &ctx);
+ 
+ 		if (match_op(next, '=')) {
+ 			next = constant_expression(next->next, &expr);
+@@ -1805,7 +1805,7 @@ static struct token *skip_attributes(struct token *token)
+ 	return token;
+ }
+ 
+-static struct token *handle_attributes(struct token *token, struct decl_state *ctx, unsigned int keywords)
++static struct token *handle_attributes(struct token *token, struct decl_state *ctx)
  {
-+	struct expression *expr;
  	struct symbol *keyword;
+ 	for (;;) {
+@@ -1814,7 +1814,7 @@ static struct token *handle_attributes(struct token *token, struct decl_state *c
+ 		keyword = lookup_keyword(token->ident, NS_KEYWORD | NS_TYPEDEF);
+ 		if (!keyword || keyword->type != SYM_KEYWORD)
+ 			break;
+-		if (!(keyword->op->type & keywords))
++		if (!(keyword->op->type & KW_ATTRIBUTE))
+ 			break;
+ 		token = keyword->op->declarator(token->next, ctx);
+ 	}
+@@ -1903,8 +1903,7 @@ static struct token *direct_declarator(struct token *token, struct decl_state *c
+ 	    is_nested(token, &next, ctx->prefer_abstract)) {
+ 		struct symbol *base_type = ctype->base_type;
+ 		if (token->next != next)
+-			next = handle_attributes(token->next, ctx,
+-						  KW_ATTRIBUTE);
++			next = handle_attributes(token->next, ctx);
+ 		token = declarator(next, ctx);
+ 		token = expect(token, ')', "in nested declarator");
+ 		while (ctype->base_type != base_type)
+@@ -2027,7 +2026,7 @@ static struct token *declaration_list(struct token *token, struct symbol_list **
+ 		if (match_op(token, ':'))
+ 			token = handle_bitfield(token, &ctx);
  
- 	if (token_type(token) != TOKEN_IDENT)
-@@ -1753,7 +1753,12 @@ static struct token *handle_asm_name(struct token *token, struct decl_state *ctx
- 		return token;
- 	if (!(keyword->op->type & KW_ASM))
- 		return token;
--	return keyword->op->declarator(token->next, ctx);
-+
-+	token = token->next;
-+	token = expect(token, '(', "after asm");
-+	token = string_expression(token, &expr, "asm name");
-+	token = expect(token, ')', "after asm");
-+	return token;
- }
+-		token = handle_attributes(token, &ctx, KW_ATTRIBUTE);
++		token = handle_attributes(token, &ctx);
+ 		apply_modifiers(token->pos, &ctx);
  
- static struct token *skip_attribute(struct token *token)
-@@ -2181,15 +2186,6 @@ static struct token *parse_asm_statement(struct token *token, struct statement *
- 	return expect(token, ';', "at end of asm-statement");
- }
- 
--static struct token *parse_asm_declarator(struct token *token, struct decl_state *ctx)
--{
--	struct expression *expr;
--	token = expect(token, '(', "after asm");
--	token = string_expression(token, &expr, "inline asm");
--	token = expect(token, ')', "after asm");
--	return token;
--}
--
- static struct token *parse_static_assert(struct token *token, struct symbol_list **unused)
+ 		decl->ctype = ctx.ctype;
+@@ -2067,7 +2066,7 @@ static struct token *parameter_declaration(struct token *token, struct symbol *s
+ 	token = declaration_specifiers(token, &ctx);
+ 	ctx.ident = &sym->ident;
+ 	token = declarator(token, &ctx);
+-	token = handle_attributes(token, &ctx, KW_ATTRIBUTE);
++	token = handle_attributes(token, &ctx);
+ 	apply_modifiers(token->pos, &ctx);
+ 	sym->ctype = ctx.ctype;
+ 	sym->ctype.modifiers |= decl_modifiers(&ctx);
+@@ -2567,7 +2566,7 @@ static struct token *handle_label_attributes(struct token *token, struct symbol
  {
- 	struct expression *cond = NULL, *message = NULL;
+ 	struct decl_state ctx = { };
+ 
+-	token = handle_attributes(token, &ctx, KW_ATTRIBUTE);
++	token = handle_attributes(token, &ctx);
+ 	label->label_modifiers = ctx.ctype.modifiers;
+ 	return token;
+ }
+@@ -3028,7 +3027,7 @@ struct token *external_declaration(struct token *token, struct symbol_list **lis
+ 	saved = ctx.ctype;
+ 	token = declarator(token, &ctx);
+ 	token = handle_asm_name(token, &ctx);
+-	token = handle_attributes(token, &ctx, KW_ATTRIBUTE);
++	token = handle_attributes(token, &ctx);
+ 	apply_modifiers(token->pos, &ctx);
+ 
+ 	decl->ctype = ctx.ctype;
+@@ -3150,10 +3149,10 @@ struct token *external_declaration(struct token *token, struct symbol_list **lis
+ 		ident = NULL;
+ 		decl = alloc_symbol(token->pos, SYM_NODE);
+ 		ctx.ctype = saved;
+-		token = handle_attributes(token, &ctx, KW_ATTRIBUTE);
++		token = handle_attributes(token, &ctx);
+ 		token = declarator(token, &ctx);
+ 		token = handle_asm_name(token, &ctx);
+-		token = handle_attributes(token, &ctx, KW_ATTRIBUTE);
++		token = handle_attributes(token, &ctx);
+ 		apply_modifiers(token->pos, &ctx);
+ 		decl->ctype = ctx.ctype;
+ 		decl->ctype.modifiers |= mod;
 -- 
 2.28.0
 
