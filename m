@@ -2,95 +2,74 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 01B4823FF5C
-	for <lists+linux-sparse@lfdr.de>; Sun,  9 Aug 2020 18:52:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 307F223FFD9
+	for <lists+linux-sparse@lfdr.de>; Sun,  9 Aug 2020 21:21:12 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726236AbgHIQw5 (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Sun, 9 Aug 2020 12:52:57 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:55456 "EHLO
+        id S1726291AbgHITVL (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Sun, 9 Aug 2020 15:21:11 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:49822 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726323AbgHIQwx (ORCPT
+        with ESMTP id S1726289AbgHITVL (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Sun, 9 Aug 2020 12:52:53 -0400
-Received: from mail-ej1-x642.google.com (mail-ej1-x642.google.com [IPv6:2a00:1450:4864:20::642])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 97012C061351
-        for <linux-sparse@vger.kernel.org>; Sun,  9 Aug 2020 09:52:44 -0700 (PDT)
-Received: by mail-ej1-x642.google.com with SMTP id bo3so7054901ejb.11
-        for <linux-sparse@vger.kernel.org>; Sun, 09 Aug 2020 09:52:44 -0700 (PDT)
+        Sun, 9 Aug 2020 15:21:11 -0400
+Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com [IPv6:2a00:1450:4864:20::62b])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 3E235C061756
+        for <linux-sparse@vger.kernel.org>; Sun,  9 Aug 2020 12:21:11 -0700 (PDT)
+Received: by mail-ej1-x62b.google.com with SMTP id f24so7287800ejx.6
+        for <linux-sparse@vger.kernel.org>; Sun, 09 Aug 2020 12:21:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=from:to:cc:subject:date:message-id:in-reply-to:references
-         :mime-version:content-transfer-encoding;
-        bh=v0yEyYaJiwM/8R0MJ0SDvJwBNEKNiIGLxNx+W5A9kuY=;
-        b=oq1Lxo/boIUm6jSqL5rLY9URNGYAi4pL47CnBRlK0EvDdxZjUaS5XFVY2cv4MDesV9
-         WnkLINSNxY1IKiRf5wp1sZRjSKJrsGLQT/+7kpEH0m7eW0rAYLjS6Piy4RFiu44I2dyA
-         Z2Rzn85JsI5vkK/mLj9IYpC837T5UU6lj00XSW1dA+gQ3GeytrvZ8JAbJE3LhaTKE5VZ
-         REZq9yeL2TtxwhlsYaiV2s/n7VnXBnJ4dWvj3FnZINRIHkSWPL+Eqk4AEeyve0pISoZR
-         qLIjKhebskfnJ9G1jJO5F2pqcCGSZkOauk0uF6jPctxKX7/CihO6nt5eDvMochljEodg
-         G8PQ==
+        h=date:from:to:cc:subject:message-id:references:mime-version
+         :content-disposition:in-reply-to;
+        bh=8hqtZesgm9V2FVf3D3vHVvRBSYGIt8uCvxS9gdZa9MI=;
+        b=N3cDFtdLgnol2nETseLUNjeH5OZPz3cCH58v5kv0R5X+nyQKVBfMcxr85oBmmCioXK
+         jd5IrI4ZFNYU1a5RcR3IW9zHcSwJogzucAIaRUJnCFLTC+aStOeYloqiE1KoAwA8U8MK
+         CvUjsoKhklubFuMBgHWkBMrF1URV8Dz2OCC985LaPSlQrBgyUwQ1dWMcXAgtqNeqvEjy
+         IKnwlcMHTNuIprMfDDEUq1QDuxTBa5UyphL46a8zFaSxfnOCqHE65ICnABkAleEBdaJQ
+         TajDSsrd4FbUfxsmnw+BuEY9/zNFQk494n35nKbkC4BXA4jQLYCm7ZQKdxkiy9v+/O08
+         Wgyg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
-         :references:mime-version:content-transfer-encoding;
-        bh=v0yEyYaJiwM/8R0MJ0SDvJwBNEKNiIGLxNx+W5A9kuY=;
-        b=tfLdLWdRT48d9X5pUHBRkGVd4Us24fulEx0PZs7EXgTc+sWdhDf6RP57POr4eq0y5o
-         tZhp+fEf9jl+y3tUa5+7bz28al6ZL7I3EIVrVDnbIVKwXwv/iGsHXYyOE3XkMREEGD+s
-         AoRlkPq8E6OjNM7vXoD5gNN+8IOzF4BexJ3STaNq+M2NIT0BUZlHYZ3YuG/50j43wYCm
-         sEwT4z3hato651mh87Uo/4UIkQkU3z6UPtn52lB/V5KwsJZHMw/9dqU5FQiTpmNM6sJu
-         a6xLVeBEWJKlUeVY31Q2t3FUKgrMKKHxpj859WZj0mkIAGjOaBsw5uENa7lDjQBtPnlH
-         8/7g==
-X-Gm-Message-State: AOAM532U2IF4yGVYNLZtXaRDkEigtuqQ6keFzNTvKZnLzsYbYFM2LGGF
-        TkOu/bpXTejhYhz7OFc2CwoqgUPG
-X-Google-Smtp-Source: ABdhPJzzPpLORdDXLLWel+1mMKRWxk9KgxVRlRoxANIMuNcySCtjv3AchJ3o7xI+zJSlR/JJc5Yi4g==
-X-Received: by 2002:a17:906:7104:: with SMTP id x4mr19147183ejj.417.1596991963124;
-        Sun, 09 Aug 2020 09:52:43 -0700 (PDT)
-Received: from localhost.localdomain ([2a02:a03f:a7fb:e200:79f2:f43a:7be8:9ec8])
-        by smtp.gmail.com with ESMTPSA id j11sm10810427ejx.0.2020.08.09.09.52.42
+        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+         :mime-version:content-disposition:in-reply-to;
+        bh=8hqtZesgm9V2FVf3D3vHVvRBSYGIt8uCvxS9gdZa9MI=;
+        b=OBDDnfYboydjx44RtFBP5mHbHBucNllntd/HYaNe+/UXVAU/DbZ71DxsON13eYcH2g
+         h474X2dZTAd68u5G+dAqxmzljAsRiVLT8OJWDzP/+jh5emFEJsppAU8tpaCOrEi/VeFj
+         g3wDUZjhl/pxfqzmGqwtMaXEDZ1nea94YryapJWuVdHvSmlRH9yUpNwlk1HXi4VDvVBg
+         6T/f1h1dVcimGIn8Cd0VQ+8/6raW35xJ77VtKinSDC3QQgWRog+PKLYL+wBJhWbh7wWF
+         s588Zk124mKyQLCNh3Jpdlw56AySMdUud+tR3LUyj/QvAwPe0HhsUSPLCiWQ37RSL0wE
+         BB/A==
+X-Gm-Message-State: AOAM532e+uCWFgQ52zu6ZJ7zeQMjbktSi2J4MOiiCgshwZKjWEGoxvsh
+        biWyKZZBoWJ9BMu6ag3g61zO2gpO
+X-Google-Smtp-Source: ABdhPJxYU+H9eWf2Fg0fwwygrdpwkfU96I2cqovDHuFoWWyEz/8m4QHSIagMXERGKnKHFtfcLJrWGQ==
+X-Received: by 2002:a17:906:ce59:: with SMTP id se25mr19935160ejb.359.1597000868959;
+        Sun, 09 Aug 2020 12:21:08 -0700 (PDT)
+Received: from ltop.local ([2a02:a03f:a7fb:e200:b5f4:fb07:8fe3:ee8e])
+        by smtp.gmail.com with ESMTPSA id lj26sm11144957ejb.26.2020.08.09.12.21.07
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 09 Aug 2020 09:52:42 -0700 (PDT)
+        Sun, 09 Aug 2020 12:21:07 -0700 (PDT)
+Date:   Sun, 9 Aug 2020 21:21:06 +0200
 From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-To:     linux-sparse@vger.kernel.org
-Cc:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-Subject: [PATCH 8/8] parse: simplify set_storage_class()
-Date:   Sun,  9 Aug 2020 18:52:29 +0200
-Message-Id: <20200809165229.36677-9-luc.vanoostenryck@gmail.com>
-X-Mailer: git-send-email 2.28.0
-In-Reply-To: <20200809165229.36677-1-luc.vanoostenryck@gmail.com>
-References: <20200809165229.36677-1-luc.vanoostenryck@gmail.com>
+To:     Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= / sparse 
+        <gitlab+f2c7a505ea576c194910ce335a7779a8@salsa.debian.org>
+Cc:     linux-sparse@vger.kernel.org,
+        Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <uwe@kleine-koenig.org>
+Subject: Re: sparse | upgrade to upstream v0.6.2 (!2)
+Message-ID: <20200809192106.ddombg3xdmjiiciw@ltop.local>
+References: <reply-f2c7a505ea576c194910ce335a7779a8@salsa.debian.org>
+ <merge_request_28506@salsa.debian.org>
+ <note_184882@salsa.debian.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <note_184882@salsa.debian.org>
 Sender: linux-sparse-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-The second test is now made as the else part of the first test,
-saving a 'return' that is otherwise not needed.
+I see that sparse v0.6.2 have made it to Debian testing.
 
-Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
----
- parse.c | 7 ++-----
- 1 file changed, 2 insertions(+), 5 deletions(-)
+Thanks a lot for having made this possible.
 
-diff --git a/parse.c b/parse.c
-index 92ca1b66e140..f3f33790eac0 100644
---- a/parse.c
-+++ b/parse.c
-@@ -1385,12 +1385,9 @@ static struct token *storage_specifier(struct token *next, struct symbol *sym, s
- 	const char *storage = modifier_name(class);
- 
- 	/* __thread can be used alone, or with extern or static */
--	if (is_tls && (class & ~(MOD_STATIC|MOD_EXTERN))) {
-+	if (is_tls && (class & ~(MOD_STATIC|MOD_EXTERN)))
- 		sparse_error(next->pos, "__thread cannot be used with '%s'", storage);
--		return next;
--	}
--
--	if (!ctx->storage_class)
-+	else if (!ctx->storage_class)
- 		ctx->storage_class = class;
- 	else if (ctx->storage_class == class)
- 		sparse_error(next->pos, "duplicate %s", storage);
--- 
-2.28.0
-
+-- Luc
