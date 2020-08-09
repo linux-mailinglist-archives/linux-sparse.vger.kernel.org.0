@@ -2,58 +2,58 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 16C96240008
-	for <lists+linux-sparse@lfdr.de>; Sun,  9 Aug 2020 22:53:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id F1654240009
+	for <lists+linux-sparse@lfdr.de>; Sun,  9 Aug 2020 22:53:42 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726396AbgHIUxk (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Sun, 9 Aug 2020 16:53:40 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:35638 "EHLO
+        id S1726415AbgHIUxm (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Sun, 9 Aug 2020 16:53:42 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:35644 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726400AbgHIUxj (ORCPT
+        with ESMTP id S1726400AbgHIUxk (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Sun, 9 Aug 2020 16:53:39 -0400
-Received: from mail-ed1-x543.google.com (mail-ed1-x543.google.com [IPv6:2a00:1450:4864:20::543])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 796B8C061786
-        for <linux-sparse@vger.kernel.org>; Sun,  9 Aug 2020 13:53:39 -0700 (PDT)
-Received: by mail-ed1-x543.google.com with SMTP id q4so4954498edv.13
-        for <linux-sparse@vger.kernel.org>; Sun, 09 Aug 2020 13:53:39 -0700 (PDT)
+        Sun, 9 Aug 2020 16:53:40 -0400
+Received: from mail-ej1-x644.google.com (mail-ej1-x644.google.com [IPv6:2a00:1450:4864:20::644])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 64A4EC061756
+        for <linux-sparse@vger.kernel.org>; Sun,  9 Aug 2020 13:53:40 -0700 (PDT)
+Received: by mail-ej1-x644.google.com with SMTP id o23so7416164ejr.1
+        for <linux-sparse@vger.kernel.org>; Sun, 09 Aug 2020 13:53:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=Ow0cd4Ts9W/w9vnedCVwmDPzR0E8rZSwgRou1wCSTWI=;
-        b=IXs5FIpQpB/wO7Nmeot8b4o4EVY/9GXo2YdVge5xl/h+tw1ZEsymbgC+/1wOn6C8mv
-         E/9Z3SWKEj2NjsxJ7IkVn6F/vEv0ckGrGEtIMISlwjVCtPsrJBchSPIHgRsXcRrPpYpn
-         xNmPLlcqzOBp3/wT+uJi8SgfTArY0H4vaK5lkjk+cHi4YRDGC4Uf9IcclHtxMPw3ewSL
-         ZvcARr23WxutdLGcdHuw3j7BoYBXXgQ31ltOCGONReL1rCk3KK34FrRjNCEmNyCVWs0/
-         HgcVE2cKHf6CCP7yXuzO3fxKqJgAmZ8HE89iewXQzy1xhSj1nJfMb8r2j/4DfOKQ3YPf
-         i6Bg==
+        bh=sQ4lDodNnHvQamP4THPhArr1n2hoR2fxntoVvLwErww=;
+        b=kgFYTZ9biJ4GkjdJkCEaN+ZERoIT8A9ueZHUvOP6ohhSFvaMLTxO2cLhjsm9K21bB8
+         s2uApn5DWAdlCfm9euucAnHvQ+7dqzAP8Vm3lTOlNEom+lxDzgq8Qh9EfWWr6W7OSA4b
+         QEsQ366cQWRymb8nbLKebQtxIIWI7PeLUNcLnrm+nLBHLEWEFh6R25lTFGzKrqmlQi6k
+         C3xiK5y4Smdzcw0Frmaz689MNmhMDyvmzgDS21kIbVvyGv6Czjxunyny3WeYqufJypcv
+         QwXFfoLEm4yXYuGdNkaYTlaBhW8EB0haaAhygBX9WN1B+ANrIVbGx/9CYDxt/tKBNXpR
+         aSwg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=Ow0cd4Ts9W/w9vnedCVwmDPzR0E8rZSwgRou1wCSTWI=;
-        b=Ck80xiI0VZEyaHWPD70tP4gx+CCegFHlxNrESZaxn8q1frr8zgraL/r9AI3sTrY6vp
-         AQTga7kK5Xdt3dv6BwWHl+JgzuzZxgWNIJJBeJbfZweTBJMugXS/0npxO7J5G9WX69Ap
-         JaeBd+RcmQxgLi183G6lLDoVV753tCQUIp9cDVbdmNnvHVd8PrvvZr7FbDhBjDA7EmjQ
-         hXlR2OIkmqgr/qNBqqpzFb1MhMlWkOCmT2yfu8Eh70uu0+7PRZdZy019CLoBGWDqqhQt
-         T/i7H8oWi3kDsFoMUq+hFuZChTzIuYibLmOyKS30eBFGqAlCjdzWVHriA2r1uIl17j5X
-         z+pg==
-X-Gm-Message-State: AOAM530E57XtzGEThPDDMarXkwhDF9yDA+wC97EjpEmy9+Anj1fr7psY
-        5eG9mx2dgRd1bBPtq2GqyJZJjazE
-X-Google-Smtp-Source: ABdhPJx81+vd7eEuH4Ro2B/n1U+oXlUOCHnIj85WzHvkEco55XJMLDZ/TOYtanKIsJGH8iKC6kkFSQ==
-X-Received: by 2002:a05:6402:1c85:: with SMTP id cy5mr5677282edb.6.1597006418017;
+        bh=sQ4lDodNnHvQamP4THPhArr1n2hoR2fxntoVvLwErww=;
+        b=dibarkvV7HD3fsnDnsKvi2YBQynwmJi3vrct9hZnjzksWwIPBlsjPuzuxcogfUOrLc
+         F6wBOe8tmV4VAU3lON17n5fuWo1y1uGVcWNJAkmrIzQT2IT+HjpxJCVh1iL4lF7yn7wg
+         //5iVNL5QcKh+g98etSrWUB4aaNACI5j6e/j+XNsNEdK7JOb11TdbXfNaBWrk2sCLsuS
+         67e1nrnTm/ZXjuCWFp9n28n4TcIKuXj+tve61h7xFrpNE7hDf9CDlD1hWX0895UQu1J+
+         6G+WIi8CjxD5MAbQaoZFda472EcVGbjXgdhfrXhM43h7zPGnbergQ6okEuZkz173HTVH
+         V4YA==
+X-Gm-Message-State: AOAM532V5NL9vTmoPHqbR+E/9GDa2BK5rzVfHQyy58VDMTc45N6KZKfX
+        HPijTQQWBiCo4gTdGuW96rSFykTf
+X-Google-Smtp-Source: ABdhPJzbMMq1nBB1syEbtUwO4a8l4XmIEH1jnfNGo1CbakBlIBixGcBOWeVtmTzeKwiauaZgpOnIRg==
+X-Received: by 2002:a17:906:a3d9:: with SMTP id ca25mr19234268ejb.164.1597006418883;
         Sun, 09 Aug 2020 13:53:38 -0700 (PDT)
 Received: from localhost.localdomain ([2a02:a03f:a7fb:e200:b5f4:fb07:8fe3:ee8e])
-        by smtp.gmail.com with ESMTPSA id m20sm11258203ejk.90.2020.08.09.13.53.37
+        by smtp.gmail.com with ESMTPSA id m20sm11258203ejk.90.2020.08.09.13.53.38
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 09 Aug 2020 13:53:37 -0700 (PDT)
+        Sun, 09 Aug 2020 13:53:38 -0700 (PDT)
 From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 To:     linux-sparse@vger.kernel.org
 Cc:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-Subject: [PATCH 05/10] attribute: directly use attribute_specifier() to handle attributes
-Date:   Sun,  9 Aug 2020 22:53:24 +0200
-Message-Id: <20200809205329.42811-6-luc.vanoostenryck@gmail.com>
+Subject: [PATCH 06/10] attribute: factorize matching of '__attribute__'
+Date:   Sun,  9 Aug 2020 22:53:25 +0200
+Message-Id: <20200809205329.42811-7-luc.vanoostenryck@gmail.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20200809205329.42811-1-luc.vanoostenryck@gmail.com>
 References: <20200809205329.42811-1-luc.vanoostenryck@gmail.com>
@@ -64,31 +64,79 @@ Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-handle_attributes() used to also handle asm names and so used
-the declarator method associated to the taken. But now, asm names
-are handled in a separated function.
+Matching the keyword '__attribute__' (or '__attribute') needs
+several tests and this matching is needed to handle attributes
+or to skip them.
 
-So, directly use attribute_specifier() to handle the attributes
-instead of using it via the declarator method.
+So, create an helper, match_attribute(), and use it in the loops
+to handle and to skip attributes.
 
 Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 ---
- parse.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ parse.c | 35 ++++++++++++++++-------------------
+ 1 file changed, 16 insertions(+), 19 deletions(-)
 
 diff --git a/parse.c b/parse.c
-index ec675f20ef01..14b1746d38c5 100644
+index 14b1746d38c5..681d98e49641 100644
 --- a/parse.c
 +++ b/parse.c
-@@ -1816,7 +1816,7 @@ static struct token *handle_attributes(struct token *token, struct decl_state *c
- 			break;
- 		if (!(keyword->op->type & KW_ATTRIBUTE))
- 			break;
--		token = keyword->op->declarator(token->next, ctx);
-+		token = attribute_specifier(token->next, ctx);
- 	}
+@@ -1761,6 +1761,20 @@ static struct token *handle_asm_name(struct token *token, struct decl_state *ctx
  	return token;
  }
+ 
++///
++// test if @token is '__attribute__' (or one of its variant)
++static bool match_attribute(struct token *token)
++{
++	struct symbol *sym;
++
++	if (token_type(token) != TOKEN_IDENT)
++		return false;
++	sym = lookup_keyword(token->ident, NS_KEYWORD | NS_TYPEDEF);
++	if (!sym || sym->type != SYM_KEYWORD)
++		return false;
++	return sym->op->type & KW_ATTRIBUTE;
++}
++
+ static struct token *skip_attribute(struct token *token)
+ {
+ 	token = token->next;
+@@ -1782,15 +1796,7 @@ static struct token *skip_attribute(struct token *token)
+ 
+ static struct token *skip_attributes(struct token *token)
+ {
+-	struct symbol *keyword;
+-	for (;;) {
+-		if (token_type(token) != TOKEN_IDENT)
+-			break;
+-		keyword = lookup_keyword(token->ident, NS_KEYWORD | NS_TYPEDEF);
+-		if (!keyword || keyword->type != SYM_KEYWORD)
+-			break;
+-		if (!(keyword->op->type & KW_ATTRIBUTE))
+-			break;
++	while (match_attribute(token)) {
+ 		token = expect(token->next, '(', "after attribute");
+ 		token = expect(token, '(', "after attribute");
+ 		while (token_type(token) == TOKEN_IDENT) {
+@@ -1807,17 +1813,8 @@ static struct token *skip_attributes(struct token *token)
+ 
+ static struct token *handle_attributes(struct token *token, struct decl_state *ctx)
+ {
+-	struct symbol *keyword;
+-	for (;;) {
+-		if (token_type(token) != TOKEN_IDENT)
+-			break;
+-		keyword = lookup_keyword(token->ident, NS_KEYWORD | NS_TYPEDEF);
+-		if (!keyword || keyword->type != SYM_KEYWORD)
+-			break;
+-		if (!(keyword->op->type & KW_ATTRIBUTE))
+-			break;
++	while (match_attribute(token))
+ 		token = attribute_specifier(token->next, ctx);
+-	}
+ 	return token;
+ }
+ 
 -- 
 2.28.0
 
