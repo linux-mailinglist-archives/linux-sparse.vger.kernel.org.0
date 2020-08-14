@@ -2,74 +2,60 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id A8366244297
-	for <lists+linux-sparse@lfdr.de>; Fri, 14 Aug 2020 02:54:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 9FD212448C8
+	for <lists+linux-sparse@lfdr.de>; Fri, 14 Aug 2020 13:28:27 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726205AbgHNAyT convert rfc822-to-8bit (ORCPT
-        <rfc822;lists+linux-sparse@lfdr.de>); Thu, 13 Aug 2020 20:54:19 -0400
-Received: from [186.47.21.114] ([186.47.21.114]:41590 "EHLO mail.hmvi.gob.ec"
-        rhost-flags-FAIL-FAIL-OK-FAIL) by vger.kernel.org with ESMTP
-        id S1726570AbgHNAyS (ORCPT <rfc822;linux-sparse@vger.kernel.org>);
-        Thu, 13 Aug 2020 20:54:18 -0400
-X-Greylist: delayed 15324 seconds by postgrey-1.27 at vger.kernel.org; Thu, 13 Aug 2020 20:54:18 EDT
-Received: from localhost (localhost [127.0.0.1])
-        by mail.hmvi.gob.ec (Postfix) with ESMTP id 56905C03815A9;
-        Thu, 13 Aug 2020 13:04:47 -0500 (-05)
-Received: from mail.hmvi.gob.ec ([127.0.0.1])
-        by localhost (mail.hmvi.gob.ec [127.0.0.1]) (amavisd-new, port 10032)
-        with ESMTP id KIiD4wLszusj; Thu, 13 Aug 2020 13:04:46 -0500 (-05)
-Received: from localhost (localhost [127.0.0.1])
-        by mail.hmvi.gob.ec (Postfix) with ESMTP id 2BEABC0376200;
-        Thu, 13 Aug 2020 12:46:03 -0500 (-05)
-X-Virus-Scanned: amavisd-new at hmvi.gob.ec
-Received: from mail.hmvi.gob.ec ([127.0.0.1])
-        by localhost (mail.hmvi.gob.ec [127.0.0.1]) (amavisd-new, port 10026)
-        with ESMTP id TIqFfet7zdFv; Thu, 13 Aug 2020 12:46:03 -0500 (-05)
-Received: from [10.73.80.190] (unknown [105.8.3.183])
-        by mail.hmvi.gob.ec (Postfix) with ESMTPSA id 4664FC02F4938;
-        Thu, 13 Aug 2020 12:32:21 -0500 (-05)
-Content-Type: text/plain; charset="utf-8"
+        id S1726265AbgHNL21 convert rfc822-to-8bit (ORCPT
+        <rfc822;lists+linux-sparse@lfdr.de>); Fri, 14 Aug 2020 07:28:27 -0400
+Received: from mail.munisurquillo.gob.pe ([190.187.155.157]:45850 "EHLO
+        mail.munisurquillo.gob.pe" rhost-flags-OK-FAIL-OK-FAIL)
+        by vger.kernel.org with ESMTP id S1726213AbgHNL21 (ORCPT
+        <rfc822;linux-sparse@vger.kernel.org>);
+        Fri, 14 Aug 2020 07:28:27 -0400
+Received: from localhost (localhost.localdomain [127.0.0.1])
+        by mail.munisurquillo.gob.pe (Postfix) with ESMTP id C6B5440427EB1;
+        Fri, 14 Aug 2020 02:54:56 -0500 (-05)
+Received: from mail.munisurquillo.gob.pe ([127.0.0.1])
+        by localhost (mail.munisurquillo.gob.pe [127.0.0.1]) (amavisd-new, port 10032)
+        with ESMTP id P_dbpqV2Nxsf; Fri, 14 Aug 2020 02:54:56 -0500 (-05)
+Received: from localhost (localhost.localdomain [127.0.0.1])
+        by mail.munisurquillo.gob.pe (Postfix) with ESMTP id 7C597403601E5;
+        Fri, 14 Aug 2020 02:46:21 -0500 (-05)
+X-Virus-Scanned: amavisd-new at munisurquillo.gob.pe
+Received: from mail.munisurquillo.gob.pe ([127.0.0.1])
+        by localhost (mail.munisurquillo.gob.pe [127.0.0.1]) (amavisd-new, port 10026)
+        with ESMTP id xUpF4NFBGB3e; Fri, 14 Aug 2020 02:46:21 -0500 (-05)
+Received: from [10.54.17.114] (unknown [105.4.7.153])
+        by mail.munisurquillo.gob.pe (Postfix) with ESMTPSA id 18DF2403B4FE3;
+        Fri, 14 Aug 2020 02:39:29 -0500 (-05)
+Content-Type: text/plain; charset="iso-8859-1"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8BIT
 Content-Description: Mail message body
 Subject: =?utf-8?q?Covid_19_Wohlt=C3=A4tigkeitsfonds?=
-To:     Recipients <danny.puetate@mail.hmvi.gob.ec>
-From:   ''Tayeb Souami'' <danny.puetate@mail.hmvi.gob.ec>
-Date:   Thu, 13 Aug 2020 19:32:00 +0200
-Reply-To: Tayebsouam.spende@gmail.com
-Message-Id: <20200813173222.4664FC02F4938@mail.hmvi.gob.ec>
+To:     Recipients <lu.marin@munisurquillo.gob.pe>
+From:   ''charles jackson'' <lu.marin@munisurquillo.gob.pe>
+Date:   Fri, 14 Aug 2020 09:39:20 +0200
+Reply-To: charlesjacksonjr001@gmail.com
+Message-Id: <20200814073930.18DF2403B4FE3@mail.munisurquillo.gob.pe>
 Sender: linux-sparse-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-Lieber Freund,
+Hallo
 
-Ich bin Herr Tayeb Souami, New Jersey, Vereinigte Staaten von Amerika,
-der Mega-Gewinner von $ 315million In Mega Millions Jackpot, spende ich
-an 5 zufällige Personen, wenn Sie diese E-Mail erhalten, dann wurde Ihre
-E-Mail nach einem Spinball ausgewählt.Ich habe den größten Teil meines
-Vermögens auf eine Reihe von Wohltätigkeitsorganisationen und
-Organisationen verteilt.Ich habe mich freiwillig dazu entschieden, die
-Summe von € 2.000.000,00 an Sie als eine der ausgewählten 5 zu spenden,
-um meine Gewinne zu überprüfen, sehen Sie bitte meine You Tube Seite
-unten.
+Ich bin Charles W. Jackson aus North Carolina, Vereinigte Staaten von Amerika, und ich bin der Gewinner des Mega-Millionen-Jackpots von 344 Millionen US-Dollar. Ich spende die Summe von 2.000.000 Millionen Euro als Teil der Hilfsgelder f�r das Corona-Virus.
 
+Dies ist Ihr Spendencode: [CJ530342019]
 
-UHR MICH HIER: https://www.youtube.com/watch?v=Z6ui8ZDQ6Ks
+www.youtube.com/watch?v=BSr8myiLPMQ
 
+Bitte antworten Sie auf diese E-Mail mit dem SPENDERCODE:
 
-Das ist dein Spendencode: [TS530342018]
+charlesjacksonjr001@gmail.com
+
+Ich hoffe, dass Sie und Ihre Familie dies durchkommen
 
 
-Antworten Sie mit dem SPENDE-CODE an diese
-
-E-Mail:Tayebsouam.spende@gmail.com
-
-
-Ich hoffe, Sie und Ihre Familie glücklich zu machen.
-
-
-Grüße
-
-Herr Tayeb Souami
+Herr Charles Jackson
