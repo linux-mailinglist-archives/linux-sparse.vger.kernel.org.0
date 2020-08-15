@@ -2,104 +2,94 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id E27772452AC
-	for <lists+linux-sparse@lfdr.de>; Sat, 15 Aug 2020 23:54:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id EE4CC24531B
+	for <lists+linux-sparse@lfdr.de>; Sat, 15 Aug 2020 23:58:40 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1729155AbgHOVyU (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Sat, 15 Aug 2020 17:54:20 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:45614 "EHLO
+        id S1728998AbgHOV6B (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Sat, 15 Aug 2020 17:58:01 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:45660 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1729121AbgHOVwg (ORCPT
+        with ESMTP id S1728955AbgHOVwA (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Sat, 15 Aug 2020 17:52:36 -0400
-Received: from mail-ej1-x643.google.com (mail-ej1-x643.google.com [IPv6:2a00:1450:4864:20::643])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 10B10C02B8D8
-        for <linux-sparse@vger.kernel.org>; Sat, 15 Aug 2020 04:15:43 -0700 (PDT)
-Received: by mail-ej1-x643.google.com with SMTP id bo3so12519778ejb.11
-        for <linux-sparse@vger.kernel.org>; Sat, 15 Aug 2020 04:15:43 -0700 (PDT)
+        Sat, 15 Aug 2020 17:52:00 -0400
+Received: from mail-ej1-x644.google.com (mail-ej1-x644.google.com [IPv6:2a00:1450:4864:20::644])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 32C99C09B047
+        for <linux-sparse@vger.kernel.org>; Sat, 15 Aug 2020 08:28:10 -0700 (PDT)
+Received: by mail-ej1-x644.google.com with SMTP id f24so12977541ejx.6
+        for <linux-sparse@vger.kernel.org>; Sat, 15 Aug 2020 08:28:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=date:from:to:cc:subject:message-id:references:mime-version
-         :content-disposition:in-reply-to;
-        bh=bMCbBtCOgXSthcFz/C5UZ7IyfhTZhufcM89keWffHYU=;
-        b=OkzWX4TAQeoYndbtbbcwkzvx2U2WnPwx39ZEz2H95b/U50SZT4artMI9XYBdI7aGIW
-         xqltCxfLmRT0FLvLrBWBp8pi1PV8uxKKvevl7z1/ljLvrw/kvru10avafXaWQs9z+tRX
-         r/FV2391pXp7TU9+LbG8qlUoQ7j/YrvuHhwT12nc7KSrJ1YGm+zSemEIlfum6uPIyQEu
-         VJW5KSjNSkIYx6OeZUA6tkkRhpIr74pm4Dp5+kZVlXINGrBW7KdVKi0q9KdLpVkyiG0D
-         wgxR6OlpK3fd8LKL2Fh4rYgXLXl/LZlHDRG+RPSX7R/oMZaUma/PT1r5YzMC/EGSdZEQ
-         ziaA==
+        h=from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=usSmUMXYZx9XHbcucQBYTobKUeIawcAh4+6GIF6IwtQ=;
+        b=WOHPxSHKvaS3oAiHfRJBfzY/MA0RoGiSfc9cP/rdmlIRudmzF9CfDklxCXO0Oy+bbf
+         78ArGfdF2JHaPTS07/HJIx3q06y9QhpVURH8GzW6GBObT7VaYAJnlFN+fbSVjB9GBTDm
+         OOPROuA3kg5NDL+EpWwB6n6X4pvKc0cCcznIE8HVks5+dpdu5l36n6R/pLpZZwVWkERW
+         iMJId5LTwXrZHYVB1bUfYUtZ75wv2/ghn71TfIWN14Iyxmj0ZhMaTrlM7x8eEqVA3d9x
+         +122drprR/vY95xDjBKGQC+2nbt2w1aSzRmyTvsxlMXhLdWRKjE+pkLsUC0D6dbdyxyE
+         cAzg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
-         :mime-version:content-disposition:in-reply-to;
-        bh=bMCbBtCOgXSthcFz/C5UZ7IyfhTZhufcM89keWffHYU=;
-        b=Qc0KfP37+Ewh9mXnFeVGmaCQPBfCOepAfym8H3nO8/mwTcRid76DAL3Z0lv/sUpsBa
-         v75ytg4fPeSIQ3mEtZffhHAIzoNssJS1QX/DwTV3qo1NCMDS8Cg2i+UGCzjFr2cZoOMv
-         marhapKP/i3L6JCBqhQ48aXQla/MoUkwmcUPCb3CqJPzB/AuHyPTSR9yfSuekiWPUeFl
-         eJKNbRdXDWKQSDK+lL8F4pIgbozs+Xf2iLnQ6KzABjayiQvg2SK1YejsHzUzdr6PyF+U
-         acfnBgF+WmEtbb87/oIUu+ZlgWuR3cqbrfJoLEM9Ui2gOBQufuPr2vGL0E3bEh+GPIeH
-         3QOQ==
-X-Gm-Message-State: AOAM530FLgtBm4Re+qZ+EpHzu3NzFMzJCgaOPN5tb8piPZHxux8ftbhp
-        QlGl9RPoo+zUcBTDv6/e/bg=
-X-Google-Smtp-Source: ABdhPJzSxQ7G6oBQhTdZOEOAgJp+tgUr5lFuQy7Q+2JcdsclxCbSQRR7ASKYKyArEJexWUH19764jg==
-X-Received: by 2002:a17:906:a4b:: with SMTP id x11mr6894480ejf.83.1597490142186;
-        Sat, 15 Aug 2020 04:15:42 -0700 (PDT)
-Received: from ltop.local ([2a02:a03f:a7fb:e200:818c:70d:debe:a811])
-        by smtp.gmail.com with ESMTPSA id ay5sm8494296edb.2.2020.08.15.04.15.41
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=usSmUMXYZx9XHbcucQBYTobKUeIawcAh4+6GIF6IwtQ=;
+        b=peiMj8yhIMlTtRAzpxB2Sf93/NcgUciCSukXGwnGTbhr6hpZAvwxg/c7oY5f+NDcAF
+         j2OkaQY8+e/mvWGE/h8Ln8xJ/tA3Ybu49d5JI1YgAjyi9p256NQZwOKAjy8SQW9p+FCN
+         wB36Dh0SxzOosoaL9GCLdkCkDE1tvXHUhcdSimGZghyOx+rnvZ0S6ErpH/nXw7o7VAHR
+         M9cQYD+Csijf+vEsD4p5erTwBgMzMTXHe2vT91Q5DvNMLkmwincxVs1kEHwhVSrkDFFy
+         qmAdPKAkvbTUj+Hd0G+2I67IimjdfVbuESaJGKb6OP12Gh7wX3ueUWGc/VRkHweVumPP
+         WRwA==
+X-Gm-Message-State: AOAM530HcvZkeeHsaK0SU36EvclzM9YL+k0v9roDK00uK3R8E4Mo53h2
+        ZvvKXZtcMAVTwS/m8Nzvg0P+9X7SaeU=
+X-Google-Smtp-Source: ABdhPJw0sg5G5QNTfTZn1ge+dQazSf5I6tOX/b+gZUJhJ353D8LpT0DceFu3x5tmT2DOHNgd0eg58A==
+X-Received: by 2002:a17:907:405f:: with SMTP id ns23mr7105485ejb.511.1597505288810;
+        Sat, 15 Aug 2020 08:28:08 -0700 (PDT)
+Received: from localhost.localdomain ([2a02:a03f:a7fb:e200:9042:5c68:7405:68b0])
+        by smtp.gmail.com with ESMTPSA id o7sm9065091edq.53.2020.08.15.08.28.07
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 15 Aug 2020 04:15:41 -0700 (PDT)
-Date:   Sat, 15 Aug 2020 13:15:40 +0200
+        Sat, 15 Aug 2020 08:28:08 -0700 (PDT)
 From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-To:     Stafford Horne <shorne@gmail.com>
-Cc:     linux-sparse@vger.kernel.org
-Subject: Re: [PATCH 4/4] bad-shift: wait dead code elimination to warn about
- bad shifts
-Message-ID: <20200815111540.nxdsfzurv555qpap@ltop.local>
-References: <20200806193003.10144-1-luc.vanoostenryck@gmail.com>
- <20200806193003.10144-5-luc.vanoostenryck@gmail.com>
- <20200815095703.GU80756@lianli.shorne-pla.net>
+To:     linux-sparse@vger.kernel.org
+Cc:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
+Subject: [PATCH 0/3] teach sparse about union casts
+Date:   Sat, 15 Aug 2020 17:28:00 +0200
+Message-Id: <20200815152803.2788-1-luc.vanoostenryck@gmail.com>
+X-Mailer: git-send-email 2.28.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20200815095703.GU80756@lianli.shorne-pla.net>
+Content-Transfer-Encoding: 8bit
 Sender: linux-sparse-owner@vger.kernel.org
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-On Sat, Aug 15, 2020 at 06:57:03PM +0900, Stafford Horne wrote:
-> On Thu, Aug 06, 2020 at 09:30:03PM +0200, Luc Van Oostenryck wrote:
-> > --- a/linearize.c
-> > +++ b/linearize.c
-> > @@ -2468,6 +2468,49 @@ static pseudo_t linearize_statement(struct entrypoint *ep, struct statement *stm
-> >  	return VOID;
-> >  }
-> >  
-> > +static void check_tainted_insn(struct instruction *insn)
-> > +{
-> > +	unsigned long long uval;
-> > +	long long sval;
-> > +	pseudo_t src2;
-> > +
-> > +	switch (insn->opcode) {
-> > +	case OP_DIVU: case OP_DIVS:
-> > +	case OP_MODU: case OP_MODS:
-> > +		if (insn->src2 == value_pseudo(0))
-> > +			warning(insn->pos, "divide by zero");
-> > +		break;
-> 
-> Is this divide by zero a new check?  I get the shift, but is this new?
+This series adds support for union casts which otherwise give
+technically exact diagnostic messages:
+	warning: cast to non-scalar
+But these warnings are not interesting because GCC and clang
+support these casts, they are used in the kernel (but not much:
+~13 in the usual x86 configs) and they are not especially dangerous
+(like losing bits or cheating with types).
 
-Yes, and no. The warning is already given (using 'division by zero')
-but, like for shifts before this series, issued early, before dead code
-elimination is done. So, code like the following:
-	...
-	if (d != 0)
-		r = a / d;
-	...
-issues the warning nevertheless. So, the check here above is now unused
-but is a preparation for the part 2 doing the same for division by zero
-by zero.
 
-Best regards,
--- Luc
+Luc Van Oostenryck (3):
+  union-cast: add some testcases
+  union-cast: extract evaluate_compound_literal()
+  union-cast: teach sparse about union casts
+
+ Documentation/release-notes/v0.6.3.rst |  5 ++
+ evaluate.c                             | 88 ++++++++++++++++++++------
+ options.c                              |  2 +
+ options.h                              |  1 +
+ sparse.1                               |  6 ++
+ validation/eval/union-cast-no.c        | 23 +++++++
+ validation/eval/union-cast.c           | 24 +++++++
+ 7 files changed, 129 insertions(+), 20 deletions(-)
+ create mode 100644 Documentation/release-notes/v0.6.3.rst
+ create mode 100644 validation/eval/union-cast-no.c
+ create mode 100644 validation/eval/union-cast.c
+
+
+base-commit: 49f7e13a7ac9a582d11e9c1ad01e71740f486601
+-- 
+2.28.0
+
