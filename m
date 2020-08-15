@@ -2,58 +2,58 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 93EF2245280
-	for <lists+linux-sparse@lfdr.de>; Sat, 15 Aug 2020 23:52:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id BF6042452EB
+	for <lists+linux-sparse@lfdr.de>; Sat, 15 Aug 2020 23:56:33 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1729049AbgHOVwQ (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Sat, 15 Aug 2020 17:52:16 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:45646 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1729022AbgHOVwN (ORCPT
-        <rfc822;linux-sparse@vger.kernel.org>);
+        id S1729031AbgHOVwN (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
         Sat, 15 Aug 2020 17:52:13 -0400
-Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com [IPv6:2a00:1450:4864:20::633])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 728F5C09B04A
-        for <linux-sparse@vger.kernel.org>; Sat, 15 Aug 2020 08:28:14 -0700 (PDT)
-Received: by mail-ej1-x633.google.com with SMTP id a26so13001839ejc.2
-        for <linux-sparse@vger.kernel.org>; Sat, 15 Aug 2020 08:28:14 -0700 (PDT)
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:45650 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1728999AbgHOVwI (ORCPT
+        <rfc822;linux-sparse@vger.kernel.org>);
+        Sat, 15 Aug 2020 17:52:08 -0400
+Received: from mail-ej1-x643.google.com (mail-ej1-x643.google.com [IPv6:2a00:1450:4864:20::643])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 67381C09B048
+        for <linux-sparse@vger.kernel.org>; Sat, 15 Aug 2020 08:28:12 -0700 (PDT)
+Received: by mail-ej1-x643.google.com with SMTP id p24so12943124ejf.13
+        for <linux-sparse@vger.kernel.org>; Sat, 15 Aug 2020 08:28:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=3I2KTIDywX0WzYJMKmMB6Y9Qt2gPgAiitm+bK/CVbuE=;
-        b=h+jsJCsYDjxVqbXj4pz8iIwk76cfb5UpYHvjsYzqBXgH4E+yqyaNVCtyrghWDkDXX1
-         10t6U1YoDSuelOCg5IJanCnUShcUEGA8LgADvhWlM1LZKmW9TwSU9QjNrhZXnJlnldMQ
-         5TB6TGWR59Mu1pXnFqwBw11FufidWjqs6U1NBxRX01gw77hk//ZHMOe2T78m0LTbGtre
-         ZP/DssI4oO3QoPS2MFKNTQI5mx288fXjn2MOgcEyS8Ismcg69JF1US3OWxLce6A+u5GZ
-         TG1AnJvTQbaDRZrjphIwvAnEplcCpakUidOLaAIJ3kLQLkwotLIXJCycCIg3o9CSHMQt
-         eYEw==
+        bh=jTBPlGckpLgZr6G5fFVFi9pIJh4KjZHk8+baZOaSTkY=;
+        b=GiFOJTXjZWfvxmVYqEECDUv6xeaXZsODQ7t2ThXOnLf/bMZb4MnavriAAPD6HiA8RV
+         9rFLkmI108INEDoyZGZb/47lD4fTao+T+nj6XM0mrluxlbmxxb+clAU3NnkkOLX46Kta
+         gZToj26sAqOLM/SS9HdPRDUnY9uAM2GWpmME3AmbU2lxVhIbkGCH2CmEEM7LmpT/T++N
+         2SJ8BuIldw3Gud4NibEANXsEaJTzgSz1M2LmDSG1vyP7rqS3D9dnvnWMcg+I30BT/oxZ
+         Y5XJY7pefWuUIAFg1tz1QKqpVIyrlQfOgDRcK3Iwg28DnH54v0OV1Yz63ixPULOab0Tn
+         tdoQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=3I2KTIDywX0WzYJMKmMB6Y9Qt2gPgAiitm+bK/CVbuE=;
-        b=thU1rGmNaHQBBJASgDg8jSw6w9RGFROLFADv5d94Zyb64vWF0aedbvgMpYreoeRSWv
-         npXKneKDnRrm7C9yMYky+iBHqwH1k7pLYr2d1UuaFTj2dTTopBchk+cjLciNT0BFDwp7
-         NdCI1ohSn709FPTW+ozW+iGLinTuERYVaNQRwF29uhI0wB6l/NmVURNq82GunoQ+F6yo
-         a6Si93Ay05JPJ/wnofwZHBBze9Ve4isO23S9P48FDuiEoa0LmFB/BYFLmhxm0XVEEWs6
-         zT0YLv/7VZA/lxGPsJok400JhW+JQvjWD5vIzih8XS/2ALnY2GEy9djsa4Ron7ZdAVNS
-         ljfg==
-X-Gm-Message-State: AOAM530FXXdUpdYzz0RUzrWG3Lh3OKbfsghoMB69sSimmRH+b2RkE4OJ
-        ct0qO/cUuQvfsPqL0CD68A2mPRLPCxQ=
-X-Google-Smtp-Source: ABdhPJxoEsfSp13oV/PufRBynBm+xjuUNKge5X3Mo2lmVylpE6/DwXIPMl4bEuqCP6YOj04iWceSCQ==
-X-Received: by 2002:a17:906:4d4f:: with SMTP id b15mr7289130ejv.534.1597505289944;
-        Sat, 15 Aug 2020 08:28:09 -0700 (PDT)
+        bh=jTBPlGckpLgZr6G5fFVFi9pIJh4KjZHk8+baZOaSTkY=;
+        b=EMQvzBwxkjMvV4J9w6puMfEvoXGxWOvShau9kSHgCPhp1lgH4T5Nv0CNJoD4tbqrz5
+         Cg0/DBmJG+xjqEeluMbdNhd3g7sMfIzfozwKHwbqn+06HdZkFnw+BmWigmT3lqoXIY7h
+         DOFr+xvTVAb059+gYFI/y4FzgWrYaBE+ztYbgv3Kgr4XUrJ8j16zI1hYYyLhZO5YrImf
+         W1FT+DQjGRVO9D7oqcTBNrU0QCwrs+sNPPvkwGGM56ZUJB2jGwnaMaXdnIpeZO3CEOVB
+         xp+RScpoEOFHApADpRtN6c2XqTiR9M41ownOH4jbqFj5i94tVTojoCmJ/VWd0RIgonI6
+         gA7g==
+X-Gm-Message-State: AOAM532Xyc62za/QAIyFL37gUvVhcCaHOdZPUyLxjt8xCJhva1oIO2BY
+        miIPPHwXUxcxKvt1Td6RlwKSgNVcTYg=
+X-Google-Smtp-Source: ABdhPJyaC7uGbfjYd7+nUqle2GeXW5j/+s03qmbFAH9Ry/tioDgXNAFp3YMY4axgiRAVdD+44CNZQQ==
+X-Received: by 2002:a17:906:6558:: with SMTP id u24mr7027723ejn.364.1597505290897;
+        Sat, 15 Aug 2020 08:28:10 -0700 (PDT)
 Received: from localhost.localdomain ([2a02:a03f:a7fb:e200:9042:5c68:7405:68b0])
-        by smtp.gmail.com with ESMTPSA id o7sm9065091edq.53.2020.08.15.08.28.08
+        by smtp.gmail.com with ESMTPSA id o7sm9065091edq.53.2020.08.15.08.28.10
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 15 Aug 2020 08:28:09 -0700 (PDT)
+        Sat, 15 Aug 2020 08:28:10 -0700 (PDT)
 From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 To:     linux-sparse@vger.kernel.org
 Cc:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-Subject: [PATCH 1/3] union-cast: add some testcases
-Date:   Sat, 15 Aug 2020 17:28:01 +0200
-Message-Id: <20200815152803.2788-2-luc.vanoostenryck@gmail.com>
+Subject: [PATCH 2/3] union-cast: extract evaluate_compound_literal()
+Date:   Sat, 15 Aug 2020 17:28:02 +0200
+Message-Id: <20200815152803.2788-3-luc.vanoostenryck@gmail.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20200815152803.2788-1-luc.vanoostenryck@gmail.com>
 References: <20200815152803.2788-1-luc.vanoostenryck@gmail.com>
@@ -64,81 +64,73 @@ Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-Casts to union type are a GCC extension and are similar to
-compound literals.
-
-However, sparse doesn't know about them and treats them like
-other casts to non-scalars.
-
-Add some testcases for this and its upcoming warning flag.
+extract evaluate_compound_literal() from evaluate_cast,
+in preparation for supporting union casts.
 
 Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 ---
- validation/eval/union-cast-no.c | 24 ++++++++++++++++++++++++
- validation/eval/union-cast.c    | 25 +++++++++++++++++++++++++
- 2 files changed, 49 insertions(+)
+ evaluate.c | 41 ++++++++++++++++++++++-------------------
+ 1 file changed, 22 insertions(+), 19 deletions(-)
 
-diff --git a/validation/eval/union-cast-no.c b/validation/eval/union-cast-no.c
-new file mode 100644
-index 000000000000..d06b348d209e
---- /dev/null
-+++ b/validation/eval/union-cast-no.c
-@@ -0,0 +1,24 @@
-+union u {
-+	int	i;
-+	char	x[8];
-+};
-+
-+static union u foo(int i)
+diff --git a/evaluate.c b/evaluate.c
+index 63a9390b5ee7..0563be939f23 100644
+--- a/evaluate.c
++++ b/evaluate.c
+@@ -2948,6 +2948,26 @@ static int cast_flags(struct expression *expr, struct expression *old)
+ 	return flags;
+ }
+ 
++static struct symbol *evaluate_compound_literal(struct expression *expr, struct expression *source)
 +{
-+	return (union u)i;
++	struct expression *addr = alloc_expression(expr->pos, EXPR_SYMBOL);
++	struct symbol *sym = expr->cast_type;
++
++	sym->initializer = source;
++	evaluate_symbol(sym);
++
++	addr->ctype = &lazy_ptr_ctype;	/* Lazy eval */
++	addr->symbol = sym;
++	if (sym->ctype.modifiers & MOD_TOPLEVEL)
++		addr->flags |= CEF_ADDR;
++
++	expr->type = EXPR_PREOP;
++	expr->op = '*';
++	expr->deref = addr;
++	expr->ctype = sym;
++	return sym;
 +}
 +
-+static union u bar(long l)
-+{
-+	return (union u)l;
-+}
-+
-+/*
-+ * check-name: union-cast-no
-+ * check-command: sparse -Wno-union-cast $file
-+ * check-known-to-fail
-+ *
-+ * check-error-start
-+eval/union-cast-no.c:13:17: warning: cast to non-scalar
-+ * check-error-end
-+ */
-diff --git a/validation/eval/union-cast.c b/validation/eval/union-cast.c
-new file mode 100644
-index 000000000000..1d8167531081
---- /dev/null
-+++ b/validation/eval/union-cast.c
-@@ -0,0 +1,25 @@
-+union u {
-+	int	i;
-+	char	x[8];
-+};
-+
-+static union u foo(int a)
-+{
-+	return (union u)a;
-+}
-+
-+static union u bar(long a)
-+{
-+	return (union u)a;
-+}
-+
-+/*
-+ * check-name: union-cast
-+ * check-command: sparse -Wunion-cast $file
-+ * check-known-to-fail
-+ *
-+ * check-error-start
-+eval/union-cast.c:8:17: warning: cast to union type
-+eval/union-cast.c:13:17: warning: cast to non-scalar
-+ * check-error-end
-+ */
+ static struct symbol *evaluate_cast(struct expression *expr)
+ {
+ 	struct expression *source = expr->cast_expression;
+@@ -2970,25 +2990,8 @@ static struct symbol *evaluate_cast(struct expression *expr)
+ 	 * dereferenced as part of a post-fix expression.
+ 	 * We need to produce an expression that can be dereferenced.
+ 	 */
+-	if (source->type == EXPR_INITIALIZER) {
+-		struct symbol *sym = expr->cast_type;
+-		struct expression *addr = alloc_expression(expr->pos, EXPR_SYMBOL);
+-
+-		sym->initializer = source;
+-		evaluate_symbol(sym);
+-
+-		addr->ctype = &lazy_ptr_ctype;	/* Lazy eval */
+-		addr->symbol = sym;
+-		if (sym->ctype.modifiers & MOD_TOPLEVEL)
+-			addr->flags |= CEF_ADDR;
+-
+-		expr->type = EXPR_PREOP;
+-		expr->op = '*';
+-		expr->unop = addr;
+-		expr->ctype = sym;
+-
+-		return sym;
+-	}
++	if (source->type == EXPR_INITIALIZER)
++		return evaluate_compound_literal(expr, source);
+ 
+ 	ctype = examine_symbol_type(expr->cast_type);
+ 	expr->ctype = ctype;
 -- 
 2.28.0
 
