@@ -2,59 +2,61 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id EE4CC24531B
-	for <lists+linux-sparse@lfdr.de>; Sat, 15 Aug 2020 23:58:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 93EF2245280
+	for <lists+linux-sparse@lfdr.de>; Sat, 15 Aug 2020 23:52:19 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1728998AbgHOV6B (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Sat, 15 Aug 2020 17:58:01 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:45660 "EHLO
+        id S1729049AbgHOVwQ (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Sat, 15 Aug 2020 17:52:16 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:45646 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1728955AbgHOVwA (ORCPT
+        with ESMTP id S1729022AbgHOVwN (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Sat, 15 Aug 2020 17:52:00 -0400
-Received: from mail-ej1-x644.google.com (mail-ej1-x644.google.com [IPv6:2a00:1450:4864:20::644])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 32C99C09B047
-        for <linux-sparse@vger.kernel.org>; Sat, 15 Aug 2020 08:28:10 -0700 (PDT)
-Received: by mail-ej1-x644.google.com with SMTP id f24so12977541ejx.6
-        for <linux-sparse@vger.kernel.org>; Sat, 15 Aug 2020 08:28:10 -0700 (PDT)
+        Sat, 15 Aug 2020 17:52:13 -0400
+Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com [IPv6:2a00:1450:4864:20::633])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 728F5C09B04A
+        for <linux-sparse@vger.kernel.org>; Sat, 15 Aug 2020 08:28:14 -0700 (PDT)
+Received: by mail-ej1-x633.google.com with SMTP id a26so13001839ejc.2
+        for <linux-sparse@vger.kernel.org>; Sat, 15 Aug 2020 08:28:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=usSmUMXYZx9XHbcucQBYTobKUeIawcAh4+6GIF6IwtQ=;
-        b=WOHPxSHKvaS3oAiHfRJBfzY/MA0RoGiSfc9cP/rdmlIRudmzF9CfDklxCXO0Oy+bbf
-         78ArGfdF2JHaPTS07/HJIx3q06y9QhpVURH8GzW6GBObT7VaYAJnlFN+fbSVjB9GBTDm
-         OOPROuA3kg5NDL+EpWwB6n6X4pvKc0cCcznIE8HVks5+dpdu5l36n6R/pLpZZwVWkERW
-         iMJId5LTwXrZHYVB1bUfYUtZ75wv2/ghn71TfIWN14Iyxmj0ZhMaTrlM7x8eEqVA3d9x
-         +122drprR/vY95xDjBKGQC+2nbt2w1aSzRmyTvsxlMXhLdWRKjE+pkLsUC0D6dbdyxyE
-         cAzg==
+        h=from:to:cc:subject:date:message-id:in-reply-to:references
+         :mime-version:content-transfer-encoding;
+        bh=3I2KTIDywX0WzYJMKmMB6Y9Qt2gPgAiitm+bK/CVbuE=;
+        b=h+jsJCsYDjxVqbXj4pz8iIwk76cfb5UpYHvjsYzqBXgH4E+yqyaNVCtyrghWDkDXX1
+         10t6U1YoDSuelOCg5IJanCnUShcUEGA8LgADvhWlM1LZKmW9TwSU9QjNrhZXnJlnldMQ
+         5TB6TGWR59Mu1pXnFqwBw11FufidWjqs6U1NBxRX01gw77hk//ZHMOe2T78m0LTbGtre
+         ZP/DssI4oO3QoPS2MFKNTQI5mx288fXjn2MOgcEyS8Ismcg69JF1US3OWxLce6A+u5GZ
+         TG1AnJvTQbaDRZrjphIwvAnEplcCpakUidOLaAIJ3kLQLkwotLIXJCycCIg3o9CSHMQt
+         eYEw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=usSmUMXYZx9XHbcucQBYTobKUeIawcAh4+6GIF6IwtQ=;
-        b=peiMj8yhIMlTtRAzpxB2Sf93/NcgUciCSukXGwnGTbhr6hpZAvwxg/c7oY5f+NDcAF
-         j2OkaQY8+e/mvWGE/h8Ln8xJ/tA3Ybu49d5JI1YgAjyi9p256NQZwOKAjy8SQW9p+FCN
-         wB36Dh0SxzOosoaL9GCLdkCkDE1tvXHUhcdSimGZghyOx+rnvZ0S6ErpH/nXw7o7VAHR
-         M9cQYD+Csijf+vEsD4p5erTwBgMzMTXHe2vT91Q5DvNMLkmwincxVs1kEHwhVSrkDFFy
-         qmAdPKAkvbTUj+Hd0G+2I67IimjdfVbuESaJGKb6OP12Gh7wX3ueUWGc/VRkHweVumPP
-         WRwA==
-X-Gm-Message-State: AOAM530HcvZkeeHsaK0SU36EvclzM9YL+k0v9roDK00uK3R8E4Mo53h2
-        ZvvKXZtcMAVTwS/m8Nzvg0P+9X7SaeU=
-X-Google-Smtp-Source: ABdhPJw0sg5G5QNTfTZn1ge+dQazSf5I6tOX/b+gZUJhJ353D8LpT0DceFu3x5tmT2DOHNgd0eg58A==
-X-Received: by 2002:a17:907:405f:: with SMTP id ns23mr7105485ejb.511.1597505288810;
-        Sat, 15 Aug 2020 08:28:08 -0700 (PDT)
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+         :references:mime-version:content-transfer-encoding;
+        bh=3I2KTIDywX0WzYJMKmMB6Y9Qt2gPgAiitm+bK/CVbuE=;
+        b=thU1rGmNaHQBBJASgDg8jSw6w9RGFROLFADv5d94Zyb64vWF0aedbvgMpYreoeRSWv
+         npXKneKDnRrm7C9yMYky+iBHqwH1k7pLYr2d1UuaFTj2dTTopBchk+cjLciNT0BFDwp7
+         NdCI1ohSn709FPTW+ozW+iGLinTuERYVaNQRwF29uhI0wB6l/NmVURNq82GunoQ+F6yo
+         a6Si93Ay05JPJ/wnofwZHBBze9Ve4isO23S9P48FDuiEoa0LmFB/BYFLmhxm0XVEEWs6
+         zT0YLv/7VZA/lxGPsJok400JhW+JQvjWD5vIzih8XS/2ALnY2GEy9djsa4Ron7ZdAVNS
+         ljfg==
+X-Gm-Message-State: AOAM530FXXdUpdYzz0RUzrWG3Lh3OKbfsghoMB69sSimmRH+b2RkE4OJ
+        ct0qO/cUuQvfsPqL0CD68A2mPRLPCxQ=
+X-Google-Smtp-Source: ABdhPJxoEsfSp13oV/PufRBynBm+xjuUNKge5X3Mo2lmVylpE6/DwXIPMl4bEuqCP6YOj04iWceSCQ==
+X-Received: by 2002:a17:906:4d4f:: with SMTP id b15mr7289130ejv.534.1597505289944;
+        Sat, 15 Aug 2020 08:28:09 -0700 (PDT)
 Received: from localhost.localdomain ([2a02:a03f:a7fb:e200:9042:5c68:7405:68b0])
-        by smtp.gmail.com with ESMTPSA id o7sm9065091edq.53.2020.08.15.08.28.07
+        by smtp.gmail.com with ESMTPSA id o7sm9065091edq.53.2020.08.15.08.28.08
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 15 Aug 2020 08:28:08 -0700 (PDT)
+        Sat, 15 Aug 2020 08:28:09 -0700 (PDT)
 From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 To:     linux-sparse@vger.kernel.org
 Cc:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-Subject: [PATCH 0/3] teach sparse about union casts
-Date:   Sat, 15 Aug 2020 17:28:00 +0200
-Message-Id: <20200815152803.2788-1-luc.vanoostenryck@gmail.com>
+Subject: [PATCH 1/3] union-cast: add some testcases
+Date:   Sat, 15 Aug 2020 17:28:01 +0200
+Message-Id: <20200815152803.2788-2-luc.vanoostenryck@gmail.com>
 X-Mailer: git-send-email 2.28.0
+In-Reply-To: <20200815152803.2788-1-luc.vanoostenryck@gmail.com>
+References: <20200815152803.2788-1-luc.vanoostenryck@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Sender: linux-sparse-owner@vger.kernel.org
@@ -62,34 +64,81 @@ Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-This series adds support for union casts which otherwise give
-technically exact diagnostic messages:
-	warning: cast to non-scalar
-But these warnings are not interesting because GCC and clang
-support these casts, they are used in the kernel (but not much:
-~13 in the usual x86 configs) and they are not especially dangerous
-(like losing bits or cheating with types).
+Casts to union type are a GCC extension and are similar to
+compound literals.
 
+However, sparse doesn't know about them and treats them like
+other casts to non-scalars.
 
-Luc Van Oostenryck (3):
-  union-cast: add some testcases
-  union-cast: extract evaluate_compound_literal()
-  union-cast: teach sparse about union casts
+Add some testcases for this and its upcoming warning flag.
 
- Documentation/release-notes/v0.6.3.rst |  5 ++
- evaluate.c                             | 88 ++++++++++++++++++++------
- options.c                              |  2 +
- options.h                              |  1 +
- sparse.1                               |  6 ++
- validation/eval/union-cast-no.c        | 23 +++++++
- validation/eval/union-cast.c           | 24 +++++++
- 7 files changed, 129 insertions(+), 20 deletions(-)
- create mode 100644 Documentation/release-notes/v0.6.3.rst
- create mode 100644 validation/eval/union-cast-no.c
- create mode 100644 validation/eval/union-cast.c
+Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
+---
+ validation/eval/union-cast-no.c | 24 ++++++++++++++++++++++++
+ validation/eval/union-cast.c    | 25 +++++++++++++++++++++++++
+ 2 files changed, 49 insertions(+)
 
-
-base-commit: 49f7e13a7ac9a582d11e9c1ad01e71740f486601
+diff --git a/validation/eval/union-cast-no.c b/validation/eval/union-cast-no.c
+new file mode 100644
+index 000000000000..d06b348d209e
+--- /dev/null
++++ b/validation/eval/union-cast-no.c
+@@ -0,0 +1,24 @@
++union u {
++	int	i;
++	char	x[8];
++};
++
++static union u foo(int i)
++{
++	return (union u)i;
++}
++
++static union u bar(long l)
++{
++	return (union u)l;
++}
++
++/*
++ * check-name: union-cast-no
++ * check-command: sparse -Wno-union-cast $file
++ * check-known-to-fail
++ *
++ * check-error-start
++eval/union-cast-no.c:13:17: warning: cast to non-scalar
++ * check-error-end
++ */
+diff --git a/validation/eval/union-cast.c b/validation/eval/union-cast.c
+new file mode 100644
+index 000000000000..1d8167531081
+--- /dev/null
++++ b/validation/eval/union-cast.c
+@@ -0,0 +1,25 @@
++union u {
++	int	i;
++	char	x[8];
++};
++
++static union u foo(int a)
++{
++	return (union u)a;
++}
++
++static union u bar(long a)
++{
++	return (union u)a;
++}
++
++/*
++ * check-name: union-cast
++ * check-command: sparse -Wunion-cast $file
++ * check-known-to-fail
++ *
++ * check-error-start
++eval/union-cast.c:8:17: warning: cast to union type
++eval/union-cast.c:13:17: warning: cast to non-scalar
++ * check-error-end
++ */
 -- 
 2.28.0
 
