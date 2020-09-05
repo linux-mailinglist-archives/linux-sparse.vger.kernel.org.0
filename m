@@ -2,59 +2,61 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 0284725E777
-	for <lists+linux-sparse@lfdr.de>; Sat,  5 Sep 2020 14:14:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 41A5B25E774
+	for <lists+linux-sparse@lfdr.de>; Sat,  5 Sep 2020 14:14:08 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1728578AbgIEMOM (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Sat, 5 Sep 2020 08:14:12 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:34144 "EHLO
+        id S1728473AbgIEMOH (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Sat, 5 Sep 2020 08:14:07 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:34128 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1728482AbgIEMOL (ORCPT
+        with ESMTP id S1726597AbgIEMOG (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Sat, 5 Sep 2020 08:14:11 -0400
-Received: from mail-ed1-x543.google.com (mail-ed1-x543.google.com [IPv6:2a00:1450:4864:20::543])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 0467EC061244
-        for <linux-sparse@vger.kernel.org>; Sat,  5 Sep 2020 05:14:10 -0700 (PDT)
-Received: by mail-ed1-x543.google.com with SMTP id c10so8470029edk.6
-        for <linux-sparse@vger.kernel.org>; Sat, 05 Sep 2020 05:14:09 -0700 (PDT)
+        Sat, 5 Sep 2020 08:14:06 -0400
+Received: from mail-ej1-x643.google.com (mail-ej1-x643.google.com [IPv6:2a00:1450:4864:20::643])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 60FF0C061244
+        for <linux-sparse@vger.kernel.org>; Sat,  5 Sep 2020 05:14:05 -0700 (PDT)
+Received: by mail-ej1-x643.google.com with SMTP id e23so12003227eja.3
+        for <linux-sparse@vger.kernel.org>; Sat, 05 Sep 2020 05:14:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=LrueyCSjMVn75NMc2WLc6Ij/toDuzvTrUhUOg6CPg8E=;
-        b=J3k7NJUN8ArPVZxxBVyFB8tCDoFYuzTfpZVtgTUwir5TIemGB4xInnURMs6hNlDTJZ
-         8yIQqfMxGjqDLCj1VaixuWY2uQPaXz3RjHATyFP1qMDr16UAXrnOPnB80P+z12if3ivQ
-         14RT/HbgvkStynEJl9hKu7jQzJ2j25sEIqZiOyfB909dSXaftEddZ6nkaj4bANDxt233
-         udm9jthHsBq32kBEQbabi3rVOpt3dAeOyZmwl4ISiZMywrtH08+JPIUcEIYufSEQY4Fl
-         IWMjXTV2biKrbXJv0r+Wo1EuYbkscYOeQxGgN8r+uTXttITTUpeeeR6ktGd+qduYg6Ad
-         OdRw==
+        h=from:to:cc:subject:date:message-id:in-reply-to:references
+         :mime-version:content-transfer-encoding;
+        bh=ufM7TOvsBmOIJKVEbKKr+BAcE1XH3xTVq/JYds7a6ek=;
+        b=FNZ1Opfm8Kv4KnRq6p+ioAwDZ4nwTOejp0tBrOScx+/z/yDIEp/Bms1UrIkJwCebo9
+         fIUIWViUE8WDEc4hEOuCK3k3GHWakFqJfs3xZ2te7UY4eXDjbojLSx2J9ugYXtjAyZo6
+         Ji/nO89L5xpQaYQQ15Pi+cCM5YhKWe9KB/1qsxfXJtBijNitdbH7uOHAFWdndUGv3zYz
+         24nh8w8ao+ypaGFc5cTWxK+49eC3WS0uOyZu9ALERFzsKWMIEsvzVFktt7VWSSJuxNfb
+         pdzosusGoIx/nM5NaSSvPyfdBJyPRKZAlQCVWRdTXs6vGm8APj93BHmKQ1AY8k/2Ho93
+         I5Xg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=LrueyCSjMVn75NMc2WLc6Ij/toDuzvTrUhUOg6CPg8E=;
-        b=Ro8Phes15KWWL1eGlj+VUfOGbA8cPt4AE8Wao2bdZAKjvU1ejBlYcDNGdwUTe/FO1a
-         Ifj31VAIJffpRaiaJHjKkWQR5tlRI17+yvB6DFVDmyInA15+7kgXCKUUwwRpk6BKlcSQ
-         aC16JYibmU6g9Ba3YyOFM/6NZtXFOTlA4EOrtMrkNexkypFG7LiE8uibHcGKwe3TVLJT
-         2y0ObRe29IO9dKIEnPwiQXWpqJmhdO3SJr+8VjdiLiHtgl/EpR+DmXwcb/8Z9G70052U
-         f0KaeB13KWw4b+7RijMEBp7/XT1I11vgsPL52bUa6M4sv1NlCF/ekGz0YoNK+2WNwqtY
-         ElfQ==
-X-Gm-Message-State: AOAM532DmCzv+UI3XdOqf4UOGKxJRl18rvV8IO2NBgFYMtFsbtWvWVCK
-        /mqKefg8qqAVdekU5oNTooUZUqsh7XE=
-X-Google-Smtp-Source: ABdhPJzIE6kiFMJrVdpofSUJNDo8D52vTaZk2mhh1S6T/gHj7LC21N5ehqDZ4Tn/IABBiUxiuBuFxQ==
-X-Received: by 2002:a50:d809:: with SMTP id o9mr12980711edj.12.1599308042331;
-        Sat, 05 Sep 2020 05:14:02 -0700 (PDT)
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+         :references:mime-version:content-transfer-encoding;
+        bh=ufM7TOvsBmOIJKVEbKKr+BAcE1XH3xTVq/JYds7a6ek=;
+        b=mJn6F3X0awwMzYkzJsa6sVEI/RNaghzuRoRspxZONiVFLulve3ph/Z7dHgXxY9RUjf
+         +nljy0CB4eelw4MSrTLVLre15iBmwUujRivE9Zn3dJnJsy4Dp3kLNj1WHNM6za4gPxPo
+         RM5CKhMPja8y/N3sitmowc2w+OYDXp49vw8f6IlbS0aXrxiRdrgoLcnFGPxtqLOw/OV1
+         F3rzokriTtl6bMai1x+jLt0BxxP+abkkt5+exb2EW9u7Fh/++ppe+AzzJ0XT0/Yz8USr
+         d/B7MRLMXyavL95E1+lmQj89vTRx+Emz2AoaCBklK3LXofLtdsa0WtYUsOZO6I3rSKfJ
+         PEbA==
+X-Gm-Message-State: AOAM533D7dwdCfgHyAvUujOD+pBS7mM6SBEwj4mgtTIYIWyQnk6YrvX8
+        duynQpdy9hfM2yjq3ZyTR5CXnIa5JZg=
+X-Google-Smtp-Source: ABdhPJz1IzsDBDwQwhtHHVszDCK3pmMgxIMN5vPOUaQdAfequXX+xu6jBp+KftKx/vhs3y9ODDqCbg==
+X-Received: by 2002:a17:906:ecf1:: with SMTP id qt17mr9293274ejb.158.1599308043383;
+        Sat, 05 Sep 2020 05:14:03 -0700 (PDT)
 Received: from localhost.localdomain ([2a02:a03f:a7fb:e200:e1b1:2430:dffc:e425])
-        by smtp.gmail.com with ESMTPSA id k14sm8577412edo.89.2020.09.05.05.14.01
+        by smtp.gmail.com with ESMTPSA id k14sm8577412edo.89.2020.09.05.05.14.02
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 05 Sep 2020 05:14:01 -0700 (PDT)
+        Sat, 05 Sep 2020 05:14:02 -0700 (PDT)
 From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 To:     linux-sparse@vger.kernel.org
 Cc:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-Subject: [PATCH 0/3] add and use new helper: replace_with_value()
-Date:   Sat,  5 Sep 2020 14:13:55 +0200
-Message-Id: <20200905121358.83080-1-luc.vanoostenryck@gmail.com>
+Subject: [PATCH 1/3] add helper replace_with_value()
+Date:   Sat,  5 Sep 2020 14:13:56 +0200
+Message-Id: <20200905121358.83080-2-luc.vanoostenryck@gmail.com>
 X-Mailer: git-send-email 2.28.0
+In-Reply-To: <20200905121358.83080-1-luc.vanoostenryck@gmail.com>
+References: <20200905121358.83080-1-luc.vanoostenryck@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Sender: linux-sparse-owner@vger.kernel.org
@@ -62,17 +64,35 @@ Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-This makes things slightly more readable and is a preparatory
-step for some others series.
+During simplification, it's relatively common to have to replace
+an instruction with pseudo corresponding to a known value.
+The pseudo can be created with value_pseudo() and the replacement
+can be made via replace_with_pseudo() but the combination
+of the two is a bit long.
 
-Luc Van Oostenryck (3):
-  add helper replace_with_value()
-  use replace_with_value()
-  replace_with_{pseudo,value}() can be tail-calls
+So, create an helper doing both sat once: replace_with_value().
 
- simplify.c | 29 +++++++++++++++--------------
- 1 file changed, 15 insertions(+), 14 deletions(-)
+Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
+---
+ simplify.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
+diff --git a/simplify.c b/simplify.c
+index f6b79685f439..0c75b3fadcab 100644
+--- a/simplify.c
++++ b/simplify.c
+@@ -465,6 +465,11 @@ static int replace_with_pseudo(struct instruction *insn, pseudo_t pseudo)
+ 	return REPEAT_CSE;
+ }
+ 
++static inline int replace_with_value(struct instruction *insn, long long val)
++{
++	return replace_with_pseudo(insn, value_pseudo(val));
++}
++
+ static inline int def_opcode(pseudo_t p)
+ {
+ 	if (p->type != PSEUDO_REG)
 -- 
 2.28.0
 
