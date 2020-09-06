@@ -2,59 +2,61 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id EFE4525EDCB
-	for <lists+linux-sparse@lfdr.de>; Sun,  6 Sep 2020 14:41:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 806B425EDC8
+	for <lists+linux-sparse@lfdr.de>; Sun,  6 Sep 2020 14:41:21 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727773AbgIFMl1 (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Sun, 6 Sep 2020 08:41:27 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:60560 "EHLO
+        id S1725803AbgIFMlN (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Sun, 6 Sep 2020 08:41:13 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:60558 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1728663AbgIFMlI (ORCPT
+        with ESMTP id S1726931AbgIFMlI (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
         Sun, 6 Sep 2020 08:41:08 -0400
 Received: from mail-ed1-x542.google.com (mail-ed1-x542.google.com [IPv6:2a00:1450:4864:20::542])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id D91B9C061574
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id A8A7DC061573
         for <linux-sparse@vger.kernel.org>; Sun,  6 Sep 2020 05:40:46 -0700 (PDT)
-Received: by mail-ed1-x542.google.com with SMTP id b12so10016210edz.11
+Received: by mail-ed1-x542.google.com with SMTP id c10so10049417edk.6
         for <linux-sparse@vger.kernel.org>; Sun, 06 Sep 2020 05:40:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=vRfyAdivijKYd1eHjviR6opeYtxEZgXCZ6i80Txf3gQ=;
-        b=E0371i+h3+SeCN5JjFEfHo2W1BELPn3E31X5YJETy7atpF5OSMyGXnxRgd0m4tzKGR
-         gvEr8sWEaKwDxSJmO2Ofac87BW6+jbwXwo/HnK0UVJwmfqtWzjSyBt4IQ+e6zjAQ13SB
-         v1O+00/gAzs9MUpyDSvPyu6iXzFrPa5TdysQaPfkfV/qOs9UTFmWNGRhCnntaZFYJUTi
-         r77Rmk3Z7/3lkNluNR1hzj81ISD51WOA1XNRCKNn2L92O+y/X6GSjolZ7YmUj0jMOzbk
-         pwZxzO5IdF1gOksdOUGDe7te1gZ9IRZrum9smNc411F2AkN3UlU98UOGR7tLCY6et3w0
-         X3TQ==
+        h=from:to:cc:subject:date:message-id:in-reply-to:references
+         :mime-version:content-transfer-encoding;
+        bh=dKOOwWUHAHq3BdSfYEjSQTKHFN7u8QKMUwhamgd6olU=;
+        b=kn0BNdgBg7M9syUGCjUdjkgsdRASuBAFk85Tlph6OvuK9a6oH7ecRQubjkHhQ4K/St
+         BKzQgDtvwKIiO5SnFUPEmIFeIDQXAUAXUlqweFDafr/fGpCJy+aZ0smi1jRrNFvU3424
+         lXpMc4cPX0w1PXpEP/NrsAEl0wzbVyF3VwczCyQ6cUnZ37cIxcbIx30Y2v3W9DEi0nsS
+         RpUcqIionyczAaE3234c8jH+43MYOJ4PvDm2BvrAtO03zKYHQ6CCyRILTZ70xZksT1+l
+         Pqi9TJ8luJE7CX4uYOy5opYUeWE3RMUdy3CJ3HOyQQofGSC6kNZDL12z0amrid8bu4XE
+         +D1Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=vRfyAdivijKYd1eHjviR6opeYtxEZgXCZ6i80Txf3gQ=;
-        b=JbvChmpkzIaOY0vuyFCUYgC6j1uxz+ZpCTdS7Kwz+AmmN+vBrK13Czbf0r4s/Eiofb
-         84FfpExLJj+SNleudw/oP9whYf+ZimBGVlcA9xEkTMgndcISoO0uN4V7eyZunfEBSEMv
-         DG8yGQ/AakLP9ykk3wGn9476tRdoVILrNmDZJgTOfN1Et2Za6t4X30K3/OCLyr2pZiWB
-         WO0XB2yOmaRnxGXo+Z42dL/LHyUiLmTafLuFJPThtbKp2b7onsD68PKSsDi7amtxZK78
-         AGCMl9/ZfgKLy4p+MorMTvoXII0Af07IL3O43sh7k+5m7bxkEmRMQdgfXx3HRDChKD/T
-         rfcA==
-X-Gm-Message-State: AOAM532LyZ1bVZeuXqiNee7qbGQgPIL9sYnwCEauWR1KdsmvKqnFtXpN
-        8QnVv8UzcsOM+XPBMUFwcCDalirij1Q=
-X-Google-Smtp-Source: ABdhPJwsyC1yQprX/CbXUWmCEFDO7zaUUaoAxbaKKgVZQBjR8oXHjpZQ3ja3mor1D0sBIGA1H2ceQw==
-X-Received: by 2002:aa7:cada:: with SMTP id l26mr17955423edt.112.1599396042906;
-        Sun, 06 Sep 2020 05:40:42 -0700 (PDT)
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+         :references:mime-version:content-transfer-encoding;
+        bh=dKOOwWUHAHq3BdSfYEjSQTKHFN7u8QKMUwhamgd6olU=;
+        b=cJVhKO1mKv3Ztxq114HJCnX1UaKsFfODcg2OQY/PTs5Ke/Ngx/G7c3NEPYo6ohVkyT
+         myB76z6BmNBYJfYYfSOVSCp4wh/oEb4IA0fGQRIDrioPqCb6WpQsAZkN3/zj9Vxsq9qf
+         7CTRMV4XHxUwnce3kfaC2JuA9ktMp77priSRpZv3YsvjNtZUYWTNwdfwdJEF0ebeyemP
+         v1olIvtDI1PdP3wc3Drddb3m8G/lcNCBzbmbAzOEPBEd37OT6QCTc+AbOgtypRlnJ06Y
+         2rN18BhX4UoRqmfMDUcTphqeuk5Jz3FAE80imp2CYsBvWkQxGa9SHi5vbnsrvV3FK5Gh
+         voew==
+X-Gm-Message-State: AOAM531EsH0S/jqI0T1wN7qpyv1Bz0oHmys0fxKbpqzi7NMn/aqawzqV
+        Mms3rzxpiWrNyfFvb9NnlMlOAAV0OeM=
+X-Google-Smtp-Source: ABdhPJxkgQpURlQctBcSymW9HxgrUM2Z/i7D+gJKTMLm0QULePBt7FCeZIsmgXVAdexwUXFGSuFeiA==
+X-Received: by 2002:a05:6402:644:: with SMTP id u4mr16889814edx.182.1599396044112;
+        Sun, 06 Sep 2020 05:40:44 -0700 (PDT)
 Received: from localhost.localdomain ([2a02:a03f:a7fb:e200:6c5d:e4e0:a162:77b6])
-        by smtp.gmail.com with ESMTPSA id b6sm11591124eds.46.2020.09.06.05.40.41
+        by smtp.gmail.com with ESMTPSA id b6sm11591124eds.46.2020.09.06.05.40.43
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 06 Sep 2020 05:40:41 -0700 (PDT)
+        Sun, 06 Sep 2020 05:40:43 -0700 (PDT)
 From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 To:     linux-sparse@vger.kernel.org
 Cc:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-Subject: [PATCH 0/3] fix & extend mask related testcases
-Date:   Sun,  6 Sep 2020 14:40:35 +0200
-Message-Id: <20200906124038.46786-1-luc.vanoostenryck@gmail.com>
+Subject: [PATCH 1/3] add more testcases for existing AND/OR simplifications
+Date:   Sun,  6 Sep 2020 14:40:36 +0200
+Message-Id: <20200906124038.46786-2-luc.vanoostenryck@gmail.com>
 X-Mailer: git-send-email 2.28.0
+In-Reply-To: <20200906124038.46786-1-luc.vanoostenryck@gmail.com>
+References: <20200906124038.46786-1-luc.vanoostenryck@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Sender: linux-sparse-owner@vger.kernel.org
@@ -62,37 +64,124 @@ Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-This is a preparatory step for some incoming series.
+Add a few more testcases to catch possible future regressions.
 
-Luc Van Oostenryck (3):
-  add more testcases for existing AND/OR simplifications
-  add more testcases for AND/OR simplification
-  optim: fix some testcases related to bitfield manipulation
-
- validation/optim/and-lsr-or-shl0.c  | 12 ++++++++++++
- validation/optim/and-lsr-or-shl1.c  | 12 ++++++++++++
+Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
+---
  validation/optim/and-shl-or-and0.c  | 13 +++++++++++++
- validation/optim/and-shl-or-lsr0.c  | 13 +++++++++++++
  validation/optim/lsr-or-and0.c      | 23 +++++++++++++++++++++++
- validation/optim/lsr-or-lsr0.c      | 20 ++++++++++++++++++++
- validation/optim/sext.c             |  7 +++----
  validation/optim/shl-or-constant0.c | 12 ++++++++++++
  validation/optim/shl-or-constant1.c | 12 ++++++++++++
  validation/optim/shl-or-constant2.c | 12 ++++++++++++
- validation/optim/trunc-or-shl.c     |  4 +++-
- validation/optim/trunc-or-shl0.c    | 19 +++++++++++++++++++
- 12 files changed, 154 insertions(+), 5 deletions(-)
- create mode 100644 validation/optim/and-lsr-or-shl0.c
- create mode 100644 validation/optim/and-lsr-or-shl1.c
+ 5 files changed, 72 insertions(+)
  create mode 100644 validation/optim/and-shl-or-and0.c
- create mode 100644 validation/optim/and-shl-or-lsr0.c
  create mode 100644 validation/optim/lsr-or-and0.c
- create mode 100644 validation/optim/lsr-or-lsr0.c
  create mode 100644 validation/optim/shl-or-constant0.c
  create mode 100644 validation/optim/shl-or-constant1.c
  create mode 100644 validation/optim/shl-or-constant2.c
- create mode 100644 validation/optim/trunc-or-shl0.c
 
+diff --git a/validation/optim/and-shl-or-and0.c b/validation/optim/and-shl-or-and0.c
+new file mode 100644
+index 000000000000..ea08d2622a95
+--- /dev/null
++++ b/validation/optim/and-shl-or-and0.c
+@@ -0,0 +1,13 @@
++unsigned and_shl_or_and0(unsigned a, unsigned b)
++{
++	return (((a & 0xfff00000) | b) << 12) & 0xfff00000;
++}
++
++/*
++ * check-name: and-shl-or-and0
++ * check-command: test-linearize -Wno-decl $file
++ *
++ * check-output-ignore
++ * check-output-excludes: or\\.
++ * check-output-excludes: lsr\\.
++ */
+diff --git a/validation/optim/lsr-or-and0.c b/validation/optim/lsr-or-and0.c
+new file mode 100644
+index 000000000000..3c369cb9497e
+--- /dev/null
++++ b/validation/optim/lsr-or-and0.c
+@@ -0,0 +1,23 @@
++#define	S	12
++
++//	((x & M) | b) >> S;
++// ->	((x >> S) & (M >> S)) | (b >> S)
++// 0a:  (M >> S) == 0
++// 0b:  (x >> S) == 0
++// 0c:  (b >> S) == 0
++
++int lsr_or_and0a(unsigned int x, unsigned int b)
++{
++	return ((x & 0x00000fff) | b) >> S;
++}
++
++/*
++ * check-name: lsr-or-and0
++ * check-command: test-linearize -Wno-decl $file
++ *
++ * check-output-ignore
++ * check-output-pattern(1): lsr\\.
++ * check-output-excludes: %arg1\\.
++ * check-output-excludes: and\\.
++ * check-output-excludes: or\\.
++ */
+diff --git a/validation/optim/shl-or-constant0.c b/validation/optim/shl-or-constant0.c
+new file mode 100644
+index 000000000000..25347b4b3b20
+--- /dev/null
++++ b/validation/optim/shl-or-constant0.c
+@@ -0,0 +1,12 @@
++unsigned shl_or_constant0(unsigned a)
++{
++	return (a | 0xfff00000) << 12;
++}
++
++/*
++ * check-name: shl-or-constant0
++ * check-command: test-linearize -Wno-decl $file
++ *
++ * check-output-ignore
++ * check-output-excludes: or\\.
++ */
+diff --git a/validation/optim/shl-or-constant1.c b/validation/optim/shl-or-constant1.c
+new file mode 100644
+index 000000000000..cd3ea8bb011b
+--- /dev/null
++++ b/validation/optim/shl-or-constant1.c
+@@ -0,0 +1,12 @@
++unsigned shl_or_constant1(unsigned a)
++{
++	return (a | 0x000fffff) << 12;
++}
++
++/*
++ * check-name: shl-or-constant1
++ * check-command: test-linearize -Wno-decl $file
++ *
++ * check-output-ignore
++ * check-output-contains: ret\\..*\\$0xfffff000
++ */
+diff --git a/validation/optim/shl-or-constant2.c b/validation/optim/shl-or-constant2.c
+new file mode 100644
+index 000000000000..9dbde3b574d7
+--- /dev/null
++++ b/validation/optim/shl-or-constant2.c
+@@ -0,0 +1,12 @@
++unsigned shl_or_constant1(unsigned a)
++{
++	return (a | 0x00ffff0f) << 12;
++}
++
++/*
++ * check-name: shl-or-constant2
++ * check-command: test-linearize -Wno-decl $file
++ *
++ * check-output-ignore
++ * check-output-contains: or\\..*\\$0xfff0f
++ */
 -- 
 2.28.0
 
