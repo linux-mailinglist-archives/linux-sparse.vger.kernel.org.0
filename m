@@ -2,95 +2,118 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 7611C27365B
-	for <lists+linux-sparse@lfdr.de>; Tue, 22 Sep 2020 01:11:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 0274527797B
+	for <lists+linux-sparse@lfdr.de>; Thu, 24 Sep 2020 21:38:22 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1728824AbgIUXLd (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Mon, 21 Sep 2020 19:11:33 -0400
-Received: from mail.rusoil.net ([188.128.114.25]:57383 "EHLO mail.rusoil.net"
-        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S1726457AbgIUXLb (ORCPT <rfc822;linux-sparse@vger.kernel.org>);
-        Mon, 21 Sep 2020 19:11:31 -0400
-X-Greylist: delayed 374 seconds by postgrey-1.27 at vger.kernel.org; Mon, 21 Sep 2020 19:11:22 EDT
-Received: from localhost (localhost.localdomain [127.0.0.1])
-        by mail.rusoil.net (Postfix) with ESMTP id 3CFBD40D5B;
-        Tue, 22 Sep 2020 04:08:14 +0500 (YEKT)
-Received: from mail.rusoil.net ([127.0.0.1])
-        by localhost (mail.rusoil.net [127.0.0.1]) (amavisd-new, port 10032)
-        with ESMTP id EV4tl_rVLSS7; Tue, 22 Sep 2020 04:08:13 +0500 (YEKT)
-Received: from localhost (localhost.localdomain [127.0.0.1])
-        by mail.rusoil.net (Postfix) with ESMTP id 2C0DD40CEA;
-        Tue, 22 Sep 2020 04:08:13 +0500 (YEKT)
-DKIM-Filter: OpenDKIM Filter v2.10.3 mail.rusoil.net 2C0DD40CEA
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=rusoil.net;
-        s=maildkim; t=1600729693;
-        bh=6R3BgBYiA7fkqGiiNDuwPskBnpH9JXyNAW/l3ZEA+wY=;
-        h=Date:From:Message-ID:MIME-Version;
-        b=Vnjy6nBVnSTcINEW6kER3ugTxQ4KBYKS36YiGFr6YA3B4INc+KiGVhbak8MS9Qjs4
-         d1hbAool1vpcT5tqzIahdEndE3qiAPgBOX6jsmCcvHSMZhz19GFDJ1aQySn107enqY
-         lwxWqbZRY2a+BQ8VxoJh3Rpje7MgA+/fhr9SupmU=
-X-Virus-Scanned: amavisd-new at mail.rusoil.net
-Received: from mail.rusoil.net ([127.0.0.1])
-        by localhost (mail.rusoil.net [127.0.0.1]) (amavisd-new, port 10026)
-        with ESMTP id K7O08Fi_YWVd; Tue, 22 Sep 2020 04:08:12 +0500 (YEKT)
-Received: from mail.rusoil.net (mail.rusoil.net [172.16.7.34])
-        by mail.rusoil.net (Postfix) with ESMTP id 6147940C07;
-        Tue, 22 Sep 2020 04:08:10 +0500 (YEKT)
-Date:   Tue, 22 Sep 2020 04:08:09 +0500 (YEKT)
-From:   Blue Oak Mortgage and Loans <em@rusoil.net>
-Reply-To: Blue Oak Mortgage and Loans <info@bluelmtg.net>
-Message-ID: <2020026523.907101.1600729689731.JavaMail.zimbra@rusoil.net>
-Subject: Wir finanzieren Projekte und Unternehmen
+        id S1728787AbgIXTiV (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Thu, 24 Sep 2020 15:38:21 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:49150 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1728753AbgIXTiU (ORCPT
+        <rfc822;linux-sparse@vger.kernel.org>);
+        Thu, 24 Sep 2020 15:38:20 -0400
+Received: from mail-ej1-x642.google.com (mail-ej1-x642.google.com [IPv6:2a00:1450:4864:20::642])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 89389C0613CE
+        for <linux-sparse@vger.kernel.org>; Thu, 24 Sep 2020 12:38:20 -0700 (PDT)
+Received: by mail-ej1-x642.google.com with SMTP id e23so416490eja.3
+        for <linux-sparse@vger.kernel.org>; Thu, 24 Sep 2020 12:38:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=date:from:to:cc:subject:message-id:references:mime-version
+         :content-disposition:in-reply-to;
+        bh=9ZZtgnfSWRHeBBZWSZrsXewCDhq4sQ6yjehgMYiuwH8=;
+        b=FiThuC2Gwl4Ib5lMy9ZF+rPyTp50xu1ITtnQLvS6mgpnDe0rK15KpMDUQgTmX769qI
+         9UjJEAkVjrl8Z2YFpsWblnCdhzoqa8Kjaz3P4N8W4FeiWBMgL56TuoU2ZdgEtOesEk4W
+         vt51QQLksJC6T9RE6jptaqRog+ZD4SmuCoaCUuLVlQGd2flznK8RlghVeqwxKhYv29gR
+         cUhSKY5KSxv1EfmWMdyFDwZLWt/xJtKn1LRAVpugmFOX0n1GKTLc8TXz3M4lVNz/BRNb
+         Pq3bVZio6U1Yc0dW+OuTgNL+uVUVnRJ3WHoaGL/hvb5TWwf5tdJ8t+dZ9HmYja4w5YUx
+         H+aQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+         :mime-version:content-disposition:in-reply-to;
+        bh=9ZZtgnfSWRHeBBZWSZrsXewCDhq4sQ6yjehgMYiuwH8=;
+        b=TjuU33MySLv1a0m1MXEeTUcA8iDPB6wK51G25gRmgier0NwIpUyjySvWEbt2Enw6Ec
+         G67MurFEPfKeJ4pIINCBla0uhZH/wYqy6epusTi3oqB8vuSGj5/4ZtzgvrliT9hQN4kJ
+         SKM5QiBf3zgzSON5SXQOOGUtRDtCKLHKDJJL5q01O40WWZTH72Zu84rCooIvxVaXFb4V
+         ToW5gsSoXM7689Whzy27OyKu8utn5nLJPdxhb86xs0iM0bkf/3Hui5qR3l6zosp8l09B
+         S1ZFRfvozvahKnBYauF9q+sbw3x2U9AlNcgNcRGWXmvYwhMYUpkxbUowzSrRtQLNwUh8
+         q/sA==
+X-Gm-Message-State: AOAM532HidvM/wLnXYDt4x+ZfPF7v1rnyMimNmZMNfiimg8Bj2wdK81e
+        LT3GiFUr2JTmVsBLurr8+hE4L7ArdM0=
+X-Google-Smtp-Source: ABdhPJxi5kGZq7txgUFVJrCaMsN4WPo6tS2CGlia4TntokHW10dY0FEkFBoR+4gt3m9FuQOpN9xn2Q==
+X-Received: by 2002:a17:906:9a1:: with SMTP id q1mr246758eje.30.1600976299234;
+        Thu, 24 Sep 2020 12:38:19 -0700 (PDT)
+Received: from ltop.local ([2a02:a03f:b7fe:f700:ec59:f6e1:1368:c855])
+        by smtp.gmail.com with ESMTPSA id y25sm123097edv.15.2020.09.24.12.38.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 24 Sep 2020 12:38:18 -0700 (PDT)
+Date:   Thu, 24 Sep 2020 21:38:17 +0200
+From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
+To:     Christian Eggers <ceggers@arri.de>
+Cc:     linux-sparse@vger.kernel.org, Dirk Mueller <dmueller@suse.com>,
+        Jiri Slaby <jirislaby@gmail.com>
+Subject: Re: Segmentation fault when running sparse with current linux master
+Message-ID: <20200924193817.5ilitvaqneach5pg@ltop.local>
+References: <1832426.vqaiCtIcaR@n95hx1g2>
+ <20200917142017.5fhdjdfrwjyjqlpu@ltop.local>
+ <4184357.m9dUj1Odhv@n95hx1g2>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Originating-IP: [192.210.183.69]
-X-Mailer: Zimbra 8.8.12_GA_3803 (ZimbraWebClient - FF79 (Win)/8.8.12_GA_3794)
-Thread-Index: IhGK+mMcCqn+S/Et9t28g8ApaUDaLg==
-Thread-Topic: Wir finanzieren Projekte und Unternehmen
-To:     unlisted-recipients:; (no To-header on input)
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <4184357.m9dUj1Odhv@n95hx1g2>
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
+On Mon, Sep 21, 2020 at 09:44:00AM +0200, Christian Eggers wrote:
+> Hi Luc,
+> 
+> On Thursday, 17 September 2020, 16:20:17 CEST, Luc Van Oostenryck wrote:
+> > On Thu, Sep 17, 2020 at 01:08:57PM +0200, Christian Eggers wrote:
+> > > Build of the current linux kernel breaks on my system due to segmentation
+> > > fault when running sparse.
+> > >
+> > > Sparse version: 0.6.2 (built by openSUSE build service)
+> >
+> > Hi,
+> >
+> > This has already been reported and fixed in the main tree in late July.
+> > It's not clear to me if the latest OpenSUSE packages for sparse contain
+> > or not the needed fix.
+> >
+> > Can you try the version compiled from the source? It's super-easy:
+> >       cd $dir
+> >       git clone git://git.kernel.org/pub/scm/devel/sparse/sparse.git
+> >       cd sparse
+> >       make
+> >       cp sparse ~/bin/
+> >
+> 
+> I fetched the source RPM from openSUSE and replaced the 0.6.2 tar.xz with the
+> current master. After building an updating the RPM, sparse doesn't crash
+> anymore.
+> 
+> openSUSE ships two versions of sparse [1]:
+> - official release: 20180324
+> - experimental: 0.6.2
+> 
+> It seems that both version are affected from this problem. The "experimental"
+> version should be automatically updated after a new version of sparse is
+> released. The "official release" will probably only accept patches resolving
+> specific problems. If you can provide a patch against 20180324, I would try to
+> write a bug report against the openSUSE package. This could save some time for
+> the next person stumbling over this problem... If you provide the commit id,
+> openSUSE can also decide themself whether to fix or upgrade the current
+> version.
 
+In the official tree, there is a branch 'maint-v0.6.2' which just contain
+4 patches fixing some problems with the release v0.6.2, the second patch
+	77f35b796cc8 ("generic: fix missing inlining of generic expression")
+being the one fixing this problem.
 
-Dies ist ein Newsletter von Blue Oak Mortgage and Loans. Bitte melden Sie s=
-ich ab, wenn Sie keine E-Mail mehr von uns erhalten m=C3=B6chten.
+For info, I'll most probably make a new full release in a few weeks
+(rc1 in 7-10 days, release 1-2 weeks later).
 
-
-Eine kurze Einf=C3=BChrung.
-
-Wir sind ein f=C3=BChrendes Finanzierungsunternehmen in Europa. Wir finanzi=
-eren Startups / etablierte Unternehmen, finanzieren Gro=C3=9Fprojekte (Bau,=
- Landwirtschaft, Immobilien und dergleichen) zu einem niedrigen Zinssatz vo=
-n 2% pro Jahr.
-
-
-Darlehensverfahren
-
-1. Sie m=C3=BCssen das Online-Bewerbungsformular ausf=C3=BCllen und eine or=
-dnungsgem=C3=A4=C3=9F unterschriebene Kopie an uns zur=C3=BCcksenden.
-
-2. M=C3=B6glicherweise m=C3=BCssen Sie Finanzdokumente als unterst=C3=BCtze=
-nden Nachweis f=C3=BCr die F=C3=A4higkeit zur R=C3=BCckzahlung von Krediten=
- vorlegen.
-
-3. Wenn Ihr Darlehen genehmigt wurde, m=C3=BCssen Sie eine Versicherungsgar=
-antie f=C3=BCr die Darlehenssicherheit vorlegen. Wir empfehlen eine Versich=
-erungsgesellschaft. Sie sind allein verantwortlich f=C3=BCr die Zahlung und=
- den Erwerb der Anleihe, die als Sicherheit dienen. Die H=C3=B6he der Anlei=
-he h=C3=A4ngt von Ihrem Darlehensbetrag ab. Die Versicherungsgesellschaft w=
-ird Sie durch den Prozess f=C3=BChren. (F=C3=BCr Gro=C3=9Fprojekte)
-
-4. Ihr =C3=9Cberweisungsprozess wird eingeleitet, sobald die Versicherungsa=
-nleihe =C3=BCberpr=C3=BCft wurde. Ihr Darlehensr=C3=BCckzahlungsplan wird i=
-m NC-Darlehensvertragsformular aufgef=C3=BChrt.
-
-Wenn die Bedingungen Sie beruhigen, k=C3=B6nnen Sie uns =C3=BCber die Whats=
-App-Nummer / E-Mail kontaktieren und auch unsere Website besuchen, um weite=
-re Informationen zu erhalten. Wir freuen uns darauf, von Ihnen zu h=C3=B6re=
-n.
-
-WhatsApp: + 90-552-365-3483
-E-Mail: info@bluelmtg.net
+Best regards
+-- Luc 
