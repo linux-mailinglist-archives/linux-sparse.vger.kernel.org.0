@@ -2,57 +2,100 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id BCB78279119
-	for <lists+linux-sparse@lfdr.de>; Fri, 25 Sep 2020 20:50:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 1A21A27D71E
+	for <lists+linux-sparse@lfdr.de>; Tue, 29 Sep 2020 21:43:25 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1728069AbgIYSuL convert rfc822-to-8bit (ORCPT
-        <rfc822;lists+linux-sparse@lfdr.de>); Fri, 25 Sep 2020 14:50:11 -0400
-Received: from mail.hlgd.gob.ec ([181.112.154.212]:51548 "EHLO
-        mail.hlgd.gob.ec" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1727733AbgIYSuK (ORCPT
+        id S1728229AbgI2TnY (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Tue, 29 Sep 2020 15:43:24 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:57302 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1727740AbgI2TnY (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Fri, 25 Sep 2020 14:50:10 -0400
-Received: from localhost (localhost [127.0.0.1])
-        by mail.hlgd.gob.ec (Postfix) with ESMTP id 8AFB934C826E;
-        Thu, 24 Sep 2020 22:40:04 -0500 (-05)
-Received: from mail.hlgd.gob.ec ([127.0.0.1])
-        by localhost (mail.hlgd.gob.ec [127.0.0.1]) (amavisd-new, port 10032)
-        with ESMTP id jj6-jX0c03JP; Thu, 24 Sep 2020 22:40:04 -0500 (-05)
-Received: from localhost (localhost [127.0.0.1])
-        by mail.hlgd.gob.ec (Postfix) with ESMTP id 1B60834C8377;
-        Thu, 24 Sep 2020 22:39:05 -0500 (-05)
-X-Virus-Scanned: amavisd-new at hlgd.gob.ec
-Received: from mail.hlgd.gob.ec ([127.0.0.1])
-        by localhost (mail.hlgd.gob.ec [127.0.0.1]) (amavisd-new, port 10026)
-        with ESMTP id GzNgJBDAknpT; Thu, 24 Sep 2020 22:39:05 -0500 (-05)
-Received: from [10.123.39.92] (unknown [105.12.6.205])
-        by mail.hlgd.gob.ec (Postfix) with ESMTPSA id 2FDF634C8020;
-        Thu, 24 Sep 2020 22:37:46 -0500 (-05)
-Content-Type: text/plain; charset="iso-8859-1"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8BIT
-Content-Description: Mail message body
-Subject: spende von 2,000,000 euro
-To:     Recipients <vanessa.ramirez@hlgd.gob.ec>
-From:   ''Tayeb souami'' <vanessa.ramirez@hlgd.gob.ec>
-Date:   Fri, 25 Sep 2020 05:37:37 +0200
-Reply-To: Tayebsouam.spende@gmail.com
-Message-Id: <20200925033747.2FDF634C8020@mail.hlgd.gob.ec>
+        Tue, 29 Sep 2020 15:43:24 -0400
+Received: from mail-pg1-x54a.google.com (mail-pg1-x54a.google.com [IPv6:2607:f8b0:4864:20::54a])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 61D29C0613D0
+        for <linux-sparse@vger.kernel.org>; Tue, 29 Sep 2020 12:43:24 -0700 (PDT)
+Received: by mail-pg1-x54a.google.com with SMTP id t128so3861085pgb.23
+        for <linux-sparse@vger.kernel.org>; Tue, 29 Sep 2020 12:43:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20161025;
+        h=sender:date:message-id:mime-version:subject:from:to:cc;
+        bh=L+ZQTMyUzbfAF4MuXzem6ruOy1jTior618txOZRQrDw=;
+        b=JemOKWyuOxhCUEgCq4LBeWvD9B32/OB1HfIHGAAvckrTpq5LIvBiCbRxwut5xE9GQC
+         I/JldAYejW65SqHWDgvHvxerNRwDBLsXyMM+Dt+L5JuB5GCPpRUXw+RCKyk3Ksx5pqLW
+         AhNOAiW8tmlj1kXInhu2megrBHMi+RnlZqpSjpPjNDtHh2oN0df0yIr4VH4A9Xh+tyCU
+         1EiH/TjvUzM8GS7CRv9lSwl6qBz97BcGLKw//F+BsHJ5E93w2ancnfTwPc1cifM8wNYY
+         MTMfoOi4ezt13lJAe/mSWgyD3p5bnAIf8juKQ0G4eW+/X0JoVhbzTIjxukpW2XDQvv9r
+         O4TQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:sender:date:message-id:mime-version:subject:from
+         :to:cc;
+        bh=L+ZQTMyUzbfAF4MuXzem6ruOy1jTior618txOZRQrDw=;
+        b=Hx6+e/lc4QeCxWOn1TvijCkleDyU/4KQsR983XyyWGty4ak+XrZCTAajWGt0PbyXY5
+         kfxr19gnrEd7kU8Tqx75evdEY9OHX5GCjfbTQEBuksz11Uksm9/s/UMPSKe1oSjifj3S
+         zpZgF9rOvUjRB7uT9sNH6S6J8kn6vJMSyFy/IZhxlhNjgSJFYhGclEFMlwE3wAzqXitm
+         oUkq9cWc9oz+bOEReXFBBMDGcsUMEn5j1RhjvsxE4jlriWAGt9Bcp0LAZOwDWD4/aANZ
+         ESUN1WKtcl9eNQbI1XIBdyVuOi4/EXad1Bda6CU6QfjM+ugLGLodQlfj8UuZK46LhHAU
+         em8Q==
+X-Gm-Message-State: AOAM530fHYFMw8u1vbMfNe3FmegCF5e/9GjX3blutL808L/sEiJQT2Bk
+        3b4t/ct0QzU2R3dYQG6ooVrfe1O7w204UZwgm6o=
+X-Google-Smtp-Source: ABdhPJz+UMD9185MqbkmGncxHLJ1Duw6GZjw3eYdwaS9kGJ0XQZJB5AmmUFPQqITN9rot3EA3+wKUg5wqkY7TZbMxVk=
+Sender: "ndesaulniers via sendgmr" 
+        <ndesaulniers@ndesaulniers1.mtv.corp.google.com>
+X-Received: from ndesaulniers1.mtv.corp.google.com ([2620:15c:211:202:f693:9fff:fef4:4d25])
+ (user=ndesaulniers job=sendgmr) by 2002:a62:2c09:0:b029:142:2501:34f8 with
+ SMTP id s9-20020a622c090000b0290142250134f8mr5448080pfs.81.1601408603686;
+ Tue, 29 Sep 2020 12:43:23 -0700 (PDT)
+Date:   Tue, 29 Sep 2020 12:43:18 -0700
+Message-Id: <20200929194318.548707-1-ndesaulniers@google.com>
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.28.0.709.gb0816b6eb0-goog
+Subject: [PATCH] compiler.h: avoid escaped section names
+From:   Nick Desaulniers <ndesaulniers@google.com>
+To:     Andrew Morton <akpm@linux-foundation.org>
+Cc:     Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>,
+        Nick Desaulniers <ndesaulniers@google.com>,
+        Luc Van Oostenryck <luc.vanoostenryck@gmail.com>,
+        Nathan Chancellor <natechancellor@gmail.com>,
+        linux-sparse@vger.kernel.org, linux-kernel@vger.kernel.org,
+        clang-built-linux@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
+The stringification operator, `#`, in the preprocessor escapes strings.
+For example, `# "foo"` becomes `"\"foo\""`.  GCC and Clang differ in how
+they treat section names that contain \".
 
-Hallo mein lieber Freund
-Mein Name ist Tayeb Souami aus New Jersey in Amerika und ich habe den America Lottery Jackpot von 315 Millionen Euro gewonnen. Ich habe mich entschlossen, die Summe von 2.000.000 Euro an fünf glückliche Personen zu spenden, und Sie wurden als einer der Begünstigten ausgewählt. Bitte klicken Sie auf diesen Link, um mehr über meinen Gewinn zu erfahren.
+The portable solution is to not use a string literal with the
+preprocessor stringification operator.
 
+In this case, since __section unconditionally uses the stringification
+operator, we actually want the more verbose
+__attribute__((__section__())).
 
-UHR MICH HIER: https://www.youtube.com/watch?v=Z6ui8ZDQ6Ks
+Link: https://bugs.llvm.org/show_bug.cgi?id=42950
+Fixes: commit e04462fb82f8 ("Compiler Attributes: remove uses of __attribute__ from compiler.h")
+Signed-off-by: Nick Desaulniers <ndesaulniers@google.com>
+---
+ include/linux/compiler.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Bitte kontaktieren Sie mich über diese E-Mail: Tayebsouam.spende@gmail.com
+diff --git a/include/linux/compiler.h b/include/linux/compiler.h
+index 92ef163a7479..ac45f6d40d39 100644
+--- a/include/linux/compiler.h
++++ b/include/linux/compiler.h
+@@ -155,7 +155,7 @@ void ftrace_likely_update(struct ftrace_likely_data *f, int val,
+ 	extern typeof(sym) sym;					\
+ 	static const unsigned long __kentry_##sym		\
+ 	__used							\
+-	__section("___kentry" "+" #sym )			\
++	__attribute__((__section__("___kentry+" #sym)))		\
+ 	= (unsigned long)&sym;
+ #endif
+ 
+-- 
+2.28.0.709.gb0816b6eb0-goog
 
-
-Ich hoffe, Sie und Ihre Familie glücklich zu machen.
-
-Grüße
-Herr Tayeb Souami
