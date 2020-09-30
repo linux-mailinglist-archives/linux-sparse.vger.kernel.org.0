@@ -2,59 +2,59 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 8234427F5D0
-	for <lists+linux-sparse@lfdr.de>; Thu,  1 Oct 2020 01:18:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id CCB7727F5CD
+	for <lists+linux-sparse@lfdr.de>; Thu,  1 Oct 2020 01:18:43 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1732174AbgI3XSn (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        id S1732154AbgI3XSn (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
         Wed, 30 Sep 2020 19:18:43 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:58700 "EHLO
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:58702 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1732170AbgI3XSm (ORCPT
+        with ESMTP id S1732173AbgI3XSm (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
         Wed, 30 Sep 2020 19:18:42 -0400
-Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com [IPv6:2a00:1450:4864:20::441])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B5219C0613D0
-        for <linux-sparse@vger.kernel.org>; Wed, 30 Sep 2020 16:18:41 -0700 (PDT)
-Received: by mail-wr1-x441.google.com with SMTP id g4so3570887wrs.5
-        for <linux-sparse@vger.kernel.org>; Wed, 30 Sep 2020 16:18:41 -0700 (PDT)
+Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com [IPv6:2a00:1450:4864:20::434])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 82F58C0613D0
+        for <linux-sparse@vger.kernel.org>; Wed, 30 Sep 2020 16:18:42 -0700 (PDT)
+Received: by mail-wr1-x434.google.com with SMTP id g4so3570902wrs.5
+        for <linux-sparse@vger.kernel.org>; Wed, 30 Sep 2020 16:18:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=ARt8KG7zV1fRZnUN/ydWn313HkkzGFCeK4o0EQzQEeM=;
-        b=DvCq+pXhoiFGZDlByoNR2s23evf9nJUAkaBRkyZvBqiDqw6KQQU8czcna/1GoElKK7
-         HwX7FkvQCh7gpeRpDhNfX6d0/r5mIk1PfqKAj/u6paEdIdNFiTMZxE6tZG/p5wu0MO39
-         xv+u58ac19SmLqaQO3EytZRQXhPP5qMU9pNNL18hbilVe3Sb/YsjotExrCkfh0PUg/zI
-         qH+uyYbBTFoqY/rFQRyWv2OAm7tCg5wbi4h9i0AvHsb/yF97Ofd/z1dNztQY/auFVD7U
-         VBBunMdLnf0P7kX3o7ljs958tQXw//1jTcHY8BROO1jchX+9/M9NPrtJ3BEOFHjZYsPP
-         5tCw==
+        bh=6Y31UCU3wbqyJz2tZFq95U1yNF1X6XoMI8S2Ky/MzvY=;
+        b=oRQ0ef45Ip08rSLeOymOwL4Mg4L3TpKnV40jy5xcuMYM0XfZOjrjfOyIrumjQGvYRq
+         s2b6JGx+Bqkl2kraWtyeHbTIZukezLUWKBZn1bFHurud4KACpyv0gJl2i4VMWdwo4+Qc
+         eujBiyKq6x3q/419dVmwlczVu5vtCgrBb6LGYpxpoTehGODev6oWdFpSASV1iY9Jq4Sm
+         aFPF84cnd2z+FfkQQMhkOBInSvjEelTrWv1kdX4Fjalgc7BwfDDntxaW6MVzY0JzPepl
+         YbvO36M1H832tyqPKzRi1cHHWzwFT5vbTmCrPWGBztsO5hWAsdIhX1EU5liT48p2Whbw
+         qH0A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=ARt8KG7zV1fRZnUN/ydWn313HkkzGFCeK4o0EQzQEeM=;
-        b=YBhr6jybNOfWKHtiTlptFKss+cq9lEC0LlnOeJVGbhQZm1byFgfk8tPQ5lFLb1Wfwy
-         YN7ztKTs5Dz9a/ZtjFiM0TrtTIw4ZEOaq3POQNREvzYOBhmq+7ekIt6ly7JfBgJqxqIJ
-         F24dS2OqPJvBIUMz70JQcjMEAXwK7hqVqrY7PHdaiuKIl8PvpSBXRljB7VAsB3i44K/T
-         smeWFzVUX/MtQCDS7GUD7blSikqtGH6WVGFKJCagplJ7/48Vk7xB7P0R4x+xwNd81iGg
-         siTZZtUrrU+WYxE7GsjjaQfXjweMw/0ORQoNGVCS3x+f6dhWEwTxvMbrEEgwF36gTmj9
-         c/cQ==
-X-Gm-Message-State: AOAM530v9YXstyz55ZS+5K4R7Dc0eEOGkF8vXZ3GSRwQBzt6mN6tboSE
-        wxWf/+tkhkiQPw1/5GjqGRjmur3i2iQ=
-X-Google-Smtp-Source: ABdhPJwbqf8Cp2lqBh5FiziaXqYfX7FAcmtdrOfmCuhRk1w2EsQ8d1FXyVaInkPaB5GFYG6f5C3frw==
-X-Received: by 2002:a5d:45cc:: with SMTP id b12mr5473844wrs.395.1601507920274;
-        Wed, 30 Sep 2020 16:18:40 -0700 (PDT)
+        bh=6Y31UCU3wbqyJz2tZFq95U1yNF1X6XoMI8S2Ky/MzvY=;
+        b=f74/sKYjI9GvZB4jtv7n6R6WB3PHykRurOb5A1GVZ0GP6U/7/329Hd0NOKXo4sSsW5
+         Y9Ybkxpm1lmz4ZJ/DfANsVVUMt7YY2TlyZkwvCQ/ajloA+NEZ9oOu5jqikHq7KX3+q2C
+         s9BYBt3/98QTE161R0n1dq1FF9rDQKmghx0tjvy4MTD65B7stOoGFptbmfmGvZcauvVp
+         m5m6NKFCDn2YpGNWrG/WsPgw3FlCNPd7s3K5UjFd+oAKGNfKNYAAicc48hV2R7l3KTya
+         c8wsFLLdmiRAu7nOoTiIF1/xrKwbDCchMFXYlFgHwhtDPNnB/Xm+lc4HG4XIgtDt7z38
+         VjMA==
+X-Gm-Message-State: AOAM531/+MV4FeR27yH8ZuXrDI9tb9prRCZlg1LEajy4PZKYRUGD3Dci
+        hoP7/6S3EOk1i1ZxgoUw4hp3qR685F0=
+X-Google-Smtp-Source: ABdhPJybVayQD6e1w3EcBgkqk0BTejDJu1UAY2ON4xcejzB8XiAAub13wEuKqK99f5J3p8j7A1LwVQ==
+X-Received: by 2002:a5d:4088:: with SMTP id o8mr5381463wrp.112.1601507921031;
+        Wed, 30 Sep 2020 16:18:41 -0700 (PDT)
 Received: from localhost.localdomain ([2a02:a03f:b7fe:f700:d0c8:dbcc:51b0:75b9])
-        by smtp.gmail.com with ESMTPSA id l8sm5460065wrx.22.2020.09.30.16.18.39
+        by smtp.gmail.com with ESMTPSA id l8sm5460065wrx.22.2020.09.30.16.18.40
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Sep 2020 16:18:39 -0700 (PDT)
+        Wed, 30 Sep 2020 16:18:40 -0700 (PDT)
 From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 To:     linux-sparse@vger.kernel.org
 Cc:     Linus Torvalds <torvalds@linux-foundation.org>,
         Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-Subject: [PATCH 08/13] flex-array: identify structures with a flexible array member
-Date:   Thu,  1 Oct 2020 01:18:23 +0200
-Message-Id: <20200930231828.66751-9-luc.vanoostenryck@gmail.com>
+Subject: [PATCH 09/13] flex-array: add helper has_flexible_array()
+Date:   Thu,  1 Oct 2020 01:18:24 +0200
+Message-Id: <20200930231828.66751-10-luc.vanoostenryck@gmail.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20200930231828.66751-1-luc.vanoostenryck@gmail.com>
 References: <20200930231828.66751-1-luc.vanoostenryck@gmail.com>
@@ -64,53 +64,31 @@ Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-Structures containing a flexible array must not be nested.
-So, as a preparatory step, detect structures or union containing
-a flexible array, possibly recursively and mark the corresponding
-type with a dedicated flag.
+This will make later checks easier & clearer.
 
 Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 ---
- symbol.c | 6 ++++++
- symbol.h | 1 +
- 2 files changed, 7 insertions(+)
+ symbol.h | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-diff --git a/symbol.c b/symbol.c
-index b4c5e471372b..bffdc135ba69 100644
---- a/symbol.c
-+++ b/symbol.c
-@@ -87,6 +87,7 @@ struct struct_union_info {
- 	unsigned long max_align;
- 	unsigned long bit_size;
- 	int align_size;
-+	char has_flex_array;
- 	struct symbol *flex_array;
- };
- 
-@@ -206,6 +207,11 @@ static struct symbol * examine_struct_union_type(struct symbol *sym, int advance
- 		bit_align = bytes_to_bits(sym->ctype.alignment)-1;
- 		bit_size = (bit_size + bit_align) & ~bit_align;
- 	}
-+	if (info.flex_array) {
-+		info.has_flex_array = 1;
-+	}
-+	if (info.has_flex_array)
-+		sym->has_flex_array = 1;
- 	sym->bit_size = bit_size;
- 	return sym;
- }
 diff --git a/symbol.h b/symbol.h
-index a3ed95678ee5..287df0a3a0ee 100644
+index 287df0a3a0ee..c9e6c7fe4439 100644
 --- a/symbol.h
 +++ b/symbol.h
-@@ -185,6 +185,7 @@ struct symbol {
- 					examined:1,
- 					expanding:1,
- 					evaluated:1,
-+					has_flex_array:1,
- 					string:1,
- 					designated_init:1,
- 					forced_arg:1,
+@@ -507,6 +507,13 @@ static inline int is_extern_inline(struct symbol *sym)
+ 		is_function(sym->ctype.base_type);
+ }
+ 
++static inline int has_flexible_array(struct symbol *type)
++{
++	if (type->type == SYM_NODE)
++		type = type->ctype.base_type;
++	return type->has_flex_array;
++}
++
+ static inline int get_sym_type(struct symbol *type)
+ {
+ 	if (type->type == SYM_NODE)
 -- 
 2.28.0
 
