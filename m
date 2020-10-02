@@ -2,80 +2,64 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 1F3DB28175F
-	for <lists+linux-sparse@lfdr.de>; Fri,  2 Oct 2020 18:03:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 32B11281BF1
+	for <lists+linux-sparse@lfdr.de>; Fri,  2 Oct 2020 21:26:52 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1733260AbgJBQDs (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Fri, 2 Oct 2020 12:03:48 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:40878 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726386AbgJBQDs (ORCPT
-        <rfc822;linux-sparse@vger.kernel.org>);
-        Fri, 2 Oct 2020 12:03:48 -0400
-Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com [IPv6:2a00:1450:4864:20::32d])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id E39C2C0613D0
-        for <linux-sparse@vger.kernel.org>; Fri,  2 Oct 2020 09:03:47 -0700 (PDT)
-Received: by mail-wm1-x32d.google.com with SMTP id k18so2295258wmj.5
-        for <linux-sparse@vger.kernel.org>; Fri, 02 Oct 2020 09:03:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=date:from:to:cc:subject:message-id:references:mime-version
-         :content-disposition:in-reply-to;
-        bh=8VPLVIq3OjXZJ8lkyufWIFXocQqjtC8nInnBZ71Xumg=;
-        b=pgNRLXUycC+MqDG9b/aIUovKblocqsRVelwChKlGCH3XETG8514Oz1sw8WKDqR7Yo1
-         iherQoWgpbJIGIVHiKo6BHhURlG+5XkPfdLcC1MSLiBXtfBtEtYj5AKagXLAlZdfnHpK
-         rOvGGPtDngBuwBiQ7UDYkiJF+B4NPN/b4dYFDixnTRSxy8hzzLK5bB1OBDU4oD50vq/9
-         8XeyREPY2lJCNwjlrJKtjT0rOXXsZ3y0oqa6KLZ5oV/Wf9VaYxEMNTxwQ1cjfWN0SsD5
-         HTI1yiwPtO6XctRoefxBo9VD3vg4A/g/wzFpeIU/O6xxCetY2NPd8Q2JQ7z+MG9aUSSG
-         27oQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
-         :mime-version:content-disposition:in-reply-to;
-        bh=8VPLVIq3OjXZJ8lkyufWIFXocQqjtC8nInnBZ71Xumg=;
-        b=fEnPA7zJ1cSJ9d5kanlp1qyv+Kbw/omi/2epTk//X9Ce+CUHtRUxE9W+0LZAubAVKT
-         Rz7N/bryzazFSIj+uxLyU3v9JvFDTEK0K+pKwm+8NieLfXQl8mnjx+95Lw61VX8DztwO
-         M0k34xpXP2dczzy8KVFLiAbWQm137CoteiA1KdEU+AkB0Pg1A0LN33v056V76qd1gmGQ
-         onpfe/4dibPU5mfMev7wq668pGijvi+oxl5cb3TCwZmZz69wlunSnj9Byc8xTyI9pHF2
-         /8HxmeSVG1e4Eclx7Sf+A/hz8NzhgwLYhe2XJhPZZMHe17LvrxA3cspwk5xv3IMQORk5
-         U9Aw==
-X-Gm-Message-State: AOAM532d80MhOrBV38+1raPjqoJkud1swib+xeFIqcpZPgAkKMZ6bMjg
-        PxPjIpoftflpRJOuVbCpQ6BX4zRDbtE=
-X-Google-Smtp-Source: ABdhPJx2cajVEUOvggqH8B8NMh8BDYlHrHUU5tCo0C6uYzfV0SxjVQz23ODSNHRMfTOtEe3lT46rcw==
-X-Received: by 2002:a1c:2042:: with SMTP id g63mr3612778wmg.174.1601654626415;
-        Fri, 02 Oct 2020 09:03:46 -0700 (PDT)
-Received: from ltop.local ([2a02:a03f:b7fe:f700:a5ae:cc4b:7eb5:86fb])
-        by smtp.gmail.com with ESMTPSA id j206sm2262661wmj.5.2020.10.02.09.03.44
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 02 Oct 2020 09:03:45 -0700 (PDT)
-Date:   Fri, 2 Oct 2020 18:03:44 +0200
-From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-To:     Ben Dooks <ben.dooks@codethink.co.uk>
-Cc:     linux-sparse@vger.kernel.org, thomas.preston@codethink.co.uk,
-        christopher.phang@codethink.co.uk
-Subject: Re: format updates for handing format attribute
-Message-ID: <20201002160344.iqrl2i2cv5s3ieay@ltop.local>
-References: <20201001091923.372349-1-ben.dooks@codethink.co.uk>
+        id S2388419AbgJBT0w convert rfc822-to-8bit (ORCPT
+        <rfc822;lists+linux-sparse@lfdr.de>); Fri, 2 Oct 2020 15:26:52 -0400
+Received: from mx.metalurgs.lv ([81.198.125.103]:60287 "EHLO mx.metalurgs.lv"
+        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
+        id S1725991AbgJBT0v (ORCPT <rfc822;linux-sparse@vger.kernel.org>);
+        Fri, 2 Oct 2020 15:26:51 -0400
+X-Greylist: delayed 534 seconds by postgrey-1.27 at vger.kernel.org; Fri, 02 Oct 2020 15:26:51 EDT
+Received: from mx.metalurgs.lv (localhost [127.0.0.1])
+        by mx.metalurgs.lv (Postfix) with ESMTP id E093C5CCE0
+        for <linux-sparse@vger.kernel.org>; Fri,  2 Oct 2020 22:17:19 +0300 (EEST)
+Received: from kas30pipe.localhost (localhost [127.0.0.1])
+        by mx.metalurgs.lv (Postfix) with ESMTP id A82175CB78
+        for <linux-sparse@vger.kernel.org>; Fri,  2 Oct 2020 22:17:19 +0300 (EEST)
+Received: by mx.metalurgs.lv (Postfix, from userid 1005)
+        id BED7361EAC; Fri,  2 Oct 2020 22:17:18 +0300 (EEST)
+Received: from [100.64.1.74] (unknown [190.15.125.50])
+        (Authenticated sender: admin)
+        by mx.metalurgs.lv (Postfix) with ESMTPA id 4E5526193C;
+        Fri,  2 Oct 2020 22:17:12 +0300 (EEST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20201001091923.372349-1-ben.dooks@codethink.co.uk>
+Content-Description: Mail message body
+To:     Recipients <financialcapability6@gmail.com>
+From:   "Mr. Hashim Bin" <financialcapability6@gmail.com>
+Date:   Fri, 02 Oct 2020 16:17:04 -0300
+Reply-To: binmurrah@gmail.com
+X-SpamTest-Envelope-From: financialcapability6@gmail.com
+X-SpamTest-Group-ID: 00000000
+X-SpamTest-Info: Profiles 71303 [Jan 01 2015]
+X-SpamTest-Info: {TO: forged address, i.e. recipient, investors, public, etc.}
+X-SpamTest-Info: {DATE: unreal year}
+X-SpamTest-Method: none
+X-SpamTest-Rate: 55
+X-SpamTest-Status: Not detected
+X-SpamTest-Status-Extended: not_detected
+X-SpamTest-Version: SMTP-Filter Version 3.0.0 [0284], KAS30/Release
+Message-ID: <20201002191718.BED7361EAC@mx.metalurgs.lv>
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: 8BIT
+Subject: Low Rate Loan.
+X-Anti-Virus: Kaspersky Anti-Virus for Linux Mail Server 5.6.39/RELEASE,
+         bases: 20140401 #7726142, check: 20201002 notchecked
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-On Thu, Oct 01, 2020 at 10:19:19AM +0100, Ben Dooks wrote:
-> Hi, this is the update set for the format attributes.
-> 
-> I think the only thing I'm still thinking about is whether to
-> just merged patches 3 and 4.
-> 
-> branch:
-> 
-> https://gitlab.com/CodethinkLabs/sparse.git  bjdooks/printf-v062
+Hello Dear,
 
-This looks all good. Thanks.
+We are Investment Company offering Corporate and Personal
+Loan at 3% Interest Rate for a duration of 10Years.
 
-I still need to do some runtime checks but this will be for later.
+We also pay 1% commission to brokers, who introduce project
+owners for finance or other opportunities.
 
--- Luc
+Please get back to me if you are interested for more
+details.
+
+Yours faithfully,
+Hashim Bin 
