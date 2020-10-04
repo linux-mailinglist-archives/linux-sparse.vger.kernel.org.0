@@ -2,59 +2,59 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 2ABEC282A7C
-	for <lists+linux-sparse@lfdr.de>; Sun,  4 Oct 2020 13:43:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 403E9282A7A
+	for <lists+linux-sparse@lfdr.de>; Sun,  4 Oct 2020 13:43:57 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1725824AbgJDLn5 (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        id S1725956AbgJDLn5 (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
         Sun, 4 Oct 2020 07:43:57 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:47198 "EHLO
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:47200 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1725868AbgJDLnz (ORCPT
+        with ESMTP id S1725949AbgJDLnz (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
         Sun, 4 Oct 2020 07:43:55 -0400
-Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com [IPv6:2a00:1450:4864:20::431])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id A6513C0613CE
-        for <linux-sparse@vger.kernel.org>; Sun,  4 Oct 2020 04:43:54 -0700 (PDT)
-Received: by mail-wr1-x431.google.com with SMTP id e18so589483wrw.9
-        for <linux-sparse@vger.kernel.org>; Sun, 04 Oct 2020 04:43:54 -0700 (PDT)
+Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com [IPv6:2a00:1450:4864:20::42a])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 75903C0613CF
+        for <linux-sparse@vger.kernel.org>; Sun,  4 Oct 2020 04:43:55 -0700 (PDT)
+Received: by mail-wr1-x42a.google.com with SMTP id n15so745083wrq.2
+        for <linux-sparse@vger.kernel.org>; Sun, 04 Oct 2020 04:43:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=sWA0bvO/yk9EHABxczcL79Ncy6l/PQ7BULIW/LDq4h8=;
-        b=WhyYdxAOK0xv8/7rfOeIabJKXhPLeWM5EsxKlzkYwpAEnfHmcu3Ari/EHa0oJJDivH
-         3iCn65jl2AenYwVzRE4WdHknmr00xKsTxGFrowzZi0sVwTYL4d3vZC8uZQ9mtcTvOlKP
-         2NqYCONVfshzssJVlR0mtBPUFYw2jVT6ukkEvBWmncrhhyxH9jVRD3KM/KTHWjglPHm9
-         WGka4EB6GTqY9/qxUP2QTiMCs3xNo91DA1wzRzPN3o8snZN0Zh5XkSsjKCuEdYsb14CB
-         3temqHgzeBQ8zIpe9p7Xka9+mY1MBKVObP9rZPwNCiX5OnGSgizi5vmYde6v6NNmtXfj
-         Um+g==
+        bh=7W92ghzttWRReSna6gtAQN6Di0jQj6URH+63EazcdvI=;
+        b=K58YjPf75eUzUFGpJK2++TZVTPWcvGHTBkp6BAXC+Y9oILhqaRD5YbNyqNcNqRxDaq
+         J5OzCM2g4MFOtdgsbIr9n3qELUKybsLXgaORokHfT3k9cG1ql43LNTKrN5AoKqMecyk0
+         mP/Z5qhmOu4A+s3CyJ+cPd/Rq6NmieV7vNPXEcZCZmuj+RuVx27yCIOplBFg4PcotQ0o
+         +8CqTQXo3p7Q2rcjhfU9S/T+/3vQj4rsnQIoG/IvAshpptztuV7FVeXzWm1PvZrieb0C
+         dixHNA1Ep4x3qlDn59z+OmjdILoHuLS04m79zQgHVsI1H5soBvaTPDCaRsD5UwT1UE3V
+         iSVg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=sWA0bvO/yk9EHABxczcL79Ncy6l/PQ7BULIW/LDq4h8=;
-        b=Et+xx2xTVp+wLeUyv9NLQ4EAYd0SHRmyaUwoZl2phz38UNKx2RHqkFPAjYN/kMH47m
-         llWyFOu94hEv9O8jDQgizM2hAQqzajGrzji951YXqndW5PmGJaX3y/OppuU+AaNR+0hh
-         ++MbXXfxybuflmvFBqoR51yZWpjLhPcC0mjWlI6s75woWb/Nf9wTHtZpIwJgmgxj1sbu
-         At3F9qfUFqeovAzOtiUt3QoOboe/TXs/STXTdaq7V87XPhiw6LHpX7jEKnSg90WB3Aom
-         FPmyNHsCposI9Gy1W2b3NoE3PDYcpJU96lrRGr4PhzTfAisSqT4UwUJ06soZ1FSXGZ6+
-         m/0A==
-X-Gm-Message-State: AOAM532UUYxZk2Yu8bHOa+s4NhRzb5d9MYrDNMTuTJNdpB1NeRukx4Xa
-        m3fP/5HNPn7/n+IEgACHrbPdLQvbaU4=
-X-Google-Smtp-Source: ABdhPJzJbSg5LJDbz6GLxSVwB73saX0AqB48FEuQcl7sRI4PcZYPMPpLk/QULVhp1u38rItA+1/h6A==
-X-Received: by 2002:a5d:51ca:: with SMTP id n10mr12299767wrv.222.1601811833086;
+        bh=7W92ghzttWRReSna6gtAQN6Di0jQj6URH+63EazcdvI=;
+        b=sGd3kb0r5yQsjvZWjfk66xjGpsdoQ8DbCSnZ4mVyn7OqqcCwXV31UUmuYnbB93+i12
+         pGTLSy3OEFpZYBQgtERQ2GzkdCrrN6T1CllPHq5ICS7Iyp7EuL4gvj6ihHB3A7sO+R0e
+         5g/d6OucbUIgmm/kc0XQGPruq17yF54vLhnz9ivsu1dKyfoMlPrOWUF8WkqB8hb5wX16
+         lf7RK2CQnykY2edBcIO6KqymdsEB4qVz+QAP48wORXIfo6nQezlb51Y/gEA3jV7cgV2c
+         mwStd/CfESlQgpbTnoqO6ZDz12PCbxwxsgDDThNm+y+FJIw34SDg9bdGXgnwLLSSu4Om
+         cwWw==
+X-Gm-Message-State: AOAM530ZYcep52V1AiciJyyXXsljeGu/BClHB8LibS2XWnkDgQej9Kr1
+        Wa4EgF7AUZA2bNznwtdAnkHkrMmsnUM=
+X-Google-Smtp-Source: ABdhPJwejYx7zxT8eEenkQNw/B053COR+Vb2XH+FPmDgao2rbNeFK0QZPL6n4yEjMkMjNjKVxcu+zQ==
+X-Received: by 2002:adf:a31a:: with SMTP id c26mr2448759wrb.378.1601811833881;
         Sun, 04 Oct 2020 04:43:53 -0700 (PDT)
 Received: from localhost.localdomain ([2a02:a03f:b7fe:f700:f14e:9b66:59e7:4769])
-        by smtp.gmail.com with ESMTPSA id l19sm8244801wmi.8.2020.10.04.04.43.52
+        by smtp.gmail.com with ESMTPSA id l19sm8244801wmi.8.2020.10.04.04.43.53
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 04 Oct 2020 04:43:52 -0700 (PDT)
+        Sun, 04 Oct 2020 04:43:53 -0700 (PDT)
 From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 To:     linux-sparse@vger.kernel.org
 Cc:     Ben Dooks <ben.dooks@codethink.co.uk>,
         Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-Subject: [PATCH 1/3] add builtin type for wide strings
-Date:   Sun,  4 Oct 2020 13:43:47 +0200
-Message-Id: <20201004114349.81440-2-luc.vanoostenryck@gmail.com>
+Subject: [PATCH 2/3] add builtin types for signed char* and short *
+Date:   Sun,  4 Oct 2020 13:43:48 +0200
+Message-Id: <20201004114349.81440-3-luc.vanoostenryck@gmail.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20201004114349.81440-1-luc.vanoostenryck@gmail.com>
 References: <20201004114349.81440-1-luc.vanoostenryck@gmail.com>
@@ -64,60 +64,47 @@ Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-This is needed for printf format checking of "%Ls".
+This is needed for printf format checking of "%hhn" & "%hn".
 
 Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 ---
- symbol.c | 8 ++++++++
+ symbol.c | 3 +++
  symbol.h | 1 +
- 2 files changed, 9 insertions(+)
+ 2 files changed, 4 insertions(+)
 
 diff --git a/symbol.c b/symbol.c
-index 7f0c85580f06..9065bd527d60 100644
+index 9065bd527d60..a29e0b140d16 100644
 --- a/symbol.c
 +++ b/symbol.c
-@@ -790,6 +790,7 @@ struct symbol	float64_ctype, float64x_ctype;
- struct symbol	float128_ctype;
- struct symbol	const_void_ctype, const_char_ctype;
- struct symbol	const_ptr_ctype, const_string_ctype;
-+struct symbol	const_wchar_ctype, const_wstring_ctype;
- 
- struct symbol	zero_int;
- 
-@@ -884,9 +885,11 @@ static const struct ctype_declare {
- 	{ &ullong_ptr_ctype,   T_PTR(&ullong_ctype) },
- 	{ &const_ptr_ctype,    T_PTR(&const_void_ctype) },
- 	{ &const_string_ctype, T_PTR(&const_char_ctype) },
-+	{ &const_wstring_ctype,T_PTR(&const_wchar_ctype) },
- 
- 	{ &const_void_ctype,   T_CONST(&void_ctype, NULL, NULL) },
- 	{ &const_char_ctype,   T_CONST(&char_ctype, &bits_in_char, &max_int_alignment)},
-+	{ &const_wchar_ctype,  T_CONST(&int_ctype, NULL, NULL) },
- 	{ NULL, }
- };
- 
-@@ -931,4 +934,9 @@ void init_ctype(void)
- 		intptr_ctype = ssize_t_ctype;
- 	if (!uintptr_ctype)
- 		uintptr_ctype = size_t_ctype;
-+
-+	const_wchar_ctype.ctype.base_type = wchar_ctype;
-+	const_wchar_ctype.rank = wchar_ctype->rank;
-+	const_wchar_ctype.ctype.alignment = wchar_ctype->ctype.alignment;
-+	const_wchar_ctype.bit_size = wchar_ctype->bit_size;
- }
+@@ -782,6 +782,7 @@ struct symbol	bool_ctype, void_ctype, type_ctype,
+ 		incomplete_ctype, label_ctype, bad_ctype,
+ 		null_ctype;
+ struct symbol	autotype_ctype;
++struct symbol	schar_ptr_ctype, short_ptr_ctype;
+ struct symbol	int_ptr_ctype, uint_ptr_ctype;
+ struct symbol	long_ptr_ctype, ulong_ptr_ctype;
+ struct symbol	llong_ptr_ctype, ullong_ptr_ctype;
+@@ -877,6 +878,8 @@ static const struct ctype_declare {
+ 	{ &null_ctype,         T_PTR(&void_ctype) },
+ 	{ &label_ctype,        T_PTR(&void_ctype) },
+ 	{ &lazy_ptr_ctype,     T_PTR(&void_ctype) },
++	{ &schar_ptr_ctype,    T_PTR(&schar_ctype) },
++	{ &short_ptr_ctype,    T_PTR(&short_ctype) },
+ 	{ &int_ptr_ctype,      T_PTR(&int_ctype) },
+ 	{ &uint_ptr_ctype,     T_PTR(&uint_ctype) },
+ 	{ &long_ptr_ctype,     T_PTR(&long_ctype) },
 diff --git a/symbol.h b/symbol.h
-index a3ed95678ee5..f82484f5c978 100644
+index f82484f5c978..d39048cb478d 100644
 --- a/symbol.h
 +++ b/symbol.h
-@@ -306,6 +306,7 @@ extern struct symbol	float64_ctype, float64x_ctype;
- extern struct symbol	float128_ctype;
- extern struct symbol	const_void_ctype, const_char_ctype;
- extern struct symbol	const_ptr_ctype, const_string_ctype;
-+extern struct symbol	const_wchar_ctype, const_wstring_ctype;
- 
- /* Special internal symbols */
- extern struct symbol	zero_int;
+@@ -298,6 +298,7 @@ extern struct symbol	bool_ctype, void_ctype, type_ctype,
+ 			incomplete_ctype, label_ctype, bad_ctype,
+ 			null_ctype;
+ extern struct symbol	autotype_ctype;
++extern struct symbol	schar_ptr_ctype, short_ptr_ctype;
+ extern struct symbol	int_ptr_ctype, uint_ptr_ctype;
+ extern struct symbol	long_ptr_ctype, ulong_ptr_ctype;
+ extern struct symbol	llong_ptr_ctype, ullong_ptr_ctype;
 -- 
 2.28.0
 
