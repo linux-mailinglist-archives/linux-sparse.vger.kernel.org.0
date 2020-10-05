@@ -2,87 +2,59 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 0067F282EC0
-	for <lists+linux-sparse@lfdr.de>; Mon,  5 Oct 2020 04:00:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 1E0CD2832B9
+	for <lists+linux-sparse@lfdr.de>; Mon,  5 Oct 2020 11:04:48 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1725904AbgJECAS (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Sun, 4 Oct 2020 22:00:18 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:36610 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1725903AbgJECAQ (ORCPT
+        id S1725937AbgJEJEr (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Mon, 5 Oct 2020 05:04:47 -0400
+Received: from imap2.colo.codethink.co.uk ([78.40.148.184]:46970 "EHLO
+        imap2.colo.codethink.co.uk" rhost-flags-OK-OK-OK-OK)
+        by vger.kernel.org with ESMTP id S1725885AbgJEJEr (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Sun, 4 Oct 2020 22:00:16 -0400
-Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com [IPv6:2a00:1450:4864:20::441])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B2E76C0613CE
-        for <linux-sparse@vger.kernel.org>; Sun,  4 Oct 2020 19:00:15 -0700 (PDT)
-Received: by mail-wr1-x441.google.com with SMTP id e18so1808021wrw.9
-        for <linux-sparse@vger.kernel.org>; Sun, 04 Oct 2020 19:00:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=from:to:cc:subject:date:message-id:in-reply-to:references
-         :mime-version:content-transfer-encoding;
-        bh=CtuCivygniPd6EyrCt51z5m0F/aX4W1u/gPyV7KoBuc=;
-        b=gfwzySgHivtl7We/o04KoAzXiIFHQyMBhx1Oe1u/LoB17UEokAIuHSaRyNM4QsaBEd
-         vPyutgl5g+qAFmTl/3mngXx8WCeVA0EdhSKxKdklpOP1caZU82zbAFzK2zsSkMyQzBAF
-         f8jr/eBo49jBXl/H945HbDn8gffOsZ9AL24fZkHcrHW1x6aRkiiWrekxcRHmkwLYhkF/
-         XwrNQRHT6CCXV2CrC+XkDReHl9SdR+7h15UavFVhs3XnzL8sFXEojot6kpxA8DgAP+zm
-         eVouI134VYedUsmDjhVw8B508alcYAif820Sst2yIOZCX2ruwF2sjGv9FXxo5BCbmwtW
-         uP7A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
-         :references:mime-version:content-transfer-encoding;
-        bh=CtuCivygniPd6EyrCt51z5m0F/aX4W1u/gPyV7KoBuc=;
-        b=ckJanZ6OR40EwRquQSnKWxcT3ytplKog9KivmgsKBHS3OJtfzVbIbULfsu9Kk32oga
-         kLyuirWBjO0NsmtPprSnU6qphoMkzShH0LoN7bBBzQSJhAFLtBP+s5tQKcsXFjtOIYrQ
-         maODPuf3MN6sAQ3GUlinANl7xxS4FUEZiQefMYBIcLCoQZozk72/r7KpolGcLU6A/IB/
-         Hvj1sfuOhr1iAXXFbOBJ9qSfXFBdE1jbqbm/RZDSQeN/OGDHoCucijqTVG0aRRrVpoDE
-         02LnTGwjIkd6q25gGoP0hQrVM9KxXfSyjG+JTv32BZSIuGNB2dENoXVAvPoD2wpER4bi
-         /Ndw==
-X-Gm-Message-State: AOAM533TeeKGrplg7nejucQN0EcDNXsUkVq0a74WGTYsZCRpa2ATUh8o
-        VCX1Xi3jfsrCn//Bfy8wNpWvTqqYo3I=
-X-Google-Smtp-Source: ABdhPJxzbEjmMldOIl1lUXQvpn0h8iz6ytvBfRCkDB0wc/RJ2t6dbMYPhBXU649XcC5ZYFq9Tdqs7w==
-X-Received: by 2002:adf:b1cb:: with SMTP id r11mr9249666wra.339.1601863214224;
-        Sun, 04 Oct 2020 19:00:14 -0700 (PDT)
-Received: from localhost.localdomain ([2a02:a03f:b7fe:f700:f14e:9b66:59e7:4769])
-        by smtp.gmail.com with ESMTPSA id b189sm5541132wmb.37.2020.10.04.19.00.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 04 Oct 2020 19:00:13 -0700 (PDT)
-From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-To:     linux-sparse@vger.kernel.org
-Cc:     Ben Dooks <ben.dooks@codethink.co.uk>,
-        Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-Subject: [PATCH 8/8] add support for "%Lx" (and "%Ls")
-Date:   Mon,  5 Oct 2020 04:00:02 +0200
-Message-Id: <20201005020002.1108-9-luc.vanoostenryck@gmail.com>
-X-Mailer: git-send-email 2.28.0
-In-Reply-To: <20201005020002.1108-1-luc.vanoostenryck@gmail.com>
+        Mon, 5 Oct 2020 05:04:47 -0400
+Received: from cpc98990-stkp12-2-0-cust216.10-2.cable.virginm.net ([86.26.12.217] helo=[192.168.0.10])
+        by imap2.colo.codethink.co.uk with esmtpsa  (Exim 4.92 #3 (Debian))
+        id 1kPMQG-00077z-2y; Mon, 05 Oct 2020 10:04:44 +0100
+Subject: Re: [PATCH 0/8] format check tweaks
+To:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>,
+        linux-sparse@vger.kernel.org
 References: <20201005020002.1108-1-luc.vanoostenryck@gmail.com>
+From:   Ben Dooks <ben.dooks@codethink.co.uk>
+Organization: Codethink Limited.
+Message-ID: <58d771f9-7560-f682-3173-78dea0f83711@codethink.co.uk>
+Date:   Mon, 5 Oct 2020 10:04:43 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.12.0
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <20201005020002.1108-1-luc.vanoostenryck@gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
----
- verify-format.c | 3 +++
- 1 file changed, 3 insertions(+)
+On 05/10/2020 02:59, Luc Van Oostenryck wrote:
+> Ben, these are small changes I think should be applied with
+> your series, on top of the patches I send yesterday.
+> I've pushed everything at:
+> 	git://github.com/lucvoo/sparse-dev.git format-check
+> If you're fine with these, I can squeeze them with the series.
+> 
+> There are also a few tests I don't agree with:
+> 	const void *ptr = ...
+> 	printf("%s", ptr);
+> These tests silently accept this, but they should warn.
+> But this can be fixed at a later step.
 
-diff --git a/verify-format.c b/verify-format.c
-index b27440b87c6b..4b4730285237 100644
---- a/verify-format.c
-+++ b/verify-format.c
-@@ -168,6 +168,9 @@ static struct format_type *parse_printf_get_fmt(struct format_type *type,
- 				szmod++;
- 				ptr++;
- 			}
-+		} else if (*ptr == 'L') {
-+			szmod++;
-+			ptr++;
- 		} else {
- 			if (*ptr == 'h') { // short/char to int
- 				szmod = -1;
+ok, thanks.
+
+I'm going to try and work out the best way to deal with the kernel
+extra funsies. I have a few ideas but yet to make a coherent document
+about them.
+
 -- 
-2.28.0
+Ben Dooks				http://www.codethink.co.uk/
+Senior Engineer				Codethink - Providing Genius
 
+https://www.codethink.co.uk/privacy.html
