@@ -2,59 +2,59 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id B1F35282EBD
-	for <lists+linux-sparse@lfdr.de>; Mon,  5 Oct 2020 04:00:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 794E7282EC1
+	for <lists+linux-sparse@lfdr.de>; Mon,  5 Oct 2020 04:00:19 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1725898AbgJECAP (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Sun, 4 Oct 2020 22:00:15 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:36610 "EHLO
+        id S1725903AbgJECAS (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Sun, 4 Oct 2020 22:00:18 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:36616 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1725869AbgJECAO (ORCPT
+        with ESMTP id S1725870AbgJECAQ (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Sun, 4 Oct 2020 22:00:14 -0400
-Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com [IPv6:2a00:1450:4864:20::435])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 9F171C0613CE
-        for <linux-sparse@vger.kernel.org>; Sun,  4 Oct 2020 19:00:13 -0700 (PDT)
-Received: by mail-wr1-x435.google.com with SMTP id o5so7701027wrn.13
-        for <linux-sparse@vger.kernel.org>; Sun, 04 Oct 2020 19:00:13 -0700 (PDT)
+        Sun, 4 Oct 2020 22:00:16 -0400
+Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com [IPv6:2a00:1450:4864:20::444])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 3DD4DC061787
+        for <linux-sparse@vger.kernel.org>; Sun,  4 Oct 2020 19:00:14 -0700 (PDT)
+Received: by mail-wr1-x444.google.com with SMTP id n15so1954476wrq.2
+        for <linux-sparse@vger.kernel.org>; Sun, 04 Oct 2020 19:00:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=R+9lZLwYpN0V305kUch8/+ndJnDuSCSGvACGMwx84qc=;
-        b=kmBpanVUrQZWCKahOZ1k3Y0g9F8T2hVJMZiP7z7Pi5GiiAMgBdlRlF6YHY7WZ/vnVN
-         0VY4xHnUCKlo5RxO6q4x4/kisfNcGz3+3QFwKD0lRF62PtFDK/xfzDVZW7F45oOihATf
-         NQljLBo3KS90GXwIa/yJqkACqO+wDHUJ7jw5n2yRARWQwk7eRqxRxwgr86NVStfbENFR
-         eZS7j4/DsC4XyCRX6veC0KAm+z5kwhUlgS0WekSNO7j6WnuwWHnwISuKKeazyinGyDit
-         xCwCuuZR/K8Eq7u3aar007Cvlv7iO3g3zFw1vkWrAEd9XWRD+8M5+aCUTuhCJ3O/JdsN
-         sDxw==
+        bh=bCEyELoVH8XRyPWAiyQx08ewxKkaNHdJ7cxYj0FXCwI=;
+        b=JiHnNxACqQaqdoYBDJteAsAqDq6YyR3OqLrdMMgG6kEO4tl8tHt2ybz20ukPqEF9n8
+         5+7984ClHGhQIGYR08Ftpo4HMSO5SViKU4ZwKpsU552JLLLkdFUPf+Xcz4aaZvxv1T0O
+         hFFoDNzG76Fa9MOD//ho6JsYB5GCKfYEmpfYTFhgeCck40rnrd4SuXuidFtXYRn33DEJ
+         /8ug2x6cftiKQlxDoeRaFRBkrqf6bk0tNSNqwG75ifEkfXafbH/hQRlQnov/bQtoxtil
+         JOjuY1DkkkFZEtyyu6iSM1NaWS58YwSzhWuUu+e19E+M4FIGQPZzJ6QBWNdT7uhdJAKq
+         lRSw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=R+9lZLwYpN0V305kUch8/+ndJnDuSCSGvACGMwx84qc=;
-        b=EXD8EURaurKWvHTnu/2h4PoyY3LKFSWJk5zE3Qf5GLuNlt8STskiydtsDGmJOKB/6k
-         40bW9S/2WfwlvG4jN0DgKlJIstaP9d4Lbke8FWLZ2voSBBe3PGo3x50Vk3hGviCDeh9u
-         ri8nCm5b0ZzgUB46/Gr9uPs8QnoNT4SlhCA455cCQBsvMylC2TeYjN/lsKutKAQW/bfT
-         W+4czkNezlQv/Esl8uxSAsj6vbNuICvukw8g0yc+PR4wRccBdv78T9jdYIaf5R7kFvcJ
-         fGTf8Aj6SQcZk7a1eHgUCh6VmLJ9Tp2bl01+VpsrDK9GFTMxt8WXwh7kcfYSsZrdm+4r
-         c2oQ==
-X-Gm-Message-State: AOAM533K1QRxAlwRDke12HNkywDLcOnlvd3iC3S0IRt4w+VzXuifzwMs
-        +VyssknwP3hHweIS5rVAT2AsgpZDfsQ=
-X-Google-Smtp-Source: ABdhPJxZa0JVlA/lP1T2CkgGo6L37TR0M8d1vWFSB/TDnFWeqbFzVCjhSkkxFGdlVM3EUcLVL/RNWg==
-X-Received: by 2002:adf:fe48:: with SMTP id m8mr148002wrs.127.1601863211877;
-        Sun, 04 Oct 2020 19:00:11 -0700 (PDT)
+        bh=bCEyELoVH8XRyPWAiyQx08ewxKkaNHdJ7cxYj0FXCwI=;
+        b=jaAPgxKQTMypr537PYabJ8PAYKKNjsImxuupCgl28go1RgvZQMkbe3mj97KETvZ65e
+         a1LCv+7DgR47K5GCHEL8WV3pzDkI1UYMEes4XFeKDrReDh3FxaHPpsfvJy0haR37WDLC
+         913ZRtUFA9UmhD3qvPhm7auGRM1UP9h+vLKwaeCP4qoBavIePJhrvP4uhdQNugg8DjMe
+         8GZUMrGMrVDp7NNIOZ16tYyyk3ICNnEol5lfDbznIwPvICrO2coUXrfuaYCDdU5XPRE7
+         jVRHtnrWZVnolZReSSLF1fZ+2EaHgFAsYzNVA1myLIJb4A8MCBWlWqgPih1BbzOZ+mj9
+         puig==
+X-Gm-Message-State: AOAM531WcBTPaopKf4wp6BUu68FoEw/F75BSxbx5nmv3lQWHfKG+PQb4
+        WP80sMs1+WtPhCH2dRfavQrTR6Q3yM4=
+X-Google-Smtp-Source: ABdhPJwfNqcl+SndPjOTTOl7g8V7799DzQC5iAM890pvAnaHCUFboruMh/qQnAt8oxrhn04Ttd39GA==
+X-Received: by 2002:adf:8484:: with SMTP id 4mr5401589wrg.334.1601863212642;
+        Sun, 04 Oct 2020 19:00:12 -0700 (PDT)
 Received: from localhost.localdomain ([2a02:a03f:b7fe:f700:f14e:9b66:59e7:4769])
         by smtp.gmail.com with ESMTPSA id b189sm5541132wmb.37.2020.10.04.19.00.11
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 04 Oct 2020 19:00:11 -0700 (PDT)
+        Sun, 04 Oct 2020 19:00:12 -0700 (PDT)
 From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 To:     linux-sparse@vger.kernel.org
 Cc:     Ben Dooks <ben.dooks@codethink.co.uk>,
         Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-Subject: [PATCH 5/8] call verify_format_attribute() unconditionally
-Date:   Mon,  5 Oct 2020 03:59:59 +0200
-Message-Id: <20201005020002.1108-6-luc.vanoostenryck@gmail.com>
+Subject: [PATCH 6/8] s/data/type/ for struct format_type
+Date:   Mon,  5 Oct 2020 04:00:00 +0200
+Message-Id: <20201005020002.1108-7-luc.vanoostenryck@gmail.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20201005020002.1108-1-luc.vanoostenryck@gmail.com>
 References: <20201005020002.1108-1-luc.vanoostenryck@gmail.com>
@@ -64,40 +64,118 @@ Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
+The name of the field 'data' in struct format_type seems to indicate
+that it can contain arbitrary untyped stuff but it's a 'struct symbol'
+pointer and always contains the expected type of the argument.
+
+So use a more specific name for it 'type'.
+
 Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 ---
- evaluate.c      | 4 +---
- verify-format.c | 2 ++
- 2 files changed, 3 insertions(+), 3 deletions(-)
+ verify-format.c | 30 +++++++++++++++---------------
+ 1 file changed, 15 insertions(+), 15 deletions(-)
 
-diff --git a/evaluate.c b/evaluate.c
-index fb3c0adb2220..35ced8cb6fb5 100644
---- a/evaluate.c
-+++ b/evaluate.c
-@@ -2388,9 +2388,7 @@ int evaluate_arguments(struct symbol *fn, struct symbol_list *argtypes,
- 	} END_FOR_EACH_PTR(expr);
- 	FINISH_PTR_LIST(argtype);
- 
--	if (fn && Wformat)
--		verify_format_attribute(fn, head);
--
-+	verify_format_attribute(fn, head);
- 	return 1;
- }
- 
 diff --git a/verify-format.c b/verify-format.c
-index 939605f55ef5..2eaba6653686 100644
+index 2eaba6653686..95ff524c03cf 100644
 --- a/verify-format.c
 +++ b/verify-format.c
-@@ -452,6 +452,8 @@ void verify_format_attribute(struct symbol *fn, struct expression_list *args)
- 	struct expression *init;
- 	const char *fmt_string;
+@@ -51,7 +51,7 @@ struct format_type {
+ 				struct symbol *ctype,
+ 				struct symbol **target,
+ 				const char **typediff);
+-	struct symbol	*data;
++	struct symbol	*type;
+ };
  
-+	if (!fn || !Wformat)
-+		return;
- 	if (!fn->ctype.format.index)
- 		return;
- 
+ struct format_state {
+@@ -67,7 +67,7 @@ static int printf_fmt_numtype(struct format_type *fmt,
+ 			      struct symbol *ctype,
+ 			      struct symbol **target, const char **typediff)
+ {
+-	struct symbol *type = fmt->data;
++	struct symbol *type = fmt->type;
+ 	*target = type;
+ 	return check_assignment_types(*target, expr, typediff);
+ }
+@@ -133,7 +133,7 @@ static struct format_type *parse_printf_get_fmt(struct format_type *type,
+ 	} else if (*ptr == 'c') {
+ 		ptr++;
+ 		type->test = printf_fmt_numtype;
+-		type->data = &char_ctype;
++		type->type = &char_ctype;
+ 	} else if (*ptr == 'p') {
+ 		ptr++;
+ 		type->test = printf_fmt_print_pointer;
+@@ -152,12 +152,12 @@ static struct format_type *parse_printf_get_fmt(struct format_type *type,
+ 		if (*ptr == 'd' || *ptr == 'i') {
+ 			ptr++;
+ 			type->test = printf_fmt_numtype;
+-			type->data = ssize_t_ctype;
++			type->type = ssize_t_ctype;
+ 		} else if (*ptr == 'u' || *ptr == 'x' || *ptr == 'X' ||
+ 			   *ptr == 'o') {
+ 			ptr++;
+ 			type->test = printf_fmt_numtype;
+-			type->data = size_t_ctype;
++			type->type = size_t_ctype;
+ 		}
+ 	} else {
+ 		if (*ptr == 'l') {
+@@ -190,16 +190,16 @@ static struct format_type *parse_printf_get_fmt(struct format_type *type,
+ 			type->test = printf_fmt_numtype;
+ 			switch (szmod) {
+ 			case -1:
+-				type->data = &ushort_ctype;
++				type->type = &ushort_ctype;
+ 				break;
+ 			case 0:
+-				type->data = &uint_ctype;
++				type->type = &uint_ctype;
+ 				break;
+ 			case 1:
+-				type->data = &ulong_ctype;
++				type->type = &ulong_ctype;
+ 				break;
+ 			case 2:
+-				type->data = &ullong_ctype;
++				type->type = &ullong_ctype;
+ 				break;
+ 			default:
+ 				type->test = NULL;
+@@ -209,27 +209,27 @@ static struct format_type *parse_printf_get_fmt(struct format_type *type,
+ 			type->test = printf_fmt_numtype;
+ 			switch (szmod) {
+ 			case -1:
+-				type->data = &short_ctype;
++				type->type = &short_ctype;
+ 				break;
+ 			case 0:
+-				type->data = &int_ctype;
++				type->type = &int_ctype;
+ 				break;
+ 			case 1:
+-				type->data = &long_ctype;
++				type->type = &long_ctype;
+ 				break;
+ 			case 2:
+-				type->data = &llong_ctype;
++				type->type = &llong_ctype;
+ 				break;
+ 			default:
+ 				type->test = NULL;
+ 			}
+ 		} else if (*ptr == 'L' && is_float_spec(ptr[1])) {
+ 			type->test = printf_fmt_numtype;
+-			type->data = &ldouble_ctype;
++			type->type = &ldouble_ctype;
+ 			ptr += 2;
+ 		} else if (is_float_spec(*ptr)) {
+ 			type->test = printf_fmt_numtype;
+-			type->data = szmod == 1 ? &ldouble_ctype :  &double_ctype;
++			type->type = szmod == 1 ? &ldouble_ctype :  &double_ctype;
+ 			ptr++;
+ 		} else if (*ptr == 'n') {	/* pointer to an de-referenced int/etc */
+ 			// todo - we should construct pointer to int/etc //
 -- 
 2.28.0
 
