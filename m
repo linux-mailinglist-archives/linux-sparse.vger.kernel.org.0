@@ -2,59 +2,59 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 6BE01282EBC
-	for <lists+linux-sparse@lfdr.de>; Mon,  5 Oct 2020 04:00:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 2C5C7282EBE
+	for <lists+linux-sparse@lfdr.de>; Mon,  5 Oct 2020 04:00:16 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1725841AbgJECAN (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Sun, 4 Oct 2020 22:00:13 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:36600 "EHLO
+        id S1725869AbgJECAP (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Sun, 4 Oct 2020 22:00:15 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:36602 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
         with ESMTP id S1725852AbgJECAN (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
         Sun, 4 Oct 2020 22:00:13 -0400
-Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com [IPv6:2a00:1450:4864:20::444])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 54CB4C0613CE
+Received: from mail-wm1-x341.google.com (mail-wm1-x341.google.com [IPv6:2a00:1450:4864:20::341])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B7C96C0613E9
         for <linux-sparse@vger.kernel.org>; Sun,  4 Oct 2020 19:00:11 -0700 (PDT)
-Received: by mail-wr1-x444.google.com with SMTP id g4so7715641wrs.5
+Received: by mail-wm1-x341.google.com with SMTP id y15so7165913wmi.0
         for <linux-sparse@vger.kernel.org>; Sun, 04 Oct 2020 19:00:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=keH3L0wzalXZ10eUs6TPOk0xur2Z4Lt0B/mMQOdREuE=;
-        b=QqulwyJEQsXtzX19scsAMYMJVmDnbzKFWdwSaSHQrAPabVW3EA5DnPUCDx3+p7O4fz
-         BiiH5HupGtj7oqjGwddEg0NfJDBleU8ZIJIa878fUNATsUPCFjFJtmgab7tnzgoep5gu
-         V3W2YCBVTAxyYa+kn91kO2vG8Afl4+VBn0D95Ttf9rysxZKdBtJv0uEQd1enDVjnSVJB
-         hkmaV3pJBCzRICVnbPbGO3i8sSaWKJDkCRl5bp8AfPrTBEYnOveoKKLuOnXM1xECVi3Y
-         zJPtgE+hvRZ6SfTvItg8gc7M6Zimn3Mq52AqsYw2p33Wpk7jYRu9s5WFTR8RUlm5V4Qh
-         gt/A==
+        bh=hu98vzIkNm3yxy0wFUENMtNDO91sLHD/IdNSpdq23q0=;
+        b=bkc0cJSJe1d3OEdSp3l07H4Nxa+LLTaQvGP7TT3twSCPv3hl3z4UiUiCHebH8m+M8e
+         Fqv8FUHT7yCjU5ufUhR+COAxns+l0xXLgSRlHXKUvnb0uKrREMZbsz7p3AJT52b79zwL
+         QMIBQQ8U4bm6Fr20BGtuD3xo915/2UCvcEr9jYl1Hx/orhf6GUV4t6D/FVqIAErrcTz/
+         cQC8mN8iID5MbKP8tdoqbHrUObh3Csg1GuO74QI7SgZZj5xwW+ON9gZEBX652fOiDe1t
+         mJGhY8fZtPl/KAvIbhumQoTAWr9eKDz62ErM1ChNgi+s9WKpZXpsf4a5Z2JfGdOwBa4o
+         9pQw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=keH3L0wzalXZ10eUs6TPOk0xur2Z4Lt0B/mMQOdREuE=;
-        b=ty5jXbqEROjUd9K2T/BSzMmXDJermyQ6b0jGqQeQ9l28T3adV9F57IfJTvbjkgyH49
-         5+yIOR4Zrj31ahgCw85OvZL8vzDTpEF94b4XyckO2LbiPCjjmncfYKBzmixaLAQ27QSn
-         QQO/0hN6NStu/MXk8U7yhj48HvvguCWl8CqQmsoyx1NL6T6H1zWQ3h0kg32FDyaSqIIf
-         c8kvbV5If2SJHU3+8ec0xs8AsZYs5+NXJ0bOhpLeCeXIxQhP2pIwTv7Zps0W4SDc2ZpQ
-         aJ3R6Q05WfrR7UyVrh06IBjobWK+RXBze2QTpNxiYKacuB2EUn05+IW5mOPl30WGsmmS
-         5P+A==
-X-Gm-Message-State: AOAM5306j2DgtcJiV8Yp37+rIv60BpxuMj36gQLS7rDJhRzq8vrhnLyN
-        gwIo9b7A8v3B59k5NqL52w+WQuXMGko=
-X-Google-Smtp-Source: ABdhPJzp5qeuZb32hx5PcVgHhrTwdC1HivK1xcD7ejLY6RdpD+r06y5obnf0aiKpKLqvlaCNsy93yw==
-X-Received: by 2002:adf:ef03:: with SMTP id e3mr8419954wro.146.1601863209498;
-        Sun, 04 Oct 2020 19:00:09 -0700 (PDT)
+        bh=hu98vzIkNm3yxy0wFUENMtNDO91sLHD/IdNSpdq23q0=;
+        b=Gn2YJSTg1uRVbW8eQCOs9Y320vBpSq4D3gTFSxjzECWSweAleSkHusjfjhxvPDNG0o
+         ZkBFTPbxGl4WRh4+BvNq9153M+LN1DtG7olCkMUwp2hcPUKgFWFzqmmIQ1Umt52rl/Oi
+         HToNn48JhJsZeK6zJ3Ve/QQkmwi4oL8uioynzCuiPUzBxrA97djDzQ8Gd2hdsuAFVCJT
+         A09gBrRuVXH0UaVEDU4NtBPN5hw14fe97geq7aJKcUrM/b2bwMGZBa/9ZvgW1c0a0ZRM
+         NPDPn9oDIZZevXxkRW8OcrsEGc2Vxiik9hMzbytYBgU9X5ICo/wV07DycqWLDYpoRNbA
+         yHAA==
+X-Gm-Message-State: AOAM5332xxiZcbRknFdwJblu0DYzwJbp7DVqjghb73iCtLgxjAEvRznr
+        vS9ieNZfdEvLtUeQoXDwJkP4vhroatU=
+X-Google-Smtp-Source: ABdhPJzbFgQpmXI8RpywoL5wiPcfY8/2GhNHFNM76zRV7xiOJkqrorQ6rwF3+LEK1os5+Jk/JqoEFw==
+X-Received: by 2002:a1c:bc46:: with SMTP id m67mr14037833wmf.119.1601863210240;
+        Sun, 04 Oct 2020 19:00:10 -0700 (PDT)
 Received: from localhost.localdomain ([2a02:a03f:b7fe:f700:f14e:9b66:59e7:4769])
-        by smtp.gmail.com with ESMTPSA id b189sm5541132wmb.37.2020.10.04.19.00.08
+        by smtp.gmail.com with ESMTPSA id b189sm5541132wmb.37.2020.10.04.19.00.09
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
         Sun, 04 Oct 2020 19:00:09 -0700 (PDT)
 From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 To:     linux-sparse@vger.kernel.org
 Cc:     Ben Dooks <ben.dooks@codethink.co.uk>,
         Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-Subject: [PATCH 2/8] add helper get_nth_expression()
-Date:   Mon,  5 Oct 2020 03:59:56 +0200
-Message-Id: <20201005020002.1108-3-luc.vanoostenryck@gmail.com>
+Subject: [PATCH 3/8] move the definition of FMT_{PRINTF,SCANF}
+Date:   Mon,  5 Oct 2020 03:59:57 +0200
+Message-Id: <20201005020002.1108-4-luc.vanoostenryck@gmail.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20201005020002.1108-1-luc.vanoostenryck@gmail.com>
 References: <20201005020002.1108-1-luc.vanoostenryck@gmail.com>
@@ -64,46 +64,52 @@ Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-This will be used for -Wformat.
+Move these from parse.c to symbol.h so that they can be reused
+when verifying the format.
+
+Also, add a definition for unknown format type: FMT_UNKNOWN
 
 Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 ---
- lib.h           | 5 +++++
- verify-format.c | 5 -----
- 2 files changed, 5 insertions(+), 5 deletions(-)
+ parse.c  | 6 ------
+ symbol.h | 7 +++++++
+ 2 files changed, 7 insertions(+), 6 deletions(-)
 
-diff --git a/lib.h b/lib.h
-index b35debc83288..957586dbd80a 100644
---- a/lib.h
-+++ b/lib.h
-@@ -199,6 +199,11 @@ static inline struct expression *first_expression(struct expression_list *head)
- 	return first_ptr_list((struct ptr_list *)head);
+diff --git a/parse.c b/parse.c
+index 1b021b87549e..c2d29318149f 100644
+--- a/parse.c
++++ b/parse.c
+@@ -120,12 +120,6 @@ static void asm_modifier(struct token *token, unsigned long *mods, unsigned long
+ 	*mods |= mod;
  }
  
-+static inline struct expression *get_nth_expression(struct expression_list *head, unsigned int n)
-+{
-+	return ptr_list_nth_entry((struct ptr_list *)head, n);
-+}
-+
- static inline pseudo_t first_pseudo(struct pseudo_list *head)
- {
- 	return first_ptr_list((struct ptr_list *)head);
-diff --git a/verify-format.c b/verify-format.c
-index ba6cb5646dba..939605f55ef5 100644
---- a/verify-format.c
-+++ b/verify-format.c
-@@ -113,11 +113,6 @@ static struct format_type printf_fmt_ptr_ref = {
- 	.test = printf_fmt_pointer,
- };
- 
--static struct expression *get_nth_expression(struct expression_list *args, int nr)
--{
--	return ptr_list_nth_entry((struct ptr_list *)args, nr);
--}
+-/* the types of formatting from __attribute__((format)) */
+-enum {
+-	FMT_PRINTF = 0,
+-	FMT_SCANF,
+-};
 -
- static int is_float_spec(char t)
- {
- 	return t == 'f' || t == 'g' || t == 'F' || t == 'G';
+ static struct symbol_op typedef_op = {
+ 	.type = KW_MODIFIER,
+ 	.declarator = storage_specifier,
+diff --git a/symbol.h b/symbol.h
+index 55c7e3330ec3..0d5439ee93f7 100644
+--- a/symbol.h
++++ b/symbol.h
+@@ -95,6 +95,13 @@ extern struct context *alloc_context(void);
+ 
+ DECLARE_PTR_LIST(context_list, struct context);
+ 
++/* the types of formatting from __attribute__((format)) */
++enum {
++	FMT_UNKNOWN,
++	FMT_PRINTF,
++	FMT_SCANF,
++};
++
+ struct attr_format {
+ 	unsigned short index;	/* index in argument list for format string */
+ 	unsigned short first;	/* where first variadic argument is */
 -- 
 2.28.0
 
