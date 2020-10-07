@@ -2,79 +2,99 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 0AD732864AA
-	for <lists+linux-sparse@lfdr.de>; Wed,  7 Oct 2020 18:39:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id CE6FB286B1A
+	for <lists+linux-sparse@lfdr.de>; Thu,  8 Oct 2020 00:48:17 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727817AbgJGQjU (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Wed, 7 Oct 2020 12:39:20 -0400
-Received: from sonic312-21.consmr.mail.bf2.yahoo.com ([74.6.128.83]:40853 "EHLO
-        sonic312-21.consmr.mail.bf2.yahoo.com" rhost-flags-OK-OK-OK-OK)
-        by vger.kernel.org with ESMTP id S1727776AbgJGQjU (ORCPT
+        id S1728891AbgJGWsR (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Wed, 7 Oct 2020 18:48:17 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:52828 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1727353AbgJGWsR (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Wed, 7 Oct 2020 12:39:20 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1602088758; bh=PxMwWzXvs+dqOoH0/FHvFmQpYH2JguaCUHYAVLLmaiw=; h=Date:From:Reply-To:Subject:References:From:Subject; b=QL45aJpRH9cVRIHs76jUDF22e14ocB/sInrmrOl1Ypmk/2M265rhkEnbVyu1LlVdg/y5/3VIPeTbPi6ymfKmTduNtPWgeMObpc4np+t3fYBJjB/VLcx6+779V6RImOd2svZjNoTDV4an1z8Br2c91/sM7dR8f66k0LRuSF4ziGcraGDENZSoVFPvRpwIomBCqvij4g0IqxFWn1ZjtFdep4CkZurDJj9GvfUU22sUIPImqWJ6uBO3f6maioxX3mF+vY+2gf4d4sMDKTwSXLGrw8UdTJ7kZwXMiV5UhH3rr8StYxvxoSlr7d1mJuR04KAs5RiNHo3IySJZ1N3R2bY07A==
-X-YMail-OSG: YQcutz0VM1k_L.UbJTGAVmwbshEYnfvaPg6oDk.xjLtq_.GHm0nkDNtX5Cp_vrp
- ofK79et3k0CubO7c_0YaEIJLtxF8UZSNxtbhsJsPr9Jl7xxAanvtPuvFeKo1vg7NVt2tpD4SmAnJ
- 2FfcY.h3qeWIjUXKrPZ0AjpoF0ll9uuhPe0YU9saYvxkRYrQ3btsXdfEnreWA73BW1qQZaDjurBS
- sKgpX6UlZ6EUUcSZZJTgaTI2A_7wATenrUX44LQTD88QsUZOou3IoAoP_5dzGq2xZGdnLbL_soxg
- ntMj0LlppFOuwhrDjgnYN2Tdx.zn9PX7RvKCzCgBwMJVxj3F26mlwaWaIMrCXupSsSna5SrLz_Lj
- AtR8S_NyQUxvXEpsUbIOgDvJxwdi8cW8DdXeefpGBk30bCxCnxRmauHZOT.6vuRdcZRdL63iGWj.
- ZbQ43L6WHN2j9RAnEMYo12Rxae0_lNrKWanx2D8Y.j39brhQjmgVexaqAN4Y4F9aNla9bJ3IyVbx
- Zqda3vpHAvJ5RZPG1REHmbt3ZaEmERew0D9wsGRpwec0RZ5j9UjhNJRsL2k2fHBs1GCEYYMT9f7s
- SX7XIv8JoiRayT365XjZP2Ql9MLcHLM7cV6.Vejg0vk3BgBwupKOMRhLpIopTZOG0KpSWFeChBO1
- u0IXgyz.B5SYSl8o5hYlGVFiml4Tn14ivtKyvXneoXi8zn7WENG2cNasvcy5ikBeofvH2pX6qLa3
- lzSAmbhWtcIQIxhnsCSLBzO_fWsftPD0P26SEI1nKyziPE1YABcxx7YBBUUK7ykg0zWb1i3EVb3O
- XNxjV2vpqzMZE4i0_F7C6y2ccee61.OymMpvYNdOFS.XCPGV9B0bOZAqXkNYe3NpG2LjQW_LnRzI
- WCxaSpcfYKKHNl5jRFGK5AFU_2psaQrhoiN4qJDXTJQkkOQAedQ0W2lK3WFst1A..XDWcxip.czd
- 0Hd1JTdRZAFpxmPuyZy9kazWqzOzwyvAPw6DK6whSUEatzMDrUAodG4QRUUD5HEqVwiEe12He6nQ
- vXfqj.1SCyUSUeE4N_JIf_MZcuxJzeWPWfpol7TZPR2RHq6bcFB1TnLlv4lx9XXHwZonBpCPgo4t
- BSyw4JQggXjfuY22rd2yeZUswM.l6ALhP5XkuyHhM0FYXSlPbv3W647tYWr46N2HLtmM37VgelnH
- dhCQ0d0EIAqmyqs0zt6lNO9aPSI8TRpipMztgw5tNy4FMk52cat1d8z59ceyiyx0rxZzuLvziwVW
- O79EdG0A.NqU2RuGitvvxvf5ggH_gYwnCikVqhDErVxHGzAJsbFspJyP65Ft.WjnIP10xVnZq4f6
- FTEDMZRNv3B8vIk2MM7LRNo.notdp0Uwin4KLFbTfsLLjtGmIc9svMYKHYaBthRvFESx6_E5R7.V
- fU91cAlPb.Fj9I1fzKBNvsmcoL0H87Rmu_QlD5w--
-Received: from sonic.gate.mail.ne1.yahoo.com by sonic312.consmr.mail.bf2.yahoo.com with HTTP; Wed, 7 Oct 2020 16:39:18 +0000
-Date:   Wed, 7 Oct 2020 16:39:18 +0000 (UTC)
-From:   Mrs Marilyn Robert <fredodinga22@gmail.com>
-Reply-To: marilyobert@gmail.com
-Message-ID: <1390812764.157767.1602088758609@mail.yahoo.com>
-Subject: =?UTF-8?B?0J3QsNGY0LzQuNC70LAg0LrQsNGYINCz0L7RgdC/0L7QtNCw0YDQvtGC?=
+        Wed, 7 Oct 2020 18:48:17 -0400
+Received: from mail-ed1-x541.google.com (mail-ed1-x541.google.com [IPv6:2a00:1450:4864:20::541])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 9F55BC061755
+        for <linux-sparse@vger.kernel.org>; Wed,  7 Oct 2020 15:48:16 -0700 (PDT)
+Received: by mail-ed1-x541.google.com with SMTP id o18so3892419edq.4
+        for <linux-sparse@vger.kernel.org>; Wed, 07 Oct 2020 15:48:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=/nh7PkMBSCElOkYPB6x8C5gvF99WWfjyqZuaE0g4D/8=;
+        b=Ga7oMk/W2H27rcwF9D9Oijz5nOD9ubhm/wM9KNR7kkRYCugmnfBxCyidPcJvxdoibJ
+         h8uCs7XDHx4QPw4poqlzC5///HzwueIwq4Xj7GEOtO4smjNmS06SnmEBftrSK8ps3ECt
+         mseLNUKD19ij0MOhVS3+bGZ4/1v0PK8yBHkMyxYuqdrjgztwmR9Tau2qkHvLzNZneRBY
+         UejTPlP41G4GZ8Arjgtg55t/qmDapaa62Zj5wJslOCi67uo4nn5NVIn46T0cxGB/t3sp
+         rM8stottoCRnHw7gbymSPtacy6pfac1pGvYt9cKJ6hif5XIr8WvNaetFapX2YuIJgZUb
+         D/aw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=/nh7PkMBSCElOkYPB6x8C5gvF99WWfjyqZuaE0g4D/8=;
+        b=hZTE6SmxMNE7oCcObG8Vs3acU4c70FdVQEbZ+1aqaZu1wAc44XSsXATCrPVnXwZAY8
+         kfqQANCDTCR8iz5kc6RI/5I3xXlxthKmE8C8EIIy6FAK29vNjTR+zinqJsxdOQ8IPyyE
+         qNIdww3AIhCzF9421G945XPGdz5E/q5fga37zOUCNOsnHrRGL8jwxvlU4+3j5XlJ6AnT
+         LxPKMZISmwXDRKLO1jEDUEx5Wlf59OzzwAL0KJUMvKCV8NqKTkOv6soiauGwSC5fIWid
+         KW0/G097US60a+4WET8xhWbKvONQp8b8MzTUjt468Q1f+ISj7p0Wk+Wg9mFlSRB+fmAe
+         AO3Q==
+X-Gm-Message-State: AOAM5300lp0H8+Sx7Hwc/34QwBIs0fqNSSFHWNsQom6IUDf+bvytMALn
+        EaToW13zEcQA6Fi4+Rdlszo6LGc5dnk=
+X-Google-Smtp-Source: ABdhPJyjhmKteHeNdlowql0jcJup481BTYwEgP8iEzGjEParOmaTts7ogjE2JGyANW2zRxVnW7YewA==
+X-Received: by 2002:aa7:db82:: with SMTP id u2mr6210414edt.262.1602110895033;
+        Wed, 07 Oct 2020 15:48:15 -0700 (PDT)
+Received: from localhost.localdomain ([2a02:a03f:b7fe:f700:9daf:ccef:2e0a:ac1c])
+        by smtp.gmail.com with ESMTPSA id c5sm2573888edx.58.2020.10.07.15.48.13
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 07 Oct 2020 15:48:14 -0700 (PDT)
+From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
+To:     linux-sparse@vger.kernel.org
+Cc:     Ilya Maximets <i.maximets@ovn.org>,
+        Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
+Subject: [PATCH] add helpers is_struct_type() &  is_union_type()
+Date:   Thu,  8 Oct 2020 00:48:09 +0200
+Message-Id: <20201007224809.3289-1-luc.vanoostenryck@gmail.com>
+X-Mailer: git-send-email 2.28.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: base64
-References: <1390812764.157767.1602088758609.ref@mail.yahoo.com>
-X-Mailer: WebService/1.1.16795 YMailNodin Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.125 Safari/537.36
-To:     unlisted-recipients:; (no To-header on input)
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-DQoNCtCd0LDRmNC80LjQu9CwINC60LDRmCDQs9C+0YHQv9C+0LTQsNGA0L7Rgg0KDQrQiNCw0YEg
-0YHRg9C8IDY4LdCz0L7QtNC40YjQvdCwINC20LXQvdCwLCDQutC+0ZjQsCDRgdGC0YDQsNC00LAg
-0L7QtCDQv9GA0L7QtNC+0LvQttC10L0g0LrQsNGA0YbQuNC90L7QvCDQvdCwINC00L7RmNC60LAs
-INC+0LQg0YHQuNGC0LUg0LzQtdC00LjRhtC40L3RgdC60Lgg0LjQvdC00LjQutCw0YbQuNC4LCDQ
-vNC+0ZjQsNGC0LAg0YHQvtGB0YLQvtGY0LHQsCDQvdCw0LLQuNGB0YLQuNC90LAg0YHQtSDQstC7
-0L7RiNC4INC4INC+0YfQuNCz0LvQtdC00L3QviDQtSDQtNC10LrQsCDQvNC+0LbQtdCx0Lgg0L3Q
-tdC80LAg0LTQsCDQttC40LLQtdCw0Lwg0L/QvtCy0LXRnNC1INC+0LQg0YjQtdGB0YIg0LzQtdGB
-0LXRhtC4INC60LDQutC+INGA0LXQt9GD0LvRgtCw0YIg0L3QsCDQsdGA0LfQuNC+0YIg0YDQsNGB
-0YIg0Lgg0LHQvtC70LrQsNGC0LAg0YjRgtC+INGB0LUg0ZjQsNCy0YPQstCwINC60LDRmCDQvdC1
-0LAuINCc0L7RmNC+0YIg0YHQvtC/0YDRg9CzINC/0L7Rh9C40L3QsCDQvdC10LrQvtC70LrRgyDQ
-s9C+0LTQuNC90Lgg0L3QsNC90LDQt9Cw0LQg0Lgg0L3QsNGI0LjRgtC1INC00L7Qu9Cz0Lgg0LPQ
-vtC00LjQvdC4INCx0YDQsNC6INC90LUg0LHQtdCwINCx0LvQsNCz0L7RgdC70L7QstC10L3QuCDR
-gdC+INC90LjRgtGDINC10LTQvdC+INC00LXRgtC1LCDQv9C+INC90LXQs9C+0LLQsNGC0LAg0YHQ
-vNGA0YIg0LPQviDQvdCw0YHQu9C10LTQuNCyINGG0LXQu9C+0YLQviDQvdC10LPQvtCy0L4g0LHQ
-vtCz0LDRgtGB0YLQstC+Lg0KDQrQlNC+0LDRk9Cw0Lwg0LrQsNGYINCy0LDRgSDQvtGC0LrQsNC6
-0L4g0YHQtSDQv9C+0LzQvtC70LjQsiDQt9CwINGC0L7QsCwg0L/QvtC00LPQvtGC0LLQtdC9INGB
-0YPQvCDQtNCwINC00L7QvdC40YDQsNC8INGB0YPQvNCwINC+0LQgMiwgMzAwLCAwMDAg0LXQstGA
-0LAg0LfQsCDQv9C+0LzQvtGIINC90LAg0YHQuNGA0L7QvNCw0YjQvdC40YLQtSwg0YHQuNGA0L7Q
-vNCw0YjQvdC40YLQtSDQuCDQv9C+0LzQsNC70LrRgyDQv9GA0LjQstC40LvQtdCz0LjRgNCw0L3Q
-uNGC0LUg0LzQtdGT0YMg0LLQsNGI0LjRgtC1INGB0L7QsdGA0LDQvdC40ZjQsCAvINC+0L/RiNGC
-0LXRgdGC0LLQvi4g0JfQsNCx0LXQu9C10LbQtdGC0LUg0LTQtdC60LAg0L7QstC+0Zgg0YTQvtC9
-0LQg0LUg0LTQtdC/0L7QvdC40YDQsNC9INCy0L4g0LHQsNC90LrQsCDQutCw0LTQtSDRiNGC0L4g
-0YDQsNCx0L7RgtC10YjQtSDQvNC+0ZjQvtGCINGB0L7Qv9GA0YPQsy4gQXBwcmVjaWF0ZdC1INGG
-0LXQvdCw0Lwg0LDQutC+INC+0LHRgNC90LXRgtC1INCy0L3QuNC80LDQvdC40LUg0L3QsCDQvNC+
-0LXRgtC+INCx0LDRgNCw0ZrQtSDQt9CwINC/0YDQvtC/0LDQs9C40YDQsNGa0LUg0L3QsCDQvNCw
-0YHQsNC20LDRgtCwINC90LAg0LrRgNCw0LvRgdGC0LLQvtGC0L4sINGc0LUg0LLQuCDQtNCw0LTQ
-sNC8INC/0L7QstC10ZzQtSDQtNC10YLQsNC70Lgg0LfQsCDRgtC+0LAg0LrQsNC60L4g0LTQsCDQ
-v9C+0YHRgtCw0L/QuNGC0LUuDQoNCtCR0LvQsNCz0L7QtNCw0YDQsNC8DQrQky3Rk9CwINCc0LXR
-gNC40LvQuNC9INCg0L7QsdC10YDRgg==
+From: Ilya Maximets <i.maximets@ovn.org>
+
+Signed-off-by: Ilya Maximets <i.maximets@ovn.org>
+Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
+---
+ symbol.h | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
+
+diff --git a/symbol.h b/symbol.h
+index e1f5392600ef..e75ea3abfcd3 100644
+--- a/symbol.h
++++ b/symbol.h
+@@ -425,6 +425,20 @@ static inline int is_array_type(struct symbol *type)
+ 	return type->type == SYM_ARRAY;
+ }
+ 
++static inline int is_struct_type(struct symbol *type)
++{
++	if (type->type == SYM_NODE)
++		type = type->ctype.base_type;
++	return type->type == SYM_STRUCT;
++}
++
++static inline int is_union_type(struct symbol *type)
++{
++	if (type->type == SYM_NODE)
++		type = type->ctype.base_type;
++	return type->type == SYM_UNION;
++}
++
+ static inline int is_float_type(struct symbol *type)
+ {
+ 	if (type->type == SYM_NODE)
+-- 
+2.28.0
+
