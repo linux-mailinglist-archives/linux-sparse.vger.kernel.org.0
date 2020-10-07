@@ -2,97 +2,67 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 467FE28501A
-	for <lists+linux-sparse@lfdr.de>; Tue,  6 Oct 2020 18:44:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id F0D0A285D8E
+	for <lists+linux-sparse@lfdr.de>; Wed,  7 Oct 2020 12:52:31 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726138AbgJFQoF (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Tue, 6 Oct 2020 12:44:05 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:56400 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1725902AbgJFQoE (ORCPT
-        <rfc822;linux-sparse@vger.kernel.org>);
-        Tue, 6 Oct 2020 12:44:04 -0400
-Received: from mail-ej1-x641.google.com (mail-ej1-x641.google.com [IPv6:2a00:1450:4864:20::641])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 94D7BC061755
-        for <linux-sparse@vger.kernel.org>; Tue,  6 Oct 2020 09:44:04 -0700 (PDT)
-Received: by mail-ej1-x641.google.com with SMTP id lw21so14613029ejb.6
-        for <linux-sparse@vger.kernel.org>; Tue, 06 Oct 2020 09:44:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=FBcCClvqfVhFNo1WJ1HOsRiwMpHqKShD7omjPXz+JX0=;
-        b=MGjPEge/rNiZgHsz7+PgOEdUaT7aNyv/hlXsLlBC0SOL8CDxy6e0kE8VyHf4d4rSQP
-         YbZ/HF9j+NrGyW/lOIvu+LfehwoKQ7E2SAALRxKIvJ5T0R9H6kZ5OyGz4YrygrxRw+8P
-         UbBzjH4yU9ljcDUSsguE5+/yKjWh7H3wGeuuOHBFQk/557Q9j6D1UA8HYEUyrXV7WrtS
-         6ntueH8FibcVOvRWm5UW7ZCUWzkQyxqrUWeH+ANgQQDBGhi1KOggFoRS8KZHK0KLRwcR
-         wYM6wwuRzELbp08y6UiFdCNSFFuycwM69Bc0xdn06/fPUFMfiDidCccurib2iFU7BxKj
-         Z/BA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=FBcCClvqfVhFNo1WJ1HOsRiwMpHqKShD7omjPXz+JX0=;
-        b=Sh2OfXjS/+3oLWL5wN6T00xQ8p+xRc/odUbnuDujWAWZoOaihTG2iaoRO5u8yqcQt3
-         vqHHx7eOgHeRL3zc+TSxvlkoenS8ukcHj4FDuGMGdStY6uCejm/k7UuFoa5sDRHVNplF
-         /Kg4HU63JpPXPLX0TTOW1q9T5tHCTkIY6g+Egf9JwwnN6EypEl2kn8DJDddtuFfBD0ng
-         kQbjSqiP49keZkpum5KArjmYX70t+IE0ip7dIFtuR59BMILZ9OdTz7bYtUSaMpOIavz2
-         idzt3Vvc1lHkG5Jg66Swdl4arV8jDLzaPgl4oUBhbuAIv63zUDW6MXQjrB2DR5P/r2Cq
-         0NQg==
-X-Gm-Message-State: AOAM531XoHveVgL2yHQhwDSOJBS/x86t+lKE9el8ktIpxyzMMSFdD1yq
-        GqjhctB4g+LYfucwNw2etiAWuwxa2p0=
-X-Google-Smtp-Source: ABdhPJwBjVF52Uj8Jyrz6CN+sGb3R6jjnnVW9JljIi8O6DtayQSqPDJQPm+SNwUeSwdo7Sm3oEWGBw==
-X-Received: by 2002:a17:906:490e:: with SMTP id b14mr439861ejq.268.1602002643084;
-        Tue, 06 Oct 2020 09:44:03 -0700 (PDT)
-Received: from localhost.localdomain ([2a02:a03f:b7fe:f700:6cd8:b67a:a15c:19eb])
-        by smtp.gmail.com with ESMTPSA id y3sm2588734ejk.92.2020.10.06.09.44.02
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 06 Oct 2020 09:44:02 -0700 (PDT)
-From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-To:     linux-sparse@vger.kernel.org
-Cc:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-Subject: [PATCH] unop: fix access to defining instruction in simplify_unop()
-Date:   Tue,  6 Oct 2020 18:43:58 +0200
-Message-Id: <20201006164358.37772-1-luc.vanoostenryck@gmail.com>
-X-Mailer: git-send-email 2.28.0
+        id S1728287AbgJGKwb convert rfc822-to-8bit (ORCPT
+        <rfc822;lists+linux-sparse@lfdr.de>); Wed, 7 Oct 2020 06:52:31 -0400
+Received: from mx.metalurgs.lv ([81.198.125.103]:61402 "EHLO mx.metalurgs.lv"
+        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
+        id S1728284AbgJGKwb (ORCPT <rfc822;linux-sparse@vger.kernel.org>);
+        Wed, 7 Oct 2020 06:52:31 -0400
+Received: from mx.metalurgs.lv (localhost [127.0.0.1])
+        by mx.metalurgs.lv (Postfix) with ESMTP id B215066B95
+        for <linux-sparse@vger.kernel.org>; Wed,  7 Oct 2020 13:52:15 +0300 (EEST)
+Received: from kas30pipe.localhost (localhost [127.0.0.1])
+        by mx.metalurgs.lv (Postfix) with ESMTP id 7ADF166ACA
+        for <linux-sparse@vger.kernel.org>; Wed,  7 Oct 2020 13:52:15 +0300 (EEST)
+Received: by mx.metalurgs.lv (Postfix, from userid 1005)
+        id 5B52D66173; Wed,  7 Oct 2020 13:52:12 +0300 (EEST)
+Received: from [100.64.1.74] (unknown [190.15.125.55])
+        (Authenticated sender: admin)
+        by mx.metalurgs.lv (Postfix) with ESMTPA id 16EB862D81;
+        Wed,  7 Oct 2020 13:52:04 +0300 (EEST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Description: Mail message body
+To:     Recipients <financialcapability6@gmail.com>
+From:   "Mr. Hashim Bin" <financialcapability6@gmail.com>
+Date:   Wed, 07 Oct 2020 07:51:57 -0300
+Reply-To: hmurrah39@gmail.com
+X-SpamTest-Envelope-From: financialcapability6@gmail.com
+X-SpamTest-Group-ID: 00000000
+X-SpamTest-Info: Profiles 71303 [Jan 01 2015]
+X-SpamTest-Info: {TO: forged address, i.e. recipient, investors, public, etc.}
+X-SpamTest-Info: {DATE: unreal year}
+X-SpamTest-Method: none
+X-SpamTest-Rate: 55
+X-SpamTest-Status: Not detected
+X-SpamTest-Status-Extended: not_detected
+X-SpamTest-Version: SMTP-Filter Version 3.0.0 [0284], KAS30/Release
+Message-ID: <20201007105212.5B52D66173@mx.metalurgs.lv>
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: 8BIT
+Subject: Low Rate Loan./mmm,
+X-Anti-Virus: Kaspersky Anti-Virus for Linux Mail Server 5.6.39/RELEASE,
+         bases: 20140401 #7726142, check: 20201007 notchecked
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-Only pseudos of type PSEUDO_REG have a defining instruction.
+Hello Dear,
 
-However, in commit 5425db10d4d3 ("simplify '~(~x)' and '-(-x)' to 'x'"),
-this defining instruction of the 'src' of the outer unop
-was accessed without checking the type.
 
-Fixes: 5425db10d4d35895ba3ca390478c624233ec027d
-Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
----
- simplify.c | 6 ++----
- 1 file changed, 2 insertions(+), 4 deletions(-)
+We are Base Investment Company offering Corporate and Personal Loan at 3% Interest Rate for a duration of 10Years.
 
-diff --git a/simplify.c b/simplify.c
-index 76c0558855a2..15452a585598 100644
---- a/simplify.c
-+++ b/simplify.c
-@@ -1311,13 +1311,11 @@ static int simplify_unop(struct instruction *insn)
- 		struct instruction *def;
- 
- 	case OP_NOT:
--		def = insn->src->def;
--		if (def && def->opcode == OP_NOT)
-+		if (DEF_OPCODE(def, insn->src) == OP_NOT)
- 			return replace_with_pseudo(insn, def->src);
- 		break;
- 	case OP_NEG:
--		def = insn->src->def;
--		if (def && def->opcode == OP_NEG)
-+		if (DEF_OPCODE(def, insn->src) == OP_NEG)
- 			return replace_with_pseudo(insn, def->src);
- 		break;
- 	default:
--- 
-2.28.0
 
+We also pay 1% commission to brokers, who introduce project owners for finance or other opportunities.
+
+
+Please get back to me if you are interested for more
+
+details.
+
+
+Yours faithfully,
+
+Hashim Murrah
