@@ -2,80 +2,83 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 06F1A28C4D6
-	for <lists+linux-sparse@lfdr.de>; Tue, 13 Oct 2020 00:38:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 9EEB528DD6C
+	for <lists+linux-sparse@lfdr.de>; Wed, 14 Oct 2020 11:26:22 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1729586AbgJLWi1 (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Mon, 12 Oct 2020 18:38:27 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:58414 "EHLO
+        id S1727520AbgJNJY1 (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Wed, 14 Oct 2020 05:24:27 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:39946 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1727376AbgJLWi0 (ORCPT
+        with ESMTP id S1730833AbgJNJUM (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Mon, 12 Oct 2020 18:38:26 -0400
-Received: from mail-ej1-x641.google.com (mail-ej1-x641.google.com [IPv6:2a00:1450:4864:20::641])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 3DDDAC0613D0
-        for <linux-sparse@vger.kernel.org>; Mon, 12 Oct 2020 15:38:25 -0700 (PDT)
-Received: by mail-ej1-x641.google.com with SMTP id u8so25483982ejg.1
-        for <linux-sparse@vger.kernel.org>; Mon, 12 Oct 2020 15:38:25 -0700 (PDT)
+        Wed, 14 Oct 2020 05:20:12 -0400
+Received: from mail-ed1-x543.google.com (mail-ed1-x543.google.com [IPv6:2a00:1450:4864:20::543])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id C3C2AC0613B8
+        for <linux-sparse@vger.kernel.org>; Tue, 13 Oct 2020 15:06:19 -0700 (PDT)
+Received: by mail-ed1-x543.google.com with SMTP id g4so1101083edk.0
+        for <linux-sparse@vger.kernel.org>; Tue, 13 Oct 2020 15:06:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=date:from:to:cc:subject:message-id:references:mime-version
-         :content-disposition:in-reply-to;
-        bh=J8PUpUzeACy6LsDZHTcx0gz8UnSzmNpY+/27mXiPJZE=;
-        b=L2J2LiZmK9OoVkUQLP0DSvrMdeJx7fd96UHEqfGc8HNtWlDqy+brPghKRWRGI0fvk3
-         Zyz/R0RUeibGpLbd7iApeFkz+YvwhQHEIVz9+38errpADErs7RrhX0PvqIE0TkMe8Wdk
-         vLUkNPXqkMIQkkchhFVz87lgUWmSi0raWJTVHU4cd2/tQOS6ok9qZZ49YwFC2G8Ys/BR
-         cwcEhWc2/CwXG7+BWF6l7eOFkzGHDxf7fV87+smxjU74q4V1gNBXBpL5D7PlpzTb1AA/
-         uIVZyakPRbwvCty4ESLdwgXPIOtSkZIRXiU9/u1plWSWXR9X+bx1ilx7WBve79amEwgR
-         hxeQ==
+        h=from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=YGlaUHvFNaQxLyI5NB2yzrHHwBSp6QUJHHpNu7Fx3w4=;
+        b=tbmgY2xdFBFdacGltgXuriXgWmA1T0nvW0E5NdadrdIA8ynJkR995/PF7vEG+cDbPd
+         2RipVgjwxhCGXZlMoj4lP9CBDcxX1h6jl2ERqpcjMYtjPGx6kRCBMI8revI4K7PyDPY8
+         l54GShyLb7CEbJyJUBFxM/pVNdqCvWYZsQ0vIqn4wajvLgiP37fEFh5uwQ6FZygteBgf
+         r4WrYS6uGcJsQ2XkYAlgvu4/XVmiwoJbOmdv9qcKHWyGdxcKTd7lvBy2z9fvoN3Hjvme
+         GzhojdDozEaypqA/dOekXIC98u/oY5j8pvl2PmqTVAoVVGLKnXSFbyLYTRAFbY/DjUEl
+         WeZw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
-         :mime-version:content-disposition:in-reply-to;
-        bh=J8PUpUzeACy6LsDZHTcx0gz8UnSzmNpY+/27mXiPJZE=;
-        b=qlIuRTf2pDlmC4ZfTzbJ0l+e3KhcvoUhxbSUDSzsCMGunIzSWkn/GY3q4Zlmqd6ZUA
-         OEHTXcjaheWKQkrGNEpmQ2Dl640GgdFwJn34yOGowbOV6mgnkL/q526ZS+DcxEZPvkhH
-         JVOg/Zuqcm2HClgQCjhK9QMyFK6HghkuhgukA4IVPvbhYp8xNVwb+X8WXi7NToVnt+3c
-         g+rwjaisK/yMK5NjSSjxgdkgA+lGb9JFr+xmtdpkgw5pXSxHFsHyn8baipP8AP/cR5/L
-         9XiOD9b3+4wAHt5AlFawPXV3VMBcEXQdrBYZtYVJi8ZnU1JjdphmQ3tQtycwA97blAJe
-         RmZQ==
-X-Gm-Message-State: AOAM532VGSvWOohbbqsDh/7uGd0Qm+yRzienmOmklakycRsoiniEAXSV
-        QKLyI2SOBCfz7DkCG1wax8I=
-X-Google-Smtp-Source: ABdhPJwZgLYZRD+PhM6Eo80FjtxLmXKXFqGfqKfEnEwLs7H4oOsUo09qquzThy85pfRKibMH2Oe2kg==
-X-Received: by 2002:a17:906:4e19:: with SMTP id z25mr31312101eju.44.1602542303818;
-        Mon, 12 Oct 2020 15:38:23 -0700 (PDT)
-Received: from ltop.local ([2a02:a03f:b7fe:f700:68a0:d8d7:26ec:2090])
-        by smtp.gmail.com with ESMTPSA id sd18sm11085330ejb.24.2020.10.12.15.38.22
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=YGlaUHvFNaQxLyI5NB2yzrHHwBSp6QUJHHpNu7Fx3w4=;
+        b=lHH2++rL3yIFHgOa5drx7p5StPySexPB8vOK1LlZ8chy5NY8legw0ozyGCmOZnWr5K
+         KxYFIoOvAKD/VxClOkL4tCE3CA74ibXLtHvS4yqFH70jP+D9vaRMuzICYQaypGy9VtFL
+         cSIEdanC4veI5GAJbrUXaKTPWBT3wi37tgf/mN+njRF/FR+FFzOb0q6Hxl5CjGqKzGc6
+         mADyU0fHIWkVIdpZwczjaSvcNjLctVCZ9NW70jdno2Wbe50XXSNSPx0JDkMclUOGn+ms
+         9pZXb7FpgIfiZsKMry1Qciobrso6d+0Xk7uTnMaY/yuU3F0EhQK7Uj1pWR0VtoK+o8zT
+         qlZg==
+X-Gm-Message-State: AOAM533+SvPzAhdvadRFifW2aFNHU0qqWvZCizm8jesDuTKjNdvJ1RS1
+        T05uiOdE7t1QRNheZ7n1OrSnPlOF8jk=
+X-Google-Smtp-Source: ABdhPJwBtknjJcQgVpUKTUMiAUiaVnWFIgYReONSqr1V3kEDYX49I37urkWzcIAaRXyGeoEwH5CNBw==
+X-Received: by 2002:a05:6402:2207:: with SMTP id cq7mr1859908edb.359.1602626778313;
+        Tue, 13 Oct 2020 15:06:18 -0700 (PDT)
+Received: from localhost.localdomain ([2a02:a03f:b7fe:f700:5515:f93d:cc48:6a5f])
+        by smtp.gmail.com with ESMTPSA id h22sm577892ejc.80.2020.10.13.15.06.17
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 12 Oct 2020 15:38:22 -0700 (PDT)
-Date:   Tue, 13 Oct 2020 00:38:21 +0200
+        Tue, 13 Oct 2020 15:06:17 -0700 (PDT)
 From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-To:     Ben Dooks <ben.dooks@codethink.co.uk>
-Cc:     linux-sparse@vger.kernel.org
-Subject: Re: [PATCH 0/8] format check tweaks
-Message-ID: <20201012223821.i7fymzwxqwstx75r@ltop.local>
-References: <20201005020002.1108-1-luc.vanoostenryck@gmail.com>
- <58d771f9-7560-f682-3173-78dea0f83711@codethink.co.uk>
- <20201005234749.dfw34pvgb2uavuko@ltop.local>
- <504d8f5f-d8bc-e7f5-a096-ee097411c3f9@codethink.co.uk>
+To:     linux-sparse@vger.kernel.org
+Cc:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
+Subject: [PATCH] flex-array: fix typo in warning message
+Date:   Wed, 14 Oct 2020 00:06:13 +0200
+Message-Id: <20201013220613.7433-1-luc.vanoostenryck@gmail.com>
+X-Mailer: git-send-email 2.28.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <504d8f5f-d8bc-e7f5-a096-ee097411c3f9@codethink.co.uk>
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-On Sun, Oct 11, 2020 at 08:51:59PM +0100, Ben Dooks wrote:
-> 
-> I've not had time to run the latest against the kernel as I forgot
-> the disc password to my main machine and have had to rebuild the
-> system from scratch.
+Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
+---
+ symbol.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Definitively not fun :(
+diff --git a/symbol.c b/symbol.c
+index 5e7f07969f96..b758ca415583 100644
+--- a/symbol.c
++++ b/symbol.c
+@@ -200,7 +200,7 @@ static struct symbol * examine_struct_union_type(struct symbol *sym, int advance
+ 		if (has_flexible_array(member))
+ 			info.has_flex_array = 1;
+ 		if (has_flexible_array(member) && Wflexible_array_nested)
+-			warning(member->pos, "nested flexible arrays");
++			warning(member->pos, "nested flexible array");
+ 		fn(member, &info);
+ 	} END_FOR_EACH_PTR(member);
  
-> Let me know if there's anything else I can help with.
+-- 
+2.28.0
 
-Better wait till I've something more or less complete, probably tomorrow.
-
--- Luc
