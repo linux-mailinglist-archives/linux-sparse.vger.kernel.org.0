@@ -2,59 +2,59 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id E79E128DCF2
-	for <lists+linux-sparse@lfdr.de>; Wed, 14 Oct 2020 11:22:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 4AA0228DD57
+	for <lists+linux-sparse@lfdr.de>; Wed, 14 Oct 2020 11:26:13 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1730118AbgJNJVa (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Wed, 14 Oct 2020 05:21:30 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:39960 "EHLO
+        id S1727937AbgJNJX7 (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Wed, 14 Oct 2020 05:23:59 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:39942 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1731031AbgJNJUm (ORCPT
+        with ESMTP id S1731150AbgJNJWk (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Wed, 14 Oct 2020 05:20:42 -0400
-Received: from mail-ej1-x641.google.com (mail-ej1-x641.google.com [IPv6:2a00:1450:4864:20::641])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 4BCC2C08E88F
-        for <linux-sparse@vger.kernel.org>; Tue, 13 Oct 2020 16:22:51 -0700 (PDT)
-Received: by mail-ej1-x641.google.com with SMTP id a3so2102497ejy.11
-        for <linux-sparse@vger.kernel.org>; Tue, 13 Oct 2020 16:22:51 -0700 (PDT)
+        Wed, 14 Oct 2020 05:22:40 -0400
+Received: from mail-ej1-x643.google.com (mail-ej1-x643.google.com [IPv6:2a00:1450:4864:20::643])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 5DF30C08E89B
+        for <linux-sparse@vger.kernel.org>; Tue, 13 Oct 2020 16:22:52 -0700 (PDT)
+Received: by mail-ej1-x643.google.com with SMTP id ce10so2157738ejc.5
+        for <linux-sparse@vger.kernel.org>; Tue, 13 Oct 2020 16:22:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=sfUYoFMaKu/nk3VDPjMeSnhKaLJHp2Qpxho4VbNsmZk=;
-        b=oseX0JgfDyrAkf+rAOV30gslYYT6pGQMfo48bjaLJiTjAJV3zIOsDMrxLcxHRH0CNP
-         BQ5XUA7Q3rfc6Ilmz2iVZP8otsKNcSyc7T/pPMQ2pDENakrDGjH8hTajFcQQ+oQNf3rY
-         vtRf0dT3yDdR8BRplSC2gVCejexMyinJaliZitzUX9BvIJmJOOVR0Wl9nqHbPMfnGMKQ
-         FhPI86Pw1ZLX3qzLjbrinRkbViJ2R/KTRUmPaxbmgOqJ5T59T0oryHiwCCCej8Gy4yck
-         btN1/jgsp2s0MjNM3nVq1UNgYClprioOciGf6yeclmsI0GkKSufKEQNj8CJqSnxy8hZe
-         KWiw==
+        bh=Y/TY+e+Lbq2HlSlnsOUd7exF2XekpBxGp4qisQ9IMUc=;
+        b=M+8ee3q/SEXyOdUSmcKd3C9YLQRsS0Hc2QBUbuVa1nL0vZY4J4QF23PJMg51mD0yQq
+         GziCF+AY5cpDxYcMKrLWz4H7ZlWMeqD7PmW2k0BgA1MWAnqiNiISHqP+jl7nXkwZSRzu
+         PWtw9EDDMTVnkuDfOko1BLrpQhJi2sgkL+WRPkltLjKjWtkzay5xEYJgt59sBZTd22NQ
+         HUnRHAjRTh+KH8s8hJhPXtK6GecxnPTjg60UPqIm7taOhoHt5ns9Bu3i5Ry3rrZ4JWby
+         Ui9VPl+NTCPaDaAucEb8suGjcZBVyzBFiujS3xv0Ak/LHaRSguHTId4NzwBD2fUxxO9u
+         xqPQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=sfUYoFMaKu/nk3VDPjMeSnhKaLJHp2Qpxho4VbNsmZk=;
-        b=i4+AwvQfnxI3XlN595d8m/ij97qojwJkOPHj3rSkyv+rnnc0awMaMI9G+YggwHDd3A
-         vu4klfHAc7vVK0hZjq1pkybhQJIFjchgrvmScxKwD3eSO7n8TCqboqWtagEgi8FrLNCv
-         bXnRqeHUigYtVtpg+/MiocJ53OTVo2Rya92EZHXNGacIzNd3MFfp9dwjauTJaUKeKiyb
-         7yYVSj+WnxbrzwN7IWwSpF15T9Y5z6P+rFeHyaPjSPpP0WVKODKqs5SLzb8nJM31+f3b
-         G+SdL2qwy7z6WKSJscFaEbN27D3rqILPWmQTfu0o8yiSkSQ0LES3/OxX0jVCx/8AxRfD
-         2IhA==
-X-Gm-Message-State: AOAM5300MhgoPGVOk5NQFzw6HofO2St6YpqiPJriFGYWDR6yetDLYDQq
-        9ZEbUgfaJlb2KaBq+YWTwBRprrWGTaw=
-X-Google-Smtp-Source: ABdhPJwPHqz0KdPl0wcgrJOkQx6F2ywIXdzAFkiezn7N/T5lyQwcG2k0epK+ge7Er/zSI3Hg3uR6CQ==
-X-Received: by 2002:a17:906:b01:: with SMTP id u1mr2208166ejg.57.1602631369857;
-        Tue, 13 Oct 2020 16:22:49 -0700 (PDT)
+        bh=Y/TY+e+Lbq2HlSlnsOUd7exF2XekpBxGp4qisQ9IMUc=;
+        b=jaNhXwreXNmmCff7A6nTmG69ZBLjLklcBapey5yf9MJ5zTb26e3XE95iLK0+gEy/YR
+         cGBU0/aI5BvnTV9B/2JbDTVynucEJLls2KDmOc6ZWVqgoQMrYewRQM4hXNFiY796WTSF
+         FO2mCrBO7ufX7WrYYJCu/EfJ/vRRGZo4dOm93gVRGFpZ7jlu5rkbXpPvW2/aTQATO7aZ
+         AQgGx1d1VAsgCZQ91fq6YZ+Nf68w4H4+nptU3fh97zf06pysU4YS5CV9G8VwkTbLPWaI
+         6SwtQtXaqHo9e+uaUs5vvR+GYwo6ZJ2e+tFHcOrn2bZ4Eh8Y7+HzVU3u1x4RzE9J1tn9
+         E24w==
+X-Gm-Message-State: AOAM532SMPr1MLRIYkG3LzD4lfQm+0RdIPpC1dlIe3ePYxMZO+geUOda
+        UExKAbL+nQR01KxLBPPZfY8DeO77l+I=
+X-Google-Smtp-Source: ABdhPJwdt44t4Qw+rfX5Ve7QA39Ehwy+++aKpb1PavuWuWKhehzQ5HGdUcwaiRhN0WzPw1XlMflgoA==
+X-Received: by 2002:a17:906:e103:: with SMTP id gj3mr2230280ejb.442.1602631370826;
+        Tue, 13 Oct 2020 16:22:50 -0700 (PDT)
 Received: from localhost.localdomain ([2a02:a03f:b7fe:f700:5515:f93d:cc48:6a5f])
         by smtp.gmail.com with ESMTPSA id g8sm640902ejp.73.2020.10.13.16.22.49
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2020 16:22:49 -0700 (PDT)
+        Tue, 13 Oct 2020 16:22:50 -0700 (PDT)
 From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 To:     linux-sparse@vger.kernel.org
 Cc:     Ben Dooks <ben.dooks@codethink.co.uk>,
         Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-Subject: [PATCH 10/13] format-check: add a function to check the type of floats
-Date:   Wed, 14 Oct 2020 01:22:28 +0200
-Message-Id: <20201013232231.10349-11-luc.vanoostenryck@gmail.com>
+Subject: [PATCH 11/13] format-check: add a function to check the type of integers
+Date:   Wed, 14 Oct 2020 01:22:29 +0200
+Message-Id: <20201013232231.10349-12-luc.vanoostenryck@gmail.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20201013232231.10349-1-luc.vanoostenryck@gmail.com>
 References: <20201013232231.10349-1-luc.vanoostenryck@gmail.com>
@@ -68,55 +68,126 @@ This checking is currently done by check_assignment_types()
 for all numeric types but this is not adequate because we
 want to have a better control over what is allowed or not
 
-So, add a custom checking function, currently just checking
-if the argument is one of the floating-point types.
+So, add a custom checking function:
+*) checking if the argument is one of the integer types.
+*) currently accepting bitwise types too
+*) easily extended to handle -Wformat-signedness
 
 Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 ---
- verify-format.c | 23 ++++++++++++++++++++++-
- 1 file changed, 22 insertions(+), 1 deletion(-)
+ verify-format.c | 74 +++++++++++++++++++++++++++++++++++++++++++++----
+ 1 file changed, 69 insertions(+), 5 deletions(-)
 
 diff --git a/verify-format.c b/verify-format.c
-index 34c3db96fe3a..6bcbfdfef1b4 100644
+index 6bcbfdfef1b4..fdfe9c22e858 100644
 --- a/verify-format.c
 +++ b/verify-format.c
-@@ -106,6 +106,27 @@ static int printf_fmt_numtype(struct format_type *fmt,
- 	return check_assignment_types(fmt->type, expr, typediff);
+@@ -98,12 +98,76 @@ static inline int type_class(struct symbol *type, struct symbol **base)
+ 	return CLASS_OTHER;
  }
  
-+static const char *check_printf_float(struct format_type *fmt, struct symbol *source)
+-static int printf_fmt_numtype(struct format_type *fmt,
++static struct symbol *normalize_sint(struct symbol *s)
++{
++	if (s == &sint_ctype)
++		return &int_ctype;
++	if (s == &slong_ctype)
++		return &long_ctype;
++	if (s == &sllong_ctype)
++		return &llong_ctype;
++	if (s == &sint128_ctype)
++		return &int128_ctype;
++	return s;
++}
++
++static struct symbol *normalize_uint(struct symbol *s)
++{
++	if (s == &uint_ctype)
++		return &int_ctype;
++	if (s == &ulong_ctype)
++		return &long_ctype;
++	if (s == &ullong_ctype)
++		return &llong_ctype;
++	if (s == &uint128_ctype)
++		return &int128_ctype;
++	return s;
++}
++
++static const char *check_printf_int(struct format_type *fmt, struct symbol *source, int sign)
 +{
 +	const char *typediff = "different base types";
 +	struct symbol *target = fmt->type;
-+	struct symbol *base;
++	int class = type_class(source, &source);
 +
-+	if (type_class(source, &base) != CLASS_FLOAT)
++	if (class == CLASS_BITWISE)
++		class = type_class(source->ctype.base_type, &source);
++	if (class != CLASS_INT)
 +		return typediff;
-+	if (base == target)
++
++	// For now, ignore the signedness
++	target = normalize_uint(target);
++	source = normalize_uint(source);
++	source = normalize_sint(source);
++	if (source == target)
 +		return NULL;
 +	return typediff;
 +}
 +
-+static int printf_fmt_float(struct format_type *fmt,
++static const char *check_printf_sint(struct format_type *fmt, struct symbol *source)
++{
++	return check_printf_int(fmt, source, 1);
++}
++
++static int printf_fmt_sint(struct format_type *fmt,
 +			      struct expression **expr,
 +			      struct symbol *ctype,
 +			      const char **typediff)
 +{
-+	return !(*typediff = check_printf_float(fmt, ctype));
++	return !(*typediff = check_printf_sint(fmt, ctype));
 +}
 +
- // For 's' & 'S' specifiers
- static const char *check_printf_string(struct format_type *fmt, struct symbol *source)
++static const char *check_printf_uint(struct format_type *fmt, struct symbol *source)
++{
++	return check_printf_int(fmt, source, 0);
++}
++
++static int printf_fmt_uint(struct format_type *fmt,
+ 			      struct expression **expr,
+ 			      struct symbol *ctype,
+ 			      const char **typediff)
  {
-@@ -310,7 +331,7 @@ static struct format_type *parse_printf_get_fmt(struct format_type *type,
- 		break;
- 	case 'e': case 'E': case 'f': case 'F': case 'g': case 'G':
- 	case 'a': case 'A':
+-	return check_assignment_types(fmt->type, expr, typediff);
++	return !(*typediff = check_printf_uint(fmt, ctype));
+ }
+ 
+ static const char *check_printf_float(struct format_type *fmt, struct symbol *source)
+@@ -274,7 +338,7 @@ static struct format_type *parse_printf_get_fmt(struct format_type *type,
+ 
+ 	switch (*ptr++) {
+ 	case 'd': case 'i':
 -		type->test = printf_fmt_numtype;
-+		type->test = printf_fmt_float;
++		type->test = printf_fmt_sint;
+ 		switch (szmod) {
+ 		case LEN_hh:
+ 		case LEN_h:
+@@ -302,7 +366,7 @@ static struct format_type *parse_printf_get_fmt(struct format_type *type,
+ 		}
+ 		break;
+ 	case 'u': case 'o': case 'x': case 'X':
+-		type->test = printf_fmt_numtype;
++		type->test = printf_fmt_uint;
+ 		switch (szmod) {
+ 		case LEN_hh:
+ 		case LEN_h:
+@@ -344,7 +408,7 @@ static struct format_type *parse_printf_get_fmt(struct format_type *type,
+ 		}
+ 		break;
+ 	case 'c':
+-		type->test = printf_fmt_numtype;
++		type->test = printf_fmt_sint;	// FIXME: need its own check?
  		switch (szmod) {
  		case LEN_none:
- 			type->type = &double_ctype;
+ 			type->type = &int_ctype;
 -- 
 2.28.0
 
