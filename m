@@ -2,59 +2,59 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 16CFD28DD6D
-	for <lists+linux-sparse@lfdr.de>; Wed, 14 Oct 2020 11:26:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 92F6228DD48
+	for <lists+linux-sparse@lfdr.de>; Wed, 14 Oct 2020 11:26:06 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1728211AbgJNJY2 (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Wed, 14 Oct 2020 05:24:28 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:39940 "EHLO
+        id S1727298AbgJNJXh (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Wed, 14 Oct 2020 05:23:37 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:39948 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1730823AbgJNJUL (ORCPT
+        with ESMTP id S1731239AbgJNJWy (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Wed, 14 Oct 2020 05:20:11 -0400
-Received: from mail-ed1-x541.google.com (mail-ed1-x541.google.com [IPv6:2a00:1450:4864:20::541])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id CCCEEC05BD3A
-        for <linux-sparse@vger.kernel.org>; Tue, 13 Oct 2020 16:22:44 -0700 (PDT)
-Received: by mail-ed1-x541.google.com with SMTP id x1so1231274eds.1
-        for <linux-sparse@vger.kernel.org>; Tue, 13 Oct 2020 16:22:44 -0700 (PDT)
+        Wed, 14 Oct 2020 05:22:54 -0400
+Received: from mail-ed1-x544.google.com (mail-ed1-x544.google.com [IPv6:2a00:1450:4864:20::544])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B5FA1C05BD3B
+        for <linux-sparse@vger.kernel.org>; Tue, 13 Oct 2020 16:22:45 -0700 (PDT)
+Received: by mail-ed1-x544.google.com with SMTP id dg9so1167060edb.12
+        for <linux-sparse@vger.kernel.org>; Tue, 13 Oct 2020 16:22:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=bvlC/2R8xxwE9ap0gHjMwJqLIunhhYeDJ9D8qPw+/44=;
-        b=fYutWEpqiBWKQPyPdAPlCfsJsNiSkXvsV2ist6tkgk5DlL//N5aBHIk++3Dk0AQgtU
-         Kaki4PMcEjdVYePz7bcMXhv1NJAWWVc/+AUiEXeFBbNZpi8jf6grBJRurVlDYGycZy1J
-         FvxbPviyCp3jmUoteqobH5TFFZARqssrih8XnXqtw1vb68o2DIqovLhEnEgHUze4NcfW
-         NFtWdhuoDUwyU19kqp4wFMXu/wg6qZDm+z1LgggXrE29oveEJ3jCVc53OETOfjfHdyZL
-         PzEJiTel9/aCVeRIcllJbm8yfegUkesl5IIdLpsqo7rjrhnBTVLaBLX0y8lgvn6RWu3F
-         gnUQ==
+        bh=GbAirURmOvj5zygsmPy4YHXzK62TeOuUF2v2C5vMZyY=;
+        b=G7A2prtiO0pPNSyAF8aKelZ87o7z0S/49Aum3U/wMNFbzbrKazKxeKLs+0q0EkRAXc
+         MbBNsMaw1ZXcksTm76/eyebNroDKn42sKrX3pUZ/Mln80GEWR67i8mtYrOBWL65+/vOc
+         mK8UNCcHrpPuYKu0XkqrCntJqajcp1/Ms/XzVqotoi20xMQC9nYcH/ESwQ+wrPbe1XX9
+         LLgmPsn8Zv4/DBk3TYKb/M09VGv5YV1NivCPrpk+tkW2I/tzmDr7+V0EewtmghP50PZY
+         p5xeI2k3IsErsjZN4or6U/pBaFNMYuY1X4WD2BmfyxCs8vWnixl4SqjqK/dNYmfrotLW
+         lokA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=bvlC/2R8xxwE9ap0gHjMwJqLIunhhYeDJ9D8qPw+/44=;
-        b=raq26dectOH0uxDVGk7bBBY7pizuYjUcTvNJQvky7+LEIGb2FU0IZN3g6uMZ970daY
-         MurqeTqchJ+TMIfe6nBw2uS9+JMBd7Qnr1h33F/A99V7epaKWLJsM0M3O7u3J4VwBEVw
-         yyoYESPV+oCKi7jIBiB9pq5qheIhrcqwvfX8mfU75/z9PFp/57hN9012tVOFC4kOiz6Z
-         sM6zI49GJuut7wKQSiSeC+A+vtFHIOBBxX7kcYp135mp25NVYhuO08XEZWOexbdOJj8K
-         Dl3qCPR1A7qGS4x6XFu8La24Q7KWTQWon3muEy3pvdM4Vog8iETQX/GGaMBLCljYk5N4
-         xkYg==
-X-Gm-Message-State: AOAM530D19t64DdKRl3gHXHMWnPcNzoMYPoCpF5EYh+If1qeGZgo84IT
-        Kkpir3Zv9X0pCzAVZoxFMWd+tn0T5Ok=
-X-Google-Smtp-Source: ABdhPJxGr/yntWQ+HOn9bdltxvPxhH4EcACAyqgov0ohsT1qGb0SPJViXg1c1Xw1jbSifSeoB55TaQ==
-X-Received: by 2002:aa7:d689:: with SMTP id d9mr2247822edr.128.1602631363337;
-        Tue, 13 Oct 2020 16:22:43 -0700 (PDT)
+        bh=GbAirURmOvj5zygsmPy4YHXzK62TeOuUF2v2C5vMZyY=;
+        b=Qou+Uf9gumrDhPqn+hnY2IB0wtAvu1h962dOKzJVNk6hhQGlEFm0RxZngQLQwbgUlv
+         m7apQb1yfTEomo+C6rOIlFPlfpFgXw7GLvVWHdCG9OIs2ygq9dWm94goSIFYCm0pVrqB
+         G8NWuT0AVXCbla313Wo5wdIkDc8qzOoaOjvxGQS0TmZNWEbwxnafWR7ohzvQ5KfWmoj+
+         LIO3hz/dFUavF2XUOWHDZwZQj1luE+C4TnMclA2/jp8DMvgD2C9ySQvhZozD3yFcFeo/
+         NZpavh1OKCQFf4fdC/XtUCQxdPohR9G3AevRSGFVpdaXZqj+pH1SRrwcDLbsChMFI+sE
+         nj1Q==
+X-Gm-Message-State: AOAM530OtdHUvCM6vO9i3slmhsWruYK9mwtuH9EBNei9qtIFU94rnvlv
+        v8S8BHCW0NXj5CjLkzD3atuB8/XiNjI=
+X-Google-Smtp-Source: ABdhPJyOloJ4ZO9fHoxRRVsB+BGF3Fm13ZTPCPGgzUfWc6D3miZZFJhUmXD6+crWI1GxT6zmNDL6OA==
+X-Received: by 2002:a50:ab86:: with SMTP id u6mr2185205edc.158.1602631364234;
+        Tue, 13 Oct 2020 16:22:44 -0700 (PDT)
 Received: from localhost.localdomain ([2a02:a03f:b7fe:f700:5515:f93d:cc48:6a5f])
-        by smtp.gmail.com with ESMTPSA id g8sm640902ejp.73.2020.10.13.16.22.42
+        by smtp.gmail.com with ESMTPSA id g8sm640902ejp.73.2020.10.13.16.22.43
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2020 16:22:42 -0700 (PDT)
+        Tue, 13 Oct 2020 16:22:43 -0700 (PDT)
 From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 To:     linux-sparse@vger.kernel.org
 Cc:     Ben Dooks <ben.dooks@codethink.co.uk>,
         Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-Subject: [PATCH 03/13] format-check: add helper type_class()
-Date:   Wed, 14 Oct 2020 01:22:21 +0200
-Message-Id: <20201013232231.10349-4-luc.vanoostenryck@gmail.com>
+Subject: [PATCH 04/13] format-check: merge 'fmt_string' & 'string'
+Date:   Wed, 14 Oct 2020 01:22:22 +0200
+Message-Id: <20201013232231.10349-5-luc.vanoostenryck@gmail.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20201013232231.10349-1-luc.vanoostenryck@gmail.com>
 References: <20201013232231.10349-1-luc.vanoostenryck@gmail.com>
@@ -64,53 +64,45 @@ Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-This will help the next patch to verify the types.
+Those are 2 variables for the same things. Merge them.
 
 Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 ---
- verify-format.c | 29 +++++++++++++++++++++++++++++
- 1 file changed, 29 insertions(+)
+ verify-format.c | 7 +++----
+ 1 file changed, 3 insertions(+), 4 deletions(-)
 
 diff --git a/verify-format.c b/verify-format.c
-index ae5bb2e6e985..fd5a9ed821e1 100644
+index fd5a9ed821e1..99a36c8eef5f 100644
 --- a/verify-format.c
 +++ b/verify-format.c
-@@ -70,6 +70,35 @@ struct format_state {
- 	unsigned int		used_position: 1;
- };
+@@ -524,7 +524,7 @@ void verify_format_attribute(struct symbol *fn, struct expression_list *args)
+ 	struct format_state state = { };
+ 	struct expression *expr;
+ 	struct expression *init;
+-	const char *fmt_string;
++	const char *string;
  
-+enum {
-+	CLASS_OTHER,
-+	CLASS_INT,
-+	CLASS_BITWISE,
-+	CLASS_FLOAT,
-+	CLASS_PTR,
-+};
-+
-+static inline int type_class(struct symbol *type, struct symbol **base)
-+{
-+	if (type->type == SYM_NODE)
-+		type = type->ctype.base_type;
-+	if (type->type == SYM_ENUM)
-+		type = type->ctype.base_type;
-+	*base = type;
-+	if (type->type == SYM_BASETYPE) {
-+		struct symbol *kind = type->ctype.base_type;
-+		if (kind == &int_type)
-+			return CLASS_INT;
-+		if (kind == &fp_type)
-+			return CLASS_FLOAT;
-+	}
-+	if (type->type == SYM_PTR)
-+		return CLASS_PTR;
-+	if (type->type == SYM_RESTRICT)
-+		return CLASS_BITWISE;
-+	return CLASS_OTHER;
-+}
-+
- static int printf_fmt_numtype(struct format_type *fmt,
- 			      struct expression **expr,
- 			      struct symbol *ctype,
+ 	if (!fn || !Wformat)
+ 		return;
+@@ -540,16 +540,15 @@ void verify_format_attribute(struct symbol *fn, struct expression_list *args)
+ 	init = expr->symbol->initializer;
+ 	if (!init || init->type != EXPR_STRING)
+ 		return;			// not a string
+-	fmt_string = init->string->data;
++	string = init->string->data;
+ 
+ 	state.expr = expr;
+ 	state.first = fn->ctype.format.first;
+ 	state.arg_index = fn->ctype.format.first;
+ 
+-	if (!fmt_string) {
++	if (!string) {
+ 		warning(expr->pos, "not a format string?");
+ 	} else {
+-		const char *string = fmt_string;
+ 		int fail = 0;
+ 
+ 		while (string[0]) {
 -- 
 2.28.0
 
