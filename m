@@ -2,58 +2,59 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id B4A7028DD32
-	for <lists+linux-sparse@lfdr.de>; Wed, 14 Oct 2020 11:25:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id C2BC928DD77
+	for <lists+linux-sparse@lfdr.de>; Wed, 14 Oct 2020 11:26:27 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1730257AbgJNJXG (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Wed, 14 Oct 2020 05:23:06 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:39930 "EHLO
+        id S1730774AbgJNJYo (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Wed, 14 Oct 2020 05:24:44 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:39962 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1731219AbgJNJWy (ORCPT
+        with ESMTP id S1730678AbgJNJUC (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Wed, 14 Oct 2020 05:22:54 -0400
-Received: from mail-ej1-x642.google.com (mail-ej1-x642.google.com [IPv6:2a00:1450:4864:20::642])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id BB0BEC0613B9
-        for <linux-sparse@vger.kernel.org>; Tue, 13 Oct 2020 15:16:40 -0700 (PDT)
-Received: by mail-ej1-x642.google.com with SMTP id c22so2035532ejx.0
-        for <linux-sparse@vger.kernel.org>; Tue, 13 Oct 2020 15:16:40 -0700 (PDT)
+        Wed, 14 Oct 2020 05:20:02 -0400
+Received: from mail-ed1-x543.google.com (mail-ed1-x543.google.com [IPv6:2a00:1450:4864:20::543])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 01DE8C05BD36
+        for <linux-sparse@vger.kernel.org>; Tue, 13 Oct 2020 16:22:42 -0700 (PDT)
+Received: by mail-ed1-x543.google.com with SMTP id x1so1231188eds.1
+        for <linux-sparse@vger.kernel.org>; Tue, 13 Oct 2020 16:22:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:mime-version
          :content-transfer-encoding;
-        bh=ZXP8KGBq3TnsOhyvBmE8YVLJhxM4G+TmkIEo8IsEkpA=;
-        b=IweAzX9mrcrY4mU7ZfzkGAQhT8POg8n9S0Qi+6aeykDsHKYvt0BdDj5TuUNKSu9JjI
-         m00Ys23Wa4EODAnUEDXlV/dYqauG/XqkU6waEsUXvKR3bEyLakEJr6czkPQbbZg9RGQX
-         BcrAA0OnGgEMsnNFxOmVnLzm4yYbZ1sMiMh199XzFaff0mjUUz+ayoqIU2fvFSD+95FT
-         sbQ6NohWCRXmDEMFNKlnwsw1OHnaBnMFSyXkzX2I6GmHONqDly2LOi4gaAiu+jIz35Jo
-         jgW6YvY9vRIRFrms53Bl/3imgQgc9AIOmJWXgToGo4KxBLPiVtO2uEti6IoUWPvuUECd
-         q7kQ==
+        bh=XSOu6druYwrZdezBwPdOFzMhfp9CpJaaYObSrjMj+Sc=;
+        b=FkDp9qV2d1b+tR6YFzjR0fj6jYUXWgzjopIj2jQxqUeHwZTY00+qBP2UXkrhbmTe5O
+         R/lOCoTH+wZCOntOkzE9BqqkeQfb7PVEhDjqC2objfZLetYnYu69G4pjvBNKiWcOZmzZ
+         Zdy8YTvLbb96v9USOLLbeoLPTlKh2ijn5Cp1zpwHoHcdVJ3WVOwJnopFtwS+hGhG0CWw
+         TncxtL3v9WaRy3GMm2VCpXNGH3iy5uZ4A3eJvIs+0b6olYJ+Q+lkXqF6KtKjasyhEmcM
+         Qh1e8bu5/QeBuWsYVzDVNSY97E8Z6JwbsMRbb5hbo6RTIjt0g40eGDrD6GKhmZEaaDw6
+         h89w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
          :content-transfer-encoding;
-        bh=ZXP8KGBq3TnsOhyvBmE8YVLJhxM4G+TmkIEo8IsEkpA=;
-        b=jBdUo+7mD2cK0she6g5ACQTq6BYHxT3Dk1hCmwbavAWmcYwKF/c9aFGUWO1zx05HPG
-         2o/XzakG9Dg1KBRhIqU8dBBHSyRCz9CzgMmBTz/wfX8LakuqPqqQci/kK7brT6Tx1Tek
-         CQNTSme53z/QD+rxYv3Yr/UgBZ60YCrrO0bdkc6qnDVFeQpTBItTeH3vVZDxa2AwsL12
-         kmAf4AX60n7zmUvH76YiF2eXrib0umTUIbMQUffOlT1OAZikW/ngGjacf0RUf3aBQm7d
-         fAfLsjiKC+hi8AOVZRxIy3gCQcIKpF1puK/A2LT1+RJvkzjQUzJmHLpp91BihA1T1+Wr
-         9ZUA==
-X-Gm-Message-State: AOAM532IeqbZYxttB0Ysc6MVsqlZ0hLIZxnQoRxXzxO4Pi6Er0vLWBa6
-        u9YjAiTWVzkmQ4T5IwVYjy5/mwvAyLA=
-X-Google-Smtp-Source: ABdhPJzOglFX2tyzxrc1SIVCrFYb9Qa9UgtefwGXSj8d+AEMs2rndCXVgOY7PR4YtNLjJ2R/jEcuoQ==
-X-Received: by 2002:a17:906:3541:: with SMTP id s1mr2053701eja.413.1602627399082;
-        Tue, 13 Oct 2020 15:16:39 -0700 (PDT)
+        bh=XSOu6druYwrZdezBwPdOFzMhfp9CpJaaYObSrjMj+Sc=;
+        b=f/5jH4KFMFnPDF/ectpjCdshT1xNREPGYkq1hx36nvM3yj8NjesrMIVc9N078jHe8F
+         IeUwJ8nN2v60Y9hulPtz+4dQJv+5PgBrky2b01yzFmE5j+a62JMG/GDYcKPFArjLM1Vf
+         uyye9n+QCtzSmi2VyaxJrj0flTrjiYrL39s+qQdaOkPNWfeZZESrFz6b++tlcCwsIAGQ
+         hfmztrzsQt5kF/UpAp6kdsrSUP8flOgtOnWnMdxX4eRFOPN3m/f019Ff9OgBQxG5nccb
+         0pk9Esfh0wmz2NZoL7k7Nb1R44URhKeE2Y5ZoJCy0afFPoj2dyoiNfsXxMEu4568+uFe
+         dqlw==
+X-Gm-Message-State: AOAM530Y59VMSbUy1qcqfDEs2gSetjJzY+VCgXQZl3ty+bl9zEP8/kKo
+        AJeW8UoHx9q3lIpnmcuuSeQRsiV/95Q=
+X-Google-Smtp-Source: ABdhPJwg7JpvHtD8oTtvFFZCe83jcpYtTA6XNU0BoV6ky4+Y3aqqW1+aje3YOHUd7xvrrbr07ZtAQA==
+X-Received: by 2002:a05:6402:2076:: with SMTP id bd22mr2206293edb.197.1602631360343;
+        Tue, 13 Oct 2020 16:22:40 -0700 (PDT)
 Received: from localhost.localdomain ([2a02:a03f:b7fe:f700:5515:f93d:cc48:6a5f])
-        by smtp.gmail.com with ESMTPSA id o11sm596087ejd.60.2020.10.13.15.16.38
+        by smtp.gmail.com with ESMTPSA id g8sm640902ejp.73.2020.10.13.16.22.39
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2020 15:16:38 -0700 (PDT)
+        Tue, 13 Oct 2020 16:22:39 -0700 (PDT)
 From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 To:     linux-sparse@vger.kernel.org
-Cc:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-Subject: [PATCH] update TODOs
-Date:   Wed, 14 Oct 2020 00:16:36 +0200
-Message-Id: <20201013221636.7664-1-luc.vanoostenryck@gmail.com>
+Cc:     Ben Dooks <ben.dooks@codethink.co.uk>,
+        Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
+Subject: [PATCH 00/13] format-check: add specific type checking
+Date:   Wed, 14 Oct 2020 01:22:18 +0200
+Message-Id: <20201013232231.10349-1-luc.vanoostenryck@gmail.com>
 X-Mailer: git-send-email 2.28.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -61,91 +62,41 @@ Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-A few things are now done: remove them from the TODO.
-A few things need to be done: add them to the TODO.
+These patches improve/complete the parsing of the lenght and
+the type modifiers and, more importantly, add specific checking
+functions for all the types, replacing the use of
+check_assignment_types() which don't do the kind of type checking
+needed here (and which evaluate expressions, something not
+needed and which complicate the interface a lot).
 
-Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
----
- Documentation/TODO.md | 29 +++++++++++++++++++++--------
- 1 file changed, 21 insertions(+), 8 deletions(-)
+These checking functions are not yet complete but are a solid
+base for some further improvements. They already allow to
+use 'sparse -Wformat' on the kernel without false positive
+and can detect of a few errors.
 
-diff --git a/Documentation/TODO.md b/Documentation/TODO.md
-index e2043e481f99..4dc9e63ab207 100644
---- a/Documentation/TODO.md
-+++ b/Documentation/TODO.md
-@@ -4,13 +4,13 @@ TODO
- Essential
- ---------
- * SSA is broken by simplify_loads() & branches rewriting/simplification
--* attributes of struct, union & enums are ignored (and possibly in other
--  cases too).
--* add support for bitwise enums
-+* attributes of struct, union & enums are ignored (and maybe others too).
-+  This requires correct support for __packed which itself needs partial
-+  and unaligned loads & stores (wip)
-+* add support for bitwise enums (wip)
- 
- Documentation
- -------------
--* document the extensions
- * document the API
- * document the limitations of modifying ptrlists during list walking
- * document the data structures
-@@ -27,7 +27,7 @@ Core
- 
- Testsuite
- ---------
--* there are more than 50 failing tests. They should be fixed
-+* there are 60 failing tests. They should be fixed
-   (but most are non-trivial to fix).
- 
- Misc
-@@ -36,15 +36,26 @@ Misc
- * parse __attribute_((fallthrough))
- * add support for format(printf())  (WIP by Ben Dooks)
- * make use of UNDEFs (issues warnings, simplification, ... ?)
--* add a pass to inline small functions during simplification.
-+* make memory accesses more explicit: add EXPR_ACCESS (wip)
-+* it would be nice to do our own parsing of floating point (wip)
-+* some header files needed for crypto/ need __vector or __fp16
-+* some even need __complex
- 
- Optimization
- ------------
-+* a lot of small simplifications are waiting to be upstreamed
-+* the domtree need to be rebuilt (or updated)
-+* critical edges need to be split
- * the current way of doing CSE uses a lot of time
- * add SSA based DCE
- * add SSA based PRE
- * Add SSA based SCCP
-+* add a pass to inline small functions during simplification.
- * use better/more systematic use of internal verification framework
-+* tracking of operands size should be improved (WIP)
-+* OP_INLINE is sometimes in the way
-+* would be nice to strictly separate phases that don't changes the
-+  CFG and thus the dominance tree.
- 
- IR
- --
-@@ -60,13 +71,15 @@ LLVM
- 
- Internal backends
- -----------------
--* add some basic register allocation
-+* it would be nice the upstream the code generator
- * add a pass to transform 3-addresses code to 2-addresses
-+* add some basic register allocation
-+* add a pass to order the BBs and changes 2-ways CBR into one-way branches
- * what can be done for x86?
-+* add support to add constraints in the MD rules
- 
- Longer term/to investigate
- --------------------------
--* better architecture handling than current machine.h + target.c
- * attributes are represented as ctypes's alignment, modifiers & contexts
-   but plenty of attributes doesn't fit, for example they need arguments.
-   * format(printf, ...),
+The series is available for review & testing at:
+  git://github.com/lucvoo/sparse-dev.git format-check
+
+
+Luc Van Oostenryck (13):
+  format-check: void * is not OK for strings, fix the test
+  format-check: more complete parsing of the length & type modifiers
+  format-check: add helper type_class()
+  format-check: merge 'fmt_string' & 'string'
+  format-check: remove unneeded member: target
+  format-check: add a function to check to type of strings
+  format-check: add a function to check to type of 'n' arguments
+  format-check: add a function to check to type of pointers
+  format-check: remove printf_fmt_print_pointer()
+  format-check: add a function to check the type of floats
+  format-check: add a function to check the type of integers
+  format-check: remove wrappers around type checking methods
+  format-check: simplify calling of parse_printf_get_fmt()
+
+ validation/varargs-format-addrspace1.c |  12 +-
+ verify-format.c                        | 496 ++++++++++++++++---------
+ 2 files changed, 323 insertions(+), 185 deletions(-)
+
 -- 
 2.28.0
 
