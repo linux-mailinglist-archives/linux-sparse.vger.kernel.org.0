@@ -2,59 +2,59 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id ED72A28DCD4
-	for <lists+linux-sparse@lfdr.de>; Wed, 14 Oct 2020 11:21:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id CD3D328DD01
+	for <lists+linux-sparse@lfdr.de>; Wed, 14 Oct 2020 11:22:16 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1730077AbgJNJUa (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Wed, 14 Oct 2020 05:20:30 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:39936 "EHLO
+        id S1728068AbgJNJVq (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Wed, 14 Oct 2020 05:21:46 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:39966 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1730636AbgJNJUI (ORCPT
+        with ESMTP id S1730982AbgJNJUj (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Wed, 14 Oct 2020 05:20:08 -0400
-Received: from mail-ej1-x642.google.com (mail-ej1-x642.google.com [IPv6:2a00:1450:4864:20::642])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id C77D3C05BD37
-        for <linux-sparse@vger.kernel.org>; Tue, 13 Oct 2020 16:22:42 -0700 (PDT)
-Received: by mail-ej1-x642.google.com with SMTP id p15so2139841ejm.7
-        for <linux-sparse@vger.kernel.org>; Tue, 13 Oct 2020 16:22:42 -0700 (PDT)
+        Wed, 14 Oct 2020 05:20:39 -0400
+Received: from mail-ed1-x543.google.com (mail-ed1-x543.google.com [IPv6:2a00:1450:4864:20::543])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id DD1BDC05BD38
+        for <linux-sparse@vger.kernel.org>; Tue, 13 Oct 2020 16:22:43 -0700 (PDT)
+Received: by mail-ed1-x543.google.com with SMTP id dg9so1167008edb.12
+        for <linux-sparse@vger.kernel.org>; Tue, 13 Oct 2020 16:22:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=Y/JvTb126QV+80NBtR2WROH2033g+ofTSJfzhsB69Gk=;
-        b=HR75A0VHxzqgoQq2x677iUR0qLJ1yy/k1UB2vC6bb1uz/2QRNhTquFxial198dpzte
-         vrrx59rZnKblebZ/pSl0WgIzo6TjqOzJsiaDKFCelT0qb3hGKS9dztU8XLmLtsMXJ7SO
-         15lwPAQdcNvDI30U9yVt9hD773cgXZA1iRuqB3T26newjnFrRWsr6ftNNRyamC3N8xPf
-         0FDRwp3buPc/1RrdgdjeS+7nIiKJECNWZNdRgIb1cbhVxyGh9EY7N+dyBDCwenR6qKjU
-         0+j+IBQP1c/kzvCPvdRb5jB8XG/qpCWdU3jXdS4EGzQz+yt2ZyLaw0bzLr9uXdH7vmS5
-         Rcdw==
+        bh=n+zkJ03K5vSEXGu4c5ywj2JKU3ucT/LNqO+Tre+9sZQ=;
+        b=OjUiZ3jfVkgomqorwcCLn/osuPnLxaqVLo5FGOvAe3r9yUaNpyN0cYzKacQXfPzCga
+         hq/MDdV81NdVQjvqrtSUeX9xWGahzLQ41XKu76xBfcFJqMCqyy2r+rgGL0VQnLs+gvH0
+         nsGOh4BTRGcO2sq9MGqpReFbpYzzBIvhxJIeIqhMym7F0oRx+RncVBc7zepgYFgsbu9q
+         3tAFIEfHo+82bRxUptP27I9r3VKsPYcyKwxkrohPlUyXFGkDXAwW9kPtdSzc34K1fYLB
+         iUU8EXYnmwzZNItIudMlOGgtvbZ52xsHa2OuY0fxZGpfbCM4dCqORamF+2QKYVdCPCE+
+         7mdA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=Y/JvTb126QV+80NBtR2WROH2033g+ofTSJfzhsB69Gk=;
-        b=IPv2yZo3wJ6jSjMmNZn0yk7cSGbV0aJtn/H7/4wbf+oPY7bMmThqPIOFnKvVzWM7c2
-         3HXTiDCVpXu3HzQ+c1qAGg1J4hoViUl/C+dnclOwjQkwl9tatJofRyLqt6/3o0mRk4M8
-         LRcIjOb+Nvi9irF2jbI/78PtWZ1uw8HCJSk14tTGAAG8xlDVXMP/gukU2aNS9kFCgeM4
-         HrGMmyMUh0nWAwCiOp+yviFIE7MhZAiFPHdPRTKj2JDRCDceKAmHFDW7zHazibuCf5Wq
-         WGu1tMjyUFYLZ6c7rg7jGBrkgBWKOi/qPZe/xzGHIv+dnIvwLeAp1ki0Se2nN2X9BzCQ
-         BenA==
-X-Gm-Message-State: AOAM532APIasiRriN5QvfOc11h6b4lZYqd8QqkUrLHLNEqzsaon5qW+N
-        dx2td9W61mCoG1/sTIf8B0d4Ei5J+LY=
-X-Google-Smtp-Source: ABdhPJx26OjbyFBhEx2bcf1BcbQTQ7ABLHbPZ5aedTO+YBMJ2zmq4h5bQfLA3e75s9yIrOMx7+uiww==
-X-Received: by 2002:a17:906:33c8:: with SMTP id w8mr2218704eja.233.1602631361276;
-        Tue, 13 Oct 2020 16:22:41 -0700 (PDT)
+        bh=n+zkJ03K5vSEXGu4c5ywj2JKU3ucT/LNqO+Tre+9sZQ=;
+        b=B4uezfg1fqFkWfFHjjgbAcaNBPqHuX1pYck5pAQbBEJYqWr+6w9Thr2OQyjSVQBNM8
+         j6G9jmJB2fOz/RHtn/Q9GGpe2GlEOwZom6fiYIj2wLbdijnBmv0Dh5jwa9HJkodBT2HQ
+         bG5dxhFwOfbkcY7c3pwQgCYsN2AXlAjC91n6jcK39M6cSE++hNkhlKGr5V8N+Q43tEVu
+         sGhx6Wfwz/sJqA5Im5eNwkrPHMAzoqbkFCG7/H0oVKcOzRVo958GYksKuxmr+J5bmRGH
+         0KcfbcwkNLsSF4XX1Kx+vrNShq4eD8dQ6qaQGiFeYys/UCANLH6NKV8AvaTlHP6nvJoC
+         eHMQ==
+X-Gm-Message-State: AOAM5324gw29Cali9+Jzl1XMPrW1nrP5oquEazVaBfKJzntsTDF0oF3+
+        rfQq+fn/l6GlrA/9T5F+WN+XoqMC1So=
+X-Google-Smtp-Source: ABdhPJz2m9b4NgbXPf91KLdMWM+OwHd0I3CHfMtUggUozw5TjV2JorXOJGYXF0aQpBgIP6TgRYQAMg==
+X-Received: by 2002:a05:6402:1a43:: with SMTP id bf3mr2297455edb.8.1602631362282;
+        Tue, 13 Oct 2020 16:22:42 -0700 (PDT)
 Received: from localhost.localdomain ([2a02:a03f:b7fe:f700:5515:f93d:cc48:6a5f])
-        by smtp.gmail.com with ESMTPSA id g8sm640902ejp.73.2020.10.13.16.22.40
+        by smtp.gmail.com with ESMTPSA id g8sm640902ejp.73.2020.10.13.16.22.41
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2020 16:22:40 -0700 (PDT)
+        Tue, 13 Oct 2020 16:22:41 -0700 (PDT)
 From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 To:     linux-sparse@vger.kernel.org
 Cc:     Ben Dooks <ben.dooks@codethink.co.uk>,
         Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-Subject: [PATCH 01/13] format-check: void * is not OK for strings, fix the test
-Date:   Wed, 14 Oct 2020 01:22:19 +0200
-Message-Id: <20201013232231.10349-2-luc.vanoostenryck@gmail.com>
+Subject: [PATCH 02/13] format-check: more complete parsing of the length & type modifiers
+Date:   Wed, 14 Oct 2020 01:22:20 +0200
+Message-Id: <20201013232231.10349-3-luc.vanoostenryck@gmail.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20201013232231.10349-1-luc.vanoostenryck@gmail.com>
 References: <20201013232231.10349-1-luc.vanoostenryck@gmail.com>
@@ -64,46 +64,318 @@ Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
+Reorganize the parsing the length modifiers to follow more closely
+the specs and handle some missing cases like 'hh' or '%[ieEaA]'.
+Also, treats 'L' and 'll' synonymously as done by GCC.
+
 Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 ---
- validation/varargs-format-addrspace1.c | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
+ verify-format.c | 265 +++++++++++++++++++++++++++---------------------
+ 1 file changed, 151 insertions(+), 114 deletions(-)
 
-diff --git a/validation/varargs-format-addrspace1.c b/validation/varargs-format-addrspace1.c
-index 3370ac67849c..53c210b78ae0 100644
---- a/validation/varargs-format-addrspace1.c
-+++ b/validation/varargs-format-addrspace1.c
-@@ -4,8 +4,8 @@ extern int variadic2(char *msg, int , ...) __attribute__((format (printf, 1, 3))
- extern int variadic3(int, char *msg,  ...) __attribute__((format (printf, 2, 3)));
+diff --git a/verify-format.c b/verify-format.c
+index 4b4730285237..ae5bb2e6e985 100644
+--- a/verify-format.c
++++ b/verify-format.c
+@@ -44,6 +44,14 @@
+ #include "expression.h"
+ #include "verify-format.h"
  
- static void test(void) {
--	void __attribute__((noderef, address_space(1))) *a;
--	void *b;
-+	const char __attribute__((noderef, address_space(1))) *a;
-+	const char *b;
++enum length_mod {
++	LEN_none,
++	LEN_hh, LEN_h,
++	LEN_l, LEN_ll,
++	LEN_L,
++	LEN_j, LEN_z, LEN_t,
++};
++
+ struct format_type {
+ 	const char	*format;
+ 	int		(*test)(struct format_type *fmt,
+@@ -113,140 +121,169 @@ static struct format_type printf_fmt_ptr_ref = {
+ 	.test = printf_fmt_pointer,
+ };
  
- 	variadic("%s\n", a);
- 	variadic("%s\n", b);
-@@ -22,15 +22,15 @@ static void test(void) {
-  * check-error-start
- varargs-format-addrspace1.c:10:26: warning: incorrect type in argument 2 (different address spaces)
- varargs-format-addrspace1.c:10:26:    expected char const *
--varargs-format-addrspace1.c:10:26:    got void [noderef] <asn:1> *a
-+varargs-format-addrspace1.c:10:26:    got char const [noderef] <asn:1> *a
- varargs-format-addrspace1.c:12:32: warning: incorrect type in argument 3 (different address spaces)
- varargs-format-addrspace1.c:12:32:    expected char const *
--varargs-format-addrspace1.c:12:32:    got void [noderef] <asn:1> *a
-+varargs-format-addrspace1.c:12:32:    got char const [noderef] <asn:1> *a
- varargs-format-addrspace1.c:13:36: warning: incorrect type in argument 4 (different address spaces)
- varargs-format-addrspace1.c:13:36:    expected char const *
--varargs-format-addrspace1.c:13:36:    got void [noderef] <asn:1> *a
-+varargs-format-addrspace1.c:13:36:    got char const [noderef] <asn:1> *a
- varargs-format-addrspace1.c:14:36: warning: incorrect type in argument 4 (different address spaces)
- varargs-format-addrspace1.c:14:36:    expected char const *
--varargs-format-addrspace1.c:14:36:    got void [noderef] <asn:1> *a
-+varargs-format-addrspace1.c:14:36:    got char const [noderef] <asn:1> *a
-  * check-error-end
-  */
+-static int is_float_spec(char t)
+-{
+-	return t == 'f' || t == 'g' || t == 'F' || t == 'G';
+-}
+-
+ static struct format_type *parse_printf_get_fmt(struct format_type *type,
+ 						const char *msg, const char **msgout)
+ {
+ 	const char *ptr = msg;
+-	int szmod=0;
++	int szmod = LEN_none;
+ 
+ 	type->test = NULL;
+ 	*msgout = ptr;
+ 
+-	if (*ptr == 's') {
+-		ptr++;
+-		type->test = printf_fmt_string;
+-		type->type = &const_string_ctype;
+-	} else if (*ptr == 'c') {
+-		ptr++;
+-		type->test = printf_fmt_numtype;
+-		type->type = &char_ctype;
+-	} else if (*ptr == 'p') {
+-		ptr++;
+-		type->test = printf_fmt_print_pointer;
+-		/* check for pointer being printed as hex explicitly */
+-		if (*ptr == 'x' || *ptr == 'X') {
++	switch (*ptr++) {
++	case 'h':
++		szmod = LEN_h;
++		if (*ptr == 'h') {
++			szmod = LEN_hh;
+ 			ptr++;
+-		} else if (isalpha(*ptr)) {
+-			/* probably some extra specifiers after %p */
++		}
++		break;
++	case 'l':
++		szmod = LEN_l;
++		if (*ptr == 'l') {
++			szmod = LEN_ll;
+ 			ptr++;
+-			type->test = printf_fmt_pointer;
+ 		}
+-	} else if (*ptr == 'z') {
+-		// todo - we should construct pointer to int/etc //
++		break;
++	case 'q':
++		szmod = LEN_ll;
++		break;
++	case 'L':
++		szmod = LEN_L;
++		break;
++	case 'j':
++		szmod = LEN_j;
++		break;
++	case 'z':
++		szmod = LEN_z;
++		break;
++	case 't':
++		szmod = LEN_t;
++		break;
++	default:
++		ptr--;
++		break;
++	}
+ 
+-		ptr++;
+-		if (*ptr == 'd' || *ptr == 'i') {
+-			ptr++;
+-			type->test = printf_fmt_numtype;
++	switch (*ptr++) {
++	case 'd': case 'i':
++		type->test = printf_fmt_numtype;
++		switch (szmod) {
++		case LEN_hh:
++		case LEN_h:
++		case LEN_none:
++			type->type = &int_ctype;
++			break;
++		case LEN_l:
++			type->type = &long_ctype;
++			break;
++		case LEN_L:
++		case LEN_ll:
++			type->type = &llong_ctype;
++			break;
++		case LEN_j:
++			type->type = intmax_ctype;
++			break;
++		case LEN_z:
+ 			type->type = ssize_t_ctype;
+-		} else if (*ptr == 'u' || *ptr == 'x' || *ptr == 'X' ||
+-			   *ptr == 'o') {
+-			ptr++;
+-			type->test = printf_fmt_numtype;
+-			type->type = size_t_ctype;
++			break;
++		case LEN_t:
++			type->type = ptrdiff_ctype;
++			break;
++		default:
++			type->test = NULL;
+ 		}
+-	} else {
+-		if (*ptr == 'l') {
+-			szmod++;
+-			ptr++;
+-			if (*ptr == 'l') {
+-				szmod++;
+-				ptr++;
+-			}
+-		} else if (*ptr == 'L') {
+-			szmod++;
+-			ptr++;
+-		} else {
+-			if (*ptr == 'h') { // short/char to int
+-				szmod = -1;
+-				ptr++;
+-				if (*ptr == 'h')  // promotion from char
+-					ptr++;
+-			}
+-			if (*ptr == 't') {  // ptrdiff_t
+-				szmod = 2;
+-				ptr++;
+-			}
+-			if (*ptr == 'j') { // intmax_t
+-				// todo - replace iwth intmax_ctype when added
+-				szmod = 1;
+-				ptr++;
+-			}
++		break;
++	case 'u': case 'o': case 'x': case 'X':
++		type->test = printf_fmt_numtype;
++		switch (szmod) {
++		case LEN_hh:
++		case LEN_h:
++		case LEN_none:
++			type->type = &uint_ctype;
++			break;
++		case LEN_l:
++			type->type = &ulong_ctype;
++			break;
++		case LEN_L:
++		case LEN_ll:
++			type->type = &ullong_ctype;
++			break;
++		case LEN_j:
++			type->type = uintmax_ctype;
++			break;
++		case LEN_z:
++			type->type = size_t_ctype;
++			break;
++		case LEN_t:
++			type->type = ptrdiff_ctype;
++			break;
++		default:
++			type->test = NULL;
+ 		}
+-
+-		if (*ptr == 'x' || *ptr == 'X' || *ptr == 'u' || *ptr == 'o') {
+-			ptr++;
+-			type->test = printf_fmt_numtype;
+-			switch (szmod) {
+-			case -1:
+-				type->type = &ushort_ctype;
+-				break;
+-			case 0:
+-				type->type = &uint_ctype;
+-				break;
+-			case 1:
+-				type->type = &ulong_ctype;
+-				break;
+-			case 2:
+-				type->type = &ullong_ctype;
+-				break;
+-			default:
+-				type->test = NULL;
+-			}
+-		} else if (*ptr == 'i' || *ptr == 'd') {
+-			ptr++;
+-			type->test = printf_fmt_numtype;
+-			switch (szmod) {
+-			case -1:
+-				type->type = &short_ctype;
+-				break;
+-			case 0:
+-				type->type = &int_ctype;
+-				break;
+-			case 1:
+-				type->type = &long_ctype;
+-				break;
+-			case 2:
+-				type->type = &llong_ctype;
+-				break;
+-			default:
+-				type->test = NULL;
+-			}
+-		} else if (*ptr == 'L' && is_float_spec(ptr[1])) {
+-			type->test = printf_fmt_numtype;
++		break;
++	case 'e': case 'E': case 'f': case 'F': case 'g': case 'G':
++	case 'a': case 'A':
++		type->test = printf_fmt_numtype;
++		switch (szmod) {
++		case LEN_none:
++			type->type = &double_ctype;
++			break;
++		case LEN_L:
+ 			type->type = &ldouble_ctype;
+-			ptr += 2;
+-		} else if (is_float_spec(*ptr)) {
+-			type->test = printf_fmt_numtype;
+-			type->type = szmod == 1 ? &ldouble_ctype :  &double_ctype;
+-			ptr++;
+-		} else if (*ptr == 's') {
+-			type->test = printf_fmt_string;
++			break;
++		default:
++			break;
++		}
++		break;
++	case 'c':
++		type->test = printf_fmt_numtype;
++		switch (szmod) {
++		case LEN_none:
++			type->type = &int_ctype;
++			break;
++		case LEN_L:
++		case LEN_l:
++			type->type = wint_ctype;
++			break;
++		default:
++			break;
++		}
++		break;
++	case 's':
++		type->test = printf_fmt_string;
++		switch (szmod) {
++		case LEN_none:
++			type->type = &const_string_ctype;
++			break;
++		case LEN_L:
++		case LEN_l:
+ 			type->type = &const_wstring_ctype;
++			break;
++		default:
++			break;
++		}
++		break;
++	case 'p':
++		type->test = printf_fmt_print_pointer;
++		/* check for pointer being printed as hex explicitly */
++		if (*ptr == 'x' || *ptr == 'X') {
+ 			ptr++;
+-		} else if (*ptr == 'n') {	/* pointer to an de-referenced int/etc */
+-			// todo - we should construct pointer to int/etc //
+-			// also should not have any flags or widths for this
+-			type->test = printf_fmt_pointer;
++		} else if (isalpha(*ptr)) {
++			/* probably some extra specifiers after %p */
+ 			ptr++;
+-		} else {
+-			// anything else here?
++			type->test = printf_fmt_pointer;
+ 		}
++		break;
++	case 'n':
++		/* pointer to an de-referenced int/etc */
++		// todo - we should construct pointer to int/etc //
++		// also should not have any flags or widths for this
++		type->test = printf_fmt_pointer;
++		break;
++	default:
++		// anything else here?
++		break;
+ 	}
+ 
+ 	if (type->test == NULL)
 -- 
 2.28.0
 
