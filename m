@@ -2,58 +2,58 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 9EEB528DD6C
-	for <lists+linux-sparse@lfdr.de>; Wed, 14 Oct 2020 11:26:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id B4A7028DD32
+	for <lists+linux-sparse@lfdr.de>; Wed, 14 Oct 2020 11:25:56 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727520AbgJNJY1 (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Wed, 14 Oct 2020 05:24:27 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:39946 "EHLO
+        id S1730257AbgJNJXG (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Wed, 14 Oct 2020 05:23:06 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:39930 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1730833AbgJNJUM (ORCPT
+        with ESMTP id S1731219AbgJNJWy (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Wed, 14 Oct 2020 05:20:12 -0400
-Received: from mail-ed1-x543.google.com (mail-ed1-x543.google.com [IPv6:2a00:1450:4864:20::543])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id C3C2AC0613B8
-        for <linux-sparse@vger.kernel.org>; Tue, 13 Oct 2020 15:06:19 -0700 (PDT)
-Received: by mail-ed1-x543.google.com with SMTP id g4so1101083edk.0
-        for <linux-sparse@vger.kernel.org>; Tue, 13 Oct 2020 15:06:19 -0700 (PDT)
+        Wed, 14 Oct 2020 05:22:54 -0400
+Received: from mail-ej1-x642.google.com (mail-ej1-x642.google.com [IPv6:2a00:1450:4864:20::642])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id BB0BEC0613B9
+        for <linux-sparse@vger.kernel.org>; Tue, 13 Oct 2020 15:16:40 -0700 (PDT)
+Received: by mail-ej1-x642.google.com with SMTP id c22so2035532ejx.0
+        for <linux-sparse@vger.kernel.org>; Tue, 13 Oct 2020 15:16:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:mime-version
          :content-transfer-encoding;
-        bh=YGlaUHvFNaQxLyI5NB2yzrHHwBSp6QUJHHpNu7Fx3w4=;
-        b=tbmgY2xdFBFdacGltgXuriXgWmA1T0nvW0E5NdadrdIA8ynJkR995/PF7vEG+cDbPd
-         2RipVgjwxhCGXZlMoj4lP9CBDcxX1h6jl2ERqpcjMYtjPGx6kRCBMI8revI4K7PyDPY8
-         l54GShyLb7CEbJyJUBFxM/pVNdqCvWYZsQ0vIqn4wajvLgiP37fEFh5uwQ6FZygteBgf
-         r4WrYS6uGcJsQ2XkYAlgvu4/XVmiwoJbOmdv9qcKHWyGdxcKTd7lvBy2z9fvoN3Hjvme
-         GzhojdDozEaypqA/dOekXIC98u/oY5j8pvl2PmqTVAoVVGLKnXSFbyLYTRAFbY/DjUEl
-         WeZw==
+        bh=ZXP8KGBq3TnsOhyvBmE8YVLJhxM4G+TmkIEo8IsEkpA=;
+        b=IweAzX9mrcrY4mU7ZfzkGAQhT8POg8n9S0Qi+6aeykDsHKYvt0BdDj5TuUNKSu9JjI
+         m00Ys23Wa4EODAnUEDXlV/dYqauG/XqkU6waEsUXvKR3bEyLakEJr6czkPQbbZg9RGQX
+         BcrAA0OnGgEMsnNFxOmVnLzm4yYbZ1sMiMh199XzFaff0mjUUz+ayoqIU2fvFSD+95FT
+         sbQ6NohWCRXmDEMFNKlnwsw1OHnaBnMFSyXkzX2I6GmHONqDly2LOi4gaAiu+jIz35Jo
+         jgW6YvY9vRIRFrms53Bl/3imgQgc9AIOmJWXgToGo4KxBLPiVtO2uEti6IoUWPvuUECd
+         q7kQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
          :content-transfer-encoding;
-        bh=YGlaUHvFNaQxLyI5NB2yzrHHwBSp6QUJHHpNu7Fx3w4=;
-        b=lHH2++rL3yIFHgOa5drx7p5StPySexPB8vOK1LlZ8chy5NY8legw0ozyGCmOZnWr5K
-         KxYFIoOvAKD/VxClOkL4tCE3CA74ibXLtHvS4yqFH70jP+D9vaRMuzICYQaypGy9VtFL
-         cSIEdanC4veI5GAJbrUXaKTPWBT3wi37tgf/mN+njRF/FR+FFzOb0q6Hxl5CjGqKzGc6
-         mADyU0fHIWkVIdpZwczjaSvcNjLctVCZ9NW70jdno2Wbe50XXSNSPx0JDkMclUOGn+ms
-         9pZXb7FpgIfiZsKMry1Qciobrso6d+0Xk7uTnMaY/yuU3F0EhQK7Uj1pWR0VtoK+o8zT
-         qlZg==
-X-Gm-Message-State: AOAM533+SvPzAhdvadRFifW2aFNHU0qqWvZCizm8jesDuTKjNdvJ1RS1
-        T05uiOdE7t1QRNheZ7n1OrSnPlOF8jk=
-X-Google-Smtp-Source: ABdhPJwBtknjJcQgVpUKTUMiAUiaVnWFIgYReONSqr1V3kEDYX49I37urkWzcIAaRXyGeoEwH5CNBw==
-X-Received: by 2002:a05:6402:2207:: with SMTP id cq7mr1859908edb.359.1602626778313;
-        Tue, 13 Oct 2020 15:06:18 -0700 (PDT)
+        bh=ZXP8KGBq3TnsOhyvBmE8YVLJhxM4G+TmkIEo8IsEkpA=;
+        b=jBdUo+7mD2cK0she6g5ACQTq6BYHxT3Dk1hCmwbavAWmcYwKF/c9aFGUWO1zx05HPG
+         2o/XzakG9Dg1KBRhIqU8dBBHSyRCz9CzgMmBTz/wfX8LakuqPqqQci/kK7brT6Tx1Tek
+         CQNTSme53z/QD+rxYv3Yr/UgBZ60YCrrO0bdkc6qnDVFeQpTBItTeH3vVZDxa2AwsL12
+         kmAf4AX60n7zmUvH76YiF2eXrib0umTUIbMQUffOlT1OAZikW/ngGjacf0RUf3aBQm7d
+         fAfLsjiKC+hi8AOVZRxIy3gCQcIKpF1puK/A2LT1+RJvkzjQUzJmHLpp91BihA1T1+Wr
+         9ZUA==
+X-Gm-Message-State: AOAM532IeqbZYxttB0Ysc6MVsqlZ0hLIZxnQoRxXzxO4Pi6Er0vLWBa6
+        u9YjAiTWVzkmQ4T5IwVYjy5/mwvAyLA=
+X-Google-Smtp-Source: ABdhPJzOglFX2tyzxrc1SIVCrFYb9Qa9UgtefwGXSj8d+AEMs2rndCXVgOY7PR4YtNLjJ2R/jEcuoQ==
+X-Received: by 2002:a17:906:3541:: with SMTP id s1mr2053701eja.413.1602627399082;
+        Tue, 13 Oct 2020 15:16:39 -0700 (PDT)
 Received: from localhost.localdomain ([2a02:a03f:b7fe:f700:5515:f93d:cc48:6a5f])
-        by smtp.gmail.com with ESMTPSA id h22sm577892ejc.80.2020.10.13.15.06.17
+        by smtp.gmail.com with ESMTPSA id o11sm596087ejd.60.2020.10.13.15.16.38
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2020 15:06:17 -0700 (PDT)
+        Tue, 13 Oct 2020 15:16:38 -0700 (PDT)
 From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 To:     linux-sparse@vger.kernel.org
 Cc:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-Subject: [PATCH] flex-array: fix typo in warning message
-Date:   Wed, 14 Oct 2020 00:06:13 +0200
-Message-Id: <20201013220613.7433-1-luc.vanoostenryck@gmail.com>
+Subject: [PATCH] update TODOs
+Date:   Wed, 14 Oct 2020 00:16:36 +0200
+Message-Id: <20201013221636.7664-1-luc.vanoostenryck@gmail.com>
 X-Mailer: git-send-email 2.28.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -61,24 +61,91 @@ Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
+A few things are now done: remove them from the TODO.
+A few things need to be done: add them to the TODO.
+
 Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 ---
- symbol.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ Documentation/TODO.md | 29 +++++++++++++++++++++--------
+ 1 file changed, 21 insertions(+), 8 deletions(-)
 
-diff --git a/symbol.c b/symbol.c
-index 5e7f07969f96..b758ca415583 100644
---- a/symbol.c
-+++ b/symbol.c
-@@ -200,7 +200,7 @@ static struct symbol * examine_struct_union_type(struct symbol *sym, int advance
- 		if (has_flexible_array(member))
- 			info.has_flex_array = 1;
- 		if (has_flexible_array(member) && Wflexible_array_nested)
--			warning(member->pos, "nested flexible arrays");
-+			warning(member->pos, "nested flexible array");
- 		fn(member, &info);
- 	} END_FOR_EACH_PTR(member);
+diff --git a/Documentation/TODO.md b/Documentation/TODO.md
+index e2043e481f99..4dc9e63ab207 100644
+--- a/Documentation/TODO.md
++++ b/Documentation/TODO.md
+@@ -4,13 +4,13 @@ TODO
+ Essential
+ ---------
+ * SSA is broken by simplify_loads() & branches rewriting/simplification
+-* attributes of struct, union & enums are ignored (and possibly in other
+-  cases too).
+-* add support for bitwise enums
++* attributes of struct, union & enums are ignored (and maybe others too).
++  This requires correct support for __packed which itself needs partial
++  and unaligned loads & stores (wip)
++* add support for bitwise enums (wip)
  
+ Documentation
+ -------------
+-* document the extensions
+ * document the API
+ * document the limitations of modifying ptrlists during list walking
+ * document the data structures
+@@ -27,7 +27,7 @@ Core
+ 
+ Testsuite
+ ---------
+-* there are more than 50 failing tests. They should be fixed
++* there are 60 failing tests. They should be fixed
+   (but most are non-trivial to fix).
+ 
+ Misc
+@@ -36,15 +36,26 @@ Misc
+ * parse __attribute_((fallthrough))
+ * add support for format(printf())  (WIP by Ben Dooks)
+ * make use of UNDEFs (issues warnings, simplification, ... ?)
+-* add a pass to inline small functions during simplification.
++* make memory accesses more explicit: add EXPR_ACCESS (wip)
++* it would be nice to do our own parsing of floating point (wip)
++* some header files needed for crypto/ need __vector or __fp16
++* some even need __complex
+ 
+ Optimization
+ ------------
++* a lot of small simplifications are waiting to be upstreamed
++* the domtree need to be rebuilt (or updated)
++* critical edges need to be split
+ * the current way of doing CSE uses a lot of time
+ * add SSA based DCE
+ * add SSA based PRE
+ * Add SSA based SCCP
++* add a pass to inline small functions during simplification.
+ * use better/more systematic use of internal verification framework
++* tracking of operands size should be improved (WIP)
++* OP_INLINE is sometimes in the way
++* would be nice to strictly separate phases that don't changes the
++  CFG and thus the dominance tree.
+ 
+ IR
+ --
+@@ -60,13 +71,15 @@ LLVM
+ 
+ Internal backends
+ -----------------
+-* add some basic register allocation
++* it would be nice the upstream the code generator
+ * add a pass to transform 3-addresses code to 2-addresses
++* add some basic register allocation
++* add a pass to order the BBs and changes 2-ways CBR into one-way branches
+ * what can be done for x86?
++* add support to add constraints in the MD rules
+ 
+ Longer term/to investigate
+ --------------------------
+-* better architecture handling than current machine.h + target.c
+ * attributes are represented as ctypes's alignment, modifiers & contexts
+   but plenty of attributes doesn't fit, for example they need arguments.
+   * format(printf, ...),
 -- 
 2.28.0
 
