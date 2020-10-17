@@ -2,97 +2,94 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id D13C02914F5
+	by mail.lfdr.de (Postfix) with ESMTP id 647942914F4
 	for <lists+linux-sparse@lfdr.de>; Sun, 18 Oct 2020 00:56:42 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S2439819AbgJQW4m (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Sat, 17 Oct 2020 18:56:42 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43314 "EHLO
+        id S2439818AbgJQW4l (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Sat, 17 Oct 2020 18:56:41 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43312 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S2439817AbgJQW4m (ORCPT
+        with ESMTP id S2439817AbgJQW4l (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Sat, 17 Oct 2020 18:56:42 -0400
-Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com [IPv6:2a00:1450:4864:20::62e])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 33647C0613CE
+        Sat, 17 Oct 2020 18:56:41 -0400
+Received: from mail-ed1-x541.google.com (mail-ed1-x541.google.com [IPv6:2a00:1450:4864:20::541])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 0237CC061755
         for <linux-sparse@vger.kernel.org>; Sat, 17 Oct 2020 15:56:40 -0700 (PDT)
-Received: by mail-ej1-x62e.google.com with SMTP id lw21so8703784ejb.6
+Received: by mail-ed1-x541.google.com with SMTP id v19so6445005edx.9
         for <linux-sparse@vger.kernel.org>; Sat, 17 Oct 2020 15:56:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=VmXXOQipFiOyBy+ls3pRruv7phhu/Q60AkM4ue3USKE=;
-        b=V+RCJnKtzL7uzIOoaBK4vtCISIh+bRFmXBNNMLzEv4GYCnbMOou/CB974UHCtkFopJ
-         kmrFHbGsuxT3HjYm0WsQ1T/XuZcA+D+A7yHHXpfIYAio+toMxrnxmK32GoOLFuBgx+R6
-         a2N33NcbZSrePwDikKiAuVTGVCoEQVbjlEiAIiVH/6gAnbAP0/79CIuRV1Zr2HgKyBvL
-         +YbmT9BjF3AKqeaS+r10hwi9VvUaAfc8RKuBq0hvth4XnLWU+o03Ve4w4/ek9eHN39Dc
-         Re5zNcGGtZ7NQWVgTqfAN6ErwGN5OUJZb8HeMKjRSvr4bQbbHeMog1KQSr1sT9hW8ir8
-         GQbA==
+        h=from:to:cc:subject:date:message-id:in-reply-to:references
+         :mime-version:content-transfer-encoding;
+        bh=bme2c4zWU+1p4vw3BAkOHr93X6SQcXKxu5llH7gC5Yg=;
+        b=jy+c2RwcANH7OmDSwtKzwDZmnpauzbQm0HvBhO2XWYjR5x2TOEd8QLru4jK7m04CQz
+         L2iNLD9wpCaX76rddnhHtQKRfD16e5JhMeZJO+N4n50CQc2gHf7eUii83YHlWjeiBmXH
+         aDIJDn/SuPDKO4qlw1s3f27q0yu8iO9x1ivL028/Yee6ac2fEe/hiTuk9OXiJviBKdvu
+         yTClZfytVlYVCeXizs+qVSgRraalClw2gcbVWJtgu0VrLu8+ymHbLAMej8xUFtwI+5bU
+         8/QxZyETn5+0oic4DGos5WiLGNt5kpjWSOsJUO4qqwDIs7y6OAr0MU7RFrXnDZwdNtQJ
+         kjIg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=VmXXOQipFiOyBy+ls3pRruv7phhu/Q60AkM4ue3USKE=;
-        b=htcJRfJNV6aseDiUqd682jeiUJSPpIaZ1FXW71l6Yr9m/sTbkrSnS4Em6jYCYy2SBu
-         oSFr7tSHMdTn0dMNzP/3I+2nDhrYfUF+K9qirgGmiW19QiCcmN8tHrdZNpBi1z/JgwYX
-         DrkRRc0TV9Pa6wXwom/OKIvBJWhzJYBOSiztw7j7gCc0/1Hj13/EEW00/sWAD86Zm8kf
-         w/3nJcBTduxTcal4bl/RczKutOZDI2PHYHPjSwFuMlt2urNYz1naNZcs35lT6q9hjCY7
-         ro1VoyBYUwxTe9ZBsOvyn0gm3cR2q9SD29ajk/rm7aUN4VEim3TAVFE8/kahYaOOOLpB
-         ml1g==
-X-Gm-Message-State: AOAM532WX5JE+xSyYatTKhFmArw8NJMvVDUWvUOXzkrL2FDjUmR6JOa8
-        jJ6bO4v0PvkHUfnjWatdDpns+7aXpFc=
-X-Google-Smtp-Source: ABdhPJw88NzHhKqN2vv0WSFbTEjlxayTf2daB4WT/IakKu7UPDakYYfbobeqzE2geuznz0ONsaekQA==
-X-Received: by 2002:a17:906:3a49:: with SMTP id a9mr10627616ejf.95.1602975398358;
-        Sat, 17 Oct 2020 15:56:38 -0700 (PDT)
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+         :references:mime-version:content-transfer-encoding;
+        bh=bme2c4zWU+1p4vw3BAkOHr93X6SQcXKxu5llH7gC5Yg=;
+        b=fSIASpciVuyG1r2RYTZ5VEXpPcjyUQz4128ZH9nO36vm8/1lauCmR9URj9ErS5zud4
+         4pgmrBqmJxIzkrStaH0j8cJgI5TZYrxw20mxT61LaZec4+Zo/TJVabxQisS4ygp7B4h7
+         c+uejfrRV8Sr8f040WzPvpsv8y9ZbWttx3p+gohDaKzZ9vh0pyZlavA4ETby68hPt+y0
+         imVTpaQN6PK+u8OXV4ZUXHTCzlL0jfC1qHAwjwwgdB+GJ8JObnjYTmLEel3/zHCZVqN0
+         Z0HYaf+h0eP58IlnZIWKHb5GpxeTLs1F3Pdk33R5DV0hN7PbEMW7jC4Ca8k/fVtgYNoJ
+         tDHw==
+X-Gm-Message-State: AOAM532dlZqYyFR77hCh8k8zSm9zqO/hULMVWQkopthJV27+m+NFnQMP
+        g9yhXXUmGhjKaKy7WbfCybEqHrZ2r4Q=
+X-Google-Smtp-Source: ABdhPJx+xUp8MHVeOcsEItlgTRXwsQQLc3yuZAEQ+/A5WGfD8PYhNpBb1dgyMrXOireGPEcbOxpLkQ==
+X-Received: by 2002:aa7:c451:: with SMTP id n17mr10731883edr.266.1602975399177;
+        Sat, 17 Oct 2020 15:56:39 -0700 (PDT)
 Received: from localhost.localdomain ([2a02:a03f:b7fe:f700:c81f:df9c:7723:c5a1])
-        by smtp.gmail.com with ESMTPSA id k26sm6129311eji.22.2020.10.17.15.56.36
+        by smtp.gmail.com with ESMTPSA id k26sm6129311eji.22.2020.10.17.15.56.38
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 17 Oct 2020 15:56:37 -0700 (PDT)
+        Sat, 17 Oct 2020 15:56:38 -0700 (PDT)
 From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 To:     linux-sparse@vger.kernel.org
 Cc:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-Subject: [PATCH 00/12] fix and complete the evaluation of atomic builtins
-Date:   Sun, 18 Oct 2020 00:56:21 +0200
-Message-Id: <20201017225633.53274-1-luc.vanoostenryck@gmail.com>
+Subject: [PATCH 01/12] builtin: add generic .args method
+Date:   Sun, 18 Oct 2020 00:56:22 +0200
+Message-Id: <20201017225633.53274-2-luc.vanoostenryck@gmail.com>
 X-Mailer: git-send-email 2.28.0
+In-Reply-To: <20201017225633.53274-1-luc.vanoostenryck@gmail.com>
+References: <20201017225633.53274-1-luc.vanoostenryck@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-Sparse knew about the __sync_*() builtin functions but without real
-type checking and nothing about the more commonly used __atomic_*().
+The arity of builtin functions can be retrieved from their prototype.
+So, create a generic .args method, doing the evaluation of all
+arguments present in the prototype.
 
-This series fixes by adding the full type evaluation for both sets.
+Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
+---
+ builtin.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-
-Luc Van Oostenryck (12):
-  builtin: add generic .args method
-  builtin: add builtin type for volatile void *
-  builtin: make eval_sync_compare_and_swap() more generic
-  builtin: evaluate __sync_*_fetch*()
-  builtin: fix evaluation of __sync_lock_release
-  builtin: __sync_synchronize() too is variadic
-  builtin: add predefines for __ATOMIC_RELAXED & friends
-  builtin: add support for __atomic_add_fetch(), ...
-  builtin: add support for others generic atomic builtins
-  builtin: add builtin type: [volatile] pointer to bool
-  builtin: add support for __atomic_clear()
-  builtin: add support for remaining atomic builtins
-
- builtin.c                         | 112 +++++++++++++++++++++---------
- predefine.c                       |   7 ++
- symbol.c                          |   6 ++
- symbol.h                          |   2 +
- validation/builtin-atomic-clear.c |  15 ++++
- validation/builtin-sync-fetch.c   |  24 +++++++
- 6 files changed, 135 insertions(+), 31 deletions(-)
- create mode 100644 validation/builtin-atomic-clear.c
- create mode 100644 validation/builtin-sync-fetch.c
-
-
-base-commit: 5192dc1ff23dae8644480a89ada8ff420ebb674a
+diff --git a/builtin.c b/builtin.c
+index 26b612dc401b..0d4cb12cca22 100644
+--- a/builtin.c
++++ b/builtin.c
+@@ -83,6 +83,13 @@ error:
+ 	return 0;
+ }
+ 
++static int args_prototype(struct expression *expr)
++{
++	struct symbol *fntype = expr->fn->ctype->ctype.base_type;
++	int n = symbol_list_size(fntype->arguments);
++	return eval_args(expr, n);
++}
++
+ static int args_triadic(struct expression *expr)
+ {
+ 	return eval_args(expr, 3);
 -- 
 2.28.0
 
