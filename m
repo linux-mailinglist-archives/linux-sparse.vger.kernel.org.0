@@ -2,59 +2,59 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id B4E7A292B36
-	for <lists+linux-sparse@lfdr.de>; Mon, 19 Oct 2020 18:12:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id D170D292B37
+	for <lists+linux-sparse@lfdr.de>; Mon, 19 Oct 2020 18:12:43 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1730498AbgJSQMm (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Mon, 19 Oct 2020 12:12:42 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:58134 "EHLO
+        id S1730511AbgJSQMn (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Mon, 19 Oct 2020 12:12:43 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:58138 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1730495AbgJSQMm (ORCPT
+        with ESMTP id S1730495AbgJSQMn (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Mon, 19 Oct 2020 12:12:42 -0400
+        Mon, 19 Oct 2020 12:12:43 -0400
 Received: from mail-ej1-x641.google.com (mail-ej1-x641.google.com [IPv6:2a00:1450:4864:20::641])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 0BEFDC0613CE
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id E13A2C0613CE
         for <linux-sparse@vger.kernel.org>; Mon, 19 Oct 2020 09:12:42 -0700 (PDT)
-Received: by mail-ej1-x641.google.com with SMTP id h24so14706105ejg.9
-        for <linux-sparse@vger.kernel.org>; Mon, 19 Oct 2020 09:12:41 -0700 (PDT)
+Received: by mail-ej1-x641.google.com with SMTP id u8so14710964ejg.1
+        for <linux-sparse@vger.kernel.org>; Mon, 19 Oct 2020 09:12:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=yzbwhgM1b2KZznlK+JCIHyQBOKMQ8o5rvF04A7Pc4Js=;
-        b=XCW/4DxZzWvUgbbU6WFuAUMVdZlJIpstAtfctBZ8p2NW5v6cQG37IMgXiOR8kBc2u2
-         XEkr+SGmcxNcw5BOWMJvv3X8xPWxmJN4aaDIQjpqf6wQpYni96+fobGuhainHhF2SZHS
-         vcPSOoOfU9UienfsgLvr08iWVh2BrdMR4MLzUdRqzY3h5Xge/UsZt3w0U8O6Q2nTbx9+
-         rYxkeD3sE3ciYf4CNN8WcQaQSeDs6CLp7xWaJ27SpzOCJUUlfcJf6RrtXpLeSw45Kfob
-         WorV1I6tVZOn4Y5LMPhowo7b228HCKAWcd4LZZNUpIE1A855eOnPbtIWHq9L4B9j3NiD
-         ca7g==
+        bh=YexzUdDFqzZbD54XGKhG8iR9or1R4H7mVB2ZiNCe9rM=;
+        b=IMrmygWlS3Gi11eDTTbAy9vYXA6VWKYbg8blmtP0suKV2UcicS5BRTwZQZ/tIByMDI
+         a52+6HZOEQbV+JuSxEsXW/XSsuBOVAtcBDsvPJfPVwMpe3WN0MNRL8JckF57lP0/GHnX
+         8QrDGvmtn+1kS3c2+aK7FcdS+3AGK8RxeX7ul6/OvMEIH1ROExTGodLaiiKKeGQJzD7Z
+         fW9h9Beu1q01sQndV70M2Ja90uuVVlgciNAICF2SZ0eCSYWc6S6OefJ4HsojuzUfRmO9
+         f7SH4WJdyBa/kzzndkGMOH55m1Ui5/qpTPNVavr70Rpe9+LqFXkNiieb1fFek6AYC9Ir
+         AY/Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=yzbwhgM1b2KZznlK+JCIHyQBOKMQ8o5rvF04A7Pc4Js=;
-        b=p/WEa7IbOOw6CPpUuNV1uYt/STIFWZkAzlrX7LiMyxwrlnEwK3CRIJjXu4q3RzT6Kz
-         ppFa9QyA7TpMeZOxG4x0WB5Az84CPTeHKA02xCoHgyPl0UHtwv5FwlbPqZC9q2DljvaY
-         jAuS7k0nGrQnzaGuLMBU2P7dPwqDss/CnzKc4tZHDypMGY/3BFdJH6DEr6inXqfoSOqg
-         odB47WWcoFVCgI+SVyT1DT7EROB+qmsoT+JuDx5w+RTcLsUQ/wxXOyU72PQpvE9tvOiN
-         LwO+VXIflrYaUCDk2cgySxn+YVxgEYBmFCs09n67G5k9cdRK3iQeF4ZZ0j1tKmiulWoa
-         V6bQ==
-X-Gm-Message-State: AOAM533ZZ/RvEUilhwDTTjHjgHWxeFwKFUGvvwqwc8a/9/adFH+WwhNw
-        ObFMn/Vbun83mw70jKztXDr/5JyZTjk=
-X-Google-Smtp-Source: ABdhPJwTADxhm9nBS53gzQGkV0zTKbMCBtmrSVUYvmkBbQ7eYqGp2fKhp75J6ZWdfqJMay1tAzbnDw==
-X-Received: by 2002:a17:906:fa99:: with SMTP id lt25mr556923ejb.511.1603123960550;
-        Mon, 19 Oct 2020 09:12:40 -0700 (PDT)
+        bh=YexzUdDFqzZbD54XGKhG8iR9or1R4H7mVB2ZiNCe9rM=;
+        b=LTTMCVuGh6Ck2uaed+V/mH0haQMinrunzPFy1DF+qkTiKkC/h+OWv76QywTRjcLXmt
+         nGDaWXMoeJiDl1gr3XpYCwtk24SA+GXHe+DngiMKhzBSzit1VHEEtFH6nnUR6Lyji8Fy
+         7uliJX6lmqsgBm4s9eMb3xemwjbyUNJ8Ifkb0oIqL03Gd2OwJlZx1OnZzcHtj2DGDUVL
+         ulowQndnAaWK+CtOt25GiGaXV0krlop+H7g3PoI7yJk3uFlENLE4OteE8adZOndac7Ii
+         YHe9kFyMx4mQV6/uQa97Y5dA8Q9Ja6yyt8DGxEupGBYZSdODW06FtExzCK6Qc061sTyl
+         RY9g==
+X-Gm-Message-State: AOAM531BOIuOavwk3xSEYR5B2xDLwocQqIySqA2dRZNesF2fDHxgWb4l
+        Ngy0JuwPnH0gjLvnTmvtIF1ZqgWsy/4=
+X-Google-Smtp-Source: ABdhPJwH17PxVWgq1bFME/8Flv8ea4+2D/Zv+qtYKwNQ2AubR+9J9hyw9KSuyI3rumC8l6fdcZNACg==
+X-Received: by 2002:a17:906:3582:: with SMTP id o2mr603321ejb.518.1603123961346;
+        Mon, 19 Oct 2020 09:12:41 -0700 (PDT)
 Received: from localhost.localdomain ([2a02:a03f:b7fe:f700:d505:a252:4cc1:d15d])
-        by smtp.gmail.com with ESMTPSA id r24sm144658eds.67.2020.10.19.09.12.39
+        by smtp.gmail.com with ESMTPSA id r24sm144658eds.67.2020.10.19.09.12.40
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
         Mon, 19 Oct 2020 09:12:40 -0700 (PDT)
 From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 To:     linux-sparse@vger.kernel.org
 Cc:     Ramsay Jones <ramsay@ramsayjones.plus.com>,
         Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-Subject: [PATCH v2 07/12] builtin: add predefines for __ATOMIC_RELAXED & friends
-Date:   Mon, 19 Oct 2020 18:12:21 +0200
-Message-Id: <20201019161226.97429-8-luc.vanoostenryck@gmail.com>
+Subject: [PATCH v2 08/12] builtin: add support for __atomic_add_fetch(), ...
+Date:   Mon, 19 Oct 2020 18:12:22 +0200
+Message-Id: <20201019161226.97429-9-luc.vanoostenryck@gmail.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20201019161226.97429-1-luc.vanoostenryck@gmail.com>
 References: <20201019161226.97429-1-luc.vanoostenryck@gmail.com>
@@ -64,33 +64,36 @@ Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-The __atomic_*() builtins take an int argument to specify the
-desired memory ordering. The different admissible values are
-predefined by the compiler, so do that too for Sparse.
+Reuse the generic method for all these builtins.
 
 Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 ---
- predefine.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+ builtin.c | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
 
-diff --git a/predefine.c b/predefine.c
-index f898cdfa39b8..98e38a04579d 100644
---- a/predefine.c
-+++ b/predefine.c
-@@ -179,6 +179,13 @@ void predefined_macros(void)
- 	if (arch_target->has_int128)
- 		predefined_sizeof("INT128", "", 128);
- 
-+	predefine("__ATOMIC_RELAXED", 0, "0");
-+	predefine("__ATOMIC_CONSUME", 0, "1");
-+	predefine("__ATOMIC_ACQUIRE", 0, "3");
-+	predefine("__ATOMIC_RELEASE", 0, "4");
-+	predefine("__ATOMIC_ACQ_REL", 0, "7");
-+	predefine("__ATOMIC_SEQ_CST", 0, "8");
-+
- 	predefine("__ORDER_LITTLE_ENDIAN__", 1, "1234");
- 	predefine("__ORDER_BIG_ENDIAN__", 1, "4321");
- 	predefine("__ORDER_PDP_ENDIAN__", 1, "3412");
+diff --git a/builtin.c b/builtin.c
+index 5477eb64aa95..6573c1deb686 100644
+--- a/builtin.c
++++ b/builtin.c
+@@ -479,6 +479,18 @@ static const struct builtin_fn builtins_common[] = {
+ #define size_t_ctype	&size_t_alias
+ #define va_list_ctype	&ptr_ctype
+ #define vol_ptr		&volatile_ptr_ctype
++	{ "__atomic_add_fetch", NULL, 0, { vol_ptr, &dyntype, &int_ctype }, .op = &atomic_op },
++	{ "__atomic_and_fetch", NULL, 0, { vol_ptr, &dyntype, &int_ctype }, .op = &atomic_op },
++	{ "__atomic_fetch_add", NULL, 0, { vol_ptr, &dyntype, &int_ctype }, .op = &atomic_op },
++	{ "__atomic_fetch_and", NULL, 0, { vol_ptr, &dyntype, &int_ctype }, .op = &atomic_op },
++	{ "__atomic_fetch_nand",NULL, 0, { vol_ptr, &dyntype, &int_ctype }, .op = &atomic_op },
++	{ "__atomic_fetch_or",  NULL, 0, { vol_ptr, &dyntype, &int_ctype }, .op = &atomic_op },
++	{ "__atomic_fetch_sub", NULL, 0, { vol_ptr, &dyntype, &int_ctype }, .op = &atomic_op },
++	{ "__atomic_fetch_xor", NULL, 0, { vol_ptr, &dyntype, &int_ctype }, .op = &atomic_op },
++	{ "__atomic_nand_fetch",NULL, 0, { vol_ptr, &dyntype, &int_ctype }, .op = &atomic_op },
++	{ "__atomic_or_fetch",  NULL, 0, { vol_ptr, &dyntype, &int_ctype }, .op = &atomic_op },
++	{ "__atomic_sub_fetch", NULL, 0, { vol_ptr, &dyntype, &int_ctype }, .op = &atomic_op },
++	{ "__atomic_xor_fetch", NULL, 0, { vol_ptr, &dyntype, &int_ctype }, .op = &atomic_op },
+ 	{ "__builtin_choose_expr", NULL, 1, .op = &choose_op },
+ 	{ "__builtin_constant_p", NULL, 1, .op = &constant_p_op },
+ 	{ "__builtin_expect", &long_ctype, 0, { &long_ctype ,&long_ctype }, .op = &expect_op },
 -- 
 2.28.0
 
