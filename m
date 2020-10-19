@@ -2,59 +2,59 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 8628F292B38
-	for <lists+linux-sparse@lfdr.de>; Mon, 19 Oct 2020 18:12:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 7AE59292B39
+	for <lists+linux-sparse@lfdr.de>; Mon, 19 Oct 2020 18:12:46 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1730525AbgJSQMo (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Mon, 19 Oct 2020 12:12:44 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:58142 "EHLO
+        id S1730504AbgJSQMq (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Mon, 19 Oct 2020 12:12:46 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:58150 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1730433AbgJSQMo (ORCPT
+        with ESMTP id S1730433AbgJSQMq (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Mon, 19 Oct 2020 12:12:44 -0400
-Received: from mail-ej1-x643.google.com (mail-ej1-x643.google.com [IPv6:2a00:1450:4864:20::643])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id BE90AC0613CE
-        for <linux-sparse@vger.kernel.org>; Mon, 19 Oct 2020 09:12:43 -0700 (PDT)
-Received: by mail-ej1-x643.google.com with SMTP id u8so14711048ejg.1
-        for <linux-sparse@vger.kernel.org>; Mon, 19 Oct 2020 09:12:43 -0700 (PDT)
+        Mon, 19 Oct 2020 12:12:46 -0400
+Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com [IPv6:2a00:1450:4864:20::629])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id C2346C0613CE
+        for <linux-sparse@vger.kernel.org>; Mon, 19 Oct 2020 09:12:45 -0700 (PDT)
+Received: by mail-ej1-x629.google.com with SMTP id a3so14660092ejy.11
+        for <linux-sparse@vger.kernel.org>; Mon, 19 Oct 2020 09:12:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=KBIQahuootBfc+53j4kb8jBk2e2ASbGt0urdB684sQ4=;
-        b=SwfGD8E0igTlEvETMIQo0cuHDn6uE861ZzNL8xBkboPEXe1aaEtmIJxYZAg2uBctz4
-         xzwlhAycywACBpOBAvXKpN5GPWDwJdKAgV7rBQBUAV0Ap75YXk4JTMp6yAHlFVjoPdNj
-         olZsv1mTZQEViD89hnN7GXOpJFsnUDY+nbLc6oob9OPz7RSNfgIUIHxAq92e6dsmJ1vw
-         KHngGw9PUgFTcWKXFMNEP8jG0I5j2dkKqJBtfXnDOIHx7sUhvRWM5FI3A41tFZo1KnNb
-         iZ5y/sq4pR7watN8VedSdOoi1so0danVepvF3swePbqQILRYF6Y/pusxNJkNmUcMX3xM
-         SF+w==
+        bh=v6STfh1QtZTmwM7DfFK1cWkmVmSNUlE4JxjQqf1gcvI=;
+        b=RTI/w675h5+5OP9KHOT2azo6lYSsHDybUa5wzhvMta+14CzEvN6aXso14RylJNZtoj
+         x7GGiJ4dlpaWCrSJXZatoUgRcKvgwcsox1PAWFMqziMTTDOt/vAkZCpcXyDSpu5ub8ht
+         29xY4Xq87CaawVVcpfWSfbUcynaOHQ/Y2FZV0sygWlhCf434sM8IPm16QupXP1zNI+Mw
+         FnBz4Zpqn6ZnjahPotiPY+bBw8X/EBoT2PxlP99Z+S9dVeXZUREzQ1N5VQnq8uh9h2Kf
+         XITrRQ3LVjJclswiZH4+GPzIrS7qM6A+vv4u/QQ8DKHCgsdw/b2zpYggBRypBDKuCvJV
+         ZJ3A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=KBIQahuootBfc+53j4kb8jBk2e2ASbGt0urdB684sQ4=;
-        b=HuB3FBbflq4mLO1o7ARl9/z+v+I0RJ7d8Gvgu8mjEx1U2Vpgj5bSGzLlVS+K46iiPJ
-         O87d7V8GDnXua0p1MZosRLBz0LYyWzRdbt23dNqzid3RglwgARDk/Wl5YM73ThsJ9hPM
-         zs2lePkunysLwRu3NqR3BWow9copSAYYov4F56+zjIZEUNu0F6vHcEN4YJDNtaBolXk1
-         BPfBNemyoibEs5G05KM3Ftv+0NmCkFG1mf7Hjnhuyx4L3kXCi2/AUg3hso91xyalIGn+
-         fwsMlLmGTypPR1gT4X1izfwoFJaPUtPAsLOF4aRBIkPe7jxhGTW5cbpOQ53GRbMZOk63
-         X20Q==
-X-Gm-Message-State: AOAM530H9iF+PlutMGum/rPDTRo98glrhnNIkg2biTeziDmo2eKb/Zaj
-        joT6OYPyYBICicfAflgBHWxI0/LXrsw=
-X-Google-Smtp-Source: ABdhPJzxF3eTdMS7BWQGhodFBNg5NR05Hq/jqssyZBrml5KOH6E5ngd0mdaF7OB2b3WilQ0iBby+ww==
-X-Received: by 2002:a17:906:a1d8:: with SMTP id bx24mr593709ejb.161.1603123962224;
-        Mon, 19 Oct 2020 09:12:42 -0700 (PDT)
+        bh=v6STfh1QtZTmwM7DfFK1cWkmVmSNUlE4JxjQqf1gcvI=;
+        b=VvyhTgw0+KWUHtVfV7VVX2nczKuihdo+jOGKAmBpWb35huOqFbb9C7N8GBa00yCHl5
+         VIhP4KmtOFMqTP8AH42NBhrW6/pWJy2fbeJCMQn75deH3m9419rssStiyujR3YBVsq+N
+         5yoUt/V1hsZrBZX6DwnEwz5J6LoLfd7HscS+j0lLRvX2B6ElNYvnnLVe48uWc6QFr433
+         /OYeZPM24N/Nt0Vk2Fh33TcWKFV70puQfHqvnOWOQJnTQE0yMpgdJXFQt6IqtY1Bj7JL
+         vscJw8aBPy8trex3nNsq3ijeSK7+YZYTPNRqyvLD8tiPO+0nLtw/FTcGs0eCL6eHZcvN
+         EBwQ==
+X-Gm-Message-State: AOAM533s3+t4f/d3VjRZVomkhBpSF/PmhdCP2f8aUTcerfuNZEbVB/ff
+        haQthtv5OH3vrEZQ7MUwsUTGD2b+PZw=
+X-Google-Smtp-Source: ABdhPJwJ1Dc0AubGZ1ENuyKoBt5k0ouh1lr6I3I2o3B0kppT/uwo37dHwXsrRcrS90nNnkJBNDGg9w==
+X-Received: by 2002:a17:906:a149:: with SMTP id bu9mr602027ejb.115.1603123963005;
+        Mon, 19 Oct 2020 09:12:43 -0700 (PDT)
 Received: from localhost.localdomain ([2a02:a03f:b7fe:f700:d505:a252:4cc1:d15d])
-        by smtp.gmail.com with ESMTPSA id r24sm144658eds.67.2020.10.19.09.12.41
+        by smtp.gmail.com with ESMTPSA id r24sm144658eds.67.2020.10.19.09.12.42
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2020 09:12:41 -0700 (PDT)
+        Mon, 19 Oct 2020 09:12:42 -0700 (PDT)
 From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 To:     linux-sparse@vger.kernel.org
 Cc:     Ramsay Jones <ramsay@ramsayjones.plus.com>,
         Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-Subject: [PATCH v2 09/12] builtin: add support for others generic atomic builtins
-Date:   Mon, 19 Oct 2020 18:12:23 +0200
-Message-Id: <20201019161226.97429-10-luc.vanoostenryck@gmail.com>
+Subject: [PATCH v2 10/12] builtin: add builtin type: [volatile] pointer to bool
+Date:   Mon, 19 Oct 2020 18:12:24 +0200
+Message-Id: <20201019161226.97429-11-luc.vanoostenryck@gmail.com>
 X-Mailer: git-send-email 2.28.0
 In-Reply-To: <20201019161226.97429-1-luc.vanoostenryck@gmail.com>
 References: <20201019161226.97429-1-luc.vanoostenryck@gmail.com>
@@ -64,49 +64,47 @@ Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-Reuse the generic method for all these builtins.
+This builtin type is needed for __atomic_clear()'s prototype.
 
 Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 ---
- builtin.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+ symbol.c | 3 +++
+ symbol.h | 1 +
+ 2 files changed, 4 insertions(+)
 
-diff --git a/builtin.c b/builtin.c
-index 6573c1deb686..1a95018c7699 100644
---- a/builtin.c
-+++ b/builtin.c
-@@ -409,6 +409,8 @@ static int eval_atomic_common(struct expression *expr)
- 			t = ptrtype;
- 		} else if (is_dynamic_type(t)) {
- 			t = ctype;
-+		} else if (t == &ptr_ctype) {
-+			t = ptrtype;
- 		}
- 		add_ptr_list(&types, t);
- 		NEXT_PTR_LIST(t);
-@@ -481,14 +483,22 @@ static const struct builtin_fn builtins_common[] = {
- #define vol_ptr		&volatile_ptr_ctype
- 	{ "__atomic_add_fetch", NULL, 0, { vol_ptr, &dyntype, &int_ctype }, .op = &atomic_op },
- 	{ "__atomic_and_fetch", NULL, 0, { vol_ptr, &dyntype, &int_ctype }, .op = &atomic_op },
-+	{ "__atomic_compare_exchange", &bool_ctype, 0, { vol_ptr, &ptr_ctype, &ptr_ctype, &bool_ctype, &int_ctype, &int_ctype }, .op = &atomic_op },
-+	{ "__atomic_compare_exchange_n", &bool_ctype, 0, { vol_ptr, &ptr_ctype, &dyntype, &bool_ctype, &int_ctype, &int_ctype }, .op = &atomic_op },
-+	{ "__atomic_exchange", &void_ctype, 0, { vol_ptr, &ptr_ctype, &ptr_ctype, &int_ctype }, .op = &atomic_op },
-+	{ "__atomic_exchange_n", NULL, 0, { vol_ptr, &dyntype, &int_ctype }, .op = &atomic_op },
- 	{ "__atomic_fetch_add", NULL, 0, { vol_ptr, &dyntype, &int_ctype }, .op = &atomic_op },
- 	{ "__atomic_fetch_and", NULL, 0, { vol_ptr, &dyntype, &int_ctype }, .op = &atomic_op },
- 	{ "__atomic_fetch_nand",NULL, 0, { vol_ptr, &dyntype, &int_ctype }, .op = &atomic_op },
- 	{ "__atomic_fetch_or",  NULL, 0, { vol_ptr, &dyntype, &int_ctype }, .op = &atomic_op },
- 	{ "__atomic_fetch_sub", NULL, 0, { vol_ptr, &dyntype, &int_ctype }, .op = &atomic_op },
- 	{ "__atomic_fetch_xor", NULL, 0, { vol_ptr, &dyntype, &int_ctype }, .op = &atomic_op },
-+	{ "__atomic_load", &void_ctype, 0, { vol_ptr, &ptr_ctype, &int_ctype }, .op = &atomic_op },
-+	{ "__atomic_load_n", NULL, 0, { vol_ptr, &int_ctype }, .op = &atomic_op },
- 	{ "__atomic_nand_fetch",NULL, 0, { vol_ptr, &dyntype, &int_ctype }, .op = &atomic_op },
- 	{ "__atomic_or_fetch",  NULL, 0, { vol_ptr, &dyntype, &int_ctype }, .op = &atomic_op },
-+	{ "__atomic_store", &void_ctype, 0, { vol_ptr, &ptr_ctype, &int_ctype }, .op = &atomic_op },
-+	{ "__atomic_store_n", &void_ctype, 0, { vol_ptr, &dyntype, &int_ctype }, .op = &atomic_op },
- 	{ "__atomic_sub_fetch", NULL, 0, { vol_ptr, &dyntype, &int_ctype }, .op = &atomic_op },
- 	{ "__atomic_xor_fetch", NULL, 0, { vol_ptr, &dyntype, &int_ctype }, .op = &atomic_op },
- 	{ "__builtin_choose_expr", NULL, 1, .op = &choose_op },
+diff --git a/symbol.c b/symbol.c
+index ec514eb45df4..5d4f078b3444 100644
+--- a/symbol.c
++++ b/symbol.c
+@@ -806,6 +806,7 @@ struct symbol	const_void_ctype, const_char_ctype;
+ struct symbol	const_ptr_ctype, const_string_ctype;
+ struct symbol	const_wchar_ctype, const_wstring_ctype;
+ struct symbol	volatile_void_ctype, volatile_ptr_ctype;
++struct symbol	volatile_bool_ctype, volatile_bool_ptr_ctype;
+ 
+ struct symbol	zero_int;
+ 
+@@ -912,6 +913,8 @@ static const struct ctype_declare {
+ 	{ &const_wchar_ctype,  T_CONST(&int_ctype, NULL, NULL) },
+ 	{ &volatile_void_ctype,T_NODE(MOD_VOLATILE, &void_ctype, NULL, NULL) },
+ 	{ &volatile_ptr_ctype, T_PTR(&volatile_void_ctype) },
++	{ &volatile_bool_ctype,T_NODE(MOD_VOLATILE, &bool_ctype, NULL, NULL) },
++	{ &volatile_bool_ptr_ctype, T_PTR(&volatile_bool_ctype) },
+ 	{ NULL, }
+ };
+ 
+diff --git a/symbol.h b/symbol.h
+index 97c608e84704..5c5a7f12affa 100644
+--- a/symbol.h
++++ b/symbol.h
+@@ -311,6 +311,7 @@ extern struct symbol	const_void_ctype, const_char_ctype;
+ extern struct symbol	const_ptr_ctype, const_string_ctype;
+ extern struct symbol	const_wchar_ctype, const_wstring_ctype;
+ extern struct symbol	volatile_void_ctype, volatile_ptr_ctype;
++extern struct symbol	volatile_bool_ctype, volatile_bool_ptr_ctype;
+ 
+ /* Special internal symbols */
+ extern struct symbol	zero_int;
 -- 
 2.28.0
 
