@@ -2,100 +2,90 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 846FE2974C1
-	for <lists+linux-sparse@lfdr.de>; Fri, 23 Oct 2020 18:39:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 6C1E5297785
+	for <lists+linux-sparse@lfdr.de>; Fri, 23 Oct 2020 21:08:54 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1752532AbgJWQjx (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Fri, 23 Oct 2020 12:39:53 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:49992 "EHLO
+        id S1754062AbgJWTIx (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Fri, 23 Oct 2020 15:08:53 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:45140 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1751741AbgJWQjx (ORCPT
+        with ESMTP id S463236AbgJWTIx (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Fri, 23 Oct 2020 12:39:53 -0400
-Received: from mail-ej1-x643.google.com (mail-ej1-x643.google.com [IPv6:2a00:1450:4864:20::643])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id C6D2BC0613D2
-        for <linux-sparse@vger.kernel.org>; Fri, 23 Oct 2020 09:39:52 -0700 (PDT)
-Received: by mail-ej1-x643.google.com with SMTP id dt13so3217176ejb.12
-        for <linux-sparse@vger.kernel.org>; Fri, 23 Oct 2020 09:39:52 -0700 (PDT)
+        Fri, 23 Oct 2020 15:08:53 -0400
+Received: from mail-ed1-x544.google.com (mail-ed1-x544.google.com [IPv6:2a00:1450:4864:20::544])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id E1491C0613CE
+        for <linux-sparse@vger.kernel.org>; Fri, 23 Oct 2020 12:08:51 -0700 (PDT)
+Received: by mail-ed1-x544.google.com with SMTP id a6so1178577edx.6
+        for <linux-sparse@vger.kernel.org>; Fri, 23 Oct 2020 12:08:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=from:to:cc:subject:date:message-id:in-reply-to:references
-         :mime-version:content-transfer-encoding;
-        bh=JWwMoal34CnynR8yPIUGvMD38hg7zrZ1G+HjoHP1HPA=;
-        b=m0IqSFj1nNtXKrk6t5C1gRFwd/x4ZLFmEq0Ohqf3GUqWzUul2LQJtLbauve26XQtJy
-         gtL3CUtRZPF1HErXFLac02IEE895CM3r13MlRe4JmD3tQsCpVfaPqskJYRfH2nIAl4Bn
-         g3V8WlLXj6qSe7C6QNDKvqoC6OvzbRAvLdHwkPU+H4ZmMVXf0Md52up7QANgOiUsQiJX
-         2Vw41un7YNUe48iLx878Iv/d5ts1f4B9GELKoI5TFKZjIJ6RFFr000pcsUnRuMDOsIJ0
-         7w8QsiFFKu77Dff5sXd6tUSwvIptnmh5y9qluw80ioVAyj/tE2j2IiIK+RFoN/awWwir
-         Qo1Q==
+        h=date:from:to:cc:subject:message-id:references:mime-version
+         :content-disposition:in-reply-to;
+        bh=dtSZsuWclnZSbqawta2oLsH4zmSqLcwLBzmRtutEkS8=;
+        b=gfPVbfTjEbESFKPuUtO2uQ3mebQwbjEJGtRoWf8g6LFrzAsIWUx+Zr1HrsV/n1iS52
+         WxS0W02lzVVK84LZ0V21vgMDnZoji58vTBeKqdAogxoqKFX+6jSrJNm4H3nZz6n9owN/
+         Vf5T/9O5X4+if0PluYSuGAlPADWtprlnOgYCcde8MXFgE1dtUoRFmhyiTfHORtexomfR
+         VjwcBmNngEkFcHkS3ETtAKxq48nFINdTIBywasQsttFmjNhwhM5eg+pncjWANqZ9vi8v
+         hsyKmewOrOcIuL0lEKXUpMv1GO8A2QX1c39mTjYE+og4o9j9C9rNTRqAld+t4666pBVR
+         ixkw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
-         :references:mime-version:content-transfer-encoding;
-        bh=JWwMoal34CnynR8yPIUGvMD38hg7zrZ1G+HjoHP1HPA=;
-        b=AUL+uWFVgzkh0GdyuvVplLVGxHj++64XDoSeEN2TBIIThVOXXmbtT+kbAqlc1jfDUA
-         +D4fes/e41G4gUnDsjAnoijMneNmv8jbZFmADvP1evqWpY6fr6zPQoWMwiSgKRC2pR/6
-         9GyNuoNbbLvEI9tQ1aS0kBDY+lKLfedl1+QeSSS6v+tWHTLJKyhdLgSXz3OfkqULILr2
-         0ooHmH9TqE86A4eh8ZthjiFNyGvtfrGtGK0TZGyB41gz8M0wPYXR8vsaPQhT4vsl57lk
-         38e6SAwboitgB4sAuA1XLRcZcHsRIQsorXyHY9ieIuGWSuDILVBitBhINbrNtOGts38i
-         Ch4Q==
-X-Gm-Message-State: AOAM533CGJzPPU8HF3Eh/xSwo8vGKc8hNaevlbSFV9ZB85BsuzvCGW6N
-        GiHEXHJCZWiRuwXAZ4K3F/XPogeOtyI=
-X-Google-Smtp-Source: ABdhPJx4DG3+aAyr3h6kDCES+87ef+H6ICtMd8tE2H39lU5dtY8Qcb6HewnFCS0M38oZIMwxP8aSgg==
-X-Received: by 2002:a17:907:20d6:: with SMTP id qq22mr2743678ejb.187.1603471191274;
-        Fri, 23 Oct 2020 09:39:51 -0700 (PDT)
-Received: from localhost.localdomain ([2a02:a03f:b7fe:f700:c9b0:42da:8135:1fa1])
-        by smtp.gmail.com with ESMTPSA id m25sm1020734edp.36.2020.10.23.09.39.50
+        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+         :mime-version:content-disposition:in-reply-to;
+        bh=dtSZsuWclnZSbqawta2oLsH4zmSqLcwLBzmRtutEkS8=;
+        b=qLKSplD16RvSBxl2D1lKxaBTTy9W9fpkTW6LDZyBrGz7nMDd3J1QvyDoH4Qtwpx4G3
+         DY6A31PsLzROqhMBDIh8e9MAbBViXLHRaw9mVZeUQDhAZjbnNfhY5KLnDP9d5npBoB1c
+         3nnwur5bdSDwk9K0/e84pAvCcCWhTENLo9Ejt2zBXoZCF0L23JUx7BiA0n7Q80oqsgyl
+         nyCKtnDvG3THzdvff3VjfBxiPRF6lcj7mnQd1cX8nKOVisxwxc4wXuE3O/J2J8dur4Tz
+         7ZI+N1RYJ/+g/gHhgoQHatt1Xv0lbJt57vT8lAxmBmVXClmas9YTVPF3WeIYcBdLrXIm
+         K1Lg==
+X-Gm-Message-State: AOAM5309Av39HgCzg2w5sXlcQKQ+qpoY09B0mtegse3C4tmU6w7QrcCK
+        gtXsAWxLgLuE3q6F5ZKzDz8q5YL/ex0=
+X-Google-Smtp-Source: ABdhPJz9CW5I4tXpvmKt5J7+pk40/m7fI3B+DOwIL1bS/KrcAp59ypeGCk1OrqG2ToKifwmQUQg+Zg==
+X-Received: by 2002:aa7:cd42:: with SMTP id v2mr1873307edw.191.1603480130713;
+        Fri, 23 Oct 2020 12:08:50 -0700 (PDT)
+Received: from ltop.local ([2a02:a03f:b7fe:f700:432:6544:d213:607])
+        by smtp.gmail.com with ESMTPSA id g18sm1260082eje.12.2020.10.23.12.08.49
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 23 Oct 2020 09:39:50 -0700 (PDT)
+        Fri, 23 Oct 2020 12:08:50 -0700 (PDT)
+Date:   Fri, 23 Oct 2020 21:08:48 +0200
 From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-To:     linux-sparse@vger.kernel.org
-Cc:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-Subject: [PATCH 9/9] unop: simplify ~(-x) --> x - 1
-Date:   Fri, 23 Oct 2020 18:39:39 +0200
-Message-Id: <20201023163939.58359-10-luc.vanoostenryck@gmail.com>
-X-Mailer: git-send-email 2.28.0
-In-Reply-To: <20201023163939.58359-1-luc.vanoostenryck@gmail.com>
-References: <20201023163939.58359-1-luc.vanoostenryck@gmail.com>
+To:     Linus Torvalds <torvalds@linux-foundation.org>
+Cc:     Sparse Mailing-list <linux-sparse@vger.kernel.org>
+Subject: Re: [PATCH 1/2] simplify unsigned compares against 0
+Message-ID: <20201023190848.hjskgyakexljodnh@ltop.local>
+References: <20201023155832.57237-1-luc.vanoostenryck@gmail.com>
+ <20201023155832.57237-2-luc.vanoostenryck@gmail.com>
+ <CAHk-=wjc7dZCCKF4xOar1HKtNRtnnwqCJTZuJM-YPyyT=wZryw@mail.gmail.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAHk-=wjc7dZCCKF4xOar1HKtNRtnnwqCJTZuJM-YPyyT=wZryw@mail.gmail.com>
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
----
- simplify.c                          | 4 ++++
- validation/optim/simplify-not-neg.c | 1 -
- 2 files changed, 4 insertions(+), 1 deletion(-)
+On Fri, Oct 23, 2020 at 09:13:22AM -0700, Linus Torvalds wrote:
+> On Fri, Oct 23, 2020 at 8:58 AM Luc Van Oostenryck
+> <luc.vanoostenryck@gmail.com> wrote:
+> >
+> > Some unsigned compares against 0 are always true or always false
+> > (x < 0 or x >= 0). Simplify them.
+> 
+> Fair enough, but if you're simplifying compares, one of the more
+> important simplifications is to make the compare unsigned in the first
+> place.
+> 
+> ...
+> 
+> Another comparison simplification often worth doing is to do cast
+> simplification, ie
+> 
+>    ((cast) X cmpop Y)
 
-diff --git a/simplify.c b/simplify.c
-index 1b6e1cc2313b..6588f8af2820 100644
---- a/simplify.c
-+++ b/simplify.c
-@@ -1470,6 +1470,10 @@ static int simplify_unop(struct instruction *insn)
- 			src = eval_unop(OP_NOT, insn->size, def->src2);
- 			use_pseudo(insn, def->src1, &insn->src2);
- 			return replace_pseudo(insn, &insn->src1, src);
-+		case OP_NEG:
-+			insn->opcode = OP_SUB;	// ~(-x) --> x - 1
-+			insn->src2 = value_pseudo(1);
-+			return replace_pseudo(insn, &insn->src1, def->src);
- 		case OP_NOT:		// ~(~x) --> x
- 			return replace_with_pseudo(insn, def->src);
- 		case OP_SUB:
-diff --git a/validation/optim/simplify-not-neg.c b/validation/optim/simplify-not-neg.c
-index b9675ea62049..3fd8400d7bd4 100644
---- a/validation/optim/simplify-not-neg.c
-+++ b/validation/optim/simplify-not-neg.c
-@@ -3,7 +3,6 @@ int foo(int x) { return ~(-x) == (x - 1); }
- /*
-  * check-name: simplify-not-neg
-  * check-command: test-linearize -Wno-decl $file
-- * check-known-to-fail
-  *
-  * check-output-ignore
-  * check-output-contains: ret\\..*\\$1
--- 
-2.28.0
+Yes, these seem quite easy with a nice return rate. I've a lot of
+pending, uncompleted topic branches (which I'm currently trying
+to polish and upstream, hence the apparent lack of a direction line)
+but I don't think I've anything for these. I'll look at them soon. 
 
+-- Luc
