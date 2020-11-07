@@ -2,130 +2,86 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id D34C12AA581
-	for <lists+linux-sparse@lfdr.de>; Sat,  7 Nov 2020 14:40:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id E346C2AA76D
+	for <lists+linux-sparse@lfdr.de>; Sat,  7 Nov 2020 19:38:27 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727494AbgKGNkD (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Sat, 7 Nov 2020 08:40:03 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:34024 "EHLO
+        id S1726021AbgKGSi0 (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Sat, 7 Nov 2020 13:38:26 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:51782 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1727084AbgKGNkD (ORCPT
+        with ESMTP id S1725836AbgKGSi0 (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Sat, 7 Nov 2020 08:40:03 -0500
-Received: from mail-ed1-x544.google.com (mail-ed1-x544.google.com [IPv6:2a00:1450:4864:20::544])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id D87C6C0613CF
-        for <linux-sparse@vger.kernel.org>; Sat,  7 Nov 2020 05:40:02 -0800 (PST)
-Received: by mail-ed1-x544.google.com with SMTP id t9so717062edq.8
-        for <linux-sparse@vger.kernel.org>; Sat, 07 Nov 2020 05:40:02 -0800 (PST)
+        Sat, 7 Nov 2020 13:38:26 -0500
+Received: from mail-lf1-x144.google.com (mail-lf1-x144.google.com [IPv6:2a00:1450:4864:20::144])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 3FBECC0613CF
+        for <linux-sparse@vger.kernel.org>; Sat,  7 Nov 2020 10:38:26 -0800 (PST)
+Received: by mail-lf1-x144.google.com with SMTP id 74so6547278lfo.5
+        for <linux-sparse@vger.kernel.org>; Sat, 07 Nov 2020 10:38:26 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=OX9z1BAM0UwPlyRNcI6kZqJwETQUafPsNgDd03PhOxk=;
-        b=ZJJETv4tdmjTucvtXd4g4Darh3fYbK/iQWPFOJxyo+U7xCC4vwaAf4yWrUFTKHLyZG
-         rgqSHMHN/wRaxq1ZvE9/ILNUrZmUCRv5PwRCb6h4y3VX2f08d4UhySBpBY96vbDI9Wvk
-         Z0pyn8SHmqQvFHczRbHJeTZcgbI77nJ47a4BhiY/8R+EaNS23MuxINi4UBZkvA0CTlab
-         1U3BhRXIr7NAH7Q5YKGOUA/akFsBD1ZS5xg1V+yKyu0QDL1Ga8llEFMbgDfhW/KLjH99
-         hJ1c58j4UJtpIQgbguyWCyLMTP2IayxpFJ9Y3OhvhO3C/Qq62k+9/RQKeWG45c9hy8KO
-         bTfA==
+        d=linux-foundation.org; s=google;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=VHe/4Aap1K3TFjB2f0y3X4XLIs6ED1FEPJgEgNgzbYA=;
+        b=Psj6nyjajsgRFZgGdo1oTJsGNtKzFlkx5GvHTGpyiuQVOLsdm+nYJeDWLYWunxoP3H
+         UXjB22+2vTMdeNjnbhlhlLzxmF1PeWbwTFb6GQzOwnLROaHeeA0UHDukkoNiMGo45UKi
+         EexTNritWb3dNFnp+OYe+P9nLZaMqwNLb4AgA=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=OX9z1BAM0UwPlyRNcI6kZqJwETQUafPsNgDd03PhOxk=;
-        b=jSdE9PV7ajmzlR//zcqUY6lNUdUgOQ1bAsVTo2nA3XbI6+P+erwrWqVUjFv+cL5O4Z
-         nm1CCXVyt6FPzpaf59cq5DxDGgnwT6cpWkEeCFdY4fTzTS8bsEEa7PN+YxPkifNmpUPF
-         7bM0b7+vCDUXb7NozT2wJy+PpVfhLtlcUQppJYhTpbWXX5TL77Ogr+FKyUvBHcN/13cN
-         NvjJ9divXdKnDioKqC/Z0xca91ypnqE5dWOQ9lRYxTVYdBA6kX+IqSHlmB5mnyzohrwE
-         511xLWwjA9TeEWpxgWiRnQEfDyQeTJLtQHFJ8em6Vot2y0ICwsBjUKXwAeAZ2mZYqWP5
-         lu3Q==
-X-Gm-Message-State: AOAM530GhUdv+PDvraVr+t6JosQQEtXhiUu5uEtVgLr/P3Rs9jvhnsNR
-        pAFr3/g2FZWLNgWZpIwv3Lxvp9F+kyY=
-X-Google-Smtp-Source: ABdhPJxE/MqdKSSDbMCbAo3l0a9xs+XJF5ji2XAdkK5XEwmCeePu/dqo5GhKNW2QDV6TDZYpvPS5/Q==
-X-Received: by 2002:a05:6402:4d:: with SMTP id f13mr6935581edu.306.1604756401367;
-        Sat, 07 Nov 2020 05:40:01 -0800 (PST)
-Received: from localhost.localdomain ([2a02:a03f:b7fe:f700:59a2:5681:b2fc:1a9])
-        by smtp.gmail.com with ESMTPSA id k11sm3371343edh.72.2020.11.07.05.40.00
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 07 Nov 2020 05:40:00 -0800 (PST)
-From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-To:     linux-sparse@vger.kernel.org
-Cc:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-Subject: [PATCH] simplify SEL(x == y, x, y) and friends
-Date:   Sat,  7 Nov 2020 14:39:56 +0100
-Message-Id: <20201107133956.16217-1-luc.vanoostenryck@gmail.com>
-X-Mailer: git-send-email 2.29.2
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=VHe/4Aap1K3TFjB2f0y3X4XLIs6ED1FEPJgEgNgzbYA=;
+        b=j4q1bjl2FbyGMZn3uQe98u9jvAVgiBaRzo1aTpB6xgMMvNuERKQTcnrDBiaYPG0QX7
+         Ev7myHCmEZt4Ktu56zOjHSwnwklU1VMj8JrEu3oMK9nxjjQDbc2ZqH7YRcQ5kZmOfL7U
+         Qh7GCrZBaLrSyc/ONd/XYb5HXFdo+X3WTF0KgPdqPhpKrTnQZoe5p+zuO4eZDUSifPya
+         ECSfbA883i5fjUeAlghDC5nidJ255ppfTL6lD373ll5dFxyoaVy3ET/5agPIkU7FTPzY
+         WyWniDKAAJlU2AwuGbgoC3DaVlUa49fsUD5qeuvWo4ta4wKbmXnW/shYj7pWYmnbwXFh
+         txBg==
+X-Gm-Message-State: AOAM532DaHMva574xdJlwMIKYU5TeagrN+LP4+EsaLavGw5sRz/8jGir
+        U5LdrObF+C2xOQ6WLuYJxZNh8+AgkiE/Jw==
+X-Google-Smtp-Source: ABdhPJxoSxwA7jhuhsnTr7/8Lxg3QhqoBcYtWZyXI7asylq4UDdVF6LtZ/j+77UCOHo/wA/E1weI6w==
+X-Received: by 2002:ac2:4211:: with SMTP id y17mr2864006lfh.133.1604774304232;
+        Sat, 07 Nov 2020 10:38:24 -0800 (PST)
+Received: from mail-lf1-f52.google.com (mail-lf1-f52.google.com. [209.85.167.52])
+        by smtp.gmail.com with ESMTPSA id b12sm493947ljj.133.2020.11.07.10.38.22
+        for <linux-sparse@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 07 Nov 2020 10:38:23 -0800 (PST)
+Received: by mail-lf1-f52.google.com with SMTP id d17so3158190lfq.10
+        for <linux-sparse@vger.kernel.org>; Sat, 07 Nov 2020 10:38:22 -0800 (PST)
+X-Received: by 2002:a19:4815:: with SMTP id v21mr3189503lfa.603.1604774302679;
+ Sat, 07 Nov 2020 10:38:22 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20201107114222.11866-1-luc.vanoostenryck@gmail.com>
+In-Reply-To: <20201107114222.11866-1-luc.vanoostenryck@gmail.com>
+From:   Linus Torvalds <torvalds@linux-foundation.org>
+Date:   Sat, 7 Nov 2020 10:38:06 -0800
+X-Gmail-Original-Message-ID: <CAHk-=wjvvkQm3zTobKUY2OuUfNACa13mhYeTPwVJcT0HVeRkjg@mail.gmail.com>
+Message-ID: <CAHk-=wjvvkQm3zTobKUY2OuUfNACa13mhYeTPwVJcT0HVeRkjg@mail.gmail.com>
+Subject: Re: [PATCH 0/5] simplify SEL(SEL, ...), ...)
+To:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
+Cc:     Sparse Mailing-list <linux-sparse@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-If the condition of a select instruction is a equality test of the
-select's operands, then the result of the select is always the same as
-its second operand. Same for the first operand with an inequality test.
+On Sat, Nov 7, 2020 at 3:42 AM Luc Van Oostenryck
+<luc.vanoostenryck@gmail.com> wrote:
+>
+> These patch add a few simplifications when the condition of a
+> select is another select and have constants as operands.
 
-Simplify away these selects.
+Looks good to me.
 
-Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
----
- simplify.c                     | 16 ++++++++++++++++
- validation/optim/eqne-select.c | 12 ++++++++++++
- 2 files changed, 28 insertions(+)
- create mode 100644 validation/optim/eqne-select.c
+I think there's a couple of others, like
 
-diff --git a/simplify.c b/simplify.c
-index f2aaa52de84b..2d165cfe143c 100644
---- a/simplify.c
-+++ b/simplify.c
-@@ -1747,6 +1747,7 @@ static int simplify_cast(struct instruction *insn)
- 
- static int simplify_select(struct instruction *insn)
- {
-+	struct instruction *def;
- 	pseudo_t cond, src1, src2;
- 
- 	cond = insn->src1;
-@@ -1782,6 +1783,21 @@ static int simplify_select(struct instruction *insn)
- 		kill_use(&insn->src3);
- 		return replace_with_value(insn, 0);
- 	}
-+
-+	switch (DEF_OPCODE(def, cond)) {
-+	case OP_SET_EQ:
-+		if (src1 == def->src1 && src2 == def->src2)
-+			return replace_with_pseudo(insn, src2); // SEL(x==y,x,y) --> y
-+		if (src2 == def->src1 && src1 == def->src2)
-+			return replace_with_pseudo(insn, src2); // SEL(y==x,x,y) --> y
-+		break;
-+	case OP_SET_NE:
-+		if (src1 == def->src1 && src2 == def->src2)
-+			return replace_with_pseudo(insn, src1); // SEL(x!=y,x,y) --> x
-+		if (src2 == def->src1 && src1 == def->src2)
-+			return replace_with_pseudo(insn, src1); // SEL(y!=x,x,y) --> x
-+		break;
-+	}
- 	return 0;
- }
- 
-diff --git a/validation/optim/eqne-select.c b/validation/optim/eqne-select.c
-new file mode 100644
-index 000000000000..9dfd88b5eb4d
---- /dev/null
-+++ b/validation/optim/eqne-select.c
-@@ -0,0 +1,12 @@
-+int sel_eq01(int a, int b) { return ((a == b) ? a : b) == b; }
-+int sel_eq10(int a, int b) { return ((a == b) ? b : a) == a; }
-+int sel_ne01(int a, int b) { return ((a != b) ? a : b) == a; }
-+int sel_ne10(int a, int b) { return ((a != b) ? b : a) == b; }
-+
-+/*
-+ * check-name: eqne-select
-+ * check-command: test-linearize -Wno-decl $file
-+ *
-+ * check-output-ignore
-+ * check-output-returns: 1
-+ */
--- 
-2.29.2
+  SEL(x, x, 0) -> x
 
+which looks insane, but I think these are the kinds of things that end
+up showing up when you inline things that return errors, and then you
+test them for zero etc.
+
+I haven't thought them all through, and didn't check your cases deeply
+and just took your word for them, but it looked all sane to me.
+
+            Linus
