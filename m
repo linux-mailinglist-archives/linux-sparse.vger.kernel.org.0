@@ -2,58 +2,58 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 8D15F2AA8C1
-	for <lists+linux-sparse@lfdr.de>; Sun,  8 Nov 2020 02:19:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 01B502AA8C3
+	for <lists+linux-sparse@lfdr.de>; Sun,  8 Nov 2020 02:19:54 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1728531AbgKHBTv (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Sat, 7 Nov 2020 20:19:51 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:57592 "EHLO
+        id S1726060AbgKHBTx (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Sat, 7 Nov 2020 20:19:53 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:57598 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726060AbgKHBTv (ORCPT
+        with ESMTP id S1728568AbgKHBTx (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Sat, 7 Nov 2020 20:19:51 -0500
-Received: from mail-ej1-x641.google.com (mail-ej1-x641.google.com [IPv6:2a00:1450:4864:20::641])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id D3B8DC0613CF
-        for <linux-sparse@vger.kernel.org>; Sat,  7 Nov 2020 17:19:50 -0800 (PST)
-Received: by mail-ej1-x641.google.com with SMTP id s25so7254354ejy.6
-        for <linux-sparse@vger.kernel.org>; Sat, 07 Nov 2020 17:19:50 -0800 (PST)
+        Sat, 7 Nov 2020 20:19:53 -0500
+Received: from mail-ej1-x643.google.com (mail-ej1-x643.google.com [IPv6:2a00:1450:4864:20::643])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id A8B1CC0613CF
+        for <linux-sparse@vger.kernel.org>; Sat,  7 Nov 2020 17:19:51 -0800 (PST)
+Received: by mail-ej1-x643.google.com with SMTP id i19so7240699ejx.9
+        for <linux-sparse@vger.kernel.org>; Sat, 07 Nov 2020 17:19:51 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=OS4AcG1O4cpQ6/U2QD62EfC5C0OVzJBqlMYt0mJ9kXw=;
-        b=LjveBPVsd8+DetQiFinRnIoP5I538ApePApMu+nYOKdglZKAb7SepKvWbVzMips/L1
-         WJvnFfgWSU5BWcXU6P39Pm3hfvcpO7InrHRAHLKvOw3nVh8vXSvwuusZ+AOME/jcUt/H
-         n//i0nNJBfdQhUUCQyG4jsefwbVzXzCklkkflIfkRqq59GS8L0IH5+DUBc5ueAAZZMbf
-         6hyXQE4B7HnzepeE3gov1h//Vp+Oimh5/spYRzKTDJPpZlGCXnOD5P1eadZShmTJoML+
-         tSDdBUzhh0xcgbky3l87C//lwyFaPYafpZocf8Uau4iun+2ckZ3NZWTKTFOEk30nBf2k
-         BiNA==
+        bh=WVscvQq2u4pMMO44qX3iV/3iy7b4PJ3CJXZcmwu1cTg=;
+        b=Ha+kpcI0olcN0Orcp3yexQn5A8S64xm5nuE4IUeXo+xLBSkld/1Px/E6dW/bj4Yej4
+         xN+NYoPdoVEljxjhHD+SoN8vig229yEZ7by4R3AYhY/QdUkAcDRGbmZjqu0GZFdK+kT1
+         2FU9xZVEa+xj+6KwN9ufvzLv4qW+HHu2vY5TqxRW+87vZm2hyHvRy+CaVi6APQWd3mon
+         j4Tf1Qit3VHH0kdOlX91//D2wSiFSFbZv5gRllnmqboMd6PKmZb1zres9TqE8lBjo69O
+         nkPgmraMKEGbEz+21k9b+aLyZKHBieFxnYncczSLSLZo2/DJ23zURsHIiYfFh56RLn/o
+         H5rA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=OS4AcG1O4cpQ6/U2QD62EfC5C0OVzJBqlMYt0mJ9kXw=;
-        b=R92mjlhWWkdLxiPOzhbF7eqa55N0YPFzwW2rnZIs2/0TGJtDCxImkcvD8Jx2nSdJ4P
-         0W4o+OxFJSzbeF/sAk8XPKxXNfXuP84TOXOfAIzSQCXJU+l8brMAdY/2n+F9gqBqHL+G
-         +yUHpS2+BHPamPxsfpPYgoX+XhQRz2RLomN449sauJbWpChO2q7t/eSqsgL77ru7r/6T
-         eLthDzGfEIe6PRde3VM4yS5LvL/W3f9K/L4pkqM/O+Yv5QhIQQXBNIanHlKIZAj+G/uw
-         44sxRiSdPMtHGRYWliRb19uSoUahQLS3kU8sqLCNTs/JCu3EmBI80UZSN8GlXu3IhJDY
-         xtJQ==
-X-Gm-Message-State: AOAM532gisNc7tgksKvjad2vgGnvZZYpiR1ZqDjKPBO+uTWXYgFYgyVQ
-        dA4kccfS6NWv8I8pMwAcYx9T8kGLNrw=
-X-Google-Smtp-Source: ABdhPJyMGKVwt3mJEOprkjXTk29xMo8632FLTNcMuBI2aVdJf/gX5Fz8J7pDMBMcCuYMdZ7Mk+DP6g==
-X-Received: by 2002:a17:906:aecd:: with SMTP id me13mr909435ejb.433.1604798389381;
-        Sat, 07 Nov 2020 17:19:49 -0800 (PST)
+        bh=WVscvQq2u4pMMO44qX3iV/3iy7b4PJ3CJXZcmwu1cTg=;
+        b=QSXUCQVIZUEDjyY7yaGi57z7vkFBJxGSG/BGP9vGFe+ZZjl9wVYbtvoZ+p+EPZr5NR
+         4/dLiffEkKQprMVRuBROqPTBOUWws9v1uCCLjbuxNSVGSt8iXhP9AtU7vGFoXPffFLwC
+         OivqpesYJU+uwH1R7xCX3O5p47+AR0rUsQLGJZoszydrEZX447DmOHxlW5V1c1qwci3x
+         zJcIIh/8wSCErjgFlH773BE7daNsxHkFmxQEXE4BhAVuIhT4qhtdt8WOAjESnzJoLvcS
+         a601aKEWgiYqX5K1vOauoO2Gg7tNsMLETP75WpGEzaK18/tVpyLJUputReu/PW5BOyYt
+         s/YA==
+X-Gm-Message-State: AOAM533YupDX/7KbI7xpdLTp1HEDOCEIyeoMfhSUEYdycJ025x2MR2B7
+        QQnE+DxMW2RhTD3T8Ncet+ME6he39qo=
+X-Google-Smtp-Source: ABdhPJyXXbx3wr90RaQbNrtunDTw6Hufz0QiRXxAc0NPmVSvjQMISgzJkOA5IjQKrp8TL78jVdhJxg==
+X-Received: by 2002:a17:906:1458:: with SMTP id q24mr9218479ejc.541.1604798390206;
+        Sat, 07 Nov 2020 17:19:50 -0800 (PST)
 Received: from localhost.localdomain ([2a02:a03f:b7fe:f700:fce6:5cb0:27db:5e8c])
-        by smtp.gmail.com with ESMTPSA id t22sm4545127edq.64.2020.11.07.17.19.48
+        by smtp.gmail.com with ESMTPSA id t22sm4545127edq.64.2020.11.07.17.19.49
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 07 Nov 2020 17:19:48 -0800 (PST)
+        Sat, 07 Nov 2020 17:19:49 -0800 (PST)
 From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 To:     linux-sparse@vger.kernel.org
 Cc:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-Subject: [PATCH 06/16] cmp: canonicalize unsigned (x {<,>=} C) --> (x {<=,>} C-1)
-Date:   Sun,  8 Nov 2020 02:19:36 +0100
-Message-Id: <20201108011939.94252-7-luc.vanoostenryck@gmail.com>
+Subject: [PATCH 07/16] cmp: simplify unsigned (x {<=,>} UMAX) into {1,0}
+Date:   Sun,  8 Nov 2020 02:19:37 +0100
+Message-Id: <20201108011939.94252-8-luc.vanoostenryck@gmail.com>
 X-Mailer: git-send-email 2.29.2
 In-Reply-To: <20201108011939.94252-1-luc.vanoostenryck@gmail.com>
 References: <20201108011939.94252-1-luc.vanoostenryck@gmail.com>
@@ -63,62 +63,49 @@ Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-An unsigned comparison like (x < 3) is equivalent to (x <= 2).
-Canonicalize '<' & '>=' to '<=' & '>', such that the smallest
-constant is used.
+These compares are always true or false, so simplify them.
 
 Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 ---
- simplify.c                        | 8 +++++++-
- validation/optim/canonical-cmpu.c | 1 -
- 2 files changed, 7 insertions(+), 2 deletions(-)
+ simplify.c                   | 5 +++++
+ validation/optim/set-uimm1.c | 1 -
+ 2 files changed, 5 insertions(+), 1 deletion(-)
 
 diff --git a/simplify.c b/simplify.c
-index 59e6d1eee291..b8dfbad1f077 100644
+index b8dfbad1f077..160a6ab15e7f 100644
 --- a/simplify.c
 +++ b/simplify.c
-@@ -1081,18 +1081,24 @@ static int simplify_seteq_setne(struct instruction *insn, long long value)
+@@ -1081,6 +1081,7 @@ static int simplify_seteq_setne(struct instruction *insn, long long value)
  
  static int simplify_compare_constant(struct instruction *insn, long long value)
  {
-+	int changed = 0;
-+
++	unsigned long long bits = bits_mask(insn->itype->bit_size);
+ 	int changed = 0;
+ 
  	switch (insn->opcode) {
- 	case OP_SET_B:
- 		if (!value)			// (x < 0) --> 0
- 			return replace_with_pseudo(insn, value_pseudo(0));
- 		if (value == 1)			// (x < 1) --> (x == 0)
- 			return replace_binop_value(insn, OP_SET_EQ, 0);
-+		else				// (x < y) --> (x <= (y-1))
-+			changed |= replace_binop_value(insn, OP_SET_BE, value - 1);
- 		break;
- 	case OP_SET_AE:
- 		if (!value)			// (x >= 0) --> 1
- 			return replace_with_pseudo(insn, value_pseudo(1));
- 		if (value == 1)			// (x >= 1) --> (x != 0)
- 			return replace_binop_value(insn, OP_SET_NE, 0);
-+		else				// (x >= y) --> (x > (y-1)
-+			changed |= replace_binop_value(insn, OP_SET_A, value - 1);
- 		break;
+@@ -1103,10 +1104,14 @@ static int simplify_compare_constant(struct instruction *insn, long long value)
  	case OP_SET_BE:
  		if (!value)			// (x <= 0) --> (x == 0)
-@@ -1103,7 +1109,7 @@ static int simplify_compare_constant(struct instruction *insn, long long value)
+ 			return replace_opcode(insn, OP_SET_EQ);
++		if (value == bits)		// (x <= ~0) --> 1
++			return replace_with_pseudo(insn, value_pseudo(1));
+ 		break;
+ 	case OP_SET_A:
+ 		if (!value)			// (x > 0) --> (x != 0)
  			return replace_opcode(insn, OP_SET_NE);
++		if (value == bits)		// (x > ~0) --> 0
++			return replace_with_pseudo(insn, value_pseudo(0));
  		break;
  	}
--	return 0;
-+	return changed;
- }
- 
- static int simplify_constant_mask(struct instruction *insn, unsigned long long mask)
-diff --git a/validation/optim/canonical-cmpu.c b/validation/optim/canonical-cmpu.c
-index 482408aa90c1..29bbd0a8690a 100644
---- a/validation/optim/canonical-cmpu.c
-+++ b/validation/optim/canonical-cmpu.c
-@@ -9,7 +9,6 @@ int cmp_geu(unsigned int x) { return (x >= 256) == (x >  255); }
+ 	return changed;
+diff --git a/validation/optim/set-uimm1.c b/validation/optim/set-uimm1.c
+index d6928f59d044..aa9f54c3ff82 100644
+--- a/validation/optim/set-uimm1.c
++++ b/validation/optim/set-uimm1.c
+@@ -4,7 +4,6 @@ static _Bool setgt_umax(unsigned int a) { return (a >  ~0) == 0; }
  /*
-  * check-name: canonical-cmpu
-  * check-command: test-linearize -Wno-decl $file
+  * check-name: set-uimm1
+  * check-command: test-linearize $file
 - * check-known-to-fail
   *
   * check-output-ignore
