@@ -2,184 +2,244 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 4D7282AA8C9
-	for <lists+linux-sparse@lfdr.de>; Sun,  8 Nov 2020 02:21:38 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 579152AC6C1
+	for <lists+linux-sparse@lfdr.de>; Mon,  9 Nov 2020 22:16:21 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1728531AbgKHBVh (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Sat, 7 Nov 2020 20:21:37 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:57880 "EHLO
+        id S1729247AbgKIVQU (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Mon, 9 Nov 2020 16:16:20 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:41644 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1727871AbgKHBVh (ORCPT
+        with ESMTP id S1727311AbgKIVQU (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Sat, 7 Nov 2020 20:21:37 -0500
-Received: from mail-ej1-x644.google.com (mail-ej1-x644.google.com [IPv6:2a00:1450:4864:20::644])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 05721C0613D3
-        for <linux-sparse@vger.kernel.org>; Sat,  7 Nov 2020 17:21:37 -0800 (PST)
-Received: by mail-ej1-x644.google.com with SMTP id o21so7266511ejb.3
-        for <linux-sparse@vger.kernel.org>; Sat, 07 Nov 2020 17:21:36 -0800 (PST)
+        Mon, 9 Nov 2020 16:16:20 -0500
+Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com [IPv6:2a00:1450:4864:20::530])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 34B50C0613CF
+        for <linux-sparse@vger.kernel.org>; Mon,  9 Nov 2020 13:16:20 -0800 (PST)
+Received: by mail-ed1-x530.google.com with SMTP id o20so10347310eds.3
+        for <linux-sparse@vger.kernel.org>; Mon, 09 Nov 2020 13:16:20 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=from:to:cc:subject:date:message-id:in-reply-to:references
-         :mime-version:content-transfer-encoding;
-        bh=/9J992tTLG2w4CWdNXUkzfs6Rt3w4UoHYyRE09KHFY0=;
-        b=HYmG5LQUB3e+culG/vzQftPNAv0mYhMHHFHO7ULdbQAgyyyh0ERo6YORaZI03hrHlu
-         crIYPJd5sQmmRYKJ23p5kEaDFY1ZNCtJ5HJ97TFRAT4aoYv36sZSvjKDCuUDnz+/mm3+
-         4KEPAaB8f6wK81dgIrT6xzmVolhv9aNLwS/gdtcI+HKnMBVdSLp2st7eIUl9Il8Um7UL
-         9R4NUMmWv91u/akFjAd2UVOk+4//xqJZYCfG+geeVrAlv19OEzFUoCKsK90EeQrnDTOY
-         EFIuODu+2HzHr4MC8/dydEWqU9HDDCYw/yEBxA+Hwpu5yaTMADpPMSpFhDp8Thz7BcOG
-         AVWg==
+        h=date:from:to:subject:message-id:mime-version:content-disposition;
+        bh=JpKmAJeK75QC6qa5f0PHRZqTSiS9sLhre4iDSIJ7zYo=;
+        b=V4otEIv5f7V8MCqNO0GAM02wmWejAPnoPclJ9ywKepPCnApKpOM1TB7cVYvxtMglkw
+         HWcYpcjqcJgwx4ytOJlV+B7sf/ob5KWy5tOvut08Y/RPdu2Ozy3yYK+il4Yj4Nrb8kxu
+         d/XCVg3Z2Dl1nNJ902OnJYn23d6HFCJaXwFlEmCzdfK1X14kOWnMSLlf2MXtRHGyG5x5
+         BpHVwsazon3zn1jMPGtRKjWSYoFMRVX27zskFf3Auvg6FxXRSTFw8+LHMTCl/uhfCoKf
+         XctalQEc9x6/TkFsxZ2TY1rmV7cZ2gumkc8LcpYtv/83bJjlgDnNgW738D2Xm1X6mqlS
+         lbIw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
-         :references:mime-version:content-transfer-encoding;
-        bh=/9J992tTLG2w4CWdNXUkzfs6Rt3w4UoHYyRE09KHFY0=;
-        b=UOtXUgOKVymLOz0rDeaPa68h2kCgGDlqQSCOQ6Iqu+0b4K+lYG9cRiEoc7THYHbNah
-         adGMK55nI21pfkVDtdtJ8SuowRSKyV+srXcfzZx0M4m9cU8H0WUhn6u3LXibm0ciXbEx
-         wBItiPeJY5uYv7Pp1tBofDVyedR1qbRupYs0rjs2SuuBKTxGivvyLO6tyXvUbUIOp0BP
-         +Ol/aNjihOM+loFRFh+ipp0swf6d5tsU0UZS+TEUaqxISuUH1iVKE/hpICcSs5uN3XMA
-         XcmmPxx0XZh4axurNQeQqCLwAq9DSpEFQuNVtSKBKLGgqKHZfWG+SkaUtgp0fyja6vGR
-         TwhQ==
-X-Gm-Message-State: AOAM530ih8o96QBZpKCi7sIUb1+X/nNeOAP/pv67X6fuHW80UYNHJrhI
-        yZGRd1vcu334ubUndQ5lI6jS28PGejk=
-X-Google-Smtp-Source: ABdhPJxRMsNqpAaKmi30ikXZnF8Sz2JaHO078SvxVNy916Rr7ccY7WOLUC/qdwuQyqi0MUWV3zOwHg==
-X-Received: by 2002:a17:906:400c:: with SMTP id v12mr9352913ejj.387.1604798495426;
-        Sat, 07 Nov 2020 17:21:35 -0800 (PST)
-Received: from localhost.localdomain ([2a02:a03f:b7fe:f700:fce6:5cb0:27db:5e8c])
-        by smtp.gmail.com with ESMTPSA id u25sm4511426eje.99.2020.11.07.17.21.34
+        h=x-gm-message-state:date:from:to:subject:message-id:mime-version
+         :content-disposition;
+        bh=JpKmAJeK75QC6qa5f0PHRZqTSiS9sLhre4iDSIJ7zYo=;
+        b=Gw6qSDOMpxX4NFTQ9/lbNTdrAjKJOjPIHg6euIjTiW96WoBtcIMEucH95qnH56Pj49
+         s3IJ/MKBHWImlTwn6RWsTMUxaMi2OI4XXqqflMQ0xHgsYqoXqoGLEMCRYjHqGGT60u7M
+         E2c4kQRiq8qpUlSZ3dYjxKSQ4YnUcMDpAFpPCU1fOKeJUuI+Gu0XzVeO5fUuiyVk9c59
+         EwEUFkVRMMGr07FlvCJXZdP61x2eLv37vr4BGlCN+AaKfY0b2TfEBmyCiV1Xf8NRHpxJ
+         ROQD7KwK44YAePBBilZ0Pr2LVjKSMCKM0PX9rC1zhy0MnP32TxlsdccmoqixntD4DsWQ
+         v83g==
+X-Gm-Message-State: AOAM5338Xd1m8FcEnSSJQ3FdDfjkJO5saiswwuE+jc0pbkf1ZkxvjSG0
+        dnf7lOlL899xGaNZjEJ/a2+Jdq8Av2M=
+X-Google-Smtp-Source: ABdhPJwTjr3TsrFbG/8T5fzbSkBvW+yPHlHgFnaUXAlncmGM5esHkwPWpedUvBD1sZ4VRRVLDqH1kQ==
+X-Received: by 2002:aa7:c597:: with SMTP id g23mr17510775edq.184.1604956578449;
+        Mon, 09 Nov 2020 13:16:18 -0800 (PST)
+Received: from ltop.local ([2a02:a03f:b7fe:f700:b825:8815:5c02:9524])
+        by smtp.gmail.com with ESMTPSA id s3sm9369175ejv.97.2020.11.09.13.16.17
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 07 Nov 2020 17:21:34 -0800 (PST)
+        Mon, 09 Nov 2020 13:16:17 -0800 (PST)
+Date:   Mon, 9 Nov 2020 22:16:16 +0100
 From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-To:     linux-sparse@vger.kernel.org
-Cc:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-Subject: [PATCH 16/16] cmp: simplify compares and sign/zero extend
-Date:   Sun,  8 Nov 2020 02:21:26 +0100
-Message-Id: <20201108012126.94339-7-luc.vanoostenryck@gmail.com>
-X-Mailer: git-send-email 2.29.2
-In-Reply-To: <20201108012126.94339-1-luc.vanoostenryck@gmail.com>
-References: <20201108011939.94252-1-luc.vanoostenryck@gmail.com>
- <20201108012126.94339-1-luc.vanoostenryck@gmail.com>
+To:     linux-sparse@vger.kernel.org,
+        Linus Torvalds <torvalds@linux-foundation.org>
+Subject: 'context imbalance' warnings
+Message-ID: <20201109211616.dyr7g62rz5oohseu@ltop.local>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-Compare instructions with both operands sign or zero-extended
-from the same original size are equivalent to a compare of
-the original values. If the values were zero-extended, a signed
-compare becomes an unsigned one.
+Hi,
 
-Simplify away the sign/zero-extensions.
+This is the continuation of last week thread.
 
-Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
----
- simplify.c                       | 52 ++++++++++++++++++++++++++------
- validation/optim/cmp-sext-sext.c |  1 -
- validation/optim/cmp-zext-zext.c |  1 -
- 3 files changed, 42 insertions(+), 12 deletions(-)
+I've added a few more simplifications for selects & compares on top
+of those from last week. Alas, none of these makes any real difference:
+in my usual tests I have just one warning less (total number is now 995):
+   * fs/dcache.c:1226:24: warning: context imbalance in 'dentry_lru_isolate_shrink' - different lock contexts for basic block
 
-diff --git a/simplify.c b/simplify.c
-index 7538c9393b41..d56d4c89a078 100644
---- a/simplify.c
-+++ b/simplify.c
-@@ -422,6 +422,22 @@ static inline bool is_signed_constant(long long val, unsigned osize, unsigned ns
- 	return bits_extend(val, osize, 1) == bits_extend(val, nsize, 1);
- }
- 
-+///
-+// is @src generated by an instruction with the given opcode and size?
-+static inline pseudo_t is_same_op(pseudo_t src, int op, unsigned osize)
-+{
-+	struct instruction *def;
-+
-+	if (src->type != PSEUDO_REG)
-+		return NULL;
-+	def = src->def;
-+	if (def->opcode != op)
-+		return NULL;
-+	if (def->orig_type->bit_size != osize)
-+		return NULL;
-+	return def->src;
-+}
-+
- ///
- // replace the operand of an instruction
- // @insn: the instruction
-@@ -1570,6 +1586,30 @@ static int simplify_sub(struct instruction *insn)
- 	return 0;
- }
- 
-+static int simplify_compare(struct instruction *insn)
-+{
-+	pseudo_t src1 = insn->src1;
-+	pseudo_t src2 = insn->src2;
-+	struct instruction *def;
-+	unsigned int osize;
-+	pseudo_t src;
-+
-+	switch (DEF_OPCODE(def, src1)) {
-+	case OP_SEXT: case OP_ZEXT:
-+		osize = def->orig_type->bit_size;
-+		if ((src = is_same_op(src2, def->opcode, osize))) {
-+			const struct opcode_table *op = &opcode_table[insn->opcode];
-+			if ((def->opcode == OP_ZEXT) && (op->flags & OPF_SIGNED))
-+				insn->opcode = op->sign;
-+			insn->itype = def->orig_type;
-+			replace_pseudo(insn, &insn->src1, def->src);
-+			return replace_pseudo(insn, &insn->src2, src);
-+		}
-+		break;
-+	}
-+	return 0;
-+}
-+
- static int simplify_constant_unop(struct instruction *insn)
- {
- 	long long val = insn->src1->value;
-@@ -2083,17 +2123,9 @@ int simplify_instruction(struct instruction *insn)
- 	case OP_DIVS:
- 	case OP_MODU:
- 	case OP_MODS:
--	case OP_SET_EQ:
--	case OP_SET_NE:
--	case OP_SET_LE:
--	case OP_SET_GE:
--	case OP_SET_LT:
--	case OP_SET_GT:
--	case OP_SET_B:
--	case OP_SET_A:
--	case OP_SET_BE:
--	case OP_SET_AE:
- 		break;
-+	case OP_BINCMP ... OP_BINCMP_END:
-+		return simplify_compare(insn);
- 	case OP_LOAD:
- 	case OP_STORE:
- 		return simplify_memop(insn);
-diff --git a/validation/optim/cmp-sext-sext.c b/validation/optim/cmp-sext-sext.c
-index ba6ed54e940c..3bd22fb738ca 100644
---- a/validation/optim/cmp-sext-sext.c
-+++ b/validation/optim/cmp-sext-sext.c
-@@ -11,7 +11,6 @@ _Bool cmpu_sext_sext(ARGS(INT32)) { return TEST(UINT64, UINT32, a, < , b); }
- /*
-  * check-name: cmp-sext-sext
-  * check-command: test-linearize -Wno-decl $file
-- * check-known-to-fail
-  *
-  * check-output-ignore
-  * check-output-returns: 1
-diff --git a/validation/optim/cmp-zext-zext.c b/validation/optim/cmp-zext-zext.c
-index 9f188297e214..88f9078f9480 100644
---- a/validation/optim/cmp-zext-zext.c
-+++ b/validation/optim/cmp-zext-zext.c
-@@ -11,7 +11,6 @@ _Bool cmpu_zext_zext(ARGS(UINT32)) { return TEST(UINT64, UINT32, a, < , b); }
- /*
-  * check-name: cmp-zext-zext
-  * check-command: test-linearize -Wno-decl $file
-- * check-known-to-fail
-  *
-  * check-output-ignore
-  * check-output-returns: 1
--- 
-2.29.2
+But well, these simplifications are good and can help.
 
+So, I've taken again a look at the origin of these warnings (I already
+did this 2-3 years ago). Here is what I found for the 6 first ones:
+
+1) intel_{start,stop}_scheduling()
+   - take/release a lock conditionally
+   - but intel_start_scheduling() returns void ...
+
+2) get_locked_pte()
+   - it's a conditional lock
+   - some code assume it never fails
+   - some code protect it by a [VM_]BUG_ON()
+   - sparse complains
+
+3) lock_vector_lock()
+   - OK, but the annotation is missing, I'll send a fix
+
+4) raw_spin_trylock()
+   - on UP, raw_spin_trylock() takes the context twice ...
+   - I'll see what can be fixed there
+
+5) acpi_os_read_memory()
+   the usage pattern is 'interesting':
+
+	flag = 0;
+	lock();
+	addr = lookup();
+	if (!addr) {
+		unlock()
+		addr = map();
+		if (!addr)
+			return ERROR;
+		flag = true;
+	}
+
+	// sparse complains here
+
+	... use addr ...
+
+	if (flag)
+		unmap(addr);
+	else
+		unlock();
+	return 0;
+
+   I see the pattern and I suppose the locking is correct but I
+   think that sparse's warning is justified. Is it needed to do
+   the early unlock() when the lookup fails?
+
+6) clk_enable_lock() (@ drivers/clk/clk.c)
+   This one is really interesting and shows one of Sparse's shortcoming
+
+	if (!spin_trylock_irqsave(&lock, flags)) {
+		if (some_test) {
+			__acquire;
+			local_save_flags(flags);
+			return flags;
+		}
+		spin_lock_irqsave(&enable_lock, flags);
+	}
+	...
+	return;
+
+   So the code is correct but what sparse really sees is:
+
+	flags = __raw_save_flags();
+	cli;
+	tmp = _raw_spin_try_lock();
+	if (tmp)
+		__acquire;
+	else
+		__raw_restore_flags(flags);
+
+	// sparse complains here
+
+	if (!tmp) {
+		if (some_test) {
+			__acquire;
+			flags = __raw_save_flags();
+			return flags;
+		}
+		flags = raw_spin_lock_irqsave();
+	}
+	...
+	return flags;
+
+   Now sparse could merge the two branches depending on tmp,
+   as if the code would have been written as:
+
+	flags = __raw_save_flags();
+	cli;
+	tmp = _raw_spin_try_lock();
+	if (tmp)
+		__acquire;
+	else {
+		__raw_restore_flags(flags);
+		if (some_test) {
+			__acquire;
+			flags = __raw_save_flags();
+			return flags;
+		}
+		flags = raw_spin_lock_irqsave();
+	}
+	...
+	return flags;
+
+   But the corresponding IR is:
+
+	... %r9(flags) <- ...			// flags = __raw_save_flags();
+	...					// cli();
+	call.32	%r10(tmp) <- _raw_spin_trylock	// tmp = _raw_spin_try_lock();
+	cbr	%r10(tmp), .L1, .L2		// if (tmp)
+.L1:	context	1				//   __acquire;
+	br	.L3
+.L2:	<restore interrupts>			//   __raw_restore_flags(flags);
+	br	.L3
+.L3:	phisrc.32 %phi1(flags) <- %r9(flags)
+	cbr	%r10(tmp), .L4, .L5		// if (!tmp)
+
+   The presence of the phisrc at .L3 blocks the BB merging.
+   But this is only part of the problem. First:
+   1) The phisrc (and maybe the associated phi-node) could
+      be moved/adjusted when merging the BBs
+   2) phisrcs are not really needed anyway (they're just a
+      mean to track the BB of each phi-node's arguments).
+
+   But even without these phi-sources, some merging that could
+   happen doesn't.  For example, code like:
+	#define __acquire	__context__(X, 1)
+	int  def(void);
+	void use(int);
+	int foo(int a)
+	{
+		int tmp = def();
+		if (a)
+			__acquire;
+		else
+			use(tmp);
+		if (!a) {
+			def();
+			__acquire;
+		}
+		use(0);
+		__release;
+		return tmp;
+	}
+
+   produces:
+	foo:
+	.L0:	call.32     %r1 <- def
+		cbr         %arg1, .L1, .L2
+	.L1:	context     1
+		br          .L3
+	.L2:	call        use, %r1
+		br          .L3
+	.L3:	cbr         %arg1, .L5, .L4	;; false imbalance here
+	.L4:	call.32     %r7 <- def
+		context     1
+		br          .L5
+	.L5:	call        use, $0
+		context     -1
+		ret.32      %r1
+
+   There is no phi-source here and the CBR at .L3 could be merged
+   with the one at .L0, removing the false imbalance but it's not.
+   I thought that sparse was doing this sort of branch simplification
+   but it doesn't, or at least it doesn't in this (simple) situation.
+
+   I'll begin to look at this. I'm not sure about a general solution
+   but for a simple case like here (just a 'diamond') it seems simple
+   enough to handle.
+
+-- Luc
