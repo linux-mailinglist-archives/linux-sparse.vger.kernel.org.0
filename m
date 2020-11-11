@@ -2,73 +2,82 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 0852C2AF788
-	for <lists+linux-sparse@lfdr.de>; Wed, 11 Nov 2020 18:47:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id BF75B2AFCC1
+	for <lists+linux-sparse@lfdr.de>; Thu, 12 Nov 2020 02:48:10 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726011AbgKKRrG (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Wed, 11 Nov 2020 12:47:06 -0500
-Received: from avasout06.plus.net ([212.159.14.18]:34157 "EHLO
-        avasout06.plus.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1725860AbgKKRrF (ORCPT
+        id S1728097AbgKLBdq (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Wed, 11 Nov 2020 20:33:46 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:36738 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1727982AbgKKXwl (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Wed, 11 Nov 2020 12:47:05 -0500
-Received: from [10.0.2.15] ([80.189.83.69])
-        by smtp with ESMTPA
-        id cuD0kA2uIhO4HcuD1klP4e; Wed, 11 Nov 2020 17:47:03 +0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=plus.com; s=042019;
-        t=1605116823; bh=5fSxWV6sTEQuc/LlpBIzy+bRZ+omqDHqWI738qLge/w=;
-        h=To:Cc:From:Subject:Date;
-        b=KQAUPnQmMKHwTwldlxVpj7L/FQY9zn62SWH26PUsAA+NQD7hDsUn+m90kpKnPnTQ6
-         yHuVHhGoWlEyXPHtapCIyRgODcAMgWVBRdAhs4ITLLhg+z0Mmu0qsKQDYg5PS3TSi+
-         D9W1gHVJVSlAvzP6VngX5SAA0uhTE8YruTGMiq8TZ6tMyErfDjARFBYv0hAD6Ejm0L
-         MWeNPFx/xUd47HOTlXqq7FnAzS6ocng3z4okltzIU6HJ+FOpczo5ClMIaLdPWIdRNB
-         QZabVXxw5AC7yX/k3eka2ug+dGaxRT195o6S7a+4qCaY9V+Wvm6u1hJ/MJpNydQmkP
-         VqMFUL9PHV34w==
-X-Clacks-Overhead: "GNU Terry Pratchett"
-X-CM-Score: 0.00
-X-CNFS-Analysis: v=2.3 cv=SPPZqNnH c=1 sm=1 tr=0
- a=VKYMt3kHM3Z9lWmoeJedNA==:117 a=VKYMt3kHM3Z9lWmoeJedNA==:17
- a=IkcTkHD0fZMA:10 a=EBOSESyhAAAA:8 a=bo61SGxT-T9vOp5IPNwA:9 a=QEXdDO2ut3YA:10
- a=yJM6EZoI5SlJf8ks9Ge_:22
-X-AUTH: ramsayjones@:2500
-To:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-Cc:     Sparse Mailing-list <linux-sparse@vger.kernel.org>
-From:   Ramsay Jones <ramsay@ramsayjones.plus.com>
-Subject: [PATCH] linearize: fix a couple of 'selfcheck' warnings
-Message-ID: <76afc97f-e6c3-2164-e4e1-13e850493af1@ramsayjones.plus.com>
-Date:   Wed, 11 Nov 2020 17:47:02 +0000
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+        Wed, 11 Nov 2020 18:52:41 -0500
+Received: from mail-ed1-x544.google.com (mail-ed1-x544.google.com [IPv6:2a00:1450:4864:20::544])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 0FBBAC0613D1
+        for <linux-sparse@vger.kernel.org>; Wed, 11 Nov 2020 15:52:41 -0800 (PST)
+Received: by mail-ed1-x544.google.com with SMTP id ay21so4201519edb.2
+        for <linux-sparse@vger.kernel.org>; Wed, 11 Nov 2020 15:52:40 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=pRPX+3QTJQt/Ddz0V92IIvauoN2kzc5Byd5oCCuO93Q=;
+        b=vMOxZBk1xCW8fz1iTBtyHjP53aqUFM9b+qLnCGXnwSbHQ/c8k9XBcACsXTZLvqeS1B
+         a33aqx5oNqGA1gjnKk2ulab17Soy2jbg6LPLpCWwo1Hha5m3Iw5US1tE+zww3756aDrl
+         146VgcmWB8sF957M84bUT315OtdR1tV8G+ls4dd7yEQyLFJe+xcusjvvQytyO2K7nARY
+         nYoNJE3OtO3i3s6pLxrVp0VKpTPnni7XlO/iJsCVN+2yBRwiglVt/YKo3L8l1RQ+/avz
+         4I03Z32uMdub1w6zSoc5mYWOsN4b39fj5ZmFbaiy2tHZuxpc8on7i5DlB0dKslZwnaVw
+         6Jfg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=pRPX+3QTJQt/Ddz0V92IIvauoN2kzc5Byd5oCCuO93Q=;
+        b=kuf2WcaGnooTwwuHhvpJIcyI2UDJK7hHdT2WLXTocnSd6+3HujYiOnpscenYmDfsB5
+         d/lydOgRzbji9ImRU0fwTvIy1+4OaGOcoEUF7spfTWolgN6gPLrgg0Hpo0Q1JJ96hQio
+         8YT6sCXEaEl4+Cg7fMz7+X97Q5/cw1ZkerY9fWzgVBwE/5euVUOFItZazadqRSjmzc4m
+         env3O5AxDj9nTFkQfkPb+jr0T983sguRJqL2eN4O2o0h9kvoGAn21jcg3/LQmL54VQmf
+         5GI0OoM5wi5QoKT3hf49LsKocJHuxbPssNr+22lJGjNT5V6z7LpIplkmubHvuMYGmm9v
+         Ixlg==
+X-Gm-Message-State: AOAM530tI4eUp3o+S1Dpj3WFGrndJxswFGebWHXOipSnZEwRHMM8bkAV
+        780z8B/U5Mci2s2+c1GdPYzvp0FJfl4=
+X-Google-Smtp-Source: ABdhPJwfX60gm2K/uy/4HHmlD53lVd7s6H26Zdzccw8hnIyEad3VYCdE7Cs1NWPuB7J8V2SDTFQEPQ==
+X-Received: by 2002:aa7:dbca:: with SMTP id v10mr2173948edt.219.1605138759460;
+        Wed, 11 Nov 2020 15:52:39 -0800 (PST)
+Received: from localhost.localdomain ([2a02:a03f:b7fe:f700:28a7:5fc2:f4ab:be33])
+        by smtp.gmail.com with ESMTPSA id 1sm1391398ejt.107.2020.11.11.15.52.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 11 Nov 2020 15:52:38 -0800 (PST)
+From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
+To:     linux-sparse@vger.kernel.org
+Cc:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
+Subject: [PATCH 0/2] adjust phi-sources when merging BBs
+Date:   Thu, 12 Nov 2020 00:52:30 +0100
+Message-Id: <20201111235232.78450-1-luc.vanoostenryck@gmail.com>
+X-Mailer: git-send-email 2.29.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
-X-CMAE-Envelope: MS4wfCn9BdNlHBSdnX6WFGF2Rxd57oqiy2Yu9pazxKxZdbVQ8eUqoYM1fPCBt+RKPPCQvYssQKWhyTBqwSQKxJl4KRFevU1dgD4wmodvCpuYhy3evE3m+yPR
- e0Y2byOOFEidG1HV2VH/vLl119DZoN4HII1mF4HkeC+dkZ86d/ZOwrCr58L6sNPizDqtnAt/1Gt8Bw==
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
+When merging BBs, phi-sources from the bottom BB should 'overwrite'
+the ones from the top BB which should be ignored. This is currently
+the not case and both phi-sources are present in the resulting BB.
+This doesn't make much sense for the corresponding phi-node and
+also causes other problems like hindering further simplifications.
 
-Signed-off-by: Ramsay Jones <ramsay@ramsayjones.plus.com>
----
- linearize.h | 2 ++
- 1 file changed, 2 insertions(+)
+This series contains a testcase and a patch for this.
 
-diff --git a/linearize.h b/linearize.h
-index 77ae7c9a..31c754e2 100644
---- a/linearize.h
-+++ b/linearize.h
-@@ -326,8 +326,10 @@ pseudo_t undef_pseudo(void);
- struct entrypoint *linearize_symbol(struct symbol *sym);
- int unssa(struct entrypoint *ep);
- void show_entry(struct entrypoint *ep);
-+void show_insn_entry(struct instruction *insn);
- const char *show_pseudo(pseudo_t pseudo);
- void show_bb(struct basic_block *bb);
-+void show_insn_bb(struct instruction *insn);
- const char *show_instruction(struct instruction *insn);
- const char *show_label(struct basic_block *bb);
- 
+Luc Van Oostenryck (2):
+  add testcase for phi-adjusting during BB merge
+  adjust phi-sources when merging BBs
+
+ flow.c                                  | 28 +++++++++++++++++++++++++
+ validation/optim/merge_bbe-adjust_phi.c | 23 ++++++++++++++++++++
+ 2 files changed, 51 insertions(+)
+ create mode 100644 validation/optim/merge_bbe-adjust_phi.c
+
 -- 
-2.29.0
+2.29.2
+
