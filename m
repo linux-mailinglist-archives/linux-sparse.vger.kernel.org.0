@@ -2,59 +2,59 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 48B3F2B865C
+	by mail.lfdr.de (Postfix) with ESMTP id BF4E52B865D
 	for <lists+linux-sparse@lfdr.de>; Wed, 18 Nov 2020 22:14:56 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726666AbgKRVLz (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Wed, 18 Nov 2020 16:11:55 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:45062 "EHLO
+        id S1726699AbgKRVL4 (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Wed, 18 Nov 2020 16:11:56 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:45064 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726098AbgKRVLy (ORCPT
+        with ESMTP id S1726098AbgKRVL4 (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Wed, 18 Nov 2020 16:11:54 -0500
-Received: from mail-ed1-x542.google.com (mail-ed1-x542.google.com [IPv6:2a00:1450:4864:20::542])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id A0ADAC0613D4
-        for <linux-sparse@vger.kernel.org>; Wed, 18 Nov 2020 13:11:54 -0800 (PST)
-Received: by mail-ed1-x542.google.com with SMTP id m16so3554102edr.3
-        for <linux-sparse@vger.kernel.org>; Wed, 18 Nov 2020 13:11:54 -0800 (PST)
+        Wed, 18 Nov 2020 16:11:56 -0500
+Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com [IPv6:2a00:1450:4864:20::536])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id A7928C0613D4
+        for <linux-sparse@vger.kernel.org>; Wed, 18 Nov 2020 13:11:55 -0800 (PST)
+Received: by mail-ed1-x536.google.com with SMTP id q16so3518374edv.10
+        for <linux-sparse@vger.kernel.org>; Wed, 18 Nov 2020 13:11:55 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=nSlCQnbvubc/6EU5L3H0FzpkYn93JO5457mk026+YyA=;
-        b=EWC3sAyVk6rvEfDfkXDQXsCyaYN61Uc3rurzLD2I9Yuai3C9KD2k4PP1Vz26NGit/s
-         yvpE3TM8p42QPHJFgAX6GfCTDtkhaPzax+Br16kUuefAx2iC7k9OTGvpxBuj/14rWwQI
-         TTJKr3AQEjHsfoUR0SmybJDLWHneV82jiQaznVONHpNspm4ZHXa0pSaiwscbVenmdn56
-         WWpne8m330mkZGqSNVAK3xYYOADxM34/r88XFT9b5C5n84ZsJGKYVvPH50outmBo+T6I
-         M7g+JorAYEUXlJJSaDrnXKqHOTePqAJs7qXGAjTm0MRFk1UHG5eh+N9FsNMHoV+Qa5eV
-         qb1w==
+        bh=diwXHAZLBE0IQzWJ276Ed2JgGJSuVV259wDFXcX4CVY=;
+        b=M8YBfKipFLd9vmcXywPnPEnkWbKUE9X3JAxXCRY2LdyO7R9Qt+c1x1uGp4Dc7c1oTI
+         +kTfeHlC9sqdrgY71f2XA/zGsJ5u+isinzLvb0wPdnosMFiX4C0C3uh9WEq5yWTtt6Hn
+         yX3Y6kKEBgTbew54qk8GSYR4p12q2FIPaSyjfL7ypfU6NHgJGPzAUwvo0UcoRNGgXCO7
+         EBAyEWYFhe9EnKKDoXYkHWX3Xeg7rCV3wFzMqDFui3OL5+9DwVNETVQ/ZjLoJLOf0PIa
+         tsh7ia0i1WazOAIx7e0LBjezchIf4rI+pMJ/IpNrUE67osej89Vd2zHon8PWjHZzvgYG
+         izGQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=nSlCQnbvubc/6EU5L3H0FzpkYn93JO5457mk026+YyA=;
-        b=Uc9ygDcb6y4dVoU9ClrfF+fK3m2vupDUxqPYngPvY2K9yKhzKjBbmuoISU/6gMgIfT
-         PXQH1fkodg6P1dgn7jPXkTZ1xedQrTnhTSZR0wv751nhTb+jRNkGCE8ZJ86oddo9zHBK
-         p9J8sNBPy0XZeqvHa4Yu6bkRgBy7WWKNuZEVm1XzMJzeYqUj8gBZyi63FKXqKqUmtRBp
-         CD31NGMgI0N/1zjAe/lwWgJvrYeEVC1to2Lv9rQhrOj4qOqUou4WhBdwNeLifhNkYowS
-         Gec7S3YSK69K4KkuUG/4rfVoiWhXde48dJ3pWWjzwvIAOIwdAY1m3eLczLT/GOLOmNj6
-         sQCA==
-X-Gm-Message-State: AOAM532Akta9V/PNTQOryl+gyOsVyEGvDTN1K5x8GqUSRcNdYdqKpupd
-        ZSGbYlfc7jjt093beZpSAJzwIKD5+pc=
-X-Google-Smtp-Source: ABdhPJzeFyYPM5eSZQavaC6pMwTo9Hy6Ml4O5OhxVBUzU8xa29Lo7wnRUWL2mbnahVpM4h3GNclbyg==
-X-Received: by 2002:a50:b761:: with SMTP id g88mr27900439ede.387.1605733913219;
-        Wed, 18 Nov 2020 13:11:53 -0800 (PST)
+        bh=diwXHAZLBE0IQzWJ276Ed2JgGJSuVV259wDFXcX4CVY=;
+        b=kD+Qj677cQyHMszZ5tRpujIeZPkGqfwPSnknX6BJTZU0jF+wCwWZMpIwFLEO13uz+E
+         +8KGN1qcELtPYmS2tSrWAh9+1U//wn9FjSSANKJOIJ+KiHWxQkfKSAnDbh0tR+at1egC
+         pF3fcjZVQnd2ChL1OoCx1r3x/t/hvQmEzMbztdLrVBM+OEq+5DBkGmT9ewY7zV1aF90o
+         9MUFCMo4aP6ETUpnUEDc9rOYwo4PqB9PEYytmcOcvSFhkvMIvEegTyO28VjLqZEJwoUo
+         fP3sUGifQR5bR8ihnfbxsgSRqpu4pdSauKvot3pYl5LH9pwh0hdanz6umtkn51DyNGQC
+         DWDw==
+X-Gm-Message-State: AOAM530IjGyJmVC1LgdMBNScPd2b5ADKyXkvht1c+gKDLuk+KmFdVvD5
+        VNuh9rdvmVJHweTDL3aFML/3MaVAA0s=
+X-Google-Smtp-Source: ABdhPJw/7CxVuX6vxYUPllXmWE96M8YlVSMpRJNP/sN2oy+XMOoGo5pVnYT2nIt2/v0h5LogodFcqw==
+X-Received: by 2002:a50:a40c:: with SMTP id u12mr14871266edb.337.1605733914229;
+        Wed, 18 Nov 2020 13:11:54 -0800 (PST)
 Received: from localhost.localdomain ([2a02:a03f:b7fe:f700:491a:3e51:301b:6e24])
-        by smtp.gmail.com with ESMTPSA id rp13sm13510712ejb.79.2020.11.18.13.11.52
+        by smtp.gmail.com with ESMTPSA id rp13sm13510712ejb.79.2020.11.18.13.11.53
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 18 Nov 2020 13:11:52 -0800 (PST)
+        Wed, 18 Nov 2020 13:11:53 -0800 (PST)
 From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 To:     linux-sparse@vger.kernel.org
 Cc:     Linus Torvalds <torvalds@linux-foundation.org>,
         Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-Subject: [PATCH 2/5] unqual: unqualify_type() should check for null ctypes
-Date:   Wed, 18 Nov 2020 22:11:44 +0100
-Message-Id: <20201118211147.10680-3-luc.vanoostenryck@gmail.com>
+Subject: [PATCH 3/5] unqual: comma expressions should drop qualifiers
+Date:   Wed, 18 Nov 2020 22:11:45 +0100
+Message-Id: <20201118211147.10680-4-luc.vanoostenryck@gmail.com>
 X-Mailer: git-send-email 2.29.2
 In-Reply-To: <20201118211147.10680-1-luc.vanoostenryck@gmail.com>
 References: <20201118211147.10680-1-luc.vanoostenryck@gmail.com>
@@ -64,26 +64,41 @@ Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-It's possible that the input type is NULL, so add a check for it.
+Comma expressions should be subjected to lvalue-conversion
+and thus should drop qualifiers.
+
+Fix this by calling unqualify_type() after array-to-pointer
+conversion.
 
 Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 ---
- evaluate.c | 2 ++
- 1 file changed, 2 insertions(+)
+ evaluate.c                     | 2 +-
+ validation/eval/unqual-comma.c | 1 -
+ 2 files changed, 1 insertion(+), 2 deletions(-)
 
 diff --git a/evaluate.c b/evaluate.c
-index c39f9ec73da9..fd84205c7f2c 100644
+index fd84205c7f2c..b6e8477185f4 100644
 --- a/evaluate.c
 +++ b/evaluate.c
-@@ -63,6 +63,8 @@ static inline int valid_subexpr_type(struct expression *expr)
+@@ -1028,7 +1028,7 @@ static struct symbol *evaluate_binop(struct expression *expr)
  
- static struct symbol *unqualify_type(struct symbol *ctype)
+ static struct symbol *evaluate_comma(struct expression *expr)
  {
-+	if (!ctype)
-+		return ctype;
- 	if (ctype->type == SYM_NODE && (ctype->ctype.modifiers & MOD_QUALIFIER)) {
- 		struct symbol *unqual = alloc_symbol(ctype->pos, 0);
+-	expr->ctype = degenerate(expr->right);
++	expr->ctype = unqualify_type(degenerate(expr->right));
+ 	if (expr->ctype == &null_ctype)
+ 		expr->ctype = &ptr_ctype;
+ 	expr->flags &= expr->left->flags & expr->right->flags;
+diff --git a/validation/eval/unqual-comma.c b/validation/eval/unqual-comma.c
+index e06586cd43e3..11546d22348a 100644
+--- a/validation/eval/unqual-comma.c
++++ b/validation/eval/unqual-comma.c
+@@ -9,5 +9,4 @@ int *foo(volatile int x)
  
+ /*
+  * check-name: unqual-comma
+- * check-known-to-fail
+  */
 -- 
 2.29.2
 
