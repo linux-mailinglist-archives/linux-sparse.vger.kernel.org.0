@@ -2,59 +2,59 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id C61762B865B
-	for <lists+linux-sparse@lfdr.de>; Wed, 18 Nov 2020 22:14:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 48B3F2B865C
+	for <lists+linux-sparse@lfdr.de>; Wed, 18 Nov 2020 22:14:56 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726658AbgKRVLy (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Wed, 18 Nov 2020 16:11:54 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:45056 "EHLO
+        id S1726666AbgKRVLz (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Wed, 18 Nov 2020 16:11:55 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:45062 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
         with ESMTP id S1726098AbgKRVLy (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
         Wed, 18 Nov 2020 16:11:54 -0500
-Received: from mail-ed1-x533.google.com (mail-ed1-x533.google.com [IPv6:2a00:1450:4864:20::533])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id C5991C0613D4
-        for <linux-sparse@vger.kernel.org>; Wed, 18 Nov 2020 13:11:53 -0800 (PST)
-Received: by mail-ed1-x533.google.com with SMTP id ay21so3555291edb.2
-        for <linux-sparse@vger.kernel.org>; Wed, 18 Nov 2020 13:11:53 -0800 (PST)
+Received: from mail-ed1-x542.google.com (mail-ed1-x542.google.com [IPv6:2a00:1450:4864:20::542])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id A0ADAC0613D4
+        for <linux-sparse@vger.kernel.org>; Wed, 18 Nov 2020 13:11:54 -0800 (PST)
+Received: by mail-ed1-x542.google.com with SMTP id m16so3554102edr.3
+        for <linux-sparse@vger.kernel.org>; Wed, 18 Nov 2020 13:11:54 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=8tB7H+NEvFrt80vPQGak6mXL17G+DOEcOHEXuF8ABzo=;
-        b=HIP7v6MWMp8bBhkyZNTJdh+UaLGvEI6SA3GuLI9yjjdvO0oOd8Moh1ZwNU0a68t3iJ
-         3UwRqtdLTwWsZUVniADLNtQ9vXZVPm65gWmIGlamITVbIWn2blhpvfPdBy7fLdhvHtG4
-         T/Ol0vUF7Y1sJuP30gesyY+wfiO7Y6zIBQT2gCiDnN6S0veLovb/2o+lzxyoOBBE34rG
-         uz0HB20RHOb7gx8JblOijIXewZxa7Z9pOJbndlUrnL+fTaDy51hWhDhGRnE5h9Dxc/1k
-         xd8FrOV79aR0PrbgPDTvQmi5i7tUAPowS346KK+ilqButgMXOlFi7pBbcsGjNcIQdPI8
-         SWHg==
+        bh=nSlCQnbvubc/6EU5L3H0FzpkYn93JO5457mk026+YyA=;
+        b=EWC3sAyVk6rvEfDfkXDQXsCyaYN61Uc3rurzLD2I9Yuai3C9KD2k4PP1Vz26NGit/s
+         yvpE3TM8p42QPHJFgAX6GfCTDtkhaPzax+Br16kUuefAx2iC7k9OTGvpxBuj/14rWwQI
+         TTJKr3AQEjHsfoUR0SmybJDLWHneV82jiQaznVONHpNspm4ZHXa0pSaiwscbVenmdn56
+         WWpne8m330mkZGqSNVAK3xYYOADxM34/r88XFT9b5C5n84ZsJGKYVvPH50outmBo+T6I
+         M7g+JorAYEUXlJJSaDrnXKqHOTePqAJs7qXGAjTm0MRFk1UHG5eh+N9FsNMHoV+Qa5eV
+         qb1w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=8tB7H+NEvFrt80vPQGak6mXL17G+DOEcOHEXuF8ABzo=;
-        b=pS3YiTYGcphgU6b9mM4AP1bjEwJcTYhRwwvrcJjnMq9PXHnsKJt1Y36rKF3Ov1TlHn
-         bMlK8Oc14vYTGv4XSS6BjeyQ6RCZuutDigNsIaVoU6kIyEiD5Jg+F+N+M4yc4GnMIx8O
-         JFOEvvZAiWLN/pMuwFw2zhRR7CHMZCt7LvrICYv333uYYKD6hsQZ+DrJLcnksyU71CSe
-         xy1xeNdx7T7oYlP2mLHKk/wHYY5sB7DSl0eCR1mmddc17PqdIGnnQ0snIImz1JmAU/Rv
-         havBXUW2iDGKPiWDaVY1w0GBZaUfaAccCMUNdxhhmeERqXVTSpltmk7UhwKC25OggxCg
-         q24w==
-X-Gm-Message-State: AOAM531Zv1kZd7yA+MRMTVIaeii7DF6WsoJ0B9UbxrA8ixie61kDzRkq
-        t9UUr2JViFgzNu5rBwoZL6RAvwqSn+g=
-X-Google-Smtp-Source: ABdhPJwg8Xqxd/7h+tnxSjVL3oxdzFa1IjUiCE1lMqKueH0CBmesLUM5cBWVGc3kvzf9aXER0Tbuuw==
-X-Received: by 2002:aa7:c886:: with SMTP id p6mr27087383eds.352.1605733912185;
-        Wed, 18 Nov 2020 13:11:52 -0800 (PST)
+        bh=nSlCQnbvubc/6EU5L3H0FzpkYn93JO5457mk026+YyA=;
+        b=Uc9ygDcb6y4dVoU9ClrfF+fK3m2vupDUxqPYngPvY2K9yKhzKjBbmuoISU/6gMgIfT
+         PXQH1fkodg6P1dgn7jPXkTZ1xedQrTnhTSZR0wv751nhTb+jRNkGCE8ZJ86oddo9zHBK
+         p9J8sNBPy0XZeqvHa4Yu6bkRgBy7WWKNuZEVm1XzMJzeYqUj8gBZyi63FKXqKqUmtRBp
+         CD31NGMgI0N/1zjAe/lwWgJvrYeEVC1to2Lv9rQhrOj4qOqUou4WhBdwNeLifhNkYowS
+         Gec7S3YSK69K4KkuUG/4rfVoiWhXde48dJ3pWWjzwvIAOIwdAY1m3eLczLT/GOLOmNj6
+         sQCA==
+X-Gm-Message-State: AOAM532Akta9V/PNTQOryl+gyOsVyEGvDTN1K5x8GqUSRcNdYdqKpupd
+        ZSGbYlfc7jjt093beZpSAJzwIKD5+pc=
+X-Google-Smtp-Source: ABdhPJzeFyYPM5eSZQavaC6pMwTo9Hy6Ml4O5OhxVBUzU8xa29Lo7wnRUWL2mbnahVpM4h3GNclbyg==
+X-Received: by 2002:a50:b761:: with SMTP id g88mr27900439ede.387.1605733913219;
+        Wed, 18 Nov 2020 13:11:53 -0800 (PST)
 Received: from localhost.localdomain ([2a02:a03f:b7fe:f700:491a:3e51:301b:6e24])
-        by smtp.gmail.com with ESMTPSA id rp13sm13510712ejb.79.2020.11.18.13.11.51
+        by smtp.gmail.com with ESMTPSA id rp13sm13510712ejb.79.2020.11.18.13.11.52
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 18 Nov 2020 13:11:51 -0800 (PST)
+        Wed, 18 Nov 2020 13:11:52 -0800 (PST)
 From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 To:     linux-sparse@vger.kernel.org
 Cc:     Linus Torvalds <torvalds@linux-foundation.org>,
         Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-Subject: [PATCH 1/5] unqual: add testcases
-Date:   Wed, 18 Nov 2020 22:11:43 +0100
-Message-Id: <20201118211147.10680-2-luc.vanoostenryck@gmail.com>
+Subject: [PATCH 2/5] unqual: unqualify_type() should check for null ctypes
+Date:   Wed, 18 Nov 2020 22:11:44 +0100
+Message-Id: <20201118211147.10680-3-luc.vanoostenryck@gmail.com>
 X-Mailer: git-send-email 2.29.2
 In-Reply-To: <20201118211147.10680-1-luc.vanoostenryck@gmail.com>
 References: <20201118211147.10680-1-luc.vanoostenryck@gmail.com>
@@ -64,119 +64,26 @@ Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-Add some testcases related to qualifier dropping / lvalue conversion.
+It's possible that the input type is NULL, so add a check for it.
 
 Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 ---
- validation/eval/unqual-comma.c     | 13 +++++++++++++
- validation/eval/unqual-postop.c    | 23 +++++++++++++++++++++++
- validation/eval/unqual-stmt-expr.c | 13 +++++++++++++
- validation/eval/unqual02.c         | 26 ++++++++++++++++++++++++++
- 4 files changed, 75 insertions(+)
- create mode 100644 validation/eval/unqual-comma.c
- create mode 100644 validation/eval/unqual-postop.c
- create mode 100644 validation/eval/unqual-stmt-expr.c
- create mode 100644 validation/eval/unqual02.c
+ evaluate.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/validation/eval/unqual-comma.c b/validation/eval/unqual-comma.c
-new file mode 100644
-index 000000000000..e06586cd43e3
---- /dev/null
-+++ b/validation/eval/unqual-comma.c
-@@ -0,0 +1,13 @@
-+#define __unqual_typeof(x) typeof(((void)0, (x)))
-+
-+int *foo(volatile int x);
-+int *foo(volatile int x)
-+{
-+	extern __unqual_typeof(x) y;
-+	return &y;
-+}
-+
-+/*
-+ * check-name: unqual-comma
-+ * check-known-to-fail
-+ */
-diff --git a/validation/eval/unqual-postop.c b/validation/eval/unqual-postop.c
-new file mode 100644
-index 000000000000..fb3082dc8836
---- /dev/null
-+++ b/validation/eval/unqual-postop.c
-@@ -0,0 +1,23 @@
-+static void test_volatile(void)
-+{
-+	volatile int x = 0;
-+	int *pp;
-+
-+	typeof(++x)		v1; pp = &v1;	// KO
-+	typeof(x++)		v2; pp = &v2;	// KO
-+}
-+
-+/*
-+ * check-name: unqual-postop
-+ * check-command: sparse -Wno-declaration-after-statement $file
-+ * check-known-to-fail
-+ *
-+ * check-error-start
-+eval/unqual-postop.c:6:40: warning: incorrect type in assignment (different modifiers)
-+eval/unqual-postop.c:6:40:    expected int *pp
-+eval/unqual-postop.c:6:40:    got int volatile *
-+eval/unqual-postop.c:7:40: warning: incorrect type in assignment (different modifiers)
-+eval/unqual-postop.c:7:40:    expected int *pp
-+eval/unqual-postop.c:7:40:    got int volatile *
-+ * check-error-end
-+ */
-diff --git a/validation/eval/unqual-stmt-expr.c b/validation/eval/unqual-stmt-expr.c
-new file mode 100644
-index 000000000000..bac6cb6b197f
---- /dev/null
-+++ b/validation/eval/unqual-stmt-expr.c
-@@ -0,0 +1,13 @@
-+#define __unqual_typeof(x) typeof(({ x; }))
-+
-+int *foo(volatile int x);
-+int *foo(volatile int x)
-+{
-+	extern __unqual_typeof(x) y;
-+	return &y;
-+}
-+
-+/*
-+ * check-name: unqual-stmt-expr
-+ * check-known-to-fail
-+ */
-diff --git a/validation/eval/unqual02.c b/validation/eval/unqual02.c
-new file mode 100644
-index 000000000000..f136cbd50510
---- /dev/null
-+++ b/validation/eval/unqual02.c
-@@ -0,0 +1,26 @@
-+static void test_const(volatile int x)
-+{
-+	const int x = 0;
-+	typeof(1?x:x)		i3; i3 = 0;	// should be OK
-+	typeof(+x)		i4; i4 = 0;	// should be OK
-+	typeof(-x)		i5; i5 = 0;	// should be OK
-+	typeof(!x)		i6; i6 = 0;	// should be OK
-+	typeof(x+x)		i7; i7 = 0;	// should be OK
-+}
-+
-+static void test_volatile(void)
-+{
-+	volatile int x = 0;
-+	int *pp;
-+
-+	typeof(1?x:x)		i3; pp = &i3;	// should be OK
-+	typeof(+x)		i4; pp = &i4;	// should be OK
-+	typeof(-x)		i5; pp = &i5;	// should be OK
-+	typeof(!x)		i6; pp = &i6;	// should be OK
-+	typeof(x+x)		i7; pp = &i7;	// should be OK
-+}
-+
-+/*
-+ * check-name: unqual02
-+ * check-command: sparse -Wno-declaration-after-statement $file
-+ */
+diff --git a/evaluate.c b/evaluate.c
+index c39f9ec73da9..fd84205c7f2c 100644
+--- a/evaluate.c
++++ b/evaluate.c
+@@ -63,6 +63,8 @@ static inline int valid_subexpr_type(struct expression *expr)
+ 
+ static struct symbol *unqualify_type(struct symbol *ctype)
+ {
++	if (!ctype)
++		return ctype;
+ 	if (ctype->type == SYM_NODE && (ctype->ctype.modifiers & MOD_QUALIFIER)) {
+ 		struct symbol *unqual = alloc_symbol(ctype->pos, 0);
+ 
 -- 
 2.29.2
 
