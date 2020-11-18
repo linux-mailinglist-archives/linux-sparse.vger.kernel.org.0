@@ -2,56 +2,115 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id C0C0A2B7F9B
-	for <lists+linux-sparse@lfdr.de>; Wed, 18 Nov 2020 15:46:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 7470F2B83DC
+	for <lists+linux-sparse@lfdr.de>; Wed, 18 Nov 2020 19:32:05 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726514AbgKROmd convert rfc822-to-8bit (ORCPT
-        <rfc822;lists+linux-sparse@lfdr.de>); Wed, 18 Nov 2020 09:42:33 -0500
-Received: from tigeramira.ro ([88.158.78.30]:60656 "EHLO mail.tigeramira.ro"
-        rhost-flags-OK-FAIL-OK-OK) by vger.kernel.org with ESMTP
-        id S1726274AbgKROmd (ORCPT <rfc822;linux-sparse@vger.kernel.org>);
-        Wed, 18 Nov 2020 09:42:33 -0500
-Received: from localhost (localhost [127.0.0.1])
-        by mail.tigeramira.ro (Postfix) with ESMTP id A45F6C00346
-        for <linux-sparse@vger.kernel.org>; Wed, 18 Nov 2020 03:01:59 +0200 (EET)
-Received: from mail.tigeramira.ro ([127.0.0.1])
-        by localhost (mail.tigeramira.ro [127.0.0.1]) (amavisd-new, port 10032)
-        with ESMTP id gAu0bskKat_W for <linux-sparse@vger.kernel.org>;
-        Wed, 18 Nov 2020 03:01:44 +0200 (EET)
-Received: from mail.tigeramira.ro (localhost [127.0.0.1])
-        by mail.tigeramira.ro (Postfix) with ESMTP id 1E5A2C8189D
-        for <linux-sparse@vger.kernel.org>; Mon, 16 Nov 2020 10:32:32 +0200 (EET)
-Received: from [156.96.44.214] (unknown [192.168.12.254])
-        by mail.tigeramira.ro (Postfix) with ESMTP id 11BFF914684
-        for <linux-sparse@vger.kernel.org>; Fri, 13 Nov 2020 13:32:03 +0200 (EET)
-Content-Type: text/plain; charset="iso-8859-1"
+        id S1726696AbgKRScE (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Wed, 18 Nov 2020 13:32:04 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:48370 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1726297AbgKRScE (ORCPT
+        <rfc822;linux-sparse@vger.kernel.org>);
+        Wed, 18 Nov 2020 13:32:04 -0500
+Received: from mail-lj1-x242.google.com (mail-lj1-x242.google.com [IPv6:2a00:1450:4864:20::242])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 184B8C0613D4
+        for <linux-sparse@vger.kernel.org>; Wed, 18 Nov 2020 10:32:04 -0800 (PST)
+Received: by mail-lj1-x242.google.com with SMTP id h23so3406306ljg.13
+        for <linux-sparse@vger.kernel.org>; Wed, 18 Nov 2020 10:32:04 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linux-foundation.org; s=google;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=3Q7rWiFYI3RwGEEwETazOrhe2ppRCzmiMJEwR8Ma3w4=;
+        b=WFMHOXbjTtxAnb4/Is7TAdWIrIsbWTyU+WdyUQ96EUx52apet5yqVGABDFdczvZTNa
+         nV7Xi52G/6YvUPfgUQarqc3Qf3dg7+svgUHaI9aWpCNvAbHZt4p+ls3jnsd5biOaLR9Q
+         Y6rTCgyzS42OdDeAyzhbOwydc09ENaavM5B+U=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=3Q7rWiFYI3RwGEEwETazOrhe2ppRCzmiMJEwR8Ma3w4=;
+        b=EZaOLcXU4wwLD4EKoiIsYW0iYx1TzxawFzirhvLKUhqsArDas990T/pyYiGeZYdnUK
+         Yw7t45xvpQHg3Jd7rcrH2syemX1YqzE9o/UE9ZuUKNHoinqFfgiopCdiYojUkpnTiIvn
+         cvlueSHdqQRaXCzIdSt28SoOiFVYafe0w81X/6IRJ9sF5dAGZjq05dP5+ESAC5FQ689U
+         OM8coeyiFAZwK18XSf3LMmotXEDtB4CiyZAP+X4lYaE+Y5LPpKYLNZVObe2LVN7jq0iO
+         rgfsiJNmaNrPgIm8a04jIWAg7oaktJmKxWCoJER4hcq/gB1PM5sMwIqHywgQ8FvYBw0l
+         +gOA==
+X-Gm-Message-State: AOAM5328Izz2obnvZk1nBk9LvbIbEIaAIJr8yfSeiRL6bdlblYjcfQQ7
+        plu/YDF0VGhnTWa5nqggeaUQ1zzNzTNaBQ==
+X-Google-Smtp-Source: ABdhPJxLJ4N9NmCDfLjn+iL3szxLd1jHghRCaNxNiyKM/Y4BsAGgH2TVLcIBzqU04nfcu8aTEJs6Nw==
+X-Received: by 2002:a2e:b00e:: with SMTP id y14mr4583899ljk.445.1605724322246;
+        Wed, 18 Nov 2020 10:32:02 -0800 (PST)
+Received: from mail-lj1-f179.google.com (mail-lj1-f179.google.com. [209.85.208.179])
+        by smtp.gmail.com with ESMTPSA id n5sm3681140lfl.175.2020.11.18.10.31.59
+        for <linux-sparse@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 18 Nov 2020 10:32:00 -0800 (PST)
+Received: by mail-lj1-f179.google.com with SMTP id l10so3450237lji.4
+        for <linux-sparse@vger.kernel.org>; Wed, 18 Nov 2020 10:31:59 -0800 (PST)
+X-Received: by 2002:a05:651c:2cb:: with SMTP id f11mr4328451ljo.371.1605724319532;
+ Wed, 18 Nov 2020 10:31:59 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8BIT
-Content-Description: Mail message body
-Subject: Corporate and Personal Loan::,
-To:     linux-sparse@vger.kernel.org
-From:   "Investment  Corporate" <financialcapability6@gmail.com>
-Date:   Fri, 13 Nov 2020 02:32:17 -0800
-Reply-To: hmurrah39@gmail.com
-Message-Id: <20201113113205.11BFF914684@mail.tigeramira.ro>
+References: <CAHk-=wivBmCoux_bVz_tZ12byZS=oZ7+F2Og8OjJGM5aiM-KQQ@mail.gmail.com>
+ <20201117212829.99552-1-luc.vanoostenryck@gmail.com> <CAHk-=wgtL1LPYev5cwhZqd=7RyaGrzx3mS-ydVZAQuYrf0XNuQ@mail.gmail.com>
+In-Reply-To: <CAHk-=wgtL1LPYev5cwhZqd=7RyaGrzx3mS-ydVZAQuYrf0XNuQ@mail.gmail.com>
+From:   Linus Torvalds <torvalds@linux-foundation.org>
+Date:   Wed, 18 Nov 2020 10:31:43 -0800
+X-Gmail-Original-Message-ID: <CAHk-=wi-XUPMduO16mvNeou58O-LrxnSk33WBg+vbbqCpzHgOw@mail.gmail.com>
+Message-ID: <CAHk-=wi-XUPMduO16mvNeou58O-LrxnSk33WBg+vbbqCpzHgOw@mail.gmail.com>
+Subject: Re: [PATCH] casts should drop qualifiers
+To:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
+Cc:     Sparse Mailing-list <linux-sparse@vger.kernel.org>,
+        Peter Zijlstra <peterz@infradead.org>
+Content-Type: text/plain; charset="UTF-8"
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-Hello linux-sparse@vger.kernel.org
+On Tue, Nov 17, 2020 at 3:22 PM Linus Torvalds
+<torvalds@linux-foundation.org> wrote:
+>
+> Would doing the same unqualify_type() in degenerate() be sufficient?
 
+Actually, that's a stupid suggestion. Forget I ever mentioned it.
 
-We are Base Investment Company offering Corporate and Personal Loan at 3% Interest Rate for a duration of 10Years.
+I should have reacted to Martin Ucker pointing out
 
+> > lvalue conversion drops qualifers in C.  In GCC, this is not
+> > implemented correctly as it is unobvervable in standard C
+> > (but it using typeof).
 
-We also pay 1% commission to brokers, who introduce project owners for finance or other opportunities.
+with the notable point that it is unobservable outside of "typeof".
 
+I'm not actually entirely sure that is true: if you don't drop
+qualifiers, it's potentially observable in code generation, in that a
+"volatile" that didn't get dropped might perhaps cause unnecessary
+memory ops. But from a kernel variable type standpoint where we want
+to just drop qualifiers on variables using "typeof()", maybe the
+simplest solution would be just special-casing typeof itself, using
+something (entirely untested and probably complete garbage) like this:
 
-Please get back to me if you are interested for more
+  --- a/symbol.c
+  +++ b/symbol.c
+  @@ -509,6 +509,7 @@ static struct symbol
+*examine_pointer_type(struct symbol *sym)
 
-details.
+   static struct symbol *examine_typeof(struct symbol *sym)
+   {
+  +     int lvalue = lvalue_expression(sym->initializer);
+        struct symbol *base = evaluate_expression(sym->initializer);
+        unsigned long mod = 0;
 
+  @@ -520,6 +521,8 @@ static struct symbol *examine_typeof(struct symbol *sym)
+        }
+        if (base->type == SYM_BITFIELD)
+                warning(base->pos, "typeof applied to bitfield type");
+  +     if (!lvalue)
+  +             mod &= MOD_QUALIFIER;
+        sym->type = SYM_NODE;
+        sym->ctype.modifiers = mod;
+        sym->ctype.base_type = base;
 
-Yours faithfully,
+Hmm?
 
-Hashim Murrah
+           Linus
