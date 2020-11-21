@@ -2,76 +2,82 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 73ACA2BC261
-	for <lists+linux-sparse@lfdr.de>; Sat, 21 Nov 2020 23:10:23 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id CE1BF2BC281
+	for <lists+linux-sparse@lfdr.de>; Sat, 21 Nov 2020 23:47:10 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1728567AbgKUWHz (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Sat, 21 Nov 2020 17:07:55 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:41818 "EHLO
+        id S1726556AbgKUWrF (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Sat, 21 Nov 2020 17:47:05 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:47778 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1728557AbgKUWHz (ORCPT
+        with ESMTP id S1726672AbgKUWrF (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Sat, 21 Nov 2020 17:07:55 -0500
-Received: from mail-lj1-x242.google.com (mail-lj1-x242.google.com [IPv6:2a00:1450:4864:20::242])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id BD29AC0613CF
-        for <linux-sparse@vger.kernel.org>; Sat, 21 Nov 2020 14:07:54 -0800 (PST)
-Received: by mail-lj1-x242.google.com with SMTP id i17so13902626ljd.3
-        for <linux-sparse@vger.kernel.org>; Sat, 21 Nov 2020 14:07:54 -0800 (PST)
+        Sat, 21 Nov 2020 17:47:05 -0500
+Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com [IPv6:2a00:1450:4864:20::343])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 86077C0613CF
+        for <linux-sparse@vger.kernel.org>; Sat, 21 Nov 2020 14:47:03 -0800 (PST)
+Received: by mail-wm1-x343.google.com with SMTP id a65so13812808wme.1
+        for <linux-sparse@vger.kernel.org>; Sat, 21 Nov 2020 14:47:03 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linux-foundation.org; s=google;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=M1At7BX3Qv19a6tj5NIcuO18/7wL1HCDBdiQPuhNVRk=;
-        b=NVU8REuQN4aJmL//Jl9rU+micVwjfwGQTzxeWCmm/bGN0dNOvBSIDm5ey/+JG44IJ8
-         88aeN/FojKXI4RYt+1zIZMJ1l2/vJgUQ7/gQx8GV7EUare8S2lBvDuD5rcZtL5DqTTNM
-         xiyVAbq+DIdBzsooHXx4G+jwJSY32CUlFy69g=
+        d=gmail.com; s=20161025;
+        h=from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=C8I7590KpybjEmmr7UWjeuspzsPntzCnTzq2rgaHibo=;
+        b=hDwMHm0XqUhBzdIuNowcQ9FQEiFdNbyJb2yqcE84F+44nAGeBujq3AMumdQ4MFLFMo
+         cRUPeEyWEx1ZswRb5mf3nu5hkjDWOwfN6ozS7y8xrW8epD7lQM6vnJsH0gKQhybpaIh/
+         Dd6hQE9UVd8SeLIOywTnTt6gWw7k9uKEJTYfhUYfeoBvWuSJVeIPIljYziDAhH8ljrdW
+         RWoT9btGXEb14+2y4UskVsUEp5ijuLt1GKbit4T1aaLW9XFS4HDBHZpNIYyMZQhFw/QD
+         lvqHsq2F0JNHizvnd+5cxpAn1W/+9fqw6A7XSGzrvSydro6WBwI8tAFNW7BTR/ZA9JAo
+         xOQg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=M1At7BX3Qv19a6tj5NIcuO18/7wL1HCDBdiQPuhNVRk=;
-        b=EdF9/q+AztMVmxkZk9k3EYqi6588u/ADAoNjTLzezOEcjL0F791Ek45pZ45DENjEHc
-         cDk+NJ4A5jaLpV/ztB/ojtaocka958TD7kY4VP31fl+aAlv72+kqDMYmLgJmK/f1sEb2
-         m/MHdCUJBpklGqlklD1r3GIcdJ5JaRbd4GKVJIQimSTbFrhSfAYGgm0MKCKIUTG1ZuLI
-         C1mo9xyNG3tbtL6mcpg3HDuOcvCKP0vQJUxZffzZj/+MWmCvUr8Y0g6l94qLsadBpsRY
-         +wsg2fwEnoLyF5hyYxm0slLGLKF+Y3ZapdVsq/XQAK3pzPa9N5jNjTyw9oeE6lecZ1GR
-         7uOA==
-X-Gm-Message-State: AOAM5325o2Ezec3daStOME5h/o3gV5YDgU9JU5TWKcPbhZWiEcVieOWO
-        hP14PG+5ER0tswjS3bTPDm/n4SDiJpxJDw==
-X-Google-Smtp-Source: ABdhPJx1Dc0lze+Id3/VJ+yP7Uz6idEqO53qZ24gkIJ/xNu2ABcHeGKkIujNX457IrMZQuLdpjtAow==
-X-Received: by 2002:a2e:a17c:: with SMTP id u28mr10750634ljl.453.1605996472948;
-        Sat, 21 Nov 2020 14:07:52 -0800 (PST)
-Received: from mail-lf1-f50.google.com (mail-lf1-f50.google.com. [209.85.167.50])
-        by smtp.gmail.com with ESMTPSA id y63sm330298lff.196.2020.11.21.14.07.51
-        for <linux-sparse@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 21 Nov 2020 14:07:51 -0800 (PST)
-Received: by mail-lf1-f50.google.com with SMTP id d17so18522418lfq.10
-        for <linux-sparse@vger.kernel.org>; Sat, 21 Nov 2020 14:07:51 -0800 (PST)
-X-Received: by 2002:a19:3f55:: with SMTP id m82mr403415lfa.344.1605996471508;
- Sat, 21 Nov 2020 14:07:51 -0800 (PST)
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=C8I7590KpybjEmmr7UWjeuspzsPntzCnTzq2rgaHibo=;
+        b=rYz6CeCh3k4k26qII/1wPGDvoGEyNrMMkpXrF2sexgYZQF6u+Zpo88x+W7gMCxZfwF
+         W/ZmrTJtWWeawS0yPGXPiQv3WaS7uYKF+47Oa/JYbBKb/zb53whvlRG5BmGbFLlPz32L
+         e5ThLFCHgtYbi6Q3sIDCaBDjOC9MLQ3F1ZsKObbE1wReZnbwX0FIy2JRF2mewdUJWJhn
+         OHeku8i3JkhYSrG78pwPOLVP2AsfF5B3LiM8pgLeULoE53VFFDgJm8aq+efHB65T9zWV
+         MGLctNhzuAqliPECauSjkM7bBwcjNsTMZppThz8zelt07l0TxkRgwqFbjN8Yv8hImYaz
+         7vIw==
+X-Gm-Message-State: AOAM530fI9zYirmQRdMNaXacUGXbdV0o2yvtLRDUz+bAYy5lI6J+3t5V
+        yEg81C4Wqgx7aCHGOMAU0CC6dkCdstA=
+X-Google-Smtp-Source: ABdhPJy5Gh4YGyb7FtFTh9OwJsssdjEFssVjibS17Lq1Heh6qO+qti1qMdyYHykmEEPpZZMV99GJAA==
+X-Received: by 2002:a1c:7e11:: with SMTP id z17mr17449230wmc.83.1605998822147;
+        Sat, 21 Nov 2020 14:47:02 -0800 (PST)
+Received: from localhost.localdomain ([2a02:a03f:b7fe:f700:4ce2:b4ff:20e6:17bc])
+        by smtp.gmail.com with ESMTPSA id l14sm4830406wmi.33.2020.11.21.14.47.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 21 Nov 2020 14:47:01 -0800 (PST)
+From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
+To:     linux-sparse@vger.kernel.org
+Cc:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
+Subject: [PATCH 0/2] cleanup REPEAT_SYMBOL_CLEANUP & kill_insn()
+Date:   Sat, 21 Nov 2020 23:46:55 +0100
+Message-Id: <20201121224657.96038-1-luc.vanoostenryck@gmail.com>
+X-Mailer: git-send-email 2.29.2
 MIME-Version: 1.0
-References: <20201121205300.94642-1-luc.vanoostenryck@gmail.com>
- <CAHk-=whC2Kygu6Vpgt+vnzVGAG-ZYHk1ucOcv7b9AcvmdrY-Eg@mail.gmail.com> <20201121214026.kv4pgimxlyykfb26@ltop.local>
-In-Reply-To: <20201121214026.kv4pgimxlyykfb26@ltop.local>
-From:   Linus Torvalds <torvalds@linux-foundation.org>
-Date:   Sat, 21 Nov 2020 14:07:35 -0800
-X-Gmail-Original-Message-ID: <CAHk-=wh_Zf6DdY234UX=WMPKjJiGGP2PN5Xibx0xRA2a4EzdKQ@mail.gmail.com>
-Message-ID: <CAHk-=wh_Zf6DdY234UX=WMPKjJiGGP2PN5Xibx0xRA2a4EzdKQ@mail.gmail.com>
-Subject: Re: [PATCH 0/4] simplification of computed goto
-To:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-Cc:     Sparse Mailing-list <linux-sparse@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-On Sat, Nov 21, 2020 at 1:40 PM Luc Van Oostenryck
-<luc.vanoostenryck@gmail.com> wrote:
->
-> Bah, they're not really from real life.
+This series contains 2 patches doing some cleanups related
+to REPEAT_SYMBOL_CLEANUP and instruction killing.
 
-Ok, I was worried I was missing something, and you'd find some really
-odd kernel code ;)
+Note: these pacthes must be applied on top of the previous
+      641cf2c29528 ("fix kill_insn(OP_SETVAL)").
 
-             Linus
+Luc Van Oostenryck (2):
+  remove unneeded REPEAT_SYMBOL_CLEANUP
+  simplify kill_insn() of unops and unop-ish instructions
+
+ flow.c     |  3 +--
+ flow.h     |  1 -
+ simplify.c | 25 +++++++------------------
+ 3 files changed, 8 insertions(+), 21 deletions(-)
+
+
+base-commit: 641cf2c295285ee15f35dbcfd85367ca61259be0
+-- 
+2.29.2
+
