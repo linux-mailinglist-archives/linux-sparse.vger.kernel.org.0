@@ -2,86 +2,69 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 9553E2BC959
-	for <lists+linux-sparse@lfdr.de>; Sun, 22 Nov 2020 21:41:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id DDA4B2BFB16
+	for <lists+linux-sparse@lfdr.de>; Sun, 22 Nov 2020 22:53:53 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727412AbgKVUiE (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Sun, 22 Nov 2020 15:38:04 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:51006 "EHLO
+        id S1726268AbgKVVxZ (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Sun, 22 Nov 2020 16:53:25 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:34294 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1727297AbgKVUiD (ORCPT
+        with ESMTP id S1726198AbgKVVxY (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Sun, 22 Nov 2020 15:38:03 -0500
-Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com [IPv6:2a00:1450:4864:20::442])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 34F1AC0613CF
-        for <linux-sparse@vger.kernel.org>; Sun, 22 Nov 2020 12:38:03 -0800 (PST)
-Received: by mail-wr1-x442.google.com with SMTP id s8so16567625wrw.10
-        for <linux-sparse@vger.kernel.org>; Sun, 22 Nov 2020 12:38:03 -0800 (PST)
+        Sun, 22 Nov 2020 16:53:24 -0500
+Received: from mail-ej1-x644.google.com (mail-ej1-x644.google.com [IPv6:2a00:1450:4864:20::644])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 8F6F3C0613CF;
+        Sun, 22 Nov 2020 13:53:24 -0800 (PST)
+Received: by mail-ej1-x644.google.com with SMTP id f23so20642486ejk.2;
+        Sun, 22 Nov 2020 13:53:24 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=date:from:to:cc:subject:message-id:references:mime-version
-         :content-disposition:in-reply-to;
-        bh=A7MqUesU7U7SG4sAQdh4tWTV10X2Cxck9huKZPvaxzk=;
-        b=mj8K40snDzVLf45RL3MNCAkNNZTT3fAZAlMHzkQ6zci6CpuJMYAb9qkX0YmyDoQJiy
-         gkN+J7XhJsu0aFKgyCkk035tpCmfHRyPWv/gp3eGHr+Ebwg71HhNXJmONyaT1joVHpSf
-         uTqNXc5AsHQS6tAnrjuRqQ57AVXYgxJNbN4mGVW+rnjh/fbNhX7nktYurJEZbk2qVULv
-         2BAUuux0UtkBLd1oYNFv+SloAa6uBQAo/xvRrCQwUChgoZV/lwRkPo/zpL2EXUukO1eq
-         Y22HjruQWacHzY0JGRJeN7V7EJesf2rtsVolC3sB+CBUxK4SZOeFT3G64xZtUBOOv6fo
-         90Wg==
+        h=message-id:sender:from:mime-version:content-transfer-encoding
+         :content-description:subject:to:date:reply-to;
+        bh=holMzMixu6L4mPkY4KLX0AXrH3B7KLU6Q1+gVZ1hbDo=;
+        b=iutiWdq2WEjwKxpj8Fj5ahz8hqWjUs7Yyrav4s8v1k/mqlVuPY9u57EzWlP9gcSGF3
+         nLPs3vWt6eDKjUyAyzDGiJ/Jqa6RkJ5llsp5y6nXt5CRLAeylDPQrz1F5tCNE07lhUsZ
+         DefBtleWej9MfIIZM1hvRfm3Ux1i6AHKnLbmdGLiWiJ7WMsEiW61w/i27REGObWCmji7
+         OLu/Eb0Q23U40EbXyc8XsITGej90V/vfvMX8AT3gy2Qnun5LqUzBKJ/YGUAiwGtQ7kav
+         nRVnTGlzCZAcjS7hE4ZjsYjkDdGfC4z4F3916iAOaXxz+uSVIJ3Vvfkcf1PsaCQCmNM1
+         6Dcw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
-         :mime-version:content-disposition:in-reply-to;
-        bh=A7MqUesU7U7SG4sAQdh4tWTV10X2Cxck9huKZPvaxzk=;
-        b=SoATS/5XTYBqCstWlu9jyybNr+Uht/QcJfdj2ixky1Z7NrEY0VwksbsOYdBiesxkP3
-         JzurV4tLqVTUVarkZF75SQgjzAksMo4Ukhp4oKKySMkvLCDUvnN/BU7x5rFHMZPXtlfF
-         b2vyubxe7XOAFdRfUAK/gF4vuKtAeM0XH2oZLL9rhdDWVEHNh63PEW9lIucHgcPHci72
-         gsywlKxcmazZ9Qtw7Gtt338ruq3N//zk7RmjbcfozTSm7ptMh5eZsPVylEER0SULrG/l
-         3KqtZYe4OxCuS4X+9bArqUu/+GworJO9Xoa25F0LIaFJqZAc5rhHs7BAAbZV1CQYyi7V
-         1gww==
-X-Gm-Message-State: AOAM531bkUnAUcRWTGCtqhH0ho6hDYIwhwsqQeEk26G61pXl3/r2MbOo
-        bQkH9aMPaYZAJXvkG95mej1alBrNeiU=
-X-Google-Smtp-Source: ABdhPJy4vei2lgTu5DlEB5F0W/cMOUVe4TjDs5Ms09urYVT67/CdXTsx1hBEMIbj5ZDiwMbQhC/MOg==
-X-Received: by 2002:adf:8028:: with SMTP id 37mr27074340wrk.111.1606077481860;
-        Sun, 22 Nov 2020 12:38:01 -0800 (PST)
-Received: from ltop.local ([2a02:a03f:b7fe:f700:b0d0:6cd2:d2ec:fc3c])
-        by smtp.gmail.com with ESMTPSA id p9sm3551930wrw.29.2020.11.22.12.38.00
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 22 Nov 2020 12:38:01 -0800 (PST)
-Date:   Sun, 22 Nov 2020 21:38:00 +0100
-From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-To:     Linus Torvalds <torvalds@linux-foundation.org>
-Cc:     Sparse Mailing-list <linux-sparse@vger.kernel.org>
-Subject: Re: [PATCH 1/7] not: add testcases for canonicalization &
- simplification of negations
-Message-ID: <20201122203800.y262kn5hk3puvcbh@ltop.local>
-References: <20201122152731.10994-1-luc.vanoostenryck@gmail.com>
- <20201122152731.10994-2-luc.vanoostenryck@gmail.com>
- <CAHk-=wjqwFDEJkGoPtjeTn1cDDpadz_eL_m1w-wk9G9Zmucosg@mail.gmail.com>
- <20201122195746.uq44lstsy2pissxi@ltop.local>
- <CAHk-=wjoJXrG=2_vnOX37fro12eyZc+uo2WL+F-utk51g9WuBA@mail.gmail.com>
+        h=x-gm-message-state:message-id:sender:from:mime-version
+         :content-transfer-encoding:content-description:subject:to:date
+         :reply-to;
+        bh=holMzMixu6L4mPkY4KLX0AXrH3B7KLU6Q1+gVZ1hbDo=;
+        b=IXt6I+J7Nc0vLKPNaI0weg1X1ZvCZSazbJWw5GbnLOG92hZfp+CyWTY+/ffRZyLI6s
+         0otC80EhLlGeqDkyASwaaamGTrYGUE0TzH19+GlBFAiwWgBBSnIilJG1iuo4Ng0rXAqI
+         wGaojDxp3Bhp0GhwLRKiBpWo2RaWyBAJI4ztLJbKkwI+cjTYGOyEEcBBRhrkXJn7itwQ
+         I1gZENULfYjPExrf3l8ftqY2w22DsYIvg4isZMw/Whv+PrByFY4jXwMfD5RjHXecvUNd
+         c54Tm1b7TzON8sPrxWVHeHaW0gPxF1L9Zcml/uZOOwmzz2/K30vYKmiT0azeGkT4tALU
+         i88g==
+X-Gm-Message-State: AOAM532o9qGsRf3McRo6WQc1pPDBiKpTe7IEKuCKXXGgr/E9PkAeP5Oc
+        flzCu8FEZcUv+c0wGsde58I=
+X-Google-Smtp-Source: ABdhPJyxEK8hZKHZP/gou5hSHEaspqwGg9FseK29uxduiuNlVG9PatLaZ6TFK8Vy9vnnMcZXOfFZXA==
+X-Received: by 2002:a17:906:a194:: with SMTP id s20mr39026886ejy.95.1606082003350;
+        Sun, 22 Nov 2020 13:53:23 -0800 (PST)
+Received: from [192.168.43.48] ([197.210.35.67])
+        by smtp.gmail.com with ESMTPSA id i19sm3978482ejz.71.2020.11.22.13.53.17
+        (version=TLS1 cipher=AES128-SHA bits=128/128);
+        Sun, 22 Nov 2020 13:53:22 -0800 (PST)
+Message-ID: <5fbaddd2.1c69fb81.9b3f2.1045@mx.google.com>
+Sender: Lena Torres <ad482289@gmail.com>
+From:   Adelina Zeuki <anglicaramose@gmail.com>
+X-Google-Original-From: "Adelina Zeuki" <  adelinazeuki@gmail.comm >
+Content-Type: text/plain; charset="iso-8859-1"
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAHk-=wjoJXrG=2_vnOX37fro12eyZc+uo2WL+F-utk51g9WuBA@mail.gmail.com>
+Content-Transfer-Encoding: quoted-printable
+Content-Description: Mail message body
+Subject: Hello !!
+To:     Recipients <adelinazeuki@gmail.comm>
+Date:   Sun, 22 Nov 2020 21:53:11 +0000
+Reply-To: adelinazeuki@gmail.com
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-On Sun, Nov 22, 2020 at 12:13:46PM -0800, Linus Torvalds wrote:
-> 
-> Honestly, particularly in the conditional form, the OP_SEL
-> optimization might not even be the right thing. It adds register
-> pressure.
-> 
-> So maybe a better model would be to not try to do jump-conversion, but
-> have some kind of general "can we simplify phi nodes", where jump
-> conversion to OP_SEL is just one of the options.
+Hi dear,
 
-Yes, for the "context imbalance" problem, it's best to eliminate
-the most possible conditional branches (and if-conversion and jump
-threading help each other at this (when not blocking each other)).
-So, yes, probably what's missing the most is some strategy to
-attack the problem.
-
--- Luc
+Can i talk with you ?
