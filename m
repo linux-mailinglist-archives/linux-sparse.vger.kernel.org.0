@@ -2,58 +2,58 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id E5A062BC673
-	for <lists+linux-sparse@lfdr.de>; Sun, 22 Nov 2020 16:27:57 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 68BD52BC674
+	for <lists+linux-sparse@lfdr.de>; Sun, 22 Nov 2020 16:27:58 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727646AbgKVP1k (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Sun, 22 Nov 2020 10:27:40 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:59968 "EHLO
+        id S1727859AbgKVP1l (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Sun, 22 Nov 2020 10:27:41 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:59974 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1727317AbgKVP1k (ORCPT
+        with ESMTP id S1727317AbgKVP1l (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Sun, 22 Nov 2020 10:27:40 -0500
-Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com [IPv6:2a00:1450:4864:20::444])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id DD6CDC0613D3
-        for <linux-sparse@vger.kernel.org>; Sun, 22 Nov 2020 07:27:39 -0800 (PST)
-Received: by mail-wr1-x444.google.com with SMTP id 64so2579414wra.11
-        for <linux-sparse@vger.kernel.org>; Sun, 22 Nov 2020 07:27:39 -0800 (PST)
+        Sun, 22 Nov 2020 10:27:41 -0500
+Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com [IPv6:2a00:1450:4864:20::443])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id BB271C0613CF
+        for <linux-sparse@vger.kernel.org>; Sun, 22 Nov 2020 07:27:40 -0800 (PST)
+Received: by mail-wr1-x443.google.com with SMTP id r17so16045431wrw.1
+        for <linux-sparse@vger.kernel.org>; Sun, 22 Nov 2020 07:27:40 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=e3/QE1edvmloZ71nFb9phi4Ljg6NQPZDU9YiAutsAMQ=;
-        b=Q14tuRKPqxfaut1N8Bolv0wuhpoET7JRHTjngHv00uYoZPyo1Nc/MWW1VPtYAbWXaq
-         MTL8ILI/Zx48f7AMcAFv9/+RGvgzqHfg8+sCIhk7StYJfCB5izilnTlTKiBA8cdb8IUO
-         hQRTL81lNv5na48QiDvnCfA4r7oQ8IS1yoCSkL3jx6PvE/k81bHwihNrKLVs0wh18o0T
-         2hGpTGkHCmtDFErgtgcMnNWqtHdj0hSqmZvPUghWRdwYfRpGzBZQ1Qm02rzt2Iv/XSVV
-         J6BSOGgEtvSN5F4aFjYIU1HYEaERnlXAgTU+Q71jWa0cHN+c/zvEFfFCNLK5RozwpBI+
-         appg==
+        bh=oDGqLs35aEjYeKpnafqEha/8dZETW9wL39KF/lxxmH4=;
+        b=P9TL5kMyMIszzdk/uq/IOtsIuFVxVn33KS3T/Tem2KwoxpuyhUVyRtZxvWGqo0nIyQ
+         LEYusfi0CaQEPBUTsOarr51+G78x1cPDlxho7nQcz2AV0vfdvxIB2pvntkwGlPQQCWoA
+         LGMWLmnZmYQqmYfYh/Avcq+ZlxwBfo174OSy5GJkFhtMCLhrnC1cr/3MQ3gU3Zk3d7Hu
+         ukLyvdMrkDm37r/x/reADcKtZThzSULoWagvebxO/UcMLh4m9uetSuv5bXoXMGoHmuzU
+         tSIhzJnVFwY9THj4bUZbh5YpthNG9F1qq8/evr8A0YZyP/kqE0aal36bRdiLGRIu1yNM
+         jI0Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=e3/QE1edvmloZ71nFb9phi4Ljg6NQPZDU9YiAutsAMQ=;
-        b=ec4hcp+pBm8mkHqW094osRFX4xOj8prXI5dr3kki4NvEefolWap5P4wQguL7LZX+55
-         BOmqfzIlX+iX1tOJf6aijak7+OeDCtTswGF4cgGNAsu/zBbYD3sGSLp7RAHihHkuem3N
-         jpcnnhbHhIzZ0f9apgjwoC99wle0XnT705Do7gkwW4rhHewlRqHdCb4Yohx+OsgLUdK7
-         BDseO2yS7C5e9El8c2bqS9rU+yrYHnhXHPawpPlLMCe59zXDnDEWjC52nsN9jRBuz7a5
-         glcfQewYsA0f/PDs8E3t3+5vrVVhZC5Jn3DCrkWweON7p4lcX0r3Qjs2Ie1gm3de4va8
-         SDiw==
-X-Gm-Message-State: AOAM532J3CYXYUJWOx3sVRMxxw4jqsyZcazcHv74RMBhfBb7Q7QLZLsJ
-        C9SoYTgtK2K5pZ+EVbC39Bqsaz7CmuY=
-X-Google-Smtp-Source: ABdhPJxjMFa+u/ZevIaAhufBRKc5QqmerqGf9mwTu5VJg579r4kS/StSF96L8UVUVB8XBuePIxCBeQ==
-X-Received: by 2002:adf:f102:: with SMTP id r2mr7786542wro.315.1606058858515;
-        Sun, 22 Nov 2020 07:27:38 -0800 (PST)
+        bh=oDGqLs35aEjYeKpnafqEha/8dZETW9wL39KF/lxxmH4=;
+        b=AvpP40coCwPLeEqNBn39xyZ6WacWnDZFjNeZSfuPzpKpyn4awTMsm7axZVwvBnIH+3
+         6JaSquFq28xAaZHM/t8+lRMfUWj5fsqxSZCwa6PdxqHs59C3Y0JGwM/mRGmsf7mA7lje
+         +3OE86deutY4XWr8Xapvf3+ytd0xZ2xy3XxikVGXPTUKBq+2DUqouBRCG/eaSkQ6n9bT
+         VyQygMdgG9ZnpdcFA1TZf6edfAePTcuDV0wVvkNGCVQ8bTL0+ZC5lkhRbvyT16Hcj5Jt
+         8srrA6NgMKLNMLhCMak6SZvMjTuyfIW3uqinYYmCdThke+4C1fCXZyBfnjeGkeTjRnR2
+         e8gQ==
+X-Gm-Message-State: AOAM532fxj2hYSxMrnAaB0+8/FEF0pbYuUsoZlxWgug6POQ09c8RXOP/
+        ehrE2DIAgpLyuNpuwBmgU2WMTOU1BVI=
+X-Google-Smtp-Source: ABdhPJyq+Pnm3GiLErpJJMcOutlWhpLzgoZvsmM98AFByIii5bwopT7bdTw9Lb6HC9tO2e2dNn6C9g==
+X-Received: by 2002:a5d:66d2:: with SMTP id k18mr25180198wrw.327.1606058859318;
+        Sun, 22 Nov 2020 07:27:39 -0800 (PST)
 Received: from localhost.localdomain ([2a02:a03f:b7fe:f700:b0e1:b041:18e2:46cf])
-        by smtp.gmail.com with ESMTPSA id k1sm13712265wrp.23.2020.11.22.07.27.37
+        by smtp.gmail.com with ESMTPSA id k1sm13712265wrp.23.2020.11.22.07.27.38
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
         Sun, 22 Nov 2020 07:27:38 -0800 (PST)
 From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 To:     linux-sparse@vger.kernel.org
 Cc:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-Subject: [PATCH 5/7] opcode: add helpers opcode_negate() & opcode_swap()
-Date:   Sun, 22 Nov 2020 16:27:29 +0100
-Message-Id: <20201122152731.10994-6-luc.vanoostenryck@gmail.com>
+Subject: [PATCH 6/7] not: simplify (~x {&,|,^} x) --> {0,~0,~0}
+Date:   Sun, 22 Nov 2020 16:27:30 +0100
+Message-Id: <20201122152731.10994-7-luc.vanoostenryck@gmail.com>
 X-Mailer: git-send-email 2.29.2
 In-Reply-To: <20201122152731.10994-1-luc.vanoostenryck@gmail.com>
 References: <20201122152731.10994-1-luc.vanoostenryck@gmail.com>
@@ -63,32 +63,112 @@ Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
+Simplify bitwise operations on a pseudo and its complement
+into 0 (for &) or ~0 for (| and ^).
+
 Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 ---
- opcode.h | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+ simplify.c                   | 66 ++++++++++++++++++++++++++++++++++--
+ validation/optim/cse-not01.c |  1 -
+ 2 files changed, 63 insertions(+), 4 deletions(-)
 
-diff --git a/opcode.h b/opcode.h
-index 1524272f0320..b74ba02d94bd 100644
---- a/opcode.h
-+++ b/opcode.h
-@@ -32,6 +32,16 @@ extern const struct opcode_table {
- } opcode_table[];
+diff --git a/simplify.c b/simplify.c
+index 203472972bca..b41c155735d1 100644
+--- a/simplify.c
++++ b/simplify.c
+@@ -1630,6 +1630,66 @@ static int simplify_compare(struct instruction *insn)
+ 	return 0;
+ }
  
- 
-+static inline int opcode_negate(int opcode)
++static int simplify_and_one_side(struct instruction *insn, pseudo_t *p1, pseudo_t *p2)
 +{
-+	return opcode_table[opcode].negate;
++	struct instruction *def;
++	pseudo_t src1 = *p1;
++
++	switch (DEF_OPCODE(def, src1)) {
++	case OP_NOT:
++		if (def->src == *p2)
++			return replace_with_value(insn, 0);
++		break;
++	}
++	return 0;
 +}
 +
-+static inline int opcode_swap(int opcode)
++static int simplify_and(struct instruction *insn)
 +{
-+	return opcode_table[opcode].swap;
++	return simplify_and_one_side(insn, &insn->src1, &insn->src2) ||
++	       simplify_and_one_side(insn, &insn->src2, &insn->src1);
 +}
 +
- static inline int opcode_float(int opcode, struct symbol *type)
++static int simplify_ior_one_side(struct instruction *insn, pseudo_t *p1, pseudo_t *p2)
++{
++	struct instruction *def;
++	pseudo_t src1 = *p1;
++
++	switch (DEF_OPCODE(def, src1)) {
++	case OP_NOT:
++		if (def->src == *p2)
++			return replace_with_value(insn, bits_mask(insn->size));
++		break;
++	}
++	return 0;
++}
++
++static int simplify_ior(struct instruction *insn)
++{
++	return simplify_ior_one_side(insn, &insn->src1, &insn->src2) ||
++	       simplify_ior_one_side(insn, &insn->src2, &insn->src1);
++}
++
++static int simplify_xor_one_side(struct instruction *insn, pseudo_t *p1, pseudo_t *p2)
++{
++	struct instruction *def;
++	pseudo_t src1 = *p1;
++
++	switch (DEF_OPCODE(def, src1)) {
++	case OP_NOT:
++		if (def->src == *p2)
++			return replace_with_value(insn, bits_mask(insn->size));
++		break;
++	}
++	return 0;
++}
++
++static int simplify_xor(struct instruction *insn)
++{
++	return simplify_xor_one_side(insn, &insn->src1, &insn->src2) ||
++	       simplify_xor_one_side(insn, &insn->src2, &insn->src1);
++}
++
+ static int simplify_constant_unop(struct instruction *insn)
  {
- 	if (!type || !is_float_type(type))
+ 	long long val = insn->src1->value;
+@@ -2162,10 +2222,10 @@ int simplify_instruction(struct instruction *insn)
+ 	switch (insn->opcode) {
+ 	case OP_ADD: return simplify_add(insn);
+ 	case OP_SUB: return simplify_sub(insn);
++	case OP_AND: return simplify_and(insn);
++	case OP_OR:  return simplify_ior(insn);
++	case OP_XOR: return simplify_xor(insn);
+ 	case OP_MUL:
+-	case OP_AND:
+-	case OP_OR:
+-	case OP_XOR:
+ 	case OP_SHL:
+ 	case OP_LSR:
+ 	case OP_ASR:
+diff --git a/validation/optim/cse-not01.c b/validation/optim/cse-not01.c
+index f87123f14f13..ea1bb7cf25d4 100644
+--- a/validation/optim/cse-not01.c
++++ b/validation/optim/cse-not01.c
+@@ -5,7 +5,6 @@ int xor(int a) { return (~a ^ a) == ~0; }
+ /*
+  * check-name: cse-not01
+  * check-command: test-linearize -Wno-decl $file
+- * check-known-to-fail
+  *
+  * check-output-ignore
+  * check-output-returns: 1
 -- 
 2.29.2
 
