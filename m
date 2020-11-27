@@ -2,88 +2,86 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id D4A602C6A2F
-	for <lists+linux-sparse@lfdr.de>; Fri, 27 Nov 2020 17:52:38 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 4D6682C6A30
+	for <lists+linux-sparse@lfdr.de>; Fri, 27 Nov 2020 17:52:39 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1732139AbgK0QwA (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Fri, 27 Nov 2020 11:52:00 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:55658 "EHLO
+        id S1732141AbgK0QwB (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Fri, 27 Nov 2020 11:52:01 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:55664 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1732138AbgK0Qv7 (ORCPT
+        with ESMTP id S1732128AbgK0QwB (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Fri, 27 Nov 2020 11:51:59 -0500
+        Fri, 27 Nov 2020 11:52:01 -0500
 Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com [IPv6:2a00:1450:4864:20::444])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 7322BC0613D1
-        for <linux-sparse@vger.kernel.org>; Fri, 27 Nov 2020 08:51:59 -0800 (PST)
-Received: by mail-wr1-x444.google.com with SMTP id m6so6222896wrg.7
-        for <linux-sparse@vger.kernel.org>; Fri, 27 Nov 2020 08:51:59 -0800 (PST)
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id E78E5C0613D1
+        for <linux-sparse@vger.kernel.org>; Fri, 27 Nov 2020 08:52:00 -0800 (PST)
+Received: by mail-wr1-x444.google.com with SMTP id r3so6260472wrt.2
+        for <linux-sparse@vger.kernel.org>; Fri, 27 Nov 2020 08:52:00 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=4QLbiVYpHElLIlq6UrWrbs+apaPTHT9UxRJ/hWYxKk8=;
-        b=qw1bs9aDHQMfECL5ga80CtaOgDRwy9Et1yC7r8l/T6jw5hwVQ6gLZlJP1INVeG2c3y
-         pzjYu6z0SuKzInxXzscrXRut+puFXAL9t4GlrUipKiQcYk+tyf6nsA5Ci5TzOBMrLDzC
-         9I9GtWRIeKfVdSn6kmMSOh+/kaxw8JQayefSbDcOuZ6iOMU9XCdnHcGE+V1mDJcSJP2h
-         ECm7qC4HQ8ZLEPpn5oIiRjHyXNh/3FuZZo7vYVNccvsYell/2vuo4gNjdJMOjO7+mRZW
-         WJ/6xaqJF/JmC1JYyzAGDXjOMMZqxIZKM+NIazCI6uZenH50l7KRJSNeDdSwa0JPcTH0
-         AkNQ==
+        h=from:to:cc:subject:date:message-id:in-reply-to:references
+         :mime-version:content-transfer-encoding;
+        bh=h/3e9FMMFTb5bWEGpkd883UgRKrevSAneF3JDDaXlA4=;
+        b=fCU/iwDgXNoyVIX0G2qoo/T2Bc5B2RAKFNt4j+1GO6z5+yIaHdGm42gkxb6czRnEm/
+         +m3GCirASrcmY50MVEuPrMCB8YgM4JRZiFTF2V7CAmOSkUhXT7Wi/f6Q9jjIDYanpSQ8
+         vI9E2GLYi7zCQaj/rb+3r1BvQP+HZ9W6lotKuyY/xSbCdM5PaFxo4mp6GskRnlqzHbcV
+         JnY4CDCHDYDthMb8P6oAY88NUBDAyD64cz2pJcYKFphEs+W1OIkh6KMy72Z7MRMTIGub
+         +gJYy7ZCfg84rRflDWpxXTk1I25o2B7HBVo+nb+wtcLYPi0iup91c0WJeiybu6Dmf3u+
+         BDRQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=4QLbiVYpHElLIlq6UrWrbs+apaPTHT9UxRJ/hWYxKk8=;
-        b=lO9+EB5jG2bezkfUrMg+3gEHz2L2csE3Qfd8ibTKpnAfBI0iiGNDNEeGqaq/FId+sq
-         DtKBG0M83lGBbPatYdjxnFCYoEtFaLgUO58TLqD4cDY0FC2THnpl3mBywkVm0/1N1cbM
-         dmrDwC636EgBMbS3hOcLFelR5nlo7zfSdbUZTpSEtrnHuf7bm+yXiM+vCb1AyaVeWiMN
-         I8bKTvnwsVJCguHRENK8WYNjURmUlw6X9FYEFdUFE6Z+CCAMCcVEXVzKwn7SSIV/ukvp
-         olJ6uTEbV6xUy9TeFYWdh2asZ2sdqL+stSDSLSPweZSdu91urrhzZVKiy+rNTgW2V0cO
-         X9lg==
-X-Gm-Message-State: AOAM530mWDefHktxfCpm6KNCsEzFkxTXs/U0gGPqTLXLqRfoQaiJoDcB
-        TpxVbFWBMDCZZ2OZxZdxqbWTp675Awg=
-X-Google-Smtp-Source: ABdhPJz68C6f4IF6fnNqDCxVvR3dQ41/Z5n5MeSuBaW3Guyf77gpeaaB7A1cB3S4qEYn15NueSpROw==
-X-Received: by 2002:adf:ec8a:: with SMTP id z10mr12066901wrn.113.1606495917973;
-        Fri, 27 Nov 2020 08:51:57 -0800 (PST)
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+         :references:mime-version:content-transfer-encoding;
+        bh=h/3e9FMMFTb5bWEGpkd883UgRKrevSAneF3JDDaXlA4=;
+        b=ab5s1JiQJo8isa5X+47tny2yzjO84G02wGhuDDjMfi9YbeiNfEZ7n/OX54XE18/RMD
+         sqcixjt9moTZ6SvRWE8brl6PIn8nmZuqaw03+4DkGGHY8BBpRYRqULjTJGGRxhAqCgN7
+         QBeGWi0dhe7d4UY38YMiySIkK9vmkLDj1BeumL6mkeq10+caH5Tp7hbl1pJwGdhtLlto
+         Yo4W/aRxTgxsuDtcmO3p3R1cyYHxIvF611o8YT0ZqN3RCqJ6xO3eZofYwH8QCSTCmpNo
+         D1W2tgApB9zVFFwbo5xJCI+ntoP9aINApNE672AH/H3WPvSvqJhx4/rZTMQOmht2rROm
+         pMWQ==
+X-Gm-Message-State: AOAM533piPcSX0iEK1zlixarm4DfPvfDTQm1CzWmac4CMosu0izkTQXe
+        508fV2UOF3umvePYf7wb2uIJPhFNLU8=
+X-Google-Smtp-Source: ABdhPJxG72WumXCu2Qpd9EDgeAK6ux+HJjs41jxX7BfJJ9HUquUNBlxEY26pancACLXREBRTZJyjUw==
+X-Received: by 2002:adf:e502:: with SMTP id j2mr11748516wrm.73.1606495919302;
+        Fri, 27 Nov 2020 08:51:59 -0800 (PST)
 Received: from localhost.localdomain ([2a02:a03f:b7fe:f700:e9bd:38ae:745f:40ea])
-        by smtp.gmail.com with ESMTPSA id y2sm15895539wrn.31.2020.11.27.08.51.57
+        by smtp.gmail.com with ESMTPSA id y2sm15895539wrn.31.2020.11.27.08.51.58
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 27 Nov 2020 08:51:57 -0800 (PST)
+        Fri, 27 Nov 2020 08:51:58 -0800 (PST)
 From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 To:     linux-sparse@vger.kernel.org
 Cc:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-Subject: [PATCH 0/8] factorization of distributive operations
-Date:   Fri, 27 Nov 2020 17:49:42 +0100
-Message-Id: <20201127164950.41517-1-luc.vanoostenryck@gmail.com>
+Subject: [PATCH 1/8] add testscases for some factorization of distributive operations
+Date:   Fri, 27 Nov 2020 17:49:43 +0100
+Message-Id: <20201127164950.41517-2-luc.vanoostenryck@gmail.com>
 X-Mailer: git-send-email 2.29.2
+In-Reply-To: <20201127164950.41517-1-luc.vanoostenryck@gmail.com>
+References: <20201127164950.41517-1-luc.vanoostenryck@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-This series ad the factorization of distributive operations
-involving bitwise operators as well as the more classical
+Add some testcases for factorizations of:
 	(x * z) + (y * z) --> (x + y) * z
+	(x | z) & (y | z) --> (x & y) | z
+	(x & z) | (y & z) --> (x | y) & z
+	(x & z) ^ (y & z) --> (x ^ y) & z
+and
+	(x << s) | (y << s) --> ((x | y) << s)
+	and same for &, ^, LSR and ASR.
 
-Luc Van Oostenryck (8):
-  add testscases for some factorization of distributive operations
-  reassoc: add helper can_move_to()
-  add helper make_insn_pair() & swap_insn()
-  add helper replace_binop()
-  refactor simplify_add() to avoid code duplication (preparation)
-  refactor simplify_add() to avoid code duplication
-  factorize (x OP1 z) OP2 (y OP1 z) into (x OP2 y) OP1 z
-  factorize SHIFT(x, s) OP SHIFT(y, s) into SHIFT((x OP y), s)
-
- simplify.c                        | 217 +++++++++++++++++++++++++++---
- validation/optim/fact-add-mul.c   |  27 ++++
- validation/optim/fact-and-ior.c   |  27 ++++
- validation/optim/fact-and-shift.c |  26 ++++
- validation/optim/fact-ior-and.c   |  27 ++++
- validation/optim/fact-ior-shift.c |  26 ++++
- validation/optim/fact-xor-and.c   |  27 ++++
- validation/optim/fact-xor-shift.c |  26 ++++
- 8 files changed, 386 insertions(+), 17 deletions(-)
+Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
+---
+ validation/optim/fact-add-mul.c   | 28 ++++++++++++++++++++++++++++
+ validation/optim/fact-and-ior.c   | 28 ++++++++++++++++++++++++++++
+ validation/optim/fact-and-shift.c | 27 +++++++++++++++++++++++++++
+ validation/optim/fact-ior-and.c   | 28 ++++++++++++++++++++++++++++
+ validation/optim/fact-ior-shift.c | 27 +++++++++++++++++++++++++++
+ validation/optim/fact-xor-and.c   | 28 ++++++++++++++++++++++++++++
+ validation/optim/fact-xor-shift.c | 27 +++++++++++++++++++++++++++
+ 7 files changed, 193 insertions(+)
  create mode 100644 validation/optim/fact-add-mul.c
  create mode 100644 validation/optim/fact-and-ior.c
  create mode 100644 validation/optim/fact-and-shift.c
@@ -92,6 +90,241 @@ Luc Van Oostenryck (8):
  create mode 100644 validation/optim/fact-xor-and.c
  create mode 100644 validation/optim/fact-xor-shift.c
 
+diff --git a/validation/optim/fact-add-mul.c b/validation/optim/fact-add-mul.c
+new file mode 100644
+index 000000000000..48c3d656accc
+--- /dev/null
++++ b/validation/optim/fact-add-mul.c
+@@ -0,0 +1,28 @@
++int fr_abx(int a, int b, int x) { return ((a * x) + (b * x)) == ((a + b) * x); }
++int fl_abx(int a, int b, int x) { return ((x * a) + (x * b)) == ((a + b) * x); }
++int fm_abx(int a, int b, int x) { return ((a * x) + (x * b)) == ((a + b) * x); }
++int fn_abx(int a, int b, int x) { return ((x * a) + (b * x)) == ((a + b) * x); }
++
++int fr_bax(int b, int a, int x) { return ((a * x) + (b * x)) == ((b + a) * x); }
++int fl_bax(int b, int a, int x) { return ((x * a) + (x * b)) == ((b + a) * x); }
++int fm_bax(int b, int a, int x) { return ((a * x) + (x * b)) == ((b + a) * x); }
++int fn_bax(int b, int a, int x) { return ((x * a) + (b * x)) == ((b + a) * x); }
++
++int fr_axb(int a, int x, int b) { return ((a * x) + (b * x)) == ((a + b) * x); }
++int fl_axb(int a, int x, int b) { return ((x * a) + (x * b)) == ((a + b) * x); }
++int fm_axb(int a, int x, int b) { return ((a * x) + (x * b)) == ((a + b) * x); }
++int fn_axb(int a, int x, int b) { return ((x * a) + (b * x)) == ((a + b) * x); }
++
++int fr_bxa(int b, int x, int a) { return ((b * x) + (a * x)) == ((b + a) * x); }
++int fl_bxa(int b, int x, int a) { return ((x * b) + (x * a)) == ((b + a) * x); }
++int fm_bxa(int b, int x, int a) { return ((b * x) + (x * a)) == ((b + a) * x); }
++int fn_bxa(int b, int x, int a) { return ((x * b) + (a * x)) == ((b + a) * x); }
++
++/*
++ * check-name: fact-add-mul
++ * check-command: test-linearize -Wno-decl $file
++ * check-known-to-fail
++ *
++ * check-output-ignore
++ * check-output-returns: 1
++ */
+diff --git a/validation/optim/fact-and-ior.c b/validation/optim/fact-and-ior.c
+new file mode 100644
+index 000000000000..f2a78eddf41d
+--- /dev/null
++++ b/validation/optim/fact-and-ior.c
+@@ -0,0 +1,28 @@
++int fr_abx(int a, int b, int x) { return ((a | x) & (b | x)) == ((a & b) | x); }
++int fl_abx(int a, int b, int x) { return ((x | a) & (x | b)) == ((a & b) | x); }
++int fm_abx(int a, int b, int x) { return ((a | x) & (x | b)) == ((a & b) | x); }
++int fn_abx(int a, int b, int x) { return ((x | a) & (b | x)) == ((a & b) | x); }
++
++int fr_bax(int b, int a, int x) { return ((a | x) & (b | x)) == ((b & a) | x); }
++int fl_bax(int b, int a, int x) { return ((x | a) & (x | b)) == ((b & a) | x); }
++int fm_bax(int b, int a, int x) { return ((a | x) & (x | b)) == ((b & a) | x); }
++int fn_bax(int b, int a, int x) { return ((x | a) & (b | x)) == ((b & a) | x); }
++
++int fr_axb(int a, int x, int b) { return ((a | x) & (b | x)) == ((a & b) | x); }
++int fl_axb(int a, int x, int b) { return ((x | a) & (x | b)) == ((a & b) | x); }
++int fm_axb(int a, int x, int b) { return ((a | x) & (x | b)) == ((a & b) | x); }
++int fn_axb(int a, int x, int b) { return ((x | a) & (b | x)) == ((a & b) | x); }
++
++int fr_bxa(int b, int x, int a) { return ((b | x) & (a | x)) == ((b & a) | x); }
++int fl_bxa(int b, int x, int a) { return ((x | b) & (x | a)) == ((b & a) | x); }
++int fm_bxa(int b, int x, int a) { return ((b | x) & (x | a)) == ((b & a) | x); }
++int fn_bxa(int b, int x, int a) { return ((x | b) & (a | x)) == ((b & a) | x); }
++
++/*
++ * check-name: fact-and-ior
++ * check-command: test-linearize -Wno-decl $file
++ * check-known-to-fail
++ *
++ * check-output-ignore
++ * check-output-returns: 1
++ */
+diff --git a/validation/optim/fact-and-shift.c b/validation/optim/fact-and-shift.c
+new file mode 100644
+index 000000000000..401750216b44
+--- /dev/null
++++ b/validation/optim/fact-and-shift.c
+@@ -0,0 +1,27 @@
++typedef unsigned int uint;
++typedef   signed int sint;
++
++
++uint fact_and_shl(uint a, uint b, uint s)
++{
++	return ((a << s) & (b << s)) == ((a & b) << s);
++}
++
++uint fact_and_lsr(uint a, uint b, uint s)
++{
++	return ((a >> s) & (b >> s)) == ((a & b) >> s);
++}
++
++sint fact_and_asr(sint a, sint b, sint s)
++{
++	return ((a >> s) & (b >> s)) == ((a & b) >> s);
++}
++
++/*
++ * check-name: fact-and-shift
++ * check-command: test-linearize -Wno-decl $file
++ * check-known-to-fail
++ *
++ * check-output-ignore
++ * check-output-returns: 1
++ */
+diff --git a/validation/optim/fact-ior-and.c b/validation/optim/fact-ior-and.c
+new file mode 100644
+index 000000000000..7af89df1e1f0
+--- /dev/null
++++ b/validation/optim/fact-ior-and.c
+@@ -0,0 +1,28 @@
++int fr_abx(int a, int b, int x) { return ((a & x) | (b & x)) == ((a | b) & x); }
++int fl_abx(int a, int b, int x) { return ((x & a) | (x & b)) == ((a | b) & x); }
++int fm_abx(int a, int b, int x) { return ((a & x) | (x & b)) == ((a | b) & x); }
++int fn_abx(int a, int b, int x) { return ((x & a) | (b & x)) == ((a | b) & x); }
++
++int fr_bax(int b, int a, int x) { return ((a & x) | (b & x)) == ((b | a) & x); }
++int fl_bax(int b, int a, int x) { return ((x & a) | (x & b)) == ((b | a) & x); }
++int fm_bax(int b, int a, int x) { return ((a & x) | (x & b)) == ((b | a) & x); }
++int fn_bax(int b, int a, int x) { return ((x & a) | (b & x)) == ((b | a) & x); }
++
++int fr_axb(int a, int x, int b) { return ((a & x) | (b & x)) == ((a | b) & x); }
++int fl_axb(int a, int x, int b) { return ((x & a) | (x & b)) == ((a | b) & x); }
++int fm_axb(int a, int x, int b) { return ((a & x) | (x & b)) == ((a | b) & x); }
++int fn_axb(int a, int x, int b) { return ((x & a) | (b & x)) == ((a | b) & x); }
++
++int fr_bxa(int b, int x, int a) { return ((b & x) | (a & x)) == ((b | a) & x); }
++int fl_bxa(int b, int x, int a) { return ((x & b) | (x & a)) == ((b | a) & x); }
++int fm_bxa(int b, int x, int a) { return ((b & x) | (x & a)) == ((b | a) & x); }
++int fn_bxa(int b, int x, int a) { return ((x & b) | (a & x)) == ((b | a) & x); }
++
++/*
++ * check-name: fact-ior-and
++ * check-command: test-linearize -Wno-decl $file
++ * check-known-to-fail
++ *
++ * check-output-ignore
++ * check-output-returns: 1
++ */
+diff --git a/validation/optim/fact-ior-shift.c b/validation/optim/fact-ior-shift.c
+new file mode 100644
+index 000000000000..07fdf80604dc
+--- /dev/null
++++ b/validation/optim/fact-ior-shift.c
+@@ -0,0 +1,27 @@
++typedef unsigned int uint;
++typedef   signed int sint;
++
++
++uint fact_ior_shl(uint a, uint b, uint s)
++{
++	return ((a << s) | (b << s)) == ((a | b) << s);
++}
++
++uint fact_ior_lsr(uint a, uint b, uint s)
++{
++	return ((a >> s) | (b >> s)) == ((a | b) >> s);
++}
++
++sint fact_ior_asr(sint a, sint b, sint s)
++{
++	return ((a >> s) | (b >> s)) == ((a | b) >> s);
++}
++
++/*
++ * check-name: fact-ior-shift
++ * check-command: test-linearize -Wno-decl $file
++ * check-known-to-fail
++ *
++ * check-output-ignore
++ * check-output-returns: 1
++ */
+diff --git a/validation/optim/fact-xor-and.c b/validation/optim/fact-xor-and.c
+new file mode 100644
+index 000000000000..905cbf4ab659
+--- /dev/null
++++ b/validation/optim/fact-xor-and.c
+@@ -0,0 +1,28 @@
++int fr_abx(int a, int b, int x) { return ((a & x) ^ (b & x)) == ((a ^ b) & x); }
++int fl_abx(int a, int b, int x) { return ((x & a) ^ (x & b)) == ((a ^ b) & x); }
++int fm_abx(int a, int b, int x) { return ((a & x) ^ (x & b)) == ((a ^ b) & x); }
++int fn_abx(int a, int b, int x) { return ((x & a) ^ (b & x)) == ((a ^ b) & x); }
++
++int fr_bax(int b, int a, int x) { return ((a & x) ^ (b & x)) == ((b ^ a) & x); }
++int fl_bax(int b, int a, int x) { return ((x & a) ^ (x & b)) == ((b ^ a) & x); }
++int fm_bax(int b, int a, int x) { return ((a & x) ^ (x & b)) == ((b ^ a) & x); }
++int fn_bax(int b, int a, int x) { return ((x & a) ^ (b & x)) == ((b ^ a) & x); }
++
++int fr_axb(int a, int x, int b) { return ((a & x) ^ (b & x)) == ((a ^ b) & x); }
++int fl_axb(int a, int x, int b) { return ((x & a) ^ (x & b)) == ((a ^ b) & x); }
++int fm_axb(int a, int x, int b) { return ((a & x) ^ (x & b)) == ((a ^ b) & x); }
++int fn_axb(int a, int x, int b) { return ((x & a) ^ (b & x)) == ((a ^ b) & x); }
++
++int fr_bxa(int b, int x, int a) { return ((b & x) ^ (a & x)) == ((b ^ a) & x); }
++int fl_bxa(int b, int x, int a) { return ((x & b) ^ (x & a)) == ((b ^ a) & x); }
++int fm_bxa(int b, int x, int a) { return ((b & x) ^ (x & a)) == ((b ^ a) & x); }
++int fn_bxa(int b, int x, int a) { return ((x & b) ^ (a & x)) == ((b ^ a) & x); }
++
++/*
++ * check-name: fact-xor-and
++ * check-command: test-linearize -Wno-decl $file
++ * check-known-to-fail
++ *
++ * check-output-ignore
++ * check-output-returns: 1
++ */
+diff --git a/validation/optim/fact-xor-shift.c b/validation/optim/fact-xor-shift.c
+new file mode 100644
+index 000000000000..81fcda851400
+--- /dev/null
++++ b/validation/optim/fact-xor-shift.c
+@@ -0,0 +1,27 @@
++typedef unsigned int uint;
++typedef   signed int sint;
++
++
++uint fact_xor_shl(uint a, uint b, uint s)
++{
++	return ((a << s) ^ (b << s)) == ((a ^ b) << s);
++}
++
++uint fact_xor_lsr(uint a, uint b, uint s)
++{
++	return ((a >> s) ^ (b >> s)) == ((a ^ b) >> s);
++}
++
++sint fact_xor_asr(sint a, sint b, sint s)
++{
++	return ((a >> s) ^ (b >> s)) == ((a ^ b) >> s);
++}
++
++/*
++ * check-name: fact-xor-shift
++ * check-command: test-linearize -Wno-decl $file
++ * check-known-to-fail
++ *
++ * check-output-ignore
++ * check-output-returns: 1
++ */
 -- 
 2.29.2
 
