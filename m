@@ -2,58 +2,58 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id D46E52C6D39
-	for <lists+linux-sparse@lfdr.de>; Fri, 27 Nov 2020 23:31:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id D7F5E2C6D37
+	for <lists+linux-sparse@lfdr.de>; Fri, 27 Nov 2020 23:31:15 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1731355AbgK0WaU (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Fri, 27 Nov 2020 17:30:20 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:51276 "EHLO
+        id S1730213AbgK0W3J (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Fri, 27 Nov 2020 17:29:09 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:51284 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1731413AbgK0W12 (ORCPT
+        with ESMTP id S1726721AbgK0W1a (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Fri, 27 Nov 2020 17:27:28 -0500
-Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com [IPv6:2a00:1450:4864:20::442])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 2F36BC061A04
-        for <linux-sparse@vger.kernel.org>; Fri, 27 Nov 2020 14:27:28 -0800 (PST)
-Received: by mail-wr1-x442.google.com with SMTP id k14so7046807wrn.1
-        for <linux-sparse@vger.kernel.org>; Fri, 27 Nov 2020 14:27:28 -0800 (PST)
+        Fri, 27 Nov 2020 17:27:30 -0500
+Received: from mail-wm1-x341.google.com (mail-wm1-x341.google.com [IPv6:2a00:1450:4864:20::341])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 19F8FC061A47
+        for <linux-sparse@vger.kernel.org>; Fri, 27 Nov 2020 14:27:29 -0800 (PST)
+Received: by mail-wm1-x341.google.com with SMTP id c198so6249258wmd.0
+        for <linux-sparse@vger.kernel.org>; Fri, 27 Nov 2020 14:27:29 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=fy1/8aHGLqmG6nr3Py2q0Ie8D12Oq5+K1Jwk8epTuy0=;
-        b=G3cNNp5YbHrTWnHEkQORnLpB3gfhjfGdrLKBJ+s5PwfcI59k6sDrCeuXQVcwyLheBY
-         YpOs2fIpTItnwDf2pptFS6KHmC1gNuriGshLa4H8QDmpA11nQNKPSmfF0ElvXKa6sRs8
-         livEdZJoAQIFh1LfsA/Fs3KyeGwYyAKqf9v2dIx98uIA1F/pJPl1zmPhiL1hXXpnqPW6
-         SOvKgJQM6SwoAonNrXGgNZWWUvKQpjyoxky2yhHJcpeaDHzW/MT1xiT7VGIVgi4S0OsD
-         yyWsrwzvW05vsZMw8O7nkTCZyzjcbkZFUacVO3aVqUmyqE1k0ITw3nBKV5qxxm/EbrH3
-         xxBg==
+        bh=s+w1yl8gKIlBvFF6/7fDEy9cWHTXXmi33iOvB8eGjSQ=;
+        b=uWtQQCcLzT+dag22fk5n9+SCmJTE1CZ9V6QelaYdiKzlW1BHKo9FzCaclqSO3gtEUK
+         l3GrcHk2FoJZdUcTgi750EbUDo3QzL/gL7UEM5oxYExOONspBXi/sfpVdI/m7UjQWcsz
+         xl/czK9yp+onTV4RrKAhgjk2ABEK4UtIE+dqU7+NMr+Nq5vMerkmf009BmqV/rGx3cw3
+         izTmJIzxxereYAff9J0QTKet6G7C4m4spAbP670DM+2v51V/HpCDHNUd7UyMX2yGc8MD
+         ws8QOhf13VymdYJ7kcRZXcN3F5TtS35S+NjzTJlaCIVNXnuk8FLt6nyynxd98d634MqD
+         1p4g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=fy1/8aHGLqmG6nr3Py2q0Ie8D12Oq5+K1Jwk8epTuy0=;
-        b=PYAHyoBbHUrSls4OHnJTCJqd/jo2zu9TLaFsqK6UPrq1FxHsS/XD0Qeec3iKShshbU
-         2qHdVWBO578m4elT4yTwRK8D2nYn/W88Kh+Hz5mE8NPPwn/heAztE1AbEiKVdjc3ArcK
-         y9PqNvDCAjEaKGpKY7+9jbAJDvo/wiBNmjNh05R6cvGx1+JbbNHHOUi8/i3VBKIQCRrZ
-         ElG8zbE00xJsVYjEPKUKG2BUX2M7XK8MtVjCNUC0CEgSDvRiaT3YOy9vRcmAeAPSZqru
-         +HZD3L2gDauqtdLTLxxg1qWol9OqnFT9MvAnirDQe+AO6OBX+yFJwopp2hBf+XZiZLU0
-         7HiQ==
-X-Gm-Message-State: AOAM530mSToIqAlEbYa8sK/xvPzt6D4DC0c+bW/zsEKTKbDFXo2K77QE
-        x4KYvQzb6PFEGGSyMTgatAB/9YAoETU=
-X-Google-Smtp-Source: ABdhPJwTdwkC0cIQaBWjkzXJhiI0CQBrnGOF9Flo43IsYiCUTdgr5Wnmncnvvidoc2r9APQD/ypYKg==
-X-Received: by 2002:adf:ba47:: with SMTP id t7mr13209731wrg.47.1606516046749;
-        Fri, 27 Nov 2020 14:27:26 -0800 (PST)
+        bh=s+w1yl8gKIlBvFF6/7fDEy9cWHTXXmi33iOvB8eGjSQ=;
+        b=rRoOLe4Ic+JmEp5qonaMtc8Wn5P+3sbtdyA16AOGk8AZNkCetwjyqGdUYDXIw1fFhH
+         gAm9NdyJAsU3eo+o2ImHk5wSxB66aL3VBtYToZ5UNB0ypvea54ON7le8opoWuwGs9dio
+         sfy7tuSVkTATU9K+cZwNNRvnpIK0y5be8niKnifHVg9rL1wMCxFQMcXiNF0vVrMkhk5t
+         yTLNTMdTcyalq1Bn7TPuR4TzWKo8ZzSxiZ/FpvQFqfD9/TfUs2HwVpqHX1fAicIP2KRG
+         Uk3XRLMZVuVADJwcQpc2LrkZ6h6TtD9kxGKw2q5I1/pd4SsnLdfsaVNXnKhVKovb29tu
+         35/A==
+X-Gm-Message-State: AOAM531LXTOCbvvuBmutXCqojcFri8H6p+SjuZj8Ew+nwAdVSsB3Rid3
+        SAQbPC25C333I9Cjr8p586+MFClb54o=
+X-Google-Smtp-Source: ABdhPJy9HSGWwSLB3bnhdxeg0fiCVt6B42QMuia/tXl4zPI7sJkeyG8tK19sZxaPAcO7ah4MvK73zQ==
+X-Received: by 2002:a1c:5603:: with SMTP id k3mr11752187wmb.151.1606516047678;
+        Fri, 27 Nov 2020 14:27:27 -0800 (PST)
 Received: from localhost.localdomain ([2a02:a03f:b7fe:f700:f469:b93b:e449:cc30])
-        by smtp.gmail.com with ESMTPSA id q16sm17347050wrn.13.2020.11.27.14.27.25
+        by smtp.gmail.com with ESMTPSA id q16sm17347050wrn.13.2020.11.27.14.27.27
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 27 Nov 2020 14:27:26 -0800 (PST)
+        Fri, 27 Nov 2020 14:27:27 -0800 (PST)
 From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 To:     linux-sparse@vger.kernel.org
 Cc:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-Subject: [PATCH 4/6] add helper is_pow2()
-Date:   Fri, 27 Nov 2020 23:25:13 +0100
-Message-Id: <20201127222516.44915-5-luc.vanoostenryck@gmail.com>
+Subject: [PATCH 5/6] add log base 2 function: log2_exact()
+Date:   Fri, 27 Nov 2020 23:25:14 +0100
+Message-Id: <20201127222516.44915-6-luc.vanoostenryck@gmail.com>
 X-Mailer: git-send-email 2.29.2
 In-Reply-To: <20201127222516.44915-1-luc.vanoostenryck@gmail.com>
 References: <CAHk-=wjoJXrG=2_vnOX37fro12eyZc+uo2WL+F-utk51g9WuBA@mail.gmail.com>
@@ -64,33 +64,30 @@ Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-Add is_pow2() to test if a pseudo is a power of 2.
+Add log2_exact() to get the base 2 logarithm of a value known
+to be a power of 2.
 
 Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 ---
- simplify.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
+ bits.h | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-diff --git a/simplify.c b/simplify.c
-index d729b390ae76..0d9391e21a56 100644
---- a/simplify.c
-+++ b/simplify.c
-@@ -52,6 +52,15 @@
- // Utilities
- // ^^^^^^^^^
+diff --git a/bits.h b/bits.h
+index 63a663c248e4..9908190d8c2f 100644
+--- a/bits.h
++++ b/bits.h
+@@ -63,4 +63,11 @@ static inline int is_power_of_2(long long val)
+ 	return val && !(val & (val - 1));
+ }
  
 +///
-+// check if a pseudo is a power of 2
-+static inline bool is_pow2(pseudo_t src)
++// log base 2 of an exact power-of-2
++static inline int log2_exact(unsigned long long val)
 +{
-+	if (src->type != PSEUDO_VAL)
-+		return false;
-+	return is_power_of_2(src->value);
++	return 8 * sizeof(val) - __builtin_clzl(val) - 1;
 +}
 +
- ///
- // find the trivial parent for a phi-source
- static struct basic_block *phi_parent(struct basic_block *source, pseudo_t pseudo)
+ #endif
 -- 
 2.29.2
 
