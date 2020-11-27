@@ -2,58 +2,58 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 838432C6D32
-	for <lists+linux-sparse@lfdr.de>; Fri, 27 Nov 2020 23:29:13 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id D0E2B2C6D3E
+	for <lists+linux-sparse@lfdr.de>; Fri, 27 Nov 2020 23:33:12 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1730724AbgK0W1x (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Fri, 27 Nov 2020 17:27:53 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:51264 "EHLO
+        id S1730724AbgK0Wcw (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Fri, 27 Nov 2020 17:32:52 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:51268 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1730732AbgK0W10 (ORCPT
+        with ESMTP id S1731032AbgK0W10 (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
         Fri, 27 Nov 2020 17:27:26 -0500
-Received: from mail-wm1-x342.google.com (mail-wm1-x342.google.com [IPv6:2a00:1450:4864:20::342])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 91B09C0613D2
-        for <linux-sparse@vger.kernel.org>; Fri, 27 Nov 2020 14:27:25 -0800 (PST)
-Received: by mail-wm1-x342.google.com with SMTP id g25so3228808wmh.1
-        for <linux-sparse@vger.kernel.org>; Fri, 27 Nov 2020 14:27:25 -0800 (PST)
+Received: from mail-wm1-x344.google.com (mail-wm1-x344.google.com [IPv6:2a00:1450:4864:20::344])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 52A77C0613D4
+        for <linux-sparse@vger.kernel.org>; Fri, 27 Nov 2020 14:27:26 -0800 (PST)
+Received: by mail-wm1-x344.google.com with SMTP id h21so7727350wmb.2
+        for <linux-sparse@vger.kernel.org>; Fri, 27 Nov 2020 14:27:26 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=LN6gco1zIlqtyCTgrYmmvxgCDWzIy9ZAVhewoEZKPDE=;
-        b=oYAq0y3ZdZmjvH8LYghSQyhEd9JrjjHH3l8VB7/vpMnSpfhBMZQhOoj8K0FegoJtxB
-         7cwuYGmrsTwdLkHEeSoJvN1HntPhagY0OcgUChcC7LQOhcXzm6BqJgq0p/z6RY79+CIR
-         7vGEIiUzR5Zuc2yj7en2HEWS51sDKRoguYkHcmJVqu5YQ3dJ/ekPRDLXFQWXeTdTpris
-         pGTubV9YAPolueIkq8g0H7/eLJFme3lJ2O5JP9EQLhBS9NDs6WJnqP5LcdfkszrFXqqf
-         ol6d8uZ6+eVTbZErU4OpW7Nz4GjYrz6D+L+JJrfcA69LOpLrLd2InYX+1KmJVYyrw4Z5
-         DZfQ==
+        bh=ZdFsuFEoV7kfT1dhDUS8+TraI8Fo/krZo/2ACS2fyhc=;
+        b=Dg3U1hd7czbmNJT2U2KivQyl4WxrZPENotn+Qnel8iunEHlBonkTBUUGpTYoVNbUqJ
+         5DI4myvATwPPhDrvO2hyyauWncZ0aNafMzbQa9BzQnsGV2Cu+QCgFPvucogu6dtOemmp
+         viRv4loT0SyI0cZBdviluJWgl47j9DA/ENJUt+Bcfo8N/p0aVedJY+eXf7D26qT+jxGD
+         nuwedCpzN72K9hT19AlqMvQxrClBlvboIHt7qHKpujnlIzTY+ao8WR7/0ZJ7aI6odFfw
+         p5i5eFPenHFKZJK4xiLkRQDEYhj5n+/7u3i2K6rkz/+R0TZ0yVdHLJJZZ1W1zU39MHwj
+         NJEA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=LN6gco1zIlqtyCTgrYmmvxgCDWzIy9ZAVhewoEZKPDE=;
-        b=G+VLw/qhP4jyAV+ngMrbAkpYkJypKOrzEprnD6lMc0X8fIbDVNxQl7Ut/59yZFLNDI
-         YamubRDSGjbrPqJ8li6sM4CiQlF30pYfxDH0YvqpvKFswZMpq5TZB4CYRZsM4Epy/QBq
-         5vqVS0XOCcFdoH4CHZUWtYJ4P6IZKSsmyOlkdueWmTczvYwxkopK7N94w9RD1Qtay63c
-         6yGZhTTL2g6lyOJw8rx3PGaaF1sswWxXnMu+3aLoooc0u3HhTff0H/XO6PocM8WEULj1
-         eEx16PRb31Wai+a0MvVvgdARa739W3gzvNAqSEOTQRXzNCYPP5pCuqZNczbcLFQ6WXcS
-         Lhhg==
-X-Gm-Message-State: AOAM532vU/Qy00eVMXQK+8G2TanqN8wU706jIKLOqu1m/DXrqiCk9rEp
-        ZToRaERHUuqzX6R2oc6UDgZiXIHs6wg=
-X-Google-Smtp-Source: ABdhPJxUHNLO4hASpyBYJf6z6/EoOhsW2KcSR0wD4S4N63P/WRbAjnyF3dV5tFcpvX+9YD3Yrp7KQg==
-X-Received: by 2002:a1c:2605:: with SMTP id m5mr10118172wmm.111.1606516044063;
+        bh=ZdFsuFEoV7kfT1dhDUS8+TraI8Fo/krZo/2ACS2fyhc=;
+        b=e/Kom/+UUz+LEq9hDjNdfX3bi6DbWkCqKEKusjGaxvt5fJDq2V5R+zQHWWOz7/+vZt
+         KPzQ4TX7VrbjukhOdtK0aN2a6KE+T4r1Vs4E+CB7x7Pxhyp3m3GHc3SLmIt3awxE0JWa
+         aIMKPXvyy4EIZS0uJ+B3Xhp+4AMqJNfbe8hv/JNHYfpNfwJTkprk8tBpFdN6dP6ly/1d
+         B5YKHEZ3y3aPh2la6nWJ+xjEJfwokFEJvqY5cPSwi6MYUSNfFphWXeoMydUp3krTbMVu
+         TAQ5K2QhUH5SwrAPziGSpEGqrFJYEh7tCsG91prOah2Ta9JpRJYQJcmoUboLZ31ea912
+         92yg==
+X-Gm-Message-State: AOAM532Wi61MBluszPS/jdjRnxfco3ciuzlzjCuiG6jdGwoaX3K9P3xc
+        1NbeB8JO1xg0bCB0F5Yci3KZQ59RBAM=
+X-Google-Smtp-Source: ABdhPJyL2bQUFDRvwrPAq7WE/yW8c1ghv6K6NDTpgTU5T28v8f3byrX/S3oicMJ/q4NYfBfC1wnyZQ==
+X-Received: by 2002:a1c:41c4:: with SMTP id o187mr11988422wma.48.1606516044812;
         Fri, 27 Nov 2020 14:27:24 -0800 (PST)
 Received: from localhost.localdomain ([2a02:a03f:b7fe:f700:f469:b93b:e449:cc30])
-        by smtp.gmail.com with ESMTPSA id q16sm17347050wrn.13.2020.11.27.14.27.23
+        by smtp.gmail.com with ESMTPSA id q16sm17347050wrn.13.2020.11.27.14.27.24
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 27 Nov 2020 14:27:23 -0800 (PST)
+        Fri, 27 Nov 2020 14:27:24 -0800 (PST)
 From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 To:     linux-sparse@vger.kernel.org
 Cc:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-Subject: [PATCH 1/6] add testscases for 'bits translation' optimization
-Date:   Fri, 27 Nov 2020 23:25:10 +0100
-Message-Id: <20201127222516.44915-2-luc.vanoostenryck@gmail.com>
+Subject: [PATCH 2/6] factorize SEL(x, OP(y,z), y) into OP(SEL(x, z, 0), y)
+Date:   Fri, 27 Nov 2020 23:25:11 +0100
+Message-Id: <20201127222516.44915-3-luc.vanoostenryck@gmail.com>
 X-Mailer: git-send-email 2.29.2
 In-Reply-To: <20201127222516.44915-1-luc.vanoostenryck@gmail.com>
 References: <CAHk-=wjoJXrG=2_vnOX37fro12eyZc+uo2WL+F-utk51g9WuBA@mail.gmail.com>
@@ -64,76 +64,95 @@ Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-Add some testcase related to the simplification of expressions like:
-	if (val1 & BIT1)
-		val2 |= BIT2;
+'Factorize' and expression like:
+	x ? (y | z) : y;
 into
-	val2 |= (val1 & BIT1) {SHL/LSR} |BIT2-BIT1|;
+	(x ? z : 0) | y;
+
+and some positional variants as well as replacing '|' by '+' or '^'.
+
+Note: it's not very clear if this is really an improvement but it
+      allows some very nice simplification of 'bits translations'.
+Note: the same can be done for others operations, for example it can
+      be done for '&' if '0' (the neuter value for '|', '+' and '^')
+      by '~0' (same with '*' and '1').
 
 Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 ---
- validation/optim/fact-select01.c    | 26 ++++++++++++++++++++++++++
- validation/optim/select-and-shift.c | 18 ++++++++++++++++++
- 2 files changed, 44 insertions(+)
- create mode 100644 validation/optim/fact-select01.c
- create mode 100644 validation/optim/select-and-shift.c
+ simplify.c                       | 40 ++++++++++++++++++++++++++++++++
+ validation/optim/fact-select01.c |  1 -
+ 2 files changed, 40 insertions(+), 1 deletion(-)
 
+diff --git a/simplify.c b/simplify.c
+index 89a064b93e85..d729b390ae76 100644
+--- a/simplify.c
++++ b/simplify.c
+@@ -554,6 +554,16 @@ static inline int swap_insn(struct instruction *out, struct instruction *in, pse
+ 	return replace_insn_pair(out, in->opcode, in, out->opcode, a, b, c);
+ }
+ 
++///
++// create an instruction pair OUT(SELECT(a, b, c), d)
++static int swap_select(struct instruction *out, struct instruction *in, pseudo_t a, pseudo_t b, pseudo_t c, pseudo_t d)
++{
++	use_pseudo(in, c, &in->src3);
++	swap_insn(out, in, a, b, d);
++	kill_use(&out->src3);
++	return REPEAT_CSE;
++}
++
+ static inline int def_opcode(pseudo_t p)
+ {
+ 	if (p->type != PSEUDO_REG)
+@@ -2254,6 +2264,36 @@ static int simplify_select(struct instruction *insn)
+ 		}
+ 		break;
+ 	}
++
++	switch (DEF_OPCODE(def, src1)) {
++	case OP_ADD: case OP_OR: case OP_XOR:
++		if ((def->src1 == src2) && can_move_to(cond, def)) {
++			// SEL(x, OP(y,z), y) --> OP(SEL(x, z, 0), y)
++			swap_select(insn, def, cond, def->src2, value_pseudo(0), src2);
++			return REPEAT_CSE;
++		}
++		if ((def->src2 == src2) && can_move_to(cond, def)) {
++			// SEL(x, OP(z,y), y) --> OP(SEL(x, z, 0), y)
++			swap_select(insn, def, cond, def->src1, value_pseudo(0), src2);
++			return REPEAT_CSE;
++		}
++		break;
++	}
++
++	switch (DEF_OPCODE(def, src2)) {
++	case OP_ADD: case OP_OR: case OP_XOR:
++		if ((def->src1 == src1) && can_move_to(cond, def)) {
++			// SEL(x, y, OP(y,z)) --> OP(SEL(x, 0, z), y)
++			swap_select(insn, def, cond, value_pseudo(0), def->src2, src1);
++			return REPEAT_CSE;
++		}
++		if ((def->src2 == src1) && can_move_to(cond, def)) {
++			// SEL(x, y, OP(z,y)) --> OP(SEL(x, 0, z), y)
++			swap_select(insn, def, cond, value_pseudo(0), def->src1, src1);
++			return REPEAT_CSE;
++		}
++		break;
++	}
+ 	return 0;
+ }
+ 
 diff --git a/validation/optim/fact-select01.c b/validation/optim/fact-select01.c
-new file mode 100644
-index 000000000000..ef4e5e89a7be
---- /dev/null
+index ef4e5e89a7be..9232fc908e34 100644
+--- a/validation/optim/fact-select01.c
 +++ b/validation/optim/fact-select01.c
-@@ -0,0 +1,26 @@
-+int add_yx_y(int p, int x, int y) { return (p ? (y+x) : y) == ((p ? x : 0) + y); }
-+int add_xy_y(int p, int y, int x) { return (p ? (x+y) : y) == ((p ? x : 0) + y); }
-+int add_xy_x(int p, int x, int y) { return (p ? (x+y) : x) == ((p ? y : 0) + x); }
-+int add_yx_x(int p, int y, int x) { return (p ? (y+x) : x) == ((p ? y : 0) + x); }
-+int add_y_yx(int p, int x, int y) { return (p ? y : (y+x)) == ((p ? 0 : x) + y); }
-+
-+int ior_yx_y(int p, int x, int y) { return (p ? (y|x) : y) == ((p ? x : 0) | y); }
-+int ior_xy_y(int p, int y, int x) { return (p ? (x|y) : y) == ((p ? x : 0) | y); }
-+int ior_xy_x(int p, int x, int y) { return (p ? (x|y) : x) == ((p ? y : 0) | x); }
-+int ior_yx_x(int p, int y, int x) { return (p ? (y|x) : x) == ((p ? y : 0) | x); }
-+int ior_y_yx(int p, int x, int y) { return (p ? y : (y|x)) == ((p ? 0 : x) | y); }
-+
-+int xor_yx_y(int p, int x, int y) { return (p ? (y^x) : y) == ((p ? x : 0) ^ y); }
-+int xor_xy_y(int p, int y, int x) { return (p ? (x^y) : y) == ((p ? x : 0) ^ y); }
-+int xor_xy_x(int p, int x, int y) { return (p ? (x^y) : x) == ((p ? y : 0) ^ x); }
-+int xor_yx_x(int p, int y, int x) { return (p ? (y^x) : x) == ((p ? y : 0) ^ x); }
-+int xor_y_yx(int p, int x, int y) { return (p ? y : (y^x)) == ((p ? 0 : x) ^ y); }
-+
-+/*
-+ * check-name: fact-select01
-+ * check-command: test-linearize -Wno-decl $file
-+ * check-known-to-fail
-+ *
-+ * check-output-ignore
-+ * check-output-returns: 1
-+ */
-diff --git a/validation/optim/select-and-shift.c b/validation/optim/select-and-shift.c
-new file mode 100644
-index 000000000000..fbe044c7cb44
---- /dev/null
-+++ b/validation/optim/select-and-shift.c
-@@ -0,0 +1,18 @@
-+#define S1	2
-+#define S2	5
-+#define S	(S2 - S1)
-+
-+#define	A	(1 << S1)
-+#define	B	(1 << S2)
-+
-+int foo(int p) { return ((p & A) ? B : 0) == ((((unsigned)p) & A) << S); }
-+int bar(int p) { return ((p & B) ? A : 0) == ((((unsigned)p) & B) >> S); }
-+
-+/*
-+ * check-name: select-and-shift
-+ * check-command: test-linearize -Wno-decl $file
-+ * check-known-to-fail
-+ *
-+ * check-output-ignore
-+ * check-output-returns: 1
-+ */
+@@ -19,7 +19,6 @@ int xor_y_yx(int p, int x, int y) { return (p ? y : (y^x)) == ((p ? 0 : x) ^ y);
+ /*
+  * check-name: fact-select01
+  * check-command: test-linearize -Wno-decl $file
+- * check-known-to-fail
+  *
+  * check-output-ignore
+  * check-output-returns: 1
 -- 
 2.29.2
 
