@@ -2,86 +2,108 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 2585D2C79A0
-	for <lists+linux-sparse@lfdr.de>; Sun, 29 Nov 2020 15:51:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id E43972C79A4
+	for <lists+linux-sparse@lfdr.de>; Sun, 29 Nov 2020 15:51:16 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1727357AbgK2OuJ (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Sun, 29 Nov 2020 09:50:09 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:55634 "EHLO
+        id S1728092AbgK2OuR (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Sun, 29 Nov 2020 09:50:17 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:55640 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1725882AbgK2OuJ (ORCPT
+        with ESMTP id S1725882AbgK2OuQ (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Sun, 29 Nov 2020 09:50:09 -0500
-Received: from mail-ej1-x641.google.com (mail-ej1-x641.google.com [IPv6:2a00:1450:4864:20::641])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B87DBC0613CF
-        for <linux-sparse@vger.kernel.org>; Sun, 29 Nov 2020 06:49:28 -0800 (PST)
-Received: by mail-ej1-x641.google.com with SMTP id f23so15720769ejk.2
-        for <linux-sparse@vger.kernel.org>; Sun, 29 Nov 2020 06:49:28 -0800 (PST)
+        Sun, 29 Nov 2020 09:50:16 -0500
+Received: from mail-ej1-x643.google.com (mail-ej1-x643.google.com [IPv6:2a00:1450:4864:20::643])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id DD9BBC0613D2
+        for <linux-sparse@vger.kernel.org>; Sun, 29 Nov 2020 06:49:29 -0800 (PST)
+Received: by mail-ej1-x643.google.com with SMTP id m19so9979361ejl.11
+        for <linux-sparse@vger.kernel.org>; Sun, 29 Nov 2020 06:49:29 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=ojVDK9xOdgVLPJcx/q7ZRwxZ4Q59FxUIxbv5zfI+x54=;
-        b=WWBfK2IlJ2DOP8MkHBSVPlfEXoTwsDuFnPWZN3r7UzECnNmUjiXBpRCA4WEf1p+zlN
-         npirLmOUid9IQkQU4pVxL/F1bWN7FQG8RZlbA+cw94IGTAVBnLidqeWyzm//2YjoVMT2
-         /X+FjEdGQPPieIufpdFf8ypedMwC+8IT85f0BakJImh5nn87KYyaWSMQifA0pC905lgm
-         prrXqMdQZDeVNM8TYfRhFrdCzAzxeY1B8wGM6SlGBV3tLM0DZuOek8cq12CUoOdKY397
-         RAHBoXeT7r7pF5zi4ohIgzEq8zJOvZ9b6UzOEvLfmJY6t3YiZZK31Ku9GV49ClrSI8GC
-         OKfw==
+        h=from:to:cc:subject:date:message-id:in-reply-to:references
+         :mime-version:content-transfer-encoding;
+        bh=OckwUd4cIgpFSKEPj5ll7DpZrSOgqoPQejCBf4kM9eI=;
+        b=a1GwdWV3h+I4WYT9FXqONzF5fCFeefIPgOw58aN8iWsiQ+BA1IgZOuAV/85hYr4eDq
+         oEGdQ8tEmqmZUsqRwq517PBu/5yoMYP7C7xH78+ZYlTrOAfEYJuCYBaLxec55gUruCkA
+         Ru2y+/HPXMgJHx5FQBYEalJci7fJDRsK9dLhR0r0dijLxZeSM0rnWDMC8c430e+BZ+aV
+         h66SewPOtF1W0iE1xTc0tLJnG4eN9C6B53ISgkqnspGDofZKiSnIrvKLinWHfxeavusH
+         lIPCQ7LDw4S96jmQ8Ettk2fKuWUGx3uT+g6ZakStq0CdPINsmTFkqkAr0ZPJxn1G+Fnf
+         bVGg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=ojVDK9xOdgVLPJcx/q7ZRwxZ4Q59FxUIxbv5zfI+x54=;
-        b=QKc6QrDdeb4GybYjDP8WmXUa/IHrffF3ArdDOwE39kAXdaNhg7euPSmCskxNmTy87L
-         X8DQ0540fLDK2o5NzNGKdxpqRMmj9QVj76UeBuIw01KJlLW2bGob4xVF8w3O1vrfAqIy
-         c9jQ1CiKF28g+Ng5msso7dbLOdMiQEt7GgcvTIKVSdeZxfIl11oah7XhrK9/nY6WAznJ
-         2DvJoY9GKSXKWmu7Y9OXGxbszdOtT1X/6S5lTJbK1CfuAq10gNObMjevfpmAnxMbaLGH
-         /LBenateTXDMXE7SWtM24S9PwhY24jSN7zSr23eCsLBUxbkYzdqGd79X539fWkOMt30e
-         ktAQ==
-X-Gm-Message-State: AOAM532tcbOWoHdLczGrf3f9FyUIj1ei7JXglbespVQpIxMKkkRfI/PB
-        l9W70Uv2K+EmqdImL9Fzwr4kW2uUuhE=
-X-Google-Smtp-Source: ABdhPJxCbYrkxfmSYFUYaMTrUj+6doPOdAUMmQ7RMCX9BDZBWho+74RRQx/yJnvohmfPQN5jnE5SVg==
-X-Received: by 2002:a17:906:60d2:: with SMTP id f18mr15171096ejk.528.1606661367270;
-        Sun, 29 Nov 2020 06:49:27 -0800 (PST)
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+         :references:mime-version:content-transfer-encoding;
+        bh=OckwUd4cIgpFSKEPj5ll7DpZrSOgqoPQejCBf4kM9eI=;
+        b=Tinpq3NnP5YUDvgOxpfxRMpdHdQC5lFN7RMROdhPh4VkU7HtrnXXuJgvXvHAxGxq2P
+         x+ppj7rlgQvz6290lupTnBO3EFHdbv/us1HaTh7ZfReR3JKh9bSxVKYdtvwFuVWN30VJ
+         i3luZamDbYrOuYbEYQnWd8zcKryeLcgi3cYny09amBy02DThlqzwyQ8UTYWGPMbi8a/Y
+         JMNmKiwlxY0+CeOudXCwb5hmOEUmMYKY2PhQQdKQfalnRHIg0GBZyfXOfYkYcvmMW4ja
+         lk0Eci12/QlMqGZT5uRQiinNjlgbta19hdYuQJWKqIDrH8yGqlUJ4TxXiXdDnw63IHVp
+         CXaQ==
+X-Gm-Message-State: AOAM530UFzg5qccXHOoCwcdBK/Wj1sx8VDyxXQybHCIARVxcJ/0oeKdP
+        Z7S2N8Uc2M4+pKjVtlK9fmZJSsKpung=
+X-Google-Smtp-Source: ABdhPJzkPPY+iVlvIF6p8H+y6OdwrQMKsttICqdCV12liqokitUWBQ6xEUjrgkABME0iPvL+qeUepA==
+X-Received: by 2002:a17:906:e81:: with SMTP id p1mr16673823ejf.494.1606661368304;
+        Sun, 29 Nov 2020 06:49:28 -0800 (PST)
 Received: from localhost.localdomain ([2a02:a03f:b7fe:f700:149a:de72:e1c0:dd0f])
-        by smtp.gmail.com with ESMTPSA id p25sm7435649eju.63.2020.11.29.06.49.26
+        by smtp.gmail.com with ESMTPSA id p25sm7435649eju.63.2020.11.29.06.49.27
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 29 Nov 2020 06:49:26 -0800 (PST)
+        Sun, 29 Nov 2020 06:49:27 -0800 (PST)
 From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 To:     linux-sparse@vger.kernel.org
 Cc:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-Subject: [PATCH 0/5] use replace_with_pseudo() for simplify_memops()
-Date:   Sun, 29 Nov 2020 15:49:17 +0100
-Message-Id: <20201129144922.56209-1-luc.vanoostenryck@gmail.com>
+Subject: [PATCH 1/5] let replace_with_pseudo() use kill_instruction()
+Date:   Sun, 29 Nov 2020 15:49:18 +0100
+Message-Id: <20201129144922.56209-2-luc.vanoostenryck@gmail.com>
 X-Mailer: git-send-email 2.29.2
+In-Reply-To: <20201129144922.56209-1-luc.vanoostenryck@gmail.com>
+References: <20201129144922.56209-1-luc.vanoostenryck@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-This series contains a few patches related to replace_with_pseudo()
-in preparation for some more consequential changes in memops
-simplification.
+In replace_with_pseudo(), the replaced instruction needs to be killed
+and for this contains ts own code.
 
-Luc Van Oostenryck (5):
-  let replace_with_pseudo() use kill_instruction()
-  make a header for simplification
-  make replace_with_pseudo() extern
-  memops: move rewrite_load_instruction() here
-  replace convert_load_instruction() by replace_with_pseudo()
+But this is a duplication of what is already done in kill_instruction().
 
- flow.c     | 48 +-----------------------------------------------
- flow.h     |  3 ---
- memops.c   | 46 ++++++++++++++++++++++++++++++++++++++++++++--
- optimize.c |  1 +
- simplify.c | 21 +++------------------
- simplify.h | 10 ++++++++++
- ssa.c      |  9 +++++----
- 7 files changed, 64 insertions(+), 74 deletions(-)
- create mode 100644 simplify.h
+So, replace this part of the code by a cal to kill_instruction().
 
+Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
+---
+ simplify.c | 18 +-----------------
+ 1 file changed, 1 insertion(+), 17 deletions(-)
+
+diff --git a/simplify.c b/simplify.c
+index de03d315ec33..29b368e94ff4 100644
+--- a/simplify.c
++++ b/simplify.c
+@@ -445,23 +445,7 @@ static inline int replace_pseudo(struct instruction *insn, pseudo_t *pp, pseudo_
+ static int replace_with_pseudo(struct instruction *insn, pseudo_t pseudo)
+ {
+ 	convert_instruction_target(insn, pseudo);
+-
+-	switch (insn->opcode) {
+-	case OP_SEL:
+-	case OP_RANGE:
+-		kill_use(&insn->src3);
+-	case OP_BINARY ... OP_BINCMP_END:
+-		kill_use(&insn->src2);
+-	case OP_UNOP ... OP_UNOP_END:
+-	case OP_SYMADDR:
+-		kill_use(&insn->src1);
+-		break;
+-
+-	default:
+-		assert(0);
+-	}
+-	insn->bb = NULL;
+-	return REPEAT_CSE;
++	return kill_instruction(insn);
+ }
+ 
+ static inline int replace_with_value(struct instruction *insn, long long val)
 -- 
 2.29.2
 
