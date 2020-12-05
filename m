@@ -2,54 +2,87 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 3251A2CF84D
-	for <lists+linux-sparse@lfdr.de>; Sat,  5 Dec 2020 01:48:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id C0B6C2CFF87
+	for <lists+linux-sparse@lfdr.de>; Sat,  5 Dec 2020 23:33:48 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1731135AbgLEArR (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Fri, 4 Dec 2020 19:47:17 -0500
-Received: from vsm-gw.hyogo-dai.ac.jp ([202.244.76.12]:50044 "EHLO
-        vsm-gw.hyogo-dai.ac.jp" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726917AbgLEArR (ORCPT
-        <rfc822;linux-sparse@vger.kernel.org>);
-        Fri, 4 Dec 2020 19:47:17 -0500
-Received: from humans-kc.hyogo-dai.ac.jp (humans-kc.hyogo-dai.ac.jp [202.244.77.11])
-        by vsm-gw.hyogo-dai.ac.jp (Postfix) with ESMTP id 31A351A558B;
-        Sat,  5 Dec 2020 04:44:55 +0900 (JST)
-Received: from humans-kc.hyogo-dai.ac.jp (humans-kc.hyogo-dai.ac.jp [127.0.0.1])
-        by postfix.imss71 (Postfix) with ESMTP id E5C39838858;
-        Sat,  5 Dec 2020 04:44:54 +0900 (JST)
-Received: from hyogo-dai.ac.jp (unknown [202.244.77.11])
-        by humans-kc.hyogo-dai.ac.jp (Postfix) with SMTP id B84F6838260;
-        Sat,  5 Dec 2020 04:44:54 +0900 (JST)
+        id S1726016AbgLEWdc (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Sat, 5 Dec 2020 17:33:32 -0500
+Received: from mail.kernel.org ([198.145.29.99]:59964 "EHLO mail.kernel.org"
+        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
+        id S1726011AbgLEWdc (ORCPT <rfc822;linux-sparse@vger.kernel.org>);
+        Sat, 5 Dec 2020 17:33:32 -0500
+Date:   Sat, 5 Dec 2020 14:32:50 -0800
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+        s=k20201202; t=1607207572;
+        bh=YZrn1IlbhlQAWy/qDP82GR67nZ5d803g393MCcPsdm0=;
+        h=From:To:Cc:Subject:From;
+        b=twsk11/9zewfQGMp7lYWqYVhZoy4/KRwjuLf0RSixLZfecN1zel/wVGotAM9CmPey
+         Gk/tTHNkAqEHZMWXL0te3VsBLAs8puHlskNXm0oz5cZAB3gh1D50OSOO7qWAZf3G8C
+         y2b2rA6Imfu+XJsHgwn1pv1par5Vgbx9FVjdQyBUAn3Urxayg252b6BIGETxX0CKX8
+         PbnvDiP8xtN1KcZ1JFInrWoqiZWgIO0tcEw3b2eXxBCSDIc4QTAwF8i/pUITV1ZiCQ
+         6sQtKmZ8LaD/QkqtiB/0HWMg4HPdf9pSpZ4uS7Da5trS1WlJ9LUKk/Os2rNZIXRpp/
+         MWmSzdVfgy1yg==
+From:   Jakub Kicinski <kuba@kernel.org>
+To:     linux-sparse@vger.kernel.org
+Cc:     linux-kernel@vger.kernel.org, edwin.peer@broadcom.com,
+        Zhang Changzhong <zhangchangzhong@huawei.com>
+Subject: sparse annotation for error types?
+Message-ID: <20201205143250.2378b9f9@kicinski-fedora-pc1c0hjn.DHCP.thefacebook.com>
 MIME-Version: 1.0
-Message-ID: <20201204194454.00002B21.0147@hyogo-dai.ac.jp>
-Date:   Sat, 05 Dec 2020 04:44:54 +0900
-From:   "Dr.Raymond" <tabata@hyogo-dai.ac.jp>
-To:     <infocarferr1@aim.com>
-Reply-To: <infocarfer@aim.com>
-Subject: I am Vice Chairman of Hang Seng Bank, Dr. Raymond Chien
-         Kuo Fung I have Important Matter to Discuss with you concerning
-         my late client. Died without a NEXT OF KIN. Send me your private
-         email for full details information. 
 Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-X-Priority: 3
-X-MAILER: Active! mail
-X-TM-AS-MML: disable
-X-TM-AS-Product-Ver: IMSS-7.1.0.1808-8.2.0.1013-25446.007
-X-TM-AS-Result: No--4.326-5.0-31-10
-X-imss-scan-details: No--4.326-5.0-31-10
-X-TM-AS-User-Approved-Sender: No
-X-TMASE-MatchedRID: +T4Z3mpR0x5ITndh1lLRASsOycAMAhSTkCM77ifYafsBLhz6t76Ce/bj
-        Enpjm61/Gf23dqZJjE4Erxo5p8V1/E1+zyfzlN7y/sToY2qzpx7w5nZ/qYg41XEWw1TkKAjcYff
-        qdBtG2ocgOkCKsW/kbuunGEBqPil++coAzulIP8gMTyJMXCOBhj9BWL7GG0LsKrauXd3MZDUZaR
-        NzIP3XI5u3uLPgwbAMH5RdHnhWfwyq9gpuf+A6coDeeVSgzszVDx5n520Z3eZyT7DDRtYlKaWBy
-        ZE9nSaC/rhfyjvqkZu/pNa4BidtZEMMprcbiest
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-infocarfer@aim.com
+Hi!
+
+Recently we've been getting a steady stream of patches from Changzhong
+to fix missing assignment to error variables before jumping to error
+cases.
+
+I wonder if for new code it'd make sense to add an annotation for a type
+which has to be returned non-zero?
+
+What I have in mind is the following common flow:
+
+int do_a_thing(struct my_obj *obj, int param)
+{
+	int err;
+
+	err = first_step(obj, 1);
+	if (err)
+		return err;
+
+	if (some_check(obj)) {
+		err = -EINVAL; /* need explicit error set! */
+		goto err_undo_1s;
+	}
+
+	err = second_step(obj, param);
+	if (err)
+		goto err_undo_1s;
+
+	err = third_step(obj, 0);
+	if (err)
+		goto err_undo_2s;
+
+	return 0;
+
+err_undo_2s:
+	second_undo(obj);
+err_undo_1s:
+	first_undo(obj);
+	return err;
+}
 
 
+The variable err should never be returned when it's equal to 0.
+So if we annotate it, let's say as:
 
+	int __nzret err;
+
+could sparse then warn if we forgot to assign it after
+"if (some_check(obj))"? 
+
+Am I the only one who thinks this would be a good idea?
