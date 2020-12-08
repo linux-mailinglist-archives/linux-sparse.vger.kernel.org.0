@@ -2,55 +2,58 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 7F8502D1F6D
-	for <lists+linux-sparse@lfdr.de>; Tue,  8 Dec 2020 01:52:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 8F74A2D2741
+	for <lists+linux-sparse@lfdr.de>; Tue,  8 Dec 2020 10:15:54 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1728919AbgLHAvm (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Mon, 7 Dec 2020 19:51:42 -0500
-Received: from vsm-gw.hyogo-dai.ac.jp ([202.244.76.12]:35013 "EHLO
-        vsm-gw.hyogo-dai.ac.jp" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1728234AbgLHAvk (ORCPT
+        id S1728354AbgLHJPt (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Tue, 8 Dec 2020 04:15:49 -0500
+Received: from mail.planhousebiz.com ([217.61.15.185]:33750 "EHLO
+        server1.mail.planhousebiz.com" rhost-flags-OK-OK-OK-FAIL)
+        by vger.kernel.org with ESMTP id S1726340AbgLHJPt (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Mon, 7 Dec 2020 19:51:40 -0500
-X-Greylist: delayed 16991 seconds by postgrey-1.27 at vger.kernel.org; Mon, 07 Dec 2020 19:51:35 EST
-Received: from humans-kc.hyogo-dai.ac.jp (humans-kc.hyogo-dai.ac.jp [202.244.77.11])
-        by vsm-gw.hyogo-dai.ac.jp (Postfix) with ESMTP id DE24F1A606F;
-        Tue,  8 Dec 2020 04:09:26 +0900 (JST)
-Received: from humans-kc.hyogo-dai.ac.jp (humans-kc.hyogo-dai.ac.jp [127.0.0.1])
-        by postfix.imss71 (Postfix) with ESMTP id BC3D8382029;
-        Tue,  8 Dec 2020 04:09:26 +0900 (JST)
-Received: from hyogo-dai.ac.jp (unknown [202.244.77.11])
-        by humans-kc.hyogo-dai.ac.jp (Postfix) with SMTP id 426EA83825B;
-        Tue,  8 Dec 2020 04:09:26 +0900 (JST)
+        Tue, 8 Dec 2020 04:15:49 -0500
+X-Greylist: delayed 525 seconds by postgrey-1.27 at vger.kernel.org; Tue, 08 Dec 2020 04:15:48 EST
+Received: by server1.mail.planhousebiz.com (Postfix, from userid 1001)
+        id 1785586F9B; Tue,  8 Dec 2020 09:06:07 +0000 (GMT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=planhousebiz.com;
+        s=mail; t=1607418379;
+        bh=KcTLAaBZFyXcuWORfd+SWML68Lg2YFEJhVMRcrpbANk=;
+        h=Date:From:To:Subject:From;
+        b=FFomfgxGH1MALkaqPdLgkNW8McnJT4M1AfEeDuC6TKFbDebEkNifIMlrssQMPZQSr
+         3mVG5EEeUG628PwiYS1CxBJP8E+SAWupcTw5Nnoad7KaOp2Ij921XScFDixh8MoS/U
+         JzVpb8Nny7ZLoLdHyjgBXNDplEyoWaj6oX6+kJ1uGpEbaX3FSmbTOTgsXh8YKPt03Q
+         Iobk9bKAswhZePIfZZPgKRoUpcv/APIwG+Jg4bCm445mjCKvU86ZCyFuUpD7ZePeyi
+         0AT5spI/9phSj5FFly/q0BDyaBLs3yCw7BYzezxilU6bU3LILLb3zjnp321McrBm/S
+         mp21iKiTHszWA==
+Received: by mail.planhousebiz.com for <linux-sparse@vger.kernel.org>; Tue,  8 Dec 2020 09:05:53 GMT
+Message-ID: <20201208074500-0.1.f.1itm.0.qjd4rql121@planhousebiz.com>
+Date:   Tue,  8 Dec 2020 09:05:53 GMT
+From:   "Juanito Gil" <juanito.gil@planhousebiz.com>
+To:     <linux-sparse@vger.kernel.org>
+Subject: =?UTF-8?Q?Control_del_veh=C3=ADculo?=
+X-Mailer: mail.planhousebiz.com
 MIME-Version: 1.0
-Message-ID: <20201207190926.000057A2.0664@hyogo-dai.ac.jp>
-Date:   Tue, 08 Dec 2020 04:09:26 +0900
-From:   "Raymond " <hozumi@hyogo-dai.ac.jp>
-To:     <infocarferw1@aim.com>
-Reply-To: <infocarfer@aim.com>
-Subject: I am Vice Chairman of Hang Seng Bank, Dr. Raymond Chien
-         Kuo Fung I have Important Matter to Discuss with you concerning
-         my late client. Died without a NEXT OF KIN. Send me your private
-         email for full details information.
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Priority: 3
-X-MAILER: Active! mail
-X-TM-AS-MML: disable
-X-TM-AS-Product-Ver: IMSS-7.1.0.1808-8.2.0.1013-25446.007
-X-TM-AS-Result: No--2.951-5.0-31-10
-X-imss-scan-details: No--2.951-5.0-31-10
-X-TM-AS-User-Approved-Sender: No
-X-TMASE-MatchedRID: X41QhRrT5f5ITndh1lLRASsOycAMAhSTkCM77ifYafsBLhz6t76Ce6P0
-        clhHAFPyJA6GJqxAEzL554DD9nXlqqPFjJEFr+olfeZdJ1XsoriOub3SYcq1hJf7eAx/Ae/AbQo
-        eraIcZBRw7u01FqNA2K1Ia4IbeAdLm9ukrtqhno/rIUidklntLAP5zT0d393cymsk/wUE4hoZaR
-        NzIP3XI5u3uLPgwbAMH5RdHnhWfwyq9gpuf+A6coDeeVSgzszVDx5n520Z3eZyT7DDRtYlKaWBy
-        ZE9nSaC/rhfyjvqkZu/pNa4BidtZEMMprcbiest
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-email:kraymond75@aol.com
+Buenos d=C3=ADas:
+=20
 
+Represento a una empresa que ofrece las mejores soluciones telem=C3=A1tic=
+as de su clase.
 
+Un sistema de seguimiento de veh=C3=ADculos sin igual con una funcionalid=
+ad ampliamente desarrollada que satisface pr=C3=A1cticamente todas las ne=
+cesidades existentes en el =C3=A1mbito de la gesti=C3=B3n de flotas.
 
+Por otra parte, el per=C3=ADodo de prueba gratuito de tres meses le permi=
+te explorar completamente las posibilidades sin ning=C3=BAn riesgo.
+
+=C2=BFEst=C3=A1 interesado en ser m=C3=A1s eficiente a la hora de gestion=
+ar autom=C3=B3viles u otros veh=C3=ADculos de empresa?
+
+Saludos,
+Juanito Gil
