@@ -2,59 +2,59 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 0B4642E2ED8
+	by mail.lfdr.de (Postfix) with ESMTP id 783F62E2ED9
 	for <lists+linux-sparse@lfdr.de>; Sat, 26 Dec 2020 18:54:11 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726317AbgLZRxU (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        id S1726280AbgLZRxU (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
         Sat, 26 Dec 2020 12:53:20 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:48154 "EHLO
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:48156 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726280AbgLZRxU (ORCPT
+        with ESMTP id S1726290AbgLZRxU (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
         Sat, 26 Dec 2020 12:53:20 -0500
-Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com [IPv6:2a00:1450:4864:20::431])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 4E847C061799
-        for <linux-sparse@vger.kernel.org>; Sat, 26 Dec 2020 09:52:06 -0800 (PST)
-Received: by mail-wr1-x431.google.com with SMTP id w5so6645712wrm.11
+Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com [IPv6:2a00:1450:4864:20::329])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 11AC3C06179A
+        for <linux-sparse@vger.kernel.org>; Sat, 26 Dec 2020 09:52:07 -0800 (PST)
+Received: by mail-wm1-x329.google.com with SMTP id a6so5764176wmc.2
         for <linux-sparse@vger.kernel.org>; Sat, 26 Dec 2020 09:52:06 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=uyQF353lYq1izEYPKpY3ieFNMCf34amRJhpkdo3ktuA=;
-        b=HwDpxD9g2Fw2z5k+PWU8UwIqbnlFbhoVL+VkCuoyx2l5pShQWSnOl/GF6LlEtshfPU
-         jg6k2Nk9OHHWCppvUvRvobSXFxhPCPbih2CJExJaA6fyoZYf3HuDGUNrfxfUhvIeSvfg
-         CdJy5Wvroi0kX8fbI6LudjAM1QNJXJLuPd+5VTEtE6v6wKNIqbdb+I6MmuOswwlYrv4X
-         AKXWXX4GHIOSSqSvVa7Yj4ZKu2tJeIsrgs09Yldk69rD41Gkl0StJGyT8XLcJStZYRxF
-         2KK3DfVJBWUxb849eqfe6ypzwmsJouDRN5RrHDC0RxBIQB8NI714ExmK212oWRirOEVw
-         kR8g==
+        bh=2FwEVZF+/371nFbgxzz7i1U9JlsSybepMtcnC5zhALk=;
+        b=DFpoMFZJGyKSkXdzS8mMU5EyWU7PwOKjSB7asn9R1PvYzk3+fgkuVG1pOPX+dv8+Tb
+         xne1MhSjAQA+HnMMcZQqFUNqS5uWWEtMs4GPXkjewYBfbxfcWFGGkXRTSPZedrmVzwlo
+         1nJBFJoRhUNldmYN9dgq76DnTo1mETaJXuVN9dZJPmSvnumAi85BFDyk1/7lqznFSiUf
+         cmsZ+vkQi3+3z+u9c/wBnc/xuWwZ1pFy7LnOFOlUN6SN2EPsrbjI29WD8zuUgy4gx94N
+         iE8rha+djY9Zz9djKtLxhVgbbk39noNIvkQZ3ZsxbyMmYZX1SCFkjS9GUrLasL8ooU9N
+         VlNg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=uyQF353lYq1izEYPKpY3ieFNMCf34amRJhpkdo3ktuA=;
-        b=WZVZ+mLYrUA1gz3zUcxOXilbNBC8RLfSezfC2Y8CIG/feBgX3a35X1L1cd4e7Y5kmk
-         K+H1AakIPVEyEuyKimrN4xG/ms6X6ov+q9ooFoMzNTMpzHJ5KDvAn4XJf0rgMvGc+XEi
-         PCnlQcnQU0kC+BYb9+zbJz22KxC94dYQunjdM77Wbf7JZ9b6QvAbeRr0XOSAy13C/VCd
-         uQRv6UPcNSdh+/4eLZpTpp3WUKQ2yVudWfMV1uV4NYQVe8JWBYGzANRWUH3HegzMHNC9
-         u1znLZ1ekTNf9a4uH6rN1FqDHLwqOrNynyyB4W4+RFiscQIlqnAAhQfctHSRuVQlwG5z
-         6AJw==
-X-Gm-Message-State: AOAM532CmnKMY+RqcDKgkJjX4+mVvCZafNEV1DPP52IMWlBYRDY/u2z8
-        Iqh0ph37tANTpFG78M3kGypB/I58C+0=
-X-Google-Smtp-Source: ABdhPJxvReHJAPSfkGOF5E3XaRdnZbwxevhkciXYjusB7McU+Zx4t1I4W6ForQevWsvyjETnNc5IZQ==
-X-Received: by 2002:a5d:6a83:: with SMTP id s3mr44643262wru.334.1609005125045;
+        bh=2FwEVZF+/371nFbgxzz7i1U9JlsSybepMtcnC5zhALk=;
+        b=cGklDL8OgF86DFkd07CXEoz+9OYzYYWjHdwh0mmMucS27E6WehKJ1z5tLHY1Il+WSX
+         PuCaD5tnHkSoXrBEgxvHYghe04FHn5g3515JvbhdlB0mutqDxG/mzwNIUdKrpXeKQES2
+         DWbHBzaXd5JkxECMDXTqJ57DrXdLX6gUOjZbvOcBk6w2C95k4RyJJjGoX/bPAyDsbckQ
+         WpYkV67gkSthC9vYW7dp/w4IZrgxlcnw6eSaRs4UiDIn8P/R+imzJMt4nwDNcRaLrzZK
+         tmfgR0VhB8FNhbLICmIAa+tgAvObqOtSkAZCDyrstZeY//bQRY/O8G2/vA1LWCtnjmpw
+         SYmQ==
+X-Gm-Message-State: AOAM5330XqlP7q6FpJVnFw19g/Jja5G6EOlLyGggRhTWmvLmJex3TaUY
+        2IRIEYGffI0W+wWx83ds0RsECE+4H6w=
+X-Google-Smtp-Source: ABdhPJzAnzse3FFBNpprinwl3KyO9vCETF1X12+ZYCeEgmQniOSMUA6VX597cbFYZD8AYp7740OEwQ==
+X-Received: by 2002:a1c:87:: with SMTP id 129mr13126035wma.183.1609005125884;
         Sat, 26 Dec 2020 09:52:05 -0800 (PST)
 Received: from localhost.localdomain ([2a02:a03f:b7fe:f700:10a5:37c9:8c28:d3e9])
-        by smtp.gmail.com with ESMTPSA id c4sm12780813wmf.19.2020.12.26.09.52.04
+        by smtp.gmail.com with ESMTPSA id c4sm12780813wmf.19.2020.12.26.09.52.05
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 26 Dec 2020 09:52:04 -0800 (PST)
+        Sat, 26 Dec 2020 09:52:05 -0800 (PST)
 From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 To:     linux-sparse@vger.kernel.org
 Cc:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>,
         Jacob Keller <jacob.e.keller@intel.com>
-Subject: [PATCH v2 09/16] apply_ctype: move up its declaration
-Date:   Sat, 26 Dec 2020 18:51:22 +0100
-Message-Id: <20201226175129.9621-10-luc.vanoostenryck@gmail.com>
+Subject: [PATCH v2 10/16] struct-attr: prepare to handle attributes at the end of struct definitions (1)
+Date:   Sat, 26 Dec 2020 18:51:23 +0100
+Message-Id: <20201226175129.9621-11-luc.vanoostenryck@gmail.com>
 X-Mailer: git-send-email 2.29.2
 In-Reply-To: <20201226175129.9621-1-luc.vanoostenryck@gmail.com>
 References: <20201226175129.9621-1-luc.vanoostenryck@gmail.com>
@@ -64,36 +64,68 @@ Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-apply_ctype() will be needed earlier in the code.
-So, move it's prototype up.
+Type attributes for struct can be placed either just after the
+keyword 'struct' or after the '}' ending its definition but this
+later case is currently ignored.
+
+Prepare the handling of this by factoring the code common to both
+cases in a single place.
 
 Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 ---
- parse.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ parse.c                        | 11 +++++------
+ validation/parsing/enum-attr.c |  4 ++--
+ 2 files changed, 7 insertions(+), 8 deletions(-)
 
 diff --git a/parse.c b/parse.c
-index f106444f75d8..d6343f0e48bf 100644
+index d6343f0e48bf..99d810910dab 100644
 --- a/parse.c
 +++ b/parse.c
-@@ -669,6 +669,8 @@ struct statement *alloc_statement(struct position pos, int type)
- 
- static struct token *struct_declaration_list(struct token *token, struct symbol_list **list);
- 
-+static void apply_ctype(struct position pos, struct ctype *dst, struct ctype *src);
-+
- static void apply_modifiers(struct position pos, struct decl_state *ctx)
- {
- 	struct symbol *ctype;
-@@ -1043,8 +1045,6 @@ static struct token *enum_specifier(struct token *token, struct symbol *sym, str
- 	return ret;
- }
- 
--static void apply_ctype(struct position pos, struct ctype *dst, struct ctype *src);
+@@ -745,12 +745,7 @@ static struct token *struct_union_enum_specifier(enum type type,
+ 			if (sym->symbol_list)
+ 				error_die(token->pos, "redefinition of %s", show_typename (sym));
+ 			sym->pos = *repos;
+-			token = parse(token->next, sym);
+-			token = expect(token, '}', "at end of struct-union-enum-specifier");
 -
- static struct token *typeof_specifier(struct token *token, struct symbol *sym, struct decl_state *ctx)
- {
+-			// Mark the structure as needing re-examination
+-			sym->examined = 0;
+-			sym->endpos = token->pos;
++			goto end;
+ 		}
+ 		return token;
+ 	}
+@@ -763,10 +758,14 @@ static struct token *struct_union_enum_specifier(enum type type,
+ 	}
  
+ 	sym = alloc_symbol(token->pos, type);
++end:
+ 	set_current_scope(sym);		// used by dissect
+ 	token = parse(token->next, sym);
+ 	ctx->ctype.base_type = sym;
+ 	token =  expect(token, '}', "at end of specifier");
++
++	// Mark the structure as needing re-examination
++	sym->examined = 0;
+ 	sym->endpos = token->pos;
+ 
+ 	return token;
+diff --git a/validation/parsing/enum-attr.c b/validation/parsing/enum-attr.c
+index a962d8b417af..8d851a162135 100644
+--- a/validation/parsing/enum-attr.c
++++ b/validation/parsing/enum-attr.c
+@@ -21,9 +21,9 @@ enum bad {
+ parsing/enum-attr.c:10:15: error: typename in expression
+ parsing/enum-attr.c:10:15: error: undefined identifier '__attribute__'
+ parsing/enum-attr.c:10:15: error: bad constant expression type
+-parsing/enum-attr.c:10:22: error: Expected } at end of struct-union-enum-specifier
++parsing/enum-attr.c:10:22: error: Expected } at end of specifier
+ parsing/enum-attr.c:10:22: error: got 33
+-parsing/enum-attr.c:14:18: error: Expected } at end of struct-union-enum-specifier
++parsing/enum-attr.c:14:18: error: Expected } at end of specifier
+ parsing/enum-attr.c:14:18: error: got __attribute__
+  * check-error-end
+  */
 -- 
 2.29.2
 
