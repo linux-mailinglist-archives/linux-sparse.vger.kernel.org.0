@@ -2,59 +2,59 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id D88C52E2ED1
-	for <lists+linux-sparse@lfdr.de>; Sat, 26 Dec 2020 18:54:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 512932E2ED2
+	for <lists+linux-sparse@lfdr.de>; Sat, 26 Dec 2020 18:54:08 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726309AbgLZRwk (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Sat, 26 Dec 2020 12:52:40 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:48040 "EHLO
+        id S1726340AbgLZRwl (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Sat, 26 Dec 2020 12:52:41 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:48046 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
         with ESMTP id S1726280AbgLZRwk (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
         Sat, 26 Dec 2020 12:52:40 -0500
-Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com [IPv6:2a00:1450:4864:20::329])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 9A088C0613CF
-        for <linux-sparse@vger.kernel.org>; Sat, 26 Dec 2020 09:51:59 -0800 (PST)
-Received: by mail-wm1-x329.google.com with SMTP id g185so5679987wmf.3
-        for <linux-sparse@vger.kernel.org>; Sat, 26 Dec 2020 09:51:59 -0800 (PST)
+Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com [IPv6:2a00:1450:4864:20::32f])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 684A2C0613ED
+        for <linux-sparse@vger.kernel.org>; Sat, 26 Dec 2020 09:52:00 -0800 (PST)
+Received: by mail-wm1-x32f.google.com with SMTP id n16so5231855wmc.0
+        for <linux-sparse@vger.kernel.org>; Sat, 26 Dec 2020 09:52:00 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=igYkLeqnIXBYQCR9l8FdXDALCmYdO0nq7AGpxF7L7EU=;
-        b=aom2lx6vE3/2MHMas+7kDLos0C5GiV6kP5teojmDbbyrpI+Pjp5TLIq9B45HVRhKrx
-         y81UKH63hjhDvzTWr7Xp7fOiLmXgoJWYyVSudMN25bsQcsBNGr7DPd6GLwy538KfTo1C
-         5+eWYpAZDWKJ+7KB076pnsPsrTmLT6Nwfxiy/7Ui9jBcjokE6YpW5qWB5cPuQ3iV0spT
-         Oa3w92KTNctlM0EgtrlD6ocm5ZGUvt9J1V4W+CrKR3uYY7VkGmo4J29W3YGiYfEn0lMa
-         JuNLz1Ppn2uAi/+vuVLowGYCmpGOharuyxY7ORqlh9WRTlfhqkptw69MIHZg50iMeDzP
-         DqYQ==
+        bh=BFJdvKn92/GbKfPYvhWYQ4d/ziGHTHFbZbzDhbkWBEo=;
+        b=paLtGJVTOK8GtVybkatpET4VERrgue0kK69XVdC7rShJ3Sxo+vEjygPSkN0euFHQn/
+         K+YJ0oxOlsm41AEjAC+6pNazzP29+b0ivZEcVwq555ZBaXVPf/x4CEYHj1OD9n3LoYUd
+         ABJVGAsmuNGnyO4580S5hnzuecRrVkcoETp5BfCRoKiBbiLpTEGJlsJTxS6EVI7bz5fa
+         QGZpZmRUh0ZwYB5OXDHJKRfqslJi2IsQlHib34zxOn6v6s8asNoQhqpYmbUoNjLa1mrG
+         DnlUlsUVkcsIkbgZvqcEp/Rs+uUThpGvuLXwcNQe46dGZNE29XPrztTc/uuLMn7HzQ19
+         R0Vg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=igYkLeqnIXBYQCR9l8FdXDALCmYdO0nq7AGpxF7L7EU=;
-        b=AQthCIZTR7DaR8qrTqiHjc4vvv9W4l/5FDyL61VtaJouXhyxC+tNgIEWS5n8Uj8dg5
-         lu3c17xxdbmXXWtp//lYnCi0SSKWyagl9OHe1oayzTVpB/TSTKNwuM18+mXngcfaxZWh
-         KRrte/vQJP7wwvYyzC8myL9GQbP/60xet9UNjQj9IJwdgOurMIccXLtygAnPx+pFS8Dm
-         0m1xsJrRZJmEGnOpUFJTc04WlRn4NYw84U/KC39HNGKu+q894rItmW0x1JeYJAuR+KoB
-         HU1IbWBSLraejTFDenr5E5VLDls/caXUDY9n7PrbSf5YYgqbIHEw16ytOTDvxu0d3Tgd
-         0vRw==
-X-Gm-Message-State: AOAM531gO4hY+RV+ukw4cXcdOaR/mnNDJbdNWgyZ8jsFsFatGaWRMdvA
-        rPY/RJTMFoEaXdKqKaUfdlx2q8IToao=
-X-Google-Smtp-Source: ABdhPJxnAXUdNw3QMtDzgs9RV2T3LYw/QJlGo4XaUXEV7TMgnSArpqunUoTnE0slpZK540xOS3FQcQ==
-X-Received: by 2002:a1c:7e02:: with SMTP id z2mr12817978wmc.173.1609005118388;
-        Sat, 26 Dec 2020 09:51:58 -0800 (PST)
+        bh=BFJdvKn92/GbKfPYvhWYQ4d/ziGHTHFbZbzDhbkWBEo=;
+        b=CZQ5hUW8x+vVEjQwnPId5nWClcl/KRqEz46V7//TIDUDx6TONnJ4prdZGeYF3gfRC0
+         YX92m6BvYt6ahHDANkh1M72I62va4nDEqIgKWl4ph4EuNyUzMEWRtUsA2CrUwRArVILJ
+         FROgdpghIgiMxmsr12BJso90jhQ16bAFZqMxgRj16eHj9rBkmNmuWT6/4ONIi0is2COI
+         oD2I+Uxa6yKapngKNFciIWuP+V8hBjqmLDq9vqI5K9xBZpN4ZhDMa6OzqsCiyi/WNY77
+         /stM7uV8nV60vUpcxySMGQizfPZzGt9HLmlcemxbleNqK7TSnuQU8scw303QMo/dEVt+
+         2vIg==
+X-Gm-Message-State: AOAM530L9XEU3UmVuD+EYgUO2bJecRwWb8ireqJ9F/Qup8vlv072Aw1f
+        LRFPaAqYlyVchqvNjw8SF4NCL1rSS4w=
+X-Google-Smtp-Source: ABdhPJxqowhv0bciuMyRqyhxZNYuCiKFMrFk4e8Qly0/Lh52J67DCVdriByHIxR/RUItodGy9gd9bw==
+X-Received: by 2002:a1c:9c52:: with SMTP id f79mr13223810wme.3.1609005119221;
+        Sat, 26 Dec 2020 09:51:59 -0800 (PST)
 Received: from localhost.localdomain ([2a02:a03f:b7fe:f700:10a5:37c9:8c28:d3e9])
-        by smtp.gmail.com with ESMTPSA id c4sm12780813wmf.19.2020.12.26.09.51.57
+        by smtp.gmail.com with ESMTPSA id c4sm12780813wmf.19.2020.12.26.09.51.58
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 26 Dec 2020 09:51:57 -0800 (PST)
+        Sat, 26 Dec 2020 09:51:58 -0800 (PST)
 From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 To:     linux-sparse@vger.kernel.org
 Cc:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>,
         Jacob Keller <jacob.e.keller@intel.com>
-Subject: [PATCH v2 02/16] add testcases for exotic enum values
-Date:   Sat, 26 Dec 2020 18:51:15 +0100
-Message-Id: <20201226175129.9621-3-luc.vanoostenryck@gmail.com>
+Subject: [PATCH v2 03/16] add testcases for enum attributes
+Date:   Sat, 26 Dec 2020 18:51:16 +0100
+Message-Id: <20201226175129.9621-4-luc.vanoostenryck@gmail.com>
 X-Mailer: git-send-email 2.29.2
 In-Reply-To: <20201226175129.9621-1-luc.vanoostenryck@gmail.com>
 References: <20201226175129.9621-1-luc.vanoostenryck@gmail.com>
@@ -64,49 +64,46 @@ Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-There is more than one complexity in the evaluation of enums.
-
-Add a test for enums with 'exotic' values non-covered in other tests.
-
 Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 ---
- validation/enum-type-exotic.c | 28 ++++++++++++++++++++++++++++
- 1 file changed, 28 insertions(+)
- create mode 100644 validation/enum-type-exotic.c
+ validation/parsing/enum-attr.c | 29 +++++++++++++++++++++++++++++
+ 1 file changed, 29 insertions(+)
+ create mode 100644 validation/parsing/enum-attr.c
 
-diff --git a/validation/enum-type-exotic.c b/validation/enum-type-exotic.c
+diff --git a/validation/parsing/enum-attr.c b/validation/parsing/enum-attr.c
 new file mode 100644
-index 000000000000..a17ca0ad48ef
+index 000000000000..a962d8b417af
 --- /dev/null
-+++ b/validation/enum-type-exotic.c
-@@ -0,0 +1,28 @@
-+enum foobar {
-+        C = (unsigned char)0,
-+        L = 1L,
++++ b/validation/parsing/enum-attr.c
+@@ -0,0 +1,29 @@
++#define __attr __attribute__((deprecated))
++
++enum {
++	old __attr,
++	cur __attr = 42,
++	new,
 +};
 +
-+unsigned int foo(void);
-+unsigned int foo(void)
-+{
-+#ifdef __CHECKER__
-+	_Static_assert([typeof(C)] == [enum foobar], "enum type");
-+	_Static_assert([typeof(C)] != [unsigned char], "char type");
-+#endif
++enum odd {
++	odd = __attr 33,
++};
 +
-+	typeof(C) v = ~0;
-+	return v;
-+}
++enum bad {
++	bad = 43 __attr,
++};
 +
 +/*
-+ * check-name: enum-type-exotic
-+ * check-description:
-+ *	GCC type's for C is 'int' or maybe 'unsigned int'
-+ *	but certainly not 'unsigned char' like here.
-+ * check-command: test-linearize -Wno-decl $file
-+ * check-known-to-fail
++ * check-name: enum-attr
 + *
-+ * check-output-ignore
-+ * check-output-excludes: ret\\.32 *\\$255
++ * check-error-start
++parsing/enum-attr.c:10:15: error: typename in expression
++parsing/enum-attr.c:10:15: error: undefined identifier '__attribute__'
++parsing/enum-attr.c:10:15: error: bad constant expression type
++parsing/enum-attr.c:10:22: error: Expected } at end of struct-union-enum-specifier
++parsing/enum-attr.c:10:22: error: got 33
++parsing/enum-attr.c:14:18: error: Expected } at end of struct-union-enum-specifier
++parsing/enum-attr.c:14:18: error: got __attribute__
++ * check-error-end
 + */
 -- 
 2.29.2
