@@ -2,59 +2,59 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id AD5BC2E2ED5
-	for <lists+linux-sparse@lfdr.de>; Sat, 26 Dec 2020 18:54:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 25E932E2ED6
+	for <lists+linux-sparse@lfdr.de>; Sat, 26 Dec 2020 18:54:10 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1726167AbgLZRxT (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Sat, 26 Dec 2020 12:53:19 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:48146 "EHLO
+        id S1726240AbgLZRxU (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Sat, 26 Dec 2020 12:53:20 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:48148 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1726240AbgLZRxT (ORCPT
+        with ESMTP id S1726194AbgLZRxT (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
         Sat, 26 Dec 2020 12:53:19 -0500
-Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com [IPv6:2a00:1450:4864:20::335])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id F308BC061795
-        for <linux-sparse@vger.kernel.org>; Sat, 26 Dec 2020 09:52:02 -0800 (PST)
-Received: by mail-wm1-x335.google.com with SMTP id c133so5767444wme.4
-        for <linux-sparse@vger.kernel.org>; Sat, 26 Dec 2020 09:52:02 -0800 (PST)
+Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com [IPv6:2a00:1450:4864:20::331])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 09FFFC061796
+        for <linux-sparse@vger.kernel.org>; Sat, 26 Dec 2020 09:52:04 -0800 (PST)
+Received: by mail-wm1-x331.google.com with SMTP id q75so5687657wme.2
+        for <linux-sparse@vger.kernel.org>; Sat, 26 Dec 2020 09:52:03 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=FsgSSJ3L+SQlgN20WsY0uEPVgxCYkCt7Sgya9wWuCy8=;
-        b=h1Z2CUTBPf8uJwFje3ROMuDSDofKBgWr8/8zPJi8iIBGO1/00WoA+MTkjhWPvlfLBv
-         ao03ZCqYnXGQ5DE8wKI/KbZv3Bd3P3FcG8eztsHGLsHoOssvFQLXJHRE26+Zd8o9U6bj
-         N8dG3LO/48Zj60Tqimd6lflTvRpBkXjlPcCzKUJ+RzwP8ALTall7Q7bZHNnmajexDapf
-         yCbCVNpEY0vSwMlqIO/zNicHWLv7Rteu8Aw+KsO/AV57D6QCOwg+65Y2rqHKRaZnf6wb
-         FEpKo3S0yb6lJYqpNtTqR9hYOhV/WadTeq3xtvM53NPWOPYCsOdykJSefJflbmRe5RoI
-         petw==
+        bh=HwLxfE7uXS2gjxFHIROlHvoXuyp2AwlqFqstUvCTsew=;
+        b=oNutV2WpPqjay/6nt3epmXo6db4L3gkj7RHWDVPxN1fa7xJ/2sQUISJEUQY7RPwuaZ
+         UC/stzGW1Aiddcat5EVI/vL9p74oRK60M80nyB+8TPkKLCUKqDdb2USbpifdtukoxqBr
+         hWXwVXGCGm3aZI+0YKJsK8pKOI+HLug5wDTDnPxGvbjJumjK3v8xjM9xDwUbQKRoZif7
+         Iet2/meJk2w4eiblSC0H0J2eaRq6SqVBfv9tujE9gkCFXASCOoM1JJ67gB/xCRcE8k5S
+         +QGSaVChkfrSmm3rIXPVdDypDIFEFBq6MCPZyagAHbFfZBgIsjehozfuW0UsaGrPuupo
+         em1w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=FsgSSJ3L+SQlgN20WsY0uEPVgxCYkCt7Sgya9wWuCy8=;
-        b=UZb3T6c7X1zigUcGdeuxy4v/EKIHhgC9vPpCUa0J/oLxUsAgigIbosJW7VDKRY+TSG
-         4lhFHB1PzbO72bZ5U2l10Gw+rl6SlYfWciz89bjKRychs3oaBvjiF9ylwxJwkQoBqt7B
-         6PDmOIjnEMIxJmtrFrQ8m7P5VuvLZVIB/lbDEl5Q1LFx3Gjtqa+UTvOKJ9H7gqTioV6w
-         sEVmbJbArL2he+yyM9h7trAYovXZ/ctniVMdrNgI0WTzmOW+B5H2eqEXgLUdgZotu+lR
-         D6FrVSWK18mBz6ZS8kO6cC56NwMqaYEhdFQqE+y7JeyEEUg7EKuRwmHud1yJhwcG+i3q
-         UrLg==
-X-Gm-Message-State: AOAM531CL6/lSaRL5wUhOIaOIFgPb4V77QjbFY4DvE7k9UIS/uQWlSpb
-        TzZqwj5OQbafKSdO9i8eKdFLB7tSAec=
-X-Google-Smtp-Source: ABdhPJz8q2Rhf/YBbLso5CV2CpPDK4P9TkeCDPHMm4OyCn1NDpa/IGdxeI4RNPzHj7NG5Y2LBRmmCA==
-X-Received: by 2002:a1c:4d0a:: with SMTP id o10mr13603106wmh.185.1609005121740;
-        Sat, 26 Dec 2020 09:52:01 -0800 (PST)
+        bh=HwLxfE7uXS2gjxFHIROlHvoXuyp2AwlqFqstUvCTsew=;
+        b=OjZBZe9fb7UY0fqb07Q8DezG8pRPXpYz0CxrZ56a6OHs/De+r7v5L1WaYc6IBNPZl2
+         yvis1OcZm3xcDY7wNJfBuKs8daeaqECO1pmUbJ3DQ6RuDiIFMEA1HmyRmyxXzGjogQ1U
+         3uy6YRkQu4qeLRnWit7/RPV22GQLOyxYQiYg1whA5YNTxlXX5qnH/8CZDjhkWjOxlp3l
+         Y8papujT4mWSKcNY+GFkOTcSd3CPHLk+MSUEBLRhK2ihuhyWWSqqY00SjZwAgbyyy95r
+         W795YcPnoOY4e7SLE0YZybTahAwjRHECQR4sZxdBzEfK3TOPQy6TvIL/3fe7ljABwlvC
+         6dwg==
+X-Gm-Message-State: AOAM530x4pqw6o/Fit8By9tH3f8qM7g20lHAEyU2rG1L2odM8TM/krTl
+        4kHBUh7XWVpYcBqSEhic8a3Q9mFK++Y=
+X-Google-Smtp-Source: ABdhPJz+6k1kJhowDdfC+Fxrzt6541ZgvEyCbBQEvkZD+41k8aURhdDe1Zx0RLouMbSaw/zywwlITw==
+X-Received: by 2002:a7b:cc16:: with SMTP id f22mr12861803wmh.131.1609005122843;
+        Sat, 26 Dec 2020 09:52:02 -0800 (PST)
 Received: from localhost.localdomain ([2a02:a03f:b7fe:f700:10a5:37c9:8c28:d3e9])
-        by smtp.gmail.com with ESMTPSA id c4sm12780813wmf.19.2020.12.26.09.52.01
+        by smtp.gmail.com with ESMTPSA id c4sm12780813wmf.19.2020.12.26.09.52.02
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 26 Dec 2020 09:52:01 -0800 (PST)
+        Sat, 26 Dec 2020 09:52:02 -0800 (PST)
 From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 To:     linux-sparse@vger.kernel.org
 Cc:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>,
         Jacob Keller <jacob.e.keller@intel.com>
-Subject: [PATCH v2 06/16] add testcases for packed bitfields
-Date:   Sat, 26 Dec 2020 18:51:19 +0100
-Message-Id: <20201226175129.9621-7-luc.vanoostenryck@gmail.com>
+Subject: [PATCH v2 07/16] apply_ctype: use self-explanatory argument name
+Date:   Sat, 26 Dec 2020 18:51:20 +0100
+Message-Id: <20201226175129.9621-8-luc.vanoostenryck@gmail.com>
 X-Mailer: git-send-email 2.29.2
 In-Reply-To: <20201226175129.9621-1-luc.vanoostenryck@gmail.com>
 References: <20201226175129.9621-1-luc.vanoostenryck@gmail.com>
@@ -64,242 +64,66 @@ Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-Currently, packed bitfields are not handled correctly.
+apply_ctype() is used to copy/apply things like modifiers
+and address space from one type to another one.
+But the names used for the two types are: 'ctype' & 'thistype'
+which doesn't help at all to know which one is the 'source' type
+and which one is the 'destination' type.
 
-Add some testcases for them.
+Change this by renaming these arguments to 'src' & 'dst'.
 
 Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 ---
- validation/packed-bitfield0.c | 67 +++++++++++++++++++++++++++++++++++
- validation/packed-bitfield1.c | 28 +++++++++++++++
- validation/packed-bitfield2.c | 16 +++++++++
- validation/packed-bitfield3.c | 29 +++++++++++++++
- validation/packed-bitfield4.c | 19 ++++++++++
- validation/packed-bitfield5.c | 21 +++++++++++
- 6 files changed, 180 insertions(+)
- create mode 100644 validation/packed-bitfield0.c
- create mode 100644 validation/packed-bitfield1.c
- create mode 100644 validation/packed-bitfield2.c
- create mode 100644 validation/packed-bitfield3.c
- create mode 100644 validation/packed-bitfield4.c
- create mode 100644 validation/packed-bitfield5.c
+ parse.c | 20 ++++++++++----------
+ 1 file changed, 10 insertions(+), 10 deletions(-)
 
-diff --git a/validation/packed-bitfield0.c b/validation/packed-bitfield0.c
-new file mode 100644
-index 000000000000..907500dedbf0
---- /dev/null
-+++ b/validation/packed-bitfield0.c
-@@ -0,0 +1,67 @@
-+#define alignof(X)	__alignof__(X)
-+#define __packed	__attribute__((packed))
-+
-+struct sa {
-+	int a:7;
-+	int c:10;
-+	int b:2;
-+} __packed;
-+_Static_assert(alignof(struct sa) == 1, "alignof(struct sa)");
-+_Static_assert( sizeof(struct sa) == 3,  "sizeof(struct sa)");
-+
-+struct __packed sb {
-+	int a:7;
-+	int c:10;
-+	int b:2;
-+};
-+_Static_assert(alignof(struct sb) == 1, "alignof(struct sb)");
-+_Static_assert( sizeof(struct sb) == 3,  "sizeof(struct sb)");
-+
-+
-+static int get_size(void)
-+{
-+	return sizeof(struct sa);
-+}
-+
-+static void chk_align(struct sa sa, struct sa *p)
-+{
-+	_Static_assert(alignof(sa) == 1, "alignof(sa)");
-+	_Static_assert(alignof(*p) == 1, "alignof(*p)");
-+}
-+
-+static int fp0(struct sa *sa)
-+{
-+	return sa->c;
-+}
-+
-+static int fpx(struct sa *sa, int idx)
-+{
-+	return sa[idx].c;
-+}
-+
-+static int fglobal(void)
-+{
-+	extern struct sa g;
-+	return g.c;
-+}
-+
-+static struct sa l;
-+static int flocal(void)
-+{
-+	return l.c;
-+}
-+
-+
-+int main(void)
-+{
-+	extern void fun(struct sa *);
-+	struct sa sa = { 0 };
-+
-+	fun(&sa);
-+	return 0;
-+}
-+
-+/*
-+ * check-name: packed-bitfield0
-+ * check-known-to-fail
-+ */
-diff --git a/validation/packed-bitfield1.c b/validation/packed-bitfield1.c
-new file mode 100644
-index 000000000000..208a3dc5127c
---- /dev/null
-+++ b/validation/packed-bitfield1.c
-@@ -0,0 +1,28 @@
-+#define __packed	__attribute__((packed))
-+
-+struct s {
-+	unsigned int f0:1;
-+	unsigned int f1:1;
-+	unsigned int pad:6;
-+} __packed;
-+_Static_assert(sizeof(struct s) == 1,  "sizeof(struct s)");
-+
-+extern struct s g;
-+
-+static int foo(struct s *ptr)
-+{
-+	int f = 0;
-+
-+	f += g.f0;
-+	f += g.f1;
-+
-+	f += ptr->f0;
-+	f += ptr->f1;
-+
-+	return f;
-+}
-+
-+/*
-+ * check-name: packed-bitfield1
-+ * check-known-to-fail
-+ */
-diff --git a/validation/packed-bitfield2.c b/validation/packed-bitfield2.c
-new file mode 100644
-index 000000000000..4587ebec5c90
---- /dev/null
-+++ b/validation/packed-bitfield2.c
-@@ -0,0 +1,16 @@
-+struct bf2 {
-+	unsigned p1:2;
-+	unsigned i1:32;
-+	unsigned p2:2;
-+	unsigned s9:9;
-+	unsigned s9:9;
-+	unsigned s9:9;
-+	unsigned b1:1;
-+} __attribute__((packed));
-+
-+_Static_assert(sizeof(struct bf2) == 8);
-+
-+/*
-+ * check-name: packed-bitfield2
-+ * check-known-to-fail
-+ */
-diff --git a/validation/packed-bitfield3.c b/validation/packed-bitfield3.c
-new file mode 100644
-index 000000000000..6acff875299f
---- /dev/null
-+++ b/validation/packed-bitfield3.c
-@@ -0,0 +1,29 @@
-+#define __packed __attribute__((packed))
-+
-+typedef unsigned char   u8;
-+typedef __UINT16_TYPE__ u16;
-+typedef __UINT32_TYPE__ u32;
-+typedef __UINT64_TYPE__ u64;
-+
-+struct b {
-+	u32	a:1;
-+	u32	b:2;
-+	u32	c:4;
-+	u32	d:8;
-+	u32	e:16;
-+} __packed;
-+_Static_assert(__alignof(struct b) == 1);
-+_Static_assert(   sizeof(struct b) == sizeof(u32));
-+
-+struct c {
-+	u8	a;
-+	u8	b;
-+	u64	c:48;
-+} __packed;
-+_Static_assert(__alignof(struct c) == 1);
-+_Static_assert(   sizeof(struct c) == sizeof(u64));
-+
-+/*
-+ * check-name: packed-bitfield3
-+ * check-known-to-fail
-+ */
-diff --git a/validation/packed-bitfield4.c b/validation/packed-bitfield4.c
-new file mode 100644
-index 000000000000..0342b2414b6e
---- /dev/null
-+++ b/validation/packed-bitfield4.c
-@@ -0,0 +1,19 @@
-+#define __packed __attribute__((packed))
-+
-+typedef __UINT32_TYPE__ u32;
-+
-+struct s {
-+	u32	f:24;
-+} __packed;
-+_Static_assert(sizeof(struct s) == 3);
-+
-+static int ld(struct s *s)
-+{
-+	return s->f;
-+}
-+
-+/*
-+ * check-name: packed-bitfield4
-+ * check-description: Is check_access() OK with short packed bitfields?
-+ * check-known-to-fail
-+ */
-diff --git a/validation/packed-bitfield5.c b/validation/packed-bitfield5.c
-new file mode 100644
-index 000000000000..8f44d4c2c277
---- /dev/null
-+++ b/validation/packed-bitfield5.c
-@@ -0,0 +1,21 @@
-+#define __packed __attribute__((packed))
-+
-+typedef __UINT32_TYPE__ u32;
-+
-+struct s {
-+	u32	a:5;
-+	u32	f:30;
-+	u32	z:5;
-+} __packed;
-+_Static_assert(sizeof(struct s) == 5);
-+
-+static int ld(struct s *s)
-+{
-+	return s->f;
-+}
-+
-+/*
-+ * check-name: packed-bitfield5
-+ * check-description: is check_access() OK with 'overlapping' packed bitfields?
-+ * check-known-to-fail
-+ */
+diff --git a/parse.c b/parse.c
+index 0b2685707b82..402214212d77 100644
+--- a/parse.c
++++ b/parse.c
+@@ -1043,7 +1043,7 @@ static struct token *enum_specifier(struct token *token, struct symbol *sym, str
+ 	return ret;
+ }
+ 
+-static void apply_ctype(struct position pos, struct ctype *thistype, struct ctype *ctype);
++static void apply_ctype(struct position pos, struct ctype *src, struct ctype *dst);
+ 
+ static struct token *typeof_specifier(struct token *token, struct symbol *sym, struct decl_state *ctx)
+ {
+@@ -1427,24 +1427,24 @@ static struct token *generic_qualifier(struct token *next, struct symbol *sym, s
+ 	return next;
+ }
+ 
+-static void apply_ctype(struct position pos, struct ctype *thistype, struct ctype *ctype)
++static void apply_ctype(struct position pos, struct ctype *src, struct ctype *dst)
+ {
+-	unsigned long mod = thistype->modifiers;
++	unsigned long mod = src->modifiers;
+ 
+ 	if (mod)
+-		apply_qualifier(&pos, ctype, mod);
++		apply_qualifier(&pos, dst, mod);
+ 
+ 	/* Context */
+-	concat_ptr_list((struct ptr_list *)thistype->contexts,
+-	                (struct ptr_list **)&ctype->contexts);
++	concat_ptr_list((struct ptr_list *)src->contexts,
++	                (struct ptr_list **)&dst->contexts);
+ 
+ 	/* Alignment */
+-	if (thistype->alignment > ctype->alignment)
+-		ctype->alignment = thistype->alignment;
++	if (src->alignment > dst->alignment)
++		dst->alignment = src->alignment;
+ 
+ 	/* Address space */
+-	if (thistype->as)
+-		ctype->as = thistype->as;
++	if (src->as)
++		dst->as = src->as;
+ }
+ 
+ static void specifier_conflict(struct position pos, int what, struct ident *new)
 -- 
 2.29.2
 
