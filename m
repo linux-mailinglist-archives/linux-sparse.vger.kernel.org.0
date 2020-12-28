@@ -2,78 +2,76 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id B1F5C2E6BC6
-	for <lists+linux-sparse@lfdr.de>; Tue, 29 Dec 2020 00:14:53 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 0AC1D2E6BC0
+	for <lists+linux-sparse@lfdr.de>; Tue, 29 Dec 2020 00:14:51 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1730659AbgL1Wzw (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        id S1729383AbgL1Wzw (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
         Mon, 28 Dec 2020 17:55:52 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:44490 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1729547AbgL1Vk0 (ORCPT
+Received: from avasout03.plus.net ([84.93.230.244]:38719 "EHLO
+        avasout03.plus.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1729625AbgL1WTw (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Mon, 28 Dec 2020 16:40:26 -0500
-Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com [IPv6:2a00:1450:4864:20::330])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 1FC1BC0613D6
-        for <linux-sparse@vger.kernel.org>; Mon, 28 Dec 2020 13:39:46 -0800 (PST)
-Received: by mail-wm1-x330.google.com with SMTP id c124so547893wma.5
-        for <linux-sparse@vger.kernel.org>; Mon, 28 Dec 2020 13:39:45 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=date:from:to:cc:subject:message-id:references:mime-version
-         :content-disposition:in-reply-to;
-        bh=Ia26yDoq4nauhcsyzDn8wdrnIdXtBJjmBnaUzVQMszg=;
-        b=iBoPXx4f1eTI8AsDc/OLBm9aUdrERAI/ilxWl3f3x82IyowPdD8j4OH69Hqi98p6zk
-         2XYfnpwzmPfHMg1bvpBAUcH/+uhkt58PVuRUvawZ6lbQqj7xTM31kkGjaVPhgY+vni5F
-         6F6SiprTDVpKqrpOP6Zpwk1k4Wwv4oxOzd6UIDbm3zUBmgX29jTNquQQzoLNYXTToBdt
-         Qd8QiAoShuzSmZgS2IUfL4qmXsOiAtI4MEUkH5q8f19pCfyfXCfeXdjH7qh7tdkubjoj
-         /aG3oDBZZssB4A3BOsz5TqyHyKzRRiX1Wij9PAdONFQMT8EgxvslnEM5HmBw8NoZMmJ8
-         a9hA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
-         :mime-version:content-disposition:in-reply-to;
-        bh=Ia26yDoq4nauhcsyzDn8wdrnIdXtBJjmBnaUzVQMszg=;
-        b=amcdJAI55+O8gWQCcsU7gvNVRcp8juWNZB3edVFVJRdLuqmmsxj2QzqPo8mFVAG+eN
-         SOMNlFDPBgwYU4Jyxt78/TwMZc4M7XzQKz23yHteYz+eSGqrKMNEvC6Fh79NwmPhxyNO
-         t7ndgXY2B9V43EucAeBMXhnibwFqLuJTH5CovRX1ufTXRNZ3/y0x2mxJIYZk6l/6BTMP
-         Z9eAicrYqVM1yjwA6hhlUZ9ZAqyWY80WrBzfj536PRIauxTUVrMu9kT6kOii+0kX1n16
-         JZ0oAf5zQIMsLNBTk5TbeiM4yJo58mgMu6OEiPRRea0RG7LO0xsrRtWit7kXl5W4N2PA
-         S36w==
-X-Gm-Message-State: AOAM533NtECPpiNJGrNJGSBykM3cck1aCVUE3VyHcLI+57+nu8SUbqcs
-        ZRslocrtGb15fLXygibNo3NmlwjjEcA=
-X-Google-Smtp-Source: ABdhPJw+TH8kFThA1Rt/N7bmZUWMU3vTknBM6OO+PicpvTVYI66DPuC4OX6o6uPyPZtbj0MdHtVC0Q==
-X-Received: by 2002:a7b:cc90:: with SMTP id p16mr652487wma.105.1609191584846;
-        Mon, 28 Dec 2020 13:39:44 -0800 (PST)
-Received: from ltop.local ([2a02:a03f:b7fe:f700:1cf:be4f:91b8:4ca6])
-        by smtp.gmail.com with ESMTPSA id c10sm60547964wrb.92.2020.12.28.13.39.44
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 28 Dec 2020 13:39:44 -0800 (PST)
-Date:   Mon, 28 Dec 2020 22:39:43 +0100
-From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-To:     Ramsay Jones <ramsay@ramsayjones.plus.com>
-Cc:     linux-sparse@vger.kernel.org
+        Mon, 28 Dec 2020 17:19:52 -0500
+X-Greylist: delayed 540 seconds by postgrey-1.27 at vger.kernel.org; Mon, 28 Dec 2020 17:19:51 EST
+Received: from [10.0.2.15] ([80.189.83.3])
+        by smtp with ESMTPA
+        id u0hrkgOaZ99nqu0hsk5rFt; Mon, 28 Dec 2020 22:09:36 +0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=plus.com; s=042019;
+        t=1609193399; bh=62/TEeUCztfgTlH4f4eB0WOktq0tU7UYRI6/A2a9Ga8=;
+        h=Subject:To:Cc:References:From:Date:In-Reply-To;
+        b=tQOdfUHgUoJss+1rZuq0PArElfb8ucrjgBfW6p78d2BRlYm5borXQ/4NGJ1hf5A4G
+         X2IJrTrgiScFIsaNDkCx4D9wUZShOf4ETXRe4lmF20mUOrtaeZtB123qu9ZhMlFaXv
+         pCTPMcx4184uC+GFtL/Vtz1PwJpkOcEgi7RXZgPwCDfwa421jLobrB2QAsSXCF3Ghr
+         VA8cqy9nT13TUcFDIWyrKzzbmDcDfOnk9H+vTZdqFBoVFpuke2sA3oadh30R6/yBkD
+         7XvkYrgOn6/P/IPb2XhpdpMLAqE9OIAkqVo8EOwzY4z5pCZLf1yg/PT0JUYYRUhwbX
+         rd17NHEM6W5bw==
+X-Clacks-Overhead: "GNU Terry Pratchett"
+X-CM-Score: 0.00
+X-CNFS-Analysis: v=2.3 cv=Uoz4y94B c=1 sm=1 tr=0
+ a=HN+d/rRCB1WM0IHjUF19mA==:117 a=HN+d/rRCB1WM0IHjUF19mA==:17
+ a=IkcTkHD0fZMA:10 a=C4fSksaWOZVxES5CwuYA:9 a=QEXdDO2ut3YA:10
+X-AUTH: ramsayjones@:2500
 Subject: Re: [PATCH 2/2] fix rem_usage()
-Message-ID: <20201228213943.honhyxpk6apd23tg@ltop.local>
+To:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
+Cc:     linux-sparse@vger.kernel.org
 References: <20201227092759.30999-1-luc.vanoostenryck@gmail.com>
  <20201227092759.30999-3-luc.vanoostenryck@gmail.com>
  <52a111f5-aea4-d705-f0c3-d71ecb2226dc@ramsayjones.plus.com>
+ <20201228213943.honhyxpk6apd23tg@ltop.local>
+From:   Ramsay Jones <ramsay@ramsayjones.plus.com>
+Message-ID: <f8b3a7fe-e4b3-a83f-7d2a-71ec8e79b3de@ramsayjones.plus.com>
+Date:   Mon, 28 Dec 2020 22:09:35 +0000
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <52a111f5-aea4-d705-f0c3-d71ecb2226dc@ramsayjones.plus.com>
+In-Reply-To: <20201228213943.honhyxpk6apd23tg@ltop.local>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
+X-CMAE-Envelope: MS4wfJfj8DY1YZi5+o4Qs2JanDFhpKQFvKx1WAqsyolom/r8zLBjXwEoI6IbUX7WJoSBLQw8L/c57PNkHw4HQdi2E8f0a3/fiGL7Ysb7tc1jA321+HTgXwVT
+ CLXvatm9Gm62V4vZNNCQ+4aGag7PyxRDqceezejuIDtDtIoXL19MbEknkly6IGh2PjPOGRGTFAgRdg==
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-On Mon, Dec 28, 2020 at 05:22:36PM +0000, Ramsay Jones wrote:
-> 
-> 
-> On 27/12/2020 09:27, Luc Van Oostenryck wrote:
-> > rem_usage() is used to remove an element from a def-use chain. Optionally,
-> 
-> Hmm, rename this to 'remove_usage()' at the same time?
 
-It can't, 'remove_usage()' is already taken and 'rem_usage()' is more
-for internal uses than 'remove_usage()'.
 
--- Luc
+On 28/12/2020 21:39, Luc Van Oostenryck wrote:
+> On Mon, Dec 28, 2020 at 05:22:36PM +0000, Ramsay Jones wrote:
+>>
+>>
+>> On 27/12/2020 09:27, Luc Van Oostenryck wrote:
+>>> rem_usage() is used to remove an element from a def-use chain. Optionally,
+>>
+>> Hmm, rename this to 'remove_usage()' at the same time?
+> 
+> It can't, 'remove_usage()' is already taken and 'rem_usage()' is more
+> for internal uses than 'remove_usage()'.
+
+Ugh! I just took a quick look. Ugly. ;-)
+
+Well, I think I would rename it 'remove_use()' or somesuch instead.
+
+ATB,
+Ramsay Jones
+
