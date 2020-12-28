@@ -2,88 +2,92 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 1D9562E69AF
-	for <lists+linux-sparse@lfdr.de>; Mon, 28 Dec 2020 18:25:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 72A1C2E6BAB
+	for <lists+linux-sparse@lfdr.de>; Tue, 29 Dec 2020 00:14:41 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1728128AbgL1RXY (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Mon, 28 Dec 2020 12:23:24 -0500
-Received: from avasout06.plus.net ([212.159.14.18]:33957 "EHLO
-        avasout06.plus.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1728125AbgL1RXX (ORCPT
+        id S1729351AbgL1Wzu (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Mon, 28 Dec 2020 17:55:50 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:57334 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1729353AbgL1UAb (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Mon, 28 Dec 2020 12:23:23 -0500
-Received: from [10.0.2.15] ([80.189.83.3])
-        by smtp with ESMTPA
-        id twE8kPhlMhO4HtwE9kCvha; Mon, 28 Dec 2020 17:22:37 +0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=plus.com; s=042019;
-        t=1609176157; bh=9HphBOCOsL+h9B8ZuWYSAhoCeto8l4wI42spIcb7Bu4=;
-        h=Subject:To:References:From:Date:In-Reply-To;
-        b=VnTHaSHiy15rSBf0FIrgHKKzn9bTjCWrEolMgUW0TXR3WbQTnlKQ7dOlcfnrvRIud
-         MojcwbUXMV71N1ipjXziamj6t+A30YTMWGNWjG2eUz0Ws6juyAAWq7jxH53baIM3Xo
-         8z5jNY7JAJ5iB9Ym7R5LwDoX+D+ceCysZoKi42ydf1NV3ueWRAqZBv9iDQsTtL/FHb
-         9TW1G+doVYC4kJ0A6gEjdYwGvZdyRCHH0yzOpupdX3AlY/AMX+pI1Ac21qA0X1RxMd
-         3fAJpgZ35AsByRq5BoWJNP6XI+CehtmTIkKSdb3wYdmNd34a7/v4SIx1qa4cEMDW+O
-         viUlWllZfu/DQ==
-X-Clacks-Overhead: "GNU Terry Pratchett"
-X-CM-Score: 0.00
-X-CNFS-Analysis: v=2.3 cv=SPPZqNnH c=1 sm=1 tr=0
- a=HN+d/rRCB1WM0IHjUF19mA==:117 a=HN+d/rRCB1WM0IHjUF19mA==:17
- a=IkcTkHD0fZMA:10 a=pGLkceISAAAA:8 a=U7EVDT20MNuem_F1dFEA:9 a=QEXdDO2ut3YA:10
-X-AUTH: ramsayjones@:2500
-Subject: Re: [PATCH 2/2] fix rem_usage()
-To:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>,
-        linux-sparse@vger.kernel.org
-References: <20201227092759.30999-1-luc.vanoostenryck@gmail.com>
- <20201227092759.30999-3-luc.vanoostenryck@gmail.com>
-From:   Ramsay Jones <ramsay@ramsayjones.plus.com>
-Message-ID: <52a111f5-aea4-d705-f0c3-d71ecb2226dc@ramsayjones.plus.com>
-Date:   Mon, 28 Dec 2020 17:22:36 +0000
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+        Mon, 28 Dec 2020 15:00:31 -0500
+Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com [IPv6:2a00:1450:4864:20::432])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 4B878C061793
+        for <linux-sparse@vger.kernel.org>; Mon, 28 Dec 2020 11:59:51 -0800 (PST)
+Received: by mail-wr1-x432.google.com with SMTP id m5so12342714wrx.9
+        for <linux-sparse@vger.kernel.org>; Mon, 28 Dec 2020 11:59:51 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=date:from:to:cc:subject:message-id:references:mime-version
+         :content-disposition:in-reply-to;
+        bh=Nle/Fk0wuDrP4w56YfyN49HXPMMNZKWh2BnMwFzCHB8=;
+        b=rfS7wr093IfutyWUPal6c7HNuSvUF6fwaEZ0Z9fsfVcsgp5x7zx2zFRnUENJEtqInq
+         Z4uOw0itq8gHGOxSjfvYqAS6UqkEyKJZolMMIHun2WtreDNuQRZGuGd+0xnxMF+hkt1N
+         UmIXNTFYrJVS94YJhKaMl2/CuDE52b2C8e5lRA4uBXUazCsBUw9SrQUclGusxsToAgZ8
+         55zpAGkrRDDqZcCelBBVzjpXgeEFh98II+QjkibvjNrAXnrV99XmEzP6FPw1lCRdQPqx
+         Nx2Za60+U1P3rihBshssBxqtQ0xMYbFFO6Eo3SIBdN0B9zqwz7Yw70wIfJp3ptvHgpGr
+         CyXw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+         :mime-version:content-disposition:in-reply-to;
+        bh=Nle/Fk0wuDrP4w56YfyN49HXPMMNZKWh2BnMwFzCHB8=;
+        b=IAekQ1UjJb0w8G2nDSrxiHZBkPEJ6O44Fi5HhAV8IzDACi1+V8e7Sdt93QqXSS12xe
+         gpflwL2En5lBY8rJda7Q8TrnLZHFjjj6rbbXKvW3kbSGYT4WP7gGnDI0JpQRp6igR6NH
+         CU7LyNIy8E1sCJ5mtcI1Dn6bUDmV8VhJrVFxUQQ1xVC5Th+polS/ZQszmrvmHg+c5Uyn
+         3ulJl7PBVj1yv1o/2W/yXYE34XJDAzSy1pgu8kGiDyHyxOXEY1MSENQuouMKZ/5SI3fS
+         57yAPi19oNO0LPzSOyrBFPiPXoqbs4ONxTQ6DG7tNMLoTnm0kvumqMhJBx5ClmWxNh21
+         dGRw==
+X-Gm-Message-State: AOAM530OnLjY2NfAaNjSNBBywSiABtMMdBcFChRaNPiNYXdJFnz4PtTn
+        yET+ResDZeWvBSL1EzoMR+x41aCk0fc=
+X-Google-Smtp-Source: ABdhPJydLdIAv5l8Ow3pQp8tAXZe2zQ4IrEiOVJHHl4OAg9CApaOMpaB/FvXQc/e3zTt67ag7lZyQw==
+X-Received: by 2002:a5d:67c3:: with SMTP id n3mr52144339wrw.297.1609185590051;
+        Mon, 28 Dec 2020 11:59:50 -0800 (PST)
+Received: from ltop.local ([2a02:a03f:b7fe:f700:1cf:be4f:91b8:4ca6])
+        by smtp.gmail.com with ESMTPSA id x66sm457621wmg.26.2020.12.28.11.59.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 28 Dec 2020 11:59:49 -0800 (PST)
+Date:   Mon, 28 Dec 2020 20:59:48 +0100
+From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
+To:     Ramsay Jones <ramsay@ramsayjones.plus.com>
+Cc:     linux-sparse@vger.kernel.org,
+        Jacob Keller <jacob.e.keller@intel.com>
+Subject: Re: [PATCH v2 04/16] add testcases for type attributes
+Message-ID: <20201228195948.5kqsxvp3qat2mvxq@ltop.local>
+References: <20201226175129.9621-1-luc.vanoostenryck@gmail.com>
+ <20201226175129.9621-5-luc.vanoostenryck@gmail.com>
+ <f39438bd-3ab3-b827-a488-510b49351eb5@ramsayjones.plus.com>
 MIME-Version: 1.0
-In-Reply-To: <20201227092759.30999-3-luc.vanoostenryck@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
-X-CMAE-Envelope: MS4wfP26TOaLa09HAfko8vUy2MjhZ0anGU+HysSUD8mbvecFJiTV4jJQJHjM5Bp62ZxRGvoW9pmVwLMWb3AWO2YDPk4oKuwvGcb/ezUZNyztKgvS7KXicddM
- GTgQ1DPRjBWzPSdFQ2JnZnWMBC5kIT73Fmmt2QF4CqKAOUkDemztJhI5ApE1UcLbOUBTs0DntIuEZQ==
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <f39438bd-3ab3-b827-a488-510b49351eb5@ramsayjones.plus.com>
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-
-
-On 27/12/2020 09:27, Luc Van Oostenryck wrote:
-> rem_usage() is used to remove an element from a def-use chain. Optionally,
-
-Hmm, rename this to 'remove_usage()' at the same time?
-
-ATB,
-Ramsay Jones
-
-> if the chain become empty, the defining instruction can also be killed.
+On Mon, Dec 28, 2020 at 04:13:54PM +0000, Ramsay Jones wrote:
+> On 26/12/2020 17:51, Luc Van Oostenryck wrote:
+> > diff --git a/validation/type-attribute-qual.c b/validation/type-attribute-qual.c
+> > new file mode 100644
+> > index 000000000000..ab19a605bda1
+> > --- /dev/null
+> > +++ b/validation/type-attribute-qual.c
+> > @@ -0,0 +1,12 @@
+> > +static const struct s {
+> > +	int x;
+> > +} map[2];
+> > +
+> > +static void foo(struct s *p, int v)
+> > +{
+> > +	p->x += v;
+> > +}
 > 
-> This optional part is currently be done on all pseudos but only those
-> having a definition should be concerned.
-> 
-> Fix this by adding a check so that only PSEUDO_REGs and PSEUDO_PHIs are killed.
-> 
-> Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-> ---
->  simplify.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/simplify.c b/simplify.c
-> index a877b693b610..12482d787189 100644
-> --- a/simplify.c
-> +++ b/simplify.c
-> @@ -271,7 +271,7 @@ static inline void rem_usage(pseudo_t p, pseudo_t *usep, int kill)
->  {
->  	if (has_use_list(p)) {
->  		delete_pseudo_user_list_entry(&p->users, usep, 1);
-> -		if (kill && !p->users)
-> +		if (kill && !p->users && has_definition(p))
->  			kill_instruction(p->def);
->  	}
->  }
-> 
+> Hmm, I don't understand what this is testing! :(
+
+The declaration of map also contains the definition of 'struct s'.
+The test, by tryin to modify something of type 'struct s', allows to
+verify that the 'const' applies only to 'map' and not to 'struct s'.
+
+I'll add a comment.
+-- Luc
