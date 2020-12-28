@@ -2,162 +2,99 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 870B72E6BB6
-	for <lists+linux-sparse@lfdr.de>; Tue, 29 Dec 2020 00:14:46 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 329492E6BB1
+	for <lists+linux-sparse@lfdr.de>; Tue, 29 Dec 2020 00:14:44 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1729356AbgL1Wzv (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        id S1729392AbgL1Wzv (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
         Mon, 28 Dec 2020 17:55:51 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:58258 "EHLO
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:34938 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1729367AbgL1UG3 (ORCPT
+        with ESMTP id S1729430AbgL1Ui3 (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Mon, 28 Dec 2020 15:06:29 -0500
-Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com [IPv6:2a00:1450:4864:20::32e])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 2375AC061793
-        for <linux-sparse@vger.kernel.org>; Mon, 28 Dec 2020 12:05:49 -0800 (PST)
-Received: by mail-wm1-x32e.google.com with SMTP id v14so396941wml.1
-        for <linux-sparse@vger.kernel.org>; Mon, 28 Dec 2020 12:05:49 -0800 (PST)
+        Mon, 28 Dec 2020 15:38:29 -0500
+Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com [IPv6:2a00:1450:4864:20::42a])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 12F55C0613D6
+        for <linux-sparse@vger.kernel.org>; Mon, 28 Dec 2020 12:37:49 -0800 (PST)
+Received: by mail-wr1-x42a.google.com with SMTP id d26so12427406wrb.12
+        for <linux-sparse@vger.kernel.org>; Mon, 28 Dec 2020 12:37:48 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=date:from:to:cc:subject:message-id:references:mime-version
          :content-disposition:in-reply-to;
-        bh=jubLZmNPoYcHIjV9WEye0XKaCN5ETfA9NxMHs2mHC1A=;
-        b=bs15TbxxVcHUODzS6fa/2Kt+EWq0sqEOjq0L80hiVCgVVPyiMxxF/XbkIg+NpaBMDB
-         cnyDqwlnMb4ZtOQ150EoPJ+DrNjsnAd+hVq7NiovBzcdIETtumhmQ5+DHxrOnl7z7ZMh
-         aRMZbRZj+dGXDdiKZ9m143lrq+jumLLnLNCEw8z35q7M0MfxflELh5xhuasPEGQeBRLh
-         3zXFa6LHaBKimi5gIJlzHsIhSoJrSLdGq3YB8KmcajoCn+Y06/UnWszKRkO+4YpdJaTj
-         HBXDQAE4CHqwmo14QRc7a4moQaKI0Fdq11dXkVqavF3E79O2SSBp0v5wA0MoQS58PS5i
-         uSQQ==
+        bh=BsO3qMHct0BBiOjd/1epqyEJ9cxpsEWl696pzn+ZAzA=;
+        b=IYn+Dw/Q+1I+2GaxhbOdGEDq0rXIkElHah6KamFDNWQnT083Fa68Mho76XG54zLmt6
+         fvia4wyXB28vPl24zEVKSdYeaaeEsmFFSZdZb3KsBYYG87sTgk2JB7W3TlBfWQOAW/6F
+         ZDwHX4CojiFBOHxLt0uc2RpPmv981S0wiZwZ5hA3JUId0K789IP3PczN5pTjki1VnizO
+         K4uNfk7+a7dMvyhSW/1z8bbV9LxxGCJCCP9izqcfCGYq+1hdZyoytPckGGSl8ZoVsU3K
+         LcPJBJAVb5ax0iduPuG7o+DGRv2uFj55w5hhmdt6jpn7HNO0ooOlhg9Qj4KfnmN91WCt
+         ocHw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:date:from:to:cc:subject:message-id:references
          :mime-version:content-disposition:in-reply-to;
-        bh=jubLZmNPoYcHIjV9WEye0XKaCN5ETfA9NxMHs2mHC1A=;
-        b=tnpQqs44mzPmZv5ZPz82I+5P6KUVda2gTOYZgxeontmBZ6crvWYIL284dDAa01ir+r
-         +arqo4U95X0Fha+Vn+buiRRgv8KACLW1qL6TYNqvU+1hyFmxIuOZXti7WrB7eZb2nq+w
-         5yPsFMGjx5Kuh/b6NI41dt+jRIOYmA1nSAbE7IT1d/Ymq6V4ZqKyVpfl1sLud1ZU/ZO3
-         FMG4RpPhWYJM3lDUJhe0cVaxdAI6+46c8NxjTZ+2CeU2Q1mOwUnhhPgIYc1l6zrg6EiF
-         MjVm/aONmO2BI5Q7UxcDo62CCV40BEBH3hbgCaEIXZGXhRPicjUBra3OQdtuviQa7HX0
-         RQpA==
-X-Gm-Message-State: AOAM5302nTrnWueFtVpLTCE3nNIszy6M6bLFBLxrqSBOuACZP/Ef0tad
-        So8XjdX6Mh/1Z6dJoEZJAao=
-X-Google-Smtp-Source: ABdhPJydiUPDAGCaWWsckut/E4CiPMu1usxtbhNfVNI55XQkjmo1WA10+7CIfCp1RYehho07LsCKkA==
-X-Received: by 2002:a1c:8d:: with SMTP id 135mr423546wma.177.1609185947965;
-        Mon, 28 Dec 2020 12:05:47 -0800 (PST)
+        bh=BsO3qMHct0BBiOjd/1epqyEJ9cxpsEWl696pzn+ZAzA=;
+        b=mjrkrAKtQKviFvT5GcnxGdpmRNDCqhFaRPzlV4LNAS86wSVZDkqqLn4xmFrFig8Na1
+         HWrHymlfMF5xdjgzknzdOQPaOK+mVdn+uio4g/ZV4iqRHTnTgPgQ+AwNfvDA5GGGl2cv
+         LeKAI6Wysx9UJCygZ1fdgAcASxkGQzcTgH45bXyyvRyzVRVsBcx1NsfTaXoY4kjJEaZ4
+         etgm2WfzZA6CV82bm4JIPQRySJVyK/NBDBpzy9T/qvdcrfQUC29B/RJlvQmtSeLOCEK4
+         tUM+yn3dkRqsRf17PMnUna583qAaUemDReQNPr4IQ2PfSO2yMbK/YGhav0Yue/06NRgI
+         K2aA==
+X-Gm-Message-State: AOAM531ON6RGIa9yuWBYBEUtM8/qKa0ZxzOJJ7ukEwi3Ab9mC8Ug4Pbp
+        3Ew5bERRQGYvstGErd+1+MQ=
+X-Google-Smtp-Source: ABdhPJxzX+uB7CJPV147kKgObC3F12C8+yacv2v2k8eqTd6ev/+kudTSsjy3v2VqRRdz7IF3XrmC8g==
+X-Received: by 2002:a5d:6909:: with SMTP id t9mr51470542wru.327.1609187867528;
+        Mon, 28 Dec 2020 12:37:47 -0800 (PST)
 Received: from ltop.local ([2a02:a03f:b7fe:f700:1cf:be4f:91b8:4ca6])
-        by smtp.gmail.com with ESMTPSA id c4sm460036wmf.19.2020.12.28.12.05.47
+        by smtp.gmail.com with ESMTPSA id b14sm56258636wrx.77.2020.12.28.12.37.46
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 28 Dec 2020 12:05:47 -0800 (PST)
-Date:   Mon, 28 Dec 2020 21:05:46 +0100
+        Mon, 28 Dec 2020 12:37:46 -0800 (PST)
+Date:   Mon, 28 Dec 2020 21:37:45 +0100
 From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 To:     Ramsay Jones <ramsay@ramsayjones.plus.com>
-Cc:     linux-sparse@vger.kernel.org,
-        Jacob Keller <jacob.e.keller@intel.com>
-Subject: Re: [PATCH v2 06/16] add testcases for packed bitfields
-Message-ID: <20201228200546.co4ibljkw6zvp3pe@ltop.local>
+Cc:     linux-sparse@vger.kernel.org
+Subject: Re: [PATCH v2 08/16] apply_ctype: reverse the order of arguments
+Message-ID: <20201228203745.bahrevokbb3ty5si@ltop.local>
 References: <20201226175129.9621-1-luc.vanoostenryck@gmail.com>
- <20201226175129.9621-7-luc.vanoostenryck@gmail.com>
- <2c40677d-a0a8-7f32-46c3-80dc0385efee@ramsayjones.plus.com>
+ <20201226175129.9621-9-luc.vanoostenryck@gmail.com>
+ <3be177c7-b744-2d79-7f9b-935bc22b3db9@ramsayjones.plus.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <2c40677d-a0a8-7f32-46c3-80dc0385efee@ramsayjones.plus.com>
+In-Reply-To: <3be177c7-b744-2d79-7f9b-935bc22b3db9@ramsayjones.plus.com>
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-On Mon, Dec 28, 2020 at 04:28:24PM +0000, Ramsay Jones wrote:
+On Mon, Dec 28, 2020 at 04:47:01PM +0000, Ramsay Jones wrote:
 > 
 > 
 > On 26/12/2020 17:51, Luc Van Oostenryck wrote:
-> > Currently, packed bitfields are not handled correctly.
+> > apply_ctype()'s argument order is: src, dst (so the reading
+> > direction) but the assignment/memcpy() order is much more used:
+> > 	dst = src;
+> > 	memcpy(dst, src, n);
+> > than the order here is confusing.
 > > 
-> > Add some testcases for them.
-> > 
-> > Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-> > ---
-> >  validation/packed-bitfield0.c | 67 +++++++++++++++++++++++++++++++++++
-> >  validation/packed-bitfield1.c | 28 +++++++++++++++
-> >  validation/packed-bitfield2.c | 16 +++++++++
-> >  validation/packed-bitfield3.c | 29 +++++++++++++++
-> >  validation/packed-bitfield4.c | 19 ++++++++++
-> >  validation/packed-bitfield5.c | 21 +++++++++++
-> >  6 files changed, 180 insertions(+)
-> >  create mode 100644 validation/packed-bitfield0.c
-> >  create mode 100644 validation/packed-bitfield1.c
-> >  create mode 100644 validation/packed-bitfield2.c
-> >  create mode 100644 validation/packed-bitfield3.c
-> >  create mode 100644 validation/packed-bitfield4.c
-> >  create mode 100644 validation/packed-bitfield5.c
-> > 
-> > diff --git a/validation/packed-bitfield0.c b/validation/packed-bitfield0.c
-> > new file mode 100644
-> > index 000000000000..907500dedbf0
-> > --- /dev/null
-> > +++ b/validation/packed-bitfield0.c
-> > @@ -0,0 +1,67 @@
-> > +#define alignof(X)	__alignof__(X)
-> > +#define __packed	__attribute__((packed))
-> > +
-> > +struct sa {
-> > +	int a:7;
-> > +	int c:10;
-> > +	int b:2;
-> > +} __packed;
-> > +_Static_assert(alignof(struct sa) == 1, "alignof(struct sa)");
-> > +_Static_assert( sizeof(struct sa) == 3,  "sizeof(struct sa)");
-> > +
-> > +struct __packed sb {
-> > +	int a:7;
-> > +	int c:10;
-> > +	int b:2;
-> > +};
-> > +_Static_assert(alignof(struct sb) == 1, "alignof(struct sb)");
-> > +_Static_assert( sizeof(struct sb) == 3,  "sizeof(struct sb)");
+> > So, change its argument order to comply with the memcpy()/
+> > assignement order and stop the confusion.
 > 
-> Why 'struct sb'? It is not used in the rest of the test (and is
-> identical to 'struct sa').
+> Hmm, how about:
+> 
+> """
+> apply_ctype()'s argument order is 'src' then 'dst', which reads as
+> copying 'src' to 'dst'. However, assignment, and many library functions
+> (eg. memcpy()), use the opposite order for the source and destination
+> of a copy operation.
+> 
+> So, change the argument order of apply_ctype() to mimic the order of
+> memcpy()/assignment, to hopefully reduce any potential confusion.
+> """
+> 
+> Heh, well that is probably not much better! ;-)
 
-Good question :)
-I've probably reused some previous file as a kind of template.
- 
-> > diff --git a/validation/packed-bitfield3.c b/validation/packed-bitfield3.c
-> > new file mode 100644
-> > index 000000000000..6acff875299f
-> > --- /dev/null
-> > +++ b/validation/packed-bitfield3.c
-> > @@ -0,0 +1,29 @@
-> > +#define __packed __attribute__((packed))
-> > +
-> > +typedef unsigned char   u8;
-> > +typedef __UINT16_TYPE__ u16;
-> > +typedef __UINT32_TYPE__ u32;
-> > +typedef __UINT64_TYPE__ u64;
-> > +
-> > +struct b {
-> > +	u32	a:1;
-> > +	u32	b:2;
-> > +	u32	c:4;
-> > +	u32	d:8;
-> > +	u32	e:16;
-> > +} __packed;
-> > +_Static_assert(__alignof(struct b) == 1);
-> > +_Static_assert(   sizeof(struct b) == sizeof(u32));
-> 
-> Again '== sizeof(u32)' does not seem useful. (what is it
-> trying to say?)
-> 
-> > +
-> > +struct c {
-> > +	u8	a;
-> > +	u8	b;
-> > +	u64	c:48;
-> > +} __packed;
-> > +_Static_assert(__alignof(struct c) == 1);
-> > +_Static_assert(   sizeof(struct c) == sizeof(u64));
-> 
-> ditto.
+It's better but I'll try to reformulate it to better express that:
+*) the 'reading direction' (left to right) vs. the 'assignment direction'
+   (right to left) is a question of API choice
+*) the left-to-right direction confuses *me* endlessly, but it's just me.
 
-Yes, I agree.
-
--- Luc 
+-- Luc
