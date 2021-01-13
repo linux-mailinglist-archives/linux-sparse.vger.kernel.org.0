@@ -2,83 +2,72 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id E65272EB53F
-	for <lists+linux-sparse@lfdr.de>; Tue,  5 Jan 2021 23:08:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 8CA482F492C
+	for <lists+linux-sparse@lfdr.de>; Wed, 13 Jan 2021 12:00:50 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1731728AbhAEWIm (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Tue, 5 Jan 2021 17:08:42 -0500
-Received: from mga03.intel.com ([134.134.136.65]:12556 "EHLO mga03.intel.com"
-        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S1729518AbhAEWIl (ORCPT <rfc822;linux-sparse@vger.kernel.org>);
-        Tue, 5 Jan 2021 17:08:41 -0500
-IronPort-SDR: F8SstZ3hyMEa0wAuvNjLVH53sOD8snxrcjyidyNl4ZA+CfR7ZpUqTzfAJTNxRJpJSTci0G6c59
- cCoDWLHecqdg==
-X-IronPort-AV: E=McAfee;i="6000,8403,9855"; a="177287375"
-X-IronPort-AV: E=Sophos;i="5.78,478,1599548400"; 
-   d="scan'208";a="177287375"
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
-  by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Jan 2021 14:08:00 -0800
-IronPort-SDR: 2Tf2L8N+BqIDMK0TiKXbRRO7XO7jbFYOoq+F2OBd87gkkbOTw7rcL65LCwbrSQjE0XAzHyzG9p
- dHVsdMNhLjDw==
-X-IronPort-AV: E=Sophos;i="5.78,478,1599548400"; 
-   d="scan'208";a="350011825"
-Received: from jekeller-mobl1.amr.corp.intel.com (HELO [10.212.7.147]) ([10.212.7.147])
-  by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Jan 2021 14:08:00 -0800
-Subject: Re: [PATCH 00/16] support __packed struct
-To:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-Cc:     Ramsay Jones <ramsay@ramsayjones.plus.com>,
-        linux-sparse@vger.kernel.org
-References: <20201226175129.9621-1-luc.vanoostenryck@gmail.com>
- <6a00eea2-7371-de84-05fc-1375603ed7eb@ramsayjones.plus.com>
- <20201228213338.e5tspbe3od27lo4x@ltop.local>
- <49f5ad45-5776-ab70-53c9-13fd23a1c082@intel.com>
- <20210105203909.vnuhix3ukl7zxgt6@ltop.local>
-From:   Jacob Keller <jacob.e.keller@intel.com>
-Organization: Intel Corporation
-Message-ID: <70519c76-29df-bc72-d3ad-81c53dcb8a47@intel.com>
-Date:   Tue, 5 Jan 2021 14:07:57 -0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.6.0
-MIME-Version: 1.0
-In-Reply-To: <20210105203909.vnuhix3ukl7zxgt6@ltop.local>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+        id S1727106AbhAMK6d (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Wed, 13 Jan 2021 05:58:33 -0500
+Received: from mail.loongson.cn ([114.242.206.163]:54188 "EHLO loongson.cn"
+        rhost-flags-OK-OK-OK-FAIL) by vger.kernel.org with ESMTP
+        id S1726463AbhAMK6c (ORCPT <rfc822;linux-sparse@vger.kernel.org>);
+        Wed, 13 Jan 2021 05:58:32 -0500
+Received: from linux.localdomain (unknown [113.200.148.30])
+        by mail.loongson.cn (Coremail) with SMTP id AQAAf9Dxr78d0v5fhLMDAA--.6498S2;
+        Wed, 13 Jan 2021 18:57:34 +0800 (CST)
+From:   Tiezhu Yang <yangtiezhu@loongson.cn>
+To:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>,
+        Alexei Starovoitov <ast@kernel.org>,
+        Daniel Borkmann <daniel@iogearbox.net>,
+        Andrii Nakryiko <andrii@kernel.org>,
+        Martin KaFai Lau <kafai@fb.com>,
+        Song Liu <songliubraving@fb.com>, Yonghong Song <yhs@fb.com>,
+        John Fastabend <john.fastabend@gmail.com>,
+        KP Singh <kpsingh@kernel.org>,
+        Nathan Chancellor <natechancellor@gmail.com>,
+        Nick Desaulniers <ndesaulniers@google.com>
+Cc:     linux-sparse@vger.kernel.org, netdev@vger.kernel.org,
+        bpf@vger.kernel.org, clang-built-linux@googlegroups.com,
+        linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Xuefeng Li <lixuefeng@loongson.cn>
+Subject: [PATCH 0/2] Fix build errors and warnings when make M=samples/bpf
+Date:   Wed, 13 Jan 2021 18:57:31 +0800
+Message-Id: <1610535453-2352-1-git-send-email-yangtiezhu@loongson.cn>
+X-Mailer: git-send-email 2.1.0
+X-CM-TRANSID: AQAAf9Dxr78d0v5fhLMDAA--.6498S2
+X-Coremail-Antispam: 1UD129KBjDUn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7v73
+        VFW2AGmfu7bjvjm3AaLaJ3UjIYCTnIWjp_UUUY67AC8VAFwI0_Xr0_Wr1l1xkIjI8I6I8E
+        6xAIw20EY4v20xvaj40_Wr0E3s1l1IIY67AEw4v_Jr0_Jr4l8cAvFVAK0II2c7xJM28Cjx
+        kF64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVW8JVW5JwA2z4x0Y4vE2Ix0cI8I
+        cVCY1x0267AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIE14v26F4UJVW0owA2z4x0Y4vEx4A2js
+        IEc7CjxVAFwI0_GcCE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE
+        5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26F4j6r4UJwAm72
+        CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7
+        M4IIrI8v6xkF7I0E8cxan2IY04v7MxkIecxEwVAFwVW8twCF04k20xvY0x0EwIxGrwCFx2
+        IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v2
+        6r106r1rMI8E67AF67kF1VAFwI0_GFv_WrylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67
+        AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IY
+        s7xG6rW3Jr0E3s1lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxV
+        W8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7VU14rW7UUUUU==
+X-CM-SenderInfo: p1dqw3xlh2x3gn0dqz5rrqw2lrqou0/
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
+There exists many build errors and warnings when make M=samples/bpf,
+this patch series fix some of them, I will submit some other patches
+related with MIPS later.
 
+Tiezhu Yang (2):
+  samples/bpf: Set flag __SANE_USERSPACE_TYPES__ for MIPS to fix build
+    warnings
+  compiler.h: Include asm/rwonce.h under ARM64 and ALPHA to fix build
+    errors
 
-On 1/5/2021 12:39 PM, Luc Van Oostenryck wrote:
-> On Tue, Jan 05, 2021 at 09:56:05AM -0800, Jacob Keller wrote:
->> On 12/28/2020 1:33 PM, Luc Van Oostenryck wrote:
->>> On Mon, Dec 28, 2020 at 05:18:50PM +0000, Ramsay Jones wrote:
->>>>
->>>> Patch #16 also looks good, but I would need to study it a bit more
->>>> than I have time available to be totally happy. It does not seem
->>>> to be handling the 'lowering' of 'odd bit-sized' symbols created in
->>>> the previous patch (to answer my own question), so I would have to
->>>> apply the patches (or fetch the above branch) to study some more.
->>>
->>> Well, patch #16 doesn't contain the lowering, it kinda just enables
->>> the last bits to support (without out-of-bound access) packed structures
->>> including packed bitfields.
->>>
->>
->> What does the 'lowering' gain us? Or, in other words, what is still
->> missing after this series?
-> 
-> As a static checker, nothing is missing and the series is now mainlined.
-> 
-> The 'lowering' only matters if you want to somehow translate the
-> instructions used in the IR (Intermediate Representation) into
-> instructions for a more concrete machine, because now there are things
-> like: 'do a load of a 5-byte word'.
-> 
-> -- Luc
-> 
+ include/linux/compiler.h    | 6 ++++++
+ samples/bpf/Makefile        | 4 ++++
+ tools/include/linux/types.h | 3 +++
+ 3 files changed, 13 insertions(+)
 
-Ok thanks, that makes sense.
+-- 
+2.1.0
 
-- Jake
