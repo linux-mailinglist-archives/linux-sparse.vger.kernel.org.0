@@ -2,58 +2,58 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 49194305019
-	for <lists+linux-sparse@lfdr.de>; Wed, 27 Jan 2021 04:45:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id C702230501D
+	for <lists+linux-sparse@lfdr.de>; Wed, 27 Jan 2021 04:46:23 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S232981AbhA0DpD (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Tue, 26 Jan 2021 22:45:03 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:59242 "EHLO
+        id S237040AbhA0DpX (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Tue, 26 Jan 2021 22:45:23 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:59248 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1727934AbhAZWFT (ORCPT
+        with ESMTP id S1728157AbhAZWFV (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Tue, 26 Jan 2021 17:05:19 -0500
-Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com [IPv6:2a00:1450:4864:20::434])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 381D6C0613ED
-        for <linux-sparse@vger.kernel.org>; Tue, 26 Jan 2021 14:04:39 -0800 (PST)
-Received: by mail-wr1-x434.google.com with SMTP id a1so18104375wrq.6
-        for <linux-sparse@vger.kernel.org>; Tue, 26 Jan 2021 14:04:39 -0800 (PST)
+        Tue, 26 Jan 2021 17:05:21 -0500
+Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com [IPv6:2a00:1450:4864:20::42a])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 1AD6AC061786
+        for <linux-sparse@vger.kernel.org>; Tue, 26 Jan 2021 14:04:40 -0800 (PST)
+Received: by mail-wr1-x42a.google.com with SMTP id h9so7855413wrr.9
+        for <linux-sparse@vger.kernel.org>; Tue, 26 Jan 2021 14:04:40 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=mCp66NLhpBgYgFPO6oStYivRlowXSYjV5YHCs1YAk1U=;
-        b=FEdODn3dX3yDorqu/WcXgDOVbqbySwQwso22vwJhzdFj4ke3fx6SUUlYruDEkpK3ac
-         QxQLA4kwrKY/IVNfsXeRGmW1ZmzSLjtjQorxSnGWruzNeRg47qnTfqIM7onANq3+RjZp
-         rmzc7jlkes1eMBP0nYB7ru0I11oBaZhHIAzRAa7bTEM0U+2XvqLlvODbys0DEwSc2FLt
-         wU+iNlMzikdN7EtEX682oGO0Bhs4BbNjod96x5YoBAKd2unyfcnDWCXxu2SMqjRMrHSa
-         EjGAQ0o7gs832Bi6iH6imgJjkuxUBUNxqDa6ceyjqc6vy9p4a2RV6UUGCgckc1AKf90R
-         Vctg==
+        bh=9dSeTy0FpRyAvUeb4DXxdtoKChR3B565ZqYajK810Tw=;
+        b=MjRiF5hsUvC6EpG9WNSkxB1Xv4Fnp/tOqy8vc5ECvJekPu+c0KLL8EOHNKeE+GCY83
+         gffA7X/c7qv4DpmFdlsIOw2FSdh/EBo1rf4HD1RsXp2fKiTPxRw4X6nEldengZJ8JTMU
+         e9PzyG7p5fUxDKt/XCCipy7f3JkTBMQARXYOY4lb5zSowYa7eXh83Ilg8pHO+mJcWE2V
+         knqL4UIP0vtmwHfooHmh/q3paM2APRKsbjuFkrnRg2wuLSvKGSQ60kQU36Qxcb6/LNsg
+         Dz0Kt1UF1Mn6YnCWA7mM1k8HFcMOE80RUdpmHY/IHtEauMHiRto/VoQV0neLCpwSkDXF
+         GLDg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=mCp66NLhpBgYgFPO6oStYivRlowXSYjV5YHCs1YAk1U=;
-        b=p1UrhO+uDJnY3XUzP0rVPDEaMGKNXdJzs3+GVNZo2SwNRGuHKAyls0lySTXGlD0fiv
-         iJDDIpQZyUGnJU5CGNYRlzNxZ+T/GVgGNBJFOKsIRxO9hPOiGCGPHse5xVrmJUtVhqin
-         Jwp3OVJwYj5ejCc6HuECXoGoBqRAeRGMWSpknPFomvqw7fab0PkSNyFLghn2vl4bSqWt
-         kLeocOSJnBxv20XFfnZBVwN9O4jTXi1E8sELbdwmf5f8fit8UxWXLMvy1rQDxCQ+XyVn
-         4FmHdnJcs3qEQTudRVmypjT2s1bweeedKZ0J6IpeWpttYSOuOUOmueVGIBzKe0fYIGX4
-         IJJQ==
-X-Gm-Message-State: AOAM533X81nqe89xC95bN9OS+eAJwKXhJQlHDAzWHo/jTuzJ++YI19rj
-        K0pIneQVr6cPqPrObzdbWzrp2ze0oHo=
-X-Google-Smtp-Source: ABdhPJyOX07bwggTUjfVCEjcFsfbJHHpK8obSz0P6meMz0eftgqv2AoL41/T2gCWJnECg1x5h8D0xQ==
-X-Received: by 2002:adf:f183:: with SMTP id h3mr8414554wro.30.1611698677982;
-        Tue, 26 Jan 2021 14:04:37 -0800 (PST)
+        bh=9dSeTy0FpRyAvUeb4DXxdtoKChR3B565ZqYajK810Tw=;
+        b=jxJNrYH5FArl48IRR3Kap2BvYvh9Ly/VJtS83jVy66iMsmOGHu7T+lh7StYNfFba3v
+         UwAPpAjOpajKaKbIOUysaFlXkvqq5M8NpVjCAMSOgbOuhv7MDNtncH5ST0CARAPSq/Q0
+         iPb+roT5FQ19vPcbHa/h1UXt00zxdz7J3DLQBfaOHiGatZBzmZ57vixtyJY9lNFKwhta
+         8dXb3Yb+y2fSGgyyctauO7Lc3T2yEFecstQI9iUZEJ0xYd6ohjscLgfsBaR7c78zlDmR
+         ICTfk2JER/1B/thphwBM+FUt4vP7yDZPo35JRo2sbXEoSAQQOtLV/kG3+zjj8YOjdHi5
+         Civg==
+X-Gm-Message-State: AOAM532Q+xbdsWGAAlt4fZgh4ta1xKR2BXURqXDKuqNmr+/LefSRYcU+
+        F6JZccxulV/3fFx2nxqHEMd4QrCThuw=
+X-Google-Smtp-Source: ABdhPJyFmfj7tnR57HsqiGnn2wtM7Uq2xkIw1r7hahV+Rrtu8nWONtZ9+ZoEkVgAnCtdsBkfc5h3qQ==
+X-Received: by 2002:adf:814f:: with SMTP id 73mr8249739wrm.368.1611698678940;
+        Tue, 26 Jan 2021 14:04:38 -0800 (PST)
 Received: from localhost.localdomain ([2a02:a03f:b7fe:f700:285a:40db:3257:f0fd])
-        by smtp.gmail.com with ESMTPSA id b132sm5268447wmh.21.2021.01.26.14.04.37
+        by smtp.gmail.com with ESMTPSA id b132sm5268447wmh.21.2021.01.26.14.04.38
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 26 Jan 2021 14:04:37 -0800 (PST)
+        Tue, 26 Jan 2021 14:04:38 -0800 (PST)
 From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 To:     linux-sparse@vger.kernel.org
 Cc:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-Subject: [PATCH 01/10] cmps: make clearer we're using the operands' size
-Date:   Tue, 26 Jan 2021 23:04:23 +0100
-Message-Id: <20210126220432.58265-2-luc.vanoostenryck@gmail.com>
+Subject: [PATCH 02/10] cmps: fix simplification of sext(x) + signed compare of {SMAX,SMIN}
+Date:   Tue, 26 Jan 2021 23:04:24 +0100
+Message-Id: <20210126220432.58265-3-luc.vanoostenryck@gmail.com>
 X-Mailer: git-send-email 2.30.0
 In-Reply-To: <20210126220432.58265-1-luc.vanoostenryck@gmail.com>
 References: <20210126220432.58265-1-luc.vanoostenryck@gmail.com>
@@ -63,56 +63,100 @@ Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-When handling compares of an {zero,sign}-extended value, the
-size of these extended values are used but this size is just
-the operands' size of the compares.
+Commit a1c1b9236d5d ("cmp: simplify sext(x) cmps {SMAX,SMIN}")
+had a double error (wrong size and wrong compare direction) which
+was hidden because of too narrow testcases.
 
-Make this clearer by using a single variable 'size' for it.
+So, fix the simplification and extend the testcases.
 
+Fixes: a1c1b9236d5d4af1681a45ced26f8350bd7721c2
 Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 ---
- simplify.c | 9 +++++----
- 1 file changed, 5 insertions(+), 4 deletions(-)
+ simplify.c                       |  4 +--
+ validation/optim/cmp-sext-simm.c | 46 ++++++++++++++++++++++++--------
+ 2 files changed, 37 insertions(+), 13 deletions(-)
 
 diff --git a/simplify.c b/simplify.c
-index bf6397dfd582..2f6f41c249dc 100644
+index 2f6f41c249dc..9a24058f6e55 100644
 --- a/simplify.c
 +++ b/simplify.c
-@@ -1162,7 +1162,8 @@ static int simplify_seteq_setne(struct instruction *insn, long long value)
- 
- static int simplify_compare_constant(struct instruction *insn, long long value)
- {
--	unsigned long long bits = bits_mask(insn->itype->bit_size);
-+	unsigned size = insn->itype->bit_size;
-+	unsigned long long bits = bits_mask(size);
- 	struct instruction *def;
- 	pseudo_t src1, src2;
- 	unsigned int osize;
-@@ -1217,7 +1218,7 @@ static int simplify_compare_constant(struct instruction *insn, long long value)
- 	switch (DEF_OPCODE(def, src1)) {
- 	case OP_SEXT:				// sext(x) cmp C --> x cmp trunc(C)
- 		osize = def->orig_type->bit_size;
--		if (is_signed_constant(value, osize, def->size)) {
-+		if (is_signed_constant(value, osize, size)) {
- 			insn->itype = def->orig_type;
- 			insn->src2 = value_pseudo(zero_extend(value, osize));
- 			return replace_pseudo(insn, &insn->src1, def->src);
-@@ -1263,13 +1264,13 @@ static int simplify_compare_constant(struct instruction *insn, long long value)
- 		}
- 		switch (insn->opcode) {
+@@ -1239,13 +1239,13 @@ static int simplify_compare_constant(struct instruction *insn, long long value)
+ 			}
+ 			break;
  		case OP_SET_LT: case OP_SET_LE:
--			if (sign_extend(value, def->size) > (long long)bits)
-+			if (sign_extend(value, size) > (long long)bits)
+-			if (value >= sign_bit(osize))
++			if (value < sign_bit(size))
  				return replace_with_value(insn, 1);
  			else
  				return replace_with_value(insn, 0);
  			break;
  		case OP_SET_GE: case OP_SET_GT:
--			if (sign_extend(value, def->size) > (long long)bits)
-+			if (sign_extend(value, size) > (long long)bits)
+-			if (value >= sign_bit(osize))
++			if (value < sign_bit(size))
  				return replace_with_value(insn, 0);
  			else
  				return replace_with_value(insn, 1);
+diff --git a/validation/optim/cmp-sext-simm.c b/validation/optim/cmp-sext-simm.c
+index a8b2a8f9feff..57a4df1d57b1 100644
+--- a/validation/optim/cmp-sext-simm.c
++++ b/validation/optim/cmp-sext-simm.c
+@@ -4,21 +4,45 @@
+ 
+ static int lt_ge0(int x) { return (sext(x) <  (POS + 0)) == 1; }
+ static int lt_ge1(int x) { return (sext(x) <  (POS + 1)) == 1; }
++static int lt_ge2(int x) { return (sext(x) <  (POS + 2)) == 1; }
++static int lt_gex(int x) { return (sext(x) <  (POS<< 1)) == 1; }
++static int lt_gey(int x) { return (sext(x) <  (POS<< 3)) == 1; }
+ static int le_ge0(int x) { return (sext(x) <= (POS + 0)) == 1; }
+ static int le_ge1(int x) { return (sext(x) <= (POS + 1)) == 1; }
+-static int lt_lt0(int x) { return (sext(x) <  (NEG - 0)) == 1; }
+-static int lt_lt1(int x) { return (sext(x) <  (NEG - 1)) == 1; }
+-static int le_lt0(int x) { return (sext(x) <= (NEG - 0)) == 1; }
+-static int le_lt1(int x) { return (sext(x) <= (NEG - 1)) == 1; }
+-
+-static int gt_ge0(int x) { return (sext(x) >  (POS + 0)) == 0; }
+-static int gt_ge1(int x) { return (sext(x) >  (POS + 1)) == 0; }
++static int le_ge2(int x) { return (sext(x) <= (POS + 2)) == 1; }
++static int le_gex(int x) { return (sext(x) <= (POS<< 1)) == 1; }
++static int le_gey(int x) { return (sext(x) <= (POS<< 3)) == 1; }
+ static int ge_ge0(int x) { return (sext(x) >= (POS + 0)) == 0; }
+ static int ge_ge1(int x) { return (sext(x) >= (POS + 1)) == 0; }
+-static int gt_lt0(int x) { return (sext(x) >  (NEG - 0)) == 0; }
+-static int gt_lt1(int x) { return (sext(x) >  (NEG - 1)) == 0; }
+-static int ge_lt0(int x) { return (sext(x) >= (NEG - 0)) == 0; }
+-static int ge_lt1(int x) { return (sext(x) >= (NEG - 1)) == 0; }
++static int ge_ge2(int x) { return (sext(x) >= (POS + 2)) == 0; }
++static int ge_gex(int x) { return (sext(x) >= (POS<< 1)) == 0; }
++static int ge_gey(int x) { return (sext(x) >= (POS<< 3)) == 0; }
++static int gt_ge0(int x) { return (sext(x) >  (POS + 0)) == 0; }
++static int gt_ge1(int x) { return (sext(x) >  (POS + 1)) == 0; }
++static int gt_ge2(int x) { return (sext(x) >  (POS + 2)) == 0; }
++static int gt_gex(int x) { return (sext(x) >  (POS<< 1)) == 0; }
++static int gt_gey(int x) { return (sext(x) >  (POS<< 3)) == 0; }
++
++static int lt_lt0(int x) { return (sext(x) <  (NEG - 0)) == 0; }
++static int lt_lt1(int x) { return (sext(x) <  (NEG - 1)) == 0; }
++static int lt_lt2(int x) { return (sext(x) <  (NEG - 2)) == 0; }
++static int lt_ltx(int x) { return (sext(x) <  (NEG<< 1)) == 0; }
++static int lt_lty(int x) { return (sext(x) <  (NEG<< 3)) == 0; }
++static int le_lt0(int x) { return (sext(x) <= (NEG - 0)) == 0; }
++static int le_lt1(int x) { return (sext(x) <= (NEG - 1)) == 0; }
++static int le_lt2(int x) { return (sext(x) <= (NEG - 2)) == 0; }
++static int le_ltx(int x) { return (sext(x) <= (NEG<< 1)) == 0; }
++static int le_lty(int x) { return (sext(x) <= (NEG<< 3)) == 0; }
++static int ge_lt0(int x) { return (sext(x) >= (NEG - 0)) == 1; }
++static int ge_lt1(int x) { return (sext(x) >= (NEG - 1)) == 1; }
++static int ge_lt2(int x) { return (sext(x) >= (NEG - 2)) == 1; }
++static int ge_ltx(int x) { return (sext(x) >= (NEG<< 1)) == 1; }
++static int ge_lty(int x) { return (sext(x) >= (NEG<< 3)) == 1; }
++static int gt_lt0(int x) { return (sext(x) >  (NEG - 0)) == 1; }
++static int gt_lt1(int x) { return (sext(x) >  (NEG - 1)) == 1; }
++static int gt_lt2(int x) { return (sext(x) >  (NEG - 2)) == 1; }
++static int gt_ltx(int x) { return (sext(x) >  (NEG<< 1)) == 1; }
++static int gt_lty(int x) { return (sext(x) >  (NEG<< 3)) == 1; }
+ 
+ /*
+  * check-name: cmp-sext-simm
 -- 
 2.30.0
 
