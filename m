@@ -2,100 +2,130 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id B8F803080D1
-	for <lists+linux-sparse@lfdr.de>; Thu, 28 Jan 2021 22:54:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 9796A30825F
+	for <lists+linux-sparse@lfdr.de>; Fri, 29 Jan 2021 01:30:08 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231545AbhA1Vx4 (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Thu, 28 Jan 2021 16:53:56 -0500
-Received: from spe8-2.ucebox.co.za ([197.242.156.207]:39142 "EHLO
-        spe8-2.ucebox.co.za" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S231403AbhA1Vxw (ORCPT
+        id S231184AbhA2A3g (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Thu, 28 Jan 2021 19:29:36 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:58990 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S231186AbhA2A33 (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Thu, 28 Jan 2021 16:53:52 -0500
-X-Greylist: delayed 6124 seconds by postgrey-1.27 at vger.kernel.org; Thu, 28 Jan 2021 16:53:45 EST
-Received: from cornucopia.aserv.co.za ([154.0.175.203])
-        by spe2.ucebox.co.za with esmtps (TLSv1.2:AES128-GCM-SHA256:128)
-        (Exim 4.92)
-        (envelope-from <manornutgrovemanor@gmail.com>)
-        id 1l5Bno-0001H8-2W; Thu, 28 Jan 2021 20:14:25 +0200
-Received: from localhost (localhost.localdomain [127.0.0.1])
-        by cornucopia.aserv.co.za (Postfix) with ESMTPA id 2C01EC1250;
-        Thu, 28 Jan 2021 20:12:38 +0200 (SAST)
+        Thu, 28 Jan 2021 19:29:29 -0500
+Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com [IPv6:2a00:1450:4864:20::633])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 5091AC061573
+        for <linux-sparse@vger.kernel.org>; Thu, 28 Jan 2021 16:28:49 -0800 (PST)
+Received: by mail-ej1-x633.google.com with SMTP id g3so10483334ejb.6
+        for <linux-sparse@vger.kernel.org>; Thu, 28 Jan 2021 16:28:49 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=A2iR6dWTaLu/Lqc9tystWWe6HIDceOxnTZEnvBm1x1s=;
+        b=PdaK+nmimOuF1XDYZ79gBp0Za9FIv75DmXWfr1+gkjjKa8GJRM6H53q3yPswoskcl3
+         bElyxIIPgaSS8osJMiwceql3eBjhr2cV0+T+NQ/zqX4ZT5wH+21Mf2SrGXoTe3fqtUiG
+         WYA4glcBhG9DVdCzidUIBB8/TMJK/YECxbg40zIoEeM6Y0hz3TG2OKmL4ISZ3ohCZyYs
+         iKV3jmRC25mIOX9jrf81tK3wv49NgaTdXyjStcd59c3qrSEw32Sb2Kr/sb2SvCV8193j
+         vw9e5OUlQf1S9uOH6HGhI3rQZuUOLYyr7vbIw9GJxYsrOe7ORlFG81aHKPwiSuTEqOyN
+         pv/g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=A2iR6dWTaLu/Lqc9tystWWe6HIDceOxnTZEnvBm1x1s=;
+        b=kq0s5mCV+TFATTjnlXM1+UgyUw1RFptZkDCTU4a0iArfoHOHp5GxTMR6yxBcfrFXYy
+         vsAkOaXhdp4zDMbmeCoxeh2lKqo+PZ4Diu/3S6m/aZa+HxlrTaLgHpy1i/wMsxcFFwRQ
+         xhajy+zPvE8Xt7vde6Mj5Lu453RfGLXWEcTCKToS6ayPVt5ccCi0HtgvfK719tsgDS+Y
+         0XpILodGn+AuI+2ECMdpnACWENO2DStVe2M4AVFup/VDtbrZkEPEDIzNGX9YYGFSbcPc
+         i8IvXaNDL/UYaEH0Pp5fwL5/DISQryp1uQyERdDXAZGUiTxh9eR0l1RnaS6MmwDp+BhU
+         bkPg==
+X-Gm-Message-State: AOAM532lCktIP3EEmQbkCA9OES37g6UvzaKY6P0KcE4h8uQ4FPffVzz1
+        54ZNlOEDiSIrKS1r4BiUATKyP7KU1rQ=
+X-Google-Smtp-Source: ABdhPJxtSVIAUZjt1BNpDIp4NX6vQPChK5VZuzb1RmXdp85ydkSPPmgrFqH9IdsOvmVID3AtN3AwLw==
+X-Received: by 2002:a17:907:9f9:: with SMTP id ce25mr2158856ejc.352.1611880128026;
+        Thu, 28 Jan 2021 16:28:48 -0800 (PST)
+Received: from localhost.localdomain ([2a02:a03f:b7fe:f700:2c9d:c007:e1d0:a3a6])
+        by smtp.gmail.com with ESMTPSA id h19sm3044663ejl.26.2021.01.28.16.28.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 28 Jan 2021 16:28:47 -0800 (PST)
+From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
+To:     linux-sparse@vger.kernel.org
+Cc:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
+Subject: [PATCH] fix add_join_conditional() one of the alternative is VOID
+Date:   Fri, 29 Jan 2021 01:28:39 +0100
+Message-Id: <20210129002839.1579-1-luc.vanoostenryck@gmail.com>
+X-Mailer: git-send-email 2.30.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
-Date:   Thu, 28 Jan 2021 20:12:38 +0200
-From:   Nut Grove Manor <manornutgrovemanor@gmail.com>
-To:     undisclosed-recipients:;
-Subject: Invitation To Quote
-User-Agent: Roundcube Webmail/1.4.1
-Message-ID: <bc9a5f43f3caae762f95ca676f59aca0@gmail.com>
-X-Sender: manornutgrovemanor@gmail.com
-X-Originating-IP: 154.0.175.203
-X-Afrihost-Domain: pesci.aserv.co.za
-X-Afrihost-Username: 154.0.175.203
-Authentication-Results: ucebox.co.za; auth=pass smtp.auth=154.0.175.203@pesci.aserv.co.za
-X-Afrihost-Outgoing-Class: unsure
-X-Afrihost-Outgoing-Evidence: Combined (0.71)
-X-Recommended-Action: accept
-X-Filter-ID: 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
-X-Report-Abuse-To: spam@spe1.ucebox.co.za
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-Good Day Sir
+add_join_conditional()'s job is to take the 2 alternatives
+of the conditional, make a phi-node from them and return
+the corresponding pseudo but if one of the alternatives
+is not available it's useless to create a phi-node and
+the other alternative can then directly be returned.
 
-We are please to invite you/your company to quote the following item
-listed
-below:
+The problem is that in this later case, the pseudo directly
+returned is the PSEUDO_PHI of the corresponding phi-source.
+This gives erroneous code like, for example:
+	phisrc.32	%phi1 <- $0
+	ret.32		%phi1
+instead of:
+	ret.32		$0
+since the %ph1 should only be used by a phi-node instruction.
 
-Product/Model No: TM9653 PRESSURE REGULATOR
-Product Name:MEKO
-Qty. 30 units
+Fix this by returning phi-source's operand instead.
 
-Compulsory,Kindly send your quotation
-for immediate approval.
+Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
+---
+ linearize.c                           |  4 ++--
+ validation/linear/join-cond-discard.c | 19 +++++++++++++++++++
+ 2 files changed, 21 insertions(+), 2 deletions(-)
+ create mode 100644 validation/linear/join-cond-discard.c
 
-Kind Regards,
-Albert Bourla
-PFIZER B.V Supply Chain Manager
-Tel: +31(0)208080 880
-ADDRESS: Rivium Westlaan 142, 2909 LD
-Capelle aan den IJssel, Netherlands
+diff --git a/linearize.c b/linearize.c
+index e80715ab2458..7a6f745fd4fc 100644
+--- a/linearize.c
++++ b/linearize.c
+@@ -1678,9 +1678,9 @@ static pseudo_t add_join_conditional(struct entrypoint *ep, struct expression *e
+ 	struct instruction *phi_node;
+ 
+ 	if (phi1 == VOID)
+-		return phi2;
++		return (phi2 == VOID) ? phi2 : phi2->def->src;
+ 	if (phi2 == VOID)
+-		return phi1;
++		return (phi1 == VOID) ? phi1 : phi1->def->src;
+ 
+ 	phi_node = alloc_typed_instruction(OP_PHI, expr->ctype);
+ 	use_pseudo(phi_node, phi1, add_pseudo(&phi_node->phi_list, phi1));
+diff --git a/validation/linear/join-cond-discard.c b/validation/linear/join-cond-discard.c
+new file mode 100644
+index 000000000000..9f07a7d499f6
+--- /dev/null
++++ b/validation/linear/join-cond-discard.c
+@@ -0,0 +1,19 @@
++void abort(void) __attribute__((noreturn));
++
++int bar(int a)
++{
++	return a ? (abort(), 0) : 0;
++}
++
++int qux(int a)
++{
++	return a ? (abort(), 0) : (abort(), 1);
++}
++
++/*
++ * check-name: join-cond-discard
++ * check-command: test-linearize -Wno-decl $file
++ *
++ * check-output-ignore
++ * check-output-excludes: phisrc\\..*phi
++ */
+-- 
+2.30.0
+
