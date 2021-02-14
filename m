@@ -2,79 +2,124 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 25010316703
-	for <lists+linux-sparse@lfdr.de>; Wed, 10 Feb 2021 13:45:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 9FC1531B181
+	for <lists+linux-sparse@lfdr.de>; Sun, 14 Feb 2021 18:20:15 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231274AbhBJMpm convert rfc822-to-8bit (ORCPT
-        <rfc822;lists+linux-sparse@lfdr.de>); Wed, 10 Feb 2021 07:45:42 -0500
-Received: from spam.auroraoh.com ([24.56.89.101]:39966 "EHLO
-        barracuda.auroraoh.com" rhost-flags-OK-OK-OK-FAIL) by vger.kernel.org
-        with ESMTP id S232029AbhBJMnp (ORCPT
-        <rfc822;linux-sparse@vger.kernel.org>);
-        Wed, 10 Feb 2021 07:43:45 -0500
-X-ASG-Debug-ID: 1612960939-112c0d6a799d4e0001-j3efAR
-Received: from COASRV-MAIL2.auroraoh.loc (coasrv-mail2.auroraoh.loc [10.3.1.15]) by barracuda.auroraoh.com with ESMTP id FAETB7tiKTzvBmxR; Wed, 10 Feb 2021 07:42:19 -0500 (EST)
-X-Barracuda-Envelope-From: JanuskaD@auroraoh.com
-X-Barracuda-RBL-Trusted-Forwarder: 10.3.1.15
-Received: from [172.20.10.5] (197.210.29.8) by COASRV-MAIL2.auroraoh.loc
- (10.3.1.15) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Tue, 9 Feb 2021
- 02:48:36 -0500
-Content-Type: text/plain; charset="iso-8859-1"
-X-Barracuda-RBL-Trusted-Forwarder: 172.20.10.5
+        id S229740AbhBNRRq (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Sun, 14 Feb 2021 12:17:46 -0500
+Received: from honk.sigxcpu.org ([24.134.29.49]:49700 "EHLO honk.sigxcpu.org"
+        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
+        id S229884AbhBNRRo (ORCPT <rfc822;linux-sparse@vger.kernel.org>);
+        Sun, 14 Feb 2021 12:17:44 -0500
+X-Greylist: delayed 641 seconds by postgrey-1.27 at vger.kernel.org; Sun, 14 Feb 2021 12:17:43 EST
+Received: from localhost (localhost [127.0.0.1])
+        by honk.sigxcpu.org (Postfix) with ESMTP id CB983FB03;
+        Sun, 14 Feb 2021 18:06:18 +0100 (CET)
+X-Virus-Scanned: Debian amavisd-new at honk.sigxcpu.org
+Received: from honk.sigxcpu.org ([127.0.0.1])
+        by localhost (honk.sigxcpu.org [127.0.0.1]) (amavisd-new, port 10024)
+        with ESMTP id 3oNCoDZm0plg; Sun, 14 Feb 2021 18:06:16 +0100 (CET)
+Date:   Sun, 14 Feb 2021 18:06:15 +0100
+From:   Guido =?iso-8859-1?Q?G=FCnther?= <agx@sigxcpu.org>
+To:     kernel test robot <rong.a.chen@intel.com>
+Cc:     Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org,
+        kbuild-all@lists.01.org, linux-sparse@vger.kernel.org
+Subject: Re: [PATCH v2 2/4] usb: typec: tps6598x: Add trace event for status
+ register
+Message-ID: <YClYh7pqDlbXy8qh@bogon.m.sigxcpu.org>
+References: <651ac50b9ff6ed3db8cab9f176514900f6a02a0c.1613131413.git.agx@sigxcpu.org>
+ <20210213031237.GP219708@shao2-debian>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8BIT
-Content-Description: Mail message body
-Subject: We are a registered Private Loan Investment Company in the United Kingdom,
- we also registered with the Turkish British Chamber of Commerce and Industry
- (TBCCI) we have operations in Europe and Asia.
-To:     Recipients <januskad@auroraoh.com>
-X-ASG-Orig-Subj: We are a registered Private Loan Investment Company in the United Kingdom,
- we also registered with the Turkish British Chamber of Commerce and Industry
- (TBCCI) we have operations in Europe and Asia.
-From:   <januskad@auroraoh.com>
-Date:   Tue, 9 Feb 2021 15:47:50 +0800
-Reply-To: <cfolimiited@gmail.com>
-X-Priority: 1 (High)
-X-Antivirus: Avast (VPS 210207-2, 02/07/2021), Outbound message
-X-Antivirus-Status: Clean
-Message-ID: <7366e102-3fd6-407f-8b25-4f84cc21ff2e@COASRV-MAIL2.auroraoh.loc>
-X-Originating-IP: [197.210.29.8]
-X-ClientProxiedBy: COASRV-MAIL3.auroraoh.loc (10.3.1.13) To
- COASRV-MAIL2.auroraoh.loc (10.3.1.15)
-X-Barracuda-Connect: coasrv-mail2.auroraoh.loc[10.3.1.15]
-X-Barracuda-Start-Time: 1612960939
-X-Barracuda-URL: https://10.3.1.12:443/cgi-mod/mark.cgi
-X-Virus-Scanned: by bsmtpd at auroraoh.com
-X-Barracuda-Scan-Msg-Size: 755
-X-Barracuda-BRTS-Status: 1
-X-Barracuda-Spam-Score: 1.61
-X-Barracuda-Spam-Status: No, SCORE=1.61 using global scores of TAG_LEVEL=1000.0 QUARANTINE_LEVEL=1000.0 KILL_LEVEL=5.0 tests=BSF_SC0_SA609_NRN, BSF_SC0_SA912_RP_FR, BSF_SC0_SA_TO_FROM_ADDR_MATCH, NO_REAL_NAME
-X-Barracuda-Spam-Report: Code version 3.2, rules version 3.2.3.87885
-        Rule breakdown below
-         pts rule name              description
-        ---- ---------------------- --------------------------------------------------
-        0.00 NO_REAL_NAME           From: does not include a real name
-        0.01 BSF_SC0_SA912_RP_FR    Custom Rule BSF_SC0_SA912_RP_FR
-        0.50 BSF_SC0_SA_TO_FROM_ADDR_MATCH Sender Address Matches Recipient
-                                   Address
-        1.10 BSF_SC0_SA609_NRN      Custom Rule SA609_NRN
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20210213031237.GP219708@shao2-debian>
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-We are seeking for beneficiaries who source for fund to expand/relocating their business interest abroad. We are ready to fund projects outside Turkey and United Kingdom in the form of Soft Loan. We grant loans to both corporate and private entities at a low interest rate of 2% R.O.I per annul.
+Hi ,
+On Sat, Feb 13, 2021 at 11:12:37AM +0800, kernel test robot wrote:
+> Hi "Guido,
+> 
+> I love your patch! Perhaps something to improve:
+> 
+> [auto build test WARNING on usb/usb-testing]
+> [also build test WARNING on v5.11-rc7 next-20210211]
+> [If your patch is applied to the wrong git tree, kindly drop us a note.
+> And when submitting patch, we suggest to use '--base' as documented in
+> https://git-scm.com/docs/git-format-patch]
+> 
+> url:    https://github.com/0day-ci/linux/commits/Guido-G-nther/usb-typec-tps6598x-Add-IRQ-flag-and-register-tracing/20210212-200855
+> base:   https://git.kernel.org/pub/scm/linux/kernel/git/gregkh/usb.git usb-testing
+> config: openrisc-randconfig-s032-20210209 (attached as .config)
+> compiler: or1k-linux-gcc (GCC) 9.3.0
+> reproduce:
+>         wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
+>         chmod +x ~/bin/make.cross
+>         # apt-get install sparse
+>         # sparse version: v0.6.3-215-g0fb77bb6-dirty
+>         # https://github.com/0day-ci/linux/commit/ba45e1d5e1fd25b6aed8724106e6c7d5adef7a20
+>         git remote add linux-review https://github.com/0day-ci/linux
+>         git fetch --no-tags linux-review Guido-G-nther/usb-typec-tps6598x-Add-IRQ-flag-and-register-tracing/20210212-200855
+>         git checkout ba45e1d5e1fd25b6aed8724106e6c7d5adef7a20
+>         # save the attached .config to linux build tree
+>         COMPILER_INSTALL_PATH=$HOME/0day COMPILER=gcc-9.3.0 make.cross C=1 CF='-fdiagnostic-prefix -D__CHECK_ENDIAN__' ARCH=openrisc 
+> 
+> If you fix the issue, kindly add following tag as appropriate
+> Reported-by: kernel test robot <rong.a.chen@intel.com>
+> 
+> 
+> "sparse warnings: (new ones prefixed by >>)"
+>    drivers/usb/typec/tps6598x.c: note: in included file (through include/trace/trace_events.h, include/trace/define_trace.h, drivers/usb/typec/tps6598x_trace.h):
+> >> drivers/usb/typec/./tps6598x_trace.h:157:1: sparse: sparse: too long token expansion
+> 
 
-We like to grant loan in the following sectors: oil/Gas, banking, real estate, stock speculation and mining, transportation, health sector and tobacco, Communication Services, Agriculture Forestry & Fishing, thus any sector. The terms are very flexible and interesting.
+I looked around but didn't find any hints how to fix this. Any pointers
+I missed (added the sparse list to cc:)?
 
-Please contact us for more details;
+Cheers,
+ -- Guido
+
+> vim +157 drivers/usb/typec/./tps6598x_trace.h
+> 
+> c90c0282e4ce33 Guido Günther 2021-02-12  156  
+> ba45e1d5e1fd25 Guido Günther 2021-02-12 @157  TRACE_EVENT(tps6598x_status,
+> ba45e1d5e1fd25 Guido Günther 2021-02-12  158  	    TP_PROTO(u32 status),
+> ba45e1d5e1fd25 Guido Günther 2021-02-12  159  	    TP_ARGS(status),
+> ba45e1d5e1fd25 Guido Günther 2021-02-12  160  
+> ba45e1d5e1fd25 Guido Günther 2021-02-12  161  	    TP_STRUCT__entry(
+> ba45e1d5e1fd25 Guido Günther 2021-02-12  162  			     __field(u32, status)
+> ba45e1d5e1fd25 Guido Günther 2021-02-12  163  			     ),
+> ba45e1d5e1fd25 Guido Günther 2021-02-12  164  
+> ba45e1d5e1fd25 Guido Günther 2021-02-12  165  	    TP_fast_assign(
+> ba45e1d5e1fd25 Guido Günther 2021-02-12  166  			   __entry->status = status;
+> ba45e1d5e1fd25 Guido Günther 2021-02-12  167  			   ),
+> ba45e1d5e1fd25 Guido Günther 2021-02-12  168  
+> ba45e1d5e1fd25 Guido Günther 2021-02-12  169  	    TP_printk("conn: %s, pp_5v0: %s, pp_hv: %s, pp_ext: %s, pp_cable: %s, "
+> ba45e1d5e1fd25 Guido Günther 2021-02-12  170  		      "pwr-src: %s, vbus: %s, usb-host: %s, legacy: %s, flags: %s",
+> ba45e1d5e1fd25 Guido Günther 2021-02-12  171  		      show_status_conn_state(__entry->status),
+> ba45e1d5e1fd25 Guido Günther 2021-02-12  172  		      show_status_pp_switch_state(TPS_STATUS_PP_5V0_SWITCH(__entry->status)),
+> ba45e1d5e1fd25 Guido Günther 2021-02-12  173  		      show_status_pp_switch_state(TPS_STATUS_PP_HV_SWITCH(__entry->status)),
+> ba45e1d5e1fd25 Guido Günther 2021-02-12  174  		      show_status_pp_switch_state(TPS_STATUS_PP_EXT_SWITCH(__entry->status)),
+> ba45e1d5e1fd25 Guido Günther 2021-02-12  175  		      show_status_pp_switch_state(TPS_STATUS_PP_CABLE_SWITCH(__entry->status)),
+> ba45e1d5e1fd25 Guido Günther 2021-02-12  176  		      show_status_power_sources(__entry->status),
+> ba45e1d5e1fd25 Guido Günther 2021-02-12  177  		      show_status_vbus_status(__entry->status),
+> ba45e1d5e1fd25 Guido Günther 2021-02-12  178  		      show_status_usb_host_present(__entry->status),
+> ba45e1d5e1fd25 Guido Günther 2021-02-12  179  		      show_status_legacy(__entry->status),
+> ba45e1d5e1fd25 Guido Günther 2021-02-12  180  		      show_status_flags(__entry->status)
+> ba45e1d5e1fd25 Guido Günther 2021-02-12  181  		    )
+> ba45e1d5e1fd25 Guido Günther 2021-02-12  182  );
+> ba45e1d5e1fd25 Guido Günther 2021-02-12  183  
+> 
+> ---
+> 0-DAY CI Kernel Test Service, Intel Corporation
+> https://lists.01.org/hyperkitty/list/kbuild-all@lists.01.org
 
 
-Kind regards,
-
-Paul McCann
-
--- 
-This email has been checked for viruses by Avast antivirus software.
-https://www.avast.com/antivirus
+> _______________________________________________
+> kbuild mailing list -- kbuild@lists.01.org
+> To unsubscribe send an email to kbuild-leave@lists.01.org
 
