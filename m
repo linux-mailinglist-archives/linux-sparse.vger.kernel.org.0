@@ -2,48 +2,48 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id C561C320E4A
-	for <lists+linux-sparse@lfdr.de>; Sun, 21 Feb 2021 23:29:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id B9F18320E48
+	for <lists+linux-sparse@lfdr.de>; Sun, 21 Feb 2021 23:29:36 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231754AbhBUW3V (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        id S231667AbhBUW3V (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
         Sun, 21 Feb 2021 17:29:21 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:51622 "EHLO
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:51628 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S231667AbhBUW3U (ORCPT
+        with ESMTP id S231752AbhBUW3U (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
         Sun, 21 Feb 2021 17:29:20 -0500
-Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com [IPv6:2a00:1450:4864:20::62b])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B7AF2C061786
-        for <linux-sparse@vger.kernel.org>; Sun, 21 Feb 2021 14:28:39 -0800 (PST)
-Received: by mail-ej1-x62b.google.com with SMTP id do6so26238587ejc.3
-        for <linux-sparse@vger.kernel.org>; Sun, 21 Feb 2021 14:28:39 -0800 (PST)
+Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com [IPv6:2a00:1450:4864:20::52e])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 5EC77C06178A
+        for <linux-sparse@vger.kernel.org>; Sun, 21 Feb 2021 14:28:40 -0800 (PST)
+Received: by mail-ed1-x52e.google.com with SMTP id h25so5947238eds.4
+        for <linux-sparse@vger.kernel.org>; Sun, 21 Feb 2021 14:28:40 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=5ARYQ75+cFLLlYvbDh1z4/qaZZWa+HKeZ55Q1ba6Tm0=;
-        b=okpx/bgLISs37bHfWecfFbc7m2EitlO/q14vhAEiFhgEECaQfu1ZE1QLjHkaAWmvqA
-         dmsYzYahzdZBFwJB5Qn7m8KkIk19CdeMDtRfkY4EWGVoD3ngVoGjEmPj5foe/fbigB/v
-         HAopHHzeruC7a3M5s37sIdT3dVpN+v6T1TzJfV4i0/4DT2ieuoXYOBQztAA4JSsycKlM
-         IfFcMYcMcXCgVtPvjr7B9huxhwW6oqBXRVdjnmtjWf/ewppYhopPGtNWIaoQHPrxQreB
-         Na1p9YikyO5vwrODmpwaSqmQzDYFX7rVxiUNF7yujOiQAr0qknqPNAC36DuyCSbnpojr
-         y4IQ==
+        bh=FaQKWBtND5iMGgbPJRM56FQVBFx5cBOmcDOmGicPlYk=;
+        b=NcvAAh9SQcyoeW3j8oAeq2sKM328dGDzt1O5s/x3SpvI5bkyfCfol2qM8LJ9uLOeCu
+         Gw5okyeOvKMPqLo4LPQVK9PmvBfdGEST/aaBv43PuWIjp4uV/eGOQjM2temM2NFJny+a
+         5Rb+WpCEc4W00m3+f7IN2ynF85+5q7nftjrtyQpiru85iR+rUOVdd0bvKmCFFdTJErZj
+         9dlkErPcwXNwmG/VvhkZyiP5BQEJxoJfahI7qUdLCks8HI/3ER06nCQY0SddmGw8i/0y
+         27bHDTOoIXz698QWaA7hDYGE0QyDamYxeelJZywYAbh8i5keNEIUY9BVvPRXJMvJZJ0N
+         0DQQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=5ARYQ75+cFLLlYvbDh1z4/qaZZWa+HKeZ55Q1ba6Tm0=;
-        b=TIRA5EcpAsYyjki3DfQ+L2jiD43laqkpRv+QcLwReYrb5i/jrkFooUpGCm2rnCHsKM
-         U9Mo9kf27bl0XAOKLFmIaRD21x+DowMgoaAtE0gNYT+Hxzs1Da+har51uGZx5la6QV5x
-         Zto8XRx5gNGkGrsuPl30xw41imRC0aOzWnAm+7l88tuikRYSP9iH8XNvh4PqZXzGd98W
-         ExSmbz9enRTCLJNyP0x3Dk36PJq+UlQSpsSLm1IbnQFhB3+oYywacUIVMJSu1KU452ui
-         NkJnfkp3+r7o/jxw1WNIYDzyS//yteHgUCS0rC6ZwO2u1SZVedxPPDGLoLhzzwLrM3eV
-         Iu8g==
-X-Gm-Message-State: AOAM533VOyhbMzOQlsuBnFcayIMUtUMRfu7dMqaZ3DfCgdQTLmDBpdbw
-        VifeYsVjWlJbhpsJxC+gveUhVc9C1VE=
-X-Google-Smtp-Source: ABdhPJyZ7+CZ+8vXgZrnGfGoD8j4n2AQ7PidItnsJdOF+vSjTDCoTgCs7POH83suOew34Husfff0+A==
-X-Received: by 2002:a17:906:a157:: with SMTP id bu23mr7665510ejb.491.1613946518560;
-        Sun, 21 Feb 2021 14:28:38 -0800 (PST)
+        bh=FaQKWBtND5iMGgbPJRM56FQVBFx5cBOmcDOmGicPlYk=;
+        b=KbdnY4qIn1xg2zg/MECel28m1v17yRsdNiggsYt+RfUIOOgzQQz3bgBn25f3TRn1R0
+         a8LbKVFxarr0skbViyrkoogYo6SUbnj3treM2ROrPDn6v2CJ3WHdMsn5ANp4hhqgJrW0
+         DwYXbAmXyIidcJKfepvkkzL/ImzTRyNyJNxKXdHFUfPz0PpqxVz9XAjJE03twJ4TpG46
+         9PoVOWDipARKrAuLY13CJtFnzzCU26I4d/QjZpbfH/GeUROQly0kR4iRyM4peRsZdCqj
+         WVSjjmEcv4/UyIyyIp5JXYP/9EezMUs5/oI7ZvrmaRz32Mzyz2k0HrWsAgDsxYSczJLe
+         KoLA==
+X-Gm-Message-State: AOAM533QI+j6ZagzKifTM+5s7CfKRujaX3pi3w1yLe3Yf000FtbcZwt0
+        LpQzLo4hAN1nbaJ3TKlhl1Gnfz2thfw=
+X-Google-Smtp-Source: ABdhPJzIejC709m9pCKrMqDa/WTWPqRLV/pg8Swx70DAy+XEeh7juwKSBqu5t7nlJIXbj7WcMiR7tg==
+X-Received: by 2002:a05:6402:160b:: with SMTP id f11mr3009574edv.225.1613946519123;
+        Sun, 21 Feb 2021 14:28:39 -0800 (PST)
 Received: from localhost.localdomain ([2a02:a03f:b7fe:f700:9463:3f6a:e4eb:cf54])
         by smtp.gmail.com with ESMTPSA id d6sm297744ejr.59.2021.02.21.14.28.38
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
@@ -51,9 +51,9 @@ Received: from localhost.localdomain ([2a02:a03f:b7fe:f700:9463:3f6a:e4eb:cf54])
 From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 To:     linux-sparse@vger.kernel.org
 Cc:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-Subject: [PATCH 1/3] asm: add testcase for problem with output addresses
-Date:   Sun, 21 Feb 2021 23:28:32 +0100
-Message-Id: <20210221222834.7974-2-luc.vanoostenryck@gmail.com>
+Subject: [PATCH 2/3] asm: factor out add_asm_rule() from add_asm_{in,out}put()
+Date:   Sun, 21 Feb 2021 23:28:33 +0100
+Message-Id: <20210221222834.7974-3-luc.vanoostenryck@gmail.com>
 X-Mailer: git-send-email 2.30.0
 In-Reply-To: <20210221222834.7974-1-luc.vanoostenryck@gmail.com>
 References: <20210221222834.7974-1-luc.vanoostenryck@gmail.com>
@@ -63,49 +63,66 @@ Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-The addresses needed by memory output operands are linearized
-(and placed) after the ASM instruction needing them.
-
-So, add a test case for this.
+The functions add_asm_input() and add_asm_output() are very similar.
+So, factorize out the common part.
 
 Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 ---
- validation/linear/asm-out0.c | 26 ++++++++++++++++++++++++++
- 1 file changed, 26 insertions(+)
- create mode 100644 validation/linear/asm-out0.c
+ linearize.c | 23 ++++++++++++-----------
+ 1 file changed, 12 insertions(+), 11 deletions(-)
 
-diff --git a/validation/linear/asm-out0.c b/validation/linear/asm-out0.c
-new file mode 100644
-index 000000000000..64d154ed5ad7
---- /dev/null
-+++ b/validation/linear/asm-out0.c
-@@ -0,0 +1,26 @@
-+static void asm_out0(void)
-+{
-+	int mem;
-+	asm volatile ("[%1] <= 0" : "=m" (mem));
+diff --git a/linearize.c b/linearize.c
+index 7a6f745fd4fc..6efa47492869 100644
+--- a/linearize.c
++++ b/linearize.c
+@@ -2127,22 +2127,27 @@ static pseudo_t linearize_range(struct entrypoint *ep, struct statement *stmt)
+ ALLOCATOR(asm_rules, "asm rules");
+ ALLOCATOR(asm_constraint, "asm constraints");
+ 
+-static void add_asm_input(struct entrypoint *ep, struct instruction *insn, struct asm_operand *op)
++static void add_asm_rule(struct instruction *insn, struct asm_constraint_list **list, struct asm_operand *op, pseudo_t pseudo)
+ {
+-	pseudo_t pseudo = linearize_expression(ep, op->expr);
+ 	struct asm_constraint *rule = __alloc_asm_constraint(0);
+-
++	rule->is_memory = op->is_memory;
+ 	rule->ident = op->name;
+ 	rule->constraint = op->constraint ? op->constraint->string->data : "";
+ 	use_pseudo(insn, pseudo, &rule->pseudo);
+-	add_ptr_list(&insn->asm_rules->inputs, rule);
++	add_ptr_list(list, rule);
 +}
 +
-+/*
-+ * check-name: asm-out0
-+ * check-command: test-linearize -fdump-ir $file
-+ * check-known-to-fail
-+ *
-+ * check-output-start
-+asm_out0:
-+.L0:
-+	<entry-point>
-+	symaddr.64  %r1 <- mem
-+	asm         "[%1] <= 0"
-+		out: "=m" (%r1)
-+	br          .L1
++static void add_asm_input(struct entrypoint *ep, struct instruction *insn, struct asm_operand *op)
++{
++	pseudo_t pseudo = linearize_expression(ep, op->expr);
 +
-+.L1:
-+	ret
++	add_asm_rule(insn, &insn->asm_rules->inputs, op, pseudo);
+ }
+ 
+ static void add_asm_output(struct entrypoint *ep, struct instruction *insn, struct asm_operand *op)
+ {
+ 	struct access_data ad = { NULL, };
+ 	pseudo_t pseudo;
+-	struct asm_constraint *rule;
+ 
+ 	if (op->is_memory) {
+ 		pseudo = linearize_expression(ep, op->expr);
+@@ -2152,12 +2157,8 @@ static void add_asm_output(struct entrypoint *ep, struct instruction *insn, stru
+ 		pseudo = alloc_pseudo(insn);
+ 		linearize_store_gen(ep, pseudo, &ad);
+ 	}
+-	rule = __alloc_asm_constraint(0);
+-	rule->is_memory = op->is_memory;
+-	rule->ident = op->name;
+-	rule->constraint = op->constraint ? op->constraint->string->data : "";
+-	use_pseudo(insn, pseudo, &rule->pseudo);
+-	add_ptr_list(&insn->asm_rules->outputs, rule);
 +
-+
-+ * check-output-end
-+ */
++	add_asm_rule(insn, &insn->asm_rules->outputs, op, pseudo);
+ }
+ 
+ static pseudo_t linearize_asm_statement(struct entrypoint *ep, struct statement *stmt)
 -- 
 2.30.0
 
