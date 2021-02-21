@@ -2,58 +2,58 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id AF0B3320E51
-	for <lists+linux-sparse@lfdr.de>; Sun, 21 Feb 2021 23:35:54 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 2E824320E52
+	for <lists+linux-sparse@lfdr.de>; Sun, 21 Feb 2021 23:35:55 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231760AbhBUWfp (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Sun, 21 Feb 2021 17:35:45 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:52974 "EHLO
+        id S231695AbhBUWft (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Sun, 21 Feb 2021 17:35:49 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:52980 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S231695AbhBUWfk (ORCPT
+        with ESMTP id S231614AbhBUWfl (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Sun, 21 Feb 2021 17:35:40 -0500
-Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com [IPv6:2a00:1450:4864:20::629])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 8C06BC06178B
-        for <linux-sparse@vger.kernel.org>; Sun, 21 Feb 2021 14:34:59 -0800 (PST)
-Received: by mail-ej1-x629.google.com with SMTP id d8so26228273ejc.4
-        for <linux-sparse@vger.kernel.org>; Sun, 21 Feb 2021 14:34:59 -0800 (PST)
+        Sun, 21 Feb 2021 17:35:41 -0500
+Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com [IPv6:2a00:1450:4864:20::529])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 85985C06178C
+        for <linux-sparse@vger.kernel.org>; Sun, 21 Feb 2021 14:35:00 -0800 (PST)
+Received: by mail-ed1-x529.google.com with SMTP id q10so19592972edt.7
+        for <linux-sparse@vger.kernel.org>; Sun, 21 Feb 2021 14:35:00 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=/EzbR+Du2BxaJJadZeD2HbcmcwMUcvujgdONk2vLKNQ=;
-        b=JGMslxXiA4l/HqLLmh0a7bkzBkb3dFSaO2ozayzefDIZheaVUfv8cYetPfli0vrGt3
-         orJS0zHUUMBwgxoHOGR5Gy9Xy2Y6eJG/rSCAQJNBwAjwbD7sMJjzDYUYaU4jnNbr1iWN
-         3jV8CgiFQfHzsbvB1ZqKmJWA09CXSMkcQRgCovus8As86QLKuL+S5XVN/RQk5FvStc6R
-         7uPBStxrBkdiuX9XbJxZJRv0S8C1szP+I4+Kd2I1qxeQgAKSisRHEVUyNBVuuDjr0zpF
-         JIRpDxMmtEq7YIi+qh5r8Epuz2qrrPJnfJDfGfxeYIp9dsMSiSQ03XqcsezToziTWZNE
-         4Zsw==
+        bh=vIv1t53ectFeOVyiXsEEZ4xhYCJ930zM41PWD/+TfVs=;
+        b=MKhwEYJFWT4sG1crsLZKzanRL++c5LI/eVa2ZFaW97c3tlw03dVjfHEuopK/tMXH7v
+         OrSXpSBVRDZt54UGHkS2RLJEfFqBmhjrNcPQtNogAk4TTfT2mKQkqNDeDwzJ1yHSFuQ4
+         iek5iCy7A44F59J76RPtiTbJF7pfSSMgznE8YbjTNKFr1QUklrfa+Cl+j034+KF4fzmN
+         ObvqV39LlJTKt45yFieXO+kkLFeKM6rknjXrJ7hHqN2iFa+HLmrpLlepFBD9QwiJWzek
+         /YYhfnFAoEVBKC8LGl5MHP5cSVObplp1XY1DkUcsYQUCppoNQbpoZ8FKDQRIJj1CAKO5
+         s5Kw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=/EzbR+Du2BxaJJadZeD2HbcmcwMUcvujgdONk2vLKNQ=;
-        b=dng6GUg5+hnHnOjY9eZKcalm5LSqP3yOToOQELreGs1YThdpX/j/8bxHAYLoq5lmPj
-         hUatq0TfbHHTjGqxBV2QtJOSs7MjHQpP2PguXOSVi58nd5Hu7AW8KEEhE/KA4CYl6cvY
-         BkEiBv7FeIx21zWRBJBhqLdIEtvgJ5kap45yxCPegWww2ykuJ2TsvZCm/Cb61pKLe2PF
-         NrimDjyjtu21KfGMxbO2ZbhFNpMAdnMCDGMNji/cdDzzjMjxYTx2Z/j0bQ3yNT5e5jPB
-         CoTSQ1duHdvMgbWS76mb8h61vagw7B1b34M24BvV5oJyGLMIYhs3155oeCpFdwme1xrX
-         17ZQ==
-X-Gm-Message-State: AOAM531eVCJ3gHiWJgifGkmvkHSbaOKyg+inxl/brjRt2XQy3cC7CrX9
-        ztduxbWL6JNRdEJcLfiraNMB5vSCfYI=
-X-Google-Smtp-Source: ABdhPJwHOMpae5b3Qpg/i4AubJ9xFG5tDhMSk5gFrGQoC4r2ml8dFrc3N9o/LEDQgyOKMauD2pb8SA==
-X-Received: by 2002:a17:906:b0d8:: with SMTP id bk24mr18675378ejb.252.1613946898327;
+        bh=vIv1t53ectFeOVyiXsEEZ4xhYCJ930zM41PWD/+TfVs=;
+        b=k1SStB720DMrbZ7yjeOTLLkLZnj389cI1sbw1swTV1vcTL95Nrn3kHOP+dLEaixITc
+         AAxTERvK5npn9QIoSz/FJDB/ShHPmVnMiLYha7b5kGi1EPjH5uusGY8KrEuCTXhCx/Ox
+         fYT53lht7DeeFG2Q/sF8siWMY/er3sQU9VjlNfFWAfg1gu4rusZ7MR8FvRCc5jwDHDKV
+         lqzIfny9ZaDlSfguw1xDCZNvNMTu+YrrsOnYNhdE93tFDkKeIqi5n96aN8w1/C2ZJ24e
+         PnsoFHGhaYPfFe834Mijn6TxGntBrJ2kDPKoTPKfP6/i39cB59PCFWv8F0Hm435LCTvj
+         EKzw==
+X-Gm-Message-State: AOAM532jD0IZI6wRIqh3Ws/6YDf7oyEaKgztJK24gQJc5H5XAbPel+Nc
+        9Z97myVz40nCZ++zl0S+CnCdqdMzYHY=
+X-Google-Smtp-Source: ABdhPJyuS+JJJ+EzTgwpperqj5GL2l43kEKo7DqeXb7oJJWZUtkFkuhGBK5WVSLyrOQMvDXlNKtq2A==
+X-Received: by 2002:a05:6402:278a:: with SMTP id b10mr20033858ede.347.1613946898923;
         Sun, 21 Feb 2021 14:34:58 -0800 (PST)
 Received: from localhost.localdomain ([2a02:a03f:b7fe:f700:9463:3f6a:e4eb:cf54])
-        by smtp.gmail.com with ESMTPSA id p2sm10433622edm.94.2021.02.21.14.34.57
+        by smtp.gmail.com with ESMTPSA id p2sm10433622edm.94.2021.02.21.14.34.58
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
         Sun, 21 Feb 2021 14:34:58 -0800 (PST)
 From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 To:     linux-sparse@vger.kernel.org
 Cc:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-Subject: [PATCH 3/5] asm-mem: does it clobber memory?
-Date:   Sun, 21 Feb 2021 23:34:50 +0100
-Message-Id: <20210221223452.8075-4-luc.vanoostenryck@gmail.com>
+Subject: [PATCH 4/5] asm-mem: does it output to memory?
+Date:   Sun, 21 Feb 2021 23:34:51 +0100
+Message-Id: <20210221223452.8075-5-luc.vanoostenryck@gmail.com>
 X-Mailer: git-send-email 2.30.0
 In-Reply-To: <20210221223452.8075-1-luc.vanoostenryck@gmail.com>
 References: <20210221223452.8075-1-luc.vanoostenryck@gmail.com>
@@ -63,51 +63,39 @@ Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-An asm statement can specify that it clobbers memory.
-Add this info directly in the corresponding instruction, avoiding
-the need to scan the clobber list each time.
+If an asm statement have a memory output operand, it modifies memory.
+
+Since this information is needed during memops simplification,
+add this info directly in the corresponding instruction,
+avoiding the need to scan the output operands list each time.
 
 Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 ---
- linearize.c | 8 +++++++-
+ linearize.c | 1 +
  linearize.h | 1 +
- 2 files changed, 8 insertions(+), 1 deletion(-)
+ 2 files changed, 2 insertions(+)
 
 diff --git a/linearize.c b/linearize.c
-index 33d641b40de6..4140b60caebd 100644
+index 4140b60caebd..0c9b0e59cc4b 100644
 --- a/linearize.c
 +++ b/linearize.c
-@@ -2174,7 +2174,7 @@ static void add_asm_output(struct entrypoint *ep, struct instruction *insn, stru
- static pseudo_t linearize_asm_statement(struct entrypoint *ep, struct statement *stmt)
- {
- 	struct instruction *insn;
--	struct expression *expr;
-+	struct expression *expr, *clob;
- 	struct asm_rules *rules;
- 	struct asm_operand *op;
+@@ -2153,6 +2153,7 @@ static void add_asm_output_address(struct entrypoint *ep, struct instruction *in
  
-@@ -2206,6 +2206,12 @@ static pseudo_t linearize_asm_statement(struct entrypoint *ep, struct statement
- 		add_asm_output(ep, insn, op);
- 	} END_FOR_EACH_PTR(op);
- 
-+	/* and finally, look if it clobbers memory */
-+	FOR_EACH_PTR(stmt->asm_clobbers, clob) {
-+		if (!strcmp(clob->string->data, "memory"))
-+			insn->clobber_memory = 1;
-+	} END_FOR_EACH_PTR(clob);
-+
- 	return VOID;
+ 	pseudo = linearize_expression(ep, op->expr);
+ 	add_asm_rule(insn, &insn->asm_rules->outputs, op, pseudo);
++	insn->output_memory = 1;
  }
  
+ static void add_asm_output(struct entrypoint *ep, struct instruction *insn, struct asm_operand *op)
 diff --git a/linearize.h b/linearize.h
-index a77e4b3e5f6f..fb51327684bb 100644
+index fb51327684bb..cf0cf066a8e5 100644
 --- a/linearize.h
 +++ b/linearize.h
-@@ -150,6 +150,7 @@ struct instruction {
- 		struct /* asm */ {
+@@ -151,6 +151,7 @@ struct instruction {
  			const char *string;
  			struct asm_rules *asm_rules;
-+			int clobber_memory:1;
+ 			int clobber_memory:1;
++			int output_memory:1;
  		};
  	};
  };
