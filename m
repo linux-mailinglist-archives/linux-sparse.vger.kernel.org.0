@@ -2,58 +2,58 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id B1334325A48
-	for <lists+linux-sparse@lfdr.de>; Fri, 26 Feb 2021 00:40:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 920A5325A49
+	for <lists+linux-sparse@lfdr.de>; Fri, 26 Feb 2021 00:40:52 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S232161AbhBYXj7 (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Thu, 25 Feb 2021 18:39:59 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:58932 "EHLO
+        id S232631AbhBYXkA (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Thu, 25 Feb 2021 18:40:00 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:58938 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S232642AbhBYXj4 (ORCPT
+        with ESMTP id S231591AbhBYXj5 (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Thu, 25 Feb 2021 18:39:56 -0500
+        Thu, 25 Feb 2021 18:39:57 -0500
 Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com [IPv6:2a00:1450:4864:20::630])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 1BE72C061786
-        for <linux-sparse@vger.kernel.org>; Thu, 25 Feb 2021 15:39:16 -0800 (PST)
-Received: by mail-ej1-x630.google.com with SMTP id n20so11742751ejb.5
-        for <linux-sparse@vger.kernel.org>; Thu, 25 Feb 2021 15:39:16 -0800 (PST)
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 25F45C061788
+        for <linux-sparse@vger.kernel.org>; Thu, 25 Feb 2021 15:39:17 -0800 (PST)
+Received: by mail-ej1-x630.google.com with SMTP id lr13so11699114ejb.8
+        for <linux-sparse@vger.kernel.org>; Thu, 25 Feb 2021 15:39:17 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=dayAgQkgoEWMtY8d4KcJ4zW79UMvO9gP8YBMcQY0lks=;
-        b=ekBAEoCQj4pnVWwi6/Y43MkHjoaV0e/g+Xs7QYaQc4lpoiyttTR9HqAggz9e2/68Je
-         CZrGFewy3IQTn5vBvfnBGf+ra5lKlZFeJEDvWxebHIgeusExPaplFA31LlIa6cM3V1oq
-         Jz3ysMNi1dfMmAXtxbKpBqXUsNRWIxWTSYN5HxuuVl4w3ZHCLBKm/7Ea1b9jbehpb/l+
-         CtkGEraFBwgMJvUM6sk3zLJuHzwn894cbJ+6Ie/er6Y4lkTjVRy/LvHXn4HBpERf+6Q3
-         SLmbMw+Ds9thzIN+Ytzd20m7ihTNcn5d9sG4DOo+LGFbfwtg4Uk7kr8D5sRPSFwHeY1P
-         Z7+g==
+        bh=dWIQX6FNkhoM9Ek8W8cd7BFifYtTDRXjX+tDcjnbAPk=;
+        b=YakYo6QeUXUTKMiNpwupWMrODna/TCBtodmDg2HwCKoNlTn+fdCyIVAhZoPc3dKxvg
+         XoT1BY/AmAaPNuvMT/HWTcFKGtkN23l9TKv7QVkszKCUQxMXkgMb6bqr55AFgJLrBte2
+         2OdIS9hOpAJYBpLCsgSf0XsVuyBe8o2DnssJvynnyPnsZdU92RkCHSaMZ/yE5Iugy2pR
+         NHjGPS3XsCoJVkQacPJCvkU50jLTVwuvoIGc4HhIRLaZGbcSA7TkAmqqPx4HDSih3Za1
+         dKtTsPYyKptKffJa41tYGNPmhnS1oRw6B6TuDpBpxNdz7TWmldZ+Lo2CLY/150QvPPwH
+         l+/g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=dayAgQkgoEWMtY8d4KcJ4zW79UMvO9gP8YBMcQY0lks=;
-        b=IrnflMxIzhAE3nxIy59WZCvbpfrWeDfAXKX7Z5K5D0Kbk9aXY3Z2jL98btPw3ZZT05
-         Q6Alv8lxHu/ni6T1Dss7K25nDnpw+BF4Q0EkF5BDNLOtByPmjRDjm5gUwE+GMB4aCTlU
-         qF9/XLA8E/ZDgpSmRZBB+QjIuvAmgrN08dsb75m8CkrfrQLWfwvGpWXS8j1aqvkvsuLw
-         imvVfUDuBXyTrHPrHFughpejCx6RZNLg75hkF6pa+SCPdiq6xpoSrWzURkZ6sFEE0Htx
-         u6kUakX7BNv1i8x4gmj8owfOMBITgrrOJkcUoKXdBmkZ19u32GA52ZGz9kzqZX6TIN35
-         YmnQ==
-X-Gm-Message-State: AOAM532vpE2WchqAM3rsSgtiRG6KyAbAk/T2XalkZEkBfqcFi0GNB4yj
-        P0VCukmjBa+9JNy8Ygmdi2bPi9EaESM=
-X-Google-Smtp-Source: ABdhPJyIVUineH+6rDFrFm22bBmwXYBTkF8SXa6CONP2hdnQr8B1ZBQsAIsYelUmepsZMDq/4UH5Fg==
-X-Received: by 2002:a17:906:f9cc:: with SMTP id lj12mr85998ejb.544.1614296354948;
-        Thu, 25 Feb 2021 15:39:14 -0800 (PST)
+        bh=dWIQX6FNkhoM9Ek8W8cd7BFifYtTDRXjX+tDcjnbAPk=;
+        b=kQGZEbYiMjd+hsMsmD98CGWie9ZaJyT9w1Z9AOdiXWJze5A+7EUddHXZYbdAVKE7Ny
+         b81ybDY+tmpigx74hnZSPE0DR4E/1nO7DmklfCS8YKKOO4V1fsWQoormHzUyHd6f+BH5
+         pPUpQ9Ou/KxgOp2/lyCvVtvIID58wJDGuWjsqD/Y+JYBKYdaeSCheIQ9kKhBD9TPD3yG
+         WWgnkSbVYvb8xm7EVKLHwX7QipGClDfpEPEMP9RlYgSkkgBhdJB0KGiMGHRTdputUGc7
+         Hx9wocvE5hrASOLNGNfAptofSjPQCy9XMNhSAjnN5xLVPz23psHw3XXgy+p+YmWVqUnR
+         jnAw==
+X-Gm-Message-State: AOAM531q6C0iqssHRtLT3F6ipfapZGKrpLR4J3el2uo7GEq4WecRqYsW
+        NfRHXCSr9mKxUArUEhL7g/ZJq8yCSLc=
+X-Google-Smtp-Source: ABdhPJzoKv1BStakCubliQttoyTE8q9wbBAuBvEju4XQWPerUVbi9FZ+3AO7NdzVei7T11HFzyIcoQ==
+X-Received: by 2002:a17:906:e0cb:: with SMTP id gl11mr83521ejb.87.1614296355994;
+        Thu, 25 Feb 2021 15:39:15 -0800 (PST)
 Received: from localhost.localdomain ([2a02:a03f:b7fe:f700:2cfa:d768:30f4:f221])
-        by smtp.gmail.com with ESMTPSA id q27sm3906167ejc.74.2021.02.25.15.39.14
+        by smtp.gmail.com with ESMTPSA id q27sm3906167ejc.74.2021.02.25.15.39.15
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 25 Feb 2021 15:39:14 -0800 (PST)
+        Thu, 25 Feb 2021 15:39:15 -0800 (PST)
 From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 To:     linux-sparse@vger.kernel.org
 Cc:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-Subject: [PATCH 3/4] slice: OP_SLICE needs the source's type: make it a kind of unop
-Date:   Fri, 26 Feb 2021 00:39:07 +0100
-Message-Id: <20210225233908.97275-4-luc.vanoostenryck@gmail.com>
+Subject: [PATCH 4/4] slice: display the source's size, like for unops
+Date:   Fri, 26 Feb 2021 00:39:08 +0100
+Message-Id: <20210225233908.97275-5-luc.vanoostenryck@gmail.com>
 X-Mailer: git-send-email 2.30.0
 In-Reply-To: <20210225233908.97275-1-luc.vanoostenryck@gmail.com>
 References: <20210225233908.97275-1-luc.vanoostenryck@gmail.com>
@@ -63,88 +63,28 @@ Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-OP_SLICE's source's type is needed for some simplifications.
-For example, in some cases it can be simplified into OP_TRUNC.
-
-So, merge its representation with the one for unops which also
-need the source's type.
+When displaying an OP_SLICE, the width is shown but the size
+of the source pseudo is useful to. So display the it, like
+done for unops.
 
 Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 ---
- linearize.c | 5 +++--
- linearize.h | 5 +----
- liveness.c  | 5 +----
- 3 files changed, 5 insertions(+), 10 deletions(-)
+ linearize.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/linearize.c b/linearize.c
-index 96a717bc2909..7ab69d3ac968 100644
+index 7ab69d3ac968..b06c062599ee 100644
 --- a/linearize.c
 +++ b/linearize.c
 @@ -470,7 +470,7 @@ const char *show_instruction(struct instruction *insn)
  		break;
  
  	case OP_SLICE:
--		buf += sprintf(buf, "%s <- %s, %d", show_pseudo(insn->target), show_pseudo(insn->base), insn->from);
-+		buf += sprintf(buf, "%s <- %s, %d", show_pseudo(insn->target), show_pseudo(insn->src), insn->from);
+-		buf += sprintf(buf, "%s <- %s, %d", show_pseudo(insn->target), show_pseudo(insn->src), insn->from);
++		buf += sprintf(buf, "%s <- (%d) %s, %d", show_pseudo(insn->target), type_size(insn->orig_type), show_pseudo(insn->src), insn->from);
  		break;
  
  	case OP_NOT: case OP_NEG:
-@@ -1239,7 +1239,8 @@ static pseudo_t linearize_slice(struct entrypoint *ep, struct expression *expr)
- 
- 	insn->target = new;
- 	insn->from = expr->r_bitpos;
--	use_pseudo(insn, pre, &insn->base);
-+	insn->orig_type = expr->base->ctype;
-+	use_pseudo(insn, pre, &insn->src);
- 	add_one_insn(ep, insn);
- 	return new;
- }
-diff --git a/linearize.h b/linearize.h
-index 4d83675caaf1..429f4797e359 100644
---- a/linearize.h
-+++ b/linearize.h
-@@ -113,6 +113,7 @@ struct instruction {
- 		};
- 		struct /* unops */ {
- 			pseudo_t src;
-+			unsigned from;			/* slice */
- 			struct symbol *orig_type;	/* casts */
- 		};
- 		struct /* memops */ {
-@@ -127,10 +128,6 @@ struct instruction {
- 			pseudo_t _src1, _src2;		// alias .src[12]
- 			struct symbol *itype;		// input operands' type
- 		};
--		struct /* slice */ {
--			pseudo_t base;
--			unsigned from;
--		};
- 		struct /* setval */ {
- 			struct expression *val;
- 		};
-diff --git a/liveness.c b/liveness.c
-index 30a9a5b6b169..755509e59b52 100644
---- a/liveness.c
-+++ b/liveness.c
-@@ -76,6 +76,7 @@ static void track_instruction_usage(struct basic_block *bb, struct instruction *
- 	/* Uni */
- 	case OP_UNOP ... OP_UNOP_END:
- 	case OP_SYMADDR:
-+	case OP_SLICE:
- 		USES(src1); DEFINES(target);
- 		break;
- 
-@@ -121,10 +122,6 @@ static void track_instruction_usage(struct basic_block *bb, struct instruction *
- 		} END_FOR_EACH_PTR(pseudo);
- 		break;
- 
--	case OP_SLICE:
--		USES(base); DEFINES(target);
--		break;
--
- 	case OP_ASM:
- 		asm_liveness(bb, insn, def, use);
- 		break;
 -- 
 2.30.0
 
