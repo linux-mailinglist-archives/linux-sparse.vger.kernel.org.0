@@ -2,82 +2,119 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 79633326A64
-	for <lists+linux-sparse@lfdr.de>; Sat, 27 Feb 2021 00:29:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 1B32F326A7D
+	for <lists+linux-sparse@lfdr.de>; Sat, 27 Feb 2021 00:47:55 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229967AbhBZX3b (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Fri, 26 Feb 2021 18:29:31 -0500
-Received: from avasout03.plus.net ([84.93.230.244]:47893 "EHLO
+        id S229949AbhBZXri (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Fri, 26 Feb 2021 18:47:38 -0500
+Received: from avasout03.plus.net ([84.93.230.244]:48745 "EHLO
         avasout03.plus.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229622AbhBZX3b (ORCPT
+        with ESMTP id S229912AbhBZXrh (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Fri, 26 Feb 2021 18:29:31 -0500
+        Fri, 26 Feb 2021 18:47:37 -0500
 Received: from [10.0.2.15] ([147.147.167.73])
         by smtp with ESMTPA
-        id FmXLl8aFIEfgXFmXMlwzvr; Fri, 26 Feb 2021 23:28:44 +0000
+        id Fmorl8axUEfgXFmotlx06s; Fri, 26 Feb 2021 23:46:51 +0000
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=plus.com; s=042019;
-        t=1614382124; bh=ARXRUEFTAeQsAJ5ebuQfefB93dg/EIVLiD92IVpKXuY=;
-        h=To:Cc:From:Subject:Date;
-        b=jaOwJaAmEcCFZfi7Awf7paVCm0VIM8ziYAtUn+3zCdZIxLM6Iz6fUy+i4sXEhKy4D
-         2DngrhKsnkiZ+Vdo/2d3pM7JWW6TRYKv9GCHVMJlK8DOt9P8hLgfbJbHACRxNVcbt/
-         3P5O7XSKukDVvE21sLnDdWnlUKyCCoQqmve86yGRGOUvoOpkhb066Xj6iejBT2gzPR
-         m+jg3FY4czba0jUoVWawpl4bm5pXUF7BZbhM2GeonOmrFC94b/CA3OCabIr/DGJS2M
-         Zv6wepME1edd1Fn8q6Oj8rLZ7QdofUloHhZVrEWB2zYPHUrDKVZxWQLNn3VduUymuQ
-         j5/00XrbYR6tA==
+        t=1614383211; bh=2OK+9goV+HGnOJIokVc4z6VccLjZE+Eta1Vs5p2r6zw=;
+        h=Subject:To:References:From:Date:In-Reply-To;
+        b=ZAjy4OFQK24zeaonGhWhxJSiPZ0JoCX1JX00DNNyt+NR6chSW5NdANcCNlWqvdLvP
+         2V/L8uHxfyKUBCH7H2lre8+pDn975fS0AS4l+nuK7Uk4NQiRmWV9SwXmB9PDkSyZIq
+         sLykg8NzUezq2IPIQ0uMpS92ZdT9tjLP5iDKxje/cg7Ib3aLSoGrgp56fm3MMJv3hE
+         31OkfdZSmd4zBOM7fBdKwLd6IKnJ+0NZgHelbuOxIb5hN08ZAAQiWJemfH2dKw3ZGr
+         zYZASqwka2VYS7/ZG9iHWtyyQwzt2sdYJpemERj0Bewoqdlf/NCZZoPhofyKtiN6GU
+         LtgSax1c5c/Sg==
 X-Clacks-Overhead: "GNU Terry Pratchett"
 X-CM-Score: 0.00
 X-CNFS-Analysis: v=2.3 cv=WomwzeXv c=1 sm=1 tr=0
  a=nK5asC+3lBOC3EoKtwbYYg==:117 a=nK5asC+3lBOC3EoKtwbYYg==:17
- a=IkcTkHD0fZMA:10 a=EBOSESyhAAAA:8 a=w2lMRmTRfH--k1LY2AMA:9 a=QEXdDO2ut3YA:10
- a=yJM6EZoI5SlJf8ks9Ge_:22
+ a=IkcTkHD0fZMA:10 a=pGLkceISAAAA:8 a=BvsfWK9VvvrgyxQ2MUkA:9 a=QEXdDO2ut3YA:10
 X-AUTH: ramsayjones@:2500
-To:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-Cc:     Sparse Mailing-list <linux-sparse@vger.kernel.org>
+Subject: Re: [PATCH 1/4] slice: remove unneeded len from OP_SLICE
+To:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>,
+        linux-sparse@vger.kernel.org
+References: <20210225233908.97275-1-luc.vanoostenryck@gmail.com>
+ <20210225233908.97275-2-luc.vanoostenryck@gmail.com>
 From:   Ramsay Jones <ramsay@ramsayjones.plus.com>
-Subject: [PATCH] linearize.h: fix some 'selfcheck' warnings
-Message-ID: <89a7aecb-1a5c-0a43-c9a9-ccee0b12fca6@ramsayjones.plus.com>
-Date:   Fri, 26 Feb 2021 23:28:43 +0000
+Message-ID: <558d59c7-ca74-706e-e1a6-68a15f6fc43a@ramsayjones.plus.com>
+Date:   Fri, 26 Feb 2021 23:46:49 +0000
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.10.0
 MIME-Version: 1.0
+In-Reply-To: <20210225233908.97275-2-luc.vanoostenryck@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-GB
 Content-Transfer-Encoding: 7bit
-X-CMAE-Envelope: MS4wfI9dGVR0yt8/beyZ0451F29re1bfgzB7azxEtIVmDPmLM9DX3eReoUuOcY4kjXW13yD+jbfwLQ3kbKL5ZHg6w9vY/9egNauuDkpplHTWJNStVEjmIhfb
- 3mq9Gk4wpQAekTEBHnPR6zSifjuCLSvbxjLWWCJnd3tk6+5ItlNBvBv9g+src22XckoMP4zbXYePhg==
+X-CMAE-Envelope: MS4wfGBb/wR32mVUX0OslR5FSRnQe6LYfgt/sPBNRcLwM0Xc8GH77hClOqC9xMhRryDOstj1dEHAj3R1Yd4AWIbPKiK8TbyREtcjy1XkFcvU23qCmZbh8YBH
+ HEFFe0ZGtIJ+xw8FP6PCoJzC/bn+gJwo8gomcG1u4kZL4+ZP5Qs3QlhlSrx6OkxkwgXY6F5mHz8k+w==
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
 
-Commits 34c57a7f ("asm-mem: does it clobber memory?", 2021-02-20) and
-d6721b38 ("asm-mem: does it output to memory?", 2021-02-20) both add
-a single bit bitfield to the 'struct asm' part of the union contained
-within the 'struct instruction'. This causes the 'selfcheck' target
-to issue several 'dubious one-bit signed bitfield' errors.
 
-In order to suppress these errors, change the type of the bitfields to
-an unsigned type.
+On 25/02/2021 23:39, Luc Van Oostenryck wrote:
+> OP_SLICE::len is necessarily equal to the result size.
+> So remove this redundancy.
+> 
+> Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
+> ---
+>  Documentation/IR.rst | 2 +-
+>  linearize.c          | 3 +--
+>  linearize.h          | 2 +-
+>  3 files changed, 3 insertions(+), 4 deletions(-)
+> 
+> diff --git a/Documentation/IR.rst b/Documentation/IR.rst
+> index 38df84ff3954..c7db32073361 100644
+> --- a/Documentation/IR.rst
+> +++ b/Documentation/IR.rst
+> @@ -408,7 +408,7 @@ Others
+>  	Extract a "slice" from an aggregate.
+>  
+>  	* .base: (pseudo_t) aggregate (alias .src)
+> -	* .from, .len: offet & size of the "slice" within the aggregate
+> +	* .from: offet of the "slice" within the aggregate
 
-Signed-off-by: Ramsay Jones <ramsay@ramsayjones.plus.com>
----
- linearize.h | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+s/offet/offset/
 
-diff --git a/linearize.h b/linearize.h
-index cf0cf066..01ee656c 100644
---- a/linearize.h
-+++ b/linearize.h
-@@ -150,8 +150,8 @@ struct instruction {
- 		struct /* asm */ {
- 			const char *string;
- 			struct asm_rules *asm_rules;
--			int clobber_memory:1;
--			int output_memory:1;
-+			unsigned int clobber_memory:1;
-+			unsigned int output_memory:1;
- 		};
- 	};
- };
--- 
-2.30.0
+ATB,
+Ramsay Jones
+
+>  	* .target: result
+>  	* .type: type of .target
+>  
+> diff --git a/linearize.c b/linearize.c
+> index 0c9b0e59cc4b..96a717bc2909 100644
+> --- a/linearize.c
+> +++ b/linearize.c
+> @@ -470,7 +470,7 @@ const char *show_instruction(struct instruction *insn)
+>  		break;
+>  
+>  	case OP_SLICE:
+> -		buf += sprintf(buf, "%s <- %s, %d, %d", show_pseudo(insn->target), show_pseudo(insn->base), insn->from, insn->len);
+> +		buf += sprintf(buf, "%s <- %s, %d", show_pseudo(insn->target), show_pseudo(insn->base), insn->from);
+>  		break;
+>  
+>  	case OP_NOT: case OP_NEG:
+> @@ -1239,7 +1239,6 @@ static pseudo_t linearize_slice(struct entrypoint *ep, struct expression *expr)
+>  
+>  	insn->target = new;
+>  	insn->from = expr->r_bitpos;
+> -	insn->len = expr->r_nrbits;
+>  	use_pseudo(insn, pre, &insn->base);
+>  	add_one_insn(ep, insn);
+>  	return new;
+> diff --git a/linearize.h b/linearize.h
+> index cf0cf066a8e5..4d83675caaf1 100644
+> --- a/linearize.h
+> +++ b/linearize.h
+> @@ -129,7 +129,7 @@ struct instruction {
+>  		};
+>  		struct /* slice */ {
+>  			pseudo_t base;
+> -			unsigned from, len;
+> +			unsigned from;
+>  		};
+>  		struct /* setval */ {
+>  			struct expression *val;
+> 
