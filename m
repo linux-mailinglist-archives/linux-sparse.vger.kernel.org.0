@@ -2,86 +2,60 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 178E2326E7B
-	for <lists+linux-sparse@lfdr.de>; Sat, 27 Feb 2021 18:51:02 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 89D02326F67
+	for <lists+linux-sparse@lfdr.de>; Sat, 27 Feb 2021 23:36:25 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230081AbhB0RtD (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Sat, 27 Feb 2021 12:49:03 -0500
-Received: from avasout01.plus.net ([84.93.230.227]:55270 "EHLO
-        avasout01.plus.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230234AbhB0Rqu (ORCPT
-        <rfc822;linux-sparse@vger.kernel.org>);
-        Sat, 27 Feb 2021 12:46:50 -0500
-Received: from [10.0.2.15] ([147.147.167.73])
-        by smtp with ESMTPA
-        id G3BXlRDCRg7CTG3BYlwMVv; Sat, 27 Feb 2021 17:15:21 +0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=plus.com; s=042019;
-        t=1614446121; bh=MjFTDsiFEDHmc4m51tubLBNKMLgHqJNDCRs9N407e7I=;
-        h=To:Cc:From:Subject:Date;
-        b=rdj+QRJsLQVofE+VrEt9sDosN1/ADbgSx8gCkGL+PRslfSJmqwzFUS7gSWD/CRvQd
-         /rDtlMs1hzD+p68weLGdF3uth49OXvyWPdbiTzkeKNlU1hvup2WF+UO1kVkJaqwPop
-         5vrccFjlUcqbLSYWV6ucdfDn6hG8ZBUbOIjnbIkobGZ0wHfjyaH6WKMQbNdR9fqGhJ
-         jDeH9LW3inqXpMO/q//w5t9tMgScf1R7xO6X0RJkdgSe1FqJWGZ6eRob4WjRVFPmMB
-         MTwciUTDA1ua1f6uAU8HYZVin8R59pH7iyck3moRrlSJkb9htPwk7HTevwZJPM5MUk
-         sxFhwfbO6mV0w==
-X-Clacks-Overhead: "GNU Terry Pratchett"
-X-CM-Score: 0.00
-X-CNFS-Analysis: v=2.3 cv=cYFJUkLM c=1 sm=1 tr=0
- a=nK5asC+3lBOC3EoKtwbYYg==:117 a=nK5asC+3lBOC3EoKtwbYYg==:17
- a=IkcTkHD0fZMA:10 a=EBOSESyhAAAA:8 a=mQv2aIotB2r71X3VWRQA:9 a=QEXdDO2ut3YA:10
- a=yJM6EZoI5SlJf8ks9Ge_:22
-X-AUTH: ramsayjones@:2500
-To:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-Cc:     Sparse Mailing-list <linux-sparse@vger.kernel.org>
-From:   Ramsay Jones <ramsay@ramsayjones.plus.com>
-Subject: [PATCH] asm-out0: fix a test failure on 32-bit systems
-Message-ID: <4626bf8c-6079-976a-f579-f76ed1d2792d@ramsayjones.plus.com>
-Date:   Sat, 27 Feb 2021 17:15:19 +0000
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+        id S230268AbhB0WfM (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Sat, 27 Feb 2021 17:35:12 -0500
+Received: from mail.jvpinto.com ([65.49.11.60]:42077 "EHLO mail.JVPinto.com"
+        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
+        id S230001AbhB0We7 (ORCPT <rfc822;linux-sparse@vger.kernel.org>);
+        Sat, 27 Feb 2021 17:34:59 -0500
+Received: from RW-EXC1.JVPinto.com (2002:ac20:10d::ac20:10d) by
+ RW-EXC1.JVPinto.com (2002:ac20:10d::ac20:10d) with Microsoft SMTP Server
+ (TLS) id 15.0.1497.2; Sat, 27 Feb 2021 14:33:46 -0800
+Received: from User (52.231.198.195) by RW-EXC1.JVPinto.com (172.32.1.13) with
+ Microsoft SMTP Server id 15.0.1497.2 via Frontend Transport; Sat, 27 Feb 2021
+ 14:33:32 -0800
+Reply-To: <ms.reem@yandex.com>
+From:   "Ms. Reem" <johnpinto@jvpinto.com>
+Subject: Hello okay
+Date:   Sat, 27 Feb 2021 22:33:46 +0000
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-GB
+Content-Type: text/plain; charset="Windows-1251"
 Content-Transfer-Encoding: 7bit
-X-CMAE-Envelope: MS4wfDQAmw8fA7Z+HiREazRExedpIWc9oM8LiV4Ay72QDydROVoc70x2rwCShLF3cKCSGS/BImcCDNQKrCOgKVLLgnymBdfOJpwkVjqZUG2bBZdWxPOWhWIO
- nGS3QpZQ0J18m50lT4FJsAUWEUlZJKwJzrxwghKwqjAJkQuY5dFkd7TIEbsGnCYdUwcUt+WFJ8rzpg==
+X-Priority: 3
+X-MSMail-Priority: Normal
+X-Mailer: Microsoft Outlook Express 6.00.2600.0000
+X-MimeOLE: Produced By Microsoft MimeOLE V6.00.2600.0000
+Message-ID: <837a988e66554c5d95b18ae85648d3d7@RW-EXC1.JVPinto.com>
+To:     Undisclosed recipients:;
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
+Hello,
 
-Signed-off-by: Ramsay Jones <ramsay@ramsayjones.plus.com>
----
+My name is Ms. Reem Ebrahim Al-Hashimi, I am the "Minister of state
+and Petroleum" also "Minister of State for International Cooperation"
+in UAE. I write to you on behalf of my other "three (3) colleagues"
+who has approved me to solicit for your "partnership in claiming of
+{us$47=Million}" from a Financial Home in Cambodia on their behalf and
+for our "Mutual Benefits".
 
-Hi Luc,
+The Fund {us$47=Million} is our share from the (over-invoiced) Oil/Gas
+deal with Cambodian/Vietnam Government within 2013/2014, however, we
+don't want our government to know about the fund. If this proposal
+interests you, let me know, by sending me an email and I will send to
+you detailed information on how this business would be successfully
+transacted. Be informed that nobody knows about the secret of this
+fund except us, and we know how to carry out the entire transaction.
+So I am compelled to ask, that you will stand on our behalf and
+receive this fund into any account that is solely controlled by you.
 
-So, I did some 32-bit testing this afternoon ... ;-)
+We will compensate you with 15% of the total amount involved as
+gratification for being our partner in this transaction. Reply to:
+ms.reem@yandex.com
 
-The problem here being s/symaddr.64/symaddr.32/, of course. I did the
-minimum necessary to get it to work (adding the -m64), so no creative
-solutions here (not that I could think of any)!
-
-[I suppose that I could also have created asm-out1.c as a copy and then
-done s/symaddr.64/symaddr.32/, s/-m64/-m32/, but I didn't.]
-
-ATB,
-Ramsay Jones
-
- validation/linear/asm-out0.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/validation/linear/asm-out0.c b/validation/linear/asm-out0.c
-index a8e0be69..8b0907b3 100644
---- a/validation/linear/asm-out0.c
-+++ b/validation/linear/asm-out0.c
-@@ -6,7 +6,7 @@ static void asm_out0(void)
- 
- /*
-  * check-name: asm-out0
-- * check-command: test-linearize -fdump-ir $file
-+ * check-command: test-linearize -m64 -fdump-ir $file
-  *
-  * check-output-start
- asm_out0:
--- 
-2.30.0
+Regards,
+Ms. Reem.
