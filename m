@@ -2,58 +2,58 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 81A35334B2F
+	by mail.lfdr.de (Postfix) with ESMTP id 3660D334B2E
 	for <lists+linux-sparse@lfdr.de>; Wed, 10 Mar 2021 23:12:12 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S232874AbhCJWLO (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        id S232991AbhCJWLO (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
         Wed, 10 Mar 2021 17:11:14 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:46978 "EHLO
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:46980 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S233171AbhCJWLE (ORCPT
+        with ESMTP id S233258AbhCJWLF (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Wed, 10 Mar 2021 17:11:04 -0500
-Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com [IPv6:2a00:1450:4864:20::52c])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 4B3F2C061574
-        for <linux-sparse@vger.kernel.org>; Wed, 10 Mar 2021 14:11:04 -0800 (PST)
-Received: by mail-ed1-x52c.google.com with SMTP id t1so95480eds.7
-        for <linux-sparse@vger.kernel.org>; Wed, 10 Mar 2021 14:11:04 -0800 (PST)
+        Wed, 10 Mar 2021 17:11:05 -0500
+Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com [IPv6:2a00:1450:4864:20::62b])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 218FBC061574
+        for <linux-sparse@vger.kernel.org>; Wed, 10 Mar 2021 14:11:05 -0800 (PST)
+Received: by mail-ej1-x62b.google.com with SMTP id ci14so41810139ejc.7
+        for <linux-sparse@vger.kernel.org>; Wed, 10 Mar 2021 14:11:05 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=AEMYXmUNr/t1XuFCn4KA85j2yUZiAEd59KILiE7RemI=;
-        b=pu91w+OB2fSbcKPsvS9lYPinfxCPak20Xj96HnpZvwwN8ANQAiNwoUYK9KRKRI+9se
-         gyo+P9D6xEFPtdRQy1/ip40VQrD4UChpZPMI22AnTKXbKP45wAwngsP4IxhMp/jMWXKs
-         Kaz26mt8w0zXBfhqQ1aWLJDQ/9I6DUwX0WDYVgZin8jALHMO7ksSF3N5Vw8XafYT6kXs
-         FqL4/7Xv2Gg6xNNtx+2DcLcPgJAYdUJOHHWMktTEsR3uyg6jcp3bBnVhRGAqmIZsUVIq
-         g3ef8HEACY8iyFCyOCgojngbnOKWqauVBsp8n7fNZEfDdCugeuM56Kufx70wTQ72NBjl
-         16UQ==
+        bh=hSOlVvhpswOd0XzkaKOLANb7F+1Hjr1lBL8ZmMILtMo=;
+        b=ooV70CbWoTAtdl9a7hzjrPFYZemf48JETSHY/YdqsbsGioe/sfX3w+SlTYvCFncjQH
+         I53in//WO2csZK1Rz2jUsKz1gkuHY/k6hg6a3j2bJIPyjRUJWlDPGocgeEK5GeMA60nk
+         5bvnQ985M2N5YSoMEIiCMJuwxHTve2cWlOLbm2DPBxYCeytGpT+bUx8H7tMIonyEAlLb
+         5wKXBgSKb/RLsHNPkgKEOHGsm0wIh6rR0PSB2uCr6pld2rq9KONDwAKlz278vgkRrgje
+         DRF80JFV5QDpKVV2v4de7RGIOUvPY80h2bvXLXDkRJjWeSD+TNkgv7I+j1pKKSrDZNDi
+         vABw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=AEMYXmUNr/t1XuFCn4KA85j2yUZiAEd59KILiE7RemI=;
-        b=sLc565BdmztYfrudrcmGWr3f+6bdwZEHBCPq4089+xVK/UnW/tv5MaFS5Uwz1sxibb
-         3VElV4FasHbcuNEU5PllyvcG4XV0YhsPyY3tifsp9LV+cHVdDu7gWUXluZ+Dvl2aghzx
-         yWf/hzpSl+42sQIvX7EPsthjEh/DkIz2g34jFlWGB2oBC3yxDjri1MLp0il6lVFO3SJz
-         uwff9NW333DeZvaiA2GcH0IJlpjHMOoTkcwYaAsOEpG+f1BsJf6XKOyoHX2N69o01lZh
-         V9P+q96GMyQxDFat+urECZp5H1gWZYVBJXtwYGsCavg3zM27OivgHJfNVZ6eW19p4vup
-         12jw==
-X-Gm-Message-State: AOAM5307lTu+afnGVuowYw+QSsqlsRpiNgbM9koIGqHjVWXd9OjYmIEm
-        dHxInpE+JXyr0yP0rNcoFRMstFvJvFI=
-X-Google-Smtp-Source: ABdhPJzDUySDnNp2XfUEWE4RTk2B1x9VRmoznlaRx+wutGVqtbCULSV7hJwvVT1a2+DaNJIGIxJ2nw==
-X-Received: by 2002:a50:f391:: with SMTP id g17mr5567955edm.26.1615414263010;
+        bh=hSOlVvhpswOd0XzkaKOLANb7F+1Hjr1lBL8ZmMILtMo=;
+        b=e+oC+wmMtkQqZWcyBJN7j0lxL+43eAx6CIi/J97jKh75ZZMG6U66K49vYiG0m7gvk4
+         nFmHePtJQxP61jQ5pI4Wp/cCgS8TtcpxdMY0b9vOd44hLrYcqMKn1ZGrq3rPOi8wRiDH
+         hxcl0++YyELf6tmiP4fSmbKENs97GI9GNESGa8iq6yuFDwXg+VgHOpDx4JBQdzGkSmLp
+         DqRXhmMNthNj9LnhGdYQqVKbZRJK6My84PZioFeFew+QwgkwSKGyg4bRMPCGa6R51tZ/
+         ywAJ4ATpcYjgT6b4hFRXUh1gJlC5ffD3qd0n3sfAxTQQTnGTUHhMt3cPDa0iuwLOh4B0
+         kyjA==
+X-Gm-Message-State: AOAM532fuBiqfeaU1Zhy0BQWy/Fkgzhdjm4oyvQfy0LdXN16chCZ5v/0
+        oy3jX0Gx58CNTXDaKY0LTXx/2BFoTR8=
+X-Google-Smtp-Source: ABdhPJzNRPnZPa0smfKxVnKuGd+lkMIx4l/L4gYV15sq+iZJ3/mkxVbLgV6HfsXd3alHRHupZbHCcQ==
+X-Received: by 2002:a17:906:f9db:: with SMTP id lj27mr48648ejb.399.1615414263882;
         Wed, 10 Mar 2021 14:11:03 -0800 (PST)
 Received: from localhost.localdomain ([2a02:a03f:b7fe:f700:196c:c08:d4ab:a1ba])
-        by smtp.gmail.com with ESMTPSA id ld19sm344326ejb.102.2021.03.10.14.11.02
+        by smtp.gmail.com with ESMTPSA id ld19sm344326ejb.102.2021.03.10.14.11.03
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 10 Mar 2021 14:11:02 -0800 (PST)
+        Wed, 10 Mar 2021 14:11:03 -0800 (PST)
 From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 To:     linux-sparse@vger.kernel.org
 Cc:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-Subject: [PATCH 4/9] simplify (x & M) cmpu C
-Date:   Wed, 10 Mar 2021 22:49:45 +0100
-Message-Id: <20210310214950.84192-5-luc.vanoostenryck@gmail.com>
+Subject: [PATCH 5/9] simplify (x & M) cmps 0
+Date:   Wed, 10 Mar 2021 22:49:46 +0100
+Message-Id: <20210310214950.84192-6-luc.vanoostenryck@gmail.com>
 X-Mailer: git-send-email 2.30.0
 In-Reply-To: <20210310214950.84192-1-luc.vanoostenryck@gmail.com>
 References: <20210310214950.84192-1-luc.vanoostenryck@gmail.com>
@@ -65,44 +65,39 @@ X-Mailing-List: linux-sparse@vger.kernel.org
 
 Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 ---
- simplify.c                   | 16 ++++++++++++++++
- validation/optim/cmpu-and0.c |  1 -
- 2 files changed, 16 insertions(+), 1 deletion(-)
+ simplify.c                    | 4 ++++
+ validation/optim/cmps0-and0.c | 1 -
+ 2 files changed, 4 insertions(+), 1 deletion(-)
 
 diff --git a/simplify.c b/simplify.c
-index 90b0c5ba0127..ee29c9619bdc 100644
+index ee29c9619bdc..6c11018ea3bf 100644
 --- a/simplify.c
 +++ b/simplify.c
-@@ -1281,6 +1281,22 @@ static int simplify_compare_constant(struct instruction *insn, long long value)
+@@ -1271,6 +1271,8 @@ static int simplify_compare_constant(struct instruction *insn, long long value)
+ 				return replace_with_value(insn, 0);
+ 			if (value >= (long long)bits)
+ 				return replace_with_value(insn, 1);
++			if (value == 0)
++				return replace_opcode(insn, OP_SET_EQ);
+ 			break;
+ 		case OP_SET_GT:
+ 			value = sign_extend(value, def->size);
+@@ -1280,6 +1282,8 @@ static int simplify_compare_constant(struct instruction *insn, long long value)
+ 				return replace_with_value(insn, 1);
  			if (value >= (long long)bits)
  				return replace_with_value(insn, 0);
++			if (value == 0)
++				return replace_opcode(insn, OP_SET_NE);
  			break;
-+		case OP_SET_B:
-+			if (value > bits)
-+				return replace_with_value(insn, 1);
-+			break;
-+		case OP_SET_BE:
-+			if (value >= bits)
-+				return replace_with_value(insn, 1);
-+			break;
-+		case OP_SET_AE:
-+			if (value > bits)
-+				return replace_with_value(insn, 0);
-+			break;
-+		case OP_SET_A:
-+			if (value >= bits)
-+				return replace_with_value(insn, 0);
-+			break;
- 		}
- 		break;
- 	case OP_SEXT:				// sext(x) cmp C --> x cmp trunc(C)
-diff --git a/validation/optim/cmpu-and0.c b/validation/optim/cmpu-and0.c
-index 253212941779..927b9fb65f52 100644
---- a/validation/optim/cmpu-and0.c
-+++ b/validation/optim/cmpu-and0.c
-@@ -11,7 +11,6 @@ int cmps_and_gtu_eq(int a) { return ((a & MASK) >  (MASK + 0)) + 1; }
+ 		case OP_SET_B:
+ 			if (value > bits)
+diff --git a/validation/optim/cmps0-and0.c b/validation/optim/cmps0-and0.c
+index 819a1dc2a793..8316916abc8c 100644
+--- a/validation/optim/cmps0-and0.c
++++ b/validation/optim/cmps0-and0.c
+@@ -6,7 +6,6 @@ int cmps_and_sgt0(int a) { return ((a & M) >  0) == ((a & M) != 0); }
  /*
-  * check-name: cmpu-and0
+  * check-name: cmps0-and
   * check-command: test-linearize -Wno-decl $file
 - * check-known-to-fail
   *
