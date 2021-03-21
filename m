@@ -2,58 +2,58 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 512E834339F
-	for <lists+linux-sparse@lfdr.de>; Sun, 21 Mar 2021 18:09:42 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 4514F3433A2
+	for <lists+linux-sparse@lfdr.de>; Sun, 21 Mar 2021 18:09:43 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230079AbhCURJG (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Sun, 21 Mar 2021 13:09:06 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:54784 "EHLO
+        id S230201AbhCURJI (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Sun, 21 Mar 2021 13:09:08 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:54786 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230186AbhCURI3 (ORCPT
+        with ESMTP id S230205AbhCURIa (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Sun, 21 Mar 2021 13:08:29 -0400
-Received: from mail-ed1-x533.google.com (mail-ed1-x533.google.com [IPv6:2a00:1450:4864:20::533])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 8522EC061574
-        for <linux-sparse@vger.kernel.org>; Sun, 21 Mar 2021 10:08:29 -0700 (PDT)
-Received: by mail-ed1-x533.google.com with SMTP id h10so16529437edt.13
-        for <linux-sparse@vger.kernel.org>; Sun, 21 Mar 2021 10:08:29 -0700 (PDT)
+        Sun, 21 Mar 2021 13:08:30 -0400
+Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com [IPv6:2a00:1450:4864:20::635])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 20449C061762
+        for <linux-sparse@vger.kernel.org>; Sun, 21 Mar 2021 10:08:30 -0700 (PDT)
+Received: by mail-ej1-x635.google.com with SMTP id u5so17502699ejn.8
+        for <linux-sparse@vger.kernel.org>; Sun, 21 Mar 2021 10:08:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=GlKgS8okPEknJRnDBRtjMVSR0o1/pphCbVaJfk7IUEE=;
-        b=Sh5bo4oPPPP+cPRkoCzbT2faUdSLOcjYcgBuQTZeLfam3FXqkCvJ8IhdQYioEPu48s
-         yJr1RtDiq6x3Y3/VlgwtYPs+Yh+rwcrIw9L22Qy067Q4wjDXW+ibkrZBOa0MnqPZ1MSd
-         BavF5s3w/jhcGOGgmtLWqdPbMXDrNMdSMWBurPgFxGZLgr8fzkQPj8FNmKHFBFKzTYwz
-         HujtFZ2WS8naszs++wMz9SUgFotqtFpHd8UJgOD/Rt4ku+0L+OW7R+tSxwzRBWnKq/AL
-         tcJcSklPXQOz9OcI9ow0V2+7Im0aTtqwFNGNI47uRqgtlXLMzuLRewipN1dVglza+jse
-         +A7w==
+        bh=v+voen80HxgUrnrUvPyBBSXSDXFTN7ud5BWjQyoJVio=;
+        b=ncMhhhvgt/m7M6P4xg+pOR43yU6es5d7pt6zY53wG+7mtBdNLTdCEgnhSJNxicUizq
+         vD8tblEVTc17fr/XhFdU/9AkZrhly86L4l1n7YGRU9Y0u/fOxz4NZamIFf557tLHv3FX
+         HwWcjZLkPlBx/0m9/iVeWajS399g2ShiNXnG/6hByKwkuC8JBGcz8NottqS0LF9O/DgH
+         WhvZjUzpxqnoBWVSl0WeQ+IvTTCs9E4PgEj6LcYjmZH/6HQRMVPIoN+m3RwSiup3rz4P
+         9fg3VmaLA9Mq42rGniWrWnSLBCqRobwHcSaOUnVniT7fqgB5R4UoJ/Jsm4xPvG+ghyd8
+         RAcA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=GlKgS8okPEknJRnDBRtjMVSR0o1/pphCbVaJfk7IUEE=;
-        b=gAsedBr+uPMjGii91MbxLDpVwU9+vtDm6ZQ/OlrL6M9+WgMxhg+mvbY+PuwCMnT6SV
-         vpGhG2xpMLuu45Po6C/GlmcXFZy7fK2UYISO9E0M4OKJQVSKZA5RzL4HhFIdr4gEJl9e
-         0/kxcePOiBweR7tCQoXFP8Wmem1GNg1wb/NGqanXg0KaQGvgKfyct2q5ke2svjO6hEn5
-         C1q9GOmDN2lm82EXGL7DVMmyWTbpGABwfTc/xSsdvodpT4ZtnxCRY8E+Jp2dLnS4vMAe
-         kOcneoww9rp9CexU6DwrMfJfrkaI6uOwznrCpjnP1J0FwbAAEHw2KxSvrnOEYXbiZoeZ
-         YwCQ==
-X-Gm-Message-State: AOAM5320GkcYUnihMXUfNMID/qwac5yARoMOAZu7aeHh54btBcD875pF
-        p2UBzPoMU4TddOhLvqIiIldvRVtkYRY=
-X-Google-Smtp-Source: ABdhPJx5dlYIRS2fyIzWq9gHK+T3KS4B788ErrGpxC4rVqTjd4D5B9pI9mLUkrpsv8s8kCi/e8CShg==
-X-Received: by 2002:aa7:d813:: with SMTP id v19mr21543890edq.213.1616346508333;
+        bh=v+voen80HxgUrnrUvPyBBSXSDXFTN7ud5BWjQyoJVio=;
+        b=b1PYqh/8xJ2BdKDM5c/ijcxDD/GpeUCG3EBQqFPq0XVrokNnfNtWNwbAItykhLWl2X
+         kXBlg5xjF9CXNRF9TNFXo+fw2iPnTKP2fiKnOVXVhb2/sqasvifMNxd6Q4NtwBiotNx0
+         mnswjvxpaHDzyMAJg7oA2miI9mJte5fErVa6+ymOFHF1zue5C8jtuOcfbz00rlOCQj+f
+         7umI7UACpY7FWwIi4TsaOiLlLGdY3gyOSHlMpp+0TCwLlvAVX1dI/sjNVX22QyOLWIzY
+         sUu0qy1EFYbr4DmSbWhSaTwfvzTbGqEC7JC1AuZzi/8prtoyxzXV+IqdG101qOLrLad2
+         oZUw==
+X-Gm-Message-State: AOAM531Wh0ItKHIZK/iy2hu7LOW96bmn5pl47Vt+qOhU79/vYkLRe5C5
+        g1aDK2RDcIYPtSMCjwMFlW9hCJc+XK8=
+X-Google-Smtp-Source: ABdhPJxdYnm5YiB6qt9Th2k681oMhjAP2HW8ZH5a5CiedpBhnbxKfibYEG3/3oWXkxN3T2GsESQ3nA==
+X-Received: by 2002:a17:906:948d:: with SMTP id t13mr14978340ejx.402.1616346508936;
         Sun, 21 Mar 2021 10:08:28 -0700 (PDT)
 Received: from localhost.localdomain ([2a02:a03f:b7fe:f700:dc34:259e:8292:82c0])
-        by smtp.gmail.com with ESMTPSA id 90sm9108044edr.69.2021.03.21.10.08.27
+        by smtp.gmail.com with ESMTPSA id 90sm9108044edr.69.2021.03.21.10.08.28
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
         Sun, 21 Mar 2021 10:08:28 -0700 (PDT)
 From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 To:     linux-sparse@vger.kernel.org
 Cc:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-Subject: [PATCH 3/6] memops: remove obsolete comment
-Date:   Sun, 21 Mar 2021 18:08:19 +0100
-Message-Id: <20210321170822.46854-4-luc.vanoostenryck@gmail.com>
+Subject: [PATCH 4/6] memops: do not mess up with phisource's source ident
+Date:   Sun, 21 Mar 2021 18:08:20 +0100
+Message-Id: <20210321170822.46854-5-luc.vanoostenryck@gmail.com>
 X-Mailer: git-send-email 2.31.0
 In-Reply-To: <20210321170822.46854-1-luc.vanoostenryck@gmail.com>
 References: <20210321170822.46854-1-luc.vanoostenryck@gmail.com>
@@ -63,34 +63,32 @@ Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-The comment above rewrite_load_instruction(), about comparing phi-lists
-for equality, was (most probably) written when there was some intention
-to do CSE on phi-nodes or phi-sources.
+In rewrite_load_instruction(), when testing if all phi-sources are
+the same, the candidate is given an identifier if it hasn't one already.
+But doing this inside this loop is strange:
+* the pseudo may, at the end, not be selected but is changed anyway
+* the identifier should be given either when the phi-source is created
+  or at the end of the loop if selected.
 
-However, such CSE is currently not an objective at all.
-
-So, remove this comment.
+So, do not change the identifier inside the selection loop.
 
 Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 ---
- memops.c | 4 ----
- 1 file changed, 4 deletions(-)
+ memops.c | 1 -
+ 1 file changed, 1 deletion(-)
 
 diff --git a/memops.c b/memops.c
-index 753eb3a7a914..5386c5a1f416 100644
+index 5386c5a1f416..119a39a180d5 100644
 --- a/memops.c
 +++ b/memops.c
-@@ -17,10 +17,6 @@
- #include "simplify.h"
- #include "flow.h"
+@@ -29,7 +29,6 @@ static void rewrite_load_instruction(struct instruction *insn, struct pseudo_lis
+ 	FOR_EACH_PTR(dominators, phi) {
+ 		if (new != phi->def->phi_src)
+ 			goto complex_phi;
+-		new->ident = new->ident ? : phi->ident;
+ 	} END_FOR_EACH_PTR(phi);
  
--/*
-- * We should probably sort the phi list just to make it easier to compare
-- * later for equality.
-- */
- static void rewrite_load_instruction(struct instruction *insn, struct pseudo_list *dominators)
- {
- 	pseudo_t new, phi;
+ 	/*
 -- 
 2.31.0
 
