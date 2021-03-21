@@ -2,58 +2,58 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 0B240343280
+	by mail.lfdr.de (Postfix) with ESMTP id 065CD34327D
 	for <lists+linux-sparse@lfdr.de>; Sun, 21 Mar 2021 13:35:57 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229815AbhCUMfW (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Sun, 21 Mar 2021 08:35:22 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:52992 "EHLO
+        id S229870AbhCUMfZ (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Sun, 21 Mar 2021 08:35:25 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:52996 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229834AbhCUMfO (ORCPT
+        with ESMTP id S229846AbhCUMfP (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Sun, 21 Mar 2021 08:35:14 -0400
-Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com [IPv6:2a00:1450:4864:20::531])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id D5DACC061762
-        for <linux-sparse@vger.kernel.org>; Sun, 21 Mar 2021 05:35:13 -0700 (PDT)
-Received: by mail-ed1-x531.google.com with SMTP id bx7so16045730edb.12
-        for <linux-sparse@vger.kernel.org>; Sun, 21 Mar 2021 05:35:13 -0700 (PDT)
+        Sun, 21 Mar 2021 08:35:15 -0400
+Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com [IPv6:2a00:1450:4864:20::631])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 75C79C061763
+        for <linux-sparse@vger.kernel.org>; Sun, 21 Mar 2021 05:35:14 -0700 (PDT)
+Received: by mail-ej1-x631.google.com with SMTP id r12so16831689ejr.5
+        for <linux-sparse@vger.kernel.org>; Sun, 21 Mar 2021 05:35:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=4a5yyAK7LcFKaBUbRNQBjJkBua6gs1yXslDxHJ7gCzQ=;
-        b=u6MTFBaoRyLwkj0fNs3yBBdnZz2Fsdi2ezlIO61SJPAGfjdReR1dQkMWWjBSqLKq6w
-         OogsmXXjRAzcpt5XyWBmfZK6XGUAcDLV1uzmM2Y7jm3lL2qaJ/vgHE2qT/q0pYfeHrbX
-         WH6KT/kR5g9fs0mi276b7vNoVv5JxCZxgWOOlEa795bLqLWMhiR1mE9b4ky5ybqN2cbL
-         /NUCrOW3KpT2DTpRqbLJOrxsJ4lG/+oW8wopqmotTjIWJFOGT/dieDqnFlUh/BXUcdgu
-         xRMGoR07eDUZZ1ZxiPkJ8svnlOy4hl2JG9BLrbWK3gTf9keA7dlHf8/AUhR0syPA33NP
-         C6sA==
+        bh=38o/PQMi24YzHkakkTvVA4bD1js5KGyrIGSn37xp4H8=;
+        b=Hw4jKyB+luH6k2vzx7HKpo7yfP9AUdwDpkFCWbC1AVGMYokbfFHmzinXHBZuOPzvS5
+         KHRwzMiZ1R0Soyhfs2oUR6wW230Q1lyvHfpfB5x5XtFh2/hy37o9DQF98RaL9alF9Fb5
+         nfBxL4vIpqXu7lCXAJ+hniJ7oA9o6DQMkTQKs53oRuk2e1UXMX4081PYk/U7Wfu+fHLp
+         rAmCr/kbAKJBYBxcpO8/s9yHEMSz96/8FkKVzmgt8caGxbhK+XU01OUhn5Bx9YrwJb1x
+         MJ/KCC2DYQ1pQz+4KftUIHui8RoD5Koiz4aRVUTBSDEst++82i2hL88I+w168jU+H55M
+         QNzA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=4a5yyAK7LcFKaBUbRNQBjJkBua6gs1yXslDxHJ7gCzQ=;
-        b=Ggu7JiC4dkGcK19FmMrMPxeMWruVG8CIagDJyjKI86INYGMcp7PPaWw94yHkz3SeRQ
-         JOuOobA9lzu4r9JGe5ve7NPaD8cSfqxROcO9jGmoW5KRQyadC9T2+MOr/a2z6hSv0dKJ
-         q+yNcGPQLmN2KMchwC146pKJOUeuiu84n7e3fbTIioMBzY4UWi6h8on1FS/wPpYvbIgI
-         24Ll+pprLiw7wl0Ip5ru+ENk8nQ/3f3qp3vN/BBEjw8EE4h/0rUYSoNPAhYE1/46XrMW
-         c4UgZ2SGgUlcglMeMHaPIVaVVO77ZdkW2uWzjfXe7yvd3H6PEf0abXRJcgH8ROwq0CE3
-         AiSw==
-X-Gm-Message-State: AOAM533TCw/jGfqoO8BTNI6PmUpU2mu0mOwcjPV1zLs7P3Q64cF7woJv
-        wXqSk/oIlPjGIeC7Nbs0oi/BlgvKA+0=
-X-Google-Smtp-Source: ABdhPJywj7gwzsdfjm2CRSGeybpNuW+19Znvc4Q+dAF/jhkdoIH26E4vLrkMFT0NaOgh2Kp17s3mBQ==
-X-Received: by 2002:a05:6402:3595:: with SMTP id y21mr20087324edc.233.1616330112554;
-        Sun, 21 Mar 2021 05:35:12 -0700 (PDT)
+        bh=38o/PQMi24YzHkakkTvVA4bD1js5KGyrIGSn37xp4H8=;
+        b=Y2Sv7z5BbAzDuYXbLxpbBUd1xHb9I+y7j+s7Nrs033ZXC8ZYKgeciF1ZUmr9pHXBLj
+         aMbv9KjNaIjpjBgfPc/bCRpLR8V4d2L3/4qMocKXANwManp3CpAj8icSStG7g8aMZL9z
+         5HUwV4xBKPSkl5T5//ZptDhAEM1ifMg3V7qavgj6rgy87aknLr55g91fWUL+Yl6IQKp8
+         GL2XHmNAEjoPXZ2tQHIxhyDG7tobdEAQDUbquqvLom0TB5niZRDG9roC1MhYxZCO/49P
+         7H1jp0090QDyhjPs8Ucq/qg3L8WowbPdfrVs9eXj9tx5dkMrKmVzDC9cx5c3FLqmC5wD
+         w1Wg==
+X-Gm-Message-State: AOAM532Dd+p4xSCkJuGlJZf3ecjt4JcFu1qK9vix+9F3NrX9hssayPyV
+        jnfOoP/SWi5+avXgL6mEV33rSVUhn9w=
+X-Google-Smtp-Source: ABdhPJzQhqjwbpTOogGBVhRdheF/YmhaxAgL0HzJ5YBkEF5Wu2TvUPTBUimsKuf2nVl2/qrJ7eXBrg==
+X-Received: by 2002:a17:906:f8d5:: with SMTP id lh21mr14280853ejb.64.1616330113189;
+        Sun, 21 Mar 2021 05:35:13 -0700 (PDT)
 Received: from localhost.localdomain ([2a02:a03f:b7fe:f700:b090:4406:df97:c155])
-        by smtp.gmail.com with ESMTPSA id jv19sm6998641ejc.74.2021.03.21.05.35.11
+        by smtp.gmail.com with ESMTPSA id jv19sm6998641ejc.74.2021.03.21.05.35.12
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
         Sun, 21 Mar 2021 05:35:12 -0700 (PDT)
 From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 To:     linux-sparse@vger.kernel.org
 Cc:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-Subject: [PATCH 01/13] Revert "simplify CBR-CBR on the same condition"
-Date:   Sun, 21 Mar 2021 13:34:53 +0100
-Message-Id: <20210321123505.27993-2-luc.vanoostenryck@gmail.com>
+Subject: [PATCH 02/13] add testcases to check if phi-sources from removed targets are removed too
+Date:   Sun, 21 Mar 2021 13:34:54 +0100
+Message-Id: <20210321123505.27993-3-luc.vanoostenryck@gmail.com>
 X-Mailer: git-send-email 2.31.0
 In-Reply-To: <20210321123505.27993-1-luc.vanoostenryck@gmail.com>
 References: <20210321123505.27993-1-luc.vanoostenryck@gmail.com>
@@ -63,160 +63,120 @@ Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-The commit 7cd2ce022575 ("simplify CBR-CBR on the same condition")
-added a generalization of the existing CBR-CBR simplification
-using the dominance tree.
-
-The problem is that as soon as a change is made to the CFG, the
-dominance tree become invalid and should be rebuilt (which is costly
-to do for each CFG changes) or updated (which is quite complex).
-
-So, for now, revert this commit.
-
-Reverts: 7cd2ce022575fbd383bb39b54f1e0fa402919da2.
 Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 ---
- flow.c | 106 ---------------------------------------------------------
- 1 file changed, 106 deletions(-)
+ validation/optim/bad-phisrc1.c  | 16 ++++++++++++++++
+ validation/optim/bad-phisrc1a.c | 24 ++++++++++++++++++++++++
+ validation/optim/bad-phisrc2.c  | 17 +++++++++++++++++
+ validation/optim/bad-phisrc3.c  | 21 +++++++++++++++++++++
+ 4 files changed, 78 insertions(+)
+ create mode 100644 validation/optim/bad-phisrc1.c
+ create mode 100644 validation/optim/bad-phisrc1a.c
+ create mode 100644 validation/optim/bad-phisrc2.c
+ create mode 100644 validation/optim/bad-phisrc3.c
 
-diff --git a/flow.c b/flow.c
-index c5319ae35ac4..6d77453a3554 100644
---- a/flow.c
-+++ b/flow.c
-@@ -19,7 +19,6 @@
- #include "simplify.h"
- #include "flow.h"
- #include "target.h"
--#include "flowgraph.h"
- 
- unsigned long bb_generation;
- 
-@@ -69,34 +68,6 @@ static int pseudo_truth_value(pseudo_t pseudo)
- 	}
- }
- 
--///
--// check if the BB is empty or only contains phi-sources
--static int bb_is_trivial(struct basic_block *bb)
--{
--	struct instruction *insn;
--	int n = 0;
--
--	FOR_EACH_PTR(bb->insns, insn) {
--		if (!insn->bb)
--			continue;
--		switch (insn->opcode) {
--		case OP_TERMINATOR ... OP_TERMINATOR_END:
--			return n ? -1 : 1;
--		case OP_NOP:
--		case OP_INLINED_CALL:
--			continue;
--		case OP_PHISOURCE:
--			n++;
--			continue;
--		default:
--			goto out;
--		}
--	} END_FOR_EACH_PTR(insn);
--
--out:
--	return 0;
--}
--
- /*
-  * Does a basic block depend on the pseudos that "src" defines?
-  */
-@@ -158,81 +129,6 @@ out:
- 	return false;
- }
- 
--///
--// do jump threading in dominated BBs
--// @dom: the BB which must dominate the modified BBs.
--// @old: the old target BB
--// @new: the new target BB
--// @return: 0 if no chnages have been made, 1 otherwise.
--//
--// In all BB dominated by @dom, rewrite branches to @old into branches to @new
--static int retarget_bb(struct basic_block *dom, struct basic_block *old, struct basic_block *new)
--{
--	struct basic_block *bb;
--	int changed = 0;
--
--	if (new == old)
--		return 0;
--
--restart:
--	FOR_EACH_PTR(old->parents, bb) {
--		struct instruction *last;
--		struct multijmp *jmp;
--
--		if (!domtree_dominates(dom, bb))
--			continue;
--		last = last_instruction(bb->insns);
--		switch (last->opcode) {
--		case OP_BR:
--			changed |= rewrite_branch(bb, &last->bb_true,  old, new);
--			break;
--		case OP_CBR:
--			changed |= rewrite_branch(bb, &last->bb_true,  old, new);
--			changed |= rewrite_branch(bb, &last->bb_false, old, new);
--			break;
--		case OP_SWITCH:
--		case OP_COMPUTEDGOTO:
--			FOR_EACH_PTR(last->multijmp_list, jmp) {
--				changed |= rewrite_branch(bb, &jmp->target, old, new);
--			} END_FOR_EACH_PTR(jmp);
--			break;
--		default:
--			continue;
--		}
--
--		// since rewrite_branch() will modify old->parents() the list
--		// iteration won't work correctly. Several solution exist for
--		// this but in this case the simplest is to restart the loop.
--		goto restart;
--	} END_FOR_EACH_PTR(bb);
--	return changed;
--}
--
--static int simplify_cbr_cbr(struct instruction *insn)
--{
--	struct instruction *last;
--	struct basic_block *bot = insn->bb;
--	struct basic_block *top = bot->idom;
--	int changed = 0;
--	int trivial;
--
--	if (!top)
--		return 0;
--
--	trivial = bb_is_trivial(bot);
--	if (trivial == 0)
--		return 0;
--	if (trivial < 0)
--		return 0;
--	last = last_instruction(top->insns);
--	if (last->opcode != OP_CBR || last->cond != insn->cond)
--		return 0;
--
--	changed |= retarget_bb(last->bb_true , bot, insn->bb_true);
--	changed |= retarget_bb(last->bb_false, bot, insn->bb_false);
--	return changed;
--}
--
- /*
-  * When we reach here, we have:
-  *  - a basic block that ends in a conditional branch and
-@@ -380,8 +276,6 @@ static int simplify_one_branch(struct basic_block *bb, struct instruction *br)
- {
- 	if (simplify_phi_branch(bb, br))
- 		return 1;
--	if (simplify_cbr_cbr(br))
--		return 1;
- 	return simplify_branch_branch(bb, br, &br->bb_true, 1) |
- 	       simplify_branch_branch(bb, br, &br->bb_false, 0);
- }
+diff --git a/validation/optim/bad-phisrc1.c b/validation/optim/bad-phisrc1.c
+new file mode 100644
+index 000000000000..59c5e4f1e66a
+--- /dev/null
++++ b/validation/optim/bad-phisrc1.c
+@@ -0,0 +1,16 @@
++void foo(int a, int b)
++{
++	if (b)
++		while ((a += 5) > a)
++			;
++}
++
++/*
++ * check-name: bad-phisrc1
++ * check-command: test-linearize -Wno-decl $file
++ * check-known-to-fail
++ *
++ * check-output-ignore
++ * check-output-excludes: phi\\.
++ * check-output-excludes: phisource\\.
++ */
+diff --git a/validation/optim/bad-phisrc1a.c b/validation/optim/bad-phisrc1a.c
+new file mode 100644
+index 000000000000..cf07573b1fd3
+--- /dev/null
++++ b/validation/optim/bad-phisrc1a.c
+@@ -0,0 +1,24 @@
++int def(void);
++
++int fun4(struct xfrm_state *net, int cnt)
++{
++	int err = 0;
++	if (err)
++		goto out;
++	for (; net;)
++		err = def();
++	if (cnt)
++out:
++		return err;
++	return 0;
++}
++
++/*
++ * check-name: bad-phisrc1a
++ * check-command: test-linearize -Wno-decl $file
++ * check-known-to-fail
++ *
++ * check-output-ignore
++ * check-output-contains: select\\.
++ */
++
+diff --git a/validation/optim/bad-phisrc2.c b/validation/optim/bad-phisrc2.c
+new file mode 100644
+index 000000000000..3eade688f768
+--- /dev/null
++++ b/validation/optim/bad-phisrc2.c
+@@ -0,0 +1,17 @@
++int bad_phisrc2(int p, int a, int r)
++{
++	if (p)
++		r = a;
++	else if (r)
++		;
++	return r;
++}
++
++/*
++ * check-name: bad-phisrc2
++ * check-command: test-linearize -Wno-decl $file
++ * check-known-to-fail
++ *
++ * check-output-ignore
++ * check-output-contains: select\\.
++ */
+diff --git a/validation/optim/bad-phisrc3.c b/validation/optim/bad-phisrc3.c
+new file mode 100644
+index 000000000000..6e437771b4b8
+--- /dev/null
++++ b/validation/optim/bad-phisrc3.c
+@@ -0,0 +1,21 @@
++void foo(void)
++{
++	int c = 1;
++	switch (3) {
++	case 0:
++		do {
++			;
++	case 3:	;
++		} while (c++);
++	}
++}
++
++/*
++ * check-name: bad-phisrc3
++ * check-command: test-linearize -Wno-decl $file
++ * check-known-to-fail
++ *
++ * check-output-ignore
++ * check-output-pattern(2): phisrc\\.
++ * check-output-pattern(1): phi\\.
++ */
 -- 
 2.31.0
 
