@@ -2,58 +2,58 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 1E799343282
+	by mail.lfdr.de (Postfix) with ESMTP id 07E9734327E
 	for <lists+linux-sparse@lfdr.de>; Sun, 21 Mar 2021 13:35:57 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229874AbhCUMf0 (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        id S229865AbhCUMf0 (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
         Sun, 21 Mar 2021 08:35:26 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:53008 "EHLO
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:53012 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229871AbhCUMfR (ORCPT
+        with ESMTP id S229874AbhCUMfR (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
         Sun, 21 Mar 2021 08:35:17 -0400
-Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com [IPv6:2a00:1450:4864:20::531])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 7D1DCC061574
-        for <linux-sparse@vger.kernel.org>; Sun, 21 Mar 2021 05:35:16 -0700 (PDT)
-Received: by mail-ed1-x531.google.com with SMTP id e7so16015528edu.10
-        for <linux-sparse@vger.kernel.org>; Sun, 21 Mar 2021 05:35:16 -0700 (PDT)
+Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com [IPv6:2a00:1450:4864:20::62b])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 3815AC061762
+        for <linux-sparse@vger.kernel.org>; Sun, 21 Mar 2021 05:35:17 -0700 (PDT)
+Received: by mail-ej1-x62b.google.com with SMTP id u5so16831429ejn.8
+        for <linux-sparse@vger.kernel.org>; Sun, 21 Mar 2021 05:35:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=1o4/AAviTzjOvQEMVjDCIR9CpsSISzmi4LdFcuk+Zm4=;
-        b=Y+eOpMH9SjhpJzAQeyKiU4A3d4n00HTehbUalNCkRnYca4rzKAjYTm6YudGOGS2nso
-         HxWpeOG3XFPftywjTUx02TaBmpUB7cpEkNINlU1lW6QS8tU/k8PoWLzoeSk62EXB5HXw
-         JxodhXMIzou3QO2xMoUyFlOGy8agQGu5QJfIuOPnAKV5Wn0U58JLfswghA2TGESIIICy
-         Um2feQdH5TRsy21FayhSo2tjm4s0ctrZZEyUrW/pNQvKoREf7zJMOAv4bfAUbO1P9ZXC
-         RItU1KKk9AU7/ufcugp0mZSGF9oap6IQ1eLWZLhPVB29zV4tFI4muisNnpoYEXaKCcNc
-         qdvg==
+        bh=zTWNAKWB/spf0KR3ml2vXOWrUdmG1XPa7riG/7CK5wY=;
+        b=Fnd1XdAUvXANqSlg5A6iIqjKI/wjqHacInZKwafsQQX9XeJEx+OYYD9SHYs4Asz0fS
+         zHmi1xON+ktmNOorLsVb3LXB0fvSrMyGZWpLjqU5YMBYMH1Cn4jFpcQaBRpK0C0xtOE2
+         Uvq1Diy+ImxBAkH7w3wy2bpoIx/NVaYL690ugDkcrnBe01doXlf9SftOjaJPecw79V5u
+         gQbTiXaoIwP3A078JLRliJIkvXPqMBPRNAXjUPluAO8b+TCsJhtSp/bZmNtRlSWIHJEt
+         W2Mq7/jbbr4MjT78A51oW3QNFrS6ZIK4nmVOKlitk40iJfvKqexYP9hMXuX2FcZMeowy
+         GFig==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=1o4/AAviTzjOvQEMVjDCIR9CpsSISzmi4LdFcuk+Zm4=;
-        b=qBYJY8dbHcsXMGTbJYzjbbaWe/xOfXRWiF1oB6deGqhzDIOHkctDN6XdwPa1WTZrJV
-         CWy01S5rXpVkZVa8ZoseFCKp0aPWyerfokVMBM+KKSfHEu+ar1IK/XS0cy9qo6mBkDTS
-         6Av4MCCYkHF9WX2GtQx1l7v2xoLo9rqQJWBR/Wxyc4zYWG4bWLHLLns9zDlOwUmLf/9H
-         HpXVNMlCzpFrRGNqCDxNt0PmdTsf5CHD+gBAiUCxbYAv9VOKZnlwO0E9J2Bc1XCQ+1Re
-         0nc2fVXRUzlmyc19vz0Aq6AOralZloX3Zf4zYIXqB1RITMJGiLKDWk4wTOTiMUxqBBHp
-         tr7w==
-X-Gm-Message-State: AOAM531gFRS2QhPnYMC0YcqqP6FAc1kz/kNlnuiTgLxUxtoX8KZGGTvL
-        rwqZKeB513FF5Zrg2ja9oVqNVWmhTUA=
-X-Google-Smtp-Source: ABdhPJz7XIB9jOhfDpKPBZ08SZuSZLBDN9db02Ll1GiqWdM7AvDDdwZiLZKXVORqlsYQIwuo+RKTFg==
-X-Received: by 2002:aa7:c353:: with SMTP id j19mr20193659edr.263.1616330115300;
-        Sun, 21 Mar 2021 05:35:15 -0700 (PDT)
+        bh=zTWNAKWB/spf0KR3ml2vXOWrUdmG1XPa7riG/7CK5wY=;
+        b=l+PXBBcf1C2a2eUfuaVmk/O+wSZ+k++tp+iVJm9hURP5W4jYur7tyyVieUbofR9q1z
+         qnA3wXu1jREA/b2bIigVgkzf2m7BkCDo+HtNnXX80NMBF1zTDMroSnaB/nH+tGp0h9Zm
+         nuDx0ZVMjMzGyi9GkuHlWu5+Xh+oe2dGesPL3e7whaIs+zS39C0g41bAsd0Hq2Zv+XkO
+         YlHbhqcLSkN7T27rQHSwgjJ2gRuIeJFK+bK4vjH3h54nhQ6wkUIOu4W6Bzo/DDUgME9i
+         d8RQsHDLzlyInfXZKxX0Hgm1sPKKm5WdcW9o8LxT8ifDNS7Ib0LNTNVSKmfNk+fUOqjG
+         X3nA==
+X-Gm-Message-State: AOAM5328MZx1wLdeMx01k0HIpJ7MKHcdhBJAG+Ft3jr0gl3k8LGH0sUj
+        QV7gBIZ2Szi3KNhF8Uy6PsfAIoEgnXI=
+X-Google-Smtp-Source: ABdhPJyfElXcMKWmo7QZf7L2p0vtzgtRsnsHQW8aBe1B1u+XN+4WL0TEGi5BEvqperhm68B1bR4y7g==
+X-Received: by 2002:a17:906:f9cc:: with SMTP id lj12mr13935725ejb.544.1616330116009;
+        Sun, 21 Mar 2021 05:35:16 -0700 (PDT)
 Received: from localhost.localdomain ([2a02:a03f:b7fe:f700:b090:4406:df97:c155])
-        by smtp.gmail.com with ESMTPSA id jv19sm6998641ejc.74.2021.03.21.05.35.14
+        by smtp.gmail.com with ESMTPSA id jv19sm6998641ejc.74.2021.03.21.05.35.15
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 21 Mar 2021 05:35:14 -0700 (PDT)
+        Sun, 21 Mar 2021 05:35:15 -0700 (PDT)
 From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 To:     linux-sparse@vger.kernel.org
 Cc:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-Subject: [PATCH 05/13] fold remove_parent() into insert_branch()
-Date:   Sun, 21 Mar 2021 13:34:57 +0100
-Message-Id: <20210321123505.27993-6-luc.vanoostenryck@gmail.com>
+Subject: [PATCH 06/13] let insert_branch() reuse the terminating instruction
+Date:   Sun, 21 Mar 2021 13:34:58 +0100
+Message-Id: <20210321123505.27993-7-luc.vanoostenryck@gmail.com>
 X-Mailer: git-send-email 2.31.0
 In-Reply-To: <20210321123505.27993-1-luc.vanoostenryck@gmail.com>
 References: <20210321123505.27993-1-luc.vanoostenryck@gmail.com>
@@ -63,39 +63,47 @@ Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-Fold remove_parent() into its only user, insert_branch(), since it's
-now just a wrapper around remove_bb_from_list().
+insert_branch() changes a switch or a conditional branch into a jump.
+This is implemented by deleting the old instruction and allocating
+the new one. This is not needed here since no reference to the
+old instruction is kept.
+
+So, simply reuse the terminating instruction and change it.
 
 Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 ---
- linearize.c | 7 +------
- 1 file changed, 1 insertion(+), 6 deletions(-)
+ linearize.c | 16 ++++++----------
+ 1 file changed, 6 insertions(+), 10 deletions(-)
 
 diff --git a/linearize.c b/linearize.c
-index 6bb1287efcb0..2268b0951376 100644
+index 2268b0951376..1d85cf2ba208 100644
 --- a/linearize.c
 +++ b/linearize.c
-@@ -692,11 +692,6 @@ static void set_activeblock(struct entrypoint *ep, struct basic_block *bb)
- 		add_bb(&ep->bbs, bb);
- }
- 
--static void remove_parent(struct basic_block *child, struct basic_block *parent)
--{
--	remove_bb_from_list(&child->parents, parent, 1);
--}
--
- /* Change a "switch" or a conditional branch into a branch */
+@@ -696,18 +696,14 @@ static void set_activeblock(struct entrypoint *ep, struct basic_block *bb)
  void insert_branch(struct instruction *jmp, struct basic_block *target)
  {
-@@ -720,7 +715,7 @@ void insert_branch(struct instruction *jmp, struct basic_block *target)
- 			continue;
- 		}
- 		DELETE_CURRENT_PTR(child);
--		remove_parent(child, bb);
-+		remove_bb_from_list(&child->parents, bb, 1);
- 	} END_FOR_EACH_PTR(child);
- 	PACK_PTR_LIST(&bb->children);
- 	repeat_phase |= REPEAT_CFG_CLEANUP;
+ 	struct basic_block *bb = jmp->bb;
+-	struct instruction *br, *old;
+ 	struct basic_block *child;
+ 
+-	/* Remove the switch */
+-	old = delete_last_instruction(&bb->insns);
+-	assert(old == jmp);
+-	kill_instruction(old);
+-
+-	br = alloc_instruction(OP_BR, 0);
+-	br->bb = bb;
+-	br->bb_true = target;
+-	add_instruction(&bb->insns, br);
++	kill_use(&jmp->cond);
++	jmp->bb_true = target;
++	jmp->bb_false = NULL;
++	jmp->cond = NULL;
++	jmp->size = 0;
++	jmp->opcode = OP_BR;
+ 
+ 	FOR_EACH_PTR(bb->children, child) {
+ 		if (child == target) {
 -- 
 2.31.0
 
