@@ -2,91 +2,83 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 8BA45343365
-	for <lists+linux-sparse@lfdr.de>; Sun, 21 Mar 2021 17:19:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 03B2134339C
+	for <lists+linux-sparse@lfdr.de>; Sun, 21 Mar 2021 18:09:42 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230053AbhCUQS0 (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Sun, 21 Mar 2021 12:18:26 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:44008 "EHLO
+        id S230180AbhCURJE (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Sun, 21 Mar 2021 13:09:04 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:54772 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230057AbhCUQSS (ORCPT
+        with ESMTP id S229944AbhCURI2 (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Sun, 21 Mar 2021 12:18:18 -0400
+        Sun, 21 Mar 2021 13:08:28 -0400
 Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com [IPv6:2a00:1450:4864:20::635])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id D4EC6C061762
-        for <linux-sparse@vger.kernel.org>; Sun, 21 Mar 2021 09:18:17 -0700 (PDT)
-Received: by mail-ej1-x635.google.com with SMTP id a7so17366086ejs.3
-        for <linux-sparse@vger.kernel.org>; Sun, 21 Mar 2021 09:18:17 -0700 (PDT)
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B6540C061574
+        for <linux-sparse@vger.kernel.org>; Sun, 21 Mar 2021 10:08:27 -0700 (PDT)
+Received: by mail-ej1-x635.google.com with SMTP id kt15so8017012ejb.12
+        for <linux-sparse@vger.kernel.org>; Sun, 21 Mar 2021 10:08:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=from:to:cc:subject:date:message-id:in-reply-to:references
-         :mime-version:content-transfer-encoding;
-        bh=WN5VWFGjCfI+jnZKuvmUolfrJcEpyaIRmr0S+DqXjlk=;
-        b=vMKiIR9i6nKGRIWjw2Iu7uPr70LX++2m4ETEjRaXQv7u8HPLNL4/9jWY8t9e63VPP8
-         uydBzLSIKv7Rie6pK8AgtyQkUboE9puwySTGolXjbfqpMraul5dIwV8WJtoVbio8uBkB
-         Tgf8TpsqlBCtXfk/7iAZ8CUwrAEoB7YjJocMtdRLfdurxmBpnS9Smx9mGZZ0QtQuD2jq
-         QRG3QNdoMGQDrLAYCWYgyMeSVrQfELOpHk3xFsudZ4H+Tvsw5udknBwii2AyaADSklwC
-         0kAYDkpT8iOPIHYhZ26FJMDV2MLwgJII2aWKbDsyIRmS+NNUmE5OUxTstVKmYocd/b2k
-         kzqQ==
+        h=from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=YS68xNFWhWPJ43I0fOP2a7ZV3ufcldfnEWle4zY8Gmk=;
+        b=pmUPRFuaG9pKK9hvu19LesjezAwSpWjMbJQeK+EfFGwcV3/B9DW8DegHEG0trUVVrt
+         haCYnilXdKuKXDXZfceXSZpvukaTivzGk/QvpXgdl+RUibcwjBxDQ0I1YskJFSlLH75i
+         3GM0XmNxI9nE16pquRBrd5ZKz7ILFX1/n4jSammJ3rlYTc6/SW8tswTAdLLiS35RjaSM
+         4VTsTLZr4XZeQQ8WOpIIrTMipavuVzyvvQd0YY0MvKL60BAe9DTppy378h0bqdijTMrT
+         u276gabRa1Wp8RltS47vg2PHsrzVuX9W0Hs/cs/k8mt4m9BXqK11tRU4C2tXuZPtPjcs
+         jk2g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
-         :references:mime-version:content-transfer-encoding;
-        bh=WN5VWFGjCfI+jnZKuvmUolfrJcEpyaIRmr0S+DqXjlk=;
-        b=RlhOSjC32R4uIrnO2OvFvJYHujkf/dIoNUujQjxt1G5i4Kd8a7KQGX7seXNoIU7gMG
-         sQ/uhD3ors4XGnTQ/b064P1efEtuOHhGkCA+Wgfe91wGy3rpE0MVTBYjNl1T4ZEY1/0L
-         JQU2EQGW5jsQRayevqqnOKXL5HrIFoJLHaeCM7JBgUPazAxxC5zVLVTupoHvN61JfvJa
-         BsS2dbfQEtyHcfjNz9JWbVn0C/QwgVSjJd79p/GvK6m3GGN6a3g9XcM3gRuvrj9nQ3G9
-         GmYpgHNEo8snEnvEEm7+TFMTjfupZVNPsdGPDQJPiEVI/HXVSrUqIL6/6K6Pv8WDVKas
-         PrXg==
-X-Gm-Message-State: AOAM533UXRZfTyURYuR7I937joJZIY3kiT8SnCZXjiz+BUFTiJouB/ZY
-        fOWVlTVKeXY19jLdxWEueBFCiIaL8No=
-X-Google-Smtp-Source: ABdhPJwLOnt7iPgkVPFgfXFcWTpeKnNrDWR0UkiuB27Ov9ieAZJhOhN51lIESYyopboJKh5Lpm5JnQ==
-X-Received: by 2002:a17:906:4015:: with SMTP id v21mr15619769ejj.433.1616343496704;
-        Sun, 21 Mar 2021 09:18:16 -0700 (PDT)
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=YS68xNFWhWPJ43I0fOP2a7ZV3ufcldfnEWle4zY8Gmk=;
+        b=nIIBN6cDIgjOTn92zCa7slGyNZZUzPjWYOTB5ZuNQIRh51xT+bUMn0+4/9ymXaFqdR
+         sGlXz6plgc3K+uj+Zc0OV0lt6Bs2vBv/Ac69ZKRXFzYJHy8wtYkvao5cmT5/tkOjwoVx
+         r+ft+fLg/Z/AiVNtuXevkF+ON9MqLLFMen+YepSTrM79n/e8RT6iMYhza6oe76wf810K
+         GtUajfBbqOqs9OGwXXJLOoJCfaR0pyyGt4ikuaF6eBosBdB3mOajIO/H82KOHqcTY1BN
+         DeKmcKBcmsri66DV4Vbe10IVtqugrfB8Ufx4V9i7zo+ZVscA6KkhYlQ4IQye+Pnkdao9
+         etBg==
+X-Gm-Message-State: AOAM531yTWWsjWzIcvmpxvhnOF4wRN881qdTUatjS1WSQs5dWQHpJDDc
+        FJIZ8zbl3D8mRD0GK4kd5yOghCrOr/8=
+X-Google-Smtp-Source: ABdhPJwCWiTcIYYF9m85ruw6D9DcHNfk3EsC8leamWLfL7JVdiwa5GWZOzSipEDmpEOBpqbtmXGNAA==
+X-Received: by 2002:a17:907:1693:: with SMTP id hc19mr15120350ejc.28.1616346506408;
+        Sun, 21 Mar 2021 10:08:26 -0700 (PDT)
 Received: from localhost.localdomain ([2a02:a03f:b7fe:f700:dc34:259e:8292:82c0])
-        by smtp.gmail.com with ESMTPSA id c20sm7390295eja.22.2021.03.21.09.18.16
+        by smtp.gmail.com with ESMTPSA id 90sm9108044edr.69.2021.03.21.10.08.24
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 21 Mar 2021 09:18:16 -0700 (PDT)
+        Sun, 21 Mar 2021 10:08:25 -0700 (PDT)
 From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 To:     linux-sparse@vger.kernel.org
 Cc:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-Subject: [PATCH 6/6] let ssa_rename_phi() use insert_last_instruction()
-Date:   Sun, 21 Mar 2021 17:16:09 +0100
-Message-Id: <20210321161609.45905-7-luc.vanoostenryck@gmail.com>
+Subject: [PATCH 0/6] memops: small cleanups
+Date:   Sun, 21 Mar 2021 18:08:16 +0100
+Message-Id: <20210321170822.46854-1-luc.vanoostenryck@gmail.com>
 X-Mailer: git-send-email 2.31.0
-In-Reply-To: <20210321161609.45905-1-luc.vanoostenryck@gmail.com>
-References: <20210321161609.45905-1-luc.vanoostenryck@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
----
- ssa.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+This series contains some small cleanups in preparation for
+incoming changes concerning memops simplification
 
-diff --git a/ssa.c b/ssa.c
-index b9044207db16..5f1a52b8fe94 100644
---- a/ssa.c
-+++ b/ssa.c
-@@ -345,11 +345,11 @@ static void ssa_rename_phi(struct instruction *insn)
- 	if (!var->torename)
- 		return;
- 	FOR_EACH_PTR(insn->bb->parents, par) {
--		struct instruction *term = delete_last_instruction(&par->insns);
- 		pseudo_t val = lookup_var(par, var);
--		pseudo_t phi = alloc_phi(par, val, var);
-+		struct instruction *phisrc = alloc_phisrc(val, var);
-+		pseudo_t phi = phisrc->target;
- 		phi->ident = var->ident;
--		add_instruction(&par->insns, term);
-+		insert_last_instruction(par, phisrc);
- 		link_phi(insn, phi);
- 		mark_phi_used(val);
- 	} END_FOR_EACH_PTR(par);
+Luc Van Oostenryck (6):
+  memops: dominates()s first arg is redundant
+  memops: find_dominating_parents()s generation is redundant
+  memops: remove obsolete comment
+  memops: do not mess up with phisource's source ident
+  memops: avoid using first_pseudo()
+  memops: we can kill addresses unconditionally
+
+ flow.c   |  4 ++--
+ flow.h   |  2 +-
+ memops.c | 39 ++++++++++++++++-----------------------
+ 3 files changed, 19 insertions(+), 26 deletions(-)
+
+
+base-commit: 7b5cc7b6135733cbbce121cc94fdc4a5400f46b5
 -- 
 2.31.0
 
