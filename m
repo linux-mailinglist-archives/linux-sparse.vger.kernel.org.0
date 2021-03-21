@@ -2,58 +2,58 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 57987343286
+	by mail.lfdr.de (Postfix) with ESMTP id F22E1343288
 	for <lists+linux-sparse@lfdr.de>; Sun, 21 Mar 2021 13:35:58 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229884AbhCUMf2 (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Sun, 21 Mar 2021 08:35:28 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:53034 "EHLO
+        id S229900AbhCUMf3 (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Sun, 21 Mar 2021 08:35:29 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:53038 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229920AbhCUMfU (ORCPT
+        with ESMTP id S229926AbhCUMfV (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Sun, 21 Mar 2021 08:35:20 -0400
+        Sun, 21 Mar 2021 08:35:21 -0400
 Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com [IPv6:2a00:1450:4864:20::532])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 4D9E3C061574
-        for <linux-sparse@vger.kernel.org>; Sun, 21 Mar 2021 05:35:20 -0700 (PDT)
-Received: by mail-ed1-x532.google.com with SMTP id j3so16028560edp.11
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 08045C061574
+        for <linux-sparse@vger.kernel.org>; Sun, 21 Mar 2021 05:35:21 -0700 (PDT)
+Received: by mail-ed1-x532.google.com with SMTP id bf3so16078985edb.6
         for <linux-sparse@vger.kernel.org>; Sun, 21 Mar 2021 05:35:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=gb/WVZ1THkivgKLK4xRh0ywfmgqDYSFXZFQyeEHJhos=;
-        b=GcHMio2ZAjadcHnwvoLstBumWAlrYV6HyGub2FKtaxNPDIich8Uj7K3wi5jgv4E8AZ
-         cMA0CYsWqnMSbpbiWUCX+/U3oqtmkNpEbVjdok5uVrWs9H0GcUbaYj+V2/dBeFOo9ARZ
-         MdOvb5sJRs80ieh2s9Hl1x0vrNsI0ZaDaNvPM8Cv3djq8t31YCCtzRiOnfkYlUj8NjQv
-         9jLy4vEEE1EFQLqEQbZkpJValVAtDul1w4zOTVREmpQHF7pbUWYDi8fkqWvb5IB/0Cmr
-         hEO4TsoFhjZ0DT7AQKX1lM23xDg9PiVZzlX3e3YmJMZ2CaGQYI2VseXJBRiajzw1Wcc7
-         Ni5w==
+        bh=yogb3xLL1K4x00FKimazPH2zLp4VAS/QnZoB6MtsZTQ=;
+        b=r78ZNuBcWzDoTc8fg1kcM63xJg9xVCK4/hOVei2VapP5yCCXFyXU8rcRaGD0SBqDbf
+         JO942PEvTgpW10eKs/r9HRfwrBYSoiZKyxa1IijZEjgtenkm9XkgI/P8YgGe9EkZZJ/5
+         OHiKRoOSM9m3Fabme+1+fRis63fGT78mB03FqETA+9Dc1ZlK0dYb4XmenpPRyiNHUMDI
+         XYICVbyJe1uCmVzcRqD9XmTIBeB7VdnUQq4MDtmwVbbwPxrc+mHJuKDH++Ofsp7oZZqg
+         iHwEzxUSx76Bczc9W5LS0xq4/I3CQ90hqP0CvFCIiFNbhQ1ghSpejWIh3G01Mr4zvqIE
+         /gUQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=gb/WVZ1THkivgKLK4xRh0ywfmgqDYSFXZFQyeEHJhos=;
-        b=k5Ymm0oxm/U7BQ+eukL0BU7DBpPYVtO7K4PobvoH08VlE6Pko+PQ8f7EYjOjiZOc4z
-         p6tAOC1jYeXP0MfTB7jEjaefbgvkHxorb8Akebv4BFrOlrjGLhVbpjtWgIabHC350+As
-         x0OYw1lOxb0rPDPXQhWkRWdqiN0VAF99PbTSp77In9t+5xcdjIl+XKaR0LGOyKEDIzwx
-         PCloDBF5tLJ1OHHkhg8PXqrBLmztCrZq4dV1BjYBGrUmaYEHoB/V+/RWlgpJJMJ88PPj
-         tlW9/DXWiWU1Lw38jO0M1d/ZLzAsI5wAbMAEc5bO2vRWEpRYS+IUg1Zp0R4t7Vq80kPl
-         ntXA==
-X-Gm-Message-State: AOAM533eWltlR4MJwPETomXFxmT1naxO/bjVJKAc6Gbyk0q6gFy+1gT+
-        k8GX0aPxSVdUhdv9ylxcme1mW3ebiFw=
-X-Google-Smtp-Source: ABdhPJwItPAR/mfBTbdhYqksnRIdlbdifPYgomihuzWk9sszn4ia1ABAow4XpiCpsqLhofobuwyiJQ==
-X-Received: by 2002:a05:6402:447:: with SMTP id p7mr20378196edw.89.1616330119097;
+        bh=yogb3xLL1K4x00FKimazPH2zLp4VAS/QnZoB6MtsZTQ=;
+        b=rST888udS2/PdNH801SDGnN24o7mASLXFPWesNLiN9Hy2K5ILcHp/89uiCxORQSvLL
+         H70g3AV1+EAzdwDP5vA/3xfeVaHOBNDYCX4fumxuT2NI7cuhWWNJSUylEICl2ZeOfZhg
+         Xv8UeDt1i83fZE/mjmqnFomvsnCKf4xXSSVAqFWiwVkGan+b7/7W2Xn38ma51UIGPwvx
+         hD5Q0bLtreGUXU1hEdP31UslpPt/RgQOLdL1VCqmLGm57IVK4jW5gUWOd/UejDjtLmvu
+         sHRDq8KArm10kyiMT+YcYnN0/jGS1oOTzCjrdy1FHOIcJhXtiXtrZFoZQzbR4oLB5yDC
+         2NbQ==
+X-Gm-Message-State: AOAM533dHHd/1JP6A8bruH4YMcFt/26yLa0/6HDIG6rQ1pQ+V2kZEDtK
+        x2Mhzfu73yc+KHbxgI7prq+sOugEQCc=
+X-Google-Smtp-Source: ABdhPJzyoQJUU98QlqPlAz9Y3zkUqnb4V9rheeE8PcnxypgHHqrpMLCwRbAPaCSzj+QHLX1888H9NQ==
+X-Received: by 2002:aa7:cf90:: with SMTP id z16mr20348799edx.273.1616330119837;
         Sun, 21 Mar 2021 05:35:19 -0700 (PDT)
 Received: from localhost.localdomain ([2a02:a03f:b7fe:f700:b090:4406:df97:c155])
-        by smtp.gmail.com with ESMTPSA id jv19sm6998641ejc.74.2021.03.21.05.35.18
+        by smtp.gmail.com with ESMTPSA id jv19sm6998641ejc.74.2021.03.21.05.35.19
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 21 Mar 2021 05:35:18 -0700 (PDT)
+        Sun, 21 Mar 2021 05:35:19 -0700 (PDT)
 From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 To:     linux-sparse@vger.kernel.org
 Cc:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-Subject: [PATCH 11/13] fix phisources during CBR-BR conversion
-Date:   Sun, 21 Mar 2021 13:35:03 +0100
-Message-Id: <20210321123505.27993-12-luc.vanoostenryck@gmail.com>
+Subject: [PATCH 12/13] use convert_to_jump() when converting a CBR with same targets
+Date:   Sun, 21 Mar 2021 13:35:04 +0100
+Message-Id: <20210321123505.27993-13-luc.vanoostenryck@gmail.com>
 X-Mailer: git-send-email 2.31.0
 In-Reply-To: <20210321123505.27993-1-luc.vanoostenryck@gmail.com>
 References: <20210321123505.27993-1-luc.vanoostenryck@gmail.com>
@@ -63,56 +63,50 @@ Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-When a parent is removed from a BB containing one or several phi-nodes,
-the corresponding phi-sources must be removed from the phi-node.
+If a conditional branch has identical targets, it should be
+converted to a simple jump.
 
-However this is not done and consequentially:
-* it becomes impossibly to correctly reason about the flow of values
-  through these phi-nodes.
-* simplifications are missed (e.g. if-conversion).
+This is done but using its own code.
+Change this by using the existing convert_to_jump() instead.
+This also allows any redundant phi-sources to be removed.
 
 Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 ---
- flow.c                          | 5 +++++
- validation/optim/bad-phisrc1.c  | 1 -
- validation/optim/bad-phisrc1a.c | 1 -
- 3 files changed, 5 insertions(+), 2 deletions(-)
+ simplify.c                     | 13 ++-----------
+ validation/optim/bad-phisrc2.c |  1 -
+ 2 files changed, 2 insertions(+), 12 deletions(-)
 
-diff --git a/flow.c b/flow.c
-index 4952562a373d..69d95a98a512 100644
---- a/flow.c
-+++ b/flow.c
-@@ -760,6 +760,11 @@ int convert_to_jump(struct instruction *insn, struct basic_block *target)
- 	struct basic_block *child;
- 	int changed = REPEAT_CSE;
+diff --git a/simplify.c b/simplify.c
+index 7171bd564e63..90db041af823 100644
+--- a/simplify.c
++++ b/simplify.c
+@@ -2444,17 +2444,8 @@ static int simplify_branch(struct instruction *insn)
+ 		return convert_to_jump(insn, cond->value ? insn->bb_true : insn->bb_false);
  
-+	switch (insn->opcode) {
-+	case OP_CBR:
-+		changed |= remove_phisources(insn->bb, insn->bb_true == target ? insn->bb_false : insn->bb_true);
-+		break;
-+	}
- 	kill_use(&insn->cond);
- 	insn->bb_true = target;
- 	insn->bb_false = NULL;
-diff --git a/validation/optim/bad-phisrc1.c b/validation/optim/bad-phisrc1.c
-index 59c5e4f1e66a..aa12dd0ae542 100644
---- a/validation/optim/bad-phisrc1.c
-+++ b/validation/optim/bad-phisrc1.c
-@@ -8,7 +8,6 @@ void foo(int a, int b)
+ 	/* Same target? */
+-	if (insn->bb_true == insn->bb_false) {
+-		struct basic_block *bb = insn->bb;
+-		struct basic_block *target = insn->bb_false;
+-		remove_bb_from_list(&target->parents, bb, 1);
+-		remove_bb_from_list(&bb->children, target, 1);
+-		insn->bb_false = NULL;
+-		kill_use(&insn->cond);
+-		insn->cond = NULL;
+-		insn->opcode = OP_BR;
+-		return REPEAT_CSE|REPEAT_CFG_CLEANUP;
+-	}
++	if (insn->bb_true == insn->bb_false)
++		return convert_to_jump(insn, insn->bb_true);
+ 
+ 	/* Conditional on a SETNE $0 or SETEQ $0 */
+ 	if (cond->type == PSEUDO_REG) {
+diff --git a/validation/optim/bad-phisrc2.c b/validation/optim/bad-phisrc2.c
+index 3eade688f768..78eae28856fd 100644
+--- a/validation/optim/bad-phisrc2.c
++++ b/validation/optim/bad-phisrc2.c
+@@ -10,7 +10,6 @@ int bad_phisrc2(int p, int a, int r)
  /*
-  * check-name: bad-phisrc1
-  * check-command: test-linearize -Wno-decl $file
-- * check-known-to-fail
-  *
-  * check-output-ignore
-  * check-output-excludes: phi\\.
-diff --git a/validation/optim/bad-phisrc1a.c b/validation/optim/bad-phisrc1a.c
-index cf07573b1fd3..b7519ee7cf5d 100644
---- a/validation/optim/bad-phisrc1a.c
-+++ b/validation/optim/bad-phisrc1a.c
-@@ -16,7 +16,6 @@ out:
- /*
-  * check-name: bad-phisrc1a
+  * check-name: bad-phisrc2
   * check-command: test-linearize -Wno-decl $file
 - * check-known-to-fail
   *
