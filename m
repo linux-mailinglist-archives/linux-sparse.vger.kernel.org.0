@@ -2,110 +2,221 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 0487634327C
+	by mail.lfdr.de (Postfix) with ESMTP id 0B240343280
 	for <lists+linux-sparse@lfdr.de>; Sun, 21 Mar 2021 13:35:57 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229931AbhCUMfV (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Sun, 21 Mar 2021 08:35:21 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:52990 "EHLO
+        id S229815AbhCUMfW (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Sun, 21 Mar 2021 08:35:22 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:52992 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229815AbhCUMfO (ORCPT
+        with ESMTP id S229834AbhCUMfO (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
         Sun, 21 Mar 2021 08:35:14 -0400
 Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com [IPv6:2a00:1450:4864:20::531])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id F0219C061574
-        for <linux-sparse@vger.kernel.org>; Sun, 21 Mar 2021 05:35:12 -0700 (PDT)
-Received: by mail-ed1-x531.google.com with SMTP id h10so16026430edt.13
-        for <linux-sparse@vger.kernel.org>; Sun, 21 Mar 2021 05:35:12 -0700 (PDT)
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id D5DACC061762
+        for <linux-sparse@vger.kernel.org>; Sun, 21 Mar 2021 05:35:13 -0700 (PDT)
+Received: by mail-ed1-x531.google.com with SMTP id bx7so16045730edb.12
+        for <linux-sparse@vger.kernel.org>; Sun, 21 Mar 2021 05:35:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=igDNTyjKfNsZiUmxaWl52W4u0zoV1VWZN5WBIATXUzc=;
-        b=KCJz47T5Mwr4X9p6R5FxVN26JNA15Ww+e9K5iuDVSp12gxT5NH36QCD6Q+BptTmzqR
-         a4H/fv3rKYvmY5I23ZZkA+K6JcuKyofghb687Ll8mclKTZo11ULMjN5uOEOfWVa7SVbJ
-         zLvZcSdDgClXH6NvAqPFlCEKorLY7spkRTzeN0yj4uxf+70CtcLB2pHf8Qy/aecJDVri
-         ZSexM9GsnyACqP2bcdz1i+PYp1LjMZKZJczUf3bvR9iAdDp0XAHpkyS7TjHtSHu1qWr2
-         KqBkYSvJEOvd0w+XQdWClF47mA5Fi9pf75cFF91xQQB1LaJgmwhdMA4n9MFS+KTUs8Kn
-         Npcw==
+        h=from:to:cc:subject:date:message-id:in-reply-to:references
+         :mime-version:content-transfer-encoding;
+        bh=4a5yyAK7LcFKaBUbRNQBjJkBua6gs1yXslDxHJ7gCzQ=;
+        b=u6MTFBaoRyLwkj0fNs3yBBdnZz2Fsdi2ezlIO61SJPAGfjdReR1dQkMWWjBSqLKq6w
+         OogsmXXjRAzcpt5XyWBmfZK6XGUAcDLV1uzmM2Y7jm3lL2qaJ/vgHE2qT/q0pYfeHrbX
+         WH6KT/kR5g9fs0mi276b7vNoVv5JxCZxgWOOlEa795bLqLWMhiR1mE9b4ky5ybqN2cbL
+         /NUCrOW3KpT2DTpRqbLJOrxsJ4lG/+oW8wopqmotTjIWJFOGT/dieDqnFlUh/BXUcdgu
+         xRMGoR07eDUZZ1ZxiPkJ8svnlOy4hl2JG9BLrbWK3gTf9keA7dlHf8/AUhR0syPA33NP
+         C6sA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=igDNTyjKfNsZiUmxaWl52W4u0zoV1VWZN5WBIATXUzc=;
-        b=JERSL8bPwuhzgZvX2NNo2IWQpB84/zLn2s5nj42eZKaAg1lwTbjupWqOsBIra3nA/+
-         ycX7QNUdio8VR/hKhflplTXsKWhm36iITXOgHb5MMBR90EiuLyBAm+tatCB79AEBbW3K
-         swnd8H5xyPD4OA3yPLWKCguy8PT6ikq7TuUkEQoh37KZa2VczyYVXLfTF2ROLrxsPI+C
-         NaR1d7YTPzH0Y4ek2qj6kKO1Sbxg2l6tsMWmr2ly6wYLucSrcXxQUxzSiRZwEP4zdime
-         uuySl8zKaUNtAm4KzPDU5hQrSCCow+AwfgzGj7mH/9ETCjUh69vSjXzdWX5r02d0D0gN
-         UCng==
-X-Gm-Message-State: AOAM532Qyyh/Ubpjktqf206tQYVJAJZMW1nFjIYZ9sACpiN5sZHmZpRg
-        DCUGyU+nEJhIm6TTBaRRVKLFXdpEr8g=
-X-Google-Smtp-Source: ABdhPJxqlr7fy21sVHtGDi5N8GIjuzpUvmQ+BtVKA5AOa9wD51JqH10RZJ7Kjx3TodwTerPk2DyZHQ==
-X-Received: by 2002:a05:6402:30a5:: with SMTP id df5mr20566040edb.24.1616330111678;
-        Sun, 21 Mar 2021 05:35:11 -0700 (PDT)
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+         :references:mime-version:content-transfer-encoding;
+        bh=4a5yyAK7LcFKaBUbRNQBjJkBua6gs1yXslDxHJ7gCzQ=;
+        b=Ggu7JiC4dkGcK19FmMrMPxeMWruVG8CIagDJyjKI86INYGMcp7PPaWw94yHkz3SeRQ
+         JOuOobA9lzu4r9JGe5ve7NPaD8cSfqxROcO9jGmoW5KRQyadC9T2+MOr/a2z6hSv0dKJ
+         q+yNcGPQLmN2KMchwC146pKJOUeuiu84n7e3fbTIioMBzY4UWi6h8on1FS/wPpYvbIgI
+         24Ll+pprLiw7wl0Ip5ru+ENk8nQ/3f3qp3vN/BBEjw8EE4h/0rUYSoNPAhYE1/46XrMW
+         c4UgZ2SGgUlcglMeMHaPIVaVVO77ZdkW2uWzjfXe7yvd3H6PEf0abXRJcgH8ROwq0CE3
+         AiSw==
+X-Gm-Message-State: AOAM533TCw/jGfqoO8BTNI6PmUpU2mu0mOwcjPV1zLs7P3Q64cF7woJv
+        wXqSk/oIlPjGIeC7Nbs0oi/BlgvKA+0=
+X-Google-Smtp-Source: ABdhPJywj7gwzsdfjm2CRSGeybpNuW+19Znvc4Q+dAF/jhkdoIH26E4vLrkMFT0NaOgh2Kp17s3mBQ==
+X-Received: by 2002:a05:6402:3595:: with SMTP id y21mr20087324edc.233.1616330112554;
+        Sun, 21 Mar 2021 05:35:12 -0700 (PDT)
 Received: from localhost.localdomain ([2a02:a03f:b7fe:f700:b090:4406:df97:c155])
-        by smtp.gmail.com with ESMTPSA id jv19sm6998641ejc.74.2021.03.21.05.35.10
+        by smtp.gmail.com with ESMTPSA id jv19sm6998641ejc.74.2021.03.21.05.35.11
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 21 Mar 2021 05:35:10 -0700 (PDT)
+        Sun, 21 Mar 2021 05:35:12 -0700 (PDT)
 From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 To:     linux-sparse@vger.kernel.org
 Cc:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-Subject: [PATCH 00/13] remove phi-sources from removed branches
-Date:   Sun, 21 Mar 2021 13:34:52 +0100
-Message-Id: <20210321123505.27993-1-luc.vanoostenryck@gmail.com>
+Subject: [PATCH 01/13] Revert "simplify CBR-CBR on the same condition"
+Date:   Sun, 21 Mar 2021 13:34:53 +0100
+Message-Id: <20210321123505.27993-2-luc.vanoostenryck@gmail.com>
 X-Mailer: git-send-email 2.31.0
+In-Reply-To: <20210321123505.27993-1-luc.vanoostenryck@gmail.com>
+References: <20210321123505.27993-1-luc.vanoostenryck@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-This series, after some related and preparatory patches, contains
-fixes for the problem of phi-sources being left in place after their
-corresponding branches have been removed. This results in situations,
-for example, where a phi-node has 3 arguments/inputs/sources but only
-2 parent BBs and create all sort of problems, like:
-* some dead code is not removed
-* some optimizations involving phi-nodes are blocked (if-conversions)
-* more importantly, these phi-nodes are invalid/meaningless and so
-  it's impossible to reason correctly about them.
+The commit 7cd2ce022575 ("simplify CBR-CBR on the same condition")
+added a generalization of the existing CBR-CBR simplification
+using the dominance tree.
 
-Note: This series only fixes *some* of these problems. Other probably
-      still exists, especially when rewrite_branch() is used.
+The problem is that as soon as a change is made to the CFG, the
+dominance tree become invalid and should be rebuilt (which is costly
+to do for each CFG changes) or updated (which is quite complex).
 
+So, for now, revert this commit.
 
-Luc Van Oostenryck (13):
-  Revert "simplify CBR-CBR on the same condition"
-  add testcases to check if phi-sources from removed targets are removed
-    too
-  remove insert_branch() redundant arg
-  simplify remove_parent()
-  fold remove_parent() into insert_branch()
-  let insert_branch() reuse the terminating instruction
-  move insert_branch() to flow.c
-  let insert_branch() return a status
-  rename insert_branch() to convert_to_jump()
-  add remove_phisources()
-  fix phisources during CBR-BR conversion
-  use convert_to_jump() when converting a CBR with same targets
-  fix phisources during SWITCH-BR conversion
+Reverts: 7cd2ce022575fbd383bb39b54f1e0fa402919da2.
+Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
+---
+ flow.c | 106 ---------------------------------------------------------
+ 1 file changed, 106 deletions(-)
 
- flow.c                          | 205 +++++++++++++++-----------------
- flow.h                          |   3 +
- linearize.c                     |  36 ------
- linearize.h                     |   1 -
- simplify.c                      |  34 ++----
- validation/optim/bad-phisrc1.c  |  15 +++
- validation/optim/bad-phisrc1a.c |  23 ++++
- validation/optim/bad-phisrc2.c  |  16 +++
- validation/optim/bad-phisrc3.c  |  20 ++++
- 9 files changed, 184 insertions(+), 169 deletions(-)
- create mode 100644 validation/optim/bad-phisrc1.c
- create mode 100644 validation/optim/bad-phisrc1a.c
- create mode 100644 validation/optim/bad-phisrc2.c
- create mode 100644 validation/optim/bad-phisrc3.c
-
+diff --git a/flow.c b/flow.c
+index c5319ae35ac4..6d77453a3554 100644
+--- a/flow.c
++++ b/flow.c
+@@ -19,7 +19,6 @@
+ #include "simplify.h"
+ #include "flow.h"
+ #include "target.h"
+-#include "flowgraph.h"
+ 
+ unsigned long bb_generation;
+ 
+@@ -69,34 +68,6 @@ static int pseudo_truth_value(pseudo_t pseudo)
+ 	}
+ }
+ 
+-///
+-// check if the BB is empty or only contains phi-sources
+-static int bb_is_trivial(struct basic_block *bb)
+-{
+-	struct instruction *insn;
+-	int n = 0;
+-
+-	FOR_EACH_PTR(bb->insns, insn) {
+-		if (!insn->bb)
+-			continue;
+-		switch (insn->opcode) {
+-		case OP_TERMINATOR ... OP_TERMINATOR_END:
+-			return n ? -1 : 1;
+-		case OP_NOP:
+-		case OP_INLINED_CALL:
+-			continue;
+-		case OP_PHISOURCE:
+-			n++;
+-			continue;
+-		default:
+-			goto out;
+-		}
+-	} END_FOR_EACH_PTR(insn);
+-
+-out:
+-	return 0;
+-}
+-
+ /*
+  * Does a basic block depend on the pseudos that "src" defines?
+  */
+@@ -158,81 +129,6 @@ out:
+ 	return false;
+ }
+ 
+-///
+-// do jump threading in dominated BBs
+-// @dom: the BB which must dominate the modified BBs.
+-// @old: the old target BB
+-// @new: the new target BB
+-// @return: 0 if no chnages have been made, 1 otherwise.
+-//
+-// In all BB dominated by @dom, rewrite branches to @old into branches to @new
+-static int retarget_bb(struct basic_block *dom, struct basic_block *old, struct basic_block *new)
+-{
+-	struct basic_block *bb;
+-	int changed = 0;
+-
+-	if (new == old)
+-		return 0;
+-
+-restart:
+-	FOR_EACH_PTR(old->parents, bb) {
+-		struct instruction *last;
+-		struct multijmp *jmp;
+-
+-		if (!domtree_dominates(dom, bb))
+-			continue;
+-		last = last_instruction(bb->insns);
+-		switch (last->opcode) {
+-		case OP_BR:
+-			changed |= rewrite_branch(bb, &last->bb_true,  old, new);
+-			break;
+-		case OP_CBR:
+-			changed |= rewrite_branch(bb, &last->bb_true,  old, new);
+-			changed |= rewrite_branch(bb, &last->bb_false, old, new);
+-			break;
+-		case OP_SWITCH:
+-		case OP_COMPUTEDGOTO:
+-			FOR_EACH_PTR(last->multijmp_list, jmp) {
+-				changed |= rewrite_branch(bb, &jmp->target, old, new);
+-			} END_FOR_EACH_PTR(jmp);
+-			break;
+-		default:
+-			continue;
+-		}
+-
+-		// since rewrite_branch() will modify old->parents() the list
+-		// iteration won't work correctly. Several solution exist for
+-		// this but in this case the simplest is to restart the loop.
+-		goto restart;
+-	} END_FOR_EACH_PTR(bb);
+-	return changed;
+-}
+-
+-static int simplify_cbr_cbr(struct instruction *insn)
+-{
+-	struct instruction *last;
+-	struct basic_block *bot = insn->bb;
+-	struct basic_block *top = bot->idom;
+-	int changed = 0;
+-	int trivial;
+-
+-	if (!top)
+-		return 0;
+-
+-	trivial = bb_is_trivial(bot);
+-	if (trivial == 0)
+-		return 0;
+-	if (trivial < 0)
+-		return 0;
+-	last = last_instruction(top->insns);
+-	if (last->opcode != OP_CBR || last->cond != insn->cond)
+-		return 0;
+-
+-	changed |= retarget_bb(last->bb_true , bot, insn->bb_true);
+-	changed |= retarget_bb(last->bb_false, bot, insn->bb_false);
+-	return changed;
+-}
+-
+ /*
+  * When we reach here, we have:
+  *  - a basic block that ends in a conditional branch and
+@@ -380,8 +276,6 @@ static int simplify_one_branch(struct basic_block *bb, struct instruction *br)
+ {
+ 	if (simplify_phi_branch(bb, br))
+ 		return 1;
+-	if (simplify_cbr_cbr(br))
+-		return 1;
+ 	return simplify_branch_branch(bb, br, &br->bb_true, 1) |
+ 	       simplify_branch_branch(bb, br, &br->bb_false, 0);
+ }
 -- 
 2.31.0
 
