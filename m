@@ -2,58 +2,58 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id A45C4343287
-	for <lists+linux-sparse@lfdr.de>; Sun, 21 Mar 2021 13:35:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 6664D343283
+	for <lists+linux-sparse@lfdr.de>; Sun, 21 Mar 2021 13:35:57 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229893AbhCUMf2 (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        id S229875AbhCUMf2 (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
         Sun, 21 Mar 2021 08:35:28 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:53020 "EHLO
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:53024 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229884AbhCUMfS (ORCPT
+        with ESMTP id S229893AbhCUMfT (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Sun, 21 Mar 2021 08:35:18 -0400
-Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com [IPv6:2a00:1450:4864:20::635])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 7385CC061762
-        for <linux-sparse@vger.kernel.org>; Sun, 21 Mar 2021 05:35:18 -0700 (PDT)
-Received: by mail-ej1-x635.google.com with SMTP id r12so16831851ejr.5
+        Sun, 21 Mar 2021 08:35:19 -0400
+Received: from mail-ed1-x533.google.com (mail-ed1-x533.google.com [IPv6:2a00:1450:4864:20::533])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 0F544C061574
+        for <linux-sparse@vger.kernel.org>; Sun, 21 Mar 2021 05:35:19 -0700 (PDT)
+Received: by mail-ed1-x533.google.com with SMTP id z1so16088558edb.8
         for <linux-sparse@vger.kernel.org>; Sun, 21 Mar 2021 05:35:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=qdCvsHh96rDSYiMxCeNGHa83d2TUkZ2fHdWdWFmKug0=;
-        b=g/RbVzwBKzAATT/imme5OnK9/76UFiDzgDikA6e0u5IUoTM+ckD6c5OtGMh1yvnJVI
-         1kBnBS2SRypsHVl2DiPpvVpCzwsZRvfGRy2jei++T7dIIPu4hV1nKIEmjXxsUjfdgpN+
-         BP5AmROVDrXZtNDWiLjEIPJR1ci1mOHD+0OON/k+NL2JuIQ6FIQFBiEuAAFnwedBc9oC
-         VPn+b1EzWxFutlmfhRUeTcSPDcK9hCnCm6x1URgLXnVkuzbk9mJ5MHnOOtYy7NX6bjMP
-         0rVBDrbw1Ta9jInpam9g8tTTaHgwyK4qyoCuvUJshLBPeVjtfmCyhC9Oim06UZd+683+
-         AkTA==
+        bh=Ncp3Ty72khzW9ORl77uMF4OR2IBlzkrexTvb+n75fEw=;
+        b=XmfILwb9oGNSE8jlsSIRjjWUVppOJYMlQIWAzdEJIA/lPpShv+rr/U/NtzqQH5aMph
+         nUbcmRgMkb3epaOpUvbNwKQ5BbShoeZcNjT6UWXOed1UIYwIUhxx9bGvfT15gKop9cCh
+         CJgZsnfwmX8hCnsaqa/JZGwojbqms6u3dE65h0tyPO/osfk0CUfhql0BU/5UutvhrwU8
+         M0LHndIpZGyQYV12lsHrZZn4pXIXO6De8AlAnLH/HGt+oG7wFbdbjoLmfp7tWq8ACV3s
+         tQjj9syYJM5w30Kn32XqBHyVSWoGiU/jjs8KwwurDhQaV0f4rcIsqIGH05TZwEADsQDV
+         Zxbg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=qdCvsHh96rDSYiMxCeNGHa83d2TUkZ2fHdWdWFmKug0=;
-        b=RntVzn4ttrIBttwYz4jyH6FHCjBGfUVCh7JC3+xWK0uDvB7JU+k3v2HmQcKk/jLYu7
-         FNLLhc9GPkTLpTp+8CqI3kfC54O6asMf/Cp6K47Pb4Ts5ad4GPAmH5im8AaPegMLOpfe
-         8aGg8cqaMa6aToBJ4CEoaZvaRWO0oBVhrpiqzEjtaJj1CRH0lfQlK4IxQyXU1mjsK2Ve
-         YdiMMyXGzte/qXmNE3IcsK/vF0pFnqTccNKxLrKugTVvDnTWiD6ZyK6V1DPsJHpZ1qs+
-         jMD7NbGdrQmqIu/LcHhw8az6lrhBvJmZURNJMkkE/QyhSLlJobPf4uEEA9whP19lvlAB
-         kkNA==
-X-Gm-Message-State: AOAM533fk0GoXUXkD5AcoojHyO0AZKpspCkPFLbK7ZXfJ74rwjRogaIx
-        FDG0kFvxBDDXV4NDkdv8GSTPsg08grA=
-X-Google-Smtp-Source: ABdhPJwOGgN6JdLA+0bBF1g6GYdIJOjlmHyOrr6gMm9LNJBatgiyBR0PXSxEEZE+iBYRKz7Jw1038Q==
-X-Received: by 2002:a17:907:20e4:: with SMTP id rh4mr14399630ejb.369.1616330117291;
+        bh=Ncp3Ty72khzW9ORl77uMF4OR2IBlzkrexTvb+n75fEw=;
+        b=uCLMBYTBn+HNwBKZMjwIqKFTnQHOqE6es3wppiUWudWPuZnLnnE5hx1agWBy3bTysD
+         sps55zFkPxU+9sLUTCjpp9Vh4b+CK89GL5x3M4GucDesrRDwqwbk35QJh8WDDwUHpsMo
+         W5CyG6u51EOzQMEFayMxiz6nbcFxUwbxX1fGeblc6vDFObDhQqHr8TZSRFlwAfDbD+XC
+         bqH8903TIvaar7NQqgrtjRxK3fU/naY1uLQoCKz2FKpyHxsykp2G1A4wv1/uvmttDQh6
+         77q9Zuo2UPT1zs8d0djExne6u+ZRIx+xhYkojMo5yfUPz52V7K0oI+4bK1Cc6ebzV2+D
+         /tNw==
+X-Gm-Message-State: AOAM530388JO44AyGTA2qh8VjP4WT+c+IYnuZ5ExPCn4wQ2NBhJsEzow
+        gFrHXHBVlTxpBPLQYPnv0YD/SgnX3E8=
+X-Google-Smtp-Source: ABdhPJzYHFNBJ/dLPkzSgfpPEFHVugy3qiUdv4iunLQl6TSjwesdL8unMDUDqJjRfxPHnv44jbNs/Q==
+X-Received: by 2002:aa7:c0c7:: with SMTP id j7mr20350705edp.298.1616330117845;
         Sun, 21 Mar 2021 05:35:17 -0700 (PDT)
 Received: from localhost.localdomain ([2a02:a03f:b7fe:f700:b090:4406:df97:c155])
-        by smtp.gmail.com with ESMTPSA id jv19sm6998641ejc.74.2021.03.21.05.35.16
+        by smtp.gmail.com with ESMTPSA id jv19sm6998641ejc.74.2021.03.21.05.35.17
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 21 Mar 2021 05:35:16 -0700 (PDT)
+        Sun, 21 Mar 2021 05:35:17 -0700 (PDT)
 From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 To:     linux-sparse@vger.kernel.org
 Cc:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-Subject: [PATCH 08/13] let insert_branch() return a status
-Date:   Sun, 21 Mar 2021 13:35:00 +0100
-Message-Id: <20210321123505.27993-9-luc.vanoostenryck@gmail.com>
+Subject: [PATCH 09/13] rename insert_branch() to convert_to_jump()
+Date:   Sun, 21 Mar 2021 13:35:01 +0100
+Message-Id: <20210321123505.27993-10-luc.vanoostenryck@gmail.com>
 X-Mailer: git-send-email 2.31.0
 In-Reply-To: <20210321123505.27993-1-luc.vanoostenryck@gmail.com>
 References: <20210321123505.27993-1-luc.vanoostenryck@gmail.com>
@@ -63,108 +63,83 @@ Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-insert_branch() modifies the CFG and the usage of pseudos so these
-changes must be, in a way or another, notify to the upper layers.
-Currently this is done by setting 'repeat_phase' in the function
-itself.
+Since the existing branch is now reused, nothing is inserted anymore.
 
-Let this function to also report the changes via its return value
-since this is usually useful for the caller to know and tend to
-leaner code too.
+So, rename this function to the more explanatory: convert_to_jump().
 
 Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 ---
- flow.c     |  7 +++++--
- flow.h     |  2 +-
- simplify.c | 21 +++++++--------------
- 3 files changed, 13 insertions(+), 17 deletions(-)
+ flow.c     | 4 ++--
+ flow.h     | 2 +-
+ simplify.c | 8 ++++----
+ 3 files changed, 7 insertions(+), 7 deletions(-)
 
 diff --git a/flow.c b/flow.c
-index 1f4b4ff08151..38e0ccade722 100644
+index 38e0ccade722..8106cfc0d10b 100644
 --- a/flow.c
 +++ b/flow.c
-@@ -711,10 +711,11 @@ void vrfy_flow(struct entrypoint *ep)
+@@ -268,7 +268,7 @@ try_to_rewrite_target:
+ 	 */
+ 	if (bb_list_size(target->parents) != 1)
+ 		return retval;
+-	insert_branch(insn, final);
++	convert_to_jump(insn, final);
+ 	return 1;
+ }
+ 
+@@ -711,7 +711,7 @@ void vrfy_flow(struct entrypoint *ep)
  
  ///
  // change a switch or a conditional branch into a branch
--void insert_branch(struct instruction *insn, struct basic_block *target)
-+int insert_branch(struct instruction *insn, struct basic_block *target)
+-int insert_branch(struct instruction *insn, struct basic_block *target)
++int convert_to_jump(struct instruction *insn, struct basic_block *target)
  {
  	struct basic_block *bb = insn->bb;
  	struct basic_block *child;
-+	int changed = REPEAT_CSE;
- 
- 	kill_use(&insn->cond);
- 	insn->bb_true = target;
-@@ -730,9 +731,11 @@ void insert_branch(struct instruction *insn, struct basic_block *target)
- 		}
- 		DELETE_CURRENT_PTR(child);
- 		remove_bb_from_list(&child->parents, bb, 1);
-+		changed |= REPEAT_CFG_CLEANUP;
- 	} END_FOR_EACH_PTR(child);
- 	PACK_PTR_LIST(&bb->children);
--	repeat_phase |= REPEAT_CFG_CLEANUP;
-+	repeat_phase |= changed;
-+	return changed;
- }
- 
- static int retarget_parents(struct basic_block *bb, struct basic_block *target)
 diff --git a/flow.h b/flow.h
-index f9213306dfd6..cad1de7723d5 100644
+index cad1de7723d5..2103a10fe428 100644
 --- a/flow.h
 +++ b/flow.h
 @@ -18,7 +18,7 @@ extern void simplify_symbol_usage(struct entrypoint *ep);
  extern void simplify_memops(struct entrypoint *ep);
  extern void pack_basic_blocks(struct entrypoint *ep);
  extern int simplify_cfg_early(struct entrypoint *ep);
--extern void insert_branch(struct instruction *insn, struct basic_block *target);
-+extern int insert_branch(struct instruction *insn, struct basic_block *target);
+-extern int insert_branch(struct instruction *insn, struct basic_block *target);
++extern int convert_to_jump(struct instruction *insn, struct basic_block *target);
  
  extern void convert_instruction_target(struct instruction *insn, pseudo_t src);
  extern void remove_dead_insns(struct entrypoint *);
 diff --git a/simplify.c b/simplify.c
-index 930c0fa7e83f..0bc201e84313 100644
+index 0bc201e84313..7171bd564e63 100644
 --- a/simplify.c
 +++ b/simplify.c
-@@ -2440,10 +2440,8 @@ static int simplify_branch(struct instruction *insn)
- 	pseudo_t cond = insn->cond;
+@@ -2441,7 +2441,7 @@ static int simplify_branch(struct instruction *insn)
  
  	/* Constant conditional */
--	if (constant(cond)) {
--		insert_branch(insn, cond->value ? insn->bb_true : insn->bb_false);
--		return REPEAT_CSE;
--	}
-+	if (constant(cond))
-+		return insert_branch(insn, cond->value ? insn->bb_true : insn->bb_false);
+ 	if (constant(cond))
+-		return insert_branch(insn, cond->value ? insn->bb_true : insn->bb_false);
++		return convert_to_jump(insn, cond->value ? insn->bb_true : insn->bb_false);
  
  	/* Same target? */
  	if (insn->bb_true == insn->bb_false) {
-@@ -2472,14 +2470,10 @@ static int simplify_branch(struct instruction *insn)
- 			if (constant(def->src2) && constant(def->src3)) {
+@@ -2471,9 +2471,9 @@ static int simplify_branch(struct instruction *insn)
  				long long val1 = def->src2->value;
  				long long val2 = def->src3->value;
--				if (!val1 && !val2) {
--					insert_branch(insn, insn->bb_false);
--					return REPEAT_CSE;
--				}
--				if (val1 && val2) {
--					insert_branch(insn, insn->bb_true);
--					return REPEAT_CSE;
--				}
-+				if (!val1 && !val2)
-+					return insert_branch(insn, insn->bb_false);
-+				if (val1 && val2)
-+					return insert_branch(insn, insn->bb_true);
+ 				if (!val1 && !val2)
+-					return insert_branch(insn, insn->bb_false);
++					return convert_to_jump(insn, insn->bb_false);
+ 				if (val1 && val2)
+-					return insert_branch(insn, insn->bb_true);
++					return convert_to_jump(insn, insn->bb_true);
  				if (val2) {
  					struct basic_block *tmp = insn->bb_true;
  					insn->bb_true = insn->bb_false;
-@@ -2515,8 +2509,7 @@ static int simplify_switch(struct instruction *insn)
+@@ -2509,7 +2509,7 @@ static int simplify_switch(struct instruction *insn)
  	return 0;
  
  found:
--	insert_branch(insn, jmp->target);
--	return REPEAT_CSE;
-+	return insert_branch(insn, jmp->target);
+-	return insert_branch(insn, jmp->target);
++	return convert_to_jump(insn, jmp->target);
  }
  
  static struct basic_block *is_label(pseudo_t pseudo)
