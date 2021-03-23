@@ -2,100 +2,95 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id C84833433A1
-	for <lists+linux-sparse@lfdr.de>; Sun, 21 Mar 2021 18:09:42 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id D5BF8345B9C
+	for <lists+linux-sparse@lfdr.de>; Tue, 23 Mar 2021 11:04:44 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230205AbhCURJJ (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Sun, 21 Mar 2021 13:09:09 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:54802 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230221AbhCURId (ORCPT
+        id S229995AbhCWKEM (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Tue, 23 Mar 2021 06:04:12 -0400
+Received: from jabberwock.ucw.cz ([46.255.230.98]:38454 "EHLO
+        jabberwock.ucw.cz" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S229639AbhCWKEA (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Sun, 21 Mar 2021 13:08:33 -0400
-Received: from mail-ed1-x52d.google.com (mail-ed1-x52d.google.com [IPv6:2a00:1450:4864:20::52d])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id AFC03C061574
-        for <linux-sparse@vger.kernel.org>; Sun, 21 Mar 2021 10:08:32 -0700 (PDT)
-Received: by mail-ed1-x52d.google.com with SMTP id dm8so16588537edb.2
-        for <linux-sparse@vger.kernel.org>; Sun, 21 Mar 2021 10:08:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=from:to:cc:subject:date:message-id:in-reply-to:references
-         :mime-version:content-transfer-encoding;
-        bh=gCVNznYt4xWAEnmklaw669LNcnYdLkZR1+ec1waUP5Q=;
-        b=jN7Gj1iIEKM+HATbnIiLGsbhF4krR5UvgqrWD2TwciwsumHb3gi3V4FlQ+Qclt9yNN
-         IVGPWKFlz9p/IPfavjff3fa4yeBySH7kBquWWtdzNXbt6LksJEA9G1ZmxPvdpmqrbLU3
-         9YTVfNjQvmd3K0thY1hqAI3R0GhEPb/CQXvvxztjMmrm8GLwVjKRKs3AXa4YlD/2r4qB
-         t4QqBodQed2khpGYQSVwluiVl+S8UdJrDNXKkya8N7LIRiYDgHDFPxvntDo3Pxp8dTH7
-         RglEgAI76bgQUNKlNK3rzN5YeXkvKH94fZ7OViHwnt6EyD+qnkT+Yt+Ij/9rBANx4ebh
-         dDJA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
-         :references:mime-version:content-transfer-encoding;
-        bh=gCVNznYt4xWAEnmklaw669LNcnYdLkZR1+ec1waUP5Q=;
-        b=SWnM+GaLXGnxJlRbegbEMKgLcZcxHhn8RktIyUGRZXVsx+8293BWT0Nx8Hh33sgZgy
-         GS48FwE7UWrqf8fPtvVl501rA1lk+zUQ4mF3b7goIOQFKJmo6OgEmDN4x74fm0KyyLvs
-         b4DBW/VBo+NRKCS9sPvr7ntLoeSS+eiPnTz5WxcbD+/8lEPiucnfhHlatDUIR3oObfxw
-         cfwzLTitJ5hHjsXM0JkOonfh2AqayPheHtJ7vYnuBfX/3kaZrtGCVp6n3FWBXqN5qtzM
-         eLUl3DgK+KtnreWbmNmMx0/Fik9azGQgyKk6pFp48Fodk8TK/HJf+PhePMwprhZbkhEw
-         uYLQ==
-X-Gm-Message-State: AOAM530/DX6owFPZlUeX3NOUB5vR0nk8AyV6olfQWPSoD8TsZfM5W7On
-        Gzc7oxd0B/LRAP5+yamdDbmVVA5Vr60=
-X-Google-Smtp-Source: ABdhPJx759j6lLtqlmhzZXdXFWG+boO+6+PkzUDLGWH4o/12jjKJqjSTBK8e1I5oRSy/fU6L34B6iA==
-X-Received: by 2002:aa7:c353:: with SMTP id j19mr21297608edr.263.1616346510334;
-        Sun, 21 Mar 2021 10:08:30 -0700 (PDT)
-Received: from localhost.localdomain ([2a02:a03f:b7fe:f700:dc34:259e:8292:82c0])
-        by smtp.gmail.com with ESMTPSA id 90sm9108044edr.69.2021.03.21.10.08.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 21 Mar 2021 10:08:30 -0700 (PDT)
-From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-To:     linux-sparse@vger.kernel.org
-Cc:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-Subject: [PATCH 6/6] memops: we can kill addresses unconditionally
-Date:   Sun, 21 Mar 2021 18:08:22 +0100
-Message-Id: <20210321170822.46854-7-luc.vanoostenryck@gmail.com>
-X-Mailer: git-send-email 2.31.0
-In-Reply-To: <20210321170822.46854-1-luc.vanoostenryck@gmail.com>
-References: <20210321170822.46854-1-luc.vanoostenryck@gmail.com>
+        Tue, 23 Mar 2021 06:04:00 -0400
+Received: by jabberwock.ucw.cz (Postfix, from userid 1017)
+        id C58E71C0B81; Tue, 23 Mar 2021 11:03:57 +0100 (CET)
+Date:   Tue, 23 Mar 2021 11:03:56 +0100
+From:   Pavel Machek <pavel@ucw.cz>
+To:     Linus Torvalds <torvalds@linux-foundation.org>
+Cc:     David Laight <David.Laight@aculab.com>,
+        Tom Tromey <tom@tromey.com>,
+        Alexey Dobriyan <adobriyan@gmail.com>,
+        Luc Van Oostenryck <luc.vanoostenryck@gmail.com>,
+        Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+        Andrew Morton <akpm@linux-foundation.org>,
+        Sparse Mailing-list <linux-sparse@vger.kernel.org>
+Subject: Re: [PATCH 00/11] pragma once: treewide conversion
+Message-ID: <20210323100356.GA20449@amd>
+References: <YDvLYzsGu+l1pQ2y@localhost.localdomain>
+ <CAHk-=wjFWZMVWTbvUMVxQqGKvGMC_BNrahCtTkpEjxoC0k-T=A@mail.gmail.com>
+ <YDvwVlG/fqVxVYlQ@localhost.localdomain>
+ <CAHk-=wi54DEScexxpMrO+Q2Nag_Tup+Y5YBHc_9_xGLeRfP8pA@mail.gmail.com>
+ <877dmo10m3.fsf@tromey.com>
+ <CAHk-=wi13+FLcRo4zmnRUmmY=AAns-Yd5NR_mVdcAd6ZrPq2fA@mail.gmail.com>
+ <4835ec1d2ecc40b285596288a0df4f47@AcuMS.aculab.com>
+ <CAHk-=wh8PptzH-=ak1D7C5Zp6EJ8eurYqVqGdQauupAFaNuG4g@mail.gmail.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha1;
+        protocol="application/pgp-signature"; boundary="Q68bSM7Ycu6FN28Q"
+Content-Disposition: inline
+In-Reply-To: <CAHk-=wh8PptzH-=ak1D7C5Zp6EJ8eurYqVqGdQauupAFaNuG4g@mail.gmail.com>
+User-Agent: Mutt/1.5.23 (2014-03-12)
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-In rewrite_load_instruction(), if the load instruction is converted
-into a phi-node, its address is then no more used and must be removed.
 
-However, this is only done when this address is not a symbol.
-This was explicitly done in the following commit because of the problem
-of removing an element from the usage list while walking this list:
-   602f6b6c0d41 ("Leave symbol pseudo usage intact when doing phi-node conversion.")
+--Q68bSM7Ycu6FN28Q
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-But currently rewrite_load_instruction() is only used during memops
-simplification where the usage list is not walked.
+Hi!
 
-So, kill the address' usage unconditionally.
+> > >  (a) the traditional include guard optimization HAS NO HIDDEN SEMANTIC
+> > > MEANING. It's a pure optimization that doesn't actually change
+> > > anything else. If you don't do the optimization, absolutely nothing
+> > > changes.
+> >
+> > And if the parser is well written the optimisation is probably
+> > irrelevant compared to the compile time.
+>=20
+> That's actually surprisingly not even remotely true.
+>=20
+> People always think that the optimization phases of a compiler are the
+> expensive ones. And yes, there are certain optimizations that can be
+> *really* expensive, and people just don't even do them because they
+> are _so_ expensive and are exponential in time.
 
-Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
----
- memops.c | 4 +---
- 1 file changed, 1 insertion(+), 3 deletions(-)
+Well, linux kernel can be compiled in two _seconds_ if you take
+compiler optimized for fast parsing... and quick code generation.
 
-diff --git a/memops.c b/memops.c
-index 897fb6bf57fe..6d24604c2aae 100644
---- a/memops.c
-+++ b/memops.c
-@@ -45,9 +45,7 @@ static void rewrite_load_instruction(struct instruction *insn, struct pseudo_lis
- 	goto end;
- 
- complex_phi:
--	/* We leave symbol pseudos with a bogus usage list here */
--	if (insn->src->type != PSEUDO_SYM)
--		kill_use(&insn->src);
-+	kill_use(&insn->src);
- 	insn->opcode = OP_PHI;
- 	insn->phi_list = dominators;
- 
--- 
-2.31.0
+See "SUSE Labs Conference 2018 - Compiling the Linux kernel in a
+second (give or take)" on youtube.
 
+So yes, gcc's frontend may be slow, but that does not mean job can not
+be done quickly by suitable compiler.
+
+Best regards,
+								Pavel
+--=20
+http://www.livejournal.com/~pavelmachek
+
+--Q68bSM7Ycu6FN28Q
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: Digital signature
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1
+
+iEYEARECAAYFAmBZvQwACgkQMOfwapXb+vLR0ACfatm3DVUfTM8cgSE0Pni4q3eV
+rVUAn1gfH3rymd+a8lNl/5Rdelsy0u78
+=qraN
+-----END PGP SIGNATURE-----
+
+--Q68bSM7Ycu6FN28Q--
