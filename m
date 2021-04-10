@@ -2,87 +2,150 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 85AC535B0B5
-	for <lists+linux-sparse@lfdr.de>; Sun, 11 Apr 2021 00:30:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id D6A3935B0B7
+	for <lists+linux-sparse@lfdr.de>; Sun, 11 Apr 2021 00:31:00 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S235100AbhDJWbN (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Sat, 10 Apr 2021 18:31:13 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:46504 "EHLO
+        id S232659AbhDJWbP (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Sat, 10 Apr 2021 18:31:15 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:46508 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S232659AbhDJWbM (ORCPT
+        with ESMTP id S235102AbhDJWbO (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Sat, 10 Apr 2021 18:31:12 -0400
-Received: from mail-ed1-x52d.google.com (mail-ed1-x52d.google.com [IPv6:2a00:1450:4864:20::52d])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 76770C06138A
-        for <linux-sparse@vger.kernel.org>; Sat, 10 Apr 2021 15:30:57 -0700 (PDT)
-Received: by mail-ed1-x52d.google.com with SMTP id e7so10607008edu.10
+        Sat, 10 Apr 2021 18:31:14 -0400
+Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com [IPv6:2a00:1450:4864:20::62c])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 0B545C06138B
+        for <linux-sparse@vger.kernel.org>; Sat, 10 Apr 2021 15:30:58 -0700 (PDT)
+Received: by mail-ej1-x62c.google.com with SMTP id w3so14189489ejc.4
         for <linux-sparse@vger.kernel.org>; Sat, 10 Apr 2021 15:30:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=XSOGM+3xs/3F3ITRMFqUYZnknGrTu1A8SQ75eFql5Jg=;
-        b=SgHtSnLRYOZGvdB8F+P2f4hyO78uEG3oZEeyeRiQzK7Q2Pdu2MyxN4i4+1jiqm86XJ
-         BkgFspHbzJVIfoCG1G0raPbmde05l0xisSHcf/jptWPNrrlo4wZ1xbW4TBAXxs/CD1fO
-         Zu286lML2dVCS+s7meEh8wMcM23aY+7vpoqrBT/Yw5KW/WsXmpT8EIp3RuwargGPJUBm
-         ush0A38Stjk5UL2iuqiEyOnw7R2562aKcbP8h4Y/+VFQkN7q881WEyrQ9gPGInYqYvYP
-         Ub9ElI7HZfYAi9KRs8C8fTBIJQN9IodErbYguOqVEU1uae728glG7N6h5ZGSgjlMTdpb
-         c5mg==
+        h=from:to:cc:subject:date:message-id:in-reply-to:references
+         :mime-version:content-transfer-encoding;
+        bh=5oxTn68I0PL9raL5wwogcYdhxb94zet/WC/d5B/Uq/8=;
+        b=c5fIbPtxQFBCIelUn/rqMETyQHNhQSrZhD4z/t02/wO11/OYPeLf/UTLQSsf2zbQES
+         /iEqqFJIR8DyRF6ft7ofmlJcswRo/Dx+pdt7Jh87QuX7gtuXPeU5LZ2B6U//5gQrzcI+
+         dqBmcCbN68Xe4en3+iawXfQBy3zq6OszxgNxZMUTeFUzmZwAyO8iT6WWr7pstA/pH4yO
+         9OpdgY07dscxcqeN17jrf1fEH3lCETPa5Jo8/pX2ZppYWLq5EZH+5o24pXfBKzloeHK7
+         Vu1TiVIoWM8kQZuUFMsgY5z8oolZ5G3DN89CboYu2Hw8NXXs1H/2pWLde3EhqiMbBUXE
+         4fjQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=XSOGM+3xs/3F3ITRMFqUYZnknGrTu1A8SQ75eFql5Jg=;
-        b=aDBNBPKkjE2IUPKb9x5tYjDnfUr6tC/3XV7PX2clcgQLkb6RiB/MVn2KuiLfyfkFVp
-         QQ7zeWBsksnAzaAHc8tvIKULCkX+CskT83bp1bT74xVjvyvVMUTkTZPq6JLZl4sx2zpp
-         sJpzeZNT/DQvc7tMBMCwDGqKvsYcHEtpHtMmAev6pJGxt4xoY6wW8DUBt6hEkNxN6uIG
-         kOh9inbFeSCNIvZveigmWN8utAJjza/x7mKqo8IviV/mRrw/fQzCa90hCafQ08+DIvTV
-         sZztta+xxNO42tt3GNpXIVQ5i7ufumOsF3UvGAYzbTLcxyFUsymuZXpfvVbJXXZea9H4
-         yCFQ==
-X-Gm-Message-State: AOAM530nnkpJXSGI+/H4H7zeNxEEQqe284bArpYF8Fd+l8OwJAT4vcxH
-        Vj8S3naZcswvqMa465nxw12oc5deDf8=
-X-Google-Smtp-Source: ABdhPJzl1pKF02GghRpIZtkisxh0EETrwqYd2YJUMElauLQQDrt3V4AHEXrfETpgIiMTWMOy30Mr4Q==
-X-Received: by 2002:a05:6402:42d1:: with SMTP id i17mr22483672edc.131.1618093856083;
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+         :references:mime-version:content-transfer-encoding;
+        bh=5oxTn68I0PL9raL5wwogcYdhxb94zet/WC/d5B/Uq/8=;
+        b=PG39BoVG/Doszzr+p5ihf/5AmyYX1CHVkiU8KOn2Y1hmS/KdA3+IczgjOFhul3p1S6
+         5yOJTdg3sXgOPLYYEuPI5qIBxD/IStYbyp5HDXdAKglv4+/fUAJN5PvQo6ugUBU9UGyD
+         crwhbKcSeVEFvA2DOlxsGVWTVS6XkiA291AMa/obb2Fndt1Yg8ZWzV/mV/ydVPGmZ8YF
+         fq+n+p+nKVriMsSllhhrWPe8CBqY4vJzS0VaQj7+8nHhlf5LMUc77eur70kNi9iEDOrS
+         o9/PLDWGuGMpRqOR1E0Ohsi9/heRLMFMjddga3nTbFOY2QVqyxOC8HmQD17BvI+Jg/uR
+         m1fA==
+X-Gm-Message-State: AOAM5300oGIUMOiSgLg8cAcLLHh7sXx5LVRn7V1y+CKyyGofp01KPNwV
+        2SA8Fe8C5sy95C44JYYOrRAQqxarwYw=
+X-Google-Smtp-Source: ABdhPJyjk8KGchJlP7PFDMmimsmoo8Y23oEw/7jiiwffH31miTmHsFqhcvk/o2ebBnHfRWt7EV5PKA==
+X-Received: by 2002:a17:906:48c4:: with SMTP id d4mr1812818ejt.548.1618093856842;
         Sat, 10 Apr 2021 15:30:56 -0700 (PDT)
 Received: from localhost.localdomain ([2a02:a03f:b7fe:f700:9597:4a1:b5b6:4666])
-        by smtp.gmail.com with ESMTPSA id q18sm3701372edr.26.2021.04.10.15.30.55
+        by smtp.gmail.com with ESMTPSA id q18sm3701372edr.26.2021.04.10.15.30.56
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 10 Apr 2021 15:30:55 -0700 (PDT)
+        Sat, 10 Apr 2021 15:30:56 -0700 (PDT)
 From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 To:     linux-sparse@vger.kernel.org
 Cc:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-Subject: [PATCH 0/5] kill more dead stores
-Date:   Sun, 11 Apr 2021 00:30:39 +0200
-Message-Id: <20210410223044.86100-1-luc.vanoostenryck@gmail.com>
+Subject: [PATCH 1/5] add testcases for stores simplifications
+Date:   Sun, 11 Apr 2021 00:30:40 +0200
+Message-Id: <20210410223044.86100-2-luc.vanoostenryck@gmail.com>
 X-Mailer: git-send-email 2.31.1
+In-Reply-To: <20210410223044.86100-1-luc.vanoostenryck@gmail.com>
+References: <20210410223044.86100-1-luc.vanoostenryck@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-This series improv the removal of dead stores:
-* kill deadstores in parent-child bascx blocks
-* kill redundant in the same basic block
-
-Luc Van Oostenryck (5):
-  add testcases for stores simplifications
-  extract try_to_kill_store() from kill_dominated_stores()
-  volatile stores are never dead
-  kill parent's dead stores too
-  kill redundant stores (local)
-
- memops.c                                    | 53 ++++++++++++++++-----
- validation/memops/kill-dead-store-parent0.c | 14 ++++++
- validation/memops/kill-dead-store-parent2.c | 25 ++++++++++
- validation/memops/kill-redundant-store0.c   | 13 +++++
- 4 files changed, 94 insertions(+), 11 deletions(-)
+Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
+---
+ validation/memops/kill-dead-store-parent0.c | 15 ++++++++++++
+ validation/memops/kill-dead-store-parent2.c | 26 +++++++++++++++++++++
+ validation/memops/kill-redundant-store0.c   | 14 +++++++++++
+ 3 files changed, 55 insertions(+)
  create mode 100644 validation/memops/kill-dead-store-parent0.c
  create mode 100644 validation/memops/kill-dead-store-parent2.c
  create mode 100644 validation/memops/kill-redundant-store0.c
 
-
-base-commit: d549d4d55eecb394e3f69314287f91e85b19e3e3
+diff --git a/validation/memops/kill-dead-store-parent0.c b/validation/memops/kill-dead-store-parent0.c
+new file mode 100644
+index 000000000000..1413134b8c23
+--- /dev/null
++++ b/validation/memops/kill-dead-store-parent0.c
+@@ -0,0 +1,15 @@
++void foo(int *ptr, int p)
++{
++	if (p)
++		*ptr = 1;
++	*ptr = 0;
++}
++
++/*
++ * check-name: kill-dead-store-parent0
++ * check-command: test-linearize -Wno-decl $file
++ * check-known-to-fail
++ *
++ * check-output-ignore
++ * check-output-pattern(1): store
++ */
+diff --git a/validation/memops/kill-dead-store-parent2.c b/validation/memops/kill-dead-store-parent2.c
+new file mode 100644
+index 000000000000..b563fd31b669
+--- /dev/null
++++ b/validation/memops/kill-dead-store-parent2.c
+@@ -0,0 +1,26 @@
++int ladder02(int *ptr, int p, int x)
++{
++	*ptr = x++;
++	if (p)
++		goto l11;
++	else
++		goto l12;
++l11:
++	*ptr = x++;
++	goto l20;
++l12:
++	*ptr = x++;
++	goto l20;
++l20:
++	*ptr = x++;
++	return *ptr;
++}
++
++/*
++ * check-name: kill-dead-store-parent2
++ * check-command: test-linearize -Wno-decl $file
++ * check-known-to-fail
++ *
++ * check-output-ignore
++ * check-output-pattern(1): store
++ */
+diff --git a/validation/memops/kill-redundant-store0.c b/validation/memops/kill-redundant-store0.c
+new file mode 100644
+index 000000000000..e911166dd953
+--- /dev/null
++++ b/validation/memops/kill-redundant-store0.c
+@@ -0,0 +1,14 @@
++void foo(int *ptr)
++{
++	int i = *ptr;
++	*ptr = i;
++}
++
++/*
++ * check-name: kill-redundant-store0
++ * check-command: test-linearize -Wno-decl $file
++ * check-known-to-fail
++ *
++ * check-output-ignore
++ * check-output-excludes: store
++ */
 -- 
 2.31.1
 
