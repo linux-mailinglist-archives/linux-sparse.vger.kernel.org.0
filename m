@@ -2,114 +2,70 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id D176135E44C
-	for <lists+linux-sparse@lfdr.de>; Tue, 13 Apr 2021 18:44:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id EF1D2361FED
+	for <lists+linux-sparse@lfdr.de>; Fri, 16 Apr 2021 14:35:15 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S232011AbhDMQoR (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Tue, 13 Apr 2021 12:44:17 -0400
-Received: from mail-ej1-f47.google.com ([209.85.218.47]:37610 "EHLO
-        mail-ej1-f47.google.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1346890AbhDMQoE (ORCPT
-        <rfc822;linux-sparse@vger.kernel.org>);
-        Tue, 13 Apr 2021 12:44:04 -0400
-Received: by mail-ej1-f47.google.com with SMTP id w3so27037864ejc.4
-        for <linux-sparse@vger.kernel.org>; Tue, 13 Apr 2021 09:43:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=date:from:to:cc:subject:message-id:references:mime-version
-         :content-disposition:in-reply-to;
-        bh=gBDwmXzHtvaTA4KOZdhaJScM0gbOatpqMmOkQfI7g1U=;
-        b=Ftf4e4jlKDPMW6Eg1ShgwWwXoE/x15Kr4/Sq7C6rKIra9ZsQ1Dku5dcik1ymMYPov3
-         3uixs7Mq1Zy5WcsITFxUlpsCEmHtGZfE7zUYAnTRsCSbel9tuabbVZBMysBmoZLiBbnb
-         DBwhT97/LWoht01Vngirt9KNLqgoIiGnHox3QTNfdxU323CEuB4K4ZWZ8/RQjcuOE44w
-         BvQURh2lhJdhm9WuCEY48MW3SbPhdxdpWjd91bS4KSbmRD+Eq5guCIKtfNYj1De7vm8n
-         7UplDCDTLuv3nqOlkxs3e4j2DBX7gDyjJn4qXYglSKOJPOo3PLlHzWr4lQwMdUCMYlYW
-         8Qww==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
-         :mime-version:content-disposition:in-reply-to;
-        bh=gBDwmXzHtvaTA4KOZdhaJScM0gbOatpqMmOkQfI7g1U=;
-        b=VCjvw5h63jHGbVVyY7I1M1Ea/wAmkCdjJoFGM9/b8sHu87V+go09A7mm5qfJ5dXj5g
-         Z3mENTH7f46C7shz9F3nH67Yl2eMeicwiUpkJRyxLofEXHQVoHiORCmB26ldQtTVF6qs
-         +birfTcqxF4uxMBzHV570wmyq6nOG2d6QQYUQeqtQOLGQZHe7KU2UqbVhmS8n5PcYLF5
-         F0dos2KAVs74ynSmhW05R4NUZWYW22ICeqo8ikHABMh0Wt2pLBerhQZ2a9kDsKrVILUR
-         pgEKhwP/UHvxYbOGFMIIpkUsHCsqctleM8ILWYzPy2T+ixv1ckD9rz4JchgMeJPUV8ae
-         u2gA==
-X-Gm-Message-State: AOAM532VdOd9k75u/ZgEvkeEPer73xV52D848rL2F1ZpyU20tfX1VYHS
-        d/m8azkQyhWBZTpPOzOBf9mJjTsfG+U=
-X-Google-Smtp-Source: ABdhPJwdu1BJlFH8Ns8nuQGz0EfBCkyH09xLiSlHgovObSRg3sRBdKCe3wNBzWJ9aRB+tJBbP+hOQg==
-X-Received: by 2002:a17:906:c283:: with SMTP id r3mr6244216ejz.328.1618332163705;
-        Tue, 13 Apr 2021 09:42:43 -0700 (PDT)
-Received: from mail ([2a02:a03f:b7fe:f700:6d14:80f0:1984:a98c])
-        by smtp.gmail.com with ESMTPSA id a24sm5978692ejr.58.2021.04.13.09.42.42
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Apr 2021 09:42:42 -0700 (PDT)
-Date:   Tue, 13 Apr 2021 18:42:41 +0200
-From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-To:     Ramsay Jones <ramsay@ramsayjones.plus.com>
-Cc:     linux-sparse@vger.kernel.org
-Subject: Re: [PATCH v2 2/8] builtin: define a symbol_op for a generic op
- acting on integer
-Message-ID: <20210413164241.wtmzkgdkyqjusova@mail>
-References: <20210412212111.29186-1-luc.vanoostenryck@gmail.com>
- <20210412212111.29186-3-luc.vanoostenryck@gmail.com>
- <6d23e861-782e-de66-7ce7-76ff149d4a60@ramsayjones.plus.com>
+        id S243586AbhDPMcG (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Fri, 16 Apr 2021 08:32:06 -0400
+Received: from mbox.abcom.al ([217.73.143.249]:53940 "EHLO mbox.abcom.al"
+        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
+        id S243584AbhDPMcD (ORCPT <rfc822;linux-sparse@vger.kernel.org>);
+        Fri, 16 Apr 2021 08:32:03 -0400
+X-Greylist: delayed 44219 seconds by postgrey-1.27 at vger.kernel.org; Fri, 16 Apr 2021 08:32:03 EDT
+Received: from localhost (localhost [127.0.0.1])
+        by mbox.abcom.al (Postfix) with ESMTP id 3AB805A14D3B;
+        Fri, 16 Apr 2021 14:19:43 +0200 (CEST)
+Received: from mbox.abcom.al ([127.0.0.1])
+        by localhost (mbox.abcom.al [127.0.0.1]) (amavisd-new, port 10032)
+        with ESMTP id caO_3RUxJ9iD; Fri, 16 Apr 2021 14:19:43 +0200 (CEST)
+Received: from localhost (localhost [127.0.0.1])
+        by mbox.abcom.al (Postfix) with ESMTP id D36F35A14D39;
+        Fri, 16 Apr 2021 14:19:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.10.3 mbox.abcom.al D36F35A14D39
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=abcom.al;
+        s=0F3BA0EE-D5D4-11E8-9596-F9115129F2F4; t=1618575583;
+        bh=VCOKpjxaLoatOvx+LSaT3i7u3saMYZrSANTtqEwi9j4=;
+        h=MIME-Version:To:From:Date:Message-Id;
+        b=JJTOXq13l/NpTgamMn+Z1jvRugAxEpzx7khufWJrsa9uqRBpsU97hj+XcLp5K+IUx
+         cfvD82M4dqXYVjJkf/HPRS+f615zs9LYuNyXTEdMpAJQqqIt4ncJJ8QX2I/+QXD34G
+         Ja/xJr4IWtyf6XlcAj+4mwxycMdWT0YDorHK7HRgEKvYmD1ecDNoaByG6UfzWbqE7P
+         eCEzTknBosUl4QZO3H3CsRTT6NwhXIrCeyQEK/ReHvE6LR5JURvqkmJ08NdPl0rnWI
+         XzjEXOW7LXcbcAxwrPmdITiQkxDfh0G/qszByz3qXVzX/BH9F5bO+jOkGVXOQsUqT2
+         9xvBkWe01IdRQ==
+X-Virus-Scanned: amavisd-new at mbox.abcom.al
+Received: from mbox.abcom.al ([127.0.0.1])
+        by localhost (mbox.abcom.al [127.0.0.1]) (amavisd-new, port 10026)
+        with ESMTP id zv8A2ntuUKUD; Fri, 16 Apr 2021 14:19:42 +0200 (CEST)
+Received: from [10.41.190.186] (unknown [105.4.1.205])
+        by mbox.abcom.al (Postfix) with ESMTPSA id 10C685A14D23;
+        Fri, 16 Apr 2021 14:19:35 +0200 (CEST)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <6d23e861-782e-de66-7ce7-76ff149d4a60@ramsayjones.plus.com>
+Content-Transfer-Encoding: quoted-printable
+Content-Description: Mail message body
+Subject: Spende
+To:     Recipients <mtodo@abcom.al>
+From:   "William Kruger" <mtodo@abcom.al>
+Date:   Fri, 16 Apr 2021 05:19:16 -0700
+Reply-To: robadamengineeringltd@gmail.com
+Message-Id: <20210416121936.10C685A14D23@mbox.abcom.al>
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-On Tue, Apr 13, 2021 at 01:23:00AM +0100, Ramsay Jones wrote:
-> On 12/04/2021 22:21, Luc Van Oostenryck wrote:
-> > +	int n = 0;
-> > +
-> > +	PREPARE_PTR_LIST(fntype->arguments, t);
-> > +	FOR_EACH_PTR(expr->args, arg) {
-> 
-> Hmm, now n is always 0 in the error message, so:
-> 		n++;
-> here?
-
-Hehe, yes indeed.
- 
-> > +		if (!is_dynamic_type(t)) {
-> > +			;
-> > +		} else if (!ctype) {
-> > +			// fist 'dynamic' type, chat that it is an integer
-> 
-> s/chat/check/
-
-fixed.
-
-> > +	return evaluate_arguments(types, expr->args);
-> 
-> Hmm, does this do the usual argument promotions, so e.g. an 'generic'
-> 'short' gets promoted to 'int' in the prototype? I guess not, that
-> would have to be done above, while adding to the types list, right?
-
-Well, evaluate_arguments() is the normal function used to evaluate
-the arguments of all function calls, so, yes, it does arguments
-promotion but only when the type is not specified (so either the
-'...' of varadic function or an argument of a variadic builtin's
-which is declared as NULL in the corresponding struct builtin_fn
-(non-variadic builtins can't have such NULL arguments because the
-first NULL is used to determine its arity and this is then normaly
-checked in the .args method before the evaluation)).
-
-> Hmm, I would have to study evaluate_arguments(), but it may be worth
-> a comment here?
-
-Not here, because there is nothing special but sure, evaluate_arguments()
-should be documented and even more so how struct builtin_fn should be
-used (because it's much more complex since a lot of builtins doesn't
-follow the way normal C declarations rules).
-
-> 
-> So, this certainly looks better. Thanks! ;-)
-
-Thanks to you!
--- Luc
+Hallo Liebes, ich bin William Kruger aus Lantana im Palm Beach County, USA.=
+ Ich habe einen $ 168 Millionen Jackpot gewonnen, der einer der gr=C3=B6=C3=
+=9Ften Lotterie-Jackpots ist. Im Namen meiner Familie und aus gutem Willen =
+spenden wir Ihnen und Ihrer Familie einen Betrag von (=E2=82=AC 850,000.00 =
+EUR). Ich versuche, die gemeinn=C3=BCtzigen Waisenh=C3=A4user zu erreichen =
+und zur Armutsbek=C3=A4mpfung beizutragen und eine angemessene Gesundheitsv=
+ersorgung f=C3=BCr Einzelpersonen zu gew=C3=A4hrleisten, insbesondere w=C3=
+=A4hrend dieser Welt Pandemic Covid 19. Ich m=C3=B6chte auch, dass Sie eine=
+n Teil dieser Spende in die =C3=B6ffentliche Infrastruktur investieren, um =
+Arbeitslosen in Ihrem Land Arbeitspl=C3=A4tze zu bieten . Ich habe dich gew=
+=C3=A4hlt, weil ich an dich glaube. Ich brauche Ihre uneingeschr=C3=A4nkte =
+Mitarbeit in Bezug auf diese Spende. Hier ist Ihr ausgew=C3=A4hlter Geheimc=
+ode: [W5900Q2172021] und bitte teilen Sie den Code niemandem mit, wenn Sie =
+interessiert und bereit sind, mit mir zu arbeiten. Bitte kontaktieren Sie m=
+ich mit Ihrem Spenden- / Geheimcode [W5900Q2172021] und Ihren vollst=C3=A4n=
+digen Namen hier bei meiner privaten E-Mail: krugerwilliamhome@gmail.com
