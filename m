@@ -2,59 +2,59 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 7341B36365E
-	for <lists+linux-sparse@lfdr.de>; Sun, 18 Apr 2021 17:32:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 4200A363661
+	for <lists+linux-sparse@lfdr.de>; Sun, 18 Apr 2021 17:32:52 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231578AbhDRPdO (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Sun, 18 Apr 2021 11:33:14 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:58250 "EHLO
+        id S231552AbhDRPdT (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Sun, 18 Apr 2021 11:33:19 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:58254 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229998AbhDRPdO (ORCPT
+        with ESMTP id S231600AbhDRPdQ (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Sun, 18 Apr 2021 11:33:14 -0400
-Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com [IPv6:2a00:1450:4864:20::634])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id BE0BDC061760
-        for <linux-sparse@vger.kernel.org>; Sun, 18 Apr 2021 08:32:45 -0700 (PDT)
-Received: by mail-ej1-x634.google.com with SMTP id w3so49152530ejc.4
-        for <linux-sparse@vger.kernel.org>; Sun, 18 Apr 2021 08:32:45 -0700 (PDT)
+        Sun, 18 Apr 2021 11:33:16 -0400
+Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com [IPv6:2a00:1450:4864:20::531])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 7C2ABC061760
+        for <linux-sparse@vger.kernel.org>; Sun, 18 Apr 2021 08:32:46 -0700 (PDT)
+Received: by mail-ed1-x531.google.com with SMTP id x4so37768052edd.2
+        for <linux-sparse@vger.kernel.org>; Sun, 18 Apr 2021 08:32:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=7mTDPMx1aYnlOGqFSax2OjMQRk5DqmfeLh7StN5YDao=;
-        b=AYyXUBCcAkNlhSYgaQQpX4jt4zH+4iPY23zkCGcYj5onmv7abAlfJ+Tu1ob2Lu/nb4
-         QsDH0rs3Cm1DNlyRFGuQKG59A+RadmKJ43v7IiLcaiuVqt1m+q+tLQ1/hL5B1ywOkO4D
-         g8sJkMevzUS5j3/s9NBzgxTL4dLyFF/K9AMtTq2NUho0oPgi3+3wDbwz5LEVGb1WVabK
-         2scuJpLTnkmVW/GW04JD0RqLK0fjJEjhrAStOnS6y8R8L7dP5ut+B44oAyoAWI8emmg8
-         ZskDRrJNJNhxUzmsBq+N8cnuIn28fUrwDsDlBTge9x63KDbnr2saHbb+8XU/WYyWoUl7
-         CPGw==
+        bh=hEy7q63scp3B3My+WUJqQUYS5JRHUfYszfzjUaKEF7Q=;
+        b=lw0k0M32g1fiIYOvuR1rTw6xYtlLHjPfSOpnJHj/VNCCumXJFi1o7KgAMY056bJIuq
+         uQ0ZOXR8b7iCyqsLzvpDTB+gR4DjM6bGusvn+wgg8gGwfhhlD52/e4Dy9+ezMYGB3wof
+         FI5hBCaet52QlSBLe7ypXaJ6iatSghlMvXpiCsMxD+JUFESSHV8Ykk+nzEP4Y3cY1eW5
+         b5PmRxFLtkNDrO3BuG36IJ8c9xWtfNfqBq5Oyx+V57u9MiFwcSZ0pg/74lKvVoPzWgNX
+         /F5uwlg1SY6ifXd1B0lkKfkxFyyTZ0xYCBbzTI8ZKwioXGafE1tHgM4Xy8f4BhkXCp7q
+         VQig==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=7mTDPMx1aYnlOGqFSax2OjMQRk5DqmfeLh7StN5YDao=;
-        b=qt1dCHgeMDu2bcyjewNpbptN+KveKjLUoguRbImaizZ5gC5gjvulzL3sndvOxbsm/1
-         nmqk3d7dOYANPaOgSa+wE19UYL7Lat4h/8P1ZPZXIHnjNpvVKWQ4ZGOrFSSJSlx85PYG
-         1pePMm0g6M3wH5E/PmdSECUbWSqZv/O0yTdEJtVsj9UEtoaXrpuppiz8hptxTI+nBvwN
-         NmfR3jmezsPzUaSvo6aVSc02tdqBdObFvv5O2gw7YJpBNkvXBeNYSnusTn/g8c8lzujB
-         0aAe2QS7FN7loK5ezYYjpSfYL9DE0BVx4Lft9ReME2XXokF4I9cesUhwvPmTh+6vRZhD
-         pmiQ==
-X-Gm-Message-State: AOAM530BOGL+9PJdgct3fJVkXfbQ6esAaub0YqlrYMD2IDGqWGS2YAmC
-        +uSMxV3GdiYHpKzoVa4IcaUkuEoR14Q=
-X-Google-Smtp-Source: ABdhPJwmW/etaUp8vOnoZZNXQ31OuEQ6Bq4V4FiecS+Z2zeIyIVDzGTyHSH8RU7SL+ZGX+7P/a64AA==
-X-Received: by 2002:a17:906:b01:: with SMTP id u1mr18192508ejg.310.1618759964502;
-        Sun, 18 Apr 2021 08:32:44 -0700 (PDT)
+        bh=hEy7q63scp3B3My+WUJqQUYS5JRHUfYszfzjUaKEF7Q=;
+        b=Pk7zujdgglt3BSHLcG30HgYakijL3RSy5o/kvi8Nc2jSwI6VNqFgEf/d6G9EpJRPST
+         CleL4LU6JLmuDQzINLBWkYo9a+zY3yNh0tUqp0WgQC0EUQj06Ca9xs7HyHW/whGBcVrs
+         OFEttJYMbTZFOspzFAuIPdRZMN3cgnp50vo6LtV83etJ3Dxl24/Sdm4qBV00zQ+lU1H8
+         3qebWcnkGrrNVpZF6qIWgUMOZT0N4gcPqU9x6p+tTBV5bqbpNiyF7FNljpqy6j+5eWJ8
+         uCDR0Z3FH5rGqBhQq2/AgmGsjhiTqqFd4P86eD9QLZzjDGRPcSKwAgnfpoLfqVokjvV+
+         /dJw==
+X-Gm-Message-State: AOAM530XjHBIfef5fb3FhY/cpU1oPFzEpjlWey3wLkCe6pQO2DLsHJgv
+        X9ag60zFEifUIHLOBI5yMARebhNvD2c=
+X-Google-Smtp-Source: ABdhPJyVnz8pw5+1QQHMySf0CrNJ4UoGBDABUYNTu/K47kbNv6LaWxJLG+2sDQ9nv4vsWmuaocZxRw==
+X-Received: by 2002:aa7:d543:: with SMTP id u3mr8401571edr.26.1618759965291;
+        Sun, 18 Apr 2021 08:32:45 -0700 (PDT)
 Received: from localhost.localdomain ([2a02:a03f:b7fe:f700:959c:c85:d486:38cf])
-        by smtp.gmail.com with ESMTPSA id k9sm8632888eje.102.2021.04.18.08.32.43
+        by smtp.gmail.com with ESMTPSA id k9sm8632888eje.102.2021.04.18.08.32.44
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
         Sun, 18 Apr 2021 08:32:44 -0700 (PDT)
 From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 To:     linux-sparse@vger.kernel.org
 Cc:     Linus Torvalds <torvalds@linux-foundation.org>,
         Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-Subject: [SPARSE 1/4] canonicalize constant signed compares toward zero
-Date:   Sun, 18 Apr 2021 17:32:30 +0200
-Message-Id: <20210418153233.45234-2-luc.vanoostenryck@gmail.com>
+Subject: [SPARSE 2/4] add testcases for AND(x > 0, x <= C) --> x u<= C
+Date:   Sun, 18 Apr 2021 17:32:31 +0200
+Message-Id: <20210418153233.45234-3-luc.vanoostenryck@gmail.com>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20210418153233.45234-1-luc.vanoostenryck@gmail.com>
 References: <20210418153233.45234-1-luc.vanoostenryck@gmail.com>
@@ -64,221 +64,57 @@ Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-Currently, signed compares against a constant are canonicalized
-toward the smallest possible constant. So, the following
-canonicalization are done:
-	x < 256		--> x <= 255
-	x < -2047	--> x <= -2048
-
-This has two advantages:
-1) it maximalizes the number of constants possible for a given bit size.
-2) it allows to remove all < and all >=
-
-But it has also a serious disadvantages: a simple comparison against
-zero, like:
-	x >= 0
-is canonicalized into:
-	x > -1
-
-Which can be more costly for some architectures if translated as such ,
-is also less readable than the version using 0 and is also sometimes
-quite more complicated to match in some simplification patterns.
-
-So, canonicalize it using 'towards 0' / using the smallest constant
-in absolute value.
-
 Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 ---
- simplify.c                            | 34 +++++++++---
- validation/optim/canonical-cmp-zero.c | 74 +++++++++++++++++++++++++++
- 2 files changed, 102 insertions(+), 6 deletions(-)
- create mode 100644 validation/optim/canonical-cmp-zero.c
+ validation/optim/range-check1.c | 17 +++++++++++++++++
+ validation/optim/range-check2.c | 15 +++++++++++++++
+ 2 files changed, 32 insertions(+)
+ create mode 100644 validation/optim/range-check1.c
+ create mode 100644 validation/optim/range-check2.c
 
-diff --git a/simplify.c b/simplify.c
-index 9e3514d838a9..e0e4f9ebcba9 100644
---- a/simplify.c
-+++ b/simplify.c
-@@ -1178,38 +1178,52 @@ static int simplify_compare_constant(struct instruction *insn, long long value)
- 
- 	switch (insn->opcode) {
- 	case OP_SET_LT:
-+		if (!value)
-+			break;
- 		if (value == sign_bit(size))	// (x <  SMIN) --> 0
- 			return replace_with_pseudo(insn, value_pseudo(0));
- 		if (value == sign_mask(size))	// (x <  SMAX) --> (x != SMAX)
- 			return replace_opcode(insn, OP_SET_NE);
- 		if (value == sign_bit(size) + 1)// (x < SMIN + 1) --> (x == SMIN)
- 			return replace_binop_value(insn, OP_SET_EQ, sign_bit(size));
--		changed |= replace_binop_value(insn, OP_SET_LE, (value - 1) & bits);
-+		if (!(value & sign_bit(size)))
-+			changed |= replace_binop_value(insn, OP_SET_LE, (value - 1) & bits);
- 		break;
- 	case OP_SET_LE:
-+		if (!value)
-+			break;
- 		if (value == sign_mask(size))	// (x <= SMAX) --> 1
- 			return replace_with_pseudo(insn, value_pseudo(1));
- 		if (value == sign_bit(size))	// (x <= SMIN) --> (x == SMIN)
- 			return replace_opcode(insn, OP_SET_EQ);
- 		if (value == sign_mask(size) - 1) // (x <= SMAX - 1) --> (x != SMAX)
- 			return replace_binop_value(insn, OP_SET_NE, sign_mask(size));
-+		if (value & sign_bit(size))
-+			changed |= replace_binop_value(insn, OP_SET_LT, (value + 1) & bits);
- 		break;
- 	case OP_SET_GE:
-+		if (!value)
-+			break;
- 		if (value == sign_bit(size))	// (x >= SMIN) --> 1
- 			return replace_with_pseudo(insn, value_pseudo(1));
- 		if (value == sign_mask(size))	// (x >= SMAX) --> (x == SMAX)
- 			return replace_opcode(insn, OP_SET_EQ);
- 		if (value == sign_bit(size) + 1)// (x >= SMIN + 1) --> (x != SMIN)
- 			return replace_binop_value(insn, OP_SET_NE, sign_bit(size));
--		changed |= replace_binop_value(insn, OP_SET_GT, (value - 1) & bits);
-+		if (!(value & sign_bit(size)))
-+			changed |= replace_binop_value(insn, OP_SET_GT, (value - 1) & bits);
- 		break;
- 	case OP_SET_GT:
-+		if (!value)
-+			break;
- 		if (value == sign_mask(size))	// (x >  SMAX) --> 0
- 			return replace_with_pseudo(insn, value_pseudo(0));
- 		if (value == sign_bit(size))	// (x >  SMIN) --> (x != SMIN)
- 			return replace_opcode(insn, OP_SET_NE);
- 		if (value == sign_mask(size) - 1) // (x > SMAX - 1) --> (x == SMAX)
- 			return replace_binop_value(insn, OP_SET_EQ, sign_mask(size));
-+		if (value & sign_bit(size))
-+			changed |= replace_binop_value(insn, OP_SET_GE, (value + 1) & bits);
- 		break;
- 
- 	case OP_SET_B:
-@@ -1271,8 +1285,10 @@ static int simplify_compare_constant(struct instruction *insn, long long value)
- 			if ((value & bits) != value)
- 				return replace_with_value(insn, 1);
- 			break;
--		case OP_SET_LE:
-+		case OP_SET_LE: case OP_SET_LT:
- 			value = sign_extend(value, def->size);
-+			if (insn->opcode == OP_SET_LT)
-+				value -= 1;
- 			if (bits & sign_bit(def->size))
- 				break;
- 			if (value < 0)
-@@ -1282,8 +1298,10 @@ static int simplify_compare_constant(struct instruction *insn, long long value)
- 			if (value == 0)
- 				return replace_opcode(insn, OP_SET_EQ);
- 			break;
--		case OP_SET_GT:
-+		case OP_SET_GT: case OP_SET_GE:
- 			value = sign_extend(value, def->size);
-+			if (insn->opcode == OP_SET_GE)
-+				value -= 1;
- 			if (bits & sign_bit(def->size))
- 				break;
- 			if (value < 0)
-@@ -1340,16 +1358,20 @@ static int simplify_compare_constant(struct instruction *insn, long long value)
- 			if (bits >= value)
- 				return replace_with_value(insn, 1);
- 			break;
-+		case OP_SET_LT:
-+			value -= 1;
- 		case OP_SET_LE:
--			value = sign_extend(value, def->size);
- 			if (bits & sign_bit(def->size)) {
-+				value = sign_extend(value, def->size);
- 				if (value >= -1)
- 					return replace_with_value(insn, 1);
- 			}
- 			break;
-+		case OP_SET_GE:
-+			value -= 1;
- 		case OP_SET_GT:
--			value = sign_extend(value, def->size);
- 			if (bits & sign_bit(def->size)) {
-+				value = sign_extend(value, def->size);
- 				if (value >= -1)
- 					return replace_with_value(insn, 0);
- 			}
-diff --git a/validation/optim/canonical-cmp-zero.c b/validation/optim/canonical-cmp-zero.c
+diff --git a/validation/optim/range-check1.c b/validation/optim/range-check1.c
 new file mode 100644
-index 000000000000..e01a00e637b6
+index 000000000000..82b939917da4
 --- /dev/null
-+++ b/validation/optim/canonical-cmp-zero.c
-@@ -0,0 +1,74 @@
-+int f00(int x) { return x >= 0; }
-+int f01(int x) { return x > -1; }
-+int f02(int x) { return x <  1; }
-+int f03(int x) { return x <= 0; }
++++ b/validation/optim/range-check1.c
+@@ -0,0 +1,17 @@
++#define N	1024
 +
-+int f10(int x) { return x <  16; }
-+int f11(int x) { return x <= 15; }
-+
-+int f20(int x) { return x >  -9; }
-+int f21(int x) { return x >= -8; }
++_Bool check_ok(long i)
++{
++	return i >= 0 && i < N;
++}
 +
 +/*
-+ * check-name: canonical-cmp-zero
++ * check-name: range-check1
 + * check-command: test-linearize -Wno-decl $file
++ * check-known-to-fail
 + *
-+ * check-output-start
-+f00:
-+.L0:
-+	<entry-point>
-+	setge.32    %r2 <- %arg1, $0
-+	ret.32      %r2
++ * check-output-ignore
++ * check-output-contains: setbe\\..*0x3ff
++ * check-output-excludes: set[lga][te]\\.
++ * check-output-excludes: set[ab]\\.
++ */
+diff --git a/validation/optim/range-check2.c b/validation/optim/range-check2.c
+new file mode 100644
+index 000000000000..f565b84ea9db
+--- /dev/null
++++ b/validation/optim/range-check2.c
+@@ -0,0 +1,15 @@
++#define N	1024
 +
++_Bool check_ok(int i)
++{
++	return (i >= 0 && i < N) == (((unsigned int)i) < N);
++}
 +
-+f01:
-+.L2:
-+	<entry-point>
-+	setge.32    %r5 <- %arg1, $0
-+	ret.32      %r5
-+
-+
-+f02:
-+.L4:
-+	<entry-point>
-+	setle.32    %r8 <- %arg1, $0
-+	ret.32      %r8
-+
-+
-+f03:
-+.L6:
-+	<entry-point>
-+	setle.32    %r11 <- %arg1, $0
-+	ret.32      %r11
-+
-+
-+f10:
-+.L8:
-+	<entry-point>
-+	setle.32    %r14 <- %arg1, $15
-+	ret.32      %r14
-+
-+
-+f11:
-+.L10:
-+	<entry-point>
-+	setle.32    %r17 <- %arg1, $15
-+	ret.32      %r17
-+
-+
-+f20:
-+.L12:
-+	<entry-point>
-+	setge.32    %r20 <- %arg1, $0xfffffff8
-+	ret.32      %r20
-+
-+
-+f21:
-+.L14:
-+	<entry-point>
-+	setge.32    %r23 <- %arg1, $0xfffffff8
-+	ret.32      %r23
-+
-+
-+ * check-output-end
++/*
++ * check-name: range-check2
++ * check-command: test-linearize -Wno-decl $file
++ * check-known-to-fail
++ *
++ * check-output-ignore
++ * check-output-returns: 1
 + */
 -- 
 2.31.1
