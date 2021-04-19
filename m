@@ -2,100 +2,78 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id C233C36375D
-	for <lists+linux-sparse@lfdr.de>; Sun, 18 Apr 2021 21:41:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 8D93E363900
+	for <lists+linux-sparse@lfdr.de>; Mon, 19 Apr 2021 03:13:50 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231812AbhDRTmJ (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Sun, 18 Apr 2021 15:42:09 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:54846 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230028AbhDRTmI (ORCPT
-        <rfc822;linux-sparse@vger.kernel.org>);
-        Sun, 18 Apr 2021 15:42:08 -0400
-Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com [IPv6:2a00:1450:4864:20::62a])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 44F99C06174A
-        for <linux-sparse@vger.kernel.org>; Sun, 18 Apr 2021 12:41:40 -0700 (PDT)
-Received: by mail-ej1-x62a.google.com with SMTP id e14so49613936ejz.11
-        for <linux-sparse@vger.kernel.org>; Sun, 18 Apr 2021 12:41:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=eemDrj/BkBWydy+djvyY2tbLfFTDrXWPMcDpsSVpyBs=;
-        b=hd74LNMvv+KhyYqyH4l79D6vhU2BrjUyHWw5fIU+FvVeRA6yKrKK0vvPDFw6JL1bQE
-         nlOIdJLHDS7VchnlcSFcyekbBb6G4ik76H2qNvUj6lsfHjwAP4abdRt68rBATFVO5Hwk
-         vidAA++fipGw1iU/NDELKceY2c/DJ15KP8tFSeXRXJVtM1xOUdCcV0NYe37Mr1EzEQyQ
-         Y0U5H0RX/rHl3+SyjYgpmpGPI4q2NTHvEZ94C3Pk7dEbCJ8K9GgkkuWeVRjCswHODBKN
-         0g+75/eFLxOUR2HghfZjU7mWanuh75p8Txyw+nGYBivtzuyjBJaWQwctw98TRfN39ril
-         RMMg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=eemDrj/BkBWydy+djvyY2tbLfFTDrXWPMcDpsSVpyBs=;
-        b=qVSlsieFSJwGrOiH3rP4YD6SSll6J8QGCFI+n2tJ8oIZj1XX+W7sNoSSh0c/VXsaK1
-         spFoUvXzPblRNM9B0gxlZldKwzj2RQ/+EAQ83Tp1biHh6Teu4ewjyBMElI4nk8ncJC7G
-         QEL0hQO5jB9AxL1S13kd6M5QWScXHfetCPDEhZcRmpV2EsPh/ylfOYf7qnDm7VgZ+fvY
-         uGtGZDpWUcT4dV/ODTXL7P3s8NVaNKF0MEZeOlj9szoBxRJmu5s973QgFlhJpiKJ8s3n
-         b4QaC+0aquW6rzNeoehXjcJZVn9qErVCVZJ86KQ9xLpHM7Ki/JKseATF22AdGsuPstAN
-         7rCw==
-X-Gm-Message-State: AOAM530EWbOz4jV36Z531AemE7mIsJgdFJ9M1b7nHbsRLtLFAi6TDxNY
-        8OmeRcA3dUE2ctsvucUhamDV5bpcZuc=
-X-Google-Smtp-Source: ABdhPJzpYg7OX0P0BN9rs8MXUiW8gbaqjCjoCqdTRKBm3+DBOr+OgGuUIWUfrR9WSgbBGsO0sI+sLA==
-X-Received: by 2002:a17:906:85c1:: with SMTP id i1mr18794081ejy.216.1618774899079;
-        Sun, 18 Apr 2021 12:41:39 -0700 (PDT)
-Received: from localhost.localdomain ([2a02:a03f:b7fe:f700:7ce8:97a5:cad6:876])
-        by smtp.gmail.com with ESMTPSA id nc39sm8342893ejc.41.2021.04.18.12.41.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 18 Apr 2021 12:41:38 -0700 (PDT)
-From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-To:     linux-sparse@vger.kernel.org
-Cc:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-Subject: [PATCH] TRUNC(x) {==,!=} C --> AND(x,M) {==,!=} C
-Date:   Sun, 18 Apr 2021 21:41:35 +0200
-Message-Id: <20210418194135.56287-1-luc.vanoostenryck@gmail.com>
-X-Mailer: git-send-email 2.31.1
+        id S235684AbhDSBOS (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Sun, 18 Apr 2021 21:14:18 -0400
+Received: from mbox.abcom.al ([217.73.143.249]:42384 "EHLO mbox.abcom.al"
+        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
+        id S233117AbhDSBOR (ORCPT <rfc822;linux-sparse@vger.kernel.org>);
+        Sun, 18 Apr 2021 21:14:17 -0400
+Received: from localhost (localhost [127.0.0.1])
+        by mbox.abcom.al (Postfix) with ESMTP id 3E1F911D75800;
+        Mon, 19 Apr 2021 02:38:50 +0200 (CEST)
+Received: from mbox.abcom.al ([127.0.0.1])
+        by localhost (mbox.abcom.al [127.0.0.1]) (amavisd-new, port 10032)
+        with ESMTP id YeAneaXYyk8b; Mon, 19 Apr 2021 02:38:50 +0200 (CEST)
+Received: from localhost (localhost [127.0.0.1])
+        by mbox.abcom.al (Postfix) with ESMTP id 3D4D8123BB7CF;
+        Mon, 19 Apr 2021 02:38:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.10.3 mbox.abcom.al 3D4D8123BB7CF
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=abcom.al;
+        s=0F3BA0EE-D5D4-11E8-9596-F9115129F2F4; t=1618792729;
+        bh=p2Sn/5BeV1TeOpE0g2OnXyVNOPHFXRN2kak+hb1GY3o=;
+        h=MIME-Version:To:From:Date:Message-Id;
+        b=LkThpbF8TXANMeN1454M6psxY4iDOzn/Y163Ye9UtIf/JjM63CY34WnO7sdDYWGGU
+         aqfjTQ5ykv4La+ynBPMz1vE3pUmFDn+jYMz3AqwJLNIkQkPpUmOtNolq64MMG8k1u8
+         L21C1Gj8HlkgmKfcmX00/J95vqhCJWApbG4oLcaHbNQFyy8MaGjl/cz2nMenK6UEa4
+         /agQ5rzw0QJww+KjBxJU7laq+kiYyKuWHEJmbpkbQKnoc4hT8tL7vfA93nzVmqSCs8
+         kb8/ovCM92K1Ar4xBRP6XUg1dmylnW2UNrRsityUCLQufjQCL+qCYWEL0avzSWp3c4
+         DOjWYZQzISraw==
+X-Virus-Scanned: amavisd-new at mbox.abcom.al
+Received: from mbox.abcom.al ([127.0.0.1])
+        by localhost (mbox.abcom.al [127.0.0.1]) (amavisd-new, port 10026)
+        with ESMTP id mHXoGCyu2is0; Mon, 19 Apr 2021 02:38:49 +0200 (CEST)
+Received: from [192.168.43.60] (unknown [105.4.4.115])
+        by mbox.abcom.al (Postfix) with ESMTPSA id C895A11D757EF;
+        Mon, 19 Apr 2021 02:38:40 +0200 (CEST)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: quoted-printable
+Content-Description: Mail message body
+Subject: =?utf-8?q?Hallo=2C_Sie_haben_eine_Spende_von_=E2=82=AC_2=2E000=2E000=2C00?=
+To:     Recipients <abashi@abcom.al>
+From:   <abashi@abcom.al>
+Date:   Mon, 19 Apr 2021 02:38:06 +0200
+Reply-To: billlawrencedonationorg@yahoo.com
+Message-Id: <20210419003840.C895A11D757EF@mbox.abcom.al>
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-It's not 100% clear than this is indeed a simplification but:
-1) from a pure instruction count point of view, it doesn't make
-   things worst
-2) in most place where it applies, the masking is made redundant
-   and is thus eliminated
+Sehr geehrter Herr / Frau
+Ich gr=C3=BC=C3=9Fe Sie im Namen des Herrn. Diese Nachricht wird Ihnen als =
+Benachrichtigung gesendet, dass Sie ausgew=C3=A4hlt wurden, um von meinem W=
+ohlt=C3=A4tigkeitsprojekt zu profitieren, das darauf abzielt, Leben zu ber=
+=C3=BChren und denen zu helfen, die ich auf der ganzen Welt kann, wie Gott =
+mich gesegnet hat.
+Ich habe die Powerball-Lotterie in H=C3=B6he von 150 Millionen USD am 16. D=
+ezember 2019 gewonnen und ich habe mich freiwillig entschlossen, Ihnen eine=
+n Betrag von (2.000.000,00 =E2=82=AC) als Wohlt=C3=A4tigkeitsorganisation z=
+u spenden. Ich versuche, zuf=C3=A4llige Menschen aus verschiedenen Quellen =
+und Moden zu erreichen, um das Leben aus verschiedenen Quellen zu ber=C3=BC=
+hren Winkel. Deshalb erhalten Sie hier die Nachricht.
+Sie wurden als einer der gl=C3=BCcklichen Empf=C3=A4nger registriert, die 2=
+ Millionen Euro erhalten haben. Diese Spende wird Ihnen gegeben, damit Sie =
+Ihre pers=C3=B6nlichen Probleme versch=C3=A4rfen und uns zum gro=C3=9Fen Te=
+il gro=C3=9Fz=C3=BCgig dabei helfen k=C3=B6nnen, die weniger gl=C3=BCcklich=
+en Waisen und gemeinn=C3=BCtzigen Organisationen in Ihrem Land zu unterst=
+=C3=BCtzen Nachbarschaftslokalit=C3=A4t
+Zur =C3=9Cberpr=C3=BCfung: //www.powerball.com/winner-story/150-million-pow=
+erball-ticket-claimed
 
-Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
----
- simplify.c | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
+Kontaktieren Sie mich erneut, um Spenden zu erhalten. E-Mail: billlawrenced=
+onationorg@yahoo.com
 
-diff --git a/simplify.c b/simplify.c
-index 9e3514d838a9..faf769b2f3cf 100644
---- a/simplify.c
-+++ b/simplify.c
-@@ -1392,6 +1392,19 @@ static int simplify_compare_constant(struct instruction *insn, long long value)
- 			break;
- 		}
- 		break;
-+	case OP_TRUNC:
-+		osize = def->orig_type->bit_size;
-+		switch (insn->opcode) {
-+		case OP_SET_EQ: case OP_SET_NE:
-+			if (one_use(def->target)) {
-+				def->type = def->orig_type;
-+				def->size = osize;
-+				def->src2 = value_pseudo(bits);
-+				return replace_opcode(def, OP_AND);
-+			}
-+			break;
-+		}
-+		break;
- 	case OP_ZEXT:
- 		osize = def->orig_type->bit_size;
- 		bits = bits_mask(osize);
--- 
-2.31.1
-
+Vielen Dank, Bill Lawrence
