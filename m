@@ -2,120 +2,63 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 6E285364D6D
-	for <lists+linux-sparse@lfdr.de>; Tue, 20 Apr 2021 00:00:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id A12EE364D8C
+	for <lists+linux-sparse@lfdr.de>; Tue, 20 Apr 2021 00:13:59 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S240991AbhDSWBM (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Mon, 19 Apr 2021 18:01:12 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:33026 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229863AbhDSWBM (ORCPT
-        <rfc822;linux-sparse@vger.kernel.org>);
-        Mon, 19 Apr 2021 18:01:12 -0400
-Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com [IPv6:2a00:1450:4864:20::62e])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B1D57C06174A
-        for <linux-sparse@vger.kernel.org>; Mon, 19 Apr 2021 15:00:40 -0700 (PDT)
-Received: by mail-ej1-x62e.google.com with SMTP id sd23so46590991ejb.12
-        for <linux-sparse@vger.kernel.org>; Mon, 19 Apr 2021 15:00:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=date:from:to:cc:subject:message-id:references:mime-version
-         :content-disposition:content-transfer-encoding:in-reply-to;
-        bh=PzXE1bg0ObDvY9PigwQhJYW/+2qMOPMYKPX+BM8uy1I=;
-        b=D3uWihtDXd9PQKKGjKo9agPPOTFPGDQNNY+islBNzQHfT8SVnyqDVpHMWKR0MGH9g7
-         3n3h3bV1jBCyMs6lWjupZ553WEEO4uZ0gRaRhJqLj8wFT6rnHT+1Ne5ULM8TwqYsMpyK
-         dvb1oc1TvQLH+FWMdYfQlWgZMvk/e4fLVhvwksNeEuiuTUit0p9rbHcrIkxj8dLIYny0
-         v+nrRKgy9gf7klOeUpdlZqcxjsMKluD2H2cbU2GneVF2y1B+eXOdXgLKnVxLPTuWwByl
-         H4xpzSX92cG19DgLwDznbLW9YYb7qldEYKPn9FhiowVVz7DX9AcwprripGzPJJEHsyN+
-         2D7Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
-         :mime-version:content-disposition:content-transfer-encoding
-         :in-reply-to;
-        bh=PzXE1bg0ObDvY9PigwQhJYW/+2qMOPMYKPX+BM8uy1I=;
-        b=YfPaCmzYyoikrE+2RXEjszRHuhCNOPJbGTLfadK5LeTcbWbhAQPuMuzgxpSVu+Rlyx
-         HtiE78Ih2Zmb+TUv8Td5R1yp8eQ2qwDr1qbf2R8RcwXuaK4NgmIEdbd7UyFYE0hex2Zw
-         Mr41bcHhvWUEFRF62WVTUtbPbG6fawxIyLnqSROnQIO4A3jaMR7e90YgpCGJC49Qx2vT
-         1OGM3JwUpuhILkkyGk+UFsrXXJ8AKwCYHfRmaqvVXNHJEhDPS4grDjicVOp6u5jEXMyT
-         eEF4Q5Y+G+TSL7Aexiq25rDb7UDtzmc1qBY32H7ZmoCMPQpGio0Oux0rgvX6XFmnbetm
-         YZ+w==
-X-Gm-Message-State: AOAM53029rTwDrQxnpwXxLAPYDROW6sSZi5tAeoiCgXwpSCCIwP5GP/z
-        aLmMnxELXbu8Vgg8kI6rzWbCoQ3WPw8=
-X-Google-Smtp-Source: ABdhPJzJd61Tx+N3vhuKYIxNiww31ZvRXgrToToRRUZIQBGpOy51n1z72I7AO/wGHYYxu7ZAlkie+g==
-X-Received: by 2002:a17:906:a0d4:: with SMTP id bh20mr24144327ejb.348.1618869639431;
-        Mon, 19 Apr 2021 15:00:39 -0700 (PDT)
-Received: from mail ([2a02:a03f:b7fe:f700:5087:6856:b985:723c])
-        by smtp.gmail.com with ESMTPSA id n11sm14078347edo.15.2021.04.19.15.00.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Apr 2021 15:00:38 -0700 (PDT)
-Date:   Tue, 20 Apr 2021 00:00:37 +0200
-From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-To:     =?utf-8?B?QXVyw6lsaWVu?= Aptel <aaptel@suse.com>
-Cc:     linux-sparse@vger.kernel.org
-Subject: Re: check idea: warn when mixing signedness in ?: operator (got
- bitten by this recently)
-Message-ID: <20210419220037.orvxzo7hnihcf7rq@mail>
-References: <87wnsyzia4.fsf@suse.com>
+        id S230490AbhDSWO2 (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Mon, 19 Apr 2021 18:14:28 -0400
+Received: from mbox.abcom.al ([217.73.143.249]:52298 "EHLO mbox.abcom.al"
+        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
+        id S230284AbhDSWO2 (ORCPT <rfc822;linux-sparse@vger.kernel.org>);
+        Mon, 19 Apr 2021 18:14:28 -0400
+Received: from localhost (localhost [127.0.0.1])
+        by mbox.abcom.al (Postfix) with ESMTP id 9BB6412D1576C;
+        Mon, 19 Apr 2021 23:18:29 +0200 (CEST)
+Received: from mbox.abcom.al ([127.0.0.1])
+        by localhost (mbox.abcom.al [127.0.0.1]) (amavisd-new, port 10032)
+        with ESMTP id PqU1oFf0jiYP; Mon, 19 Apr 2021 23:18:29 +0200 (CEST)
+Received: from localhost (localhost [127.0.0.1])
+        by mbox.abcom.al (Postfix) with ESMTP id 5D03812D22727;
+        Mon, 19 Apr 2021 23:18:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.10.3 mbox.abcom.al 5D03812D22727
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=abcom.al;
+        s=0F3BA0EE-D5D4-11E8-9596-F9115129F2F4; t=1618867106;
+        bh=BZv72htijiAiJQlxop8ucT2O5E8VQfLYZFZIV1NskB4=;
+        h=MIME-Version:To:From:Date:Message-Id;
+        b=ALkarFYuEZz9hqsMQveztDJdVx/PdWO5pmnAU/DUOe+F5qUW0lmP6y7mqz5TjcUHp
+         ChlRKQ4texwJ3kq/JJqLk9xUdgEGh9JxInea3/3krtl2gVQ4C0RRrgD0vk8FqUod0P
+         AcSBy79Xmf+z+yj3oAYooQJLfC/kyQ5DvCbTEQ74iywzY+XsfWoC4JVwjmcghxywbo
+         Re4NUmh5/SaAMt6Fq/mi38G3b2NfmuqSa8NfZTMMGwWDlXYRYDy9LPHY6mR85bnEHJ
+         ox9YhqIsUwzyYh69io1CE4H24MCW1QDJ8POp4sI35GWHVYEpH+eX/e0Co1zt3a9qTW
+         gJhyKpSPtCeLA==
+X-Virus-Scanned: amavisd-new at mbox.abcom.al
+Received: from mbox.abcom.al ([127.0.0.1])
+        by localhost (mbox.abcom.al [127.0.0.1]) (amavisd-new, port 10026)
+        with ESMTP id 87l4OKXGYC39; Mon, 19 Apr 2021 23:18:26 +0200 (CEST)
+Received: from [192.168.43.60] (unknown [105.4.5.77])
+        by mbox.abcom.al (Postfix) with ESMTPSA id A58FE12D21D8E;
+        Mon, 19 Apr 2021 23:18:14 +0200 (CEST)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <87wnsyzia4.fsf@suse.com>
+Content-Transfer-Encoding: quoted-printable
+Content-Description: Mail message body
+Subject: =?utf-8?q?Hallo=2C_Sie_haben_eine_Spende_von_=E2=82=AC_2=2E000=2E000=2C00?=
+To:     Recipients <abashi@abcom.al>
+From:   <abashi@abcom.al>
+Date:   Mon, 19 Apr 2021 23:17:30 +0200
+Reply-To: tayebsouamidonationorg@gmail.com
+Message-Id: <20210419211815.A58FE12D21D8E@mbox.abcom.al>
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-On Mon, Apr 19, 2021 at 12:21:39PM +0200, Aurélien Aptel wrote:
-> Hi,
-> 
-> If the <then> and <else> expression in the ?: ternary operator have
-> different signedness they will both be implicitely casted to unsigned.
-> 
-> When the result is stored in a variable with a storage capable of
-> holding both values, this is very unexpected. Consider this example:
-> 
->     int rc = -1;
->     unsigned int foo = 123;
->     long x = y ? foo : rc;
-> 
-> If one of the branch of the ?: is unsigned, then the compiler will cast
-> both branch to unsigned _before_ storing it in x. Despite long being
-> able to store INT_MIN, INT_MAX, UINT_MAX (assuming 64b long/32b int).
-> 
-> So if y is 0, it's basically doing
-> 
->     long x = (long)((unsigned int)-1);
-> 
-> Which will result in storing 0x00000000ffffffff (4294967295) instead of
-> expected 0xffffffffffffffff (-1).
-
-Hmmm,
-I'm wondering what you would be warned about:
-- about 'y ? foo : rc' becoming unsigned?
-- about the cast 'unsigned int' -> '(signed) long' doing an zero-extension
-  and not a sign extension?
-
-In both cases, it's not very different than:
-	int rc = -1;
-	unsigned int foo = 0;
-	long x = foo + rc;
-
-and it boils down to the difference between:
-	long x = (long)((unsigned int)-1);
-and
-	long x = (long)((int)-1);
-
-> I thought we hit some sort of weird compiler bug but after reducing the
-> problem to the simple example above and trying it GCC, clang, ICC and
-> MSVC they all do the same thing: https://godbolt.org/z/P5Ts7o1df
-> 
-> So it is most likely a C quirk. Standard reads 6.5.15. 5)
-> > If both the second and third operands have arithmetic type, the result
-> > type that would be determined by the usual arithmetic conversions, were
-> > they applied to those two operands, is the type of the result.
-
-Yes, it' also what Sparse is doing.
-
-Cheers,
--- Luc
+I'm Tayeb Souami, 55-year-old an elderly citizen of New Jersey, USA. I won =
+a $315.3 million jackpot, On behalf of my family and act of good will, we a=
+re donating to you and your family the sum of (=E2=82=AC 2,000,000.00 EUR) =
+I try to reach the public charity orphanages. Contribute to poverty reducti=
+on and ensure adequate health care for individuals. I also want you to inve=
+st part of this donation in public infrastructure to provide jobs for unemp=
+loyed citizens in your country.You can Watch me on youtube Claimed  https:/=
+/www.youtube.com/watch?v=3DZ6ui8ZDQ6Ks I choose you because I believe in yo=
+u. I need your full cooperation regarding this donation. Please contact me =
+back here at my private email: tayebsouamidonationorg@gmail.com
