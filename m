@@ -2,63 +2,196 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id A12EE364D8C
-	for <lists+linux-sparse@lfdr.de>; Tue, 20 Apr 2021 00:13:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 509483658C4
+	for <lists+linux-sparse@lfdr.de>; Tue, 20 Apr 2021 14:16:14 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230490AbhDSWO2 (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Mon, 19 Apr 2021 18:14:28 -0400
-Received: from mbox.abcom.al ([217.73.143.249]:52298 "EHLO mbox.abcom.al"
-        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S230284AbhDSWO2 (ORCPT <rfc822;linux-sparse@vger.kernel.org>);
-        Mon, 19 Apr 2021 18:14:28 -0400
-Received: from localhost (localhost [127.0.0.1])
-        by mbox.abcom.al (Postfix) with ESMTP id 9BB6412D1576C;
-        Mon, 19 Apr 2021 23:18:29 +0200 (CEST)
-Received: from mbox.abcom.al ([127.0.0.1])
-        by localhost (mbox.abcom.al [127.0.0.1]) (amavisd-new, port 10032)
-        with ESMTP id PqU1oFf0jiYP; Mon, 19 Apr 2021 23:18:29 +0200 (CEST)
-Received: from localhost (localhost [127.0.0.1])
-        by mbox.abcom.al (Postfix) with ESMTP id 5D03812D22727;
-        Mon, 19 Apr 2021 23:18:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.10.3 mbox.abcom.al 5D03812D22727
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=abcom.al;
-        s=0F3BA0EE-D5D4-11E8-9596-F9115129F2F4; t=1618867106;
-        bh=BZv72htijiAiJQlxop8ucT2O5E8VQfLYZFZIV1NskB4=;
-        h=MIME-Version:To:From:Date:Message-Id;
-        b=ALkarFYuEZz9hqsMQveztDJdVx/PdWO5pmnAU/DUOe+F5qUW0lmP6y7mqz5TjcUHp
-         ChlRKQ4texwJ3kq/JJqLk9xUdgEGh9JxInea3/3krtl2gVQ4C0RRrgD0vk8FqUod0P
-         AcSBy79Xmf+z+yj3oAYooQJLfC/kyQ5DvCbTEQ74iywzY+XsfWoC4JVwjmcghxywbo
-         Re4NUmh5/SaAMt6Fq/mi38G3b2NfmuqSa8NfZTMMGwWDlXYRYDy9LPHY6mR85bnEHJ
-         ox9YhqIsUwzyYh69io1CE4H24MCW1QDJ8POp4sI35GWHVYEpH+eX/e0Co1zt3a9qTW
-         gJhyKpSPtCeLA==
-X-Virus-Scanned: amavisd-new at mbox.abcom.al
-Received: from mbox.abcom.al ([127.0.0.1])
-        by localhost (mbox.abcom.al [127.0.0.1]) (amavisd-new, port 10026)
-        with ESMTP id 87l4OKXGYC39; Mon, 19 Apr 2021 23:18:26 +0200 (CEST)
-Received: from [192.168.43.60] (unknown [105.4.5.77])
-        by mbox.abcom.al (Postfix) with ESMTPSA id A58FE12D21D8E;
-        Mon, 19 Apr 2021 23:18:14 +0200 (CEST)
-Content-Type: text/plain; charset="utf-8"
+        id S229943AbhDTMQo (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Tue, 20 Apr 2021 08:16:44 -0400
+Received: from aserp2120.oracle.com ([141.146.126.78]:48524 "EHLO
+        aserp2120.oracle.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S231758AbhDTMQo (ORCPT
+        <rfc822;linux-sparse@vger.kernel.org>);
+        Tue, 20 Apr 2021 08:16:44 -0400
+Received: from pps.filterd (aserp2120.oracle.com [127.0.0.1])
+        by aserp2120.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 13KC8rJR102975;
+        Tue, 20 Apr 2021 12:16:09 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=date : from : to : cc
+ : subject : message-id : references : mime-version : content-type :
+ in-reply-to; s=corp-2020-01-29;
+ bh=yQmv5YAaGTYN7bnih4izezuValH/N9Z4W6H6p6UeGWc=;
+ b=X4XjWeG4k6cvKe56IquTochAKXyGLOaqnVGqIp+HCWmmbmAks/dH4+i27jqVGUKcln18
+ hBUrMPX3E1xSHRDzX+90JIgjSvtVoYEG+hMHpjQkQU+av+/1s+Awg3ZFgyUA2x9xamYN
+ gv8E+QYSgHcJbuuan1V754DrX1XFM6hj6QUlJUII6pTwS5U25x3qNI8buk05eHmcF6Hm
+ rCDuvjESNq9KIraMa5LV1gBoBguBPuYQcUvyw268rYksaDX8aiK5oZCM4XM/ReDwbBtH
+ s6KbgbTBPJWX+qid/ig7QGnR8H97Irg7t9UI3PGUBJuaK5RQ+1OSc3/SQwv73NC5Q4hi Aw== 
+Received: from aserp3030.oracle.com (aserp3030.oracle.com [141.146.126.71])
+        by aserp2120.oracle.com with ESMTP id 37yqmnevdp-1
+        (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+        Tue, 20 Apr 2021 12:16:08 +0000
+Received: from pps.filterd (aserp3030.oracle.com [127.0.0.1])
+        by aserp3030.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 13KCAtEH133968;
+        Tue, 20 Apr 2021 12:16:08 GMT
+Received: from pps.reinject (localhost [127.0.0.1])
+        by aserp3030.oracle.com with ESMTP id 38098q3fqa-1
+        (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+        Tue, 20 Apr 2021 12:16:08 +0000
+Received: from aserp3030.oracle.com (aserp3030.oracle.com [127.0.0.1])
+        by pps.reinject (8.16.0.36/8.16.0.36) with SMTP id 13KCG8uF149448;
+        Tue, 20 Apr 2021 12:16:08 GMT
+Received: from aserv0121.oracle.com (aserv0121.oracle.com [141.146.126.235])
+        by aserp3030.oracle.com with ESMTP id 38098q3fq0-1
+        (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+        Tue, 20 Apr 2021 12:16:08 +0000
+Received: from abhmp0016.oracle.com (abhmp0016.oracle.com [141.146.116.22])
+        by aserv0121.oracle.com (8.14.4/8.13.8) with ESMTP id 13KCG7Be004898;
+        Tue, 20 Apr 2021 12:16:07 GMT
+Received: from kadam (/102.36.221.92)
+        by default (Oracle Beehive Gateway v4.0)
+        with ESMTP ; Tue, 20 Apr 2021 05:16:07 -0700
+Date:   Tue, 20 Apr 2021 15:16:02 +0300
+From:   Dan Carpenter <dan.carpenter@oracle.com>
+To:     =?iso-8859-1?Q?Aur=E9lien?= Aptel <aaptel@suse.com>
+Cc:     linux-sparse@vger.kernel.org
+Subject: Re: check idea: warn when mixing signedness in ?: operator (got
+ bitten by this recently)
+Message-ID: <20210420121602.GF1981@kadam>
+References: <87wnsyzia4.fsf@suse.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Description: Mail message body
-Subject: =?utf-8?q?Hallo=2C_Sie_haben_eine_Spende_von_=E2=82=AC_2=2E000=2E000=2C00?=
-To:     Recipients <abashi@abcom.al>
-From:   <abashi@abcom.al>
-Date:   Mon, 19 Apr 2021 23:17:30 +0200
-Reply-To: tayebsouamidonationorg@gmail.com
-Message-Id: <20210419211815.A58FE12D21D8E@mbox.abcom.al>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <87wnsyzia4.fsf@suse.com>
+User-Agent: Mutt/1.9.4 (2018-02-28)
+X-Proofpoint-ORIG-GUID: YczIE6bUUZRDM2PYEswrUbFxo-0ws1kk
+X-Proofpoint-GUID: YczIE6bUUZRDM2PYEswrUbFxo-0ws1kk
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=9959 signatures=668683
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 bulkscore=0 mlxscore=0 adultscore=0
+ impostorscore=0 spamscore=0 malwarescore=0 clxscore=1011
+ lowpriorityscore=0 priorityscore=1501 suspectscore=0 mlxlogscore=999
+ phishscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2104060000 definitions=main-2104200094
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-I'm Tayeb Souami, 55-year-old an elderly citizen of New Jersey, USA. I won =
-a $315.3 million jackpot, On behalf of my family and act of good will, we a=
-re donating to you and your family the sum of (=E2=82=AC 2,000,000.00 EUR) =
-I try to reach the public charity orphanages. Contribute to poverty reducti=
-on and ensure adequate health care for individuals. I also want you to inve=
-st part of this donation in public infrastructure to provide jobs for unemp=
-loyed citizens in your country.You can Watch me on youtube Claimed  https:/=
-/www.youtube.com/watch?v=3DZ6ui8ZDQ6Ks I choose you because I believe in yo=
-u. I need your full cooperation regarding this donation. Please contact me =
-back here at my private email: tayebsouamidonationorg@gmail.com
+Thanks for the idea.  I can implement something like that in Smatch.
+I'll run the attached check over the kernel and see what it turns up.
+
+It says that it's only checking assignments but the trick is that
+Smatch creates fake assignments in the background for passing parameters
+or returning.  So "return a ? uint_val : -ENOMEM;" will trigger an error
+message.
+
+If there are too many false positives when I test this tonight, then I
+may make is_suspicious_int() more strict.
+
+regards,
+dan carpenter
+
+
+/*
+ * Copyright (C) 2021 Oracle.
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, see http://www.gnu.org/copyleft/gpl.txt
+ */
+
+/*
+ * Type promotion with selects doesn't work how you might expect:
+ * 	long foo = bar ? u_int_type : -12;
+ * The -12 is promoted to unsigned int and the sign is not expanded.
+ *
+ */
+
+#include "smatch.h"
+#include "smatch_extra.h"
+
+static int my_id;
+
+static bool is_select(struct expression *expr)
+{
+	if (expr->type == EXPR_CONDITIONAL)
+		return true;
+	if (expr->type == EXPR_SELECT)
+		return true;
+	return false;
+}
+
+static int is_uint(struct expression *expr)
+{
+	struct symbol *type;
+
+	type = get_type(expr);
+	if (type_positive_bits(type) == 32)
+		return true;
+	return false;
+}
+
+static int is_suspicious_int(struct expression *expr)
+{
+	struct symbol *type;
+	struct range_list *rl;
+
+	type = get_type(expr);
+	if (type_positive_bits(type) != 31)
+		return false;
+
+	get_absolute_rl(expr, &rl);
+	if (!sval_is_negative(rl_min(rl)))
+		return false;
+
+	return true;
+}
+
+static void match_assign(struct expression *expr)
+{
+	struct expression *right, *one, *two;
+	struct symbol *type;
+	char *name;
+
+	if (expr->op != '=')
+		return;
+
+	right = strip_expr(expr->right);
+	if (!is_select(right))
+		return;
+
+	type = get_type(expr->left);
+	if (type_bits(type) != 64)
+		return;
+
+	if (right->cond_true)
+		one = right->cond_true;
+	else
+		one = right->conditional;
+	two = right->cond_false;
+
+	if (is_uint(one) && is_suspicious_int(two)) {
+		name = expr_to_str(two);
+		sm_warning("check sign expansion for '%s'", name);
+		free_string(name);
+		return;
+	}
+
+	if (is_uint(two) && is_suspicious_int(one)) {
+		name = expr_to_str(one);
+		sm_warning("check sign expansion for '%s'", name);
+		free_string(name);
+		return;
+	}
+}
+
+void check_select_type(int id)
+{
+	my_id = id;
+	add_hook(match_assign, RAW_ASSIGNMENT_HOOK);
+}
