@@ -2,66 +2,136 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id E086D36B4F2
-	for <lists+linux-sparse@lfdr.de>; Mon, 26 Apr 2021 16:33:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 9208236BF59
+	for <lists+linux-sparse@lfdr.de>; Tue, 27 Apr 2021 08:37:09 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S233859AbhDZOdt (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Mon, 26 Apr 2021 10:33:49 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:47606 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S233857AbhDZOds (ORCPT
+        id S230222AbhD0Ghu (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Tue, 27 Apr 2021 02:37:50 -0400
+Received: from Galois.linutronix.de ([193.142.43.55]:38896 "EHLO
+        galois.linutronix.de" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S229977AbhD0Ght (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Mon, 26 Apr 2021 10:33:48 -0400
-Received: from mail-il1-x12e.google.com (mail-il1-x12e.google.com [IPv6:2607:f8b0:4864:20::12e])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 9E83EC061574
-        for <linux-sparse@vger.kernel.org>; Mon, 26 Apr 2021 07:33:05 -0700 (PDT)
-Received: by mail-il1-x12e.google.com with SMTP id y10so6031296ilv.0
-        for <linux-sparse@vger.kernel.org>; Mon, 26 Apr 2021 07:33:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=mime-version:reply-to:from:date:message-id:subject:to
-         :content-transfer-encoding;
-        bh=EOSUXtnRgck5U7+h4ZjdViEQwxJkCOdcX1JCch3EiYo=;
-        b=hydUjmwVbh0f1OXaBwwUtpr/x+Q4CaWMabDzf5nHVdLydvV8BNc0Wi4fFo6uOUtvEM
-         wQhdLKwQdGeyppI9p29WPyNquPYwNHQ7rZYYKH3mtmzU3FSVTFUeuShHXK4a9KJ10rLK
-         /k23F4NduKD3DliTSqbcgBwi8fQ9BRmVWinFttBb7yE24h9clZZCaA6asH/nk4HEmsfq
-         bTo6SbqAX3JFgkfWwfiVpz5//vOpDYbPLI/nK4eQQFueS61T9A0IkPeFyaM7xJi6lkCD
-         5wRQ0nQSA8Hehzn0pYbYGmpVmW3yqYfdSlMXOYAWOopT06Nx0dyYh8blabhd4QPOkLSo
-         CgYg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:reply-to:from:date:message-id
-         :subject:to:content-transfer-encoding;
-        bh=EOSUXtnRgck5U7+h4ZjdViEQwxJkCOdcX1JCch3EiYo=;
-        b=aCQaLVKyZdGb0xJ5AI2ZwnrAkXaQYvyql+jFjmnnUVwfbAEHp2GUL/Xjn4tVlQajAW
-         OJPaNlSbq/x+ymisWPIEoBx7R/pEFB+mRYXXx3LSdOeC1bugydycdlK4+o3x58S/uDd/
-         F9gXbnEkMmLQ2tOtAZRlOO8fjvKUxCAvA/C85F6hcg9EV6bvDySHpBfN+p6wJ7dETE7M
-         BB4xvN+8r29bjDMlrvbHFXTIo3+7qFOE1qin9vXeeWOfr/E55ILg94n+oXrejvXREvcQ
-         AU6+zdC8iGVevCE+ZLwNM694JzrUhtprg2SFTb+VZ3WFVQ8sVLOoGm09uHhHuanara+l
-         EuRg==
-X-Gm-Message-State: AOAM530PXkJ55fTMtMHYH32bu3bguBxcGmB4hOn9Sxm9T2Iqc9j2x0o6
-        /YJaAWzK0Ev746iJq2WEsDsUkdt2A8uIkShjfIQ=
-X-Google-Smtp-Source: ABdhPJw/zvE07Ut+FmU7uVRBsemvZuPSiM+bPuu2UtFzVhSZ7S/doBTJTI17ZwTDvC9rM4dD/It6hMr287X6sUwwmYg=
-X-Received: by 2002:a92:ca0a:: with SMTP id j10mr14775140ils.73.1619447585202;
- Mon, 26 Apr 2021 07:33:05 -0700 (PDT)
+        Tue, 27 Apr 2021 02:37:49 -0400
+From:   Thomas Gleixner <tglx@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+        s=2020; t=1619505425;
+        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+         to:to:cc:cc:cc:mime-version:mime-version:content-type:content-type:
+         in-reply-to:in-reply-to:references:references;
+        bh=OVIyCdNcsW4x8PjKdsToGgt87+8FemshMVp2gK9444w=;
+        b=BB+N8SpyZ6wPmPd5OaJKmHJuI9/qLz3u5wYQyXaGlXAdSLyC91ZGID6eh/PHDrUca1X0XW
+        UYDTO0S2Puraw8xaLnxYkWiOhW6Egkyrr2bCv/QBMUSDmrt3xSsut8l+H1QmJWzUNud3oe
+        kFD6Nx/OnXc69YBWH7E6N1yy0lCl0thUn7hmaKYQiCFTmUXXO+sCT4FL5v8nHRRC+oZ45x
+        veHs40D2TFS21nejiR/qm3D2ufIg2JPivxcG+5lQWvnNBDkhd9FTkqRsCWsMgry7H0ga0n
+        IrMQoKzVYga4eHCCZHuYnHVoVSjCYZrmXZeug9nkiH+V+98idVO8tte0oTgMPg==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+        s=2020e; t=1619505425;
+        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+         to:to:cc:cc:cc:mime-version:mime-version:content-type:content-type:
+         in-reply-to:in-reply-to:references:references;
+        bh=OVIyCdNcsW4x8PjKdsToGgt87+8FemshMVp2gK9444w=;
+        b=JvcKvt9vsjPSpdmCREmF7BVAGbfk4ykNd2XSlefb/SIce8nk8s4yLG5LhEq/7/jyqb9xIr
+        UqmTAAGtAO6FO9AQ==
+To:     kernel test robot <lkp@intel.com>, Balbir Singh <sblbir@amazon.com>
+Cc:     kbuild-all@lists.01.org
+Cc:     linux-sparse@vger.kernel.org, luc.vanoostenryck@gmail.com
+Subject: Re: [tglx-devel:x86/l1dflush 7/9] arch/x86/mm/tlb.c:354:13: sparse: sparse: incorrect type in initializer (different address spaces)
+In-Reply-To: <202104271144.G4fgnYlt-lkp@intel.com>
+References: <202104271144.G4fgnYlt-lkp@intel.com>
+Date:   Tue, 27 Apr 2021 08:37:05 +0200
+Message-ID: <87r1iwnsha.ffs@nanos.tec.linutronix.de>
 MIME-Version: 1.0
-Received: by 2002:a05:6638:2191:0:0:0:0 with HTTP; Mon, 26 Apr 2021 07:33:04
- -0700 (PDT)
-Reply-To: stephenbordeaux@yahoo.com
-From:   Stephen Bordeaux <calderanthony130@gmail.com>
-Date:   Mon, 26 Apr 2021 14:33:04 +0000
-Message-ID: <CAMJLk=JyyfQ1QL0gJPsP0+H6zs9PO1xnTuTp3VAqgrhnUZT0MQ@mail.gmail.com>
-Subject: 
-To:     undisclosed-recipients:;
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-    Guten Morgen, ich bin Rechtsanwalt Stephen Bordeaux, Anwalt in der
- Anwaltskanzlei Bordeaux. Ich habe Sie bez=C3=BCglich des kontaktiert
-Eigentum des verstorbenen Dr. Edwin sollen 8,5 Millionen Dollar sein
-R=C3=BCckkehrer auf Ihr Konto. Auch in dieser Transaktion m=C3=B6chte ich d=
-ass
-Sie vertraulich antworten. Stephen Bordeaux
+On Tue, Apr 27 2021 at 11:00, kernel test robot wrote:
+
+Cc+ sparse folks
+
+> tree:   https://git.kernel.org/pub/scm/linux/kernel/git/tglx/devel.git x86/l1dflush
+> head:   6955fbfdad4241331d1e33362306aec3a410803a
+> commit: 193cb89595f7f3f4549b03ab9392fb9838d123e3 [7/9] x86/mm: Prepare for opt-in based L1D flush in switch_mm()
+> config: i386-randconfig-s032-20210426 (attached as .config)
+> compiler: gcc-9 (Debian 9.3.0-22) 9.3.0
+> reproduce:
+>         # apt-get install sparse
+>         # sparse version: v0.6.3-341-g8af24329-dirty
+>         # https://git.kernel.org/pub/scm/linux/kernel/git/tglx/devel.git/commit/?id=193cb89595f7f3f4549b03ab9392fb9838d123e3
+>         git remote add tglx-devel https://git.kernel.org/pub/scm/linux/kernel/git/tglx/devel.git
+>         git fetch --no-tags tglx-devel x86/l1dflush
+>         git checkout 193cb89595f7f3f4549b03ab9392fb9838d123e3
+>         # save the attached .config to linux build tree
+>         make W=1 C=1 CF='-fdiagnostic-prefix -D__CHECK_ENDIAN__' W=1 ARCH=i386 
+>
+> If you fix the issue, kindly add following tag as appropriate
+> Reported-by: kernel test robot <lkp@intel.com>
+>
+>
+> sparse warnings: (new ones prefixed by >>)
+>>> arch/x86/mm/tlb.c:354:13: sparse: sparse: incorrect type in initializer (different address spaces) @@     expected void const [noderef] __percpu *__vpp_verify @@     got bool * @@
+>    arch/x86/mm/tlb.c:354:13: sparse:     expected void const [noderef] __percpu *__vpp_verify
+>    arch/x86/mm/tlb.c:354:13: sparse:     got bool *
+>>> arch/x86/mm/tlb.c:354:13: sparse: sparse: incorrect type in initializer (different address spaces) @@     expected void const [noderef] __percpu *__vpp_verify @@     got bool * @@
+>    arch/x86/mm/tlb.c:354:13: sparse:     expected void const [noderef] __percpu *__vpp_verify
+>    arch/x86/mm/tlb.c:354:13: sparse:     got bool *
+>>> arch/x86/mm/tlb.c:354:13: sparse: sparse: incorrect type in initializer (different address spaces) @@     expected void const [noderef] __percpu *__vpp_verify @@     got bool * @@
+>    arch/x86/mm/tlb.c:354:13: sparse:     expected void const [noderef] __percpu *__vpp_verify
+>    arch/x86/mm/tlb.c:354:13: sparse:     got bool *
+>>> arch/x86/mm/tlb.c:354:13: sparse: sparse: incorrect type in initializer (different address spaces) @@     expected void const [noderef] __percpu *__vpp_verify @@     got bool * @@
+>    arch/x86/mm/tlb.c:354:13: sparse:     expected void const [noderef] __percpu *__vpp_verify
+>    arch/x86/mm/tlb.c:354:13: sparse:     got bool *
+>>> arch/x86/mm/tlb.c:354:13: sparse: sparse: incorrect type in initializer (different address spaces) @@     expected void const [noderef] __percpu *__vpp_verify @@     got bool * @@
+>    arch/x86/mm/tlb.c:354:13: sparse:     expected void const [noderef] __percpu *__vpp_verify
+>    arch/x86/mm/tlb.c:354:13: sparse:     got bool *
+>>> arch/x86/mm/tlb.c:354:13: sparse: sparse: incorrect type in initializer (different address spaces) @@     expected void const [noderef] __percpu *__vpp_verify @@     got bool * @@
+>    arch/x86/mm/tlb.c:354:13: sparse:     expected void const [noderef] __percpu *__vpp_verify
+>    arch/x86/mm/tlb.c:354:13: sparse:     got bool *
+>>> arch/x86/mm/tlb.c:354:13: sparse: sparse: incorrect type in initializer (different address spaces) @@     expected void const [noderef] __percpu *__vpp_verify @@     got bool * @@
+>    arch/x86/mm/tlb.c:354:13: sparse:     expected void const [noderef] __percpu *__vpp_verify
+>    arch/x86/mm/tlb.c:354:13: sparse:     got bool *
+>>> arch/x86/mm/tlb.c:354:13: sparse: sparse: incorrect type in initializer (different address spaces) @@     expected void const [noderef] __percpu *__vpp_verify @@     got bool * @@
+>    arch/x86/mm/tlb.c:354:13: sparse:     expected void const [noderef] __percpu *__vpp_verify
+>    arch/x86/mm/tlb.c:354:13: sparse:     got bool *
+>>> arch/x86/mm/tlb.c:354:13: sparse: sparse: incorrect type in initializer (different address spaces) @@     expected void const [noderef] __percpu *__vpp_verify @@     got bool * @@
+>    arch/x86/mm/tlb.c:354:13: sparse:     expected void const [noderef] __percpu *__vpp_verify
+>    arch/x86/mm/tlb.c:354:13: sparse:     got bool *
+>>> arch/x86/mm/tlb.c:354:13: sparse: sparse: incorrect type in initializer (different address spaces) @@     expected void const [noderef] __percpu *__vpp_verify @@     got bool * @@
+>    arch/x86/mm/tlb.c:354:13: sparse:     expected void const [noderef] __percpu *__vpp_verify
+>    arch/x86/mm/tlb.c:354:13: sparse:     got bool *
+>
+> vim +354 arch/x86/mm/tlb.c
+>
+>    336	
+>    337	static void l1d_flush_evaluate(unsigned long prev_mm, unsigned long next_mm,
+>    338					struct task_struct *next)
+>    339	{
+>    340		/* Flush L1D if the outgoing task requests it */
+>    341		if (prev_mm & LAST_USER_MM_L1D_FLUSH)
+>    342			wrmsrl(MSR_IA32_FLUSH_CMD, L1D_FLUSH);
+>    343	
+>    344		/* Check whether the incoming task opted in for L1D flush */
+>    345		if (likely(!(next_mm & LAST_USER_MM_L1D_FLUSH)))
+>    346			return;
+>    347	
+>    348		/*
+>    349		 * Validate that it is not running on an SMT sibling as this would
+>    350		 * make the excercise pointless because the siblings share L1D. If
+>    351		 * it runs on a SMT sibling, notify it with SIGBUS on return to
+>    352		 * user/guest
+>    353		 */
+>  > 354		if (this_cpu_read(cpu_info.smt_active)) {
+
+That's a valid construct and the kernel of full of percpuvar.member reads/writes.
+
+>    355			clear_ti_thread_flag(&next->thread_info, TIF_SPEC_L1D_FLUSH);
+>    356			next->l1d_flush_kill.func = l1d_flush_force_sigbus;
+>    357			task_work_add(next, &next->l1d_flush_kill, TWA_RESUME);
+>    358		}
+>    359	}
+>    360	
+
+Thanks,
+
+        tglx
