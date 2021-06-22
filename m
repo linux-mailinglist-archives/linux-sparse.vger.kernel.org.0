@@ -2,104 +2,109 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 28FD33ADEB8
-	for <lists+linux-sparse@lfdr.de>; Sun, 20 Jun 2021 15:36:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id D111F3AFD32
+	for <lists+linux-sparse@lfdr.de>; Tue, 22 Jun 2021 08:45:44 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229683AbhFTNiL (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Sun, 20 Jun 2021 09:38:11 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:40342 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229673AbhFTNiD (ORCPT
+        id S229810AbhFVGr7 (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Tue, 22 Jun 2021 02:47:59 -0400
+Received: from wout2-smtp.messagingengine.com ([64.147.123.25]:46667 "EHLO
+        wout2-smtp.messagingengine.com" rhost-flags-OK-OK-OK-OK)
+        by vger.kernel.org with ESMTP id S229702AbhFVGr6 (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Sun, 20 Jun 2021 09:38:03 -0400
-Received: from mail-io1-xd41.google.com (mail-io1-xd41.google.com [IPv6:2607:f8b0:4864:20::d41])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 1B1D0C0617AF
-        for <linux-sparse@vger.kernel.org>; Sun, 20 Jun 2021 06:35:47 -0700 (PDT)
-Received: by mail-io1-xd41.google.com with SMTP id s19so6092769ioc.3
-        for <linux-sparse@vger.kernel.org>; Sun, 20 Jun 2021 06:35:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=mime-version:reply-to:from:date:message-id:subject:to;
-        bh=D7l/Y2nU4ivOXB3kYNarWKNDy1SUWuawPt7q4q/Bhv4=;
-        b=sec9fLKaTeyUvI3U/9cH5uXh5khwaRmiJ3Slq1YZSCexwKlBLvi58L8DBu55CdJDji
-         U+HuEZd9onOgJ+OTF2rj1+rkaNRkmc9mUKozs32zG54utaQ749Tn8dwDfGRCa86Y13h3
-         aTPzQqGcbZM/EAbe2+YYkP8IzEtm7OFmKWqXTdVfNhb2VSah4cfQXUGVQ0X59BkXxqUT
-         4pZGErCa13JdLdCIRor4r89BUHwblkmYb4cwi8/7Nzr0zyCOHjauEmAl4PRZ8S1C6dv6
-         acCJLW1ZaLruky9plyyHKip4E8d31xV8uUpmSHsk2ZsjBfcQBVTL2OilqasULeboqC8n
-         0h/w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:reply-to:from:date:message-id
-         :subject:to;
-        bh=D7l/Y2nU4ivOXB3kYNarWKNDy1SUWuawPt7q4q/Bhv4=;
-        b=m+QVLaB2kiOcLiz6KDJaqwpQOOkUslJQlv9za63Uk8YxlEiayvs5Dt3FyUGX81bLBu
-         ShO3fF4CFE+6fOGgYwoxCYPIOWV0kIiK1I2JJNWOlsNiJkcqKIjX/Kp0Xyldm5JDPgvd
-         uD+APSBUnAofUvpmDk2KaW9D1F+q0Qw7RLrwRTq41jSiFmpB6rHu+1IfHBYw/8U4ssPp
-         IwPhWayocG3JG1aH3qGR95XAye4iQOHOJ94V4HTV7kRwne3loAKczX6EGWUb908OLg/+
-         3X8zIJpSFyOu7eEzOCDWyWkBrvNK2Ssmc9ce4WKZ5LSXQR3sBdzV08kqwmuRrMdQprzm
-         uegg==
-X-Gm-Message-State: AOAM531MuO24cMXI83OnhVPGgxWIE2jCu9YAr+0GEkPwPdJKjpo/ogMj
-        uG9puHACsMiFfzk+h29aKj2eYRqEAKYK3QWloUU=
-X-Google-Smtp-Source: ABdhPJwO76FoleXtHusTIesxM2cuIvE9VdIlMyNt5WPTfvQkSUUR8O1MTtP/waIv/m9vsUoacT9Q2gT5SJ41poXCB/Q=
-X-Received: by 2002:a05:6602:1810:: with SMTP id t16mr15654363ioh.48.1624196145888;
- Sun, 20 Jun 2021 06:35:45 -0700 (PDT)
+        Tue, 22 Jun 2021 02:47:58 -0400
+Received: from compute2.internal (compute2.nyi.internal [10.202.2.42])
+        by mailout.west.internal (Postfix) with ESMTP id A674C1223;
+        Tue, 22 Jun 2021 02:45:42 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+  by compute2.internal (MEProxy); Tue, 22 Jun 2021 02:45:42 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=naive.systems;
+         h=to:cc:from:subject:message-id:date:mime-version:content-type
+        :content-transfer-encoding; s=fm2; bh=OHWL/kFlHJnamrJtbhKt2sU1qE
+        JmvCmv7bKGlUMLpt0=; b=rQ0fNoolOu/VAbAl0/x6sAWuQ2xW3h7F+/Lotv3kjV
+        KSgG0hsulRvwzGqmVGXWIVBx0R8l0NHHd7yJ7XQhaQoDTEsO3Dxt23gHFDV26DP+
+        p4wAO1XvTdLfJtF3vJvn6p0MgAvRPDGBzQy2QZ98EPg/JWPeHpW5AKo1GQDmjpYU
+        n9a4ALXi9jdLjTKYBggipLOUzWoD06h4+LqJxZobmHhk8qxcasPZCHKJnxUcNCby
+        0ZR3oVmPkpdjy94sN6Cz9Na8C8Y5JdaiKOBFQHKIOZs2lwCNXntf104BGShGOEun
+        H4+uNeybVvx79bDS9l3Axc1EjZtNhgVoXMNG4uP21ENg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+        messagingengine.com; h=cc:content-transfer-encoding:content-type
+        :date:from:message-id:mime-version:subject:to:x-me-proxy
+        :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=OHWL/k
+        FlHJnamrJtbhKt2sU1qEJmvCmv7bKGlUMLpt0=; b=ajynjiWT4x1vuIIRbKy8X/
+        TJOq6/y9WnSQl3b+e11qU6z4r/gbKsgDSEmFVM+QBkOi0whGeYdVxz4Rr+QlMOdH
+        QRElublbbUhmikdAyymKvjgv5lI8n01LSPsDWHJt9/zDGkANgwDXHg8QICH8Vun4
+        mzUVqoSpDhjjQAXT5xzjd2nfQixj3pA/B/cJiLiG0JAxXn5Gba5XaOIuxvzFw3VC
+        cbDxZkW1N82xquigfqvSx7ZnjrgTfhchmNJPgqNQyhtHHa9H5oGO1+0XWBHpY8I+
+        1v1EIC1oxfevuL/F+T5Ko4UJmjSQ0MObBOKgPhJMO92CreFJo7YpWbnB9IvLwZsg
+        ==
+X-ME-Sender: <xms:FofRYB1Z0Y3uBz3xbmfqsGCiUaD46Js_cUyaRUc17eyLc0FrCtZyug>
+    <xme:FofRYIEb5QyEMIahcSPS5zhI-hnoFVOrMrAklhKAL-RyrVS3kSNExAGl15V3IUxqD
+    FLNbYGJGvIugMeRud8>
+X-ME-Received: <xmr:FofRYB70joTWObAt60kGAOxjuwjxalBzZJxd3sSPiDa8ATE1skxG4X7k31rjh-lopRRrbZb1d4eXmypGJjYMy7kS8MPuMNW_QbfTtSQ>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrfeegtddgudduvdcutefuodetggdotefrod
+    ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
+    necuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
+    enucfjughrpefvhffukffffgggtgfgsehtjeertddtfeejnecuhfhrohhmpefmvgcuffhu
+    uceoughukhgvsehnrghivhgvrdhshihsthgvmhhsqeenucggtffrrghtthgvrhhnpeevke
+    dvfeffieehgfffteffudffuefhhfdttedutedtfedujeelvdejudeulefggeenucevlhhu
+    shhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpeguuhhkvgesnhgrih
+    hvvgdrshihshhtvghmsh
+X-ME-Proxy: <xmx:FofRYO1QvDRZZo7CIC0_PGR7nmqQWhuf-BwiKg_akj_y54LWGmwOPQ>
+    <xmx:FofRYEEnowFCvF2IyUsQlzXPt4AxpKB188ciQQzbCg1gwciNeAPpxQ>
+    <xmx:FofRYP-4jlaFNbyq7q4nWrK4vFkiJAkxoGckZ5i2Tn0fVMKWQqLRqg>
+    <xmx:FofRYPM2r_Js2WjLMB5e0u3-JcYRm2THARbKJQ3vicbUCfBuKmNodQ>
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 22 Jun 2021 02:45:42 -0400 (EDT)
+To:     linux-sparse@vger.kernel.org
+Cc:     Xiao Jia <xjia@naive.systems>
+From:   Ke Du <duke@naive.systems>
+Subject: check idea: include sparse as a library in C++
+Message-ID: <88596afa-76f2-8c2f-d80e-572d1e57369e@naive.systems>
+Date:   Tue, 22 Jun 2021 02:45:41 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.10.1
 MIME-Version: 1.0
-Received: by 2002:a05:6e02:1baf:0:0:0:0 with HTTP; Sun, 20 Jun 2021 06:35:45
- -0700 (PDT)
-Reply-To: sarahkoffi389@yahoo.co.jp
-From:   Sarah Koffi <sarah.koffi101@gmail.com>
-Date:   Sun, 20 Jun 2021 15:35:45 +0200
-Message-ID: <CA+ifgLGSH5KW9J+Z85axgUznJEQcab5mED6rZZnS3OBzXTnaxw@mail.gmail.com>
-Subject: Greetings From Mrs. Sarah Koffi
-To:     sarahkoffi389@yahoo.co.jp
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-Greetings From Mrs. Sarah Koffi
+Hi,
 
-I'm contacting you based on your good profiles I read and for a good
-reasons, I am in search of a property to buy in your country as I
-intended to come over to your
-country for investment, Though I have not meet with you before but I
-believe that one has to risk confiding in someone to succeed sometimes
-in life.
+I want to include sparse as a library in C++ and access fields of the 
+structs such as symbol and expression directly, but some of the 
+variables in sparse are keywords in C++ so they cannot be included in 
+C++ directly. I have several fixes below that are not ideal, and any 
+feedback is appreciated.
 
-My name is Mrs. Sarah Koffi. My late husband deals on Crude Oil with
-Federal Government of Sudan and he has a personal Oil firm in Bentiu
-Oil zone town and Upper
-Nile city. What I have experience physically, I don't wish to
-experience it again in my life due to the recent civil Ethnic war
-cause by our President Mr. Salva Kiir
-and the rebel leader Mr Riek Machar, I have been Under United Nation
-refuge camp in chad to save my life and that of my little daughter.
+1. Append an underscore to C++ keywords, for instance change new to 
+new_. The change only involves the code that I included so there might 
+be some C++ keywords in sparse that are unchanged.
 
-Though, I do not know how you will feel to my proposal, but the truth
-is that I sneaked into Chad our neighboring country where I am living
-now as a refugee.
-I escaped with my little daughter when the rebels bust into our house
-and killed my husband as one of the big oil dealers in the country,
-ever since then, I have being on the run.
+2. Replace every keyword with a macro:
 
-I left my country and move to Chad our neighboring country with the
-little ceasefire we had, due to the face to face peace meeting accord
-coordinated by the US Secretary of State, Mr John Kerry and United
-Nations in Ethiopia (Addis Ababa) between our President Mr Salva Kiir
-and the rebel leader Mr Riek Machar to stop this war.
+     #ifdef __cplusplus
+     #define NEW new_
+     #else
+     #define NEW new
+     #endif
 
-I want to solicit for your partnership with trust to invest the $8
-million dollars deposited by my late husband in Bank because my life
-is no longer safe in our country, since the rebels are looking for the
-families of all the oil business men in the country to kill, saying
-that they are they one that is milking the country dry.
+Similar to solution 1, this is not complete, and both 1 and 2 involves 
+about 200 changes already.
 
-I will offer you 20% of the total fund for your help while I will
-partner with you for the investment in your country.
-If I get your reply.
+3. When including sparse header files, guard them with
 
-I will wait to hear from you so as to give you details.With love from
+     #define new new_
+     #include ...
+     #define new_ new
 
- i need you to contact me here sarahkoffi389@yahoo.co.jp
+This does not involve change to sparse but it imposes weird restriction 
+to the ordering of other C++ libraries that I do not understand at all.
 
-Mrs. Sarah Koffi
+I can send the patches if one of the fixes is acceptable. Alternatively, 
+if there is a better way, please let me know.
+
+Cheers,
+-- Ke
