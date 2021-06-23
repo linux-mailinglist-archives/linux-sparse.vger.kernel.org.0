@@ -2,109 +2,66 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id D111F3AFD32
-	for <lists+linux-sparse@lfdr.de>; Tue, 22 Jun 2021 08:45:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 867123B1E1C
+	for <lists+linux-sparse@lfdr.de>; Wed, 23 Jun 2021 17:54:50 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229810AbhFVGr7 (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Tue, 22 Jun 2021 02:47:59 -0400
-Received: from wout2-smtp.messagingengine.com ([64.147.123.25]:46667 "EHLO
-        wout2-smtp.messagingengine.com" rhost-flags-OK-OK-OK-OK)
-        by vger.kernel.org with ESMTP id S229702AbhFVGr6 (ORCPT
-        <rfc822;linux-sparse@vger.kernel.org>);
-        Tue, 22 Jun 2021 02:47:58 -0400
-Received: from compute2.internal (compute2.nyi.internal [10.202.2.42])
-        by mailout.west.internal (Postfix) with ESMTP id A674C1223;
-        Tue, 22 Jun 2021 02:45:42 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
-  by compute2.internal (MEProxy); Tue, 22 Jun 2021 02:45:42 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=naive.systems;
-         h=to:cc:from:subject:message-id:date:mime-version:content-type
-        :content-transfer-encoding; s=fm2; bh=OHWL/kFlHJnamrJtbhKt2sU1qE
-        JmvCmv7bKGlUMLpt0=; b=rQ0fNoolOu/VAbAl0/x6sAWuQ2xW3h7F+/Lotv3kjV
-        KSgG0hsulRvwzGqmVGXWIVBx0R8l0NHHd7yJ7XQhaQoDTEsO3Dxt23gHFDV26DP+
-        p4wAO1XvTdLfJtF3vJvn6p0MgAvRPDGBzQy2QZ98EPg/JWPeHpW5AKo1GQDmjpYU
-        n9a4ALXi9jdLjTKYBggipLOUzWoD06h4+LqJxZobmHhk8qxcasPZCHKJnxUcNCby
-        0ZR3oVmPkpdjy94sN6Cz9Na8C8Y5JdaiKOBFQHKIOZs2lwCNXntf104BGShGOEun
-        H4+uNeybVvx79bDS9l3Axc1EjZtNhgVoXMNG4uP21ENg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-        messagingengine.com; h=cc:content-transfer-encoding:content-type
-        :date:from:message-id:mime-version:subject:to:x-me-proxy
-        :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=OHWL/k
-        FlHJnamrJtbhKt2sU1qEJmvCmv7bKGlUMLpt0=; b=ajynjiWT4x1vuIIRbKy8X/
-        TJOq6/y9WnSQl3b+e11qU6z4r/gbKsgDSEmFVM+QBkOi0whGeYdVxz4Rr+QlMOdH
-        QRElublbbUhmikdAyymKvjgv5lI8n01LSPsDWHJt9/zDGkANgwDXHg8QICH8Vun4
-        mzUVqoSpDhjjQAXT5xzjd2nfQixj3pA/B/cJiLiG0JAxXn5Gba5XaOIuxvzFw3VC
-        cbDxZkW1N82xquigfqvSx7ZnjrgTfhchmNJPgqNQyhtHHa9H5oGO1+0XWBHpY8I+
-        1v1EIC1oxfevuL/F+T5Ko4UJmjSQ0MObBOKgPhJMO92CreFJo7YpWbnB9IvLwZsg
-        ==
-X-ME-Sender: <xms:FofRYB1Z0Y3uBz3xbmfqsGCiUaD46Js_cUyaRUc17eyLc0FrCtZyug>
-    <xme:FofRYIEb5QyEMIahcSPS5zhI-hnoFVOrMrAklhKAL-RyrVS3kSNExAGl15V3IUxqD
-    FLNbYGJGvIugMeRud8>
-X-ME-Received: <xmr:FofRYB70joTWObAt60kGAOxjuwjxalBzZJxd3sSPiDa8ATE1skxG4X7k31rjh-lopRRrbZb1d4eXmypGJjYMy7kS8MPuMNW_QbfTtSQ>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrfeegtddgudduvdcutefuodetggdotefrod
-    ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
-    necuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
-    enucfjughrpefvhffukffffgggtgfgsehtjeertddtfeejnecuhfhrohhmpefmvgcuffhu
-    uceoughukhgvsehnrghivhgvrdhshihsthgvmhhsqeenucggtffrrghtthgvrhhnpeevke
-    dvfeffieehgfffteffudffuefhhfdttedutedtfedujeelvdejudeulefggeenucevlhhu
-    shhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpeguuhhkvgesnhgrih
-    hvvgdrshihshhtvghmsh
-X-ME-Proxy: <xmx:FofRYO1QvDRZZo7CIC0_PGR7nmqQWhuf-BwiKg_akj_y54LWGmwOPQ>
-    <xmx:FofRYEEnowFCvF2IyUsQlzXPt4AxpKB188ciQQzbCg1gwciNeAPpxQ>
-    <xmx:FofRYP-4jlaFNbyq7q4nWrK4vFkiJAkxoGckZ5i2Tn0fVMKWQqLRqg>
-    <xmx:FofRYPM2r_Js2WjLMB5e0u3-JcYRm2THARbKJQ3vicbUCfBuKmNodQ>
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 22 Jun 2021 02:45:42 -0400 (EDT)
+        id S231557AbhFWP5B convert rfc822-to-8bit (ORCPT
+        <rfc822;lists+linux-sparse@lfdr.de>); Wed, 23 Jun 2021 11:57:01 -0400
+Received: from [183.90.58.236] ([183.90.58.236]:51772 "EHLO ns1.zackeruz.tk"
+        rhost-flags-FAIL-FAIL-OK-FAIL) by vger.kernel.org with ESMTP
+        id S231527AbhFWP5A (ORCPT <rfc822;linux-sparse@vger.kernel.org>);
+        Wed, 23 Jun 2021 11:57:00 -0400
+Received: from johnlewis.com (unknown [192.168.20.1])
+        by ns1.zackeruz.tk (Postfix) with ESMTPSA id 062FF846329
+        for <linux-sparse@vger.kernel.org>; Wed, 23 Jun 2021 23:54:40 +0800 (+08)
+Reply-To: robert_turner@johnlewis-trading.com,
+          pippawicks.sales@johnlewis-trading.com
+From:   John Lewis & Partnersip <robert.turner107@johnlewis.com>
 To:     linux-sparse@vger.kernel.org
-Cc:     Xiao Jia <xjia@naive.systems>
-From:   Ke Du <duke@naive.systems>
-Subject: check idea: include sparse as a library in C++
-Message-ID: <88596afa-76f2-8c2f-d80e-572d1e57369e@naive.systems>
-Date:   Tue, 22 Jun 2021 02:45:41 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.10.1
+Subject: 6/23/2021 Product Inquiry 
+Date:   23 Jun 2021 15:54:40 +0000
+Message-ID: <20210623094114.467B7753F8AFA80D@johnlewis.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain;
+        charset="utf-8"
+Content-Transfer-Encoding: 8BIT
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-Hi,
+Dear linux-sparse
 
-I want to include sparse as a library in C++ and access fields of the 
-structs such as symbol and expression directly, but some of the 
-variables in sparse are keywords in C++ so they cannot be included in 
-C++ directly. I have several fixes below that are not ideal, and any 
-feedback is appreciated.
+The famous brand John Lewis Partnership, is UK's largest multi-
+channel retailer with over 126 shops and multiple expansion in 
+Africa furnished by European/Asian/American products. We are 
+sourcing new products to attract new customers and also retain 
+our existing ones, create new partnerships with companies dealing 
+with different kinds of goods globally.
 
-1. Append an underscore to C++ keywords, for instance change new to 
-new_. The change only involves the code that I included so there might 
-be some C++ keywords in sparse that are unchanged.
+Your company's products are of interest to our market as we have 
+an amazing market for your products.
 
-2. Replace every keyword with a macro:
+Provide us your current catalog through email to review more. We 
+hope to be able to order with you and start a long-term friendly,
+respectable and solid business partnership. Please we would 
+appreciate it if you could send us your stock availability via 
+email if any.
 
-     #ifdef __cplusplus
-     #define NEW new_
-     #else
-     #define NEW new
-     #endif
+Our payment terms are 15 days net in Europe, 30 days Net in UK 
+and 30 days net in Asia/USA as we operate with over 5297 
+suppliers around the globe for the past 50 years now. For 
+immediate response Send your reply to robert_turner@johnlewis-
+trading.com for us to be able to 
+treat with care and urgency.
 
-Similar to solution 1, this is not complete, and both 1 and 2 involves 
-about 200 changes already.
 
-3. When including sparse header files, guard them with
+Best Regards
 
-     #define new new_
-     #include ...
-     #define new_ new
-
-This does not involve change to sparse but it imposes weird restriction 
-to the ordering of other C++ libraries that I do not understand at all.
-
-I can send the patches if one of the fixes is acceptable. Alternatively, 
-if there is a better way, please let me know.
-
-Cheers,
--- Ke
+Rob Turner
+Head Of Procurement Operations
+John Lewis & Partners.
+robert_turner@johnlewis-trading.com
+Tel: +44-7451-274090
+WhatsApp: +447497483925
+www.johnlewis.com
+REGISTERED OFFICE: 171 VICTORIA STREET, LONDON SW1E 5NN 
