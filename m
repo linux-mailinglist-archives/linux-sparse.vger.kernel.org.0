@@ -2,53 +2,71 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 87A753B72BA
-	for <lists+linux-sparse@lfdr.de>; Tue, 29 Jun 2021 14:56:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id AC93D3B7F2C
+	for <lists+linux-sparse@lfdr.de>; Wed, 30 Jun 2021 10:40:49 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S233778AbhF2M7V convert rfc822-to-8bit (ORCPT
-        <rfc822;lists+linux-sparse@lfdr.de>); Tue, 29 Jun 2021 08:59:21 -0400
-Received: from [218.75.92.58] ([218.75.92.58]:49312 "EHLO WIN-VTPUBHNS72V"
-        rhost-flags-FAIL-FAIL-OK-FAIL) by vger.kernel.org with ESMTP
-        id S233011AbhF2M7V (ORCPT <rfc822;linux-sparse@vger.kernel.org>);
-        Tue, 29 Jun 2021 08:59:21 -0400
-Received: from [192.168.43.47] (Unknown [197.210.79.43])
-        by WIN-VTPUBHNS72V with ESMTPA
-        ; Thu, 24 Jun 2021 20:47:11 +0800
-Message-ID: <4DEAC4C7-EDD9-43FF-98B8-2B40F344FE92@WIN-VTPUBHNS72V>
-Content-Type: text/plain; charset="iso-8859-1"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8BIT
-Content-Description: Mail message body
-Subject: URGENT ATTENTION
-To:     Recipients <wjjt@wjjt.cn>
-From:   "Andres Auchincloss" <wjjt@wjjt.cn>
-Date:   Thu, 24 Jun 2021 14:46:40 +0200
-Reply-To: andresauchincloss926@gmail.com
+        id S232982AbhF3InP (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Wed, 30 Jun 2021 04:43:15 -0400
+Received: from flippiebeckerswealthmgr.xyz ([62.173.139.78]:47210 "EHLO
+        host.flippiebeckerswealthmgr.xyz" rhost-flags-OK-OK-OK-OK)
+        by vger.kernel.org with ESMTP id S232904AbhF3InP (ORCPT
+        <rfc822;linux-sparse@vger.kernel.org>);
+        Wed, 30 Jun 2021 04:43:15 -0400
+X-Greylist: delayed 1233 seconds by postgrey-1.27 at vger.kernel.org; Wed, 30 Jun 2021 04:43:15 EDT
+Received: from flippiebeckerswealthmgr.xyz (ec2-18-117-101-219.us-east-2.compute.amazonaws.com [18.117.101.219])
+        by host.flippiebeckerswealthmgr.xyz (Postfix) with ESMTPA id 1FD63109B9CD
+        for <linux-sparse@vger.kernel.org>; Wed, 30 Jun 2021 11:14:44 +0300 (MSK)
+DKIM-Filter: OpenDKIM Filter v2.11.0 host.flippiebeckerswealthmgr.xyz 1FD63109B9CD
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=flippiebeckerswealthmgr.xyz; s=default; t=1625040885;
+        bh=G3PrS2ssLE6xKmHDCm5hvScMpvbJPlyTw8R1AuPMkGc=;
+        h=Reply-To:From:To:Subject:Date:From;
+        b=XOxU6RlVrKFmCG9pdg3rjKxDAcxEQab3gI2EnVVBcZvTBk/hhmrc/g7Ep6+Wid2B7
+         uQXtzgy7t03urFBf1LEdWwFjqw+BGtElcgpXvJwwyDHxdMgbzZHlqjrK173X20Och3
+         sgr9wSy6x+0x08lu9dlvdjbiG5mh1hRTZUi5APbE=
+DKIM-Filter: OpenDKIM Filter v2.11.0 host.flippiebeckerswealthmgr.xyz 1FD63109B9CD
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=flippiebeckerswealthmgr.xyz; s=default; t=1625040885;
+        bh=G3PrS2ssLE6xKmHDCm5hvScMpvbJPlyTw8R1AuPMkGc=;
+        h=Reply-To:From:To:Subject:Date:From;
+        b=XOxU6RlVrKFmCG9pdg3rjKxDAcxEQab3gI2EnVVBcZvTBk/hhmrc/g7Ep6+Wid2B7
+         uQXtzgy7t03urFBf1LEdWwFjqw+BGtElcgpXvJwwyDHxdMgbzZHlqjrK173X20Och3
+         sgr9wSy6x+0x08lu9dlvdjbiG5mh1hRTZUi5APbE=
+Reply-To: jmasuku09@flippiebecker.com
+From:   Jotham Masuku <jmasuku09@flippiebeckerswealthmgr.xyz>
+To:     linux-sparse@vger.kernel.org
+Subject: Proposal
+Date:   30 Jun 2021 08:14:44 +0000
+Message-ID: <20210630081444.8DFB6AB9DF53FA4D@flippiebeckerswealthmgr.xyz>
+Mime-Version: 1.0
+Content-Type: text/plain;
+        charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-Hi,
+Hello there,
 
-I will like to use this opportunity to wish you a productive time in 2021 and also confide in you to finalize this transaction of mutual benefits. It may seem strange to you, but it is real. This is a transaction that has no risk at all, due process shall be followed and it shall be carried out under the ambit of the financial laws. Being the Chief Financial Officer, BP Plc. I want to trust and put in your care Eighteen Million British Pounds Sterling, The funds were acquired from an over-invoiced payment from a past contract executed in one of my departments.
+I hope this message finds you in good spirits especially during=20
+this challenging time of coronavirus pandemic. I hope you and=20
+your family are well and keeping safe. Anyway, I am Jotham=20
+Masuku, a broker working with Flippiebecker Wealth. I got your=20
+contact through an online business directory and I thought I=20
+should contact you to see if you are interested in this=20
+opportunity. I am contacting you because one of my high profile=20
+clients is interested in investing abroad and has asked me to=20
+look for individuals and companies in your country with=20
+interesting business ideas and projects that he can invest in. He=20
+wants to invest a substantial amount of asset abroad.
 
-I can't successfully achieve this transaction without presenting you as foreign contractor who will provide a bank account to receive the funds.
+I have decided to keep this brief for now but please kindly=20
+respond back to this email if you are interested in this=20
+opportunity. Once I receive your response, I will give you more=20
+details and we can plan a strategy that will be beneficial to all=20
+parties.
 
-Documentation for the claim of the funds will be legally processed and documented, so I will need your full cooperation on this matter for our mutual benefits. We will discuss details if you are interested to work with me to secure this funds. I will appreciate your prompt response in every bit of our communication. Stay Blessed and Stay Safe.
+Best regards
 
-
-
-Best Regards
-
-
-
-
-Tel: +1 (587) 770-0485
-Andres .B. Auchincloss
-Chief financial officerBP Petroleum p.l.c.
-
-
-
-
-                                  Copyright ©? 1996-2021
-
+J Masuku
+Flippiebecker Wealth
