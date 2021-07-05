@@ -2,42 +2,42 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id DE9F53BC33C
-	for <lists+linux-sparse@lfdr.de>; Mon,  5 Jul 2021 21:44:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 1464D3BC3E2
+	for <lists+linux-sparse@lfdr.de>; Tue,  6 Jul 2021 00:14:47 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229869AbhGETrZ (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Mon, 5 Jul 2021 15:47:25 -0400
-Received: from flippiebewealthmgr.xyz ([185.31.160.196]:53356 "EHLO
-        host.flippiebewealthmgr.xyz" rhost-flags-OK-OK-OK-OK)
-        by vger.kernel.org with ESMTP id S229515AbhGETrZ (ORCPT
+        id S233147AbhGEWRY (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Mon, 5 Jul 2021 18:17:24 -0400
+Received: from host.flippiebewealthmgs.xyz ([51.195.202.100]:57706 "EHLO
+        host.flippiebewealthmgs.xyz" rhost-flags-OK-OK-OK-OK)
+        by vger.kernel.org with ESMTP id S233080AbhGEWRX (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Mon, 5 Jul 2021 15:47:25 -0400
-X-Greylist: delayed 1467 seconds by postgrey-1.27 at vger.kernel.org; Mon, 05 Jul 2021 15:47:24 EDT
-Received: from flippiebewealthmgr.xyz (ec2-54-210-195-65.compute-1.amazonaws.com [54.210.195.65])
-        by host.flippiebewealthmgr.xyz (Postfix) with ESMTPA id 4E63112DB05
-        for <linux-sparse@vger.kernel.org>; Mon,  5 Jul 2021 22:02:08 +0300 (MSK)
-DKIM-Filter: OpenDKIM Filter v2.11.0 host.flippiebewealthmgr.xyz 4E63112DB05
+        Mon, 5 Jul 2021 18:17:23 -0400
+X-Greylist: delayed 4390 seconds by postgrey-1.27 at vger.kernel.org; Mon, 05 Jul 2021 18:17:23 EDT
+Received: from flippiebewealthmgs.xyz (ec2-18-224-182-140.us-east-2.compute.amazonaws.com [18.224.182.140])
+        by host.flippiebewealthmgs.xyz (Postfix) with ESMTPA id 1E3904D2E1A
+        for <linux-sparse@vger.kernel.org>; Mon,  5 Jul 2021 19:48:34 +0000 (UTC)
+DKIM-Filter: OpenDKIM Filter v2.11.0 host.flippiebewealthmgs.xyz 1E3904D2E1A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=flippiebewealthmgr.xyz; s=default; t=1625511728;
+        d=flippiebewealthmgs.xyz; s=default; t=1625514515;
         bh=9G86e92kIq/Gm9ou9607oUaenJE7el5MfLTN8tJRQJU=;
         h=Reply-To:From:To:Subject:Date:From;
-        b=vjPCb2Y4SPN70RI+kj1be1GhGjaG3I9RV3sSNQI7qK3nJ1O8ELHB7j4QJsXehc8hb
-         bac1q/rd/ZmQFVlWOHrA5EXcZjQY++DyjTu7IarVeLsUQx+540r9piJv65McHlhV6I
-         Cm/sPFgaK9R5BKjSaKxWVwd2V/itVkc8udcDDW5Y=
-DKIM-Filter: OpenDKIM Filter v2.11.0 host.flippiebewealthmgr.xyz 4E63112DB05
+        b=SX4RoIQ57JimFO6hBrcIrmvoNkphmGJzL5JBsrhjCx0KikArBkJoh98B1NvYO3zvh
+         ye+XHm6vn8Y3NO3aeKb7aWo8I/j++rE2ZINOfyaDLywVT31S5wZ6DN28zN5qRj/+iL
+         NUl1lmq044MTGYq7yzSviEYu7jlFk1s5H7ugcCtU=
+DKIM-Filter: OpenDKIM Filter v2.11.0 host.flippiebewealthmgs.xyz 1E3904D2E1A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=flippiebewealthmgr.xyz; s=default; t=1625511728;
+        d=flippiebewealthmgs.xyz; s=default; t=1625514515;
         bh=9G86e92kIq/Gm9ou9607oUaenJE7el5MfLTN8tJRQJU=;
         h=Reply-To:From:To:Subject:Date:From;
-        b=vjPCb2Y4SPN70RI+kj1be1GhGjaG3I9RV3sSNQI7qK3nJ1O8ELHB7j4QJsXehc8hb
-         bac1q/rd/ZmQFVlWOHrA5EXcZjQY++DyjTu7IarVeLsUQx+540r9piJv65McHlhV6I
-         Cm/sPFgaK9R5BKjSaKxWVwd2V/itVkc8udcDDW5Y=
-Reply-To: jothammasuku18@flippiebecker.com
-From:   Jotham Masuku <jothammasuku18@flippiebewealthmgr.xyz>
+        b=SX4RoIQ57JimFO6hBrcIrmvoNkphmGJzL5JBsrhjCx0KikArBkJoh98B1NvYO3zvh
+         ye+XHm6vn8Y3NO3aeKb7aWo8I/j++rE2ZINOfyaDLywVT31S5wZ6DN28zN5qRj/+iL
+         NUl1lmq044MTGYq7yzSviEYu7jlFk1s5H7ugcCtU=
+Reply-To: jmasuku09@flippiebecker.com
+From:   Jotham Masuku <jmasuku09@flippiebewealthmgs.xyz>
 To:     linux-sparse@vger.kernel.org
 Subject: Get back to me
-Date:   05 Jul 2021 19:02:07 +0000
-Message-ID: <20210705190207.DA8F2472A463EC9B@flippiebewealthmgr.xyz>
+Date:   05 Jul 2021 19:48:34 +0000
+Message-ID: <20210705194834.3A1FAD7DCC119DEF@flippiebewealthmgs.xyz>
 Mime-Version: 1.0
 Content-Type: text/plain;
         charset="utf-8"
