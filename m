@@ -2,54 +2,47 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 6B5C33BF659
-	for <lists+linux-sparse@lfdr.de>; Thu,  8 Jul 2021 09:37:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 5DE6C3C145F
+	for <lists+linux-sparse@lfdr.de>; Thu,  8 Jul 2021 15:37:35 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229868AbhGHHkD (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Thu, 8 Jul 2021 03:40:03 -0400
-Received: from mail.tradeias.com ([212.237.11.189]:35586 "EHLO
-        mail.tradeias.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229838AbhGHHkD (ORCPT
+        id S231747AbhGHNkQ (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Thu, 8 Jul 2021 09:40:16 -0400
+Received: from mx-n04.wc2.phx1.stabletransit.com ([207.246.242.250]:58058 "HELO
+        mx-n04.wc2.phx1.stabletransit.com" rhost-flags-OK-OK-OK-OK)
+        by vger.kernel.org with SMTP id S231742AbhGHNkQ (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Thu, 8 Jul 2021 03:40:03 -0400
-X-Greylist: delayed 339 seconds by postgrey-1.27 at vger.kernel.org; Thu, 08 Jul 2021 03:40:02 EDT
-Received: by mail.tradeias.com (Postfix, from userid 1001)
-        id 469D8A2CA5; Thu,  8 Jul 2021 08:31:23 +0100 (BST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=tradeias.com; s=mail;
-        t=1625729500; bh=tegSUSO8UdW4nPAN+CTxUCS0b4WeMgxljdiMdwCnwbk=;
-        h=Date:From:To:Subject:From;
-        b=atmL9na8X8NRU5KbSqUt9+5g50o5RYeZ1jXtWz6UCQKkwo/mpAxtmcj5Ba3RU/4c9
-         BT0Prn99xMOG9F1O2mLVWltrOreiKrd1fA9k66FsmEYlT+JzdSFW3oPDmulQr0jpbV
-         efo2iGCLFIiP3volRcgCaXtg+wZfjaNtKueImBBuAGg5msieP5cuTxs+p7RvretP0N
-         9mkWJdj44w8C908XSwsLVDUTVDbCxnYnWwKxnoXYfvIxwkgQJtzyWvVlxWBsRqu1Uw
-         S3WRyNZgSiCzjNmipqXaxHC4f7+CTv0vJSR1olMAbVkgLgcpRPV6zLbgtblzWMYd4b
-         V/44xqdx+Bm+A==
-Received: by mail.tradeias.com for <linux-sparse@vger.kernel.org>; Thu,  8 Jul 2021 07:31:11 GMT
-Message-ID: <20210708074500-0.1.2t.75y6.0.okh1bbbahh@tradeias.com>
-Date:   Thu,  8 Jul 2021 07:31:11 GMT
-From:   "Alarico Veloz" <alarico.veloz@tradeias.com>
-To:     <linux-sparse@vger.kernel.org>
-Subject: Servicio de la flota
-X-Mailer: mail.tradeias.com
+        Thu, 8 Jul 2021 09:40:16 -0400
+X-Greylist: delayed 303 seconds by postgrey-1.27 at vger.kernel.org; Thu, 08 Jul 2021 09:40:16 EDT
+Received: by mx-n04.wc2.phx1.stabletransit.com (Postfix, from userid 114)
+        id 1B928182977; Thu,  8 Jul 2021 08:32:32 -0500 (CDT)
+X-Spam-Checker-Version: SpamAssassin 3.4.2 (2018-09-13) on
+        mx-n04.wc2.phx1.stabletransit.com
+X-Spam-Level: **
+X-Spam-Status: No, score=2.6 required=6.0 tests=BAYES_50,FREEMAIL_FROM,
+        FREEMAIL_REPLYTO,FREEMAIL_REPLYTO_END_DIGIT,SUBJ_ALL_CAPS,
+        T_FILL_THIS_FORM_SHORT,UNPARSEABLE_RELAY autolearn=no
+        autolearn_force=no version=3.4.2
+X-Spam-Virus: No
+Received: from php-v027.wc2.phx1.stabletransit.com (unknown [10.40.206.156])
+        by mx-n04.wc2.phx1.stabletransit.com (Postfix) with ESMTP id 6CA2418295E
+        for <linux-sparse@vger.kernel.org>; Thu,  8 Jul 2021 08:32:31 -0500 (CDT)
+Received: from digilu (uid 2914979)
+        (envelope-from mabeljohnson@citromail.hu)
+        id 1ff60
+        by php-v027.wc2.phx1.stabletransit.com (DragonFly Mail Agent v0.11);
+        Thu, 08 Jul 2021 08:32:31 -0500
+To:     linux-sparse@vger.kernel.org
+Subject: WORK OF GOD.
+X-PHP-Originating-Script: 2914979:class.engine.php(12) : runtime-created function
+Date:   Thu, 8 Jul 2021 08:32:31 -0500
+From:   MARY JOHNSON <mabeljohnson@citromail.hu>
+Reply-To: mj224294@gmail.com
+Message-ID: <5a652c19c245d50d24816801911fc116@jackieleestudio.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-Buenos d=C3=ADas:
+I am Mrs. Mary Johnson,78years,an aging widow suffering from cancer, I am on admission at a hospital.I would like to willfully entrust the rest of my monetary assets to you, Kindly reply back with your full Name, cellphone, address, to enable me to send you a letter of authorization to contact my bank first inland bank nigeria plc so that they can transfer my funds to your account for the purpose of helping the poor as indicated on my WILL.
 
-Le escribo para hablarle sobre una de las mejores herramientas GPS en el =
-mercado.
-
-La herramienta, que me gustar=C3=ADa presentarle brevemente, dispone de m=
-uchas funciones =C3=BAtiles para su trabajo, que optimizan los procesos d=
-e transporte y le ayudan a realizar tareas de campo de manera m=C3=A1s ef=
-iciente.
-
-=C2=BFQuiere conocer los detalles?
-
-
-Atentamente,
-Alarico Veloz
