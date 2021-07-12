@@ -2,56 +2,75 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 7A6183C3DE1
-	for <lists+linux-sparse@lfdr.de>; Sun, 11 Jul 2021 18:13:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id C29423C63BC
+	for <lists+linux-sparse@lfdr.de>; Mon, 12 Jul 2021 21:29:42 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S232430AbhGKQQM convert rfc822-to-8bit (ORCPT
-        <rfc822;lists+linux-sparse@lfdr.de>); Sun, 11 Jul 2021 12:16:12 -0400
-Received: from mail.07d05.mspz7.gob.ec ([186.46.59.139]:57632 "EHLO
-        mail.07d05.mspz7.gob.ec" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229688AbhGKQQL (ORCPT
+        id S236324AbhGLTcB (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Mon, 12 Jul 2021 15:32:01 -0400
+Received: from flipppiebekerwealth.xyz ([84.22.107.20]:54294 "EHLO
+        host.flipppiebekerwealth.xyz" rhost-flags-OK-OK-OK-OK)
+        by vger.kernel.org with ESMTP id S235784AbhGLTcB (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Sun, 11 Jul 2021 12:16:11 -0400
-Received: from localhost (localhost [127.0.0.1])
-        by mail.07d05.mspz7.gob.ec (Postfix) with ESMTP id 77C411846519;
-        Sun, 11 Jul 2021 09:49:54 -0500 (-05)
-Received: from mail.07d05.mspz7.gob.ec ([127.0.0.1])
-        by localhost (mail.07d05.mspz7.gob.ec [127.0.0.1]) (amavisd-new, port 10032)
-        with ESMTP id D-wiNKQ8RPoy; Sun, 11 Jul 2021 09:49:54 -0500 (-05)
-Received: from localhost (localhost [127.0.0.1])
-        by mail.07d05.mspz7.gob.ec (Postfix) with ESMTP id 3986D1846517;
-        Sun, 11 Jul 2021 09:49:54 -0500 (-05)
-X-Virus-Scanned: amavisd-new at 07d05.mspz7.gob.ec
-Received: from mail.07d05.mspz7.gob.ec ([127.0.0.1])
-        by localhost (mail.07d05.mspz7.gob.ec [127.0.0.1]) (amavisd-new, port 10026)
-        with ESMTP id z3FAZLga-4L7; Sun, 11 Jul 2021 09:49:54 -0500 (-05)
-Received: from cris-PC.wifi (unknown [105.9.79.139])
-        by mail.07d05.mspz7.gob.ec (Postfix) with ESMTPSA id 440A11846511;
-        Sun, 11 Jul 2021 09:49:45 -0500 (-05)
-Content-Type: text/plain; charset="iso-8859-1"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8BIT
-Content-Description: Mail message body
-Subject: spende von 2,000,000 euro
-To:     Recipients <maria.coronel@07d05.mspz7.gob.ec>
-From:   ''Tayeb souami'' <maria.coronel@07d05.mspz7.gob.ec>
-Date:   Sun, 11 Jul 2021 16:49:34 +0200
-Reply-To: Tayebsouam.spende@gmail.com
-Message-Id: <20210711144946.440A11846511@mail.07d05.mspz7.gob.ec>
+        Mon, 12 Jul 2021 15:32:01 -0400
+X-Greylist: delayed 1825 seconds by postgrey-1.27 at vger.kernel.org; Mon, 12 Jul 2021 15:32:01 EDT
+Received: from flipppiebekerwealth.xyz (ec2-100-26-56-244.compute-1.amazonaws.com [100.26.56.244])
+        by host.flipppiebekerwealth.xyz (Postfix) with ESMTPA id 58A6AA1A01
+        for <linux-sparse@vger.kernel.org>; Mon, 12 Jul 2021 20:49:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 host.flipppiebekerwealth.xyz 58A6AA1A01
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=flipppiebekerwealth.xyz; s=default; t=1626115761;
+        bh=9G86e92kIq/Gm9ou9607oUaenJE7el5MfLTN8tJRQJU=;
+        h=Reply-To:From:To:Subject:Date:From;
+        b=NSFiS1W5lh0NRU1e9kTiI60Wfx49Dx1DDKbnw3iyK8eibTzx/m6E5nad1XofGTmbO
+         ynAYQ1lvgaRhzeLFyaElBDIrd5+u/aJD4r8KpDVrZCw77kqNAgFMa3sqFLYxo683aP
+         AtGWOMLdELqk7q3cgyTIaKAINr9rUEhACyYoMAGc=
+DKIM-Filter: OpenDKIM Filter v2.11.0 host.flipppiebekerwealth.xyz 58A6AA1A01
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=flipppiebekerwealth.xyz; s=default; t=1626115761;
+        bh=9G86e92kIq/Gm9ou9607oUaenJE7el5MfLTN8tJRQJU=;
+        h=Reply-To:From:To:Subject:Date:From;
+        b=NSFiS1W5lh0NRU1e9kTiI60Wfx49Dx1DDKbnw3iyK8eibTzx/m6E5nad1XofGTmbO
+         ynAYQ1lvgaRhzeLFyaElBDIrd5+u/aJD4r8KpDVrZCw77kqNAgFMa3sqFLYxo683aP
+         AtGWOMLdELqk7q3cgyTIaKAINr9rUEhACyYoMAGc=
+Reply-To: jothamasuku01@flippiebeckerwealthservice.com
+From:   J Masuku <jothamasuku01@flipppiebekerwealth.xyz>
+To:     linux-sparse@vger.kernel.org
+Subject: Projects
+Date:   12 Jul 2021 18:49:21 +0000
+Message-ID: <20210712184921.364438ACF045E274@flipppiebekerwealth.xyz>
+Mime-Version: 1.0
+Content-Type: text/plain;
+        charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-Hallo mein lieber Freund
-Mein Name ist Tayeb Souami aus New Jersey in Amerika und ich habe den America Lottery Jackpot von 315 Millionen Euro gewonnen. Ich habe mich entschlossen, die Summe von 2.000.000 Euro an fünf glückliche Personen zu spenden, und Sie wurden als einer der Begünstigten ausgewählt. Bitte klicken Sie auf diesen Link, um mehr über meinen Gewinn zu erfahren.
+Hello there,
 
+I hope this message finds you in good spirits especially during=20
+this challenging time of coronavirus pandemic. I hope you and=20
+your family are well and keeping safe. Anyway, I am Jotham=20
+Masuku, a wealth manager working with Flippiebecker Wealth in=20
+South Africa. I got your contact through a b2b online business=20
+directory when searching for business minded people in your=20
+country. I am contacting you because one of my high profile=20
+clients is interested in investing abroad and has asked me to=20
+look for individuals and companies in your country with=20
+productive business ideas and projects that he can invest in. He=20
+wants to invest a substantial amount of asset abroad. I thought I=20
+should contact you to see if you are interested in this=20
+opportunity.
 
-UHR MICH HIER: https://www.youtube.com/watch?v=Z6ui8ZDQ6Ks
+I have decided to keep this proposal very brief for now but I=20
+will be happy to share more information and details upon=20
+receiving a response from you to indicate your interest. I am=20
+looking forward to hearing back from you so that we can plan a=20
+strategy that will be beneficial to all parties. Please be kind=20
+to also provide your direct contact telephone number for a verbal=20
+discussion.
 
-Bitte kontaktieren Sie mich über diese E-Mail:Tayebsouam.spende@gmail.com
+Best regards
 
-
-Ich hoffe, Sie und Ihre Familie glücklich zu machen.
-
-Grüße
-Herr Tayeb Souami
+J Masuku
+Flippiebecker Wealth
