@@ -2,74 +2,77 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id DFA2E3C7849
-	for <lists+linux-sparse@lfdr.de>; Tue, 13 Jul 2021 22:57:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 5E6A13CA42C
+	for <lists+linux-sparse@lfdr.de>; Thu, 15 Jul 2021 19:25:38 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S235460AbhGMVAj (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Tue, 13 Jul 2021 17:00:39 -0400
-Received: from flipiebwealthmgs.xyz ([62.173.140.225]:36428 "EHLO
-        host.flipiebwealthmgs.xyz" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S235328AbhGMVAj (ORCPT
+        id S234083AbhGOR21 (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Thu, 15 Jul 2021 13:28:27 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:37372 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S229535AbhGOR21 (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Tue, 13 Jul 2021 17:00:39 -0400
-Received: from flipiebwealthmgs.xyz (ec2-100-25-23-12.compute-1.amazonaws.com [100.25.23.12])
-        by host.flipiebwealthmgs.xyz (Postfix) with ESMTPA id 5708B10C4DAE
-        for <linux-sparse@vger.kernel.org>; Tue, 13 Jul 2021 23:31:46 +0300 (MSK)
-DKIM-Filter: OpenDKIM Filter v2.11.0 host.flipiebwealthmgs.xyz 5708B10C4DAE
+        Thu, 15 Jul 2021 13:28:27 -0400
+Received: from mail-qk1-x731.google.com (mail-qk1-x731.google.com [IPv6:2607:f8b0:4864:20::731])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id C15FDC06175F
+        for <linux-sparse@vger.kernel.org>; Thu, 15 Jul 2021 10:25:32 -0700 (PDT)
+Received: by mail-qk1-x731.google.com with SMTP id s193so5924527qke.4
+        for <linux-sparse@vger.kernel.org>; Thu, 15 Jul 2021 10:25:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=flipiebwealthmgs.xyz; s=default; t=1626208306;
-        bh=9G86e92kIq/Gm9ou9607oUaenJE7el5MfLTN8tJRQJU=;
-        h=Reply-To:From:To:Subject:Date:From;
-        b=gFoLU6SLhLy6af5zxLgEAczYk3k9Y9f+m/saBOS2wJ3g23vpYXxOAoU4J+ghbwed0
-         YkHd51E56/fhadIEZ5phCxsDYWykYWu1ZqRAU3gIRXiTv2djvyxmoiaxYv+0cqii3t
-         fCN5bKYM1Rmk2CxMizAcijh9m5R5jCjR8WUDba7M=
-DKIM-Filter: OpenDKIM Filter v2.11.0 host.flipiebwealthmgs.xyz 5708B10C4DAE
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=flipiebwealthmgs.xyz; s=default; t=1626208306;
-        bh=9G86e92kIq/Gm9ou9607oUaenJE7el5MfLTN8tJRQJU=;
-        h=Reply-To:From:To:Subject:Date:From;
-        b=gFoLU6SLhLy6af5zxLgEAczYk3k9Y9f+m/saBOS2wJ3g23vpYXxOAoU4J+ghbwed0
-         YkHd51E56/fhadIEZ5phCxsDYWykYWu1ZqRAU3gIRXiTv2djvyxmoiaxYv+0cqii3t
-         fCN5bKYM1Rmk2CxMizAcijh9m5R5jCjR8WUDba7M=
-Reply-To: jothamasuku10@flippiebeckerwealthservice.com
-From:   Jotham Masuku <jothamasuku10@flipiebwealthmgs.xyz>
-To:     linux-sparse@vger.kernel.org
-Subject: Project
-Date:   13 Jul 2021 20:31:46 +0000
-Message-ID: <20210713203146.9608EB9823F83EC5@flipiebwealthmgs.xyz>
-Mime-Version: 1.0
-Content-Type: text/plain;
-        charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+        d=gmail.com; s=20161025;
+        h=mime-version:reply-to:from:date:message-id:subject:to;
+        bh=Ibb5KNEw1DKqJEg9n4gJy5KnzVasBofn6QaWYsu9UCQ=;
+        b=VEbievBeLXzXz2IFTCJlfsSW3SGnPx5BRLHAunZVXukgfJX3HSSAUxCtdiKf61hv/8
+         dEjk1vTJjxHihT0WA1OL/uEOLbisu+eOZ9QBM+pSgOr0g3iviST/L7UaXer3M8NeFmjI
+         cUcDXANijM5RzePSgHNEUg4tiAZJvw7xY2717+o5bCXGYbN3j0in5RSdJSiv5QmZpfXV
+         xJwXiiE0C1Gs4ldNfG+SItE+RoyPJtAgR4hB34JMXRrPZxzy82ifiVVChBVQnRUKYafC
+         pLvyRURLCMNCEs5zTTafGrQe1zI12ARsnWy7gNJNMcFCKTa1+89JJPFI0mohmLMeae0x
+         ASdQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:reply-to:from:date:message-id
+         :subject:to;
+        bh=Ibb5KNEw1DKqJEg9n4gJy5KnzVasBofn6QaWYsu9UCQ=;
+        b=Ff8SZJdD6G/QOCWE7Gn/SdHOp2EOKEdoVv7i6uZahRmtb1ooIiT5msOoLa9UzJi0TM
+         TF+M4OCB7A5Mc2k4TykeKYuKEQG5lLbbQeEclVT0o0uEi+u/TE69Fgs69vOnCP2Tio3w
+         ycqCPUCsJ2GWVLemSUO8ogogFkJNArhmGKlvEd1UwLprq5qo9ycpdgtYE+ipKMtxZIdU
+         0JbYCW6CWoAM6Y/nm3tSNE3AjIYqw5SvlmpBqEvzJW0saCb+MO0ROSOQfdPZ9CnjnJbx
+         JIzC67kB/nR1sbj66jTzczai+8p1E8mls1dc78qyReVX/76CGB3YpDWhA/x46dcsF/19
+         80wg==
+X-Gm-Message-State: AOAM533xpcawQSsfjqoZjAcbX60mvlllQmxvkWJ+d/c+5qWC+F/waHIf
+        qXBzXbPGxwaaAee2N7Qtm1mRzBZqMsqNYoN+xnA8FgQVK7I8zTQG
+X-Google-Smtp-Source: ABdhPJyVA6gR/njuabWs2C2fW8gelCsYJFEl6/1qckwAKb5sFvak5SWUy5PHC6/Yk0GlmffBpcH6FQwcd62hdQoqBbA=
+X-Received: by 2002:a37:9947:: with SMTP id b68mr5263725qke.56.1626369920992;
+ Thu, 15 Jul 2021 10:25:20 -0700 (PDT)
+MIME-Version: 1.0
+Received: by 2002:a0c:e502:0:0:0:0:0 with HTTP; Thu, 15 Jul 2021 10:25:20
+ -0700 (PDT)
+Reply-To: faty.muhamad@gmail.com
+From:   Ms Fatima Muhammad <steveokoh.fedexdeliveryagent@gmail.com>
+Date:   Thu, 15 Jul 2021 17:25:20 +0000
+Message-ID: <CAFKwDuBfMzCdHqoenSL2rqjnW5tE27dPjiWKbgxM_hjsa-G7pg@mail.gmail.com>
+Subject: Hello Dear
+To:     undisclosed-recipients:;
+Content-Type: text/plain; charset="UTF-8"
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-Hello there,
+Hello Dear,
 
-I hope this message finds you in good spirits especially during=20
-this challenging time of coronavirus pandemic. I hope you and=20
-your family are well and keeping safe. Anyway, I am Jotham=20
-Masuku, a wealth manager working with Flippiebecker Wealth in=20
-South Africa. I got your contact through a b2b online business=20
-directory when searching for business minded people in your=20
-country. I am contacting you because one of my high profile=20
-clients is interested in investing abroad and has asked me to=20
-look for individuals and companies in your country with=20
-productive business ideas and projects that he can invest in. He=20
-wants to invest a substantial amount of asset abroad. I thought I=20
-should contact you to see if you are interested in this=20
-opportunity.
+My name is Ms.Fatima Muhammad., Please forgive me for stressing you
+with my predicaments and I sorry to approach you through this media
+because is serves the fastest means of  my communication right now,
 
-I have decided to keep this proposal very brief for now but I=20
-will be happy to share more information and details upon=20
-receiving a response from you to indicate your interest. I am=20
-looking forward to hearing back from you so that we can plan a=20
-strategy that will be beneficial to all parties. Please be kind=20
-to also provide your direct contact telephone number for a verbal=20
-discussion.
+I came across your Email from my personal search and I decided to
+contact you believing you will be honest to fulfill my business
+proposal which I believe that will be a very good opportunity for both
+of us. Please it is my pleasure to contact you today for a business
+partnership investments projects worth $4.6 million USD which I intend
+to establish in your country..
 
-Best regards
+Pls If this business proposal offends your moral and ethic values do
+accept my apology. therefore kindly contact me immediately if you are
+interested for more details.
 
-J Masuku
-Flippiebecker Wealth
+Thank you for your wiliness to help me
+Yours Sincerely Fatima Muhammad
