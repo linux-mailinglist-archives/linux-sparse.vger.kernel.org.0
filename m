@@ -2,47 +2,45 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id C3F0B3CB50D
-	for <lists+linux-sparse@lfdr.de>; Fri, 16 Jul 2021 11:09:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id AB8BF3D2D5A
+	for <lists+linux-sparse@lfdr.de>; Thu, 22 Jul 2021 22:09:53 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231506AbhGPJLB (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Fri, 16 Jul 2021 05:11:01 -0400
-Received: from cloud-aed787.managed-vps.net ([78.142.47.245]:41366 "EHLO
-        cloud-aed787.managed-vps.net" rhost-flags-OK-OK-OK-OK)
-        by vger.kernel.org with ESMTP id S230163AbhGPJLB (ORCPT
+        id S231154AbhGVT3R (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Thu, 22 Jul 2021 15:29:17 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:40482 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S230429AbhGVT3P (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Fri, 16 Jul 2021 05:11:01 -0400
-X-Greylist: delayed 41541 seconds by postgrey-1.27 at vger.kernel.org; Fri, 16 Jul 2021 05:11:00 EDT
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-        d=mnminfrasolutions.com; s=default; h=Content-Type:MIME-Version:Message-ID:
-        Reply-To:From:Date:Subject:To:Sender:Cc:Content-Transfer-Encoding:Content-ID:
-        Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
-        :Resent-Message-ID:In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:
-        List-Subscribe:List-Post:List-Owner:List-Archive;
-        bh=hTyryXS4HlvJ8bHUhGb9fwP/5HOFya+uWalOkYKDwwU=; b=jtsplIa68J7+Kf874GjW4vNpAi
-        lyZuLa1pdGswDxQ1/QAu8CuHEcM5mT2Bia7Fv3LCs9LmOfgkbJuRm18xCGfpjUZHH5i7G3ewCypGd
-        JlH/lM8CcAoMp9m2Xc/3WGUiAaJJl0o54vzMZea9Y4uvIbxSoEwzz/U/bSveNAnXno0cYQRhGBp8j
-        pfBljQjSHJzf2BC2ua5WIyLFt9Gctn1kmcM/tvbv0HJPkI+tdxpt/t+mgjbXARWa4Q14smkp9/Sr+
-        ngpXk260mqWVHf4KO+bJio3h8v5S7ZDz3AEd5xZEfLOPFy01aJnhbgXjujOlm0wDarTiBOp9Wwmt8
-        5dj2n18g==;
-Received: from mnminfrasolution by cloud-aed787.managed-vps.net with local (Exim 4.94.2)
-        (envelope-from <support@mnminfrasolutions.com>)
-        id 1m491E-0003DT-Ti
-        for linux-sparse@vger.kernel.org; Fri, 16 Jul 2021 00:35:44 +0300
-To:     linux-sparse@vger.kernel.org
-Subject: PLEASE GET BACK TO ME NOW
-Date:   Thu, 15 Jul 2021 21:35:44 +0000
-From:   Barrister <support@mnminfrasolutions.com>
-Reply-To: barristervalentines@gmail.com
-Message-ID: <e0e7a389a06f2e6eabdab5ce5d3c2c8f@mnminfrasolutions.com>
+        Thu, 22 Jul 2021 15:29:15 -0400
+Received: from 68-252-206-104.staticrdns.eonix.net (unknown [IPv6:2607:ff28:b005:2a:ec52:75ff:fe50:d321])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTP id 677C0C061575;
+        Thu, 22 Jul 2021 13:09:50 -0700 (PDT)
+Received: from User (localhost [IPv6:::1])
+        by 68-252-206-104.staticrdns.eonix.net (Postfix) with SMTP id DC7298F1F52;
+        Mon, 19 Jul 2021 22:13:42 -0400 (EDT)
+Reply-To: <mrs_hannah@rediffmail.com>
+From:   "Mrs. Hajia Hannah Ahmed" <info@247vidz.com>
+Subject: Re: I WANT TO INVESTMENT IN YOUR COUNTRY?
+Date:   Tue, 20 Jul 2021 05:13:14 -0700
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain;
+        charset="Windows-1251"
+Content-Transfer-Encoding: 7bit
+X-Priority: 3
+X-MSMail-Priority: Normal
+X-Mailer: Microsoft Outlook Express 6.00.2600.0000
+X-MimeOLE: Produced By Microsoft MimeOLE V6.00.2600.0000
+Message-Id: <20210720021342.DC7298F1F52@68-252-206-104.staticrdns.eonix.net>
+To:     unlisted-recipients:; (no To-header on input)
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-Dear Friend,
-How have you been i have been trying to email you for a very long time, but you haven't been responding, Please as soon as you get this message reply me now i have a good news for you thanks.
-
-Barrister Valentine Esq
-
+Attn:
+ 
+I am Mrs. Hajia Hannah Ahmed I am a Widow and member of the contract award committee and 14 project allocation manager, of the Department of Minerals and Natural Resources in Syria;
+ 
+Due to the war in Syria, I am in search of an agent or company to assist me to invest my fund  (USD$35Million) and subsequent investment in properties in your country. You will be required to. If you decide to render your service to me in this regard, 30% of the total sum of USD$35M will be given to you for your service. 
+ 
+Yours Faithfully,
+Mrs. Hajia Hannah Ahmed
