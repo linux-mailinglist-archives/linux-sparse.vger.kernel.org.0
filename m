@@ -2,53 +2,75 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 1C20A3DB4D0
-	for <lists+linux-sparse@lfdr.de>; Fri, 30 Jul 2021 10:00:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id BDC3E3DCF7F
+	for <lists+linux-sparse@lfdr.de>; Mon,  2 Aug 2021 06:24:46 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S237888AbhG3IBC (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Fri, 30 Jul 2021 04:01:02 -0400
-Received: from mail.tradeias.com ([212.237.11.189]:33210 "EHLO
-        mail.tradeias.com" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230240AbhG3IBB (ORCPT
+        id S230423AbhHBEYp (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Mon, 2 Aug 2021 00:24:45 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43844 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S232252AbhHBEYn (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Fri, 30 Jul 2021 04:01:01 -0400
-Received: by mail.tradeias.com (Postfix, from userid 1001)
-        id E9B4AA3739; Fri, 30 Jul 2021 09:00:47 +0100 (BST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=tradeias.com; s=mail;
-        t=1627632055; bh=tegSUSO8UdW4nPAN+CTxUCS0b4WeMgxljdiMdwCnwbk=;
-        h=Date:From:To:Subject:From;
-        b=qdlfViUMiAARwZkQN3L/Yz0KCmf66LcExLRUWnjqui1dBcf/4AdPZXknEBrjCKdPQ
-         wvQm2KNUItzSLBVPgekyWsmuiN1+bXxP9cCFDHmmSzsAP1Zcfy7aLI1TBsz+YnYs02
-         cnbQyYkYCmjyxtJRqt4ZeMs6ZfO9ljZ33Vc9zodWE4jL79uvRWZx6XCIBjRjE/cHlv
-         j0wcOs8AMVTzZ9pJ2AZex2eTrbDuHGfctEMs2rfMnn8QD4uik8KD6a6RLOw13BhoDP
-         gNYHnWRNVo8F1U5UA6Rz1sU8UOwWIwh+CoVyAzLM5kj1wmKZSKqK5+JRFU8xUGu0t2
-         /rdYyZcd2D/WQ==
-Received: by mail.tradeias.com for <linux-sparse@vger.kernel.org>; Fri, 30 Jul 2021 08:00:42 GMT
-Message-ID: <20210730074500-0.1.39.9jyj.0.39aff6w157@tradeias.com>
-Date:   Fri, 30 Jul 2021 08:00:42 GMT
-From:   "Alarico Veloz" <alarico.veloz@tradeias.com>
-To:     <linux-sparse@vger.kernel.org>
-Subject: Servicio de la flota
-X-Mailer: mail.tradeias.com
+        Mon, 2 Aug 2021 00:24:43 -0400
+Received: from mail-ej1-x641.google.com (mail-ej1-x641.google.com [IPv6:2a00:1450:4864:20::641])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 91FE2C0617A5
+        for <linux-sparse@vger.kernel.org>; Sun,  1 Aug 2021 21:24:33 -0700 (PDT)
+Received: by mail-ej1-x641.google.com with SMTP id h9so13284391ejs.4
+        for <linux-sparse@vger.kernel.org>; Sun, 01 Aug 2021 21:24:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=mime-version:reply-to:from:date:message-id:subject:to;
+        bh=JbMtpdZj7sghISs4e5T5yryQDvERMuYalazmdQP0RcA=;
+        b=WDq9P0bY1AsY9kO7VoQiuEkd/+xeN2uAzVka1J/B7YABFMMcv9zsRMDuUzGU3t7LVq
+         x60AdfwMQPfhhBT91CFmxmNgG6fRcK6BFaIDqx+Ms1vLOgOAYNOd4Xbt+10CNKTcRAMK
+         KeTYcmNC0bNtdVd3yLIRxS8Pr5sLxpts2NC88pKkxuGBDjkmUnJislac8lDy7dNnd85N
+         dz7rwNTEXx7I9NqC47E4asccGsO9/P6huztRZkI4lkvRJ5hB7XcOxioVdhTGqNDSXebW
+         Md0Dh2ya6SQXgvhbdFNsJy7D030uG2HCPIxJG2TxztPigkWx+ZXfNLX+hVWs0ri0sCK7
+         k48A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:reply-to:from:date:message-id
+         :subject:to;
+        bh=JbMtpdZj7sghISs4e5T5yryQDvERMuYalazmdQP0RcA=;
+        b=D6FycNrlyLe8H1+H1STR1pKp4yofinzeDjPeHKzdPhL6DmdrldbNt+GNG9hJqSh70d
+         qAxFfh6GbWWopWciJXryVsxoAatnwdTyTNAn20Exw2cInznISVjk1PoC+XxShkW5ec2F
+         HTVnBqepDEOxFbZNSSkKeHsFySnK0PIwAqay33Yzz4rwmq9WLyH/mYF0toIUSnXhSgdR
+         ko35IS60dfU4dFIf7ItJlJOmZSi1onYNILfWLShKYOGQ+UVdrTjpG02AT8Y0nt0XuCuo
+         qIIXRii8hvRCs65G8GU8sHtaM3eyiRVOkFPsGn+o0Uyv3TqOhDFFR5UGxOoVOJ9hWVR7
+         +GrQ==
+X-Gm-Message-State: AOAM532K2V074xqfDX4CR540m0IVBKn8WpVDYQ5rcFyyYpdhRKx6Gx+M
+        +VjlVghSOtX4Tnh5thW8jzyzJQf27I/5jW3PGZQ=
+X-Google-Smtp-Source: ABdhPJyge6CE4/3PK9Ai4ltivb6MMxmm7LTQ2s8bjzS0dUrr9KzpIrZxfzN76q9x5Xx6YjpKdH1irFSuudYhIT6knzs=
+X-Received: by 2002:a17:906:3b87:: with SMTP id u7mr13818454ejf.66.1627878272087;
+ Sun, 01 Aug 2021 21:24:32 -0700 (PDT)
 MIME-Version: 1.0
+Received: by 2002:a17:907:d0b:0:0:0:0 with HTTP; Sun, 1 Aug 2021 21:24:31
+ -0700 (PDT)
+Reply-To: ablahikazabl67@gmail.com
+From:   Abdoulahi Kazim <drwilliamcuthbert@gmail.com>
+Date:   Mon, 2 Aug 2021 05:24:31 +0100
+Message-ID: <CAKwBCXtg5uyf7Jb2AAcE1ghxD-+sCDTGfZ6n10fsvHdbE918iA@mail.gmail.com>
+Subject: More Authentic Information
+To:     undisclosed-recipients:;
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-Buenos d=C3=ADas:
+-- 
+Dear Partner,
 
-Le escribo para hablarle sobre una de las mejores herramientas GPS en el =
-mercado.
+I am soliciting your partnership to relocate $12.5 Million to your
+country for investment on my behalf and you will be entitled to 30% of
+the sum once the transaction is successful made.
 
-La herramienta, que me gustar=C3=ADa presentarle brevemente, dispone de m=
-uchas funciones =C3=BAtiles para su trabajo, que optimizan los procesos d=
-e transporte y le ayudan a realizar tareas de campo de manera m=C3=A1s ef=
-iciente.
+Please indicate your genuine interest if you are capable so that i
+will send you the authentic details and documents of the transaction
+in awareness with some of my fellow Directors in the bank.
 
-=C2=BFQuiere conocer los detalles?
+If you are interested, here is my private Email address:
+(ablahikazabl67@gmail.com)
+For more authentic and legit information.
 
 
-Atentamente,
-Alarico Veloz
+Regards :  Abdoulahi Kazim
