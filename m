@@ -2,61 +2,87 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 908A13E9160
-	for <lists+linux-sparse@lfdr.de>; Wed, 11 Aug 2021 14:32:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 7A81F3EAE20
+	for <lists+linux-sparse@lfdr.de>; Fri, 13 Aug 2021 03:25:20 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230385AbhHKMcu (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Wed, 11 Aug 2021 08:32:50 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:55970 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S231726AbhHKMcg (ORCPT
+        id S238143AbhHMBZp (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Thu, 12 Aug 2021 21:25:45 -0400
+Received: from out5-smtp.messagingengine.com ([66.111.4.29]:36753 "EHLO
+        out5-smtp.messagingengine.com" rhost-flags-OK-OK-OK-OK)
+        by vger.kernel.org with ESMTP id S238173AbhHMBZo (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Wed, 11 Aug 2021 08:32:36 -0400
-Received: from mail-oi1-x22e.google.com (mail-oi1-x22e.google.com [IPv6:2607:f8b0:4864:20::22e])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 3B856C08E9B3
-        for <linux-sparse@vger.kernel.org>; Wed, 11 Aug 2021 05:30:34 -0700 (PDT)
-Received: by mail-oi1-x22e.google.com with SMTP id be20so4276451oib.8
-        for <linux-sparse@vger.kernel.org>; Wed, 11 Aug 2021 05:30:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=mime-version:reply-to:from:date:message-id:subject:to;
-        bh=77BwqRII9XCweQU8IJul6unijI/BEL+vUJmVmCRLxH4=;
-        b=nFX2iyV8Qzv5VsUpkp+XCZa2rMildRgp4rmfs3/i85r3diZKl8jKG090hSg6ULd5u0
-         wIUSHLA1AmXndyReLtv1chzdu754A+Ph1wh/vfIxRjmTWJBsEDXYNbyV2L9uurl7rygw
-         3BEum9dkaxKey+Q+UMRctjDwuKQ1YXcRTKc1UUkneSCjfxqWrboBTOfNkJIzK5BsdQWa
-         4ApOxxKRhIhdaQEWowgLF5+CTQczgHFusP4oeusQUd6ved7FHPiMHEi1ZA8iFV2rLfKi
-         fjv9vsAR1EzF12CgxEwzjmHIzUqCG96Sjm8KNwWILsHtKg9/nTHJHDOvwQ9NbYqFW4uy
-         uTIQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:reply-to:from:date:message-id
-         :subject:to;
-        bh=77BwqRII9XCweQU8IJul6unijI/BEL+vUJmVmCRLxH4=;
-        b=ro7ksF1irBCFkFFe+YJCxsIwSBLUL+AsJzAES5Elwxvqnaj1dDqUx6LL8ma8aCUszs
-         cHEdQnSQtnfxuxpxfhH3f91wcxsi3dE6nH+z9OrTnP6aDk4qcRspQsVQcc3X9R2DJTIg
-         ZBtuxma1XrGC3neEK53tLq82FIaYqriLDW+ESAhLXXGm3iXCbPpN6C+SXlhGxNwzhd/P
-         WK0vhGwa/osRAIDx8PIQxThubU1M30vTx/zu1MY9mri1jJyAp6BmeSjRkMiQaMI3UFVa
-         50Zp1FV8K2IcGMSZWJFBVt8zE/W2l5ZnwIo9lJXJWQ12g2PN9X/2GiLLq+8fwEVs++Rt
-         6/TA==
-X-Gm-Message-State: AOAM532uH1wFXoeaRw4Q4XY+29Q3InztXu9nUWmsX66TYZeSgUbIP4RR
-        wbswSdq827KdZ+8Iq0iO8CZgF9OXEW5sR1JnAi8=
-X-Google-Smtp-Source: ABdhPJxSi33xoEoIXQryMK7AlPvsXum9+Uhn2FA5SmsaT4s7SDGDeViE6wxc5zRdGly1PhBzYc0n/cZJtjhPnV2BKH4=
-X-Received: by 2002:aca:f306:: with SMTP id r6mr23008947oih.165.1628685033420;
- Wed, 11 Aug 2021 05:30:33 -0700 (PDT)
+        Thu, 12 Aug 2021 21:25:44 -0400
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+        by mailout.nyi.internal (Postfix) with ESMTP id 0AF685C00F9;
+        Thu, 12 Aug 2021 21:25:18 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+  by compute4.internal (MEProxy); Thu, 12 Aug 2021 21:25:18 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=naive.systems;
+         h=from:to:cc:subject:date:message-id:in-reply-to:references
+        :mime-version:content-transfer-encoding; s=fm3; bh=Hn7aVL7bQM6Yw
+        k/Oi1gOF27Zgvko1Fiu2adWcnKtgUM=; b=TjkcQItr379MhzV71R2FTTjhIjerS
+        XTCbe7j1cX2tNvJBevQeqjkAahHFuoggDeBRmtbcUU6bvBv2UiZwupxDkRoXfjkR
+        EGYM9AIzxV0v63MWQiwDR6TdDdEOJ/9Nvu+20lpNnmkcGDkOgu4+saEEt1ZP8QbV
+        3DokqBO/KoY1VPVY5oSBrbE6hlmgPfae7CEnLuliwpJMyFrZj28aqOcDC4ZhQZm7
+        TuPdEC9g92upNn157OVP2ydncgcfnOil/phiUx7PnlwuHg4jLojEU7qwO8Inrjh8
+        LPFfvi42t3SM49cxPdcmCG/V2sDeYJ0nko3lz9y1RkWZwqb0f+ijibcgA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+        messagingengine.com; h=cc:content-transfer-encoding:date:from
+        :in-reply-to:message-id:mime-version:references:subject:to
+        :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+        fm3; bh=Hn7aVL7bQM6Ywk/Oi1gOF27Zgvko1Fiu2adWcnKtgUM=; b=a8UfVO4m
+        WAyF870VVdvvVXM4Vt1RhlVoWlTSJ4m/3hCKnS+Omdm5xGhNytdTxT39Ty4tglnW
+        Ut71xxCVJmOP5OukS8TqrexPC52001Le+9Re+Cu4CSk1XAvCjQi9sKt2YcEJKDoh
+        HVSbBsualREiOatCk/1XLt4QwAMbHFAqN5sjaGakkJHTFinE2IucdHagaXmVfup+
+        mxA1x6cePQ+ECRdfzdBO/WSXch4ICDiPobbkW2b68y6Wyf3MVfDYSVQqnjYCFPU6
+        p/J2bHb0WXUZVNTXvBLG8x80L6bEToRGcoXGdijmuZhWz7Qiv4LQ4Hf64tksHKMe
+        O4kbNaXWUBSIHA==
+X-ME-Sender: <xms:_ckVYSFYoB_72vk19w3w25vaE-JGuDNgUDHtwGUxUmnyCnHCbH6QSw>
+    <xme:_ckVYTVI1apvQHLoSoR5gKxSXCGNqvfjTCkEO9Ko5MSPgwvXdeRemHvQ_EpK_tamE
+    AEvYyDQSFogS1bw0n0>
+X-ME-Received: <xmr:_ckVYcK069lDZywO06tsKOa2UqjosIyNtPqhbaFHUJ0-eBFI0VOgpTu_0BSTmKSOex1hlsm03Hgo-s_oN25neM4onppOhkqiVsQM-wfEMp5XEW8ofg>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvtddrkeeggdegiecutefuodetggdotefrodftvf
+    curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
+    uegrihhlohhuthemuceftddtnecunecujfgurhephffvufffkffojghfggfgsedtkeertd
+    ertddtnecuhfhrohhmpefmvgcuffhuuceoughukhgvsehnrghivhgvrdhshihsthgvmhhs
+    qeenucggtffrrghtthgvrhhnpeetueetueffvdeufeevhfdvgfduhfegjeehkeefffdtle
+    eftdekkefgveffteetheenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgr
+    ihhlfhhrohhmpeguuhhkvgesnhgrihhvvgdrshihshhtvghmsh
+X-ME-Proxy: <xmx:_ckVYcGufbFZswaa89XWtkpQL85AmdaeIcx0EkwLxmAhgen0eMXavQ>
+    <xmx:_ckVYYWStDHVP9YgEG2ui5hM7QSxgPB2SRIRPB4UDur0nOKAX-6RSA>
+    <xmx:_ckVYfN8CE-v1Ii1BLohV69REaZmiu3ljhVhjF_uUYB7DeISyLoObQ>
+    <xmx:_skVYTdx-SyaTlJXsFdzplHRh1xjj4KNw1gXMS6Hj74GfrpxmtbAMA>
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 12 Aug 2021 21:25:17 -0400 (EDT)
+From:   Ke Du <duke@naive.systems>
+To:     luc.vanoostenryck@gmail.com
+Cc:     linux-sparse@vger.kernel.org, Ke Du <duke@naive.systems>
+Subject: [PATCH 0/2] fixes for using sparse as a C++ library
+Date:   Thu, 12 Aug 2021 20:25:09 -0500
+Message-Id: <20210813012511.65397-1-duke@naive.systems>
+X-Mailer: git-send-email 2.31.1
+In-Reply-To: <20210726182822.ylmd3vtm44txowoi@mail>
+References: <20210726182822.ylmd3vtm44txowoi@mail>
 MIME-Version: 1.0
-Received: by 2002:a05:6830:23a5:0:0:0:0 with HTTP; Wed, 11 Aug 2021 05:30:32
- -0700 (PDT)
-Reply-To: rihabmanyang07@yahoo.com
-From:   Rihab Manyang <ndourandiogou1@gmail.com>
-Date:   Wed, 11 Aug 2021 13:30:32 +0100
-Message-ID: <CAP5_mB4O7JPQr86GPAep=Ynd-Yb8pks_-mRAKZxGu6O8ZzfAKA@mail.gmail.com>
-Subject: hi
-To:     undisclosed-recipients:;
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
--- 
-How are you?I am miss.Rihab Manyang i will like to be your friend
-please write me back on my email for more details, Thanks.
+This series contain fixes to use sparse header files as C++ libaries.
+Please merge your previous changes you sent first, for this patchset
+depends on those changes.
+
+Ke Du (2):
+  expose more functions to C++ in header files
+  make implicit type conversion explicit
+
+ lib.h     | 4 ++--
+ ptrlist.h | 4 ++--
+ symbol.h  | 3 ---
+ token.h   | 5 ++---
+ 4 files changed, 6 insertions(+), 10 deletions(-)
+
+-- gst
+2.31.1
+
