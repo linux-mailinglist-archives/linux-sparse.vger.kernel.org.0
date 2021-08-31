@@ -2,73 +2,76 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 0C8893F92CF
-	for <lists+linux-sparse@lfdr.de>; Fri, 27 Aug 2021 05:18:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 8EE233FC797
+	for <lists+linux-sparse@lfdr.de>; Tue, 31 Aug 2021 14:51:47 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S244004AbhH0DRe (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Thu, 26 Aug 2021 23:17:34 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:37316 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S244098AbhH0DR2 (ORCPT
-        <rfc822;linux-sparse@vger.kernel.org>);
-        Thu, 26 Aug 2021 23:17:28 -0400
-Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com [IPv6:2a00:1450:4864:20::442])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id C9266C06179A
-        for <linux-sparse@vger.kernel.org>; Thu, 26 Aug 2021 20:16:37 -0700 (PDT)
-Received: by mail-wr1-x442.google.com with SMTP id t15so1962030wrg.7
-        for <linux-sparse@vger.kernel.org>; Thu, 26 Aug 2021 20:16:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=mime-version:from:date:message-id:subject:to;
-        bh=JcCnNkxtHweN6ApEPCItRB3oqJyAr4ORMY/4f0Zly6Y=;
-        b=CsW0Y/SHuWMiFtcpF6MZiEiUcENuNprVvRbnoWTSIuv9lg23KlvCRGB54LwD+ZmFFi
-         DluuztSFyq7H3WsFCGlLwy2GLHEY84veXAfFaTc+kTpmLZsiosLc/XMfjYVdm3I1Hs6D
-         YBt5IIKxetJJKTOcD5sGmURgxnhujG+HRYqRYWCncR4+bdfOe/yCvSkvZKe5uhvYcThH
-         8qjlV4CugtlOUhLITAHX5w8t/pAn7ge2doqcje40DQX2pTo152M2IoEtM0Y0kyn6xB3I
-         w8FlzfkESCbXhe3ZRSXtgtOFT7Qj5Bk7ikhUpRNq3bhxxYDsLkrrokaelf1gfWXU9XzL
-         oD8A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
-        bh=JcCnNkxtHweN6ApEPCItRB3oqJyAr4ORMY/4f0Zly6Y=;
-        b=CgmsGhJciXGQ/Jwr8gH782OSWRr+AVrjhb5tct+mgKYl6SE1Fxm296HUzbQg2rx8Ai
-         82A7J+Tnu+MetbI/9U8e/m3qqJgcFuAWdd1QD1QhSdqm9dHFT2mSlBMcC0j7HA86SUYr
-         lM7ZCvB+mNTDxsU227MJo61Awb2lReZpOzk5TZfiE5q4LxgOYNhuqJTZ0R/s1wq5/zuV
-         CdxaCicDOl04unuPAsE0F9LNtKmPj0xuLQ96et6JrHJQt7U+qCNNZDdaVsNuCreF4sdk
-         8D8VDslWtgcw6zhMuW0i/aARFlCimgcQQnyV/PPF9XFomk7WNxSRWOgvwsscKconQZ5n
-         qshA==
-X-Gm-Message-State: AOAM531cWfP6SUdhOkO8Bomj7+c4tq47FYWHn0h9DE8TxXUzM3CH22wX
-        LK9sO5oLcrB8/zPYrWV36DTqnZpaPi2QgkbvdzM=
-X-Google-Smtp-Source: ABdhPJxV0G3+3XIziQGinoR0YWe7KX/16sndknqNSx+8uxgpK67jJ9DSrW43CkFozbz3V9oQoY3+55xUJ4WtSnXVTDM=
-X-Received: by 2002:a5d:658e:: with SMTP id q14mr7531509wru.142.1630034196398;
- Thu, 26 Aug 2021 20:16:36 -0700 (PDT)
+        id S229785AbhHaMwl (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Tue, 31 Aug 2021 08:52:41 -0400
+Received: from mail.kernel.org ([198.145.29.99]:36558 "EHLO mail.kernel.org"
+        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
+        id S229625AbhHaMwk (ORCPT <rfc822;linux-sparse@vger.kernel.org>);
+        Tue, 31 Aug 2021 08:52:40 -0400
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 21EB460FC0;
+        Tue, 31 Aug 2021 12:51:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+        s=k20201202; t=1630414305;
+        bh=TQPMV3U/5zakHKE/1nq/VP5qxTdUIXTHApM/eB8UD6I=;
+        h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
+        b=QYQUBcysWV/uZX7ifeeFGYRTTrc/mcy6VgubAEEQgR19aoYq9bx2dvQL3bmDGErQ2
+         lSbfvaogyEUX+eXDNVYXsptrnZUCriQ4+yOSEC2C4olYCyVatu2TVmIX2gPXLo4AFw
+         dxkSqYgXpHmICgUKJCjNWQSmixhsG3rfSIzUUUFVhwiwd0q1Y7sIHR2QfYgCRc6s0v
+         GFGR0Sl3wW1YkV7on39+dvLeTEzNbXi522KgBPQmLK6DETtBcDXr5+zCvqkMhzPdyr
+         w8+ne3/6RNSfJkcuWw4oLXAKAtgsCddmh5GFaFhdLP9/Il1x3HXcywe7c3z3pOlf/M
+         8OV/whtnrLxPQ==
+Message-ID: <72eec6322944bc2fc91e053565fb27ee4aaa203f.camel@kernel.org>
+Subject: Re: new sparse release?
+From:   Jeff Layton <jlayton@kernel.org>
+To:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
+Cc:     linux-sparse@vger.kernel.org,
+        Luc Van Oostenryck <luc.vanoostenryck.ml@gmail.com>
+Date:   Tue, 31 Aug 2021 08:51:43 -0400
+In-Reply-To: <330ba271fdc21d5453702d4403be6f35b5e9dd76.camel@kernel.org>
+References: <c7963e9e4c7d5b91fc8bee9c9ae9a9c893664e0b.camel@kernel.org>
+         <20210726155045.fo6nh4lryln5sgxl@mail>
+         <330ba271fdc21d5453702d4403be6f35b5e9dd76.camel@kernel.org>
+Content-Type: text/plain; charset="ISO-8859-15"
+User-Agent: Evolution 3.40.4 (3.40.4-1.fc34) 
 MIME-Version: 1.0
-Received: by 2002:a1c:a341:0:0:0:0:0 with HTTP; Thu, 26 Aug 2021 20:16:36
- -0700 (PDT)
-From:   johno williams <johnow614@gmail.com>
-Date:   Thu, 26 Aug 2021 15:16:36 -1200
-Message-ID: <CADzD+E2n+KfnveydG72ZQSwpi0w=a5Hbgw8NQd2+_JzCt1Mv_g@mail.gmail.com>
-Subject: CONFIRM YOUR DETAILS TO ENABLE US START,
-To:     undisclosed-recipients:;
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-Dear Beneficiary,
+On Tue, 2021-07-27 at 08:48 -0400, Jeff Layton wrote:
+> On Mon, 2021-07-26 at 17:50 +0200, Luc Van Oostenryck wrote:
+> > On Mon, Jul 26, 2021 at 07:20:28AM -0400, Jeff Layton wrote:
+> > > It's been quite a while since we've had a new sparse release and there
+> > > are some fixes that I'd like to see in the fedora package. I could just
+> > > cut a release from a current git snapshot, but I don't want to do that
+> > > if there are any plans to do a release soon. 
+> > > 
+> > > Any idea when the next sparse release will be?
+> > 
+> > I've been quite a bit side-tracked lately and as such I had nothing
+> > really planned. But yes, it's been a while with enough changes already.
+> > I've a few minor fixes I would like to add and a bigger series (but
+> > one 'm not really happy with). I'll see what I can do n the next days
+> > but the idea would be to do a -rc next WE and the full release a few
+> > days later (so around Aug 5) if nothing serious come up.
+> > 
+> > Would this be OK for you?
+> > 
+> 
+> Yeah, sounds fine. No huge rush for any of this, to be clear, but it
+> would be nice to have an updated release in the near future.
+> 
+> Thanks!
 
-Following your pending fund for years and the delay you imposed in
-receiving it,We have called back your fund to this office as directed
-by the Finance Office and we will be paying you directly through the
-BANK OF AMERICA.(BOA) NEW YORK BRANCH AND ALL YOU NEED NOW IS TO
-RE-CONFIRM YOUR BANKING DETAILS FOR THE TRANSFER IMMEDIATELY WITHOUT
-ANY FURTHER DELAY.
+Hi Luc,
 
-NOTE THAT WE WILL PAY ALL THE EXPENSES INVOLVED FOR YOU TO RECEIVE
-THIS FUND AND ALL WE NEED FROM YOU IS YOUR CO-OPERATION.
+Just checking back in. Were you still planning to do an -rc for 0.6.4?
 
-Send your full details with Banking details to enable us commence the
-transfer process immediately through the BOA BANK IN NEW YORK,USA OR
-DO YOU WANT TO RECEIVE THIS FUND VIA ATM CARD ????????.
+Thanks,
+-- 
+Jeff Layton <jlayton@kernel.org>
 
-John O.Williams.
