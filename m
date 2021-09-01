@@ -2,182 +2,92 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id D3B8A3FD29F
-	for <lists+linux-sparse@lfdr.de>; Wed,  1 Sep 2021 07:02:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 3CD2D3FE1EE
+	for <lists+linux-sparse@lfdr.de>; Wed,  1 Sep 2021 20:11:43 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S241791AbhIAFCz (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Wed, 1 Sep 2021 01:02:55 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:38204 "EHLO
+        id S1346852AbhIASM0 (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Wed, 1 Sep 2021 14:12:26 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:53696 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230483AbhIAFCz (ORCPT
+        with ESMTP id S1346813AbhIASMU (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Wed, 1 Sep 2021 01:02:55 -0400
-Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com [IPv6:2a00:1450:4864:20::532])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 0F0E3C061575
-        for <linux-sparse@vger.kernel.org>; Tue, 31 Aug 2021 22:01:59 -0700 (PDT)
-Received: by mail-ed1-x532.google.com with SMTP id g22so1865944edy.12
-        for <linux-sparse@vger.kernel.org>; Tue, 31 Aug 2021 22:01:58 -0700 (PDT)
+        Wed, 1 Sep 2021 14:12:20 -0400
+Received: from mail-pf1-x432.google.com (mail-pf1-x432.google.com [IPv6:2607:f8b0:4864:20::432])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 712EDC061224
+        for <linux-sparse@vger.kernel.org>; Wed,  1 Sep 2021 11:11:22 -0700 (PDT)
+Received: by mail-pf1-x432.google.com with SMTP id g14so495050pfm.1
+        for <linux-sparse@vger.kernel.org>; Wed, 01 Sep 2021 11:11:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=date:from:to:cc:subject:message-id:mime-version:content-disposition;
-        bh=22Z7Vttl/DsWSxg2K3fwNLKgVGLe63cGsEZccICH2HQ=;
-        b=UARPnAkNhVmm7GvXQHbHmrmMK26DDspjcS5sWxJ/+bXYtCdCM5yyZZUopXtzqvjgTL
-         AuzrAVEGjFwBSwV8SHpPYYqsyjgJu3Y0/FS4cMC+VRFjcTyWPf+K/946EgOV+j/F1SDk
-         2KpBdn6qsBp/eGuxyRTQFd9zFP29qj7gJtVsC8uAs/Un7b1WYdIkAADZ7mStBTlcxxAZ
-         IDJYW/pRZYq4hYDj90DmTvPsfBxHao/TAtuex48vlIZGVrD5JbC439E6hZxikFdt35Lg
-         ebFsBOKgNqDMlveEiVHXxQHSNCpGcCrDdTsGvs35t3vE0UcZi2g/ckI97Z3fLQ9mCIBG
-         daEA==
+        d=gmail.com; s=20210112;
+        h=mime-version:from:date:message-id:subject:to;
+        bh=2joGkq8i8C5vglZO1FYNTlWqLyr4vSiCXKQYXBVnv4Q=;
+        b=LD3mpzy1s09M3e/Eheelu/QMtbN6lrYJQ+S1BsYhmG4zP9OQuKOeD1zHV2lZaK7Hdt
+         vXoBMumPRACuZhnwd8TYAFIvdImPe0Zn4DA41GnzHGsnpDZPE0wUFWVFNzgpxF6bh6D8
+         CVxTiiIN7w8BVpPirFLytZKK2cFqqV6q9qR8cw4XmdYYgGZs+MdnDeP+neEr/SbnLI2h
+         mwT6gqJ8+HvNCQei5Zu6b3U+/YcUOepEDfVn6t0IkNG5YzxTV8mH8IqZ4zEsqBchdgxI
+         E/zGH3KCiuS7UdfEMBVKPbpzhhPyh4quLRALvE4iCHtswqSZDgWUuzksodIw8OWwGR1Z
+         0RlA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:date:from:to:cc:subject:message-id:mime-version
-         :content-disposition;
-        bh=22Z7Vttl/DsWSxg2K3fwNLKgVGLe63cGsEZccICH2HQ=;
-        b=n05p9L6thigwtReWJjntEBWwV5TSDguulLZ8L5mfVPnS1ha112X5TnRK9A4QxLTYAX
-         PSe+6AiYIy4ukn01PXDLJ9P02Ez1UdiL0TyTFn1LAIwUh4zdW1wL3ekXqQ2l4wQpYnDx
-         qte7ODVPdynBNxp7ZAoYUjc761iCP0oODMcqaHh6t8gurqgzNi2VAuVClX+Nl/supEae
-         2IUYQSqvFBkMqpQJxsiT1skYdGZjgDZfnb+iDl3qkmEhbCGT1mlZb5dN0WPmhoMCaDSI
-         egElpe29FnxqwNzjBCYgmfCVq0rVXn5CTjmSkfBOs2+RmbsQg7MUf6sVIpMdI6L1OwAy
-         TuGQ==
-X-Gm-Message-State: AOAM530Q8W+Ks7sDku4Yz10yHWc3wplj4d6TTm/6dJr9iMbvNcETZm/w
-        IXgk8d6TEVVyUyFDv8mp/LOeLQgRKIE=
-X-Google-Smtp-Source: ABdhPJwqh1SLybogI+JLJRdbP/EHpcTv22XBcpVJ4Y8SRuYIr8R47Jygkg2BHuFpDZCt/JGAYPJK3A==
-X-Received: by 2002:a05:6402:2708:: with SMTP id y8mr34022391edd.84.1630472517590;
-        Tue, 31 Aug 2021 22:01:57 -0700 (PDT)
-Received: from mail ([2a02:a03f:b7fe:f700:b8a9:48b7:67d9:7826])
-        by smtp.gmail.com with ESMTPSA id eg14sm10507997edb.64.2021.08.31.22.01.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 31 Aug 2021 22:01:57 -0700 (PDT)
-Date:   Wed, 1 Sep 2021 07:01:56 +0200
-From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-To:     linux-sparse@vger.kernel.org
-Cc:     Jeff Layton <jlayton@redhat.com>
-Subject: [ANNOUNCE] Sparse v0.6.4-rc1
-Message-ID: <20210901050156.nzzi7dzcwjw4lsj4@mail>
+        h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+        bh=2joGkq8i8C5vglZO1FYNTlWqLyr4vSiCXKQYXBVnv4Q=;
+        b=GJ7rBjarQssEo3rJSA7fJp07Jc4koWbPfetSAaoZycQjo5cR3VG0nYrhDEhvcEUnt2
+         APACQLHXvB1pSkuuMqnEnNXDU4kdbjbtMZM2Av8ZYi7iJjrEQX6xdBnXtNGCqpHOJh1v
+         8jPfnl3aQ4t65IStcup6i+DozqDqLMcfRRuUw29MVAS6Uj5GwJXr6DKGx7EK7m2+JANk
+         wTkPw0OgpWx0HJ98JOYtiwjafPbzwop3mdN/RBd85IMrKVqTb0RvKUnspSM28Kg7zcIg
+         sI0+9KtXgo2fcGuTKN8ktsOBej8AONlzVWnllNr4Y4kjyoyutXqp8eY3HY1x14FzZT5J
+         V6KQ==
+X-Gm-Message-State: AOAM533hqxEGQFJ6az9Wo2e0ZvAZ24+lpzxpcbsONVicNict26OSsdMX
+        oTgp7SBzEsVCUK+sfOq0TrelBLvkxuCphkVO0uFPCiYggdY8mA==
+X-Google-Smtp-Source: ABdhPJwbbBYGjUEQSS3Bb7EfYk34O3AVuG22pVIF78fkATQG8c+PQmeHgcc35+YrriS74Wl5STB8JbzOasp+8kCVBlk=
+X-Received: by 2002:a67:8c5:: with SMTP id 188mr1017695vsi.4.1630519870726;
+ Wed, 01 Sep 2021 11:11:10 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Received: by 2002:ab0:740d:0:0:0:0:0 with HTTP; Wed, 1 Sep 2021 11:11:10 -0700 (PDT)
+From:   CorisBank International <corisbankintlbf@gmail.com>
+Date:   Wed, 1 Sep 2021 11:11:10 -0700
+Message-ID: <CA+25hwzjLgVdtDXYWeuqFBTvAbpc4oxK0dW54s7tjGNyU_m0ow@mail.gmail.com>
+Subject: CORISBANK INTERNATIONAL OFFICIAL NOTIFICATION
+To:     undisclosed-recipients:;
+Content-Type: text/plain; charset="UTF-8"
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-Sparse v0.6.4-rc1 is finally out.
-
-The source code can be found at its usual repository:
-   git://git.kernel.org/pub/scm/devel/sparse/sparse.git v0.6.4-rc1
-
-The tarballs can be found at:
-   https://www.kernel.org/pub/software/devel/sparse/dist/
-
-Many thanks to people who have somehow contributed to the 299
-patches of this release:
-   Ramsay Jones, Linus Torvalds, Kyle Russell
+Att: Client
 
 
-Release notes for v0.6.4
-------------------------
+CORISBANK INTERNATIONAL URGENT NOTIFICATION
 
-Fixes:
-  * build: fix version.h dependencies
-  * fix and complete the evaluation of atomic builtins
-  * fix some testcases related to bitfield manipulation
-  * llvm: fix crash with llvm-11 / use real phi-nodes
-  * fix: OP_INLINE should not use the function symbol
-  * fix testing if a OP_CALL's function is pure
-  * warn on all missing parameter types
-  * fix init_linearized_builtins()
-  * fix usage count in linearize_fma()
-  * linearize: fix a couple of 'selfcheck' warnings
-  * cfg: remove phi-sources when merging BBs
-  * cfg: remove phi-nodes when merging BBs
-  * cfg: add missing REPEAT_CFG_CLEANUP
-  * fix: rebuild dominance tree during CFG cleanup
-  * fix: drop qualifiers of casts and comma or statement expressions
-  * fix kill_insn(OP_SETVAL)
-  * fix trivial_phi() when the target is before the single value
-  * memops: fix wrong killing of stores partially dominated by a load
-  * memops: kill dead loads before phi-node conversion
-  * memops: kill more dead stores
-  * fix rem_usage() when the pseudo has a use list but is not PSEUDO_REG
-  * shut up a silly -Wmaybe-uninitialized warning
-  * fix add_join_conditional() when one of the alternative is VOID
-  * asm: fix killing OP_ASM
-  * asm: fix a test failure on 32-bit systems
-  * asm: output *memory* operands need their address as *input*
-  * asm: teach dominates() about OP_ASM
-  * fix the type in the assignment of 0 to a restricted variable
-  * fix SSA conversion of mismatched memops
-  * fix and improve the check that protects try_to_simplify_bb()
-  * fix remove_merging_phisrc() with duplicated CFG edges.
-  * fix null-pointer crash with with ident same as one of the attributes
+Notification / Notification/ Notification
 
-New:
-  * improve CFG simplification
-  * teach sparse about -funsigned-bitfields
-  * add a symbolic checker
-  * expand __builtin_object_size()
-  * let plain bitfields default to signed
-  * add support for __packed struct
-  * handle qualified anonymous structures
-  * move check_access() to late_warnings()
-  * let phi-sources to directly access to their phi-node
-  * small improvements to the ptrlist API
-  * warn when taking the address of a built-in function
-  * handle more graciously labels with no statement
-  * give an explicit type to compare's operands
-  * give a type to OP_SYMADDR
-  * add some notes about pseudos being typeless
-  * shrink struct basic_block
-  * pre-proc: strip leading "./" from include paths
-  * pre-proc: do some path normalization
-  * linearize __builtin_isdigit()
+Note, We are writing to inform you officially that Finally the Central
+Bank Financial Authority have approved to transfer your $8.2Million
+which was signed by late Mrs Rose Banneth the COVID.19 victim to
+transfer to you, Late Mrs Rose Banneth the France Lady contacted us to
+transfer her fund in our bank to you for Orphanage work before she
+died by the COVID.19
+and as it is now, you will receive your fund through our corresponding
+bank in Dubai [Emirate Investment Bank ] for security reason. Please
+you should reconfirm your details to receive the $8.2Million.
 
-IR Simplifications:
-  * simplify: essential OP_ADD & OP_SUB simplifications
-  * simplify and canonicalize unsigned compares
-  * simplify: basic unop simplifications
-  * simplify SEL(SEL(...), ...)
-  * simplify SEL(x == y, x, y) and friends
-  * simplify SEL(x, x, x) and SEL(x, 0, x)
-  * simplify & canonicalize compares
-  * simplify CBR-CBR on the same condition
-  * simplify unrestricted postop
-  * simplification of computed gotos with 1 or 2 targets
-  * simplify kill_insn() of unops and unop-ish instructions
-  * simplify: put PSEUDO_ARGS and PSEUDO_REGs in canonical order too
-  * simplify (~x {&,|,^} x) --> {0,~0,~0}
-  * simplify ((x cmp y) {&,|,^} (x !cmp y)) --> {0,1,1}
-  * simplify LSR + SEXT into ASR
-  * simplify and canonicalize signed compares
-  * simplify CMP(AND(x,M), C) and CMP(OR(x,M), C)
-  * simplify AND(x >= 0, x < C) --> (unsigned)x < C
-  * simplify TRUNC(x) {==,!=} C --> AND(x,M) {==,!=} C
-  * simplify of TRUNC(NOT(x)) --> NOT(TRUNC(x))
-  * factorize (x OP1 z) OP2 (y OP1 z) into (x OP2 y) OP1 z
-  * factorize SHIFT(x, s) OP SHIFT(y, s) into SHIFT((x OP y), s)
-  * factorize SEL(x, OP(y,z), y) into OP(SEL(x, z, 0), y)
-  * convert SEL(x & BIT1, BIT2, 0) into SHIFT(x & BIT1, S)
-  * canonicalize ((x & M) == M) --> ((x & M) != 0) when M is a power-of-2
+Name, Country, Address, occupations, Age, Telephone number, account
+Details so that we can immediately forward to the World Bank to
+transfer the fund.
+You are advised to comply on timely manner to permit this esteem bank
+transfer your fund as scheduled.
 
-Testsuite:
-  * testsuite: add new tags: check-output-{match,returns}
-  * testsuite: fix parsing of tags used in the testcases
-  * testsuite: add option '-r' to 'test-suite format'
+We look forward to serving you better
+Your Financial Comfort Is A Priority
+Thank you for choosing Corisbank International.
 
-Documentation:
-  * doc: fix: Sphinx's option ':noindex:' renamed into ':noindexentry:'
-  * doc: fix extracted autodoc when short description ends with a '?'
-  * doc: add some doc about using NULL or VOID in pointer lists
-  * doc: add some doc to flowgraph.h
-  * doc: extract doc related to simplification
+Sincerely,
 
-Cleanups:
-  * slice: small reorg of OP_SLICE in preparation for some incoming changes
-  * cleanup: removed an unused parameter for show_symbol_list()
-  * cleanup linearize_cond_branch()
-  * cleanup: remove unneeded REPEAT_SYMBOL_CLEANUP
-  * cleanup: no needs to use MARK_CURRENT_DELETED() for multi-jumps
-  * linearize: remove unneeded forward declarations
-  * linearize: only allocate call instructions when needed
+----
 
--- Luc
-
+Mr Diakarya Ouattara
+Managing Director
+Bank Coris
+Burkina Faso
++226 556 163 37
+financial_bf_info@accountant.com
