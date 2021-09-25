@@ -2,84 +2,60 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 60442415710
-	for <lists+linux-sparse@lfdr.de>; Thu, 23 Sep 2021 05:45:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id DF1F84184A9
+	for <lists+linux-sparse@lfdr.de>; Sat, 25 Sep 2021 23:26:54 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S239187AbhIWDp7 (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Wed, 22 Sep 2021 23:45:59 -0400
-Received: from mail.kernel.org ([198.145.29.99]:42362 "EHLO mail.kernel.org"
-        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
-        id S239078AbhIWDoK (ORCPT <rfc822;linux-sparse@vger.kernel.org>);
-        Wed, 22 Sep 2021 23:44:10 -0400
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 44EDC61038;
-        Thu, 23 Sep 2021 03:40:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1632368458;
-        bh=wshpeas/bLecEKGrLbRMPe2/oI9FuLRhGmWfRKrEC1Y=;
-        h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-        b=ZR5AeLNRkKbazBJBfOshRbvPOGfogCjDCgvpLWXWQ+jZxu/D7iL0bUQ5NQg4Zo02f
-         HmXHwLUU0OlVK4jRuR2mlA3acZ3Br94cUTB9ZPk5Dfu5QrEKouH/D68JdSidJUZZPn
-         678WcBgGxpDWs9N8cOseVoO5LXbYQb/kWtGj3aguMSuVS2M0jm0Q4DumByCLYhulxb
-         EfRmE1bcpUQMVl4OvNYCRqmVRVrvkgOf73jQXiVSqLEU7XHYCTXZ8LL0J08YpZAnTA
-         mT47M6cfDSai7igD66VImsGygkInHl6oWtS9tqa3VwlNna73mrR2drfYaJRA4VovXo
-         /DZ+6GjJZcFBg==
-From:   Sasha Levin <sashal@kernel.org>
-To:     linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Cc:     Guenter Roeck <linux@roeck-us.net>,
-        Linus Torvalds <torvalds@linux-foundation.org>,
-        Geert Uytterhoeven <geert@linux-m68k.org>,
-        Sasha Levin <sashal@kernel.org>, luc.vanoostenryck@gmail.com,
-        linux-sparse@vger.kernel.org
-Subject: [PATCH AUTOSEL 4.4 02/10] compiler.h: Introduce absolute_pointer macro
-Date:   Wed, 22 Sep 2021 23:40:45 -0400
-Message-Id: <20210923034055.1422059-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20210923034055.1422059-1-sashal@kernel.org>
-References: <20210923034055.1422059-1-sashal@kernel.org>
+        id S230005AbhIYV21 (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Sat, 25 Sep 2021 17:28:27 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:52524 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S229993AbhIYV21 (ORCPT
+        <rfc822;linux-sparse@vger.kernel.org>);
+        Sat, 25 Sep 2021 17:28:27 -0400
+Received: from mail-ua1-x934.google.com (mail-ua1-x934.google.com [IPv6:2607:f8b0:4864:20::934])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 00CAAC061575
+        for <linux-sparse@vger.kernel.org>; Sat, 25 Sep 2021 14:26:52 -0700 (PDT)
+Received: by mail-ua1-x934.google.com with SMTP id 2so9034968uav.1
+        for <linux-sparse@vger.kernel.org>; Sat, 25 Sep 2021 14:26:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=mime-version:sender:from:date:message-id:subject:to;
+        bh=hgT4oAwZMFFUQ1NzxnMVr2NDnKHzggnz3wBCr/9NkaQ=;
+        b=q0muMKyEPuYyhk48k7bR5OZUTr3wfFw+T40Fruw//sGUBFAbTxFlXqzyrwNpgberv5
+         Egd5/OPh5FhBiCWuecc2s3qgBcGjKhYclnlJhSMGCFMurhIjtX89O8DpV8A97l8avIvC
+         7rE2R2Mk2PyMGzXOjdfyFGoS6tIa76l9b2noK2GsN46c11+ByRtZWZOttuEh5uCpdpdw
+         OkHklJaaW/ZYgiDSvpIGls69SL3uThFFDAMLR5d30xaq08Fs4wV/rSlwa7S/+LoDn4G4
+         sCxy76BUfuAdb8dBaCaHTv+qkStoUpAO08KquE4mkH2gMjuWFN9ceMgQFy45/PM0bsRP
+         8rRg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:mime-version:sender:from:date:message-id:subject
+         :to;
+        bh=hgT4oAwZMFFUQ1NzxnMVr2NDnKHzggnz3wBCr/9NkaQ=;
+        b=bv3FM2we5B5ZXo2BTS7l+dMfKme2Ab77OnIvCY5Zo/1Vites+M3qaw+zGOMDXXI5uS
+         Ip9aImfgzpS1U7T4zRkku4Git0xmKD04BHD+OjAfe3LZbIjVlDS3y61YAVkaKTCu1wWN
+         YDPfqFuV3DBd8j0mxCtQhNhpvm3SdKFiJaUpVlQFt0BLN9Bewl2HW4e7h8+27vkfi37X
+         fjuD+2TWKyHcFk3E6cxB4ingfP1Kvj5bszyHPjtwvKpZLtPkh04ulUk/1160MuBL4Ew5
+         Z/Qm0FAA71yD+D+c9XTZhMjuNqUPiclshWKaKEZldqqmSxTI09znJEapIG4MHJW+UrQs
+         TMnA==
+X-Gm-Message-State: AOAM530di2caCT4iLktl2tnvbUQjlmH4BBGq8SyTfgFvHle7+Xx0fFVr
+        MeeNX2k54ctl4rrfw5MBITFEVisHHwvQ84h179M=
+X-Google-Smtp-Source: ABdhPJxNELOZ7dUHGFByQjnPg1sxDXaNtoNEc3HaI8o6eC/7/yvxIdDDgdnevOjkYn/EqT4KceEi9MUDkHDrmCnc9FU=
+X-Received: by 2002:ab0:789:: with SMTP id c9mr8164316uaf.38.1632605211167;
+ Sat, 25 Sep 2021 14:26:51 -0700 (PDT)
 MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
-Content-Transfer-Encoding: 8bit
+Sender: sakponouedwige1@gmail.com
+Received: by 2002:a67:cc1b:0:0:0:0:0 with HTTP; Sat, 25 Sep 2021 14:26:50
+ -0700 (PDT)
+From:   Kayla Manthey <sgtkayla2001@gmail.com>
+Date:   Sat, 25 Sep 2021 21:26:50 +0000
+X-Google-Sender-Auth: rAaenNtxYpQy9iHGPh9fKCqvQnc
+Message-ID: <CAPhVR5XhQGW2Dq4tgyDB2sbczdYmE4bTGrxnJA=NmYEzA3UXkA@mail.gmail.com>
+Subject: 
+To:     undisclosed-recipients:;
+Content-Type: text/plain; charset="UTF-8"
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-From: Guenter Roeck <linux@roeck-us.net>
-
-[ Upstream commit f6b5f1a56987de837f8e25cd560847106b8632a8 ]
-
-absolute_pointer() disassociates a pointer from its originating symbol
-type and context. Use it to prevent compiler warnings/errors such as
-
-  drivers/net/ethernet/i825xx/82596.c: In function 'i82596_probe':
-  arch/m68k/include/asm/string.h:72:25: error:
-	'__builtin_memcpy' reading 6 bytes from a region of size 0 [-Werror=stringop-overread]
-
-Such warnings may be reported by gcc 11.x for string and memory
-operations on fixed addresses.
-
-Suggested-by: Linus Torvalds <torvalds@linux-foundation.org>
-Signed-off-by: Guenter Roeck <linux@roeck-us.net>
-Reviewed-by: Geert Uytterhoeven <geert@linux-m68k.org>
-Signed-off-by: Linus Torvalds <torvalds@linux-foundation.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- include/linux/compiler.h | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/include/linux/compiler.h b/include/linux/compiler.h
-index 7cabe0cc8665..bc8077e5e688 100644
---- a/include/linux/compiler.h
-+++ b/include/linux/compiler.h
-@@ -208,6 +208,8 @@ void ftrace_likely_update(struct ftrace_branch_data *f, int val, int expect);
-     (typeof(ptr)) (__ptr + (off)); })
- #endif
- 
-+#define absolute_pointer(val)	RELOC_HIDE((void *)(val), 0)
-+
- #ifndef OPTIMIZER_HIDE_VAR
- #define OPTIMIZER_HIDE_VAR(var) barrier()
- #endif
--- 
-2.30.2
-
+Please,I would like to know if you received my previous message, thanks.
