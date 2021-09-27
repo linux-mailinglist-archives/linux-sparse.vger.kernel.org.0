@@ -2,143 +2,85 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 21548419E5A
-	for <lists+linux-sparse@lfdr.de>; Mon, 27 Sep 2021 20:33:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 786CB41A3EB
+	for <lists+linux-sparse@lfdr.de>; Tue, 28 Sep 2021 01:49:04 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S236012AbhI0Se7 (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Mon, 27 Sep 2021 14:34:59 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:59024 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S236174AbhI0Se6 (ORCPT
+        id S238193AbhI0Xum (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Mon, 27 Sep 2021 19:50:42 -0400
+Received: from avasout02.plus.net ([212.159.14.17]:40914 "EHLO
+        avasout02.plus.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S237972AbhI0Xuj (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Mon, 27 Sep 2021 14:34:58 -0400
-Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com [IPv6:2a00:1450:4864:20::12e])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 5CF8DC061740
-        for <linux-sparse@vger.kernel.org>; Mon, 27 Sep 2021 11:33:20 -0700 (PDT)
-Received: by mail-lf1-x12e.google.com with SMTP id e15so81636050lfr.10
-        for <linux-sparse@vger.kernel.org>; Mon, 27 Sep 2021 11:33:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linux-foundation.org; s=google;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=zBKO83J1C1DNn2R4raJlP58CTJ+u3r/ACscvA3njVnA=;
-        b=YbDQ5OpSuV6v9NSHnBKcDUKW4oeDmXF0NHBGuo3vHIF2Mp24W0VXIFsXRLwyniRIzR
-         aDTXrs5dla+qbA47Mgcez8/uDJZ7dJZZiKprKSFRNEPDPSMmKJT6hPFTaxWvgqSBizR+
-         VAPbppHwvThw+fFO74IZ68YspiGMMjy+yalYc=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=zBKO83J1C1DNn2R4raJlP58CTJ+u3r/ACscvA3njVnA=;
-        b=PIWGleauGunoY6KU4jDE8FNKpcvNNSeOQQBdJG/z+NgjRFK8q66msvyINpdRB+egzN
-         G5/IMCwSX3kSXgqfjMHVCEWeP7atF3VV8TIUjnTucgayFQgRaPP0E0R2hgVtqBKbmtQX
-         b/3/+I2vgeJ7V+rxp22cWq8Bagau8IjOllvAWraS18qoLTtGiKdG/xXpfRhJeKAPUyPG
-         XNC3Hr87YAaGuPCSHWX/t7kCCuo71+WAm5tkWSinW6U+uE72NZilPjGQ1cyBI8fA37eu
-         JNME8RO7Hrpo6lbvZ5VbOdQS3+05F2OYVzLkRf67F7taKcu7zWrJ53m0Spjr2y1Xp9Dj
-         oieQ==
-X-Gm-Message-State: AOAM530VNd21Jz2MSbF1Tq6bBCcthkF3pC/PfOQupiQn2EWrgxjEAH1K
-        VoXkE/OCa7Xj0oz4q1ZUtBKPFy0stcb/5RzUpVw=
-X-Google-Smtp-Source: ABdhPJx9cfXVGbjjpdQIn20r+vZRqhhAVAWh20HcxcEPQYiim045ZGotCQqpB00KRXY3Lmvzm7YmKA==
-X-Received: by 2002:a05:6512:10d1:: with SMTP id k17mr1157117lfg.69.1632767598390;
-        Mon, 27 Sep 2021 11:33:18 -0700 (PDT)
-Received: from mail-lf1-f47.google.com (mail-lf1-f47.google.com. [209.85.167.47])
-        by smtp.gmail.com with ESMTPSA id d24sm1840563lfs.70.2021.09.27.11.33.16
-        for <linux-sparse@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 27 Sep 2021 11:33:17 -0700 (PDT)
-Received: by mail-lf1-f47.google.com with SMTP id i25so81923906lfg.6
-        for <linux-sparse@vger.kernel.org>; Mon, 27 Sep 2021 11:33:16 -0700 (PDT)
-X-Received: by 2002:a2e:a7d0:: with SMTP id x16mr1309663ljp.494.1632767596702;
- Mon, 27 Sep 2021 11:33:16 -0700 (PDT)
+        Mon, 27 Sep 2021 19:50:39 -0400
+Received: from [10.0.2.15] ([147.147.167.109])
+        by smtp with ESMTPA
+        id V0FTmVriDrasdV0FUmS0rU; Tue, 28 Sep 2021 00:41:29 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=plus.com; s=042019;
+        t=1632786089; bh=w7ww/B42aUcUN8hbtTWBlumvghK12OmK/sPTvlZJXck=;
+        h=To:Cc:From:Subject:Date;
+        b=lCE2MgTfd/Yb14dKGcDZV6q1GrMCNKV1eA6HvhvgPQ6Bt8p8FR5FokUPa01fYp+5j
+         717b/Xv/4C6Opy/zaiS0KvdMDQnNJZ1HWL0Pmt1owCJy+MUKljPleDH4FumYJiq7rh
+         n6WG8JpLpfoVvohDS6stMT28NaX7awgQCvgJpDUMKxkRshsHWzD1m3tUKBa17kmoYz
+         p/xu+EOVxQ1rrQNi9pzf7qtOag4lOqlAfduWAqLxyb/dbKWZnU32mDjOQd7eMeIxXv
+         WSx7gW0gxo2axCn9OXViAhAJN7cSMP0jY4iAeH+aocrvP8fOwK9/+nKDE09uNmOafG
+         WvanGEyhQ0xiA==
+X-Clacks-Overhead: "GNU Terry Pratchett"
+X-CM-Score: 0.00
+X-CNFS-Analysis: v=2.3 cv=dIE9ZNRb c=1 sm=1 tr=0
+ a=QdS5mZX/VJYKMdXaSBaSIA==:117 a=QdS5mZX/VJYKMdXaSBaSIA==:17
+ a=IkcTkHD0fZMA:10 a=dvJSaIg1cAsF2FK1ke8A:9 a=QEXdDO2ut3YA:10
+X-AUTH: ramsayjones@:2500
+To:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
+Cc:     Sparse Mailing-list <linux-sparse@vger.kernel.org>,
+        Junio C Hamano <gitster@pobox.com>
+From:   Ramsay Jones <ramsay@ramsayjones.plus.com>
+Subject: [PATCH 0/2] sparse v0.6.4 regression
+Message-ID: <c29182d4-3141-83c6-21f6-d7f368b3d3c5@ramsayjones.plus.com>
+Date:   Tue, 28 Sep 2021 00:41:27 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.13.0
 MIME-Version: 1.0
-References: <20210927094123.576521-1-arnd@kernel.org> <40217483-1b8d-28ec-bbfc-8f979773b166@redhat.com>
- <20210927130253.GH2083@kadam> <CAK8P3a3YFh4QTC6dk6onsaKcqCM3Nmb2JhMXK5QdZpHtffjyLg@mail.gmail.com>
-In-Reply-To: <CAK8P3a3YFh4QTC6dk6onsaKcqCM3Nmb2JhMXK5QdZpHtffjyLg@mail.gmail.com>
-From:   Linus Torvalds <torvalds@linux-foundation.org>
-Date:   Mon, 27 Sep 2021 11:33:00 -0700
-X-Gmail-Original-Message-ID: <CAHk-=wheEHQxdSJgTkt7y4yFjzhWxMxE-p7dKLtQSBs4ceHLmw@mail.gmail.com>
-Message-ID: <CAHk-=wheEHQxdSJgTkt7y4yFjzhWxMxE-p7dKLtQSBs4ceHLmw@mail.gmail.com>
-Subject: Re: [PATCH] vboxsf: fix old signature detection
-To:     Arnd Bergmann <arnd@kernel.org>
-Cc:     Dan Carpenter <dan.carpenter@oracle.com>,
-        Hans de Goede <hdegoede@redhat.com>,
-        Luc Van Oostenryck <luc.vanoostenryck@gmail.com>,
-        Sparse Mailing-list <linux-sparse@vger.kernel.org>,
-        Nathan Chancellor <nathan@kernel.org>,
-        Nick Desaulniers <ndesaulniers@google.com>,
-        Al Viro <viro@zeniv.linux.org.uk>,
-        Arnd Bergmann <arnd@arndb.de>,
-        Linux FS-devel Mailing List <linux-fsdevel@vger.kernel.org>,
-        Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-        llvm@lists.linux.dev
-Content-Type: multipart/mixed; boundary="0000000000009a84d405ccfe541b"
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
+X-CMAE-Envelope: MS4wfBrNTOjmqSZUd9Yt+Sflnzg5bMKD0ziRhx8Jlv4ebxkYofmZsXfIR+1Ab162uO+JDEAkAHUSxZ/nqhuoIQ2hWyR8PL/phyJeAYjaNPtCCn82U06Qy3kp
+ YjNQoamT72ZsgpAxyaRY/86T0ErpPqf485OasnOvqXVaCPABAGf3m3/oKT9IYY5q1yPeDVNrWZptGA==
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
---0000000000009a84d405ccfe541b
-Content-Type: text/plain; charset="UTF-8"
 
-On Mon, Sep 27, 2021 at 6:22 AM Arnd Bergmann <arnd@kernel.org> wrote:
->
-> More specifically, ' think '\377' may be either -1 or 255 depending on
-> the architecture.
-> On most architectures, 'char' is implicitly signed, but on some others
-> it is not.
+Hi Luc,
 
-Yeah. That code is just broken.
+I noticed a regression introduced by commit a69f8d70 which, effectively,
+disables the 'memcpy-max-count' check. (I had done a 'make CC=cgcc' in
+git, expecting to see some warnings, including the 'memcpy-max-count'
+check, and it didn't appear ... :( ). Sorry for not noticing before, but
+the 'sparse' make target is supposed to suppress that warning for the
+pack-revindex.c file, so ... ;P
 
-And Arnd, your patch may be "conceptually minimal", in that it keeps
-thed broken code and makes it work. But it just dials up the oddity to
-11.
+[I tried finding your last 'kernel sparse warnings change' list email
+to see how many of these warnings still appear in the kernel ... well
+it would be zero with v0.6.4!]
 
-The proper patch is just this appended thing that stops playing silly
-games, and just uses "memcmp()".
+I also included the 'case label' patch I sent before, this time with
+a commit message and a test. (The test could be extended when sparse
+is updated to include the full label-positioning of C23!).
 
-I've verified that with sane build configurations, it just generates
+ATB,
+Ramsay Jones
 
-        testq   %rsi, %rsi
-        je      .L25
-        cmpl    $-33620224, (%rsi)
-        je      .L31
+Ramsay Jones (2):
+  sparse: fix broken 'memcpy-max-count' check
+  parse: warn about a 'case label' on empty statement
 
-for that
+ parse.c                        |  5 +++++
+ sparse.c                       |  2 +-
+ validation/byte-count-max.c    | 28 ++++++++++++++++++++++++++++
+ validation/label-positioning.c | 22 ++++++++++++++++++++++
+ 4 files changed, 56 insertions(+), 1 deletion(-)
+ create mode 100644 validation/byte-count-max.c
+ create mode 100644 validation/label-positioning.c
 
-        if (data && !memcmp(data, VBSF_MOUNT_SIGNATURE, 4)) {
-
-test. With a lot of crazy debug options you'll actually see the
-"memcmp()", but the bad code generation is the least of your options
-in that case.
-
-               Linus
-
---0000000000009a84d405ccfe541b
-Content-Type: text/x-patch; charset="US-ASCII"; name="patch.diff"
-Content-Disposition: attachment; filename="patch.diff"
-Content-Transfer-Encoding: base64
-Content-ID: <f_ku2z8brl0>
-X-Attachment-Id: f_ku2z8brl0
-
-IGZzL3Zib3hzZi9zdXBlci5jIHwgMTIgKystLS0tLS0tLS0tCiAxIGZpbGUgY2hhbmdlZCwgMiBp
-bnNlcnRpb25zKCspLCAxMCBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9mcy92Ym94c2Yvc3Vw
-ZXIuYyBiL2ZzL3Zib3hzZi9zdXBlci5jCmluZGV4IDRmNWU1OWYwNjI4NC4uMzdkZDNmZTViMWU5
-IDEwMDY0NAotLS0gYS9mcy92Ym94c2Yvc3VwZXIuYworKysgYi9mcy92Ym94c2Yvc3VwZXIuYwpA
-QCAtMjEsMTAgKzIxLDcgQEAKIAogI2RlZmluZSBWQk9YU0ZfU1VQRVJfTUFHSUMgMHg3ODZmNDI1
-NiAvKiAnVkJveCcgbGl0dGxlIGVuZGlhbiAqLwogCi0jZGVmaW5lIFZCU0ZfTU9VTlRfU0lHTkFU
-VVJFX0JZVEVfMCAoJ1wwMDAnKQotI2RlZmluZSBWQlNGX01PVU5UX1NJR05BVFVSRV9CWVRFXzEg
-KCdcMzc3JykKLSNkZWZpbmUgVkJTRl9NT1VOVF9TSUdOQVRVUkVfQllURV8yICgnXDM3NicpCi0j
-ZGVmaW5lIFZCU0ZfTU9VTlRfU0lHTkFUVVJFX0JZVEVfMyAoJ1wzNzUnKQorc3RhdGljIGNvbnN0
-IHVuc2lnbmVkIGNoYXIgVkJTRl9NT1VOVF9TSUdOQVRVUkVbNF0gPSAiXDAwMFwzNzdcMzc2XDM3
-NSI7CiAKIHN0YXRpYyBpbnQgZm9sbG93X3N5bWxpbmtzOwogbW9kdWxlX3BhcmFtKGZvbGxvd19z
-eW1saW5rcywgaW50LCAwNDQ0KTsKQEAgLTM4NiwxMiArMzgzLDcgQEAgc3RhdGljIGludCB2Ym94
-c2Zfc2V0dXAodm9pZCkKIAogc3RhdGljIGludCB2Ym94c2ZfcGFyc2VfbW9ub2xpdGhpYyhzdHJ1
-Y3QgZnNfY29udGV4dCAqZmMsIHZvaWQgKmRhdGEpCiB7Ci0JdW5zaWduZWQgY2hhciAqb3B0aW9u
-cyA9IGRhdGE7Ci0KLQlpZiAob3B0aW9ucyAmJiBvcHRpb25zWzBdID09IFZCU0ZfTU9VTlRfU0lH
-TkFUVVJFX0JZVEVfMCAmJgotCQkgICAgICAgb3B0aW9uc1sxXSA9PSBWQlNGX01PVU5UX1NJR05B
-VFVSRV9CWVRFXzEgJiYKLQkJICAgICAgIG9wdGlvbnNbMl0gPT0gVkJTRl9NT1VOVF9TSUdOQVRV
-UkVfQllURV8yICYmCi0JCSAgICAgICBvcHRpb25zWzNdID09IFZCU0ZfTU9VTlRfU0lHTkFUVVJF
-X0JZVEVfMykgeworCWlmIChkYXRhICYmICFtZW1jbXAoZGF0YSwgVkJTRl9NT1VOVF9TSUdOQVRV
-UkUsIDQpKSB7CiAJCXZiZ19lcnIoInZib3hzZjogT2xkIGJpbmFyeSBtb3VudCBkYXRhIG5vdCBz
-dXBwb3J0ZWQsIHJlbW92ZSBvYnNvbGV0ZSBtb3VudC52Ym94c2YgYW5kL29yIHVwZGF0ZSB5b3Vy
-IFZCb3hTZXJ2aWNlLlxuIik7CiAJCXJldHVybiAtRUlOVkFMOwogCX0K
---0000000000009a84d405ccfe541b--
+-- 
+2.33.0
