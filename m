@@ -2,84 +2,151 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 5EA0441CE46
-	for <lists+linux-sparse@lfdr.de>; Wed, 29 Sep 2021 23:35:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 2F61E41DF4C
+	for <lists+linux-sparse@lfdr.de>; Thu, 30 Sep 2021 18:41:02 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1346755AbhI2Vha (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Wed, 29 Sep 2021 17:37:30 -0400
-Received: from avasout07.plus.net ([84.93.230.235]:59950 "EHLO
-        avasout07.plus.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1346769AbhI2Vha (ORCPT
+        id S1352100AbhI3Qml (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Thu, 30 Sep 2021 12:42:41 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:39342 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S1352188AbhI3Qmk (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Wed, 29 Sep 2021 17:37:30 -0400
-Received: from [10.0.2.15] ([147.147.167.109])
-        by smtp with ESMTPA
-        id VhEqmiRCJdY2SVhErm77GG; Wed, 29 Sep 2021 22:35:47 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=plus.com; s=042019;
-        t=1632951347; bh=mVpBaMfuqZh5dRFtJqlRkwXJ6/bgJbvi+wh3XFanpGw=;
-        h=Subject:To:Cc:References:From:Date:In-Reply-To;
-        b=c6dGbzj5mp6E66OClM9QU7vyNhlvbmRElIm5gyYseSmhHQn46fYZdaporrLdFF57j
-         dWpiVBJkCr6mmlQERa4rSiN7JFdhmSoDPv5wj/KmE1JiQ2/t5h+YZsmBa1zVy0hW2U
-         VyIyi0hsEjKCAemHGVmRq4qUGG08cHPSkbUZiKGnrRklaCGOchrom6NTlC+BPG6cSd
-         rR3r95mkhO/Ut/fp0JhreZBW/FoVaQoywnnyAznoKR/Uzu496bGO6nAQ+Xq173DY7J
-         QByfvGJbdfa67hbv2OshRvMrHnI17LdckevRUnq2QS+5AO3gRw0YVd8BSeQzq3wIje
-         eUhDjIQBaZzuQ==
-X-Clacks-Overhead: "GNU Terry Pratchett"
-X-CM-Score: 0.00
-X-CNFS-Analysis: v=2.3 cv=NP5OB3yg c=1 sm=1 tr=0
- a=QdS5mZX/VJYKMdXaSBaSIA==:117 a=QdS5mZX/VJYKMdXaSBaSIA==:17
- a=IkcTkHD0fZMA:10 a=xNf9USuDAAAA:8 a=yGySPTTHkQnENoXuAmsA:9 a=QEXdDO2ut3YA:10
- a=jYJgLHWX644A:10 a=SEwjQc04WA-l_NiBhQ7s:22
-X-AUTH: ramsayjones@:2500
-Subject: Re: [ANNOUNCE] Sparse v0.6.4
-To:     =?UTF-8?Q?Uwe_Kleine-K=c3=b6nig?= <uwe@kleine-koenig.org>,
-        Luc Van Oostenryck <luc.vanoostenryck@gmail.com>,
-        linux-sparse@vger.kernel.org
-Cc:     Jeff Layton <jlayton@redhat.com>
-References: <20210906042111.lhoq7egtpmw3jcv6@mail>
- <5bfca92e-1eb0-ab7d-80b5-5ea2134ae928@kleine-koenig.org>
- <73f07821-4abe-2194-96a2-296c54c47074@ramsayjones.plus.com>
- <d1eadca6-2c2c-b4af-7c0a-e49698a17b12@kleine-koenig.org>
-From:   Ramsay Jones <ramsay@ramsayjones.plus.com>
-Message-ID: <ff8b358e-fd8a-9fc3-2ed9-2a85b6872560@ramsayjones.plus.com>
-Date:   Wed, 29 Sep 2021 22:35:40 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.13.0
+        Thu, 30 Sep 2021 12:42:40 -0400
+Received: from mail-vs1-xe44.google.com (mail-vs1-xe44.google.com [IPv6:2607:f8b0:4864:20::e44])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id EB597C061770
+        for <linux-sparse@vger.kernel.org>; Thu, 30 Sep 2021 09:40:56 -0700 (PDT)
+Received: by mail-vs1-xe44.google.com with SMTP id n17so8110123vsr.10
+        for <linux-sparse@vger.kernel.org>; Thu, 30 Sep 2021 09:40:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=mime-version:reply-to:from:date:message-id:subject:to;
+        bh=/T9drlD1s9vO6lHEMs4LJzmDo2MKXEHBXvFYaWoQWpk=;
+        b=FV+sR2jqeq3a30q0fwwes6WIJUL0Aly1jHDpEuRKN4E5hFr75A8Lw1Hf7FsKbd3IgX
+         Y0NETW3LIdrr+GfiFqDiRliDmaT3s6ks2SCzQ8xKiQWqtfryMEQxZRm/Ehnv8sx9IvZA
+         muPVzb5TbIR8gh03qrKvvPLKt+CWDdsXkBUBiZw2JG/VPZRXtjF2vQGNdWqMtE0+KYCn
+         puyxTyxmsl+RwXB2mIAoqF5n+/rz1oAVYvnPo9p/4N+LHs01uAkZKBx+0yd7aFh3bUHG
+         h/EeRqLYRyFYlkHNLt6EEQaizEMQ1XNxoB1ZM7qr+/WnP5xBCG7P4Ey4iY0NmkRmr8S1
+         mh4w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:mime-version:reply-to:from:date:message-id
+         :subject:to;
+        bh=/T9drlD1s9vO6lHEMs4LJzmDo2MKXEHBXvFYaWoQWpk=;
+        b=XM7GKzw+Ady0TsDkDYb0TrVoRth6HiIX0NWSZI1DMmNJAzKFl6W7DSx0wkAWcGH61h
+         YxCsSpxWer6LFCwryLPfLuB1qJD16m4Yfm3CofmUs0ahb18+rhm1DOaH2HAgbnbHmB+N
+         tl2snqaQCDQOjD5Le9XMMBDcv/TQQMRK7UDQRG7k+2NEXoJatKIUcN8WX2iNk/RmlQ0/
+         6GBD7eIrjqYbMHb6oMVKk54jil/K/R2IVdsoOVo9EUGzUNvEsqpCagfHfWS5itwNkIxA
+         +KTeCQeLvo8z4ugt631sNvGZ4yORpvmv2WmzXnt+Tekqi04xjya9QitZqJ+Ie8JJMi7J
+         JECw==
+X-Gm-Message-State: AOAM530c+uyVkDsHU6fZY3lsAyj4Q+jlX1z163LWGWA1q6qzO+vmXZtd
+        cwqc/+bIAKRRRQWYfF1Ey0UZxORU5Id2MOZ+wQQ=
+X-Google-Smtp-Source: ABdhPJyrlzTC2MbiFYv9Onunj6ymT4OoDGeF1Rs8K96BASDJdMf5G8ZjaV568mQ5Ecmy8bt02e07EU6x/22RNi/kmb0=
+X-Received: by 2002:a67:ce14:: with SMTP id s20mr148117vsl.34.1633020056080;
+ Thu, 30 Sep 2021 09:40:56 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <d1eadca6-2c2c-b4af-7c0a-e49698a17b12@kleine-koenig.org>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-GB
-Content-Transfer-Encoding: 8bit
-X-CMAE-Envelope: MS4wfGwNYHwxrqDWljorQuM56XncVE0NwYzMmpIaH/pOn/IqQHBVThGYBWvr8a7OeI/ZgUUjbsFz5KFGuNtsc4mclx8b3dKXih85tRcauNhr2D74Enz4RpLG
- qrP6v2tcSXiQr5ybovbvHN1aaMtDwiD/YXECvO30CsM421BAsgRChratXtazpz6xyJRXVkXRbzp8lA==
+Received: by 2002:a59:ab2e:0:b0:22d:7f44:603a with HTTP; Thu, 30 Sep 2021
+ 09:40:55 -0700 (PDT)
+Reply-To: irenezakari24@gmail.com
+From:   Irene zakari <irenezakari88@gmail.com>
+Date:   Thu, 30 Sep 2021 09:40:55 -0700
+Message-ID: <CAFT8PFEuTDyM7AWv4-LAqHpR0VFES6VrRn3W0Yw7s4vRmk+-jg@mail.gmail.com>
+Subject: PLEASE I NEED YOUR HELP
+To:     undisclosed-recipients:;
+Content-Type: text/plain; charset="UTF-8"
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
+Hello   ..
 
+How do you do over there? I hope you are doing well?
 
-On 29/09/2021 07:54, Uwe Kleine-König wrote:
-> Hello,
-> 
-> On 9/29/21 12:43 AM, Ramsay Jones wrote:
->> On 28/09/2021 20:56, Uwe Kleine-König wrote:
->>> On 9/6/21 6:21 AM, Luc Van Oostenryck wrote:
->>>> Sparse v0.6.4 is now out.
->>>
->>> I finally came around to update the Debian packaging. There is just a (non-critical) problem on x32 where some tests fail. I didn't look deeply, but if you care, now you know :-)
->>>
->>> https://buildd.debian.org/status/fetch.php?pkg=sparse&arch=x32&ver=0.6.4-1&stamp=1632795062&raw=0
->>
->> Hmm, interesting. I tested on Linux Mint 19 32-bit and didn't see any
->> failures. As far as I can tell, only the 'validation/builtin-objsize0.c'
->> test is failing (squinting hard at the above!).
-> 
-> Note that the "normal" 32-bit build was just fine[1]. It's "only" x32[2] that is affected.
+My name is Irene. (24 years), i am single, from Gambia, the only child
+of late Eng. Bernard Bakary Zakaria. the Director of Bajam Enterprise
+(Building Construction Company in The Gambia) also the CEO of Bernard
+Import and Export (GAMBIA).
 
-Ah, I missed that small detail. :)
+As a matter of fact my mother died when i was barely 4 years old
+according to my late father and because of the type of love he had for
+my mother made him to remain UN-married till he left the ghost..
 
-Thanks for putting me right (before booting up my 32-bit system).
+So after the death of my father as a result of assassinate, his brother (My
+Uncle) who is the purchasing and marketing sale manager of my late
+fathers company named (Mr. James Tokunbo Oriade Zakaria) wanted to
+convert all the properties and resources of my late father into his
+which i quarreled with him and it made him to lay his anger on me to
+the extent of hiring an assassins to kill me but to God be the glory i
+succeeded by making a way to Burkina faso for my dear life.
+Honestly i do live a fearful life even here in Burkina faso because of
+those Assassins coming after me .
 
-ATB,
-Ramsay Jones
+I would want to live and study in your country for my better future.
+because my father same blood brother wanted to force me into undecided
+marriage, just for me to leave my father home and went and live with
+another man I never know as he want to occupied all my father home
+and maybe to sold it as my father no longer alive, I'm the only child
+daughter my father born, '' but he don't know that i am not
+interesting in any of my father properties or early marriage for now,
+because i still have future to think about and to focus on my studies
+first as i was doing my first year in the University before the death
+of my father.
 
+Actually what I want to discuss with you is about my personal issue
+concern funds my late father deposited in a bank outside my country,
+worth $4.5 million united state dollars. i need your assistance to
+receive and invest this funds in your country.
+
+Please help me, I am sincere to you and I want to be member of your
+family as well if you wouldn't mind to accept me and lead me to better
+future in your country.
+
+All the documents the bank issue to my father during time of deposit
+is with me now.
+I already notify the bank on phone about the death of my father and
+they are surprise for the news and accept that my father is their good
+customer.
+I will be happy if this money can be invested in any business of your
+choice and it will be under your control till i finished my education,
+also I'm assuring you good relationship and I am ready to discuss the
+amount of money to give you from this money for your help.
+
+Therefore, I shall give you the bank contact and other necessary
+information in my next email if you will only promise me that you will
+not/never betray and disclosed this matter to anybody, because, this
+money is the only hope i have for survival on earth since I have lost
+my parents.
+
+Moreover I have the FUND PLACEMENT CERTIFICATE and the DEATH
+CERTIFICATE here with me, but before I give you further information, i
+will like to know your full data
+
+1. Full Name: ........................
+2. Address: ..................
+3. Nationality: ........... Sex................
+4. Age:........... Date of Birth:................
+5. Occupation:...................
+.....
+6. Phone: ........... Fax:.........................
+7. State of Origin: .......Country:..............
+8. Occupation:...................
+................
+9. Marital status........... E-mail address's: ............
+10. Scan copy of your ID card or Driving License/Photo:............
+DECLARATION:
+
+so that i will be fully sure that i am not trusting the wrong person.
+and it will also give me the mind to send you the bank contact for you
+to communicate with them for more verification about this money. and
+to know you more better.
+
+Meanwhile, you can reach me through my pastor,his name is Pastor Paul
+any time you call, tell him that you want to speak with me because
+right now i am living in the church here in Burkina faso and i don't
+want to stay here any longer,
+send for me to speak with you his phone number is this(+226 75213646)
+
+I will stop here and i will be waiting for your reply and feel free
+ask any thing you want to know about me.
+Please help me, I would be highly appreciated
+Have nice day.
+From Irene
