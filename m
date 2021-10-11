@@ -2,84 +2,81 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 8815241FB66
-	for <lists+linux-sparse@lfdr.de>; Sat,  2 Oct 2021 14:02:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 3F532428BA1
+	for <lists+linux-sparse@lfdr.de>; Mon, 11 Oct 2021 12:57:15 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S232895AbhJBMEH (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Sat, 2 Oct 2021 08:04:07 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:60588 "EHLO
+        id S236034AbhJKK7N (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Mon, 11 Oct 2021 06:59:13 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:51566 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S232950AbhJBMEG (ORCPT
+        with ESMTP id S236098AbhJKK6W (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Sat, 2 Oct 2021 08:04:06 -0400
-Received: from mail-io1-xd36.google.com (mail-io1-xd36.google.com [IPv6:2607:f8b0:4864:20::d36])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id BA7B1C061780
-        for <linux-sparse@vger.kernel.org>; Sat,  2 Oct 2021 05:02:20 -0700 (PDT)
-Received: by mail-io1-xd36.google.com with SMTP id i62so14726889ioa.6
-        for <linux-sparse@vger.kernel.org>; Sat, 02 Oct 2021 05:02:20 -0700 (PDT)
+        Mon, 11 Oct 2021 06:58:22 -0400
+Received: from mail-lf1-x141.google.com (mail-lf1-x141.google.com [IPv6:2a00:1450:4864:20::141])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 3D045C0613EC
+        for <linux-sparse@vger.kernel.org>; Mon, 11 Oct 2021 03:56:13 -0700 (PDT)
+Received: by mail-lf1-x141.google.com with SMTP id t9so70820173lfd.1
+        for <linux-sparse@vger.kernel.org>; Mon, 11 Oct 2021 03:56:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=mime-version:reply-to:from:date:message-id:subject:to
-         :content-transfer-encoding;
-        bh=nsZbpm1YBoHMpWTnzHLuE/zYZ0yg4jBiKD5Q7oCTPBE=;
-        b=iyEBzcDh9nP1PeLfcLE3pZKPEbSZYlNJtG653y4A86xr3J1faktwZUDFMjqeFWC4C3
-         pF3DV4+WL5MsKoy2amNMy+K7hDBtQvfj1qv/5Vza7exMgEb2nSnZspfYYcaKQwauvIfR
-         eaDtNiNgszpeb9Scnrd/vQBPlttKLeWDRGTlI5+aZdzLdO1cqyEKk75QVrkmtR8QWe1/
-         3RLpjHt6B0vXzlo7fVwZ8drnq7AmrqY7JNdV+87jeT56inImTbQDyh3GgJPbNvZ3t8aE
-         dRoxyA7ZuZnwr1vP4QKaq11tUGQgjFG78UGyuxOrlrUwN0mpFkKvX3YcdEez5H49cH5q
-         DG6Q==
+        h=mime-version:reply-to:from:date:message-id:subject:to;
+        bh=DOxN63QWnl4dBNWQl+LufsBrewR+8VuPJnGph7ijSeE=;
+        b=km/+rwE10MGCG3K0BNjxD+A2l394aMlSCDFqBEiDyrs45mObKwVEkOccUp5BPFftJU
+         5cB06txNzUPVxcrxQnkqMq9zaxAqQeR9eoa3+7DqnAg3rX7wMze/dloERdrhczopiGET
+         PvxtLks7kWCMKTs5Q8Mmq12LwUKUT5cPH1x1mszpEwl0kuXWAYNTl0kX4+cL3oWAj8+a
+         6an2wLimFEmscCT9jtQf7FGYav0q/UTa6GRCeFihab7mYp8KZTVzyAi9ONxHllw1wfay
+         OSS3CoE7RnQ2PFKTnc/5Yya8gHnSshWvMzermo1msudbBS7MTk09iY8fA6ci8A/KmFSk
+         +E4A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=x-gm-message-state:mime-version:reply-to:from:date:message-id
-         :subject:to:content-transfer-encoding;
-        bh=nsZbpm1YBoHMpWTnzHLuE/zYZ0yg4jBiKD5Q7oCTPBE=;
-        b=WCAxQnleDsmgrvGtmGeHTos0d0/7PfMj8TvtEyBignFWvHzeZQTFlednvQhqZJ/Xng
-         fpS0TgcBLU1TLoGS9Ks9iwgas7livO5M36yQZo6l+yMk5zwWVUSIyN1mxQQAvfplvGdB
-         E9zws2KWU9oout4u78x1DUQhY81jNYMBBUCUTuMGRmdTAWwzjuJKCBvaCbMe/k+WOGhL
-         zdj1K8nHnMWv8oPd41bu1ViQcdIk30u1kkbl8xTq2BgOj7YRSF1jZ/lErMWOFsRaVURW
-         Tqwq0piNVxaOgsDad5ya9kaZQufYh6/KqmBzNSHALHkFX040JCMN/1ne8ZMoA/4bho0H
-         fsaQ==
-X-Gm-Message-State: AOAM530p6Ol5xME2NO7rjo3mT1cH4gYbesk7z6TdDmA56wmm07pyQCJr
-        GdbbvPqFT7Cbp3Zx70H2kUWcLu8Aqs2sMvDYrDw=
-X-Google-Smtp-Source: ABdhPJyC9vEfIVIZ0piprG1qmWZzMdIHfp+9a9LJrm7oG79+zeu4afF3nEZRNwO4iftaiuEc0899zzSIm+Z44BWVOkI=
-X-Received: by 2002:a5d:9613:: with SMTP id w19mr2276285iol.144.1633176140158;
- Sat, 02 Oct 2021 05:02:20 -0700 (PDT)
+         :subject:to;
+        bh=DOxN63QWnl4dBNWQl+LufsBrewR+8VuPJnGph7ijSeE=;
+        b=PJxUOe6oyh+ckVe2NejLn00wcM+trpbSePNjRo3nz2i+leMnnMAr81dqxQS3evHgN6
+         AGZTAvWOXKwmZScTYDQcMs2d2V846vICgvk87Ku7nSEWMVTsuM3inpEFqLOtM4xPC04L
+         2q0Rd+5O1CScikjGiWMUXq3cUcF3L2SyCV8DKbvlp8RhkNZVO12Bzn5+UDcufaMuolel
+         JUGQgZwlVfsICefNOhIUfl8ROPBYmpHlLLjDNXH0xTzqWDQc3h6/0P7Qn1oZQXVxzIfG
+         0I3ieWqgp0j3ssTC4oADVKDWHWi/jsKUGRumUXczM0dZNxeRcU0xOqyvX2k0f4TwPh7d
+         NBGA==
+X-Gm-Message-State: AOAM532WMKOoI0IR3QkSfLhoSo2aiHITShj7BUpr4BGBORqBHjG3Xm0k
+        cO/MtEUBUnmhL31JFilGvDceEiwN35n/wKGs1QBpGZgHvtR4DA==
+X-Google-Smtp-Source: ABdhPJxWYMUVxuj7Tly9azrkWxEMXzTPZAklmoVIH4V2ykknMMiBN9imOFz2zTqxux/zk/7pzvFSRlX+C6mfjc7ADy4=
+X-Received: by 2002:adf:8b9a:: with SMTP id o26mr24377548wra.109.1633949760323;
+ Mon, 11 Oct 2021 03:56:00 -0700 (PDT)
 MIME-Version: 1.0
-Received: by 2002:a4f:f90d:0:0:0:0:0 with HTTP; Sat, 2 Oct 2021 05:02:19 -0700 (PDT)
-Reply-To: unitednnation0@gmail.com
-From:   "U.n" <wadebaye33@gmail.com>
-Date:   Sat, 2 Oct 2021 00:02:19 -1200
-Message-ID: <CACE0T5XMqZGDn0LuVHJd2BMTQMXPyHA=xtbBVkc63R=7gJr72g@mail.gmail.com>
-Subject: Attention
-To:     unitednnation0@gmail.com
+Received: by 2002:adf:dd8c:0:0:0:0:0 with HTTP; Mon, 11 Oct 2021 03:55:59
+ -0700 (PDT)
+Reply-To: ramcharan9910@outlook.com
+From:   "Cr.David Ramcharan" <convy0101@gmail.com>
+Date:   Mon, 11 Oct 2021 03:55:59 -0700
+Message-ID: <CADDRs95718H=K3tUjphEHH_C96xYhoJw7jeCMpt_FfZZjhEXrA@mail.gmail.com>
+Subject: Thank You
+To:     undisclosed-recipients:;
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
---=20
+Please I am writing to notify you again on my intention to list your
+name as a beneficiary to the total sum of GBP6.350 million (Six
+million, Three hundred and fifty thousand British Pounds Sterlings) in
+the intent of the deceased (name now withheld since this is my second
+letter to you).
 
+I contacted you because you bear the surname identity and therefore
+can present you as the beneficiary to inherit the account proceeds of
+the deceased since there is no written "WILL" or trace to the deceased
+family relatives. My aim is to present you to my Bank Authorities as
+the Next of Kin to our deceased client. I will guide you all through
+the Claim procedure by providing all relevant Information and guiding
+you in your decisions and response to the Bank Management. All the
+papers will be processed after your acceptance.
 
-Attention Sir/Madam
-This is the United Nation (UN). We the United Nations (UN) Globally
-has approved (US$2.500,000)( two Million Five hundred thousand
-dollars) compensation as part of our responsibilities for humanitarian
-Aid for fighting against CoronaVirus and you are among the lucky ones.
+In your acceptance of this deal, I request that you kindly forward to
+me your letter of acceptance; your current telephone and fax numbers
+,age, occupational status and a forwarding address to enable me submit
+to the Bank Management the details as the Next of Kin to their
+deceased customer. Reply strictly through: ramcharancrdavid@gmail.com
 
-
-This compensation is for the most affected countries, communities and
-families across the global. Your funds were deposited with Bank in USA
-to transfer your funds to you via Internet Banking. You have to send
-your full details as state below:with this email Address
-  ( unitednnation0@gmail.com )
-Your full names:
-Address:
-Telephone:
-Occupation:
-
-
-
-Yours Sincerely
-Mr. Ant=C3=B3nio Guterres
-United Nations (UN).
+Yours faithfully,
+Cr.David Ramcharan
