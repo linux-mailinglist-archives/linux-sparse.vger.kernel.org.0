@@ -2,98 +2,90 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id C2B744332A1
-	for <lists+linux-sparse@lfdr.de>; Tue, 19 Oct 2021 11:39:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 2AC9A4376EF
+	for <lists+linux-sparse@lfdr.de>; Fri, 22 Oct 2021 14:22:18 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S234764AbhJSJlg (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Tue, 19 Oct 2021 05:41:36 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:54242 "EHLO
+        id S232634AbhJVMY1 (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Fri, 22 Oct 2021 08:24:27 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:53654 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S235153AbhJSJl0 (ORCPT
+        with ESMTP id S230285AbhJVMYX (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Tue, 19 Oct 2021 05:41:26 -0400
-Received: from mail-qt1-x829.google.com (mail-qt1-x829.google.com [IPv6:2607:f8b0:4864:20::829])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 78039C06177C
-        for <linux-sparse@vger.kernel.org>; Tue, 19 Oct 2021 02:39:02 -0700 (PDT)
-Received: by mail-qt1-x829.google.com with SMTP id z24so17663152qtv.9
-        for <linux-sparse@vger.kernel.org>; Tue, 19 Oct 2021 02:39:02 -0700 (PDT)
+        Fri, 22 Oct 2021 08:24:23 -0400
+Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com [IPv6:2a00:1450:4864:20::52b])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id E7383C061228
+        for <linux-sparse@vger.kernel.org>; Fri, 22 Oct 2021 05:22:01 -0700 (PDT)
+Received: by mail-ed1-x52b.google.com with SMTP id l13so1070962edi.8
+        for <linux-sparse@vger.kernel.org>; Fri, 22 Oct 2021 05:22:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=mime-version:reply-to:from:date:message-id:subject:to
-         :content-transfer-encoding;
-        bh=h7Ka/8DlpkXEXF23rPgOfJJ3SyquA2FhD5HYDsybiG4=;
-        b=TOvN/3L74NxJ8jkZLAwc1HWcAigE5PqgL50bgmFqgfF5N3Ni/F/hFF6HKKLKTN31yN
-         HevaAXYbPfypt8hhKvSPyehT5ALdXqczNk+5xUwtC+i5sgHXh2uIQwAecZjfCaWU8ix6
-         IP3iNNDeKzM9Rarn67S7Y6Q5meavaw7Mpk+sez5Jm9gTXVkS2K7rH0HxN0wGBD1vTEZW
-         SlZ7Ohjm5TDffwxVe9psHKkZrw9F8ewS3UJdvRp48BugnVC9N6o6tGt7kOuD9dBL9WOI
-         l1dbXlU20FuuDCR1G9eGV6dpPzPq/obtSd+vSUmjw4dvgQ3M4KndmuUgzevCd5/KLP2j
-         AvJA==
+        h=mime-version:reply-to:from:date:message-id:subject:to;
+        bh=EabbjzyBCsHP1Pqryzjhoy0dM3xlyxLmmpO8ACgMTo8=;
+        b=opUIgqVWyZcHOIldu+LgQVfQLu2JLSm4eq0yRYoR8X3EkJ0jJdtgK1LJrEC4fAYG/u
+         x5QndCavFk6KrgrLKL2M04eWhmo9Ht5gsCUOTzm6BFmYlOhPKCnfQmAWRcGWJ3Kgd+Po
+         dxnzE1GzD0Fe/zdoRYGanqsnNZ7HZwcDd5jvb2P53Z7ySB2eUUW5eKcCwJjvHcLwQW3D
+         hmZMQ0WQ67mADARNZlQPTMDFACAa1pT2f55C5E+z5xU/0SGGI05AA1ys/nk/8Z7QRecx
+         rbFLK51ODld/urTp+hjZ3tCNNEiv03NL8R5n8H4ZVv1sIR3Pcfr4FSd/aUugOrtvCJBK
+         4QUQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=x-gm-message-state:mime-version:reply-to:from:date:message-id
-         :subject:to:content-transfer-encoding;
-        bh=h7Ka/8DlpkXEXF23rPgOfJJ3SyquA2FhD5HYDsybiG4=;
-        b=uokEYGW+iPePumA4yjnoze4qMQUrfEizkfkcL7tkQdiIbWoks1PQgagqeOvtcaP7Kz
-         lA4sYH8peyHWhYnxZkF5n2n2pHfgBHYLUF+o8whrlnuEkKx57BABpJNSlLneItRyg69a
-         +YXkhdKhVLt2SBF/V+iVK0bmATW1hgiEEA/viAhDLDBJClQYNiO/0M7j6eR+Q12V4vFU
-         cZX7t4ABVArhpUr1sjjBITQXnTPiGV6uBV9XS7GZL77wOUow1BAqKnMJVFLpfzY9pHox
-         eQDUmJN+htxRbKkpW/FkUqT1JtccRtd+kwTR99nI+h5XluDrxELaIPfvpyPL+Rad9SO7
-         sVUQ==
-X-Gm-Message-State: AOAM533mRdqew6HlqypLlMaZFwL6BTgj7chZbIM7v5+Ga8QHfimRgH/n
-        rhaX7xu4V/7babVDbWkA2JlX56ZzlRC/8+JwEVsLzJ57bIs=
-X-Google-Smtp-Source: ABdhPJzMH7/Viv+gmOFi/wRxRbcc549EbhNxq1WBmFuuCl5Y1sIaNw3hPc5P9A8SHm6QnP1HNGNAvecvirmJS/oiL6w=
-X-Received: by 2002:a02:6f5d:: with SMTP id b29mr3319085jae.113.1634636331013;
- Tue, 19 Oct 2021 02:38:51 -0700 (PDT)
+         :subject:to;
+        bh=EabbjzyBCsHP1Pqryzjhoy0dM3xlyxLmmpO8ACgMTo8=;
+        b=79Y5zYk27e1lhvcXzUapcQeEWeVtNpFTV6ae/oKyAEX5Af0bI55qSm0DQgSrQ8I0JF
+         CmEONh+pLaq2VBotRdyWNOBaxSfJrZVY1ec20oxHzqR1xYQrmk2MkCrhga3vCW3r0eSm
+         ZHWKPG1fMcHekkE5E5fwRObwu4pmZlmMUjeiLgu1sdG7xepXFeGHcMC5eeeVm23Q1sng
+         CUf+fllAxnRYaw9q97yny2uoMXuNjDRBOZd6d0BVQVU1LwtpyHcNj5TU3mbM/VuR0PKl
+         mFbZTC7OcV+BK730ttny5K4w9Rakl7uYWEss7yH4/ds96gX894g9AnqCdQqXqtfbZ7A6
+         7jPA==
+X-Gm-Message-State: AOAM533sXvRy+zfSUkvqJGgaJlbonwk/jlZdR45cnzZo2ESzpj1sn0Xf
+        EKhqSGK1RDbKVINvpXZMwPwkdPfX2SJl28b5/1mxpPwB94Cw4Mg9
+X-Google-Smtp-Source: ABdhPJy2Z+mCK6UsBedDHfuHLqHjOelryE6bx9xZ/OavTEghlxY+bPID2uQBe/oD5nVNF4jHf9BZTkpf3h9vpVXzB08=
+X-Received: by 2002:a17:907:1b0a:: with SMTP id mp10mr15488909ejc.29.1634905309828;
+ Fri, 22 Oct 2021 05:21:49 -0700 (PDT)
 MIME-Version: 1.0
-Received: by 2002:a92:c7c6:0:0:0:0:0 with HTTP; Tue, 19 Oct 2021 02:38:50
+Received: by 2002:a17:907:7fa7:0:0:0:0 with HTTP; Fri, 22 Oct 2021 05:21:48
  -0700 (PDT)
-Reply-To: megaritalouisdrayfu199@yahoo.com
-From:   "Mrs. Margarita Louis-Dreyfus." <anniewei112@gmail.com>
-Date:   Mon, 18 Oct 2021 21:38:50 -1200
-Message-ID: <CAGT4pMkzKn8mfeY05OAG04CCAxodKEVDUk46D=O7cfK8+n1=tA@mail.gmail.com>
-Subject: Charitable funds to help the less privilege!
+Reply-To: bahadur.rayanby@gmail.com
+From:   Ryan Bahadur <dr.philposman7@gmail.com>
+Date:   Fri, 22 Oct 2021 05:21:48 -0700
+Message-ID: <CAMOT=VQ19xGMh1Soq8rNHNKaBCqZh03d0u+Nrf_Ou9bAtd-seQ@mail.gmail.com>
+Subject: CAN I TRUST YOU
 To:     undisclosed-recipients:;
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
---=20
-Hello,
+-- 
+Greetings,
 
-I am sorry to encroach into your privacy in this manner, my name
-Margarita Louis-Dreyfus , I find it pleasurable to offer you my
-partnership in business, i only pray at this time that your email
-address is still valid. I want to solicit your attention to receive
-money on my behalf for humanitarian project to help the less
-priviledge.
+Firstly, I apologize for encroaching into your privacy in this manner
+as it may seem unethical though it is a matter of great importance.
 
-The purpose of my contacting you is because my status would not permit
-me to do this alone. Given my current state of health, I have decided
-to donate Ninety -Eight Million United State Dollars to establish a
-foundation with your help to reach out to the less privilege, orphans,
-sick and homeless people in your country who will receive their
-blessings as i promised my God before i leave this earth.
+I am Mr.Ryan Bahadur, I work with Cayman National Bank (Cayman Islands).
 
-I got your contact through my personal search, you were revealed as
-being quite astute in private entrepreneurship, and i have no doubt
-that you can handle this huge financial transaction. Please contact my
-executor for more information:
+I am contacting you because my status would not permit me to do this
+alone as it is concerning our customer and an investment placed under
+our bank's management over 5 years ago.
 
-Mr. Ford Spencer(Attorney at Law).
-For: Mrs. Margarita Louis-Dreyfus
-LEGAL DEPARTMENT LAWSON & ASSOCIATES
-(JUSTICE, FAIRPLAY & EQUITY)
-Email: fordspencer828@yahoo.com, fordspencereqs828@gmail.com
-Office: +1-970-414-1400
-+1-702-714-3422
-Mobile: +1 916 269 2733
-Fax: +1-970-414-1433
-=C2=AE Property of Steven C Spence PA.
+I have a proposal I would love to discuss with you which will be very
+beneficial to both of us. It's regarding my late client who has a huge
+deposit with my bank.
 
-Your earliest response to this letter will be appreciated.
+He is from your country and shares the same last name with you.
 
-Kind Regards,
+I want to seek your consent to present you as the next of kin to my
+late client who died and left a huge deposit with my bank.
 
-Mrs. Margarita Louis-Dreyfus.
+I would respectfully request that you keep the contents of this mail
+confidential and respect the integrity of the information you come by
+as a result of this mail.
+
+Please kindly get back to me for more details if I can TRUST YOU.{
+bahadur.rayanby@gmail.com}
+
+Regards
+Mr.Ryan Bahadur
+Treasury and Deposit Management,
+Cayman National Bank Cayman Islands.
