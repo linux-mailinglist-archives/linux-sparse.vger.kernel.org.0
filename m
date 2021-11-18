@@ -2,174 +2,88 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 973E5454414
-	for <lists+linux-sparse@lfdr.de>; Wed, 17 Nov 2021 10:45:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 3723C455C7E
+	for <lists+linux-sparse@lfdr.de>; Thu, 18 Nov 2021 14:20:55 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S235363AbhKQJsa (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Wed, 17 Nov 2021 04:48:30 -0500
-Received: from wout1-smtp.messagingengine.com ([64.147.123.24]:40247 "EHLO
-        wout1-smtp.messagingengine.com" rhost-flags-OK-OK-OK-OK)
-        by vger.kernel.org with ESMTP id S235547AbhKQJsS (ORCPT
+        id S230376AbhKRNXv (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Thu, 18 Nov 2021 08:23:51 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:55612 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S230356AbhKRNXs (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Wed, 17 Nov 2021 04:48:18 -0500
-Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
-        by mailout.west.internal (Postfix) with ESMTP id AAF7D3201DE8;
-        Wed, 17 Nov 2021 04:45:17 -0500 (EST)
-Received: from imap42 ([10.202.2.92])
-  by compute1.internal (MEProxy); Wed, 17 Nov 2021 04:45:17 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=naive.systems;
-         h=mime-version:message-id:in-reply-to:references:date:from:to
-        :cc:subject:content-type; s=fm3; bh=qwtYvO1IWmfqnU/oDXcf/0GhGdE8
-        6fgVYRZ9X2PHneQ=; b=VdeMnxKdIbQ1YJcG06pFcpDRQXIx7k5DBLIUGHmtG5rh
-        JVw0S14RdTYpQFolZEC072bPw8KuWntAUh58a1AdrxocuAoFUDSAuVEFzejb04VB
-        3URw+XE/NHrrHIaDWvA9eA43tGWXWWgihzhSaC0+cWtIJKoV/QUcAwz+3uSG2y8J
-        U5Uox0KxK3sJ/2eT3ht8spkCrU7F73j1QTo7EIrEl5BWGJKkELhKTfh89nCPxTq6
-        x16pemnkWw2LUCrxFK1b9ByK8erwPjK+JYbr4l7aOEmeHNlesQr0lRVLiF23Ty5X
-        4zTA0rxVIPJS0Yd3427ENAttplm4v+uQ4sN1WP3myw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-        messagingengine.com; h=cc:content-type:date:from:in-reply-to
-        :message-id:mime-version:references:subject:to:x-me-proxy
-        :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=qwtYvO
-        1IWmfqnU/oDXcf/0GhGdE86fgVYRZ9X2PHneQ=; b=XJnY46hNjAT3Ev0YyS8I3L
-        hUe4TsVQgHJLr5uokZp2YTsc8Cfcoz4f+HCjkBRpgnpieQK3WG0az+zhzs1WpkcW
-        e1Qg5uCBRKJ4BOudLxMt9xA/fzTNRQ5ugSypIw9VNnUwF955e3iII8O2lrEAagFI
-        cktzG5xNyUGMRjVPX3aRzAsBjUX+BV6Dr3b2asjjdIlt80ETgGIIm13eQV/S1oEm
-        Jzhis6QEcMHqDBobf5yYwbSO3dPstWuoy9pntL7Bk7RiS5j3ysejq/tZkyC7nenW
-        m48OI1/NFsuaBO6N5PhHds+YKBtdt9ayRTje3YDmidSw0ExqwycLTX6MiFGpSUuw
-        ==
-X-ME-Sender: <xms:Lc-UYQYrD1UI5laxONcs2uaJY0fVvvVLWpratJV9j1j3jlw2sGAWKg>
-    <xme:Lc-UYbbRmv1EWmbTUtwlJqQfyeUdHeoDhxi-uFQF6CDtcXU_8Yyni0Jc0JavlNb6o
-    bHGHOe-Gm5B3Jm2T_o>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvuddrfeeggddtfecutefuodetggdotefrodftvf
-    curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
-    uegrihhlohhuthemuceftddtnecunecujfgurhepofgfggfkjghffffhvffutgesthdtre
-    dtreertdenucfhrhhomhepfdgiihgrohculfhirgdfuceogihjihgrsehnrghivhgvrdhs
-    hihsthgvmhhsqeenucggtffrrghtthgvrhhnpefgteefvefhgedufeehhffgudeugfdtke
-    ehhedvveehgfekheejheeigeefheekgfenucevlhhushhtvghrufhiiigvpedtnecurfgr
-    rhgrmhepmhgrihhlfhhrohhmpeigjhhirgesnhgrihhvvgdrshihshhtvghmsh
-X-ME-Proxy: <xmx:Lc-UYa8mfTJBcx6gHKmF1XB3KGCRF9OC3nFNFIiv6g_w4Xqax2G8UA>
-    <xmx:Lc-UYaoeQqBON1AuvT38iA0-FbGVWest95rlc68eOGw2KeQmxLer6A>
-    <xmx:Lc-UYbqOr5AT5D_N-IG0PETv9J5BMUSrzy-2W8XOoDVq-4INvT0wDg>
-    <xmx:Lc-UYVFFR6LD9K8mUTsb28PUtwwQviJxn9iwLVLO_112PvLosWBHSA>
-Received: by mailuser.nyi.internal (Postfix, from userid 501)
-        id 36FFD218007A; Wed, 17 Nov 2021 04:45:17 -0500 (EST)
-X-Mailer: MessagingEngine.com Webmail Interface
-User-Agent: Cyrus-JMAP/3.5.0-alpha0-1371-g2296cc3491-fm-20211109.003-g2296cc34
-Mime-Version: 1.0
-Message-Id: <fd079590-6715-4840-8943-6627c950962e@www.fastmail.com>
-In-Reply-To: <20210813012511.65397-2-duke@naive.systems>
-References: <20210726182822.ylmd3vtm44txowoi@mail>
- <20210813012511.65397-1-duke@naive.systems>
- <20210813012511.65397-2-duke@naive.systems>
-Date:   Wed, 17 Nov 2021 17:44:56 +0800
-From:   "Xiao Jia" <xjia@naive.systems>
-To:     luc.vanoostenryck@gmail.com
-Cc:     linux-sparse@vger.kernel.org
-Subject: Re: [PATCH 1/2] expose more functions to C++ in header files
-Content-Type: text/plain
+        Thu, 18 Nov 2021 08:23:48 -0500
+Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com [IPv6:2a00:1450:4864:20::134])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 30F12C061570
+        for <linux-sparse@vger.kernel.org>; Thu, 18 Nov 2021 05:20:48 -0800 (PST)
+Received: by mail-lf1-x134.google.com with SMTP id b40so25969059lfv.10
+        for <linux-sparse@vger.kernel.org>; Thu, 18 Nov 2021 05:20:48 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=mime-version:reply-to:from:date:message-id:subject:to;
+        bh=o/E5pVansUx3F/k2LuNW2doPkR1FpoTGrLH7703k+v4=;
+        b=ZJ8DLJeZdFHSfQ/25itsimLa50JkvpRX+SA81xN0i0Qv+AsP6Eei13Mf79E2myn1mY
+         QYDHIST3QNvUisYr/eke9EGEXN2J1kG0aQM0Z0vX/Aius2NkH5bV/aR+ARVVdW5JaFtR
+         7suYIqTqxnj7BgnMoy4Z+/3Z/hwCB26yJvMNGKTKi+FiEZ7riuufEttMQkNbay5l45x9
+         eIW8dnSBoIOa9iyu+kuC6t/u1Gm/uvHeJPSe9phrd/4S+7Dl0pax8v48toeDyjk4vqha
+         +OOtGBBBZ5HWWEBjs07V672LMXkdE/OUT3b7m8PetG9rA2KULK7O1bBxKc8SGuTpqlZ4
+         tUtA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:mime-version:reply-to:from:date:message-id
+         :subject:to;
+        bh=o/E5pVansUx3F/k2LuNW2doPkR1FpoTGrLH7703k+v4=;
+        b=pBn1v1SBjLwLQCtwYOqPOeiCNkcxK7ZNA7gmJFPtTlZx9IztPhGGxdYPdBiN3wPRAy
+         zmXCFVqpODv4SvqpUCxoXhK28jpl98jmpk/LrxkvbMJFoUQ1h86rgxZw3rhfyPraBR6M
+         XtXJE/47g50jg8ukezL4h5NHaB9TSSWU812+q8Nk1PKE1aUjAzxfP48uwmhE8beqYO60
+         hZ0XZJm5jS8QZowEVL/E+RwVGDIcX/c0z9rwv+N7bK8BgPaaeixGIdA65xsC5LrHzI2j
+         U9WbPz/++txEiJcrOJIP6NCYxMWQT6esy3ktIYbTgB6QnLt52IAeTmdUmSPFty2kWOx7
+         5CFA==
+X-Gm-Message-State: AOAM530nP6up7/OzzmjociS79/BW0PXVjgUWGob6IAVz2y2D/p64CwjN
+        tznQs5BKiCk4BnGwSmKxfIgoLLbmlTh5HEJN0Js7g5FGdGf9PQ==
+X-Google-Smtp-Source: ABdhPJx9isLSrkR5iF/wPCX0wzfwmwoVn6dWoYq8WCOMeBODGctMLS4FPoNPUNNA+tz+Ait67ILWAxcCLDQQbd81GHg=
+X-Received: by 2002:a17:907:6e16:: with SMTP id sd22mr32229395ejc.542.1637241636078;
+ Thu, 18 Nov 2021 05:20:36 -0800 (PST)
+MIME-Version: 1.0
+Received: by 2002:a50:cf0b:0:0:0:0:0 with HTTP; Thu, 18 Nov 2021 05:20:35
+ -0800 (PST)
+Reply-To: francoispetit113@outlook.com
+From:   Francois Petit <daphinemsparharmrhonda491@gmail.com>
+Date:   Thu, 18 Nov 2021 14:20:35 +0100
+Message-ID: <CAPd2WpdRibaOC7jU-E6BVEYPcea0W-LsjvXD5=TEuuqKgaaRAQ@mail.gmail.com>
+Subject: TREAT AS CONFIDENTIAL..
+To:     undisclosed-recipients:;
+Content-Type: text/plain; charset="UTF-8"
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-Hi Luc,
+Hello,
 
-Is this patchset getting your attention?  Ke has finished his internship so if there's anything needed please let me know.
+I'm Francois Petit with Societe Generale Bank here in France. I
+sincerely seek to present you as the Next of Kin to a late client who
+left behind $145.5 million dollars in a fixed deposit account in my
+bank before his demise.
 
-Thanks,
-Xiao
+The British born client was into Diamond and Gold mining and died
+without a Next of Kin. I shall obtain the legal documents that will
+give you legal rights to make this claim legitimately. I am willing to
+share the funds 60/40 with you and this shall be completed within 72
+hours. With the legal documents, the bank will approve you as the Next
+of Kin and pay out this amount to you within three working days. I
+considered the funds would be of better use to both of us instead of
+letting the bank or some corrupt politician to confiscate the funds.
 
-On Fri, Aug 13, 2021, at 9:25 AM, Ke Du wrote:
-> Delete or shrink the ifndef __cplusplus guard to expose more facilities
-> to C++, such as sparse_initialize and the FOR_EACH_PTR macro.
-> 
-> Signed-off-by: Ke Du <duke@naive.systems>
-> Reviewed-by: Xiao Jia <xjia@naive.systems>
-> ---
-> lib.h     | 4 ++--
-> ptrlist.h | 2 +-
-> symbol.h  | 3 ---
-> token.h   | 3 +--
-> 4 files changed, 4 insertions(+), 8 deletions(-)
-> 
-> diff --git a/lib.h b/lib.h
-> index 9809feee..0e9bd0cd 100644
-> --- a/lib.h
-> +++ b/lib.h
-> @@ -85,8 +85,6 @@ DECLARE_PTR_LIST(string_list, char);
->  
-> typedef struct pseudo *pseudo_t;
->  
-> -#ifndef __cplusplus
-> -
-> #ifdef __GNUC__
-> #define FORMAT_ATTR(pos) __attribute__ ((__format__ (__printf__, pos, pos+1)))
-> #define NORETURN_ATTR __attribute__ ((__noreturn__))
-> @@ -143,6 +141,8 @@ extern struct symbol_list *sparse_keep_tokens(char *filename);
-> extern struct symbol_list *sparse(char *filename);
-> extern void report_stats(void);
->  
-> +#ifndef __cplusplus
-> +
-> static inline int symbol_list_size(struct symbol_list *list)
-> {
-> return ptr_list_size((struct ptr_list *)(list));
-> diff --git a/ptrlist.h b/ptrlist.h
-> index e281309f..67c7a208 100644
-> --- a/ptrlist.h
-> +++ b/ptrlist.h
-> @@ -109,6 +109,7 @@ extern void __free_ptr_list(struct ptr_list **);
-> DO_REVERSE(ptr, __head##ptr, __list##ptr, __nr##ptr, __rname##new, \
->    new, __head##new, __list##new, __nr##new, PTR_ENTRY_UNTAG)
->  
-> +#endif // __cpluplus
->  
-> #define FOR_EACH_PTR(head, ptr) \
-> DO_FOR_EACH(head, ptr, __head##ptr, __list##ptr, __nr##ptr, __name##ptr, PTR_ENTRY_NOTAG)
-> @@ -311,5 +312,4 @@ static inline void *tag_ptr(void *ptr, unsigned long tag)
-> return (void *)(tag | (unsigned long)ptr);
-> }
->  
-> -#endif // __cpluplus
-> #endif /* PTR_LIST_H */
-> diff --git a/symbol.h b/symbol.h
-> index 503c9f09..c9d221e7 100644
-> --- a/symbol.h
-> +++ b/symbol.h
-> @@ -220,8 +220,6 @@ struct symbol {
-> pseudo_t pseudo;
-> };
->  
-> -#ifndef __cplusplus
-> -
-> /* Modifiers */
-> #define MOD_AUTO 0x00000001
-> #define MOD_REGISTER 0x00000002
-> @@ -591,5 +589,4 @@ static inline void combine_address_space(struct position pos,
-> }
-> }
->  
-> -#endif // __cplusplus
-> #endif /* SYMBOL_H */
-> diff --git a/token.h b/token.h
-> index 1f3601a9..804cc6f8 100644
-> --- a/token.h
-> +++ b/token.h
-> @@ -197,7 +197,7 @@ struct token {
-> };
-> };
->  
-> -#ifndef __cplusplus
-> +
->  
-> #define MAX_STRING 8191
->  
-> @@ -251,5 +251,4 @@ static inline int match_token_zero(struct token *token)
-> return token->number[0] == '0' && !token->number[1];
-> }
->  
-> -#endif // __cplusplus
-> #endif
-> -- 
-> 2.31.1
-> 
-> 
+Kindly get back to me as soon as possible with your full name,
+address, direct contact number and occupation for the processing of
+the legal documents if you are interested and can be trusted to return
+my own share when you have received the funds in your bank account.
+More information shall be given to you once I hear from you. I put it
+to you that this is probably going to be the best decision you ever
+make in your life.
+
+However, if you are not interested in the offer, kindly delete this
+message from your mailbox and pretend that I never contacted you. I'll
+continue my search for a reliable person that will help out.
+
+Best Wishes,
+Francois Petit
