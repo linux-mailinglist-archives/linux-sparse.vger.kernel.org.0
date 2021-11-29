@@ -2,86 +2,138 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 55A9745D2E9
-	for <lists+linux-sparse@lfdr.de>; Thu, 25 Nov 2021 03:06:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 3CCEA461456
+	for <lists+linux-sparse@lfdr.de>; Mon, 29 Nov 2021 12:54:19 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S233918AbhKYCJS (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Wed, 24 Nov 2021 21:09:18 -0500
-Received: from ns1.ge0.cz ([171.25.221.142]:47056 "EHLO webhost1.gdx.cz"
-        rhost-flags-OK-OK-OK-FAIL) by vger.kernel.org with ESMTP
-        id S233396AbhKYCHR (ORCPT <rfc822;linux-sparse@vger.kernel.org>);
-        Wed, 24 Nov 2021 21:07:17 -0500
-X-Greylist: delayed 39080 seconds by postgrey-1.27 at vger.kernel.org; Wed, 24 Nov 2021 21:07:15 EST
-Received: from localhost (localhost [127.0.0.1])
-        by webhost1.gdx.cz (Postfix) with ESMTP id 22EF1CF9D5;
-        Wed, 24 Nov 2021 16:02:58 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=akfv.cz; h=
-        x-mailer:content-transfer-encoding:content-type:content-type
-        :mime-version:date:date:subject:subject:from:from:reply-to; s=
-        default; t=1637766177; x=1639580578; bh=xn98h4HNEwGRPojyB50qyd/B
-        /WGQygR1kpaomaiEmwc=; b=qFnCya27ELD6S8CyEyZ78U0248PduWgemH1GNQqf
-        qPwHpDi8ViYafquFtfupWc1d6aCOr8LvbIoKVgXMSB33d+dZzV2xzDTig2RvI3m1
-        SCYQ0mbVulsqLgotn/Ic1sLkBQQ4NEH4rvrJ/iu1TCGm6eTQQGNacfXkkMACjGN7
-        aKI=
-X-Virus-Scanned: Debian amavisd-new at webhost1.gdx.cz
-Received: from webhost1.gdx.cz ([127.0.0.1])
-        by localhost (webhost1.gdx.cz [127.0.0.1]) (amavisd-new, port 10026)
-        with ESMTP id 5xKsse18AtHx; Wed, 24 Nov 2021 16:02:57 +0100 (CET)
-Received: from User (unknown [212.192.219.52])
-        (Authenticated sender: filip.vanek@akfv.cz)
-        by webhost1.gdx.cz (Postfix) with ESMTPA id 8724ECC097;
-        Wed, 24 Nov 2021 11:58:39 +0100 (CET)
-Reply-To: <chimwai24@gmail.com>
-From:   "Chim Wai Kin" <filip.vanek@akfv.cz>
-To:     chimwai24@gmail.com
-Subject: PLEASE GET BACK SOON..
-Date:   Wed, 24 Nov 2021 02:58:41 -0800
+        id S243225AbhK2L5f (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Mon, 29 Nov 2021 06:57:35 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:60400 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S241153AbhK2Lzf (ORCPT
+        <rfc822;linux-sparse@vger.kernel.org>);
+        Mon, 29 Nov 2021 06:55:35 -0500
+Received: from mail-yb1-xb36.google.com (mail-yb1-xb36.google.com [IPv6:2607:f8b0:4864:20::b36])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id C461EC08ED9B
+        for <linux-sparse@vger.kernel.org>; Mon, 29 Nov 2021 02:57:21 -0800 (PST)
+Received: by mail-yb1-xb36.google.com with SMTP id f186so40992523ybg.2
+        for <linux-sparse@vger.kernel.org>; Mon, 29 Nov 2021 02:57:21 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=mime-version:reply-to:from:date:message-id:subject:to
+         :content-transfer-encoding;
+        bh=/N2AzXdmQhj8cnrxf6yxwa23/wIatZRqd4goM9Q+IO8=;
+        b=ErhOpdgigBGRX0iOA2ci/LrupvuM6+6c+q9rD2B6x1di+sFL9PVYGmzafYCayO999B
+         Ex51N+if313WKcW+gK1lj/OWtPvwfLDnTT20+eAv8YxxrR4g7rLnHIdzsTIvVAz0SrpQ
+         Ch6axdbEwb+a/M3Dt2tKAFVIFy0Y8iZuOwtZqXl1J60xk4GO/CqIzkuCM++XjDrDX06p
+         089vT34nfrhei7WTrhyk/M1T035mB+FNPNQ5Hd3oBtsviAPMtLS5mvE7ZDcnz+92hK94
+         07sMoak/mgTSYg0TcRsMzWsKiITVk9cvja0ME+E02kwQTfYZNPVDhNnY35dNNYcmygLp
+         iGDg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:mime-version:reply-to:from:date:message-id
+         :subject:to:content-transfer-encoding;
+        bh=/N2AzXdmQhj8cnrxf6yxwa23/wIatZRqd4goM9Q+IO8=;
+        b=v2CySxJv/fLyUDrDpBxTcswq5iZJ5ap2lRzFBB4GO00UrYVCQ3zt7U3N91YScSWwVB
+         fPF0uyVUCuSgz/zAc4ZoChPiezKQTW5knzCNzAMM0odOCEl/bIfS5LRuWc+Rfh/NZEUn
+         N7jqFTT0p6u6cMMsTWdEwShOer4+8VW/5EMabouBo06rnMr0UnpPykas2HA7mIUr0y8D
+         z6ujmopUQTKpoarTFT1EUKzEWrBYNqSJFqt4pCViSfvpze08rHrVpxnaYqLS6dc1LrAM
+         BMDAWUPBdg45qgARTUKF9dkQkKIP5Y+e3jOuFXH8dSmlxsC2iM5VPzV09xXMA2TjdZb2
+         FI7w==
+X-Gm-Message-State: AOAM532NJyvfI+ZG8O4SJDOjHDoG3cH1gKl39Hc50uVx8iPKV+CPEEPR
+        HGVHeKoSyWZP1eRzDthUriiAPKuw1zC3+VmPmUg=
+X-Google-Smtp-Source: ABdhPJwDXAO1KxnCKDkkwiudCJqJuhpArYKiJQTg+eIzhjAbEBRvY4HWTqik/oBHDS4epB1bybFjcLt6vUq4kag2XME=
+X-Received: by 2002:a25:8052:: with SMTP id a18mr5454865ybn.634.1638183440729;
+ Mon, 29 Nov 2021 02:57:20 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain;
-        charset="Windows-1251"
-Content-Transfer-Encoding: 7bit
-X-Priority: 3
-X-MSMail-Priority: Normal
-X-Mailer: Microsoft Outlook Express 6.00.2600.0000
-X-MimeOLE: Produced By Microsoft MimeOLE V6.00.2600.0000
-Message-Id: <20211124150258.22EF1CF9D5@webhost1.gdx.cz>
+Received: by 2002:a05:7010:178c:b0:1df:8029:4655 with HTTP; Mon, 29 Nov 2021
+ 02:57:20 -0800 (PST)
+Reply-To: koffiaya202100@gmail.com
+From:   Koffi Aya <jindaratdaosornprasat2014@gmail.com>
+Date:   Mon, 29 Nov 2021 10:57:20 +0000
+Message-ID: <CAEU+xUtwV2_ndBWAkwUyRuwpTUmaYNsko=VW5FhYtsUrob4E3g@mail.gmail.com>
+Subject: Von Koffi
+To:     undisclosed-recipients:;
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-Dear Friend,
+--=20
+Von: Koffi Aya
+Liebste,
+Guten Tag und vielen Dank f=C3=BCr Ihre Aufmerksamkeit. Bitte, ich m=C3=B6c=
+hte, dass
+Sie meine E-Mail sorgf=C3=A4ltig lesen und mir helfen, dieses Projekt zu
+bearbeiten. Ich bin Miss Koffi Aya und m=C3=B6chte Sie in aller Bescheidenh=
+eit
+um Ihre Partnerschaft und Unterst=C3=BCtzung bei der =C3=9Cbertragung und A=
+nlage
+meiner Erbschaftsgelder in H=C3=B6he von 6.500.000,00 US-Dollar (sechs Mill=
+ionen
+f=C3=BCnfhunderttausend US-Dollar) bitten, die mein verstorbener geliebter =
+Vater
+vor seinem Tod bei einer Bank hinterlegt hat.
 
-Please read carefully.
+Ich m=C3=B6chte Ihnen versichern, dass dieser Fonds legal von meinem
+verstorbenen Vater erworben wurde und keinen kriminellen Hintergrund hat.
+Mein Vater hat diesen Fonds legal durch ein legitimes Gesch=C3=A4ft erworbe=
+n,
+bevor er w=C3=A4hrend seiner Gesch=C3=A4ftsreise zu Tode vergiftet wurde. D=
+er Tod
+meines Vaters wurde von seinen Verwandten, die ihn w=C3=A4hrend seiner
+Dienstreise begleiteten, vermutet. Denn nach 3 Monaten nach dem Tod meines
+Vaters begannen Seine Verwandten, alle Besitzt=C3=BCmer meines verstorbenen
+Vaters zu beanspruchen und zu verkaufen.
 
-I would respectfully request that you keep the contents of this mail confidential and respect the integrity of the information you come by as a result of this mail. I contact you independently and no one is informed of this communication. We can work together for our common good.
+Die Verwandten meines verstorbenen Vaters wissen nichts von den
+6.500.000,00 US-Dollar (sechs Millionen f=C3=BCnfhunderttausend US-Dollar),=
+ die
+mein verstorbener Vater auf die Bank eingezahlt hat und mein verstorbener
+Vater sagte mir heimlich, bevor er starb, dass ich in jedem Land nach einem
+ausl=C3=A4ndischen Partner suchen sollte meiner Wahl, wohin ich diese Gelde=
+r f=C3=BCr
+meine eigenen Zwecke =C3=BCberweise.
 
-I am Chim Wai Kin, Chairman of the risk management committee at OCBC WING HANG BANK here in Hong Kong. I am getting in touch with you regarding the estate of a customer and an investment placed under our banks management over
+Bitte helfen Sie mir, dieses Geld f=C3=BCr gesch=C3=A4ftliche Zwecke in Ihr=
+em Land
+auf Ihr Konto zu =C3=BCberweisen. Ich habe diese Entscheidung getroffen, we=
+il
+ich viele Dem=C3=BCtigungen von den Verwandten meines verstorbenen Vaters
+erlitten habe. Zur Zeit habe ich Kommunikation mit dem Direktor der Bank,
+bei der mein verstorbener Vater dieses Geld hinterlegt hat. Ich habe dem
+Direktor der Bank die Dringlichkeit erkl=C3=A4rt, sicherzustellen, dass das=
+ Geld
+ins Ausland =C3=BCberwiesen wird, damit ich dieses Land zu meiner Sicherhei=
+t
+verlassen kann. Der Direktor der Bank hat mir zugesichert, dass das Geld
+=C3=BCberwiesen wird, sobald ich jemanden vorlege, der den Geldbetrag in me=
+inem
+Namen f=C3=BCr diesen Zweck ehrlich entgegennimmt.
 
-10 years ago. In 2006, the subject matter; came to our office to engage in business discussions with our private banking division. He informed us that he had a financial portfolio of $18.75 million United States dollars, which he wished to have us invest on his behalf.
-However, this money has not been claimed. On further enquiries we found out that he was involved in an accident in Mainland China , which means he died intestate, He has no next of kin.
+Seien Sie versichert, dass die Bank den Betrag auf Ihr Konto =C3=BCberweist=
+ und
+es keine Probleme geben wird. Diese Transaktion ist 100% risikofrei und
+legitim. Ich bin bereit, Ihnen nach erfolgreicher =C3=9Cberweisung dieses G=
+eldes
+auf Ihr Konto 30% der Gesamtsumme als Entsch=C3=A4digung f=C3=BCr Ihren Auf=
+wand
+anzubieten. Sie werden mir auch helfen, 10% an Wohlt=C3=A4tigkeitsorganisat=
+ionen
+und Heime f=C3=BCr mutterlose Babys in Ihrem Land zu spenden.
 
-What I propose is that since I have exclusive access to his file, you will be made the beneficiary of these funds. My bank will contact you informing you that money has been willed to you. On verification, which will be the details I make available to my bank, my bank will make payments to you. You do not have to have known him. I know this might be a bit heavy for you but please trust me on this. For all your troubles I propose that we split the money in  half. In the banking circle this happens every time. The other option is that the
+Bitte alles, was ich m=C3=B6chte, ist, dass Sie f=C3=BCr mich als mein ausl=
+=C3=A4ndischer
+Partner auftreten, damit die Bank dieses Geld auf Ihr Konto =C3=BCberweist,
+damit ich in diesem Land leben kann. Bitte, ich brauche Ihre dringende
+Hilfe wegen meines jetzigen Zustands. Mit Ihrer vollen Zustimmung, mit mir
+zu diesem Zweck zusammenzuarbeiten, bekunden Sie bitte Ihr Interesse durch
+eine R=C3=BCckantwort an mich, damit ich Ihnen die notwendigen Informatione=
+n und
+die Details zum weiteren Vorgehen gebe. Ich werde Ihnen 30% des Geldes f=C3=
+=BCr
+Ihre Hilfe anbieten und Hilfestellung, damit umzugehen.
 
-money will revert back to the state.Nobody is getting hurt; this is a  lifetime opportunity for us. I hold the KEY to these funds, and as a Chinese  National we see so much cash and funds being re-assigned daily. I would want  us to keep communication for now strictly by email.
-
-Please, again, note I am a family man; I have a wife and children. I send you this mail not without a measure of fear as to the consequences, but I know  within me that nothing ventured is nothing gained and that success and riches
-
-never come easy or on a platter of gold. This is the one truth I have learned from my private banking clients. Do not betray my confidence. If we can be of one accord, we should act swiftly on this. Please pardon my writing mistakes.
-
-Please get back to me immediately with your details as follows so we may discuss more on this. EMAIL ME : chimwai24@gmail.com
- 
-
-
-1. Full Names and address
-
-2. Telephone and fax number
-
-3. Means of identification.
-
-
-I await your response.
-
-Regards
-Chim Wai Kin
-
-chimwai24@gmail.com
+Ihre dringende Antwort wird gesch=C3=A4tzt.
+Mit freundlichen Gr=C3=BC=C3=9Fen
+Koffi Aya
