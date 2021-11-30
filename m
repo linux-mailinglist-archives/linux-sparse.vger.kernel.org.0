@@ -2,138 +2,119 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 3CCEA461456
-	for <lists+linux-sparse@lfdr.de>; Mon, 29 Nov 2021 12:54:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 49AA3463EE0
+	for <lists+linux-sparse@lfdr.de>; Tue, 30 Nov 2021 20:53:43 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S243225AbhK2L5f (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Mon, 29 Nov 2021 06:57:35 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:60400 "EHLO
+        id S1343532AbhK3T4x (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Tue, 30 Nov 2021 14:56:53 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:46420 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S241153AbhK2Lzf (ORCPT
+        with ESMTP id S1343530AbhK3T4x (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Mon, 29 Nov 2021 06:55:35 -0500
-Received: from mail-yb1-xb36.google.com (mail-yb1-xb36.google.com [IPv6:2607:f8b0:4864:20::b36])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id C461EC08ED9B
-        for <linux-sparse@vger.kernel.org>; Mon, 29 Nov 2021 02:57:21 -0800 (PST)
-Received: by mail-yb1-xb36.google.com with SMTP id f186so40992523ybg.2
-        for <linux-sparse@vger.kernel.org>; Mon, 29 Nov 2021 02:57:21 -0800 (PST)
+        Tue, 30 Nov 2021 14:56:53 -0500
+Received: from mail-oi1-x234.google.com (mail-oi1-x234.google.com [IPv6:2607:f8b0:4864:20::234])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 0DDA5C061574
+        for <linux-sparse@vger.kernel.org>; Tue, 30 Nov 2021 11:53:34 -0800 (PST)
+Received: by mail-oi1-x234.google.com with SMTP id bf8so43496100oib.6
+        for <linux-sparse@vger.kernel.org>; Tue, 30 Nov 2021 11:53:34 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=mime-version:reply-to:from:date:message-id:subject:to
-         :content-transfer-encoding;
-        bh=/N2AzXdmQhj8cnrxf6yxwa23/wIatZRqd4goM9Q+IO8=;
-        b=ErhOpdgigBGRX0iOA2ci/LrupvuM6+6c+q9rD2B6x1di+sFL9PVYGmzafYCayO999B
-         Ex51N+if313WKcW+gK1lj/OWtPvwfLDnTT20+eAv8YxxrR4g7rLnHIdzsTIvVAz0SrpQ
-         Ch6axdbEwb+a/M3Dt2tKAFVIFy0Y8iZuOwtZqXl1J60xk4GO/CqIzkuCM++XjDrDX06p
-         089vT34nfrhei7WTrhyk/M1T035mB+FNPNQ5Hd3oBtsviAPMtLS5mvE7ZDcnz+92hK94
-         07sMoak/mgTSYg0TcRsMzWsKiITVk9cvja0ME+E02kwQTfYZNPVDhNnY35dNNYcmygLp
-         iGDg==
+        h=mime-version:reply-to:sender:from:date:message-id:subject:to;
+        bh=8OI3fn/D0tpVt5kezlEtyVyudNoVFRpyBkJURCL4fgY=;
+        b=Eu/oHb4yBr6i/hXuZx78y/CoTolcO79vUhGwJm4wH+YJ9mj3JX06ivVb58+DEsDhks
+         twOd0uvUygX4NFU0wXkZ+YH8zpUvanWSoOiMxV2kOtYFSyxNUdTzLVcY3Qhrj1CHnpNU
+         Fq0rSQib28aBENQbm/oktcBOs+682PKYZ5FmKCe3URFvUR9/LM7glnuPIPNAmur448a0
+         xjRRqCRTU2hMZxgG9zI7jmGmaQG71rW65RI2ygoM2Zen7PPS1QxgqgX15+/d+8ZqDVkh
+         Lk4yDnQNfr+JHgJjrqYsggvFd30GEbJ5qknQcU1OTkDehyuBwKVJ8lqJndMV5ry49/7g
+         PrBQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=x-gm-message-state:mime-version:reply-to:from:date:message-id
-         :subject:to:content-transfer-encoding;
-        bh=/N2AzXdmQhj8cnrxf6yxwa23/wIatZRqd4goM9Q+IO8=;
-        b=v2CySxJv/fLyUDrDpBxTcswq5iZJ5ap2lRzFBB4GO00UrYVCQ3zt7U3N91YScSWwVB
-         fPF0uyVUCuSgz/zAc4ZoChPiezKQTW5knzCNzAMM0odOCEl/bIfS5LRuWc+Rfh/NZEUn
-         N7jqFTT0p6u6cMMsTWdEwShOer4+8VW/5EMabouBo06rnMr0UnpPykas2HA7mIUr0y8D
-         z6ujmopUQTKpoarTFT1EUKzEWrBYNqSJFqt4pCViSfvpze08rHrVpxnaYqLS6dc1LrAM
-         BMDAWUPBdg45qgARTUKF9dkQkKIP5Y+e3jOuFXH8dSmlxsC2iM5VPzV09xXMA2TjdZb2
-         FI7w==
-X-Gm-Message-State: AOAM532NJyvfI+ZG8O4SJDOjHDoG3cH1gKl39Hc50uVx8iPKV+CPEEPR
-        HGVHeKoSyWZP1eRzDthUriiAPKuw1zC3+VmPmUg=
-X-Google-Smtp-Source: ABdhPJwDXAO1KxnCKDkkwiudCJqJuhpArYKiJQTg+eIzhjAbEBRvY4HWTqik/oBHDS4epB1bybFjcLt6vUq4kag2XME=
-X-Received: by 2002:a25:8052:: with SMTP id a18mr5454865ybn.634.1638183440729;
- Mon, 29 Nov 2021 02:57:20 -0800 (PST)
+        h=x-gm-message-state:mime-version:reply-to:sender:from:date
+         :message-id:subject:to;
+        bh=8OI3fn/D0tpVt5kezlEtyVyudNoVFRpyBkJURCL4fgY=;
+        b=2j2tM/3D5Qs8EQJK3Nrr/6ot5TVHTxVwtiM0AM3ar0j5xQoFfwWJrU9eZ30yV595Qa
+         Eaw/yidWPUSXor3MLSZtUVr5xLaCb+/yByWU85cGvriUYvHq1f0ARKWbILFzcenyocGz
+         hipUHTxo34fsGwYig7dm7uPLqvIHVAxiDnbe2xZd+ufEywvi1q4jxt5yqQ+Z0alIW9e9
+         Un8rKzReOxS84DbUqdiOYevvQqTi4kXqWauHjO2y88iP1PKQyMeFaxoBblgtAPOV0iDI
+         2BHzp/dvhZCO4/PyiXIEYEa1JoKhBxx1wi0TBjORcTO6vgFWiV1K29quaZenhD3m3Vq+
+         Dimw==
+X-Gm-Message-State: AOAM531oHjzGqJBrYQ8Hx1XI3JWD5YMrKuMm4LsmGdz+hAAYZIr1bgF1
+        A2ZkC+vsKeVoJO5rhzEzOPi8xWl13r+O8YcSaFA=
+X-Google-Smtp-Source: ABdhPJydm+u8YBdfN1XZO3AqoHSlgTprFXpRCBPxj//ZI1wnV1FUhiYzt4KDJx1NgXQgO0mXIiXCAV90mFZXqmlORDI=
+X-Received: by 2002:a05:6808:4d2:: with SMTP id a18mr1071206oie.99.1638302013165;
+ Tue, 30 Nov 2021 11:53:33 -0800 (PST)
 MIME-Version: 1.0
-Received: by 2002:a05:7010:178c:b0:1df:8029:4655 with HTTP; Mon, 29 Nov 2021
- 02:57:20 -0800 (PST)
-Reply-To: koffiaya202100@gmail.com
-From:   Koffi Aya <jindaratdaosornprasat2014@gmail.com>
-Date:   Mon, 29 Nov 2021 10:57:20 +0000
-Message-ID: <CAEU+xUtwV2_ndBWAkwUyRuwpTUmaYNsko=VW5FhYtsUrob4E3g@mail.gmail.com>
-Subject: Von Koffi
+Reply-To: ahmeddrali60@gmail.com
+Sender: francismaselli4@gmail.com
+Received: by 2002:a4a:d813:0:0:0:0:0 with HTTP; Tue, 30 Nov 2021 11:53:32
+ -0800 (PST)
+From:   "Dr.Ali Ahmed" <ahmeddrali60@gmail.com>
+Date:   Tue, 30 Nov 2021 11:53:32 -0800
+X-Google-Sender-Auth: ENG7H0nf7xvGDXgKFLURzC8ifp0
+Message-ID: <CAG68mNczOhKDVzZFmxLe9DoejOeMestwOiM2eCD5cB2G0Py1mw@mail.gmail.com>
+Subject: VERY VERY URGENT,
 To:     undisclosed-recipients:;
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
---=20
-Von: Koffi Aya
-Liebste,
-Guten Tag und vielen Dank f=C3=BCr Ihre Aufmerksamkeit. Bitte, ich m=C3=B6c=
-hte, dass
-Sie meine E-Mail sorgf=C3=A4ltig lesen und mir helfen, dieses Projekt zu
-bearbeiten. Ich bin Miss Koffi Aya und m=C3=B6chte Sie in aller Bescheidenh=
-eit
-um Ihre Partnerschaft und Unterst=C3=BCtzung bei der =C3=9Cbertragung und A=
-nlage
-meiner Erbschaftsgelder in H=C3=B6he von 6.500.000,00 US-Dollar (sechs Mill=
-ionen
-f=C3=BCnfhunderttausend US-Dollar) bitten, die mein verstorbener geliebter =
-Vater
-vor seinem Tod bei einer Bank hinterlegt hat.
+Dear Friend,
 
-Ich m=C3=B6chte Ihnen versichern, dass dieser Fonds legal von meinem
-verstorbenen Vater erworben wurde und keinen kriminellen Hintergrund hat.
-Mein Vater hat diesen Fonds legal durch ein legitimes Gesch=C3=A4ft erworbe=
-n,
-bevor er w=C3=A4hrend seiner Gesch=C3=A4ftsreise zu Tode vergiftet wurde. D=
-er Tod
-meines Vaters wurde von seinen Verwandten, die ihn w=C3=A4hrend seiner
-Dienstreise begleiteten, vermutet. Denn nach 3 Monaten nach dem Tod meines
-Vaters begannen Seine Verwandten, alle Besitzt=C3=BCmer meines verstorbenen
-Vaters zu beanspruchen und zu verkaufen.
+I Dr.Ali Ahmed, With due respect, I have decided to contact you on a
+business transaction that will be beneficial to both of us.At the bank
+last account and  auditing evaluation, my staff came across an old
+account which was being maintained by a foreign client who we learned
+was among the deceased passengers of a motor accident on
+November.2003, the deceased was unable to run this account since his
+death. The Account has  remained dormant without the knowledge of his
+family since it was put in a  safe deposit account in the bank for
+future investment by the client.
 
-Die Verwandten meines verstorbenen Vaters wissen nichts von den
-6.500.000,00 US-Dollar (sechs Millionen f=C3=BCnfhunderttausend US-Dollar),=
- die
-mein verstorbener Vater auf die Bank eingezahlt hat und mein verstorbener
-Vater sagte mir heimlich, bevor er starb, dass ich in jedem Land nach einem
-ausl=C3=A4ndischen Partner suchen sollte meiner Wahl, wohin ich diese Gelde=
-r f=C3=BCr
-meine eigenen Zwecke =C3=BCberweise.
+Since his demise, even the members of his family haven't applied for
+claims over this fund and it has been in the safe deposit account
+until I discovered that it cannot be claimed since our client
+isaforeign national and we are sure that he has no next of kin here to
+file claims over the money. As the director of the department, this
+discovery was brought to my office so as to decide what is to be
+done.I decided to seek ways through which to transfer this money out
+of the bank and out of the country too.
 
-Bitte helfen Sie mir, dieses Geld f=C3=BCr gesch=C3=A4ftliche Zwecke in Ihr=
-em Land
-auf Ihr Konto zu =C3=BCberweisen. Ich habe diese Entscheidung getroffen, we=
-il
-ich viele Dem=C3=BCtigungen von den Verwandten meines verstorbenen Vaters
-erlitten habe. Zur Zeit habe ich Kommunikation mit dem Direktor der Bank,
-bei der mein verstorbener Vater dieses Geld hinterlegt hat. Ich habe dem
-Direktor der Bank die Dringlichkeit erkl=C3=A4rt, sicherzustellen, dass das=
- Geld
-ins Ausland =C3=BCberwiesen wird, damit ich dieses Land zu meiner Sicherhei=
-t
-verlassen kann. Der Direktor der Bank hat mir zugesichert, dass das Geld
-=C3=BCberwiesen wird, sobald ich jemanden vorlege, der den Geldbetrag in me=
-inem
-Namen f=C3=BCr diesen Zweck ehrlich entgegennimmt.
+The total amount in the account is USD $18.6 million with my positions
+as staff of the bank,I am handicapped because I cannot operate foreign
+accounts and cannot lay a bonafide claim over this money. The client
+was a foreign  national and you will only be asked to act as his next
+of kin and I will supply you with all the necessary information and
+bank data to assist you in being able to transfer this money to any
+bank of your  choice where this money could be transferred into.The
+total sum will be shared as follows: 50% for me, 50% for you and
+expenses incidental occur  during the transfer will be incur by both
+of us. The transfer is risk free on both sides hence you are going to
+follow my instruction till the fund  transfer to your account. Since I
+work in this bank that is why you should  be confident in the success
+of this transaction because you will be updated with information as
+and when desired.
 
-Seien Sie versichert, dass die Bank den Betrag auf Ihr Konto =C3=BCberweist=
- und
-es keine Probleme geben wird. Diese Transaktion ist 100% risikofrei und
-legitim. Ich bin bereit, Ihnen nach erfolgreicher =C3=9Cberweisung dieses G=
-eldes
-auf Ihr Konto 30% der Gesamtsumme als Entsch=C3=A4digung f=C3=BCr Ihren Auf=
-wand
-anzubieten. Sie werden mir auch helfen, 10% an Wohlt=C3=A4tigkeitsorganisat=
-ionen
-und Heime f=C3=BCr mutterlose Babys in Ihrem Land zu spenden.
+I will wish you to keep this transaction secret and confidential as I
+am hoping to retire with my share of this money at the end of the
+transaction  which will be when this money is safe in your account.I
+will then come over to your country for sharing according to the
+previously agreed percentages. You might even have to advise me on
+possibilities of investment in your country or elsewhere of our
+choice. May God help you to help me to a restive retirement,Amen,And
+You have to  contact me through my private e-mail
+at(ahmeddrali60@gmail.com)Please for further information and inquiries
+feel free to contact me back immediately for more explanation and
+better understanding I want you to assure me your capability of
+handling this  project with trust by providing me your following
+information details such as:
 
-Bitte alles, was ich m=C3=B6chte, ist, dass Sie f=C3=BCr mich als mein ausl=
-=C3=A4ndischer
-Partner auftreten, damit die Bank dieses Geld auf Ihr Konto =C3=BCberweist,
-damit ich in diesem Land leben kann. Bitte, ich brauche Ihre dringende
-Hilfe wegen meines jetzigen Zustands. Mit Ihrer vollen Zustimmung, mit mir
-zu diesem Zweck zusammenzuarbeiten, bekunden Sie bitte Ihr Interesse durch
-eine R=C3=BCckantwort an mich, damit ich Ihnen die notwendigen Informatione=
-n und
-die Details zum weiteren Vorgehen gebe. Ich werde Ihnen 30% des Geldes f=C3=
-=BCr
-Ihre Hilfe anbieten und Hilfestellung, damit umzugehen.
+(1)NAME..............
+(2)AGE:................
+(3)SEX:.....................
+(4)PHONE NUMBER:.................
+(5)OCCUPATION:.....................
+(6)YOUR COUNTRY:.....................
 
-Ihre dringende Antwort wird gesch=C3=A4tzt.
-Mit freundlichen Gr=C3=BC=C3=9Fen
-Koffi Aya
+Yours sincerely,
+Dr.Ali Ahmed
