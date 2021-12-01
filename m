@@ -2,119 +2,78 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 49AA3463EE0
-	for <lists+linux-sparse@lfdr.de>; Tue, 30 Nov 2021 20:53:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id D8AC3464CC9
+	for <lists+linux-sparse@lfdr.de>; Wed,  1 Dec 2021 12:34:16 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1343532AbhK3T4x (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Tue, 30 Nov 2021 14:56:53 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:46420 "EHLO
+        id S1348924AbhLALhd (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Wed, 1 Dec 2021 06:37:33 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:33498 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1343530AbhK3T4x (ORCPT
+        with ESMTP id S1348950AbhLALha (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Tue, 30 Nov 2021 14:56:53 -0500
-Received: from mail-oi1-x234.google.com (mail-oi1-x234.google.com [IPv6:2607:f8b0:4864:20::234])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 0DDA5C061574
-        for <linux-sparse@vger.kernel.org>; Tue, 30 Nov 2021 11:53:34 -0800 (PST)
-Received: by mail-oi1-x234.google.com with SMTP id bf8so43496100oib.6
-        for <linux-sparse@vger.kernel.org>; Tue, 30 Nov 2021 11:53:34 -0800 (PST)
+        Wed, 1 Dec 2021 06:37:30 -0500
+Received: from mail-pj1-x1035.google.com (mail-pj1-x1035.google.com [IPv6:2607:f8b0:4864:20::1035])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id EC08EC061748
+        for <linux-sparse@vger.kernel.org>; Wed,  1 Dec 2021 03:34:09 -0800 (PST)
+Received: by mail-pj1-x1035.google.com with SMTP id w33-20020a17090a6ba400b001a722a06212so881098pjj.0
+        for <linux-sparse@vger.kernel.org>; Wed, 01 Dec 2021 03:34:09 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=mime-version:reply-to:sender:from:date:message-id:subject:to;
-        bh=8OI3fn/D0tpVt5kezlEtyVyudNoVFRpyBkJURCL4fgY=;
-        b=Eu/oHb4yBr6i/hXuZx78y/CoTolcO79vUhGwJm4wH+YJ9mj3JX06ivVb58+DEsDhks
-         twOd0uvUygX4NFU0wXkZ+YH8zpUvanWSoOiMxV2kOtYFSyxNUdTzLVcY3Qhrj1CHnpNU
-         Fq0rSQib28aBENQbm/oktcBOs+682PKYZ5FmKCe3URFvUR9/LM7glnuPIPNAmur448a0
-         xjRRqCRTU2hMZxgG9zI7jmGmaQG71rW65RI2ygoM2Zen7PPS1QxgqgX15+/d+8ZqDVkh
-         Lk4yDnQNfr+JHgJjrqYsggvFd30GEbJ5qknQcU1OTkDehyuBwKVJ8lqJndMV5ry49/7g
-         PrBQ==
+        h=mime-version:sender:from:date:message-id:subject:to;
+        bh=l4J9Z+m4hmgZbWtQHlC70w1zjUmiI7wjClCwm6dHAnY=;
+        b=nKE9e+4jEQRb21OhoYPSbxPLfJ2IuSmNXU0U6wmcP4ykCacrWpdbtE0jjuz/hSLLGi
+         3CHjeG+lFmWzoULwCsmlhVFgDEk5dLFaYb51pw7bXGjZ9H8t0j91dP9aL17MRQYkMPZK
+         Snvty/Yp8/ZrWZr2EuFXHqBxUdbU8X39ik45viERJ1Dn7qW8BPCFp2vlafV2okU0kn5j
+         QPTIDY8QJSy8zAVbK10d6+AY0lky+mrQRAAg0uS1DacQStzD/dQtt/uBz/RlGIdZCai/
+         BHep24kmiLdl1nvBvHYMFonu8NoJvJlErv7lbZlg2+2c277BpkzmDA4WwPZoxzlIf0Mh
+         Af5g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=x-gm-message-state:mime-version:reply-to:sender:from:date
-         :message-id:subject:to;
-        bh=8OI3fn/D0tpVt5kezlEtyVyudNoVFRpyBkJURCL4fgY=;
-        b=2j2tM/3D5Qs8EQJK3Nrr/6ot5TVHTxVwtiM0AM3ar0j5xQoFfwWJrU9eZ30yV595Qa
-         Eaw/yidWPUSXor3MLSZtUVr5xLaCb+/yByWU85cGvriUYvHq1f0ARKWbILFzcenyocGz
-         hipUHTxo34fsGwYig7dm7uPLqvIHVAxiDnbe2xZd+ufEywvi1q4jxt5yqQ+Z0alIW9e9
-         Un8rKzReOxS84DbUqdiOYevvQqTi4kXqWauHjO2y88iP1PKQyMeFaxoBblgtAPOV0iDI
-         2BHzp/dvhZCO4/PyiXIEYEa1JoKhBxx1wi0TBjORcTO6vgFWiV1K29quaZenhD3m3Vq+
-         Dimw==
-X-Gm-Message-State: AOAM531oHjzGqJBrYQ8Hx1XI3JWD5YMrKuMm4LsmGdz+hAAYZIr1bgF1
-        A2ZkC+vsKeVoJO5rhzEzOPi8xWl13r+O8YcSaFA=
-X-Google-Smtp-Source: ABdhPJydm+u8YBdfN1XZO3AqoHSlgTprFXpRCBPxj//ZI1wnV1FUhiYzt4KDJx1NgXQgO0mXIiXCAV90mFZXqmlORDI=
-X-Received: by 2002:a05:6808:4d2:: with SMTP id a18mr1071206oie.99.1638302013165;
- Tue, 30 Nov 2021 11:53:33 -0800 (PST)
+        h=x-gm-message-state:mime-version:sender:from:date:message-id:subject
+         :to;
+        bh=l4J9Z+m4hmgZbWtQHlC70w1zjUmiI7wjClCwm6dHAnY=;
+        b=JDA4MQZULRzEstkVUUL/7ERJJDj+dy5WMBsL4ImSMgBubBQivg8tZuFzp2lnm9UJSa
+         jiI8YnT+WfAXf0DUapTKYBDKDekqEl9h1jnPDZpiQ1gEICepgRgacwfvnRKMCfXFKSwV
+         duwxYM8NvwJsLwZjmISlLxXSfeOUhSRk4PpUvEAwjs6o60ON/HIO/GmO8WJbUCWGPc6B
+         p889c/yocfyB4Ne+4BuTzn6xsTO3PJXoT7lMCPcathqdbNEaZZqKI9teCVnlsXEpjuwo
+         YweLFYm4qy58gyeaWShoeQ1r9MEwdVjp6eoSCpbi+oDiRAe4oMyHECDKjpUCqRY1xTA0
+         nafg==
+X-Gm-Message-State: AOAM53373uRQqGyB3HyLsVdDM8ArV6jRqGTV13hzCgSQYU1u7/7QYpT2
+        N0tAaYwixaMWGRdONr/DwfQet9iGU/3W9VgsFDUPeOXAOlA=
+X-Google-Smtp-Source: ABdhPJwK+H50pzFgfv5CJPfAwBzUdMqIKHh+Ckkuju2lG2knVlJrzqINPiiwPjc/Uz6xuSJez7Fkn5YZPcfa5CPpvro=
+X-Received: by 2002:a67:ef4d:: with SMTP id k13mr6266305vsr.4.1638358439020;
+ Wed, 01 Dec 2021 03:33:59 -0800 (PST)
 MIME-Version: 1.0
-Reply-To: ahmeddrali60@gmail.com
-Sender: francismaselli4@gmail.com
-Received: by 2002:a4a:d813:0:0:0:0:0 with HTTP; Tue, 30 Nov 2021 11:53:32
- -0800 (PST)
-From:   "Dr.Ali Ahmed" <ahmeddrali60@gmail.com>
-Date:   Tue, 30 Nov 2021 11:53:32 -0800
-X-Google-Sender-Auth: ENG7H0nf7xvGDXgKFLURzC8ifp0
-Message-ID: <CAG68mNczOhKDVzZFmxLe9DoejOeMestwOiM2eCD5cB2G0Py1mw@mail.gmail.com>
-Subject: VERY VERY URGENT,
+Sender: unitednationawardwinner@gmail.com
+Received: by 2002:ab0:6c55:0:0:0:0:0 with HTTP; Wed, 1 Dec 2021 03:33:58 -0800 (PST)
+From:   "Mrs. Orgil Baatar" <mrs.orgilbaatar21@gmail.com>
+Date:   Wed, 1 Dec 2021 03:33:58 -0800
+X-Google-Sender-Auth: uTQ_nfkzXaWGWaTWp1BSFqK3Ucs
+Message-ID: <CAJ4dHaSrD-X=xpfKNZV-hXSiMV6mNYrgy5vWCNkKm6iu5RQStg@mail.gmail.com>
+Subject: Your long awaited part payment of $2.5.000.00Usd
 To:     undisclosed-recipients:;
 Content-Type: text/plain; charset="UTF-8"
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-Dear Friend,
+Attention: Beneficiary, Your long awaited part payment of
+$2.5.000.00Usd (TWO MILLION FIVE Hundred Thousand United State
+Dollars) is ready for immediate release to you, and it was
+electronically credited into an ATM Visa Card for easy delivery.
 
-I Dr.Ali Ahmed, With due respect, I have decided to contact you on a
-business transaction that will be beneficial to both of us.At the bank
-last account and  auditing evaluation, my staff came across an old
-account which was being maintained by a foreign client who we learned
-was among the deceased passengers of a motor accident on
-November.2003, the deceased was unable to run this account since his
-death. The Account has  remained dormant without the knowledge of his
-family since it was put in a  safe deposit account in the bank for
-future investment by the client.
+Your new Payment Reference No.- 6363836,
+Pin Code No: 1787
+Your Certificate of Merit Payment No: 05872,
 
-Since his demise, even the members of his family haven't applied for
-claims over this fund and it has been in the safe deposit account
-until I discovered that it cannot be claimed since our client
-isaforeign national and we are sure that he has no next of kin here to
-file claims over the money. As the director of the department, this
-discovery was brought to my office so as to decide what is to be
-done.I decided to seek ways through which to transfer this money out
-of the bank and out of the country too.
+Your Names: |
+Address: |
 
-The total amount in the account is USD $18.6 million with my positions
-as staff of the bank,I am handicapped because I cannot operate foreign
-accounts and cannot lay a bonafide claim over this money. The client
-was a foreign  national and you will only be asked to act as his next
-of kin and I will supply you with all the necessary information and
-bank data to assist you in being able to transfer this money to any
-bank of your  choice where this money could be transferred into.The
-total sum will be shared as follows: 50% for me, 50% for you and
-expenses incidental occur  during the transfer will be incur by both
-of us. The transfer is risk free on both sides hence you are going to
-follow my instruction till the fund  transfer to your account. Since I
-work in this bank that is why you should  be confident in the success
-of this transaction because you will be updated with information as
-and when desired.
+Person to Contact:MR KELLY HALL the Director of the International
+Audit unit ATM Payment Center,
 
-I will wish you to keep this transaction secret and confidential as I
-am hoping to retire with my share of this money at the end of the
-transaction  which will be when this money is safe in your account.I
-will then come over to your country for sharing according to the
-previously agreed percentages. You might even have to advise me on
-possibilities of investment in your country or elsewhere of our
-choice. May God help you to help me to a restive retirement,Amen,And
-You have to  contact me through my private e-mail
-at(ahmeddrali60@gmail.com)Please for further information and inquiries
-feel free to contact me back immediately for more explanation and
-better understanding I want you to assure me your capability of
-handling this  project with trust by providing me your following
-information details such as:
+Email: uba-bf@e-ubabf.com
+TELEPHONE: +226 64865611 You can whatsApp the bank
 
-(1)NAME..............
-(2)AGE:................
-(3)SEX:.....................
-(4)PHONE NUMBER:.................
-(5)OCCUPATION:.....................
-(6)YOUR COUNTRY:.....................
-
-Yours sincerely,
-Dr.Ali Ahmed
+Regards.
+Mrs ORGIL BAATAR
