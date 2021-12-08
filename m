@@ -2,391 +2,93 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 5850C46BD3A
-	for <lists+linux-sparse@lfdr.de>; Tue,  7 Dec 2021 15:07:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 59CBA46CC17
+	for <lists+linux-sparse@lfdr.de>; Wed,  8 Dec 2021 05:13:32 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S232946AbhLGOKc (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Tue, 7 Dec 2021 09:10:32 -0500
-Received: from smtp-out1.suse.de ([195.135.220.28]:40914 "EHLO
-        smtp-out1.suse.de" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S232119AbhLGOKc (ORCPT
+        id S231543AbhLHERB (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Tue, 7 Dec 2021 23:17:01 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:41426 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S244170AbhLHEQv (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Tue, 7 Dec 2021 09:10:32 -0500
-Received: from relay2.suse.de (relay2.suse.de [149.44.160.134])
-        by smtp-out1.suse.de (Postfix) with ESMTP id 32FD62191E;
-        Tue,  7 Dec 2021 14:07:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-        t=1638886021;
-        h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
-         cc:cc:mime-version:mime-version:content-type:content-type;
-        bh=wbRgmW+zXCMvnhV8IL0lLlGP7x2MmNNduatTHF949cM=;
-        b=Xj7/H93LNsHKEZ85IPanm73ZEWuaacvjcEMW3xDov2m4KgUmrIL1hNzmB8cVBS/xcCh2br
-        uUD4TvxU3DXi+M6pS7u3fBvFz/xlDO7Go+4jqbS1GZ72vI/wUUpf8nMm6BGR6RLCEnjsq0
-        bzW2urfD7wv4H50wrxRtBBcyKe1uAIY=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-        s=susede2_ed25519; t=1638886021;
-        h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
-         cc:cc:mime-version:mime-version:content-type:content-type;
-        bh=wbRgmW+zXCMvnhV8IL0lLlGP7x2MmNNduatTHF949cM=;
-        b=sZEb/42EJDZArLoCY2ijly9UG952rU03536IHIVyEIVUfT6Qur+UitbbBt8SmY2lGPE9g4
-        KQsrpSM1GNNJNcBQ==
-Received: from g78 (unknown [10.163.17.14])
-        (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-        (No client certificate requested)
-        by relay2.suse.de (Postfix) with ESMTPS id B4C6FA3B8C;
-        Tue,  7 Dec 2021 14:07:00 +0000 (UTC)
-User-agent: mu4e 1.6.9; emacs 27.2
-From:   Richard Palethorpe <rpalethorpe@suse.de>
-To:     linux-sparse@vger.kernel.org
-Cc:     pvorel@suze.cz, chrubis@suse.cz, io@richiejp.com
-Subject: Linux Test Project vendored Sparse
-Date:   Tue, 07 Dec 2021 13:33:56 +0000
-Reply-To: rpalethorpe@suse.de
-Message-ID: <87k0ggbjb0.fsf@suse.de>
+        Tue, 7 Dec 2021 23:16:51 -0500
+Received: from mail-il1-x141.google.com (mail-il1-x141.google.com [IPv6:2607:f8b0:4864:20::141])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 6D2C4C061D5F
+        for <linux-sparse@vger.kernel.org>; Tue,  7 Dec 2021 20:13:20 -0800 (PST)
+Received: by mail-il1-x141.google.com with SMTP id s11so1081712ilv.3
+        for <linux-sparse@vger.kernel.org>; Tue, 07 Dec 2021 20:13:20 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=mime-version:reply-to:from:date:message-id:subject:to;
+        bh=w0n14T57zPuvlg1YaFYy3gRfrUPFN1bDHGIrct+fXgc=;
+        b=IhzYOc5TV5tRY8NA+oRQO6aAhcoLWjmDIiGp+agW0PuwWFWsW07ntJsVzV38I0OHqC
+         EzpNMp4ySTsTiHWjcoES1pDWfQa3hzEmTAjGEQsGKU00LGNUDJTNHWI4LldEus+S1mKT
+         dko5ukALMgi8bh7atGVs0Rt/fX7KXpplv23WbLhFzP1TfY2PPXBqFY9j53j/esPLibRX
+         1XRHyOwTiT/4tG9WZ3q4H7N/dOnVkB10wmKDHGYmk9qWEUW5JWqpdoVu6C7jO8de13Mw
+         Z0SLBzksJKYbu7/KIOlWOhfXUDnmMk6QWiigAfQd89OMRAg6NTmeD6n5AJpihkslyYUP
+         nSKA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:mime-version:reply-to:from:date:message-id
+         :subject:to;
+        bh=w0n14T57zPuvlg1YaFYy3gRfrUPFN1bDHGIrct+fXgc=;
+        b=FhVR+UFIVOetO1i3OgFcsiFv0Ccf9aWk6SGXZup0vmy1Com3csMktT1eWwk6ivHDXo
+         XDAFuqmJoI3dpUTD4FDr+PZW5QfLTnfSG94MfR/Oyv86OUymeckolzoRhnkEdhotxlJk
+         TH32vOlxpQ5rC1dhIqu3C702MzK1iOWpaKbS/cHprDTrH2VXk+zTvwq2Xty1pa+iE/H+
+         vVjirk5cL+NJcB8X0xa0DA2RroFMNDAYEe+488mazb7ULp3zaxmJVB49mSfSMkVu577T
+         ygWBJh81mxWP1V99xWJ8rrO/E2eCO8j56bgxGZkmIgzaasBnfxNt2lwDLHhyyT+1gqP6
+         +/YA==
+X-Gm-Message-State: AOAM5331kb5hlggeyvr6aBvOoW38g1zfi7D+On/ERxC99/OMyDz+xQLG
+        IiD7EMAcy347HofIa2Yo/XrPTCY4Nz4USKJ7YKU=
+X-Google-Smtp-Source: ABdhPJyRa63HXlstQIFzLUqJGv8AYgt9EsJ312gy8TgYauJosfme9E4HgsWb4N3jUnNwnaOH3Nf1ZFtOzW3RJg9WBQw=
+X-Received: by 2002:a92:cdac:: with SMTP id g12mr3699225ild.204.1638936799717;
+ Tue, 07 Dec 2021 20:13:19 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain
+Received: by 2002:a05:6e02:1a07:0:0:0:0 with HTTP; Tue, 7 Dec 2021 20:13:19
+ -0800 (PST)
+Reply-To: dj0015639@gmail.com
+From:   David Jackson <enkenpaul@gmail.com>
+Date:   Wed, 8 Dec 2021 05:13:19 +0100
+Message-ID: <CAG7-cQ-YcFp0byqpLCXPRy0-4+-Zq7hzZMz6DzM5KzsbksYgog@mail.gmail.com>
+Subject: FEDERAL BUREAU OF INVESTIGATION
+To:     undisclosed-recipients:;
+Content-Type: text/plain; charset="UTF-8"
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-Hello Sparse contributors,
-
-After trying a number of static analysis tools we settled on Sparse to
-roll our own C checks. There are some mistakes we see repeatedly when
-people are trying to write tests. Some of these are specific to the
-LTP's API, so we decided to try our own analysis.
-
-So far we have checks for:
-
-LTP-001	Library source files have tst_ prefix
-LTP-002	TST_RET and TST_ERR are never modified by test library functions
-LTP-003 Externally visible library symbols have the tst_ prefix
-LTP-004 Test executable symbols are marked static
-LTP-005 Array must terminate with a sentinel value (i.e. NULL or '{}')
-*       Deprecated symbols from the old API
-
-We use a mixture of the linearized form and AST. If you are interested
-please see:
-https://github.com/linux-test-project/ltp/blob/master/tools/sparse/
-Also I will attach the main code to the body of this e-mail it is only
-283 lines.
-
-I still don't have a firm grasp on how Sparse works, so any feedback
-would be welcome. BTW we include Sparse as a git module and so far there
-have been no complaints.
-
-// SPDX-License-Identifier: GPL-2.0-or-later
-/*
- * Copyright (C) 2021 SUSE LLC <rpalethorpe@suse.com>
- *
- * Sparse allows us to perform checks on the AST (struct symbol) or on
- * a linearized representation. In the latter case we are given a set
- * of entry points (functions) containing basic blocks of
- * instructions.
- *
- * The basic blocks contain byte code in SSA form. This is similar to
- * the intermediate representation most compilers use during
- * optimisation.
- */
-#include <stdarg.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
-#include <ctype.h>
-#include <unistd.h>
-#include <fcntl.h>
-
-#include "lib.h"
-#include "allocate.h"
-#include "opcode.h"
-#include "token.h"
-#include "parse.h"
-#include "symbol.h"
-#include "expression.h"
-#include "linearize.h"
-
-/* The rules for test, library and tool code are different */
-enum ltp_tu_kind {
-	LTP_LIB,
-	LTP_OTHER,
-};
-
-static enum ltp_tu_kind tu_kind = LTP_OTHER;
-
-/* Check for LTP-002
- *
- * Inspects the destination symbol of each store instruction. If it is
- * TST_RET or TST_ERR then emit a warning.
- */
-static void check_lib_sets_TEST_vars(const struct instruction *insn)
-{
-	static struct ident *TST_RES_id, *TST_ERR_id;
-
-	if (!TST_RES_id) {
-		TST_RES_id = built_in_ident("TST_RET");
-		TST_ERR_id = built_in_ident("TST_ERR");
-	}
-
-	if (insn->opcode != OP_STORE)
-		return;
-	if (insn->src->ident != TST_RES_id &&
-	    insn->src->ident != TST_ERR_id)
-		return;
-
-	warning(insn->pos,
-		"LTP-002: Library should not write to TST_RET or TST_ERR");
-}
-
-static void do_basicblock_checks(struct basic_block *bb)
-{
-	struct instruction *insn;
-
-	FOR_EACH_PTR(bb->insns, insn) {
-		if (!bb_reachable(insn->bb))
-			continue;
-
-		if (tu_kind == LTP_LIB)
-			check_lib_sets_TEST_vars(insn);
-	} END_FOR_EACH_PTR(insn);
-}
-
-static void do_entrypoint_checks(struct entrypoint *ep)
-{
-	struct basic_block *bb;
-
-	FOR_EACH_PTR(ep->bbs, bb) {
-		do_basicblock_checks(bb);
-	} END_FOR_EACH_PTR(bb);
-}
-
-/* The old API can not comply with the rules. So when we see one of
- * these symbols we know that it will result in further
- * warnings. Probably these will suggest inappropriate things. Usually
- * these symbols should be removed and the new API used
- * instead. Otherwise they can be ignored until all tests have been
- * converted to the new API.
- */
-static bool check_symbol_deprecated(const struct symbol *const sym)
-{
-	static struct ident *TCID_id, *TST_TOTAL_id;
-	const struct ident *id = sym->ident;
-
-	if (!TCID_id) {
-		TCID_id = built_in_ident("TCID");
-		TST_TOTAL_id = built_in_ident("TST_TOTAL");
-	}
-
-	if (id != TCID_id && id != TST_TOTAL_id)
-		return false;
-
-	warning(sym->pos,
-		"Ignoring deprecated API symbol: '%s'. Should this code be converted to the new API?",
-		show_ident(id));
-
-	return true;
-}
-
-/* Check for LTP-003 and LTP-004
- *
- * Try to find cases where the static keyword was forgotten.
- */
-static void check_symbol_visibility(const struct symbol *const sym)
-{
-	const unsigned long mod = sym->ctype.modifiers;
-	const char *const name = show_ident(sym->ident);
-	const int has_lib_prefix = !strncmp("tst_", name, 4) ||
-		!strncmp("TST_", name, 4) ||
-		!strncmp("ltp_", name, 4) ||
-		!strncmp("safe_", name, 5);
-
-	if (!(mod & MOD_TOPLEVEL))
-		return;
-
-	if (has_lib_prefix && (mod & MOD_STATIC) && !(mod & MOD_INLINE)) {
-		warning(sym->pos,
-			"LTP-003: Symbol '%s' has the LTP public library prefix, but is static (private).",
-			name);
-		return;
-	}
-
-	if ((mod & MOD_STATIC))
-		return;
-
-	if (tu_kind == LTP_LIB && !has_lib_prefix) {
-		warning(sym->pos,
-			"LTP-003: Symbol '%s' is a public library function, but is missing the 'tst_' prefix",
-			name);
-		return;
-	}
-
-	if (sym->same_symbol)
-		return;
-
-	if (sym->ident == &main_ident)
-		return;
-
-	warning(sym->pos,
-		"Symbol '%s' has no prototype or library ('tst_') prefix. Should it be static?",
-		name);
-}
-
-/* See base_type() in dissect.c */
-static struct symbol *unwrap_base_type(const struct symbol *sym)
-{
-	switch (sym->ctype.base_type->type) {
-	case SYM_ARRAY:
-	case SYM_NODE:
-	case SYM_PTR:
-		return unwrap_base_type(sym->ctype.base_type);
-	default:
-		return sym->ctype.base_type;
-	}
-}
-
-/* Checks if some struct array initializer is terminated with a blank
- * (zeroed) item i.e. {}
- */
-static bool is_terminated_with_null_struct(const struct symbol *const sym)
-{
-	const struct expression *const arr_init = sym->initializer;
-	const struct expression *item_init =
-		last_ptr_list((struct ptr_list *)arr_init->expr_list);
-
-	if (item_init->type == EXPR_POS)
-		item_init = item_init->init_expr;
-
-	return ptr_list_empty((struct ptr_list *)item_init->expr_list);
-}
-
-/* Check for (one instance of) LTP-005
- *
- * The tags array is only accessed when the test fails. So we perform
- * a static check to ensure it ends with {}
- */
-static void check_tag_initializer(const struct symbol *const sym)
-{
-	if (is_terminated_with_null_struct(sym))
-		return;
-
-	warning(sym->pos,
-		"LTP-005: test.tags array doesn't appear to be null-terminated; did you forget to add '{}' as the final entry?");
-}
-
-/* Find struct tst_test test = { ... } and perform tests on its initializer */
-static void check_test_struct(const struct symbol *const sym)
-{
-	static struct ident *tst_test, *tst_test_test, *tst_tag;
-	struct ident *ctype_name = NULL;
-	struct expression *init = sym->initializer;
-	struct expression *entry;
-
-	if (!sym->ctype.base_type)
-		return;
-
-	ctype_name = sym->ctype.base_type->ident;
-
-	if (!init)
-		return;
-
-	if (!tst_test_test) {
-		tst_test = built_in_ident("tst_test");
-		tst_test_test = built_in_ident("test");
-		tst_tag = built_in_ident("tst_tag");
-	}
-
-	if (sym->ident != tst_test_test)
-		return;
-
-	if (ctype_name != tst_test)
-		return;
-
-	FOR_EACH_PTR(init->expr_list, entry) {
-		if (entry->init_expr->type != EXPR_SYMBOL)
-			continue;
-
-		const struct symbol *entry_init = entry->init_expr->symbol;
-		const struct symbol *entry_ctype = unwrap_base_type(entry_init);
-
-		if (entry_ctype->ident == tst_tag)
-			check_tag_initializer(entry_init);
-	} END_FOR_EACH_PTR(entry);
-
-}
-
-/* AST level checks */
-static void do_symbol_checks(struct symbol *sym)
-{
-	if (check_symbol_deprecated(sym))
-		return;
-
-	check_symbol_visibility(sym);
-	check_test_struct(sym);
-}
-
-/* Compile the AST into a graph of basicblocks */
-static void process_symbols(struct symbol_list *list)
-{
-	struct symbol *sym;
-
-	FOR_EACH_PTR(list, sym) {
-		struct entrypoint *ep;
-
-		do_symbol_checks(sym);
-
-		expand_symbol(sym);
-		ep = linearize_symbol(sym);
-		if (!ep || !ep->entry)
-			continue;
-
-		do_entrypoint_checks(ep);
-
-		if (dbg_entry)
-			show_entry(ep);
-	} END_FOR_EACH_PTR(sym);
-}
-
-static void collect_info_from_args(const int argc, char *const *const argv)
-{
-	int i;
-
-	for (i = 0; i < argc; i++) {
-		if (!strcmp("-DLTPLIB", argv[i]))
-			tu_kind = LTP_LIB;
-	}
-}
-
-int main(int argc, char **argv)
-{
-	struct string_list *filelist = NULL;
-	char *file;
-
-	Waddress_space = 0;
-	Wbitwise = 0;
-	Wcast_truncate = 0;
-	Wcontext = 0;
-	Wdecl = 0;
-	Wexternal_function_has_definition = 0;
-	Wflexible_array_array = 0;
-	Wimplicit_int = 0;
-	Wint_to_pointer_cast = 0;
-	Wmemcpy_max_count = 0;
-	Wnon_pointer_null = 0;
-	Wone_bit_signed_bitfield = 0;
-	Woverride_init = 0;
-	Wpointer_to_int_cast = 0;
-	Wvla = 0;
-
-	do_output = 0;
-
-	collect_info_from_args(argc, argv);
-
-	process_symbols(sparse_initialize(argc, argv, &filelist));
-	FOR_EACH_PTR(filelist, file) {
-		process_symbols(sparse(file));
-	} END_FOR_EACH_PTR(file);
-
-	report_stats();
-	return 0;
-}
-
-
+Our Ref: RTB /SNT/STB
+To: Beneficiary
+
+This is FBI special agents, David Jackson. I was delegated along side
+others by the United Nations to investigate scammers who has been in
+the business of swindling foreigners especially those that has one
+form of transaction/contracts and another. Please be informed that in
+the course of our investigation, we detected that your name and
+details in our Scammed Monitoring Network. We also found out that you
+were scammed of a huge sum of money by scammers via Western union and
+MoneyGram. Be informed here that in a bid to alleviate the suffering
+of scammed victims, the United Nations initiated this compensation
+program and therefore, you are entitled to the sum of Five Million Two
+Hundred Thousand United States Dollars ($5,200,000.00 USD) for being a
+victim.
+
+Note that the said fund will be transfer to you via the Citibank being
+the paying bank mandated by the United Nations officials.
+
+However, we have to inform you that we have been able to arrest some
+of the swindlers who has been in this illicit business and will all be
+prosecuted accordingly. Be informed as well that we have limited time
+to stay back here, so we will advice that you urgently respond to this
+message ASAP. And do not inform any of the people that collected money
+from you before now about this new development to avoid jeopardizing
+our investigation. All you need to do is to follow our instruction and
+receive your compensation accordingly as directed by the United
+Nations.
+
+We urgently wait to receive your response.
+
+Regards,
+DAVID JACKSON
+FEDERAL BUREAU OF INVESTIGATION
+INVESTIGATION ON ALL ONLINE WIRE TRANSFER
