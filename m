@@ -2,61 +2,86 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id C5C0947462E
-	for <lists+linux-sparse@lfdr.de>; Tue, 14 Dec 2021 16:17:02 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id AEB384770BA
+	for <lists+linux-sparse@lfdr.de>; Thu, 16 Dec 2021 12:42:53 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S235281AbhLNPRB (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Tue, 14 Dec 2021 10:17:01 -0500
-Received: from vmicros1.altlinux.org ([194.107.17.57]:34324 "EHLO
-        vmicros1.altlinux.org" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S235308AbhLNPQ7 (ORCPT
+        id S233635AbhLPLmv (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Thu, 16 Dec 2021 06:42:51 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:60294 "EHLO
+        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
+        with ESMTP id S233333AbhLPLmm (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Tue, 14 Dec 2021 10:16:59 -0500
-Received: from imap.altlinux.org (imap.altlinux.org [194.107.17.38])
-        by vmicros1.altlinux.org (Postfix) with ESMTP id AC75F72C8DC;
-        Tue, 14 Dec 2021 18:16:56 +0300 (MSK)
-Received: from example.org (ip-78-45-37-102.net.upcbroadband.cz [78.45.37.102])
-        by imap.altlinux.org (Postfix) with ESMTPSA id 326714A46EA;
-        Tue, 14 Dec 2021 18:16:56 +0300 (MSK)
-Date:   Tue, 14 Dec 2021 16:16:55 +0100
-From:   Alexey Gladkov <gladkov.alexey@gmail.com>
-To:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-Cc:     linux-sparse@vger.kernel.org, Oleg Nesterov <oleg@redhat.com>
-Subject: Re: [PATCH 0/3] semind: Index more symbols
-Message-ID: <20211214151655.o6hank75ylvmr5un@example.org>
-References: <20211102140645.83081-1-gladkov.alexey@gmail.com>
+        Thu, 16 Dec 2021 06:42:42 -0500
+Received: from mail-qv1-xf31.google.com (mail-qv1-xf31.google.com [IPv6:2607:f8b0:4864:20::f31])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 02C13C0613B1
+        for <linux-sparse@vger.kernel.org>; Thu, 16 Dec 2021 03:42:40 -0800 (PST)
+Received: by mail-qv1-xf31.google.com with SMTP id kj6so7818130qvb.2
+        for <linux-sparse@vger.kernel.org>; Thu, 16 Dec 2021 03:42:39 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=mime-version:reply-to:from:date:message-id:subject:to;
+        bh=xre5um49Rnqa1tZMCD58Cd6UlD4MleswKAp3tzt2gjo=;
+        b=K+n9/Q643hF06qaRTfNZAWda8LVlgLOG5CgJcxFPWIFoMhWM1EYpXAS64XJojMwQQx
+         EqR+WcL8ZKNdKxI1rlI6J1X97CAv/GhyzN+frFPEhWEVujbKy2tsQcjkeqXCKP3RT5yd
+         lKeuN0Xs1P/9DhC82fVpgIS54J8emMt0iaVxeunUZuwWzCiKeFFLaXjlQtjXsDp+7Fh/
+         B+VWl/xgmUtxz+BtFM5UhxSltD/0zH4S4seawy0715by/jAvKD9YON3PqOtBI62SbWBD
+         jWpeya/GzA0ycvExWcOcBmWl/DCk9yUsFN2bNj9QfFGM6FIFkaKrPoGkEqRJBjgcerBq
+         tR0g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:mime-version:reply-to:from:date:message-id
+         :subject:to;
+        bh=xre5um49Rnqa1tZMCD58Cd6UlD4MleswKAp3tzt2gjo=;
+        b=nEpKVNJV6dqPuPbqAAFuQeYef8DmrGhtyOT/CZQo28fzo9OnByepJAfjNQQF96dLPg
+         MAebBSCoFevoHkxlO5vWJnNeM0VXCO2S5uKQQ+xviALj2Jd/Hl6cAAK5Zu1uQ4LTwEB7
+         ha756KkxZgfsah5avUiE4srF0vTg33772cRA1FVebNNFjYNHJo60qO6tyXsAPX1eIwsL
+         4mRsFLEw1xmt0A5SBjiHsg/mwwcUb9K9nCtjGWxI8hQaqUb03Ktz5zRNgVxmTfVq44yt
+         36CPDKlnFbwxK+XJJGIIrHGh6/XvGo23f7VS2kaFLKxWWv7dhmm0YqON1hCupri4rfL0
+         +Htw==
+X-Gm-Message-State: AOAM530G4oIKugZOJWpLXiVox0sO8b3jjxw/O8Ahs1qwd+kzlD1t3a2g
+        WPW1RAxL3Cy+XK/bLlIm3kbNksiewkOWlpydqVs=
+X-Google-Smtp-Source: ABdhPJw1cRuUMMVas+y+QgdrxBW0LuhuWfZ+tfQTS0xFMTT3zW1pjnPXSYKcurxzVoeaOVJevX3+oCe2P65vw9z9/aU=
+X-Received: by 2002:a0c:e5d1:: with SMTP id u17mr15209801qvm.120.1639654958961;
+ Thu, 16 Dec 2021 03:42:38 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20211102140645.83081-1-gladkov.alexey@gmail.com>
+Received: by 2002:a05:622a:199c:0:0:0:0 with HTTP; Thu, 16 Dec 2021 03:42:38
+ -0800 (PST)
+Reply-To: selviasantiago1@gmail.com
+From:   Selvia Santiago <mariamatinez119@gmail.com>
+Date:   Thu, 16 Dec 2021 11:42:38 +0000
+Message-ID: <CAONDhKPEx+GKyJvnzbcBxs-brt1E0c+b0jdG7u7Uf+rYJ1N+fA@mail.gmail.com>
+Subject: Urgent
+To:     undisclosed-recipients:;
+Content-Type: text/plain; charset="UTF-8"
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-On Tue, Nov 02, 2021 at 03:06:42PM +0100, Alexey Gladkov wrote:
-> Greetings!
-> 
-> For indexing purposes, macros definitions and typedefs are added to the
-> semind database. Functions that are not used in the code are also indexed.
-
-careful ping.
-
-> Alexey Gladkov (3):
->   dissect: Allow to show all symbols
->   dissect: Show macro definitions
->   dissect: Show typedefs
-> 
->  dissect.c      | 61 +++++++++++++++++++++++++++++++++++++++++++++++++-
->  options.c      |  5 +++++
->  options.h      |  2 ++
->  semind.c       |  1 +
->  test-dissect.c |  5 ++++-
->  5 files changed, 72 insertions(+), 2 deletions(-)
-> 
-> -- 
-> 2.33.0
-> 
-
 -- 
-Rgrds, legion
+Urgent
 
+I am Mrs. Selvia Santiago from Abidjan, Cote D'Ivoire, I am a widow
+suffering from long time illness (Cancer), there is funds I inherited
+from my late loving husband Mr. Santiago Carlos, the sum of (US$2.7
+Million Dollars) which he deposited in bank before his death, I need a
+honest and Faithful person that can use these funds for humanity work.
+
+I took this decision because I don't have any child that will inherit
+this money and I don't want a situation where this money will be used
+in an ungodly way. That is why I am taking this decision, and my
+doctor has confirmed to me that I have less than two weeks to live,
+having known my condition I decided to donate this fund to a charity
+or individual that will utilize this money to assist the poor and the
+needy in accordance to my instructions.
+
+I want you to use 70% of this funds for orphanages, school, church,
+widows, propagating the word and other humanity works,The remaining
+30% should be yours for your efforts as the new beneficiary.
+
+Please if you would be able to use these funds for humanity work
+kindly reply me. As soon as I have received your response, I will give
+you further directives on how you are to go about the claims of the
+said funds.
+
+Remain blessed.
+Mrs Selvia Santiago.
