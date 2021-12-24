@@ -2,86 +2,115 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id AEB384770BA
-	for <lists+linux-sparse@lfdr.de>; Thu, 16 Dec 2021 12:42:53 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 340B247EE14
+	for <lists+linux-sparse@lfdr.de>; Fri, 24 Dec 2021 10:53:08 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S233635AbhLPLmv (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Thu, 16 Dec 2021 06:42:51 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:60294 "EHLO
+        id S1352356AbhLXJxH (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Fri, 24 Dec 2021 04:53:07 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:48426 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S233333AbhLPLmm (ORCPT
+        with ESMTP id S1352355AbhLXJxH (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Thu, 16 Dec 2021 06:42:42 -0500
-Received: from mail-qv1-xf31.google.com (mail-qv1-xf31.google.com [IPv6:2607:f8b0:4864:20::f31])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 02C13C0613B1
-        for <linux-sparse@vger.kernel.org>; Thu, 16 Dec 2021 03:42:40 -0800 (PST)
-Received: by mail-qv1-xf31.google.com with SMTP id kj6so7818130qvb.2
-        for <linux-sparse@vger.kernel.org>; Thu, 16 Dec 2021 03:42:39 -0800 (PST)
+        Fri, 24 Dec 2021 04:53:07 -0500
+Received: from mail-qt1-x841.google.com (mail-qt1-x841.google.com [IPv6:2607:f8b0:4864:20::841])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 2C78BC061401
+        for <linux-sparse@vger.kernel.org>; Fri, 24 Dec 2021 01:53:07 -0800 (PST)
+Received: by mail-qt1-x841.google.com with SMTP id o17so7267082qtk.1
+        for <linux-sparse@vger.kernel.org>; Fri, 24 Dec 2021 01:53:07 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=mime-version:reply-to:from:date:message-id:subject:to;
-        bh=xre5um49Rnqa1tZMCD58Cd6UlD4MleswKAp3tzt2gjo=;
-        b=K+n9/Q643hF06qaRTfNZAWda8LVlgLOG5CgJcxFPWIFoMhWM1EYpXAS64XJojMwQQx
-         EqR+WcL8ZKNdKxI1rlI6J1X97CAv/GhyzN+frFPEhWEVujbKy2tsQcjkeqXCKP3RT5yd
-         lKeuN0Xs1P/9DhC82fVpgIS54J8emMt0iaVxeunUZuwWzCiKeFFLaXjlQtjXsDp+7Fh/
-         B+VWl/xgmUtxz+BtFM5UhxSltD/0zH4S4seawy0715by/jAvKD9YON3PqOtBI62SbWBD
-         jWpeya/GzA0ycvExWcOcBmWl/DCk9yUsFN2bNj9QfFGM6FIFkaKrPoGkEqRJBjgcerBq
-         tR0g==
+        bh=DA2RfWm5BfTc8dY4tRUxJejPvziWb2AgHmDwtjqgqi8=;
+        b=Bwy99BlP7Iso5QB5OnGXYW5Zeps/ixKBM11wZrNdCSZGAu/iV9uuweQxt1zB7UVgxF
+         c4ReaObbp1bLZM0Iyy+3VIelH62qGdR7JjbkDB/sN6KqrygdeeYOSldTPU2cikiPU/o1
+         cQZ/3YR2D5d//NwY16+aEVTC3hWzHn84MFJEckLuptSa06MGHMT7tOBpiROC4C4/vqy/
+         ZudaXqLAsxHBcE69d2NmTT1/arBN0IDKo7HzYN0o4mBUMUKj4gcIhtYBFdIiXNKbawFc
+         bPNcIF5x084d3IcbRSMtwTrt+c0VGw3RoGdReSCxqQk9yZZy8JdQUGL+yF8VlnYDmR3S
+         Urfg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=x-gm-message-state:mime-version:reply-to:from:date:message-id
          :subject:to;
-        bh=xre5um49Rnqa1tZMCD58Cd6UlD4MleswKAp3tzt2gjo=;
-        b=nEpKVNJV6dqPuPbqAAFuQeYef8DmrGhtyOT/CZQo28fzo9OnByepJAfjNQQF96dLPg
-         MAebBSCoFevoHkxlO5vWJnNeM0VXCO2S5uKQQ+xviALj2Jd/Hl6cAAK5Zu1uQ4LTwEB7
-         ha756KkxZgfsah5avUiE4srF0vTg33772cRA1FVebNNFjYNHJo60qO6tyXsAPX1eIwsL
-         4mRsFLEw1xmt0A5SBjiHsg/mwwcUb9K9nCtjGWxI8hQaqUb03Ktz5zRNgVxmTfVq44yt
-         36CPDKlnFbwxK+XJJGIIrHGh6/XvGo23f7VS2kaFLKxWWv7dhmm0YqON1hCupri4rfL0
-         +Htw==
-X-Gm-Message-State: AOAM530G4oIKugZOJWpLXiVox0sO8b3jjxw/O8Ahs1qwd+kzlD1t3a2g
-        WPW1RAxL3Cy+XK/bLlIm3kbNksiewkOWlpydqVs=
-X-Google-Smtp-Source: ABdhPJw1cRuUMMVas+y+QgdrxBW0LuhuWfZ+tfQTS0xFMTT3zW1pjnPXSYKcurxzVoeaOVJevX3+oCe2P65vw9z9/aU=
-X-Received: by 2002:a0c:e5d1:: with SMTP id u17mr15209801qvm.120.1639654958961;
- Thu, 16 Dec 2021 03:42:38 -0800 (PST)
+        bh=DA2RfWm5BfTc8dY4tRUxJejPvziWb2AgHmDwtjqgqi8=;
+        b=06xeC73X81nNLAjjfaCgpjmpawzWqZt5M6yGePENlRaQm0S+rN9r+/eBFuviovTizl
+         bn/7HQSsYDheD1WD944I7nB1zw/LO9RFYxOR5sLLMLdKDNXjCP1LWDtQQx8GpFAdSRz9
+         MCiRixHsFK+eaHMAUjCyhvT0jxrFVTeVQt+QTqBzBUM5VXSOakVm9jZYn8IlnsdzIMY9
+         yt5FST18GwbnYQ3HUXfFL5M83yNAnH1l11HjvawMSzZjACqtUGlbAzaB8/jsI2i7zkYw
+         CAlzz0stItVLspDOf7yo3fEwUYj/Cs0KjqjDbWaimzPBkLx1rvdoSeChLmtKY9mp2dDQ
+         +xcg==
+X-Gm-Message-State: AOAM533Hpxo1wtionYQZUfcmTDJ9mKbEYKvPk+qEZqNnc1xX3v7QvsIF
+        xI/hFwmd/Rp3gBt1ku1bAoxsOj7e8R3q9wLEYO8=
+X-Google-Smtp-Source: ABdhPJyTyieI29c7wk86XVVA1e2t2nSPGu3cM16c7x9/RW9xkf7UDuWuj301Lz50O76QLAFCX79eerIMWrg1fwJE9TM=
+X-Received: by 2002:a05:622a:134f:: with SMTP id w15mr4906618qtk.561.1640339586375;
+ Fri, 24 Dec 2021 01:53:06 -0800 (PST)
 MIME-Version: 1.0
-Received: by 2002:a05:622a:199c:0:0:0:0 with HTTP; Thu, 16 Dec 2021 03:42:38
+Received: by 2002:ad4:5c62:0:0:0:0:0 with HTTP; Fri, 24 Dec 2021 01:53:06
  -0800 (PST)
-Reply-To: selviasantiago1@gmail.com
-From:   Selvia Santiago <mariamatinez119@gmail.com>
-Date:   Thu, 16 Dec 2021 11:42:38 +0000
-Message-ID: <CAONDhKPEx+GKyJvnzbcBxs-brt1E0c+b0jdG7u7Uf+rYJ1N+fA@mail.gmail.com>
-Subject: Urgent
+Reply-To: williamsreneta2019@gmail.com
+From:   MISS WILLIAMS <info.turvateealfastar@gmail.com>
+Date:   Fri, 24 Dec 2021 01:53:06 -0800
+Message-ID: <CAM-qQYaONW++s5FRf4jdybBEVaqqEtDMabvjTkdC6S+ZEQioUA@mail.gmail.com>
+Subject: Greetings Dearest One,
 To:     undisclosed-recipients:;
 Content-Type: text/plain; charset="UTF-8"
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
--- 
-Urgent
+Greetings Dearest One,
 
-I am Mrs. Selvia Santiago from Abidjan, Cote D'Ivoire, I am a widow
-suffering from long time illness (Cancer), there is funds I inherited
-from my late loving husband Mr. Santiago Carlos, the sum of (US$2.7
-Million Dollars) which he deposited in bank before his death, I need a
-honest and Faithful person that can use these funds for humanity work.
+How are you today, together with your family?Hope fine.I would like to
+use this opportunity to introduce myself to you. I am Miss Reneta
+Williams, From Benin Republic, West Africa. And my late parents are
+Mr. and Mrs. Dikko Williams; my father was a highly reputable business
+magnet who operated in Benin Republic during his days.
 
-I took this decision because I don't have any child that will inherit
-this money and I don't want a situation where this money will be used
-in an ungodly way. That is why I am taking this decision, and my
-doctor has confirmed to me that I have less than two weeks to live,
-having known my condition I decided to donate this fund to a charity
-or individual that will utilize this money to assist the poor and the
-needy in accordance to my instructions.
+I am writing this mail to you with tears and sorrow from my heart.
+With due respect trust and humanity, I know this mail will come to you
+as a surprise since we haven't known or come across each other before,
+considering the fact that I sourced your email contact through the
+Internet in search of trusted person who can be trusted and will
+assist me.
 
-I want you to use 70% of this funds for orphanages, school, church,
-widows, propagating the word and other humanity works,The remaining
-30% should be yours for your efforts as the new beneficiary.
+It is sad to say that he passed away mysteriously in France during one
+of his business trips abroad. Though his sudden death was linked or
+rather suspected to have been masterminded by an uncle of his who
+traveled with him at that time. But God knows the truth! My mother
+died when I was just 6yrs old, and since then my father took me so
+special.
 
-Please if you would be able to use these funds for humanity work
-kindly reply me. As soon as I have received your response, I will give
-you further directives on how you are to go about the claims of the
-said funds.
+Before his death, he called me and informed me that he has the sum of
+Eighteen Million Five Hundred , United State Dollar
+(USD$18.500,000.00) left in fixed deposit account in one of the
+leading banks in Africa. He further told me that he deposited the
+money in my name, and also gave me all the necessary but legal
+documents to this fund with the bank.
 
-Remain blessed.
-Mrs Selvia Santiago.
+I am 21 years old and a university undergraduate and really don't know
+what to do. Now I want an account overseas where I can transfer this
+funds and after the transaction I will come and reside permanently in
+your country till such a time that it will be convenient for me to
+return back home if I so desire.
+
+The death of my father actually brought sorrow to my life. I also want
+to invest the fund under your care because I am ignorant of business
+world. I am in a sincere desire of your humble assistance in this
+regards. Your suggestions and ideas will be highly regarded.
+
+Now permit me to ask these few questions:
+
+1. Can you honestly help me from your heart?
+
+2. Can I completely trust you?
+
+3. What percentage of the total amount in question will be good for
+you after the money is in your account?
+
+Please, consider this and get back to me as soon as
+possible.Immediately and confirm your willingness on this my
+email(williamsreneta2019@gmail.com), here is one of my Picture and
+also i will inform you more details involved in this matter.
+
+Regards,
+
+Miss Reneta Williams.
