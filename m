@@ -2,140 +2,135 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 3270A489969
-	for <lists+linux-sparse@lfdr.de>; Mon, 10 Jan 2022 14:11:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 37C1D48BB8D
+	for <lists+linux-sparse@lfdr.de>; Wed, 12 Jan 2022 00:41:24 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231659AbiAJNLt (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Mon, 10 Jan 2022 08:11:49 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:44372 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S231217AbiAJNLq (ORCPT
-        <rfc822;linux-sparse@vger.kernel.org>);
-        Mon, 10 Jan 2022 08:11:46 -0500
-Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com [IPv6:2a00:1450:4864:20::12b])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 549B6C034000
-        for <linux-sparse@vger.kernel.org>; Mon, 10 Jan 2022 05:11:46 -0800 (PST)
-Received: by mail-lf1-x12b.google.com with SMTP id m1so10944159lfq.4
-        for <linux-sparse@vger.kernel.org>; Mon, 10 Jan 2022 05:11:46 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=mime-version:reply-to:from:date:message-id:subject:to;
-        bh=STst/NZz7XpLuhkw/fjT1YooCLQUEgoChj9j28RAYfs=;
-        b=Bgie3w5lZXcUpEJsNUNnYT9D80sz6831OKMgWSWMpAMR4c04HQM1hwHkoZ1AqHgJ5M
-         pQJfhFBsNTGc+jfMsWTuSDXhNBe5XPwJ8/UQZKbYcWTDQ68Eu4MBBVsHf0V3Baa+27Pp
-         IUJW/950IUGNsTto2NnsTW49/Cy4Vf+KfgzDT0+KZ2gcb/QkEKg3LEIj8qPJpiII0Qbk
-         buE3CbPl0T8T6omQLXT3KYJBxN98pPIrfxDam1Qs0diPFN43pWVugWbd8LU8WaIGviK3
-         O/t/NLMKhR03EdE8rMi5c8T5epCw09Yzc4YmAU5QrO9ZaREbayNwAtpm1SWYSR1IiBuY
-         5w9A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:mime-version:reply-to:from:date:message-id
-         :subject:to;
-        bh=STst/NZz7XpLuhkw/fjT1YooCLQUEgoChj9j28RAYfs=;
-        b=ZVk+hsI3lENUWSeMv0Nj2Th3Uq6pqXv3YGjK0+u1DxUSJZXWzzHPT91CEon/zSlICw
-         m2dfh5SUco4oVWlWAeLq4ovnz6oQ7ZCWPftX0ESw0R1sba95pIL2yjXDkZhjNziguj6u
-         BzuhCgzhYDxGIH/G2+G685enu+TFPE4tPNxXrWSgr+2Al9vCCY0qlbXbo11eyqiIGXK1
-         2zoh8yRa84uQGLfffP+NrpHtAJnFsmBaATr96djmV780V8w2zrfcwfAJbGIpm0NHJaro
-         Wd1x3pfIYV4ZI+wy5nNn6pkZHmUjzGBDijmIH++v7Q+Qjock6Q84bqc77151vkgudjqd
-         OmuA==
-X-Gm-Message-State: AOAM532BcYF/RHKQn2vRDpTLcf6ml/4uA9FKo01L5wi4MqfoGMmUwROi
-        XhH/H4WGYTaIQ9d6gjNEjN3WQnq4FSzclwrsmcZwnTyqz+Y=
-X-Google-Smtp-Source: ABdhPJyUuzfRq9+VAp3YIslVsNF7E8r6u+SDvjtiaFw6sfTA9uOxrmlrl9JDay/jDh10uqplhgk07a+YHTpM3Ge0znw=
-X-Received: by 2002:ac2:4c51:: with SMTP id o17mr60639917lfk.558.1641820293776;
- Mon, 10 Jan 2022 05:11:33 -0800 (PST)
+        id S244086AbiAKXlX (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Tue, 11 Jan 2022 18:41:23 -0500
+Received: from mga12.intel.com ([192.55.52.136]:58589 "EHLO mga12.intel.com"
+        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
+        id S243308AbiAKXlX (ORCPT <rfc822;linux-sparse@vger.kernel.org>);
+        Tue, 11 Jan 2022 18:41:23 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1641944483; x=1673480483;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=ZrSlmrHkG+kjcvrXXt035DriO463iyTTOLKkov5Ah/Y=;
+  b=Ud4tPg4iVrCjKgJr1jQK5wzXLSZtM/YbvMlA0sJiFFXE+qNCtK4tuhmC
+   ktPBCbDrpQ4aHIIl+znrGr8QDaZqlqaOxmTXRFLeje5PIHO0ZGSDvQCiH
+   vVhKvw4735Wr5zh5FH6osfmYndr2Zw+BsN/BjsHLGTshUmT6JfNBYguQi
+   XUNfsNiD+75suQ2DefcKdYXjzGP2fh95yK4EfmkuDmE7EcF4sgGLJCqr3
+   MmAWrlmISd5J3uv9owVa9qtH63+6yQnJODTuEoq0V7stza+ePzTtbRa8Y
+   k0dvoIqGN/cleiZqA2rHdBmHwhA3dRPlIEH/h6dSLCPzYzrP4phyzpwit
+   g==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10224"; a="223599931"
+X-IronPort-AV: E=Sophos;i="5.88,281,1635231600"; 
+   d="scan'208";a="223599931"
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Jan 2022 15:41:22 -0800
+X-IronPort-AV: E=Sophos;i="5.88,281,1635231600"; 
+   d="scan'208";a="490550203"
+Received: from jekeller-desk.amr.corp.intel.com ([10.166.241.10])
+  by orsmga002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Jan 2022 15:41:22 -0800
+From:   Jacob Keller <jacob.e.keller@intel.com>
+To:     linux-sparse@vger.kernel.org
+Cc:     Jacob Keller <jacob.e.keller@intel.com>
+Subject: [PATCH] sparse: only warn about directly nested flexible arrays
+Date:   Tue, 11 Jan 2022 15:39:59 -0800
+Message-Id: <20220111233959.2301120-1-jacob.e.keller@intel.com>
+X-Mailer: git-send-email 2.34.1.182.ge773545c7fe7
 MIME-Version: 1.0
-Received: by 2002:a05:6504:15d1:0:0:0:0 with HTTP; Mon, 10 Jan 2022 05:11:32
- -0800 (PST)
-Reply-To: gtbank107@yahoo.com
-From:   Barr Robert Richter <westernunion.benin982@gmail.com>
-Date:   Mon, 10 Jan 2022 14:11:32 +0100
-Message-ID: <CAP=nHBK9zHzp_=-EVswWQiLxEoc+HV4oqddgtnEqf-9qYab_4Q@mail.gmail.com>
-Subject: Contact GT Bank-Benin to receive your transfer amount of $18.5m US Dollars.
-To:     undisclosed-recipients:;
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-Attn,Dear
-I need you to know that the fear of the LORD is
-the beginning of wisdom, and knowledge of the Holy One is
-understanding. As power of God Most High. And This is the confidence
-we have in approaching God, that if we ask anything according to his
-will, he hears us. I will make you know that Slow and steady wins the race.
-It is your turn to receive your overdue compensation funds total
-amount $18.5Milion  USD.
-I actualized that you will receive your transfer today without any more delay
-No More fee OK, Believe me , I am your Attorney standing here on your favor.
-I just concluded conversation with the Gt Bank Director, Mrs Mary Gate
-And She told me that your transfer is ready today
+Commit 02ed28909f3b ("flex-array: warn on flexible array in nested
+aggregate types") Introduced a new -Wflexible-array-nested warning which
+produces a warning when code nests a flexible array aggregate type
+within another aggregate type.
 
-So the Bank Asked you to contact them immediately by re-confirming
-your Bank details asap.
-Because this is the Only thing holding this transfer
-If you did not trust me and Mrs Mary Gate,Who Else will you Trust?
-For we are the ones trying to protect your funds here
-and make sure that your funds is secure.
-So Promisingly, I am here to assure you, that Grate Miracle is coming on
-your way, and this funds total amount of $18.500,000 is your
-compensation, entitlement inheritance overdue funds on your name.
-Which you cannot let anything delay you from receiving your funds now,
+This can produce warnings that are difficult to understand if this
+becomes nested. Consider the following example code:
 
-Finally i advised you to try your possible best and contact Gt Bank Benin
-once you get this message to receive your transfer $18.5 USD today.
-I know that a journey of thousand miles begins with a single step.
-Always put your best foot forward
-Try as hard as you can, God give you best.
-take my advice and follow the due process of your payment, the
-transfer will be released to
-you smoothly without any hitches or hindrance.
+struct a {
+  int i;
+  long f[];
+};
 
-Contact DR.MRS MARY GATE, Director Gt bank-Benin to receive your
-transfer amount of $18.5m US Dollars
-It was deposited and registered to your name this morning.
-Contact the Bank now to know when they will transfer to your
-country today
+struct b {
+  struct a a;
+};
 
-Email id: gtbank107@yahoo.com
-Tel/mobile, +229 99069872
-Contact person, Mrs Mary Gate,Director Gt bank-Benin.
-Among the blind the one-eyed man is king
+struct c {
+  struct b b;
+};
 
-As you sow, so you shall reap, i want you to receive your funds
-Best things in life are free
-Send to her your Bank Details as i listed here.
+This will produce a warning both at struct b which directly embeds the
+struct a, and also at c which happens to include struct a recursively.
 
-Your account name-------------
-Your Bank Name----------------
-Account Number----------
-your Bank address----------
-Country-----------
-Your private phone number---------
-Routing Numbers-------------
-Swift Code-----------
+It does not make sense to warn at the site of struct c. We already
+produce a warning at struct b! This just confuses users and can produce
+lots of extra warnings. Consider if struct b was part of some header
+and all of its users now see warnings for their usages like 'struct c'
+which now look like their fault, when the fault really lies with the
+definition of struct b.
 
-Note, Your funds is %100 Percent ready for
-transfer.
-Everything you do remember that Good things come to those who wait.
-I have done this work for you with my personally effort, Honesty is
-the best policy.
-now your transfer is currently deposited with paying bank this morning.
-It is by the grace of God that I received Christ, having known the truth.
-I had no choice than to do what is lawful and justice in the
-sight of God for eternal life and in the sight of man for witness of
-God & His Mercies and glory upon my life.
+To avoid this, stop proliferating has_flexible_array so that the outer
+struct no longer produces a warning.
 
-send this needed bank details to the bank today, so that you receive
-your transfer today as
-it is available for your confirmation today.
-Please do your best as a serious person and send the fee urgent, Note
-that this transfer of $18.500.000 M USD is a Gift from God to Bless
-you.
+Signed-off-by: Jacob Keller <jacob.e.keller@intel.com>
+---
 
-If you did not contact the bank urgent, finally the Bank will release
-your transfer of $18.500.000M USD to  Mr. David Bollen as your
-representative.
-So not allow another to claim your Money.
-Thanks For your Understanding.
+This patch is a response to my query at
+https://lore.kernel.org/linux-sparse/64238376-3882-2449-7758-e948cb4a6e1c@intel.com/T/#u
 
-Barr Robert Richter, UN Attorney At Law Court-Benin
+I think that proliferating this warning is unnecessary (since it will
+produce one warning at the exact point where we embed the structure already)
+and avoids confusing users of a header into thinking their code is at fault
+when its the code in the header at fault.
+
+ symbol.c                       | 2 --
+ validation/flex-array-nested.c | 9 +++++++--
+ 2 files changed, 7 insertions(+), 4 deletions(-)
+
+diff --git a/symbol.c b/symbol.c
+index 91352a3a447b..d066515fc8ed 100644
+--- a/symbol.c
++++ b/symbol.c
+@@ -231,8 +231,6 @@ static struct symbol * examine_struct_union_type(struct symbol *sym, int advance
+ 				info.max_align = member->ctype.alignment;
+ 		}
+ 
+-		if (has_flexible_array(member))
+-			info.has_flex_array = 1;
+ 		if (has_flexible_array(member) && Wflexible_array_nested)
+ 			warning(member->pos, "nested flexible array");
+ 		fn(member, &info);
+diff --git a/validation/flex-array-nested.c b/validation/flex-array-nested.c
+index 094de2fbc392..81384ec6fd32 100644
+--- a/validation/flex-array-nested.c
++++ b/validation/flex-array-nested.c
+@@ -11,11 +11,16 @@ union u {
+ 	struct f f;
+ };
+ 
++struct v {
++	struct s s;
++};
++
+ // trigger the examination of the offending types
+-static int foo(struct s *s, union u *u)
++static int foo(struct s *s, union u *u, struct v *v)
+ {
+ 	return    __builtin_offsetof(typeof(*s), f)
+-		+ __builtin_offsetof(typeof(*u), f);
++		+ __builtin_offsetof(typeof(*u), f)
++		+ __builtin_offsetof(typeof(*v), s);
+ }
+ 
+ /*
+-- 
+2.34.1.182.ge773545c7fe7
+
