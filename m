@@ -2,84 +2,254 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 3370948E04E
-	for <lists+linux-sparse@lfdr.de>; Thu, 13 Jan 2022 23:34:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id A22FB48E1E6
+	for <lists+linux-sparse@lfdr.de>; Fri, 14 Jan 2022 02:05:42 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S237739AbiAMWeR (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Thu, 13 Jan 2022 17:34:17 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:33250 "EHLO
+        id S238597AbiANBFl (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Thu, 13 Jan 2022 20:05:41 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:38770 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S237540AbiAMWeQ (ORCPT
+        with ESMTP id S233530AbiANBFl (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Thu, 13 Jan 2022 17:34:16 -0500
-Received: from mail-pj1-x1043.google.com (mail-pj1-x1043.google.com [IPv6:2607:f8b0:4864:20::1043])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 49B26C061574
-        for <linux-sparse@vger.kernel.org>; Thu, 13 Jan 2022 14:34:16 -0800 (PST)
-Received: by mail-pj1-x1043.google.com with SMTP id rj2-20020a17090b3e8200b001b1944bad25so12391595pjb.5
-        for <linux-sparse@vger.kernel.org>; Thu, 13 Jan 2022 14:34:16 -0800 (PST)
+        Thu, 13 Jan 2022 20:05:41 -0500
+Received: from mail-yb1-xb4a.google.com (mail-yb1-xb4a.google.com [IPv6:2607:f8b0:4864:20::b4a])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 39D2FC06161C
+        for <linux-sparse@vger.kernel.org>; Thu, 13 Jan 2022 17:05:41 -0800 (PST)
+Received: by mail-yb1-xb4a.google.com with SMTP id 2-20020a251302000000b006118f867dadso15237326ybt.12
+        for <linux-sparse@vger.kernel.org>; Thu, 13 Jan 2022 17:05:41 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=mime-version:reply-to:from:date:message-id:subject:to;
-        bh=YbEI3Q/NEjCtDTVCV1jkA7nYNYBH/Wfa2wk3IkVyJko=;
-        b=PmI1q6hfnxTpvxktOArZiwOqnnyO33V8k9lk4Ab5uv/tXUMKhuD8j8DnVmdRviHBgQ
-         Foc2Z7xpr0+dGrc0Uv+No6bmc1bXJ6iySDBpW0NAHvbBtPqnrOlUGfQo1kpsPy2M3ZFW
-         KgAgk6tld3+pr0QWKcw/GEP/Taug5jXuIrWArSUWLjzq7fzHIjO6suVDXL4olTuQcVDc
-         /fFYzdXXoLCmrN0z9qO9LILGwX6wVS411acRlSyS1xaxNoHeVcILxkxcBAlhNcOnYDeE
-         uggA/kiFfwQN9TLWOZorzi/ZxPmGxx89HbiOJDPUON+39VTtdp/97BLxkI8e6lgMGfLb
-         rtMQ==
+        d=google.com; s=20210112;
+        h=date:message-id:mime-version:subject:from:to:cc
+         :content-transfer-encoding;
+        bh=RjuCZT+fganksUH5bZr8Uzcs2rZgf01j4qeqplouvck=;
+        b=gplty4vC9Qp82EmqfWUAyNzxihehA43QUhaIY8nNE1aTpoQBlccBDXy+GdrdCm3yHn
+         EYWNpdWXvP1LAHuKXlkdU4varqVeYOr3dHgXMjv0J0U+GQTyENOvwBx3zkedL5Im9aQ3
+         N4zLrnXZQp8a7QlWbskS+s4bqY9yPBk1T1dAUbqo278Yy0akx/prt0AYuqteCfDMj4fc
+         seajGMLzTQ9XPyMCN7ph7s39JfqR50B+BBGwsvyeMM4/pqVhGCkSus/4tcERAh1k+rGJ
+         iBNYClp+GEvcegHc2ZoCP464AMnA9my+XZxSgGHNbKNZbpstp8/A1O9bPcUD4zLdANPH
+         z8ag==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=x-gm-message-state:mime-version:reply-to:from:date:message-id
-         :subject:to;
-        bh=YbEI3Q/NEjCtDTVCV1jkA7nYNYBH/Wfa2wk3IkVyJko=;
-        b=kG4xF0lGXpO5WdNhELSOIGD77pJqqU3RzsG07PWb+JzqNP3VoXf8c/Z2ryW+6RXbZ9
-         ATQCJKwRTjHxNLUnKkW+zVw/FveZ/0ItBt7wj9iG1MTgSYx8CxfS1BYe0gQO4QwcfYlq
-         Km02t1sepca8KqmzvEARkA2JN4XvgNdMma5r8xTKP9U5YNsR2OmlOOVIuXjNGP4glzSR
-         bgroHWuynUFftQqFSBwoBCeoOvK27NN/fLM1D7k5HYg0B7DVOlVNQcEOcpY7ynvsfypg
-         MQO8CTMhMP/tOHPuWkXzM4Xp8/IX8LbQliTH+xQu7tSgy6PrBGXYQbsvAoV2508+08CX
-         mG0Q==
-X-Gm-Message-State: AOAM531mQUcovUoOCLfSQISaQ/mNg6jrLap+sp0m1lhvfMioDhiW7PBn
-        V/rGWPatXc1SMCvSqnUqZWr/UmLxnQN1N0OWBzg=
-X-Google-Smtp-Source: ABdhPJxPH1SPs9VBzcbfXJ3d2utoM5GhhRKP5HiIE3oBL1f64+1h4Kzxk+wuxy1TV7gelIxtN/6shqF+sQXPWsvN6EY=
-X-Received: by 2002:a17:902:c443:b0:14a:30f2:95e8 with SMTP id
- m3-20020a170902c44300b0014a30f295e8mr6460931plm.43.1642113255770; Thu, 13 Jan
- 2022 14:34:15 -0800 (PST)
-MIME-Version: 1.0
-Received: by 2002:a05:6a10:f38c:0:0:0:0 with HTTP; Thu, 13 Jan 2022 14:34:15
- -0800 (PST)
-Reply-To: mchristophdaniel@gmail.com
-From:   Marcus Galois <marcus.galois@gmail.com>
-Date:   Thu, 13 Jan 2022 23:34:15 +0100
-Message-ID: <CANqBaXVDDVUk7AD8fcNLQEsEm=xAQJqUVJvKAZ0mRa9+uyUdSw@mail.gmail.com>
-Subject: Good News Finally.
-To:     undisclosed-recipients:;
+        h=x-gm-message-state:date:message-id:mime-version:subject:from:to:cc
+         :content-transfer-encoding;
+        bh=RjuCZT+fganksUH5bZr8Uzcs2rZgf01j4qeqplouvck=;
+        b=p+n2l2XFj/g4Lzh5irddro8jOlyxyahcCZ3sqGzOOvLHdVtpNGXTRcJ4gZL579BGRq
+         7UiJcDegPnLkBUZJcT5fQ4KnscjxjN3AluVf2xBDUo2ADRnZiy0wgG1PLBSbg//ziQd0
+         ve5RkX5xmN7kueUkYfy6HJlhyOtyR6chyi8F31wxbVx+/Xv/g9WOAC79bkEc1IMvblM4
+         Fp8DbKDs7Ue5uz3is+xJdLltV0OweJ2K2q+cmU+iXKyiDqvp3LuhK3q2gZ8YLBFSIgwe
+         j16u7zNvYciZs7kZQqzsheOoQnAxhM1SSsWfRKASP99AYwN62LcR3YCSsFn1jsNW4WXE
+         cqZA==
+X-Gm-Message-State: AOAM532KPbkmj7b9aD297rp6rz1npUgJv2j1yJbhprx3LND2GHqU68Vn
+        tTSHo12r88Rg6XJG8sTJd2a04flCHHhQlTyNCsg=
+X-Google-Smtp-Source: ABdhPJyZGMiaifrbpM7MJsw+b0l19q3DqEXoclLAvnHFEi7vqUgBAQeUbyNjqXYm+fwMKvr+uc5+6OZ8tFWhEOJmnXg=
+X-Received: from ndesaulniers1.mtv.corp.google.com ([2620:15c:211:202:cae2:dbc1:f963:5489])
+ (user=ndesaulniers job=sendgmr) by 2002:a25:3b49:: with SMTP id
+ i70mr9172098yba.712.1642122340417; Thu, 13 Jan 2022 17:05:40 -0800 (PST)
+Date:   Thu, 13 Jan 2022 17:05:26 -0800
+Message-Id: <20220114010526.1776605-1-ndesaulniers@google.com>
+Mime-Version: 1.0
+X-Developer-Key: i=ndesaulniers@google.com; a=ed25519; pk=lvO/pmg+aaCb6dPhyGC1GyOCvPueDrrc8Zeso5CaGKE=
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1642122325; l=6868;
+ s=20211004; h=from:subject; bh=JVcfRmXkwlckyWvO0KJ0DMWB85z7efazeg6STr6lLYU=;
+ b=Szmw4L8Ugr0cfksSUemebgNv/yVMV+yPIO7/p5Rlj2o0kl5blBBzDi+89M6aQ00/WGR2baRiADP/
+ xhThZ13aDiPW1K8XAbd0IVzKjVprCpl5FQ0SIuNrsZA2Sv1s5En/
+X-Mailer: git-send-email 2.34.1.703.g22d0c6ccf7-goog
+Subject: [PATCH] objtool: prefer memory clobber & %= to volatile & __COUNTER__
+From:   Nick Desaulniers <ndesaulniers@google.com>
+To:     Josh Poimboeuf <jpoimboe@redhat.com>,
+        Borislav Petkov <bp@alien8.de>
+Cc:     Vasily Gorbik <gor@linux.ibm.com>,
+        Linus Torvalds <torvalds@linux-foundation.org>,
+        Ingo Molnar <mingo@kernel.org>,
+        Dave Hansen <dave.hansen@linux.intel.com>,
+        Thomas Gleixner <tglx@linutronix.de>,
+        Peter Zijlstra <peterz@infradead.org>,
+        Luc Van Oostenryck <luc.vanoostenryck@gmail.com>,
+        x86@kernel.org, llvm@lists.linux.dev, linux-sparse@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Nick Desaulniers <ndesaulniers@google.com>,
+        kernel test robot <lkp@intel.com>,
+        Nathan Chancellor <nathan@kernel.org>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-Hello friend.
+commit dcce50e6cc4d ("compiler.h: Fix annotation macro misplacement with Cl=
+ang")
+mentions:
 
-You might find it so difficult to remember me, though it is indeed a
-very long time, I am much delighted to contact you again after a long
-period of time, I remember you despite circumstances that made things
-not worked out as we projected then. I want to inform you that the
-transaction we're doing together then finally worked out and I decided
-to contact you and to let you know because of your tremendous effort
-to make things work out then.
+> 'volatile' is ignored for some reason and Clang feels free to move the
+> reachable() annotation away from its intended location.
 
-Meanwhile I must inform you that I'm presently in Caribbean Island for
-numerous business negotiation with some partners. with my sincere
-heart i have decided to compensate you with USD$900,000 for your
-dedication then on our transaction, you tried so much that period and
-I appreciated your effort. I wrote a cheque/check on your name, as
-soon as you receive it, you let me know.
+Indeed, volatile is not a compiler barrier. Particularly once `-march=3D`
+flags are used under certain configs, LLVM's machine-scheduler can be
+observed moving instructions across the asm statement meant to point to
+known reachable or unreachable code, as reported by 0day bot.
 
-Contact my secretary now on his email: mchristophdaniel@gmail.com
-Name: Mr. Christoph Daniel
+Prefer a memory clobber which is a compiler barrier that prevents these
+re-orderings and remove the volatile qualifier.
 
-You are to forward to him your Name........ Address.......,Phone
-number......for shipment/dispatch of the cheque/Check to you
+Looking closer, the use of __COUNTER__ seems to have been used to
+prevent de-duplication of these asm statements. The GCC manual mentions:
 
-Regards,
-Mr. Marcus Galois
+> Under certain circumstances, GCC may duplicate (or remove duplicates
+> of) your assembly code when optimizing. This can lead to unexpected
+> duplicate symbol errors during compilation if your asm code defines
+> symbols or labels. Using =E2=80=98%=3D=E2=80=99 (see AssemblerTemplate) m=
+ay help resolve
+> this problem.
+>
+> =E2=80=98%=3D=E2=80=99 Outputs a number that is unique to each instance o=
+f the asm
+> statement in the entire compilation. This option is useful when
+> creating local labels and referring to them multiple times in a single
+> template that generates multiple assembler instructions.
+
+commit 3d1e236022cc ("objtool: Prevent GCC from merging annotate_unreachabl=
+e()")
+
+Mentions that
+
+> The inline asm =E2=80=98%=3D=E2=80=99 token could be used for that, but u=
+nfortunately
+> older versions of GCC don't support it.
+
+From testing all versions of GCC available on godbolt.org, GCC 4.1+
+seems to support 4.1. Since the minimum supported version of GCC at the
+moment is GCC 5.1, it sounds like this is no longer a concern.
+
+Prefer the %=3D assembler template to having to stringify __COUNTER__.
+
+This commit is effectively a revert of the following commits:
+commit dcce50e6cc4d ("compiler.h: Fix annotation macro misplacement with Cl=
+ang")
+commit f1069a8756b9 ("compiler.h: Avoid using inline asm operand modifiers"=
+)
+commit c199f64ff93c ("instrumentation.h: Avoid using inline asm operand mod=
+ifiers")
+commit d0c2e691d1cb ("objtool: Add a comment for the unreachable annotation=
+ macros")
+commit ec1e1b610917 ("objtool: Prevent GCC from merging annotate_unreachabl=
+e(), take 2")
+commit 3d1e236022cc ("objtool: Prevent GCC from merging annotate_unreachabl=
+e()")
+
+Link: https://github.com/ClangBuiltLinux/linux/issues/1566
+Link: https://gcc.gnu.org/onlinedocs/gcc/Extended-Asm.html#Volatile
+Link: https://gcc.gnu.org/onlinedocs/gcc/Extended-Asm.html#AssemblerTemplat=
+e
+Link: https://lore.kernel.org/llvm/202112080834.XFYU8b5Q-lkp@intel.com/
+Link: https://lore.kernel.org/llvm/202111300857.IyINAyJk-lkp@intel.com/
+Reported-by: kernel test robot <lkp@intel.com>
+Debugged-by: Nathan Chancellor <nathan@kernel.org>
+Signed-off-by: Nick Desaulniers <ndesaulniers@google.com>
+---
+ include/linux/compiler.h        | 31 +++++++++++--------------------
+ include/linux/instrumentation.h | 24 ++++++++++--------------
+ 2 files changed, 21 insertions(+), 34 deletions(-)
+
+diff --git a/include/linux/compiler.h b/include/linux/compiler.h
+index 429dcebe2b99..3ac21b888d20 100644
+--- a/include/linux/compiler.h
++++ b/include/linux/compiler.h
+@@ -108,30 +108,21 @@ void ftrace_likely_update(struct ftrace_likely_data *=
+f, int val,
+ # define barrier_before_unreachable() do { } while (0)
+ #endif
+=20
+-/* Unreachable code */
++/* These macros help objtool understand GCC code flow for unreachable code=
+. */
+ #ifdef CONFIG_STACK_VALIDATION
+-/*
+- * These macros help objtool understand GCC code flow for unreachable code=
+.
+- * The __COUNTER__ based labels are a hack to make each instance of the ma=
+cros
+- * unique, to convince GCC not to merge duplicate inline asm statements.
+- */
+-#define __stringify_label(n) #n
+-
+-#define __annotate_reachable(c) ({					\
+-	asm volatile(__stringify_label(c) ":\n\t"			\
+-		     ".pushsection .discard.reachable\n\t"		\
+-		     ".long " __stringify_label(c) "b - .\n\t"		\
+-		     ".popsection\n\t" : : "i" (c));			\
++#define annotate_reachable() ({			\
++	asm (".Lreachable%=3D:\n\t"			\
++	     ".pushsection .discard.reachable\n\t"	\
++	     ".long .Lreachable%=3D - .\n\t"		\
++	     ".popsection\n\t" ::: "memory");		\
+ })
+-#define annotate_reachable() __annotate_reachable(__COUNTER__)
+=20
+-#define __annotate_unreachable(c) ({					\
+-	asm volatile(__stringify_label(c) ":\n\t"			\
+-		     ".pushsection .discard.unreachable\n\t"		\
+-		     ".long " __stringify_label(c) "b - .\n\t"		\
+-		     ".popsection\n\t" : : "i" (c));			\
++#define annotate_unreachable() ({			\
++	asm (".Lunreachable%=3D:\n\t"			\
++	     ".pushsection .discard.unreachable\n\t"	\
++	     ".long .Lunreachable%=3D - .\n\t"		\
++	     ".popsection\n\t" ::: "memory");		\
+ })
+-#define annotate_unreachable() __annotate_unreachable(__COUNTER__)
+=20
+ #define ASM_UNREACHABLE							\
+ 	"999:\n\t"							\
+diff --git a/include/linux/instrumentation.h b/include/linux/instrumentatio=
+n.h
+index 24359b4a9605..0dae9c08764f 100644
+--- a/include/linux/instrumentation.h
++++ b/include/linux/instrumentation.h
+@@ -4,16 +4,13 @@
+=20
+ #if defined(CONFIG_DEBUG_ENTRY) && defined(CONFIG_STACK_VALIDATION)
+=20
+-#include <linux/stringify.h>
+-
+ /* Begin/end of an instrumentation safe region */
+-#define __instrumentation_begin(c) ({					\
+-	asm volatile(__stringify(c) ": nop\n\t"				\
+-		     ".pushsection .discard.instr_begin\n\t"		\
+-		     ".long " __stringify(c) "b - .\n\t"		\
+-		     ".popsection\n\t" : : "i" (c));			\
++#define instrumentation_begin() ({			\
++	asm (".Linstbegin%=3D: nop\n\t"			\
++	     ".pushsection .discard.instr_begin\n\t"	\
++	     ".long .Linstbegin%=3D - .\n\t"		\
++	     ".popsection\n\t" ::: "memory");		\
+ })
+-#define instrumentation_begin() __instrumentation_begin(__COUNTER__)
+=20
+ /*
+  * Because instrumentation_{begin,end}() can nest, objtool validation cons=
+iders
+@@ -46,13 +43,12 @@
+  * To avoid this, have _end() be a NOP instruction, this ensures it will b=
+e
+  * part of the condition block and does not escape.
+  */
+-#define __instrumentation_end(c) ({					\
+-	asm volatile(__stringify(c) ": nop\n\t"				\
+-		     ".pushsection .discard.instr_end\n\t"		\
+-		     ".long " __stringify(c) "b - .\n\t"		\
+-		     ".popsection\n\t" : : "i" (c));			\
++#define instrumentation_end() ({			\
++	asm (".Linstend%=3D: nop\n\t"			\
++	     ".pushsection .discard.instr_end\n\t"	\
++	     ".long .Linstend%=3D - .\n\t"		\
++	     ".popsection\n\t" ::: "memory");		\
+ })
+-#define instrumentation_end() __instrumentation_end(__COUNTER__)
+ #else
+ # define instrumentation_begin()	do { } while(0)
+ # define instrumentation_end()		do { } while(0)
+
+base-commit: dcce50e6cc4d86a63dc0a9a6ee7d4f948ccd53a1
+--=20
+2.34.1.703.g22d0c6ccf7-goog
+
