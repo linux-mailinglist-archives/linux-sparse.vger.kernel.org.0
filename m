@@ -2,82 +2,43 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 129FE48F4BA
-	for <lists+linux-sparse@lfdr.de>; Sat, 15 Jan 2022 05:25:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 44C7748F9E7
+	for <lists+linux-sparse@lfdr.de>; Sun, 16 Jan 2022 01:07:04 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230334AbiAOEZi (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Fri, 14 Jan 2022 23:25:38 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:41578 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S231342AbiAOEZi (ORCPT
+        id S233950AbiAPAHB convert rfc822-to-8bit (ORCPT
+        <rfc822;lists+linux-sparse@lfdr.de>); Sat, 15 Jan 2022 19:07:01 -0500
+Received: from ec2-13-115-114-132.ap-northeast-1.compute.amazonaws.com ([13.115.114.132]:46544
+        "EHLO mail.gunma-suigai-risk.jp" rhost-flags-OK-OK-OK-OK)
+        by vger.kernel.org with ESMTP id S231448AbiAPAHB (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Fri, 14 Jan 2022 23:25:38 -0500
-Received: from casper.infradead.org (casper.infradead.org [IPv6:2001:8b0:10b:1236::1])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B06D9C061574
-        for <linux-sparse@vger.kernel.org>; Fri, 14 Jan 2022 20:25:37 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-        d=infradead.org; s=casper.20170209; h=Content-Transfer-Encoding:Content-Type:
-        In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender
-        :Reply-To:Content-ID:Content-Description;
-        bh=MopXBAfcsAiO31pzhaChEkSes0k5YkHf4C6cl+bCAMs=; b=BNfE/4CaxffG7/gwHQ8wLeIDo4
-        +tpdcdyD4jdpdl71+5sNeVXTnij1yTwEXb3vtDhQyCH8bH0b+5HpXsdk0+Ku5zJSsvj2JDvw35hEh
-        YA3fbOhUp8brgnUXCLXKSaQarVtwxlwzTGqhT2nOZZJGIWoMQ/VueSotA7NOc9yJ8PT0HE8mVZFN7
-        8b28HiVnk9z2Ya4j7RPaUEWH1Npf+YA5EXnUpaqN8Dpy3AW+5VJ9WWgRUzO7FDX/tVGkZjlVdKv72
-        u9DWAgI4OclqYFm41FNg3lb2i36JBrvtXu9ooZvggjK/KfiJOFmH2cj7v0mwxwpAkLM3tM9al399N
-        iryCRbsA==;
-Received: from [2601:1c0:6280:3f0::aa0b]
-        by casper.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
-        id 1n8adB-006Kqb-Qs; Sat, 15 Jan 2022 04:25:34 +0000
-Message-ID: <33a053bc-1d81-49f4-0c8a-879a5519c433@infradead.org>
-Date:   Fri, 14 Jan 2022 20:25:31 -0800
+        Sat, 15 Jan 2022 19:07:01 -0500
+Received: from Unknown (unknown [202.62.37.187])
+        by mail.gunma-suigai-risk.jp (Postfix) with ESMTPA id E70AF209DB54;
+        Sat, 15 Jan 2022 21:22:13 +0000 (UTC)
+Message-ID: <BFBA0C5F5480AE6DB1B4FD41451D3914@afonwf>
+Reply-To: "Fredrik Elvebakk" <fcresswell9@gmail.com>
+From:   "Fredrik Elvebakk" <investment@dnb.no>
+Subject: Re:
+Date:   Sat, 15 Jan 2022 13:21:07 -0800
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.4.1
-Subject: Re: sparse v0.6.4
-Content-Language: en-US
-To:     Ramsay Jones <ramsay@ramsayjones.plus.com>,
-        Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-Cc:     Sparse Mailing-list <linux-sparse@vger.kernel.org>
-References: <e9edc9f5-9b88-4a6a-17f8-544270ec2450@ramsayjones.plus.com>
-From:   Randy Dunlap <rdunlap@infradead.org>
-In-Reply-To: <e9edc9f5-9b88-4a6a-17f8-544270ec2450@ramsayjones.plus.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain;
+        format=flowed;
+        charset="windows-1251";
+        reply-type=original
+Content-Transfer-Encoding: 8BIT
+X-Priority: 3
+X-MSMail-Priority: Normal
+X-Mailer: Microsoft Windows Live Mail 14.0.8117.416
+X-MimeOLE: Produced By Microsoft MimeOLE V14.0.8117.416
+To:     unlisted-recipients:; (no To-header on input)
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-Hi Luc,
+Hello
 
-On 9/6/21 11:53, Ramsay Jones wrote:
-> I have tested the new release, without issue, in the normal way on the
-> usual platforms (32- & 64-bit Linux, 64-bit cygwin).
-> 
-> [Have you posted to the sparse mailing-list yet? I think my subscription
-> has lapsed or something! I recently had to re-subscribe to the git
-> mailing-list as well. :( ]
+Kindly get back to me for an important 
+discussion
 
-Odd, I didn't receive it either. No big deal, but I am just looking
-at a kernel build issue when using sparse v0.6.4.
-
-It seems that $subject version adds builtins for ATOMIC_ACQUIRE and
-ATOMIC_RELEASE, but GCC has those too, so there are a few thousand
-(OK, I didn't count them - I killed it quickly) of these: (e.g.)
-
-
-..  CHECK   ../init/do_mounts_initrd.c
-.command-line: note: in included file:
-builtin:1:9: sparse: warning: preprocessor token __ATOMIC_ACQUIRE redefined
-builtin:0:0: sparse: this was the original definition
-builtin:1:9: sparse: warning: preprocessor token __ATOMIC_SEQ_CST redefined
-builtin:0:0: sparse: this was the original definition
-builtin:1:9: sparse: warning: preprocessor token __ATOMIC_ACQ_REL redefined
-builtin:0:0: sparse: this was the original definition
-builtin:1:9: sparse: warning: preprocessor token __ATOMIC_RELEASE redefined
-builtin:0:0: sparse: this was the original definition
-
-Any suggestions for how to avoid these warnings?
-
-thanks.
--- 
-~Randy
+Best regards
+Fredrik Elvebakk
