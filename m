@@ -2,24 +2,24 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 44C7748F9E7
-	for <lists+linux-sparse@lfdr.de>; Sun, 16 Jan 2022 01:07:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 0599448FD51
+	for <lists+linux-sparse@lfdr.de>; Sun, 16 Jan 2022 15:06:14 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S233950AbiAPAHB convert rfc822-to-8bit (ORCPT
-        <rfc822;lists+linux-sparse@lfdr.de>); Sat, 15 Jan 2022 19:07:01 -0500
-Received: from ec2-13-115-114-132.ap-northeast-1.compute.amazonaws.com ([13.115.114.132]:46544
+        id S235382AbiAPOGN convert rfc822-to-8bit (ORCPT
+        <rfc822;lists+linux-sparse@lfdr.de>); Sun, 16 Jan 2022 09:06:13 -0500
+Received: from ec2-13-115-114-132.ap-northeast-1.compute.amazonaws.com ([13.115.114.132]:50064
         "EHLO mail.gunma-suigai-risk.jp" rhost-flags-OK-OK-OK-OK)
-        by vger.kernel.org with ESMTP id S231448AbiAPAHB (ORCPT
+        by vger.kernel.org with ESMTP id S229785AbiAPOGN (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Sat, 15 Jan 2022 19:07:01 -0500
-Received: from Unknown (unknown [202.62.37.187])
-        by mail.gunma-suigai-risk.jp (Postfix) with ESMTPA id E70AF209DB54;
-        Sat, 15 Jan 2022 21:22:13 +0000 (UTC)
-Message-ID: <BFBA0C5F5480AE6DB1B4FD41451D3914@afonwf>
+        Sun, 16 Jan 2022 09:06:13 -0500
+Received: from Unknown (unknown [177.93.72.130])
+        by mail.gunma-suigai-risk.jp (Postfix) with ESMTPA id 170332B2029E;
+        Sun, 16 Jan 2022 06:47:50 +0000 (UTC)
+Message-ID: <909523707BAF81429E9BD26E6A5E90B4@eoay>
 Reply-To: "Fredrik Elvebakk" <fcresswell9@gmail.com>
 From:   "Fredrik Elvebakk" <investment@dnb.no>
 Subject: Re:
-Date:   Sat, 15 Jan 2022 13:21:07 -0800
+Date:   Sat, 15 Jan 2022 22:46:50 -0800
 MIME-Version: 1.0
 Content-Type: text/plain;
         format=flowed;
@@ -28,8 +28,8 @@ Content-Type: text/plain;
 Content-Transfer-Encoding: 8BIT
 X-Priority: 3
 X-MSMail-Priority: Normal
-X-Mailer: Microsoft Windows Live Mail 14.0.8117.416
-X-MimeOLE: Produced By Microsoft MimeOLE V14.0.8117.416
+X-Mailer: Microsoft Outlook Express 6.00.2900.5931
+X-MimeOLE: Produced By Microsoft MimeOLE V6.00.2900.6157
 To:     unlisted-recipients:; (no To-header on input)
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
