@@ -2,77 +2,80 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id ADAB5492202
-	for <lists+linux-sparse@lfdr.de>; Tue, 18 Jan 2022 10:07:02 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id C168C492668
+	for <lists+linux-sparse@lfdr.de>; Tue, 18 Jan 2022 14:05:39 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1345241AbiARJGl (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Tue, 18 Jan 2022 04:06:41 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:38432 "EHLO
+        id S241515AbiARNFi (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Tue, 18 Jan 2022 08:05:38 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:37228 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1345151AbiARJGk (ORCPT
+        with ESMTP id S237469AbiARNFi (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Tue, 18 Jan 2022 04:06:40 -0500
-Received: from mail-yb1-xb2a.google.com (mail-yb1-xb2a.google.com [IPv6:2607:f8b0:4864:20::b2a])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 7CE8CC06173E
-        for <linux-sparse@vger.kernel.org>; Tue, 18 Jan 2022 01:06:40 -0800 (PST)
-Received: by mail-yb1-xb2a.google.com with SMTP id e195so23616866ybb.7
-        for <linux-sparse@vger.kernel.org>; Tue, 18 Jan 2022 01:06:40 -0800 (PST)
+        Tue, 18 Jan 2022 08:05:38 -0500
+Received: from mail-ua1-x92c.google.com (mail-ua1-x92c.google.com [IPv6:2607:f8b0:4864:20::92c])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 1F6AEC06161C
+        for <linux-sparse@vger.kernel.org>; Tue, 18 Jan 2022 05:05:38 -0800 (PST)
+Received: by mail-ua1-x92c.google.com with SMTP id x33so36334147uad.12
+        for <linux-sparse@vger.kernel.org>; Tue, 18 Jan 2022 05:05:38 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=mime-version:reply-to:from:date:message-id:subject:to;
-        bh=AIHedDQeQ2nfeFyhlIY6iBZ7Eo/kAlP72EhStgPHV1I=;
-        b=Soz+QHT0dGLM8FndDi8+DmGrzF8Nand3R01M5J9drC3NXqHN7kmc4VY6l/NuWtUVfL
-         Pw1ipMH9eBCg/ZHqGLeAt2KZPu6XRfsWiJE2xzcq96Ba85LXlrKxOVNuY0HYvfKDfmKc
-         jAQ6EF695L6TTvaCdYqZtBN8gkAnqp1+r0RbNtIeu3qM6gm6h0M3GCKOMUuS25NPcq7T
-         m06EBwLGmWMwlcWjC1WtBCJ/c9tTXkQfsHougCLjPDZp39fgMD8pqVkLYWwbFdfOrAZL
-         FCMwtSnm8Hemf8tY2r2VyBfKOXtSL3AjGIsLn+yMreEST0ocUC4Xu0XEMGJmBV9pdbj2
-         rlHw==
+        bh=kt7BSYvG+rr2bLEECwLOEMCvBVZotJIk44/4XcKD9H0=;
+        b=drmzlvAwSs3UZxueVbUhPUaEdtLtahcGczgDoqllKzUrq5WKtksP2baryr9kxW6YpE
+         8mr/Zw5933bUOFa1cA7WpR+XrQ2mmnFtOTlSan0RujfLm9sBQLzD7OJq7OtCXrvlOahc
+         HtD6c0i3B7aqqxldn/cInIEZp4mtJKUinqdWB6fkWeUDUXrb4HJ1jJKlZ+E/xDcr9Mmt
+         KRIZdPh7D97XY5YeMT5tijXdp0d/K40bz+SUNBR7Z8xE5iNBNoGAdzbYXmZiVhnEG045
+         RDMil5t0yfOkFSuaxbg0462uzCsk3RyzEjdXFoAOMqeQXMfzzSlvbHL0PzfnAjeA3zog
+         I3ig==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=x-gm-message-state:mime-version:reply-to:from:date:message-id
          :subject:to;
-        bh=AIHedDQeQ2nfeFyhlIY6iBZ7Eo/kAlP72EhStgPHV1I=;
-        b=3Ozq0uLVOF0dIWCye4CP95V3K1nXDT2/nIH/JyYO+tDIYSUsZMxlhN9XAj2yzhPiQj
-         yIIJlHva5yKM94GmRQL9wYGuBG/l693faeTfqf94DXd2tEx3P5qOyrqIEbUUs9HlZfXE
-         nHQ7dRtCH9pMrs9/eFQyFSmiBNwGEXKMNOGrOW0KYncpd/UkZ/pL1yg339ayVFKsXxjv
-         94UE7vrwQTj94LAa0QHyH+f3atAcLrECCNUo8pfBWHPw1/HJRFHbV2y4n3OoDwtsVzEW
-         9LbuI0njgUlEe6g8pNMdtH0Facl2QaKw2Ymxl6NNRAZ/kY2N30mVMBd8SQWqO9kdpb0x
-         IFWA==
-X-Gm-Message-State: AOAM531gobQHYrJUnUH35yNQeUjdm0fwPnMLW4XLIH17DoH55+0vhqLn
-        YKhzQTLZWx3bUoLF3EuOzOQBloU5woe5u7PkZ9k=
-X-Google-Smtp-Source: ABdhPJyw0yTCzDjS933NePR8DAFAXJuHa33nOCZujulUZ2idVfAerV+90UYpawy22l7XlVZmlrM9B7gLM03XAJNOkeI=
-X-Received: by 2002:a25:37c2:: with SMTP id e185mr32076301yba.333.1642496799696;
- Tue, 18 Jan 2022 01:06:39 -0800 (PST)
+        bh=kt7BSYvG+rr2bLEECwLOEMCvBVZotJIk44/4XcKD9H0=;
+        b=7pwAhm6WtIQf7m7LreAbHTOHPxHL/kdO4Kr8nR/A3Y0l+8k3cSXK3oyotRIHAHYFR0
+         1xI/q8ybF23tslHbpK2Z/OLTezFSMFqL2Ks2oC8vSSFS/rhrmbtPvrWkeDep8g5pnACC
+         mr5K9x115fGcOWJMjLMMFJhXvawlccGsnV+8D0LtH+x/qvmbc2/ZnLNAX91VP1Aoy9jC
+         kAgJrGaL3lXsH8iQiBgC+VPpV28cgof/CrGGa6I+jQP+prh5SaZhbQSME0CLXlc5QYoS
+         Jg0SnfHBlejHpi1RNQE9bIXoJ4IU4ztPEstCatx/EK9iwvX/+uccNYgB1Jol4b0pHOJv
+         Lpbw==
+X-Gm-Message-State: AOAM532bBkBnU32rBF49hE7zq7p2lyuYodyJSXfdAU5qh6rUIQJhEhjq
+        LFEo/ZBkiqu9d2W/Yc+Ui623lWWmDmbQwiDqGlc=
+X-Google-Smtp-Source: ABdhPJy0Ew2JuATYGSJ3afI3mEy40MCz6GcSuZqEiRV33gKa5aTVHYDefV2K7QAvVfY3DmMfEoqXdncG3Q5+7lKBqh8=
+X-Received: by 2002:a67:fdcc:: with SMTP id l12mr8084541vsq.80.1642511137133;
+ Tue, 18 Jan 2022 05:05:37 -0800 (PST)
 MIME-Version: 1.0
-Received: by 2002:a05:7108:3655:0:0:0:0 with HTTP; Tue, 18 Jan 2022 01:06:38
+Received: by 2002:ab0:3793:0:0:0:0:0 with HTTP; Tue, 18 Jan 2022 05:05:36
  -0800 (PST)
-Reply-To: asil.ajwad@gmail.com
-From:   Asil Ajwad <graceyaogokamboule@gmail.com>
-Date:   Mon, 17 Jan 2022 21:06:38 -1200
-Message-ID: <CA+Yy_gDoLjOfusfXaCVeyK5wpATnnfHVgZ2fw-LqNg4nowYW8A@mail.gmail.com>
-Subject: Greetings,
+Reply-To: mohsheikhalhamed@gmail.com
+From:   bratikox <bratikox@gmail.com>
+Date:   Tue, 18 Jan 2022 14:05:36 +0100
+Message-ID: <CAFuXTSxfT3oreHbLAvt1teDqjNcpCY345-3JLvLRasZydHMMQA@mail.gmail.com>
+Subject: Salam Alaikum /ADIA LOAN OFFER
 To:     undisclosed-recipients:;
 Content-Type: text/plain; charset="UTF-8"
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
--- 
-Greetings,
+Salam Alaikum,
 
-I am Mr.Asil Ajwad, I work with United Bank of Africa, can you use
-an ATM Visa Card to withdraw money at, ATM Cash Machine in your
-country, if yes I want to transfer abounded fund the sum of $10.5million
-US-Dollars, to you from my country, this is part of the money that was
-abounded by our late old client a politician who unfortunately lost
-his life and was forced out of power Du to his greedy act, the bank will
+We are a United Arab Emirates based investment company known as Abu
+Dhabi Investment Authority working on expanding its portfolio globally
+and financing projects.
 
-change the account details to your name, and apply for a Visa Card
-with your details, the Visa Card will be send to you, and you can be
-withdrawing money with it always, whatever any amount you withdraw
-daily, you will send 60% to me and you will take 40%, the Visa Card
-and the bank account will be on your name, I will be waiting for your
-response for more details, thanks to you a lot for giving me your time.
+We are offering Corporate and Personal Loan at 3.5% Interest Rate for
+a duration of 5 to 10 years.
 
-regards,
-Mr.Asil Ajwad.
+Please get back to us on Email: mohsheikhalhamed@gmail.com ,if you are
+interested for further embellishment.
+
+We also pay 2% commission to brokers who introduce project owners for
+finance or other opportunities.
+
+
+ Yours truly,
+ Hamed Mohammad
+ (Personal Assistant)
+ Abu Dhabi Investment Authority
+ 211 Corniche, P.O Box 3600
+ Abu Dhabi,United Arab Emirates
