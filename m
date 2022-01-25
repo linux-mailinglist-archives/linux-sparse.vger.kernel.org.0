@@ -2,73 +2,92 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 676E049ACE7
-	for <lists+linux-sparse@lfdr.de>; Tue, 25 Jan 2022 08:07:11 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 9D33049BB81
+	for <lists+linux-sparse@lfdr.de>; Tue, 25 Jan 2022 19:50:24 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1442089AbiAYHFb (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Tue, 25 Jan 2022 02:05:31 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:45984 "EHLO
-        lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1391408AbiAYHCn (ORCPT
-        <rfc822;linux-sparse@vger.kernel.org>);
-        Tue, 25 Jan 2022 02:02:43 -0500
-Received: from mail-yb1-xb32.google.com (mail-yb1-xb32.google.com [IPv6:2607:f8b0:4864:20::b32])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 4C0CBC094251
-        for <linux-sparse@vger.kernel.org>; Mon, 24 Jan 2022 21:41:52 -0800 (PST)
-Received: by mail-yb1-xb32.google.com with SMTP id k17so3160347ybk.6
-        for <linux-sparse@vger.kernel.org>; Mon, 24 Jan 2022 21:41:52 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=mime-version:reply-to:from:date:message-id:subject:to;
-        bh=KeMi8W+p20zdR41YZoRj2EapY7imNsLYkAgQIQsIzqY=;
-        b=omchJdYJcVvbnbx3iWDsqNfzfvgFxRY5UV8d5JFHFd0Qxp4Fs99oOTWbnsLJvmkGLO
-         KJ9h0aIZipzZCxLYUC1EbKJQXjsTnrYD4skWPu5L6KEa7WwksJ/DgfAKn2I//FvNz16e
-         yvRSMjBJIkfJOiN7QosmIFzfX6t0OymUxXq/kzoldmt5Tk4SMXy3poAlzZfnj4tLqkCO
-         r1uVZjBjIcfKcTHUm4yIRwmNGijXGA0OAhFYRol/6hiAAZJ37V1K6a3bLM+XpGdFXGos
-         hPiIHyT9XSW8aiVFGjIdHRgRcnWLHkX21ZW87GvspRwlXlL9xuI6dXFZXWxBZnRTJWgA
-         Bk5w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:mime-version:reply-to:from:date:message-id
-         :subject:to;
-        bh=KeMi8W+p20zdR41YZoRj2EapY7imNsLYkAgQIQsIzqY=;
-        b=rA7POGUNrPJuYxrlE9dxe+FnHPpp54bkx9IwvGHPE3ZfmEQK8FswhPivI+TLMunnzF
-         7KhfJBeTL4s/ggNbzbTbS0hcyFBiEWA8NjpncpCuxStWpLSciRQJL81Qx/IkTz+ua3bn
-         bmVFxSTFcfSZoa7iQmASeiBcqsk/LMDX/IbJRPraC45I5D/KQKJVGbtVhcphHT/XeuFp
-         RaVmr4NmDHgXhPZ9iA99ZcoQxEfXZidSjGMXs8gBLDN+NtxIPDaaJzCt5d/u31qa1az+
-         YG+YmDNuc+MUOgRv1jRFRDvJfpGj7c9PunkGdrQhfGiWleCzpGPMmo2iMo+44r2AlWGr
-         IV/g==
-X-Gm-Message-State: AOAM532XEmitoh/K7pAx1RsevrbYS/wgMSf6tLitLdWpu1nbsuHhNcMo
-        ivLXrhW8xy1yhj9Xq9L4HLH65vJPDWpLBF+y2uEuaSRNEEc=
-X-Google-Smtp-Source: ABdhPJwywiwyTtOCXfovmJIEM7Vqt+PFDzMW3tzxRj90P3fJDPhIlV2jOd/vI9WPw47eCab8Z7S4n4qldrLRD5Ly+Sc=
-X-Received: by 2002:a25:d783:: with SMTP id o125mr27594671ybg.710.1643089301256;
- Mon, 24 Jan 2022 21:41:41 -0800 (PST)
+        id S229699AbiAYSuT (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Tue, 25 Jan 2022 13:50:19 -0500
+Received: from mail.skyhub.de ([5.9.137.197]:49352 "EHLO mail.skyhub.de"
+        rhost-flags-OK-OK-OK-OK) by vger.kernel.org with ESMTP
+        id S233655AbiAYSuF (ORCPT <rfc822;linux-sparse@vger.kernel.org>);
+        Tue, 25 Jan 2022 13:50:05 -0500
+Received: from zn.tnic (dslb-088-067-221-104.088.067.pools.vodafone-ip.de [88.67.221.104])
+        (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+        (No client certificate requested)
+        by mail.skyhub.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 21DFC1EC0441;
+        Tue, 25 Jan 2022 19:49:58 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=dkim;
+        t=1643136598;
+        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+         to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+         content-transfer-encoding:in-reply-to:in-reply-to:  references:references;
+        bh=FWGEovRBlRsOHRRs3KcfU9GtAqXhXF86p7IhLQZAYMs=;
+        b=KDrqcOLGqwq4yaIkVt75JKs+Z0rFT0PyASpCymwwSZkMftN7YqtFe1CJuZmBMhrvnfNvaZ
+        psf22yWMp+gShTh8s+pL/JnCkQp2THC2dauqIR0sTSDW0Bo0NEeMqb0jn8nvSvg8TZckhy
+        uBDo5a+gLkeGt5zHs33SQztucp3Gsa0=
+Date:   Tue, 25 Jan 2022 19:49:57 +0100
+From:   Borislav Petkov <bp@alien8.de>
+To:     Nick Desaulniers <ndesaulniers@google.com>
+Cc:     Josh Poimboeuf <jpoimboe@redhat.com>,
+        Vasily Gorbik <gor@linux.ibm.com>,
+        Linus Torvalds <torvalds@linux-foundation.org>,
+        Ingo Molnar <mingo@kernel.org>,
+        Dave Hansen <dave.hansen@linux.intel.com>,
+        Thomas Gleixner <tglx@linutronix.de>,
+        Peter Zijlstra <peterz@infradead.org>,
+        Luc Van Oostenryck <luc.vanoostenryck@gmail.com>,
+        x86@kernel.org, llvm@lists.linux.dev, linux-sparse@vger.kernel.org,
+        linux-kernel@vger.kernel.org, kernel test robot <lkp@intel.com>,
+        Nathan Chancellor <nathan@kernel.org>,
+        linux-toolchains@vger.kernel.org
+Subject: Re: [PATCH] objtool: prefer memory clobber & %= to volatile &
+ __COUNTER__
+Message-ID: <YfBGVfk5jnHgC4UE@zn.tnic>
+References: <20220114010526.1776605-1-ndesaulniers@google.com>
+ <YeQei0xNzMq7bFdg@zn.tnic>
+ <20220118192256.jzk5dnceeusq7x7u@treble>
+ <20220118230120.pivvson7qekfiqic@treble>
+ <CAKwvOdmLzwz=02ypt0_1324_5-7i3Az7HizFaDMqZv__-D99uA@mail.gmail.com>
+ <CAKwvOdm+pnKb2PU7H5W1ks8eFd3DPEtN5kzjhnz5TLLwpBLOsA@mail.gmail.com>
 MIME-Version: 1.0
-Received: by 2002:a05:7000:ad9d:0:0:0:0 with HTTP; Mon, 24 Jan 2022 21:41:40
- -0800 (PST)
-Reply-To: danielseyba@yahoo.com
-From:   Seyba Daniel <mrssuzaramaling19@gmail.com>
-Date:   Tue, 25 Jan 2022 06:41:40 +0100
-Message-ID: <CAKN-9XgQjuMspSnu-F01fv+Bgr6eZEygpsR3pZ-5cF=m78av-Q@mail.gmail.com>
-Subject: Hello,
-To:     undisclosed-recipients:;
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <CAKwvOdm+pnKb2PU7H5W1ks8eFd3DPEtN5kzjhnz5TLLwpBLOsA@mail.gmail.com>
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-Hello,
+On Mon, Jan 24, 2022 at 03:38:38PM -0800, Nick Desaulniers wrote:
+> $ wget https://download.01.org/0day-ci/archive/20220119/202201190702.XNSXrMTK-lkp@intel.com/config
+> -O .config
+> $ make -j72 -s olddefconfig drivers/net/wireless/mac80211_hwsim.o
+> drivers/net/wireless/mac80211_hwsim.o: warning: objtool:
+> mac80211_hwsim_tx()+0x9aa: unreachable instruction
+> $ gcc --version
+> gcc (Debian 11.2.0-12) 11.2.0
 
-I am so sorry contacting you in this means especially when we have never
-met before. I urgently seek your service to represent me in investing in
-your region / country and you will be rewarded for your service without
-affecting your present job with very little time invested in it.
+Yap, I got mine with:
 
-My interest is in buying real estate, private schools or companies with
-potentials for rapid growth in long terms.
+gcc (Debian 10.2.1-6) 10.2.1 20210110
 
-So please confirm interest by responding back.
+but since you hit it with gcc11, I don't see why I won't hit it with
+gcc10.
 
-My dearest regards
+> :(
 
-Seyba Daniel
+You said it.
+ 
+> Let me see if I can come up with a reduced test case that I will
+> report upstream to https://gcc.gnu.org/bugzilla/.
+
+Sounds good.
+
+Please send the bug # once you have that so that I can add myself to Cc.
+
+Thx.
+
+-- 
+Regards/Gruss,
+    Boris.
+
+https://people.kernel.org/tglx/notes-about-netiquette
