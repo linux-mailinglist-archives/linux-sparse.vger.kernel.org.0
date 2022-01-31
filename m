@@ -2,80 +2,95 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from vger.kernel.org (vger.kernel.org [23.128.96.18])
-	by mail.lfdr.de (Postfix) with ESMTP id 3DBE44A4163
-	for <lists+linux-sparse@lfdr.de>; Mon, 31 Jan 2022 12:03:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 8A2DC4A5071
+	for <lists+linux-sparse@lfdr.de>; Mon, 31 Jan 2022 21:45:50 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1358332AbiAaLDn (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Mon, 31 Jan 2022 06:03:43 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43314 "EHLO
+        id S1379201AbiAaUpp (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Mon, 31 Jan 2022 15:45:45 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:39170 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1358573AbiAaLCP (ORCPT
+        with ESMTP id S1378531AbiAaUpe (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Mon, 31 Jan 2022 06:02:15 -0500
-Received: from mail-il1-x143.google.com (mail-il1-x143.google.com [IPv6:2607:f8b0:4864:20::143])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 884EBC06175F
-        for <linux-sparse@vger.kernel.org>; Mon, 31 Jan 2022 03:00:25 -0800 (PST)
-Received: by mail-il1-x143.google.com with SMTP id w5so11037360ilo.2
-        for <linux-sparse@vger.kernel.org>; Mon, 31 Jan 2022 03:00:25 -0800 (PST)
+        Mon, 31 Jan 2022 15:45:34 -0500
+Received: from mail-lj1-x22a.google.com (mail-lj1-x22a.google.com [IPv6:2a00:1450:4864:20::22a])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 5F814C06173D
+        for <linux-sparse@vger.kernel.org>; Mon, 31 Jan 2022 12:45:34 -0800 (PST)
+Received: by mail-lj1-x22a.google.com with SMTP id a25so21102030lji.9
+        for <linux-sparse@vger.kernel.org>; Mon, 31 Jan 2022 12:45:34 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=mime-version:reply-to:sender:from:date:message-id:subject:to
-         :content-transfer-encoding;
-        bh=FANIUiWvB3mdY3zLX2DODg2pUIL5eGT5wlydl6jYk40=;
-        b=UiZkV1xu/1z5A/ztD5Jldn3XOzfxCb5dH+/DMk1AFwK/nat4JXJLhGvMZnA2+IcjXR
-         YpW9r7ae6KAHd2sg0/6YFTRnkZ3XqJMzbhN9flAzZs0JoNMicLhQj4whv/k5nByjCpr2
-         OPf/s6NNTy4WRB8M3asGC42AidvYisjk++OWaBieA6XGemBs4Y+JGAvZ5l41ammJrDB4
-         p5lGBdvbZ5NrWMYLncN5GoY37UsWl4xjwHwFxwvY+3e/m9UxQRtNwA1vx+Ngxm2/RcIf
-         HB+3yGJS8mnEVkIPxbImLKA3AmKSXwrPGXKRYLzTh8tWOJi5P+SVpgZzGLkgPt54T4WY
-         uPBA==
+        d=google.com; s=20210112;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=OP8lq+CNNstsD6MdqxQkt/+Qf2pjO5hiMrphojuZwoU=;
+        b=N1MCHAoWUOlYLJDlA8wsBKE17FbxUlNpj1KofdDJGYesdQY9l1rVYYgINrRkUaFZBf
+         KZNoHtazLOFrvgO9HPbhkQGgMOkNa9WzmFHFsFTH/M9qA1u3o9csud+Tm3UjgZ2VXRRD
+         MBJdqlKmhqMj9/7feMzK7v3gFyZRAULTAPFyDEKazMIngNZsWxfMaLlpzKLS16prACCB
+         asGdmQF+SIIfQ7UskfAH9aJ7LdR7aWz737U8q97afIlghe20cwOmwee5S9cmVI84d7ND
+         wNXe1uIhJrSlDO6Uso3Aw5t0JLY2/d0ne0JionMT8Xtu2qOll51EJMY/rmU8W8unvURw
+         tMsg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=x-gm-message-state:mime-version:reply-to:sender:from:date
-         :message-id:subject:to:content-transfer-encoding;
-        bh=FANIUiWvB3mdY3zLX2DODg2pUIL5eGT5wlydl6jYk40=;
-        b=aIdjbQFDl0MCUzEqcX1Nmo3RphZGt8LdKvALCt0cB8r3dsMswKMf5Bnv3prl+wAvMJ
-         wCPPKkGIsqTFVBQr1gIk971chbjVHszoyS+7EZunlq9zPQEE4Ca19sQAzZARBULezkeD
-         EQ0T5TQ8zl8K2KE9k1SnFm8mhxRXpyerhMGXZx/u8LsyDtyBNhY/m/HsgM4/IHoanCGL
-         tqD2JDa/A+KXBVcRo+Nb33IfTSUqK22PykJmdQ6eWVXZXZ5s0YFwAbMWjVSsM5QOiSnW
-         HcPylOVm8FTBTyRnFjydoz7KYPBMWWsuEFanrjm2+blVWsDbN/b4705x4jHRHmQai9S+
-         ibsQ==
-X-Gm-Message-State: AOAM5304YQ5l4Tlgfbce3nPY7v0D5347G79KLxO8j3rKZMYvY8DepcS4
-        L6jgbeFLgwMMxWq4QfzgdBY53vUulmNpqh0DHY0=
-X-Google-Smtp-Source: ABdhPJzd4XpulgxPqo3GJyz/7qJgMmqyQWLIjLiq4E497a4l1ZK6xwd0ZMb9kbBqw+HfcfevS7FYQFhhZjxFTzbYWZE=
-X-Received: by 2002:a92:bf01:: with SMTP id z1mr11261719ilh.18.1643626824914;
- Mon, 31 Jan 2022 03:00:24 -0800 (PST)
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=OP8lq+CNNstsD6MdqxQkt/+Qf2pjO5hiMrphojuZwoU=;
+        b=mu0mBfDbpbD8J2rBFkignZUylfpGAXrGu5hueHrzOaE4Kcg0Rw6mwogID+ulnGRauK
+         lYwVhhspPdjOMOj7boYe3bVrYQukjYoA6AsilirT5S5ELsh2DiLdNV6aKn4G30D6AC4K
+         x3EqO5eT8gKerlCNB0WRJ7EjO4eavDAbwvxCcZm/B76784bDqTLtVhX3ojg75h73ZFdY
+         CSi79NiueFNrHmO5/fVxfaK6rw7W5hUB94B83Sg8j94AQW/6gnEjTMK1Th3xMesn7A5L
+         YLHBT5ZVE9PZm9qNPt7EmEyKLqAGunsqVwfq5DUUxxigo52TbejNNoIMxHvwstGF/K6f
+         Mq6g==
+X-Gm-Message-State: AOAM532z+aX4d274NKz8QJWuUHr2kN9DraLVLCkiAHcp/bWZOrBlyTI+
+        CpHrTJKx1gl+vZ58NymF9PHhZjCe8RZc2uKtp6tGMQ==
+X-Google-Smtp-Source: ABdhPJyUGs/IuSxxzyGQxz64BV96QhIOuwlW+Oh1fnhj7wrQYLrrNl3HYHpoA3JpS27Xsbp+jya9RNlM8rpDYvQ9TSo=
+X-Received: by 2002:a2e:954:: with SMTP id 81mr5661437ljj.198.1643661932405;
+ Mon, 31 Jan 2022 12:45:32 -0800 (PST)
 MIME-Version: 1.0
-Reply-To: daniellakyle60@gmail.com
-Sender: drdanielmorris11111@gmail.com
-Received: by 2002:a05:6638:1248:0:0:0:0 with HTTP; Mon, 31 Jan 2022 03:00:24
- -0800 (PST)
-From:   Mrs daniell akyle <daniellakyle60@gmail.com>
-Date:   Mon, 31 Jan 2022 12:00:24 +0100
-X-Google-Sender-Auth: In2hlqlpPwPr7MI-yh9_QFub_fE
-Message-ID: <CAKFcj-MLAnZBo0A2RqXf-exs+KAG-o6Ln5XerrcTvaKWSBL9yQ@mail.gmail.com>
-Subject: Ahoj
-To:     undisclosed-recipients:;
+References: <20220114010526.1776605-1-ndesaulniers@google.com>
+ <YeQei0xNzMq7bFdg@zn.tnic> <20220118192256.jzk5dnceeusq7x7u@treble>
+ <20220118230120.pivvson7qekfiqic@treble> <CAKwvOdmLzwz=02ypt0_1324_5-7i3Az7HizFaDMqZv__-D99uA@mail.gmail.com>
+ <20220125233128.GT614@gate.crashing.org>
+In-Reply-To: <20220125233128.GT614@gate.crashing.org>
+From:   Nick Desaulniers <ndesaulniers@google.com>
+Date:   Mon, 31 Jan 2022 12:45:20 -0800
+Message-ID: <CAKwvOdnB=OfCc_31b=PMjxKewvb3CV2WDwhMWrigviWaHrGMhw@mail.gmail.com>
+Subject: Re: [PATCH] objtool: prefer memory clobber & %= to volatile & __COUNTER__
+To:     Segher Boessenkool <segher@kernel.crashing.org>,
+        apinski@marvell.com
+Cc:     Josh Poimboeuf <jpoimboe@redhat.com>,
+        Borislav Petkov <bp@alien8.de>,
+        Vasily Gorbik <gor@linux.ibm.com>,
+        Linus Torvalds <torvalds@linux-foundation.org>,
+        Ingo Molnar <mingo@kernel.org>,
+        Dave Hansen <dave.hansen@linux.intel.com>,
+        Thomas Gleixner <tglx@linutronix.de>,
+        Peter Zijlstra <peterz@infradead.org>,
+        Luc Van Oostenryck <luc.vanoostenryck@gmail.com>,
+        x86@kernel.org, llvm@lists.linux.dev, linux-sparse@vger.kernel.org,
+        linux-kernel@vger.kernel.org, kernel test robot <lkp@intel.com>,
+        Nathan Chancellor <nathan@kernel.org>,
+        linux-toolchains@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-Pozdravy
-Jmenuji se pan=C3=AD Daniella Kyleov=C3=A1, je mi 58 let
-Filip=C3=ADny. V sou=C4=8Dasn=C3=A9 dob=C4=9B jsem hospitalizov=C3=A1n na F=
-ilip=C3=ADn=C3=A1ch, kde jsem
-podstupuje l=C3=A9=C4=8Dbu akutn=C3=ADho karcinomu j=C3=ADcnu. jsem um=C3=
-=ADraj=C3=ADc=C3=AD,
-vdova, kter=C3=A1 se rozhodla darovat =C4=8D=C3=A1st sv=C3=A9ho majetku spo=
-lehliv=C3=A9 osob=C4=9B
-kter=C3=A1 tyto pen=C3=ADze pou=C5=BEije na pomoc chud=C3=BDm a m=C3=A9n=C4=
-=9B privilegovan=C3=BDm. Chci
-poskytnout dar ve v=C3=BD=C5=A1i 3 700 000 =C2=A3 na sirotky nebo charitati=
-vn=C3=AD organizace
-ve va=C5=A1=C3=AD oblasti. Zvl=C3=A1dne=C5=A1 to? Pokud jste ochotni tuto n=
-ab=C3=ADdku p=C5=99ijmout
-a ud=C4=9Blejte p=C5=99esn=C4=9B tak, jak v=C3=A1m =C5=99=C3=ADk=C3=A1m, pa=
-k se mi vra=C5=A5te pro dal=C5=A1=C3=AD vysv=C4=9Btlen=C3=AD.
-pozdravy
-Pan=C3=AD Daniella Kyleov=C3=A1
+On Tue, Jan 25, 2022 at 3:34 PM Segher Boessenkool
+<segher@kernel.crashing.org> wrote:
+>
+> Hi!
+>
+> On Mon, Jan 24, 2022 at 03:26:36PM -0800, Nick Desaulniers wrote:
+> > I'm more confident that we can remove the `volatile` keyword (I was
+> > thinking about adding a new diagnostic to clang to warn that volatile
+> > is redundate+implied for asm goto or inline asm that doesn't have
+> > outputs) though that's not the problem here and will probably generate
+> > some kernel wide cleanup before we could enable such a flag.
+>
+> Its main value is that it would discourage users from thinking volatile
+> is magic.  Seriously worth some pain!
+
+https://reviews.llvm.org/D118297
+PTAL
+-- 
+Thanks,
+~Nick Desaulniers
