@@ -2,110 +2,70 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id C0BBF4E5D46
-	for <lists+linux-sparse@lfdr.de>; Thu, 24 Mar 2022 03:42:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 35B5F4E7E63
+	for <lists+linux-sparse@lfdr.de>; Sat, 26 Mar 2022 02:15:19 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S237012AbiCXCno (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Wed, 23 Mar 2022 22:43:44 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:60978 "EHLO
+        id S229747AbiCZBQw (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Fri, 25 Mar 2022 21:16:52 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:45352 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S236251AbiCXCno (ORCPT
+        with ESMTP id S229616AbiCZBQv (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Wed, 23 Mar 2022 22:43:44 -0400
-Received: from mail-yb1-f171.google.com (mail-yb1-f171.google.com [209.85.219.171])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 71D27939CD;
-        Wed, 23 Mar 2022 19:42:13 -0700 (PDT)
-Received: by mail-yb1-f171.google.com with SMTP id y142so6100858ybe.11;
-        Wed, 23 Mar 2022 19:42:13 -0700 (PDT)
+        Fri, 25 Mar 2022 21:16:51 -0400
+Received: from mail-lf1-x131.google.com (mail-lf1-x131.google.com [IPv6:2a00:1450:4864:20::131])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 855A8177D03
+        for <linux-sparse@vger.kernel.org>; Fri, 25 Mar 2022 18:15:14 -0700 (PDT)
+Received: by mail-lf1-x131.google.com with SMTP id 5so16038507lfp.1
+        for <linux-sparse@vger.kernel.org>; Fri, 25 Mar 2022 18:15:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=mime-version:reply-to:from:date:message-id:subject:to;
+        bh=WJHAKJ+oIxXvJZu1DBiESyzYbqwQrfIWZU8TIVkfoIg=;
+        b=LIHjskIv4XtUWBSiHKUqyUuZwBgTSTFj2LQ2bDwz7QtcNYE/SySnp6umJj8IL2XBaW
+         kywyOFdkBLZEDAIfDCL7UAbS/MqOzsRJae35950tFXkjueUDrTFjnuy+irGwmoeFCtUY
+         Ybs52oG0bMf2MeZf81xagcdG0t2l1W+GuNUeIlJK1jaDc2gSYacVgLJBrF8AIVum6NP1
+         PCcTuEALkaBx1dVT+jANLY7uqX2qmwSv+VlX9Fizf9OLpUFh0Y68xpydlAYJLqG4xHML
+         ndKwUTWc2kODMtXaTudzmAz/lSD3HxijX1Vxg0oKVtAqgmCvPUkwecA2pwZESAFKTqLt
+         GeVQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=Bq+5q/LUFVvKeFoA9Q8Sa2EEy5fY9kO3b6Q0RwFcT+M=;
-        b=NeTZ/xoEakoE9tymnST82PXzga/NTsC+AurpGjR1Wyt+KIolWF/FqaEV7hzaQohUP5
-         HwTe7PrKTiw4puxCGeX6KAGEvLLZ4JkYxggAvoULjAzsKaJiNGWsBDqXgFMwNNHgAabz
-         qwQPUOOz2Pz3lNnf2AXmH3ckngp1a8lXBAUm+eZF83D3VApmtvE1gFF+9cJQAACq1Quc
-         6GN87dNCxNp9R4lCiBZTBgnditFebZkmkgFRMrehneEByAP88DLkE2gGd25opikqaZDT
-         GLU/R0YF7b3dChCFBZaJL/cF8mT5xlV39vvnHuB6aQIaAB3dyhrOBO1dIa8fOXx/Kv4b
-         eSgA==
-X-Gm-Message-State: AOAM532aHPOmCJKF1t6NiFy1SCb4Oail1zGg9UDgDsQMFxLmZHsAExuc
-        PLmwuPmEgjVeghTPtHqXQoXjz0xt5Xm3tb9hlYK+1YpC/c0z7g==
-X-Google-Smtp-Source: ABdhPJziSYCyql+0Kv8XlVNqbr2ofruuie+pCnMX37bMuuM+FvKjDm9W3ej9ZdR3kL6WfSaqPniODXBiYtiM3+EupHY=
-X-Received: by 2002:a5b:8cc:0:b0:634:7343:9953 with SMTP id
- w12-20020a5b08cc000000b0063473439953mr2807315ybq.142.1648089732442; Wed, 23
- Mar 2022 19:42:12 -0700 (PDT)
+        h=x-gm-message-state:mime-version:reply-to:from:date:message-id
+         :subject:to;
+        bh=WJHAKJ+oIxXvJZu1DBiESyzYbqwQrfIWZU8TIVkfoIg=;
+        b=CJeYEda4Lp4lOvwbeV3dALMXWeE4X/W12YEzGl85+k7zsHhZ6/+6tb6nKRGi4J3XMv
+         eKfdbFuIeLs96j0175fXXvWhLAenmrZrnipU+60RYe27ioJdV0ae6G89KZcGmJu2nV4v
+         4WTZaxgVG/OPcpqqzwoLSto3rdVG1nKN5Q5KwAIt+H9yPbLfJX2Ny5kjImDqKepng5KE
+         g2HaWB4KyBOMFkDO2PKTGkmgZemNpUP3Nc8Z/6fY/QXJu3DpUYKRI9s2He9Y3SjxTuaS
+         pnao9DWjOCurvh9hzomAsy4mi2H7E4W72jVFdaO1HZZ02BNT1LIab9oDj212eFSx0JMW
+         LJYw==
+X-Gm-Message-State: AOAM531Gxo4DbbMmKiYT3GbT5nHBdH/U3dvA/dVc8gp13xzbyjD6gtVP
+        CMdgmordcaKQ3WlbNnJa/PvH6StY4fX5ZgvZkpY=
+X-Google-Smtp-Source: ABdhPJyt1sXilOzzPtkecTDQi57xi2ME70VuuF0e6J9WvP+pWSJBmLYQdGO9Qh/Zjsu99odRzdtnpPtP6ACljlenBUg=
+X-Received: by 2002:a05:6512:16a2:b0:448:1fbb:8ca1 with SMTP id
+ bu34-20020a05651216a200b004481fbb8ca1mr9951196lfb.125.1648257312721; Fri, 25
+ Mar 2022 18:15:12 -0700 (PDT)
 MIME-Version: 1.0
-References: <CAFGhKbyifH1a+nAMCvWM88TK6fpNPdzFtUXPmRGnnQeePV+1sw@mail.gmail.com>
- <CAKwvOdmSV3Nse+tGMBXvN=QvnOs6-ODZRJB0OF5Pd6BVb-scFw@mail.gmail.com>
-In-Reply-To: <CAKwvOdmSV3Nse+tGMBXvN=QvnOs6-ODZRJB0OF5Pd6BVb-scFw@mail.gmail.com>
-From:   Vincent MAILHOL <mailhol.vincent@wanadoo.fr>
-Date:   Thu, 24 Mar 2022 11:42:01 +0900
-Message-ID: <CAMZ6RqJ7B_Yqs0jE0nmkX2Z=xh7Jj6J_ihP=ybLVn5VXY+5kTA@mail.gmail.com>
-Subject: Re: [PATCH] x86: bug.h: merge annotate_reachable into _BUG_FLAGS for __WARN_FLAGS
-To:     Nick Desaulniers <ndesaulniers@google.com>
-Cc:     Charlemagne Lasse <charlemagnelasse@gmail.com>,
-        jpoimboe@redhat.com, adobriyan@gmail.com, bp@alien8.de,
-        dave.hansen@linux.intel.com, hpa@zytor.com,
-        linux-kernel@vger.kernel.org, linux-sparse@vger.kernel.org,
-        llvm@lists.linux.dev, luc.vanoostenryck@gmail.com,
-        mingo@redhat.com, nathan@kernel.org, peterz@infradead.org,
-        tglx@linutronix.de, x86@kernel.org, Sasha Levin <sashal@kernel.org>
+Received: by 2002:ab3:6591:0:0:0:0:0 with HTTP; Fri, 25 Mar 2022 18:15:12
+ -0700 (PDT)
+Reply-To: mr.hambrook.jeremy@gmail.com
+From:   "Mr Hambrook P. Jeremy" <bafalikiaklesso@gmail.com>
+Date:   Sat, 26 Mar 2022 01:15:12 +0000
+Message-ID: <CACoqBR4X-Ge_fB91SAt_i+iLEu00VkFt9LP6mDzMt7Y0F6cGTg@mail.gmail.com>
+Subject: BTE
+To:     undisclosed-recipients:;
 Content-Type: text/plain; charset="UTF-8"
-X-Spam-Status: No, score=-1.4 required=5.0 tests=BAYES_00,
-        FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
-        RCVD_IN_DNSWL_NONE,RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS,
-        T_SCC_BODY_TEXT_LINE autolearn=no autolearn_force=no version=3.4.6
+X-Spam-Status: No, score=4.1 required=5.0 tests=BAYES_05,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,FREEMAIL_REPLYTO,
+        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_HK_NAME_FM_MR_MRS,
+        T_SCC_BODY_TEXT_LINE,UNDISC_FREEM autolearn=no autolearn_force=no
+        version=3.4.6
+X-Spam-Level: ****
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-On Thu. 24 Mar 2022 at 04:41, Nick Desaulniers <ndesaulniers@google.com> wrote:
-> On Wed, Mar 23, 2022 at 12:30 PM Charlemagne Lasse
-> <charlemagnelasse@gmail.com> wrote:
-> >
-> > > @@ -75,9 +77,9 @@ do {                                \
-> > >   */
-> > >  #define __WARN_FLAGS(flags)                    \
-> > >  do {                                \
-> > > +    __auto_type f = BUGFLAG_WARNING|(flags);        \
-> > >      instrumentation_begin();                \
-> > > -    _BUG_FLAGS(ASM_UD2, BUGFLAG_WARNING|(flags));        \
-> > > -    annotate_reachable();                    \
-> > > +    _BUG_FLAGS(ASM_UD2, f, ASM_REACHABLE);            \
-> > >      instrumentation_end();                    \
-> > >  } while (0)
-> >
-> > This causes following sparse warning on x86:
-> >
-> > make allnoconfig && touch init/version.c && make CHECK="sparse
-> > -Wshadow"  C=1 init/version.o
-> > #
-> > # No change to .config
-> > #
-> >  CALL    scripts/checksyscalls.sh
-> >  CALL    scripts/atomic/check-atomics.sh
-> >  CHK     include/generated/compile.h
-> >  CC      init/version.o
-> >  CHECK   init/version.c
-> > init/version.c: note: in included file (through
-> > include/linux/rculist.h, include/linux/pid.h, include/linux/sched.h,
-> > include/linux/utsname.h):
-> > ./include/linux/rcupdate.h:1007:9: warning: symbol 'f' shadows an earlier one
-> > ./include/linux/rcupdate.h:1001:47: originally declared here
->
-> Thanks for the report. There was already a fix sent for this:
-> https://lore.kernel.org/lkml/20220317065743.8467-1-mailhol.vincent@wanadoo.fr/
-> but it doesn't mention that sparse is warning about this, too.
->
-> I think if Vincent sent a v3 that mentioned that sparse is warning
-> about this, too, and cc'ed you, you could then supply
-> signed-off/tested-by tags (or just do so on v2, though it doesn't
-> mention sparse), and maybe Josh would be so kind as to pick that up?
-
-Thank Nick, I did as you suggested. Here is the v3:
-https://lore.kernel.org/all/20220324023742.106546-1-mailhol.vincent@wanadoo.fr/
-
-Yours sincerely,
-Vincent Mailhol
+Hi my friend, I am Hambrook P. Jeremy, Please did you receive my
+previous mail message? Please reply urgently for it is Very Important;
+Hambrook P. Jeremy.
