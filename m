@@ -2,114 +2,199 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 0D2D54ECC1E
-	for <lists+linux-sparse@lfdr.de>; Wed, 30 Mar 2022 20:28:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 905704ECD43
+	for <lists+linux-sparse@lfdr.de>; Wed, 30 Mar 2022 21:30:55 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1350448AbiC3S1E (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Wed, 30 Mar 2022 14:27:04 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:33436 "EHLO
+        id S1350769AbiC3Tcb (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Wed, 30 Mar 2022 15:32:31 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:51160 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1350531AbiC3S0n (ORCPT
+        with ESMTP id S1350781AbiC3TcV (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Wed, 30 Mar 2022 14:26:43 -0400
-Received: from mail-oa1-x36.google.com (mail-oa1-x36.google.com [IPv6:2001:4860:4864:20::36])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 45ECD4AE37
-        for <linux-sparse@vger.kernel.org>; Wed, 30 Mar 2022 11:23:50 -0700 (PDT)
-Received: by mail-oa1-x36.google.com with SMTP id 586e51a60fabf-dacc470e03so22908919fac.5
-        for <linux-sparse@vger.kernel.org>; Wed, 30 Mar 2022 11:23:50 -0700 (PDT)
+        Wed, 30 Mar 2022 15:32:21 -0400
+Received: from mail-ot1-x330.google.com (mail-ot1-x330.google.com [IPv6:2607:f8b0:4864:20::330])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id BC24E18D;
+        Wed, 30 Mar 2022 12:30:34 -0700 (PDT)
+Received: by mail-ot1-x330.google.com with SMTP id i23-20020a9d6117000000b005cb58c354e6so15598379otj.10;
+        Wed, 30 Mar 2022 12:30:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=mime-version:reply-to:sender:from:date:message-id:subject:to
-         :content-transfer-encoding;
-        bh=6PnxJaVdYHTfEoSreao3ANO+XeqxY/p/4dxKSObIH1I=;
-        b=U1oUia1Thamt6Z7oWm6PGNKOk9RXK6Jv76DGrI1cLcYRcY5/d1Tt5qepQRdZm6lsyq
-         RBa/xpJM28ShOu5ibphzafHjPKptRC4OMeOVco0xYKihrCNFhnaGQOBDSvUdgHWgE3gf
-         cWTbx+dPO2nv/wujOZrrbxfJpePUzp7QZ1RCloUPxJhGXTvBKUziPieC1LSkK8oSaB+t
-         E85QJNBGnQK8HE8wei7Zq5jQSpeI5JY8kzofCGcJSUHLIHQXWsBy6ta+brl9WPLZzyWA
-         2jPBZlOFyxLxFI8awBJCcZtcLmSyu35IRMr8cJ72zb2pokIUUqe6EUB9pKUwVKwbq4my
-         ou5A==
+        h=date:from:to:cc:subject:message-id:references:mime-version
+         :content-disposition:in-reply-to;
+        bh=veUBsLDA8z1kapNgGskRdZV5ZEcmkX6JnZsbhXJYMpc=;
+        b=adILIVBCDTIzWnSlVEVuzyyQeLmZJmMOFHyUGAJczwNVMWoAFV4NAzstETyw1aDTXU
+         PeEQLPvBoGZwnev7kqXDVH894+ZJpStidUvOyd4/1a6OmOqL4s2xBS6X9x8cJk7Oihqe
+         +0/HdD5+tmox7CuSPAksHZtqs2sUxMsx4ttZZY2Z+MG9vnVpDEQzjL4iWBd9R0AMRjb5
+         hTGvCbUVUHgokVFAeJzbaRIPyaomR1Qfb+x/h6uFUfBCu2hUOp9EdtCusdpiPwU+kcPm
+         wtQaZsJmez5fjcTI5em0IZ63LFU6tv0+hT7r7qlJyGmpPbqsVIKRICrNzYwhE75XWGOg
+         r2+w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=x-gm-message-state:mime-version:reply-to:sender:from:date
-         :message-id:subject:to:content-transfer-encoding;
-        bh=6PnxJaVdYHTfEoSreao3ANO+XeqxY/p/4dxKSObIH1I=;
-        b=S99OMLWDooeXBbJBJlVymRkMH0OogzK9wmIvleRZ4V+ZXmQnxWXj86V6n2UregL/hQ
-         3B9AZ1AKeYEccSplgqeEFoSHEt5y3QNlaTcp1d4dSjjxic5yAWwgsKsxx+qCPbZqeAVe
-         6UxFbA5qemOp6sTzffprRBBra4PDnmU1XzVe2mt4UBSb7eKJxYw2wz1uQKLafAK3TySh
-         Fn6PIn164BqteHxXTbQfCi5NJWDpi/ipser50H9byJI31bD0PhlHws4LcJa8YDCIVudY
-         fRaDDjIUiJ5Z5BnIf/FxxnZFbs4pErQs+omVSbRRt8s1rOcb8RRMQAkM2Ty7HKcyoNGW
-         OSjw==
-X-Gm-Message-State: AOAM530ZIMu4CDAchxhW/By8T3nwgl81EgSf+32kboQLsL3o2DTGXnSI
-        xL+yoa9B3A8q3jEeL1QHAtup3Gl5poRYDiBNHv+SNuEEEYXG
-X-Google-Smtp-Source: ABdhPJzkTl+tJbylc9dRvis6ZhULbTl7j4ynIkLgm4b/Lu4YSrf6PCWjehKBvofPJCmWKHUKJGD0xbE01MjL0VC50Jo=
-X-Received: by 2002:a17:90b:3143:b0:1c7:5cee:3948 with SMTP id
- ip3-20020a17090b314300b001c75cee3948mr852445pjb.140.1648664618224; Wed, 30
- Mar 2022 11:23:38 -0700 (PDT)
+        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+         :mime-version:content-disposition:in-reply-to;
+        bh=veUBsLDA8z1kapNgGskRdZV5ZEcmkX6JnZsbhXJYMpc=;
+        b=r/aGcmo2MO9HFDwPtJMN/RBiUCyN4neacn5kvJEPGVAkITXnOjUtvjGutlH0ntk1bV
+         kI5j16IQAcMtpAucC4XHPG9FwmcfsHBP1hC0RmI1whCKZ0LIuomPGV/hRnECmiWNCZRZ
+         aoXfniXm++ABb7un2oqoMYmiXhKZt6HabU8vac3lmJHziQZpcx2lResR8u0kh/uO1j53
+         T8I6th3Wc7dwdAWTal7yJLc8sEptFRYnvqBjD6wt3pV7X1/47cM91NptI31abFQs3GjD
+         ZfoHvyPLZe3+89hn1xty8aB2pxMB59h714zrC3exgw2pCJAF0+VMPfLK4PlOg/dHBdAc
+         qgKw==
+X-Gm-Message-State: AOAM530QqTgQI0TWe1HCTdeRX4IsPSi2I5oU05cdgv8fLU163ZyqQGYE
+        FvernZ9g3j8Dau0KYaV4bx0=
+X-Google-Smtp-Source: ABdhPJxKo3vtGI8m11rbEZM4uy18kOD2uIYcCWzcg87bQPdqYAMGuiXvFLPRZant4BK9y506jlNudQ==
+X-Received: by 2002:a05:6830:3142:b0:5cb:3e2b:e1e with SMTP id c2-20020a056830314200b005cb3e2b0e1emr4070755ots.38.1648668634039;
+        Wed, 30 Mar 2022 12:30:34 -0700 (PDT)
+Received: from marsc.168.1.7 ([2804:30c:b6b:3900:e3fc:1545:cb91:17fb])
+        by smtp.gmail.com with ESMTPSA id 24-20020a056870139800b000dea48c55d1sm8503795oas.39.2022.03.30.12.30.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 30 Mar 2022 12:30:33 -0700 (PDT)
+Date:   Wed, 30 Mar 2022 16:30:29 -0300
+From:   Marcelo Schmitt <marcelo.schmitt1@gmail.com>
+To:     David Gow <davidgow@google.com>
+Cc:     Jonathan Corbet <corbet@lwn.net>,
+        Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
+        Daniel Latypov <dlatypov@google.com>,
+        "open list:DOCUMENTATION" <linux-doc@vger.kernel.org>,
+        linux-sparse@vger.kernel.org, cocci@inria.fr,
+        smatch@vger.kernel.org,
+        Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+        Shuah Khan <skhan@linuxfoundation.org>,
+        Dan Carpenter <dan.carpenter@oracle.com>, julia.lawall@inria.fr
+Subject: Re: [PATCH v2 2/2] Documentation: dev-tools: Enhance static analysis
+ section with discussion
+Message-ID: <YkSv1eUfS9MxotOz@marsc.168.1.7>
+References: <cover.1648593132.git.marcelo.schmitt1@gmail.com>
+ <11f4750c6d4c175994dfd36d1ff385f68f61bd02.1648593132.git.marcelo.schmitt1@gmail.com>
+ <CABVgOSkb5CpnXDF_m7iy=A7RmN+KmY0T38TeZ4hKbmkdQgt6Yw@mail.gmail.com>
 MIME-Version: 1.0
-Reply-To: isabellasayouba0@gmail.com
-Sender: 040stherchurch@gmail.com
-Received: by 2002:a05:6a20:691d:b0:76:6cf5:d552 with HTTP; Wed, 30 Mar 2022
- 11:23:37 -0700 (PDT)
-From:   Mrs Isabella Sayouba <isabellasayouba0@gmail.com>
-Date:   Wed, 30 Mar 2022 18:23:37 +0000
-X-Google-Sender-Auth: _Xe1kByDkvq-Dn04BagO7gok_qM
-Message-ID: <CAAzQq761QVaWKiKernxpKjqNCK+6V9mRKHBnOcqF8rXJO9Y+aA@mail.gmail.com>
-Subject: =?UTF-8?B?44GC44GE44GV44Gk44CC?=
-To:     undisclosed-recipients:;
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: base64
-X-Spam-Status: No, score=3.8 required=5.0 tests=BAYES_99,BAYES_999,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
-        FREEMAIL_REPLYTO_END_DIGIT,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,
-        T_HK_NAME_FM_MR_MRS,T_SCC_BODY_TEXT_LINE autolearn=no
-        autolearn_force=no version=3.4.6
-X-Spam-Level: ***
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CABVgOSkb5CpnXDF_m7iy=A7RmN+KmY0T38TeZ4hKbmkdQgt6Yw@mail.gmail.com>
+X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,
+        FREEMAIL_FROM,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,
+        T_SCC_BODY_TEXT_LINE autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-44GC44GE44GV44Gk44CCDQoNCua2meOCkua1geOBl+OBquOBjOOCieOBk+OBruODoeODvOODq+OC
-kuabuOOBhOOBpuOBhOOBvuOBmeOAguengeOBruebruOBq+OBr+Wkp+OBjeOBquaCsuOBl+OBv+OB
-jOOBguOCiuOBvuOBmeOAguengeOBruWQjeWJjeOBr+OCpOOCtuODmeODqeODu+OCteODqOOCpuOD
-kOOBleOCk+OBp+OBmeOAguODgeODpeODi+OCuOOCouWHuui6q+OBp+OAgeODluODq+OCreODiuOD
-leOCoeOCveOBrueXhemZouOBi+OCiemAo+e1oeOCkuWPluOCiuOBvuOBmeOAguengeOBr+OBguOB
-quOBn+OBq+W/g+OCkumWi+OBhOOBpuaEn+WLleOBl+OBn+OBruOBp+OAgeOBguOBquOBn+OBq+ip
-seOBmeS7peWkluOBq+mBuOaKnuiCouOBr+OBguOCiuOBvuOBm+OCk+OAguengeOBr+OAgTIwMTHl
-ubTjgavkuqHjgY/jgarjgovliY3jgavjg5bjg6vjgq3jg4rjg5XjgqHjgr3jga7jg4Hjg6Xjg4vj
-grjjgqLlpKfkvb/jgag55bm06ZaT5YON44GE44Gm44GE44GfU2F5b3ViYQ0KQnJvd27msI/jgajn
-tZDlqZrjgZfjgb7jgZfjgZ/jgILlrZDkvpvjgarjgZfjgacxMeW5tOmWk+e1kOWpmuOBl+OBn+OA
-gg0KDQrlvbzjga/jgZ/jgaPjgZ815pel6ZaT57aa44GE44Gf55+t44GE55eF5rCX44Gu5b6M44Gn
-5q2744Gr44G+44GX44Gf44CC5b2844Gu5q275b6M44CB56eB44Gv5YaN5ama44GX44Gq44GE44GT
-44Go44Gr5rG644KB44G+44GX44Gf44CC5Lqh44GP44Gq44Gj44Gf5aSr44GM55Sf44GN44Gm44GE
-44Gf44Go44GN44CB5b2844Gv57eP6aGNODUw5LiH44OJ44Or44KS6aCQ44GR44G+44GX44Gf44CC
-DQrvvIg4MDDkuIc1MDAw44OJ44Or77yJ6KW/44Ki44OV44Oq44Kr44Gu44OW44Or44Kt44OK44OV
-44Kh44K944Gu6aaW6YO944Ov44Ks44OJ44Kl44Kw44O844Gu6YqA6KGM44Gn44CC54++5Zyo44CB
-44GT44Gu44GK6YeR44Gv44G+44Gg6YqA6KGM44Gr44GC44KK44G+44GZ44CC5b2844Gv44GT44Gu
-44GK6YeR44KS44OW44Or44Kt44OK44OV44Kh44K944Gu6Ymx5qWt44GL44KJ44Gu6YeR44Gu6Ly4
-5Ye644Gr5Yip55So44Gn44GN44KL44KI44GG44Gr44GX44G+44GX44Gf44CCDQoNCuacgOi/keOA
-geengeOBruWMu+iAheOBr+engeOBjOeZjOOBqOiEs+WNkuS4reOBruWVj+mhjOOBruOBn+OCgeOB
-qzfjg7bmnIjplpPjga/ntprjgYvjgarjgYTjgaDjgo3jgYbjgajnp4HjgavoqIDjgYTjgb7jgZfj
-gZ/jgILnp4HjgpLmnIDjgoLmgqnjgb7jgZvjgabjgYTjgovjga7jga/ohLPljZLkuK3jga7nl4Xm
-sJfjgafjgZnjgILnp4Hjga7nirbmhYvjgpLnn6XjgaPjgZ/jga7jgafjgIHnp4Hjga/jgZPjga7j
-gYrph5HjgpLjgYLjgarjgZ/jgavmuKHjgZfjgabjgIHmgbXjgb7jgozjgarjgYTkurrjgIXjga7k
-uJboqbHjgpLjgZnjgovjgZPjgajjgavjgZfjgb7jgZfjgZ/jgILjgYLjgarjgZ/jga/jgZPjga7j
-gYrph5HjgpLnp4HjgYzjgZPjgZPjgafmjIfnpLrjgZnjgovmlrnms5XjgafliKnnlKjjgZnjgovj
-gafjgZfjgofjgYbjgILnp4Hjga/jgYLjgarjgZ/jgavjgYLjgarjgZ/jga7lgIvkurrnmoTjgark
-vb/nlKjjga7jgZ/jgoHjgavnt4/jgYrph5Hjga4zMOODkeODvOOCu+ODs+ODiOOCkuWPluOBo+OB
-puassuOBl+OBhOOBp+OBmeOAguOBiumHkeOBrjcw77yF44Gv56eB44Gu5ZCN5YmN44Gn5a2k5YWQ
-6Zmi44KS5bu644Gm44CB6YCa44KK44Gu6LKn44GX44GE5Lq644CF44KS5Yqp44GR44KL44Gf44KB
-44Gr5L2/44GG44Gn44GX44KH44GG44CC56eB44Gv5a2k5YWQ44Go44GX44Gm6IKy44Gh44G+44GX
-44Gf44GM44CB56We44Gu5a6244KS57at5oyB44GZ44KL44Gf44KB44Gg44GR44Gr44CB5a625peP
-44Gr44Gv6Kqw44KC44GE44G+44Gb44KT44CC44GT44Gu55eF5rCX44GM56eB44KS44Go44Gm44KC
-6Ium44GX44KB44Gf44Gu44Gn44CB56We44GM56eB44Gu572q44KS6LWm44GX44CB5qW95ZyS44Gn
-56eB44Gu6a2C44KS5Y+X44GR5YWl44KM44KL44KI44GG44Gr44GT44KM44KS44GX44Gm44GE44KL
-44Gu44Gn44GZ44CCDQoNCui/lOS/oeOCkuWPl+OBkeWPluOCiuasoeesrOOAgeODluODq+OCreOD
-iuODleOCoeOCveOBrumKgOihjOOBrumAo+e1oeWFiOOCkuOBiuefpeOCieOBm+OBl+OBvuOBmeOA
-guOBvuOBn+OAgemKgOihjOOBruePvuWcqOOBruWPl+WPluS6uuOBp+OBguOCi+OBk+OBqOOCkuio
-vOaYjuOBmeOCi+aoqemZkOabuOOCkueZuuihjOOBmeOCi+OCiOOBhumKgOihjOmVt+OBq+aMh+ek
-uuOBl+OBvuOBmeOAguengeOBjOOBk+OBk+OBp+i/sOOBueOBn+OCiOOBhuOBq+OBguOBquOBn+OB
-jOOBneOCjOOBq+W/nOOBmOOBpuihjOWLleOBmeOCi+OBk+OBqOOCkuengeOBq+S/neiovOOBl+OB
-puOBj+OBoOOBleOBhOOAgg0KDQrjgqTjgrbjg5njg6njg7vjgrXjg6jjgqbjg5DlpKvkurrjgYvj
-gonjgIINCg==
+On 03/30, David Gow wrote:
+> On Wed, Mar 30, 2022 at 7:23 AM Marcelo Schmitt
+> <marcelo.schmitt1@gmail.com> wrote:
+> >
+> > Enhance the static analysis tools section with a discussion on when to
+> > use each of them.
+> >
+> > This was mainly taken from Dan Carpenter and Julia Lawall's comments on
+> > the previous documentation patch for static analysis tools.
+> >
+> > Lore: https://lore.kernel.org/linux-doc/20220329090911.GX3293@kadam/T/#mb97770c8e938095aadc3ee08f4ac7fe32ae386e6
+> >
+> > Signed-off-by: Marcelo Schmitt <marcelo.schmitt1@gmail.com>
+> > Cc: Dan Carpenter <dan.carpenter@oracle.com>
+> > Cc: Julia Lawall <julia.lawall@inria.fr>
+> > ---
+> 
+> Thanks: this sort of "when to use which tool" information is really
+> what the testing guide page needs.
+> 
+> I'm not familiar enough with these tools that I can really review the
+> details properly, but nothing stands out as obviously wrong to me.
+> I've made a few comments below regardless, but feel free to ignore
+> them if they're not quite right.
+> 
+> Acked-by: David Gow <davidgow@google.com>
+> 
+> Cheers,
+> -- David
+> 
+> >  Documentation/dev-tools/testing-overview.rst | 33 ++++++++++++++++++++
+> >  1 file changed, 33 insertions(+)
+> >
+> > diff --git a/Documentation/dev-tools/testing-overview.rst b/Documentation/dev-tools/testing-overview.rst
+> > index b5e02dd3fd94..91e479045d3a 100644
+> > --- a/Documentation/dev-tools/testing-overview.rst
+> > +++ b/Documentation/dev-tools/testing-overview.rst
+> > @@ -146,3 +146,36 @@ Documentation/dev-tools/coccinelle.rst documentation page for details.
+> >
+> >  Beware, though, that static analysis tools suffer from **false positives**.
+> >  Errors and warns need to be evaluated carefully before attempting to fix them.
+> > +
+> > +When to use Sparse and Smatch
+> > +-----------------------------
+> > +
+> > +Sparse is useful for type checking, detecting places that use ``__user``
+> > +pointers improperly, or finding endianness bugs. Sparse runs much faster than
+> > +Smatch.
+> 
+> Given that the __user pointer and endianness stuff is found as a
+> result of Sparse's type checking support, would rewording this as
+> "Sparse does type checking, such as [detecting places...]" or similar
+> be more clear?
+
+Myabe. I tried changing it a little while adding a bit of information from
+https://lwn.net/Articles/689907/
+
+"Sparse does type checking, such as verifying that annotated variables do not
+cause endianness bugs, detecting places that use ``__user`` pointers improperly,
+and analyzing the compatibility of symbol initializers."
+
+Does it sound better?
+
+> 
+> > +
+> > +Smatch does flow analysis and, if allowed to build the function database, it
+> > +also does cross function analysis. Smatch tries to answer questions like where
+> > +is this buffer allocated? How big is it? Can this index be controlled by the
+> > +user? Is this variable larger than that variable?
+> > +
+> > +It's generally easier to write checks in Smatch than it is to write checks in
+> > +Sparse. Nevertheless, there are some overlaps between Sparse and Smatch checks
+> > +because there is no reason for re-implementing Sparse's check in Smatch.
+> 
+> This last sentence isn't totally clear to me. Should this "because" be "so"?
+
+Smatch uses (is shipped with) a modified Sparse implementation which it uses as
+a C parser. Apparently, Sparse does some checkings while parsing the code for
+Smatch so that's why we have some overlapping between the checks made when we
+run Smatch and the ones made when we run Sparse alone.
+
+I didn't dig into the code, but I guess further modifying Sparse to prevent it
+from doing some types of cheks wouldn't add much to Smatch. That last saying
+should've reflected this fact, but it seems to cause confusion without a proper
+context. Reading the sentence back again, I think we could just drop the last
+part:
+
+"Nevertheless, there are some overlaps between Sparse and Smatch checks."
+
+> 
+> > +
+> > +Strong points of Smatch and Coccinelle
+> > +--------------------------------------
+> > +
+> > +Coccinelle is probably the easiest for writing checks. It works before the
+> > +pre-compiler so it's easier to check for bugs in macros using Coccinelle.
+> > +Coccinelle also writes patches fixes for you which no other tool does.
+> > +
+> > +With Coccinelle you can do a mass conversion from
+> 
+> (Maybe start this with "For example," just to make it clear that this
+> paragraph is mostly following on from how useful it is that Coccinelle
+> produces fixes, not just warnings.)
+
+Will do
+
+> 
+> > +``kmalloc(x * size, GFP_KERNEL)`` to ``kmalloc_array(x, size, GFP_KERNEL)``, and
+> > +that's really useful. If you just created a Smatch warning and try to push the
+> > +work of converting on to the maintainers they would be annoyed. You'd have to
+> > +argue about each warning if can really overflow or not.
+> > +
+> > +Coccinelle does no analysis of variable values, which is the strong point of
+> > +Smatch. On the other hand, Coccinelle allows you to do simple things in a simple
+> > +way.
+> > --
+> > 2.35.1
+> >
