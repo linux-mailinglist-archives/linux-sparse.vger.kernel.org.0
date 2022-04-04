@@ -2,71 +2,144 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 9B8894F06DE
-	for <lists+linux-sparse@lfdr.de>; Sun,  3 Apr 2022 05:05:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 932A84F1D9D
+	for <lists+linux-sparse@lfdr.de>; Mon,  4 Apr 2022 23:41:48 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231218AbiDCDHa (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Sat, 2 Apr 2022 23:07:30 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:50900 "EHLO
+        id S1379162AbiDDVjZ (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Mon, 4 Apr 2022 17:39:25 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:44042 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S231320AbiDCDH3 (ORCPT
+        with ESMTP id S1379699AbiDDRzE (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Sat, 2 Apr 2022 23:07:29 -0400
-X-Greylist: delayed 311 seconds by postgrey-1.37 at lindbergh.monkeyblade.net; Sat, 02 Apr 2022 20:05:35 PDT
-Received: from mta-out-06.alice.it (mta-out-06.alice.it [217.169.118.12])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTP id 2A1DC31217
-        for <linux-sparse@vger.kernel.org>; Sat,  2 Apr 2022 20:05:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alice.it; s=20211207; t=1648955135; 
-        bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-        h=Reply-To:From:To:Date:Message-ID:MIME-Version;
-        b=OPPd7/lPEtp7zP6LdkZjbpYl1zX/MPSd58kbYJPbr1s6yzlvyDnKfWNFX36TWaL44d0k13uK4wWBSN3d3S2qJ/Pg/J2LzOXMMBcaA0Gc64dXb/OpmND9KURHS+cERzu5CS9xmPjm9qys6M9NTWiGBOnxOVKsNDcfYMqCXjxZxB/UEkulPVbztxW/Bpd+LVzQVxehfy4faUyNM1gEcaJ76J4Dv8PZ7lsy0SBNdLsZeL3NfQQjCNdsDKTZV2jq43FY97vhOegnift3PpXJPbQM3gyHmyr0nYzwD103w8quAPCxIcNOzcfYA1LsAhSf0olnImxDxUe2K32itqZGvq8heg==
-X-RazorGate-Vade: gggruggvucftvghtrhhoucdtuddrgedvvddrudeiledgiedvucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuvffgnffgvefqoffkvfetnffktedpqfgfvfenuceurghilhhouhhtmecufedtudenucfgmhhpthihuchsuhgsjhgvtghtucdluddtmdengfhmphhthicusghougihucdlhedtmdenucfjughrpehrhffvfffkggestddtfedttddttdenucfhrhhomhephggvuchhrghvvgcurghnuchofhhfvghruchtohcuihhnvhgvshhtuchinhcuhihouhhrucgtohhunhhtrhihuchunhguvghrucgruchjohhinhhtuchvvghnthhurhgvuchprghrthhnvghrshhhihhpuchplhgvrghsvgcurhgvphhlhicufhhorhcumhhorhgvucguvghtrghilhhsuceofhgpphgvnhhnrgesrghlihgtvgdrihhtqeenucggtffrrghtthgvrhhnpeehjeetgefhleetiedtkeelfffgjeeugeegleekueffgfegtdekkeeifedvvdffteenucfkphepudejiedrvddvjedrvdegvddrudeltdenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhephhgvlhhopegrlhhitggvrdhithdpihhnvghtpedujeeirddvvdejrddvgedvrdduledtpdhmrghilhhfrhhomhepfhgpphgvnhhnrgesrghlihgtvgdrihhtpdhnsggprhgtphhtthhopedupdhrtghpthhtoheplhhinhhugidqshhprghrshgvsehvghgvrhdrkhgvrhhnvghlrdhorhhg
-X-RazorGate-Vade-Verdict: clean 60
-X-RazorGate-Vade-Classification: clean
-Received: from alice.it (176.227.242.190) by mta-out-06.alice.it (5.8.807.04) (authenticated as f_penna@alice.it)
-        id 623C9D2100ECF5A9 for linux-sparse@vger.kernel.org; Sun, 3 Apr 2022 05:00:23 +0200
-Reply-To: dougfield20@inbox.lv
-From:   We have an offer to invest in your country under a
-         joint venture partnership please reply for more
-         details <f_penna@alice.it>
-To:     linux-sparse@vger.kernel.org
-Date:   02 Apr 2022 20:00:20 -0700
-Message-ID: <20220402200020.0B8A8B46547B729A@alice.it>
+        Mon, 4 Apr 2022 13:55:04 -0400
+Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de [IPv6:2001:67c:670:201:290:27ff:fe1d:cc33])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 44FE6245BD
+        for <linux-sparse@vger.kernel.org>; Mon,  4 Apr 2022 10:53:07 -0700 (PDT)
+Received: from gallifrey.ext.pengutronix.de ([2001:67c:670:201:5054:ff:fe8d:eefb] helo=bjornoya.blackshift.org)
+        by metis.ext.pengutronix.de with esmtps (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256)
+        (Exim 4.92)
+        (envelope-from <mkl@pengutronix.de>)
+        id 1nbQsp-00040x-Io; Mon, 04 Apr 2022 19:52:55 +0200
+Received: from pengutronix.de (2a03-f580-87bc-d400-3524-91ca-8473-ba45.ip6.dokom21.de [IPv6:2a03:f580:87bc:d400:3524:91ca:8473:ba45])
+        (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+         key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits) server-digest SHA256)
+        (Client did not present a certificate)
+        (Authenticated sender: mkl-all@blackshift.org)
+        by smtp.blackshift.org (Postfix) with ESMTPSA id 2B2945A36D;
+        Mon,  4 Apr 2022 17:52:54 +0000 (UTC)
+Date:   Mon, 4 Apr 2022 19:52:53 +0200
+From:   Marc Kleine-Budde <mkl@pengutronix.de>
+To:     Palmer Dabbelt <palmer@rivosinc.com>
+Cc:     linux-sparse@vger.kernel.org, Kito Cheng <kito.cheng@gmail.com>,
+        linux-riscv@lists.infradead.org, aurelien@aurel32.net,
+        Linus Torvalds <torvalds@linux-foundation.org>
+Subject: Re: [PATCH v1 0/6] RISC-V -march handling improvements
+Message-ID: <20220404175253.dgwhy5ibodrn2lyz@pengutronix.de>
+References: <20220402050041.21302-1-palmer@rivosinc.com>
 MIME-Version: 1.0
-X-Spam-Status: Yes, score=5.7 required=5.0 tests=BAYES_50,BODY_EMPTY,
-        DKIM_INVALID,DKIM_SIGNED,EMPTY_MESSAGE,FREEMAIL_FROM,FREEMAIL_REPLYTO,
-        FREEMAIL_REPLYTO_END_DIGIT,MISSING_SUBJECT,RCVD_IN_DNSWL_LOW,
-        RCVD_IN_MSPIKE_BL,RCVD_IN_MSPIKE_L3,SPF_HELO_NONE,SPF_PASS
-        autolearn=no autolearn_force=no version=3.4.6
-X-Spam-Report: * -0.7 RCVD_IN_DNSWL_LOW RBL: Sender listed at https://www.dnswl.org/,
-        *       low trust
-        *      [217.169.118.12 listed in list.dnswl.org]
-        *  0.0 RCVD_IN_MSPIKE_L3 RBL: Low reputation (-3)
-        *      [217.169.118.12 listed in bl.mailspike.net]
-        *  0.8 BAYES_50 BODY: Bayes spam probability is 40 to 60%
-        *      [score: 0.5005]
-        *  0.0 FREEMAIL_FROM Sender email is commonly abused enduser mail
-        *      provider
-        *      [f_penna[at]alice.it]
-        * -0.0 SPF_PASS SPF: sender matches SPF record
-        *  0.2 FREEMAIL_REPLYTO_END_DIGIT Reply-To freemail username ends in
-        *      digit
-        *      [dougfield20[at]inbox.lv]
-        *  0.0 SPF_HELO_NONE SPF: HELO does not publish an SPF Record
-        *  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
-        *       valid
-        *  2.3 EMPTY_MESSAGE Message appears to have no textual parts and no
-        *      Subject: text
-        *  1.8 MISSING_SUBJECT Missing Subject: header
-        *  0.1 DKIM_INVALID DKIM or DK signature exists, but is not valid
-        *  0.0 RCVD_IN_MSPIKE_BL Mailspike blacklisted
-        *  0.0 BODY_EMPTY No body text in message
-        *  1.0 FREEMAIL_REPLYTO Reply-To/From or Reply-To/body contain
-        *      different freemails
-X-Spam-Level: *****
+Content-Type: multipart/signed; micalg=pgp-sha512;
+        protocol="application/pgp-signature"; boundary="uhvf2hc27jz5qxsc"
+Content-Disposition: inline
+In-Reply-To: <20220402050041.21302-1-palmer@rivosinc.com>
+X-SA-Exim-Connect-IP: 2001:67c:670:201:5054:ff:fe8d:eefb
+X-SA-Exim-Mail-From: mkl@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de); SAEximRunCond expanded to false
+X-PTX-Original-Recipient: linux-sparse@vger.kernel.org
+X-Spam-Status: No, score=-4.2 required=5.0 tests=BAYES_00,RCVD_IN_DNSWL_MED,
+        SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE autolearn=ham
+        autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
+
+--uhvf2hc27jz5qxsc
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On 01.04.2022 22:00:35, Palmer Dabbelt wrote:
+> As pointed out recently [1], sparse is parsing -march on RISC-V in order
+> to obtain the default set of preprocessor macros to use.  Back when this
+> was written ISA string was a simple affair, but these days it's a lot
+> more complicated.  It's going to be a big chunk of work to get a proper
+> ISA string parser into sparse, but we can at least fix the breakages for
+> the subset of legal ISA strings that Linux currently uses (and are
+> breaking users).
+>=20
+> This patch set does three things:
+>=20
+> * Stops die()ing on unknown ISA strings, unless the user has passed
+>   -Wsparse-error.  This prints a warning and guesses at the macros to
+>   use, which is probably fine for Linux.
+> * Cleans up some of the differences between GCC's -march parsing and
+>   sparse's.  None of this should really matter for Linux, as GCC will
+>   blow up on bad ISA strings, but it just seemed worth doing when I was
+>   in there.
+> * Adds support for the Zicsr and Zifencei extensions, which were
+>   recently enabled.  With these the unknown ISA string warning goes away
+>   for Linux builds.
+>=20
+> They're all sort of independent (and happen in this order), but they're
+> all touching the same code so I'm just sending it as a series.  It's my
+> first time touching sparse.
+>=20
+> I've poked around with the first patch on its own and it seems to
+> largely work as expected: I'm still getting a bunch of sparse-related
+> warnings when I turn on sparse in my builds, but at least I don't get an
+> error (after updating to a binutils that supports the new arguments, so
+> Linux detects them).  I tried CF=3D"-Wsparse-error", which also behaves as
+> expected (that trinary boolean tripped me up for a bit).
+>=20
+> The first patch alone should be a sufficient band-aid for systems that
+> are actively broken right now, the rest are cleanups -- these may be
+> necessary to get the RISC-V port sparse-clean, but that's a WIP so there
+> might be more.  I'm going to play around with that, but just looking at
+> the volume of spew it's probably going to take a while.  I gave these
+> patches a bit of testing one-by-one, but not nearly as much as the
+> first.
+>=20
+> I just spun up a sparse repo [2] at kernel.org, these are on the riscv
+> branch if that helps for anyone.  I've also started messing around with
+> parsing a few more of the multi-letter extensions, but there's so much
+> coupling I got fed up -- it's on riscv-wip, but I definitely don't like
+> that last patch.  I figured it's better to send out these bits, as they
+> look solid to me and builds are broken.  The new stuff (B, K, and V) are
+> all in GCC-12 anyway, so we have a bit of time before they're useful.
+>=20
+> [1]: https://lore.kernel.org/linux-sparse/mhng-c280d48c-477d-4589-baee-25=
+5c774b5a51@palmer-mbp2014/T/#maef705f448e4a1f12d853c0d8bc756f037ce1ce0
+> [2]: https://git.kernel.org/pub/scm/linux/kernel/git/palmer/sparse.git
+
+Works without warnings on Debian testing, with gcc-riscv64-linux-gnu
+4:11.2.0--1.
+
+Tested-by: Marc Kleine-Budde <mkl@pengutronix.de>
+
+regards,
+Marc
+
+--=20
+Pengutronix e.K.                 | Marc Kleine-Budde           |
+Embedded Linux                   | https://www.pengutronix.de  |
+Vertretung West/Dortmund         | Phone: +49-231-2826-924     |
+Amtsgericht Hildesheim, HRA 2686 | Fax:   +49-5121-206917-5555 |
+
+--uhvf2hc27jz5qxsc
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEBsvAIBsPu6mG7thcrX5LkNig010FAmJLMHIACgkQrX5LkNig
+013LiAgAlQvlYUkzHjVw5s32PRnPkbsxooJOXYzr28LqRfmAxMp5oRg3LlhkMexP
+btK0AZccaa5tHAIExbaJazLRf7YAW/bjL281OnFWubgmt9oI2rEwmEPJmC8kk5tE
+9u7s++ys0cOH17JtbGDZ+NNxyiBRti3yN7T0KnXTHDo7AOHL74sA0XHhdYXo4g8d
+z/zVVjxzFGbYdsysb8W2JVe06ppgxVGk1BE3ZUAxzBDASL0B2yCsgV3iK2hShKZ3
+1scNLdWFHXsiwT0HZEnEvWIJoh7X9XNORlUtI/t9WiyR7kKGWljsooT1cxXaVbI2
+pE00Si8mP2OEqScXZ7dkgvcugqz+Ig==
+=/UZg
+-----END PGP SIGNATURE-----
+
+--uhvf2hc27jz5qxsc--
