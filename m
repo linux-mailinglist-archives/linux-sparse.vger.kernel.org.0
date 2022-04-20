@@ -2,107 +2,99 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id EAB225034F0
-	for <lists+linux-sparse@lfdr.de>; Sat, 16 Apr 2022 09:52:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id DDD2B50883A
+	for <lists+linux-sparse@lfdr.de>; Wed, 20 Apr 2022 14:33:17 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230292AbiDPHw3 (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Sat, 16 Apr 2022 03:52:29 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43504 "EHLO
+        id S1378603AbiDTMef (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Wed, 20 Apr 2022 08:34:35 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:47038 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230217AbiDPHwZ (ORCPT
+        with ESMTP id S1378573AbiDTMeY (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Sat, 16 Apr 2022 03:52:25 -0400
-Received: from mail-pg1-x541.google.com (mail-pg1-x541.google.com [IPv6:2607:f8b0:4864:20::541])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id ED4CFFFFAF
-        for <linux-sparse@vger.kernel.org>; Sat, 16 Apr 2022 00:49:37 -0700 (PDT)
-Received: by mail-pg1-x541.google.com with SMTP id h5so10073646pgc.7
-        for <linux-sparse@vger.kernel.org>; Sat, 16 Apr 2022 00:49:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=mime-version:reply-to:from:date:message-id:subject:to;
-        bh=KeMi8W+p20zdR41YZoRj2EapY7imNsLYkAgQIQsIzqY=;
-        b=bJd2DIgtyK+bZCVQpMa9XLiI7bVnFQgVFeGzbZ6bXamjrEFIUCNaIDR9YpvR5iTRQC
-         EoRjHn2hxdGgHpTmUXoJLhLdkz8kw8CpdMkf+RjOM2yxgJf0M2w5tnzpw0NiczM9cGQm
-         aTRY2J48j2+AVBVM6ZplapTERLwB7sqpQHn0KTPy+GATyEE1HlWbU25nZewZyTln9PiO
-         eb2iuPe3VcoLkYjZ6tmC44EeIcF1BzRiek/y+/+gg720T1wEvd/5m2iOgdTIUS3isI5Z
-         q2z1OdX/gYACU6OexrbNcXzEKBC+MKUq0Bm7V68HpmeyS3D5tFhEEP1iOfnkPKJo7x6w
-         XtNg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:mime-version:reply-to:from:date:message-id
-         :subject:to;
-        bh=KeMi8W+p20zdR41YZoRj2EapY7imNsLYkAgQIQsIzqY=;
-        b=ZWJ3YkPyimuMPixAVQCfQfTQxB74IR2n5ShbItFcSCsMVbqljjSZL8OkkKW0G5gCtl
-         Sqj5f288FZ97DAQ6j43Ml3ZnSAXe6Gc4QHpSUzDofW+mW+pK33oEyWt1bvv/gUbqqylG
-         zbZHXA6ZC+diz2+8h7OMTDBh4CP+WiLRgmIFSXm8Rh9eAzXcYgL4IGEdGJe2/VK9C5mj
-         eZeY3S5PcxrPtdSE3lkyCRygi6BW+zo4bHYGmzDgNb/zZO9+PUrfZzS4xt+SLbzIAxMj
-         6GvwGSevws7dyYEWMvJ80j0+ZPQ+mB56eTjO2brfDLNoV4D2vGtzRynNN/X+6pJlXt7N
-         z3gA==
-X-Gm-Message-State: AOAM532sbKBG84kFpK9FF1GamuVBZuTPo+0Vrj7b8ZSKePj83yi6KdvD
-        6Ub0x7SBkjUyTYBwppeyZsa8pJRphKPl3lI7iH83UgVt3hI=
-X-Google-Smtp-Source: ABdhPJzPQ782jxaaybf4v05kBQtFRTzv0MMrux20NcZ4Q10XmGrK6dnUIabFDBNBmBOv8fFyQY5zqzYAgf4Cnc3KaCc=
-X-Received: by 2002:a92:508:0:b0:2cb:ebd8:a76b with SMTP id
- q8-20020a920508000000b002cbebd8a76bmr1009500ile.156.1650095366830; Sat, 16
- Apr 2022 00:49:26 -0700 (PDT)
+        Wed, 20 Apr 2022 08:34:24 -0400
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 5038E403E5
+        for <linux-sparse@vger.kernel.org>; Wed, 20 Apr 2022 05:31:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1650457898; x=1681993898;
+  h=date:from:to:subject:message-id:mime-version;
+  bh=5RDvTLJA1SP/JbQ4GQ7ob1Z0RdcOYWER/J7eZl+BT+I=;
+  b=fAGgw/59bssMDNVJqGGTNGZehcj3N5BGOYD87nVjd0zdp1vxJgrOXgwo
+   zFd1fVkV9J1dNCygo3n+Z177byWux4dJWUkYyKgeeFuNUT36w4qqEfduu
+   H++DoEmCY7fwiEo8Cy8xhJg+UtgfkBKJWKthCYen3T4NVrhxX7j6Ln03u
+   7pleK3ldSPw1/FWvmDG8Dn/ia38nzLDouRn2QMgVNv+IKwODbVjTEazfW
+   6CMY1U25Ut0tqrppjlUCrDhE0MWLx7ROuQ9sJpRLSYSf53T6QX0sGnm7J
+   HnVGkBCKivADLLJzHzcYrthwWHXuesHS7aojo7x0BH2dJvA1BKRIWwWrZ
+   w==;
+X-IronPort-AV: E=McAfee;i="6400,9594,10322"; a="350462764"
+X-IronPort-AV: E=Sophos;i="5.90,275,1643702400"; 
+   d="scan'208";a="350462764"
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Apr 2022 05:31:38 -0700
+X-IronPort-AV: E=Sophos;i="5.90,275,1643702400"; 
+   d="scan'208";a="555176649"
+Received: from gliakhov-mobl2.ger.corp.intel.com (HELO ubuntu) ([10.251.215.80])
+  by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Apr 2022 05:31:36 -0700
+Date:   Wed, 20 Apr 2022 14:31:34 +0200 (CEST)
+From:   Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>
+To:     linux-sparse@vger.kernel.org
+Subject: [PATCH] cgcc: add Xtensa support
+Message-ID: <144ce263-cb62-5531-b35-c8ab13ce68f7@intel.com>
 MIME-Version: 1.0
-Received: by 2002:a05:6638:1309:0:0:0:0 with HTTP; Sat, 16 Apr 2022 00:49:26
- -0700 (PDT)
-Reply-To: daniel.seyba@yahoo.com
-From:   Seyba Daniel <royhalton13@gmail.com>
-Date:   Sat, 16 Apr 2022 09:49:26 +0200
-Message-ID: <CALSxb2w9zQYotuLcRSCPns53ksvT9UrEMVx-1Cp1f8RE7er3cA@mail.gmail.com>
-Subject: Hello,
-To:     undisclosed-recipients:;
-Content-Type: text/plain; charset="UTF-8"
-X-Spam-Status: Yes, score=5.5 required=5.0 tests=BAYES_50,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,
-        FREEMAIL_FROM,FREEMAIL_REPLYTO,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,
-        SPF_PASS,T_SCC_BODY_TEXT_LINE,UNDISC_FREEM autolearn=no
-        autolearn_force=no version=3.4.6
-X-Spam-Report: * -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at
-        *      https://www.dnswl.org/, no trust
-        *      [2607:f8b0:4864:20:0:0:0:541 listed in]
-        [list.dnswl.org]
-        *  0.8 BAYES_50 BODY: Bayes spam probability is 40 to 60%
-        *      [score: 0.5000]
-        * -0.0 SPF_PASS SPF: sender matches SPF record
-        *  0.0 FREEMAIL_FROM Sender email is commonly abused enduser mail
-        *      provider
-        *      [royhalton13[at]gmail.com]
-        *  0.2 FREEMAIL_ENVFROM_END_DIGIT Envelope-from freemail username ends
-        *       in digit
-        *      [royhalton13[at]gmail.com]
-        *  0.0 SPF_HELO_NONE SPF: HELO does not publish an SPF Record
-        * -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
-        *  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
-        *       valid
-        * -0.1 DKIM_VALID_EF Message has a valid DKIM or DK signature from
-        *      envelope-from domain
-        * -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
-        *      author's domain
-        * -0.0 T_SCC_BODY_TEXT_LINE No description available.
-        *  3.7 UNDISC_FREEM Undisclosed recipients + freemail reply-to
-        *  1.0 FREEMAIL_REPLYTO Reply-To/From or Reply-To/body contain
-        *      different freemails
-X-Spam-Level: *****
+Content-Type: text/plain; format=flowed; charset=US-ASCII
+X-Spam-Status: No, score=-4.9 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,SPF_HELO_NONE,
+        SPF_NONE autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-Hello,
+Add support for the Xtensa architecture.
 
-I am so sorry contacting you in this means especially when we have never
-met before. I urgently seek your service to represent me in investing in
-your region / country and you will be rewarded for your service without
-affecting your present job with very little time invested in it.
+Signed-off-by: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>
+---
 
-My interest is in buying real estate, private schools or companies with
-potentials for rapid growth in long terms.
+This should be used with the Zephyr RTOS on Xtensa as implemented in 
+https://github.com/zephyrproject-rtos/zephyr/pull/43776
 
-So please confirm interest by responding back.
+  cgcc | 7 +++++++
+  1 file changed, 7 insertions(+)
 
-My dearest regards
+diff --git a/cgcc b/cgcc
+index 9c78ee63..733cadfa 100755
+--- a/cgcc
++++ b/cgcc
+@@ -292,6 +292,9 @@ sub add_specs {
+      } elsif ($spec eq 'aarch64') {
+  	return (' --arch=aarch64' .
+  		&float_types (1, 1, 36, [24,8], [53,11], [113,15]));
++    } elsif ($spec eq 'xtensa') {
++	return (' --arch=xtensa' .
++		&float_types (1, 1, 21, [24,8], [53,11], [53,11]));
+      } elsif ($spec eq 'host_os_specs') {
+  	my $os = `uname -s`;
+  	chomp $os;
+@@ -319,6 +322,8 @@ sub add_specs {
+  	    return &add_specs ('x86_64') . ' -mx32';
+  	} elsif ($gccmachine =~ '^x86_64-') {
+  	    return &add_specs ('x86_64');
++	} elsif ($gccmachine =~ '^xtensa-') {
++	    return &add_specs ('xtensa');
+  	}
 
-Seyba Daniel
+  	# fall back to uname -m to determine the specifics.
+@@ -348,6 +353,8 @@ sub add_specs {
+  	    return &add_specs ('arm');
+  	} elsif ($arch =~ /^(aarch64)$/i) {
+  	    return &add_specs ('aarch64');
++	} elsif ($arch =~ /^(xtensa)$/i) {
++	    return &add_specs ('xtensa');
+  	}
+      } else {
+  	die "$0: invalid specs: $spec\n";
+-- 
+2.30.2
+
