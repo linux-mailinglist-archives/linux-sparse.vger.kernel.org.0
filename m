@@ -2,63 +2,101 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 825BA519936
-	for <lists+linux-sparse@lfdr.de>; Wed,  4 May 2022 10:06:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id AB60951B40E
+	for <lists+linux-sparse@lfdr.de>; Thu,  5 May 2022 02:08:55 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S238524AbiEDIJl (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Wed, 4 May 2022 04:09:41 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:39216 "EHLO
+        id S231164AbiEEAGV (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Wed, 4 May 2022 20:06:21 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:42604 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1346040AbiEDIIq (ORCPT
+        with ESMTP id S241135AbiEDX6Y (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Wed, 4 May 2022 04:08:46 -0400
-Received: from mail.slidebizcompany.com (mail.slidebizcompany.com [135.125.235.171])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id DEEA31FCF5
-        for <linux-sparse@vger.kernel.org>; Wed,  4 May 2022 01:05:10 -0700 (PDT)
-Received: by mail.slidebizcompany.com (Postfix, from userid 1002)
-        id A01A9A21F3; Wed,  4 May 2022 08:05:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=slidebizcompany.com;
-        s=mail; t=1651651508;
-        bh=f01OOv7iZ6eKP39nAJoyJ+/Cmpugf6hkYKbYNn4lotU=;
-        h=Date:From:To:Subject:From;
-        b=NIK08hdJWi3lPzrVGxMGKabAyO/7oMewXzKn2H364XEKRI1j82h6KVhgUCE2bUDib
-         EBmc8Jm4PDfutejcaBENb5hjWeXh+WH3TN3gwo4+oYhldePK8uzx450K5w9MU6uBzJ
-         hLi99kuA20M3oeU8HwQEe853+pMwuZ6IIRQJxxwlwdMQ0m9/D93ntpkN0GxTrVHwiq
-         2yBcckbI1lNJM8P3g28FCGdoLHrHELAjiC6h5VG7W/nlZxhBN8wFw7q+MCThbT7XUA
-         uGC2fY3snagNlecY1z0Y09gXZId7jtMrQ+wxj5pg8GsXD5D8GgJQxkA/74W8f2a7BJ
-         ZBy1W6IocRFzw==
-Received: by mail.slidebizcompany.com for <linux-sparse@vger.kernel.org>; Wed,  4 May 2022 08:05:06 GMT
-Message-ID: <20220504064500-0.1.14.b6p2.0.gjckq79w7v@slidebizcompany.com>
-Date:   Wed,  4 May 2022 08:05:06 GMT
-From:   "Miguel Garcia" <miguel.garcia@slidebizcompany.com>
-To:     <linux-sparse@vger.kernel.org>
-Subject: Servicio de la flota
-X-Mailer: mail.slidebizcompany.com
+        Wed, 4 May 2022 19:58:24 -0400
+Received: from mail-yb1-xb41.google.com (mail-yb1-xb41.google.com [IPv6:2607:f8b0:4864:20::b41])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id F071653A6B
+        for <linux-sparse@vger.kernel.org>; Wed,  4 May 2022 16:54:11 -0700 (PDT)
+Received: by mail-yb1-xb41.google.com with SMTP id y2so5046971ybi.7
+        for <linux-sparse@vger.kernel.org>; Wed, 04 May 2022 16:54:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=mime-version:reply-to:from:date:message-id:subject:to;
+        bh=ampHH5WJLIBWSsxWwzVjbk5pO9UBFxn81pZ6QIDzZtY=;
+        b=Dn1MT8x7p4Rbn+pctwVkt7IgIdUxT0LRLjox/JaF9ttsZ2N8sUUglHFRxQa3sl75aK
+         h1U1JpCoOjPff8rV+LL0edQuBh+YvYlTbZ4zx127Qa80qMcS49J0d2nS2s7mVVadwp/M
+         vGp6wV8qQhR9tMRiQjyWHIJslgvG4HigF7p24aLxixJ1l99K68kLikab9Y0HgtSpkDYW
+         0+riuhXlj9dAnGs04evyYz4sFXKtm0FlJKiBI2Dtbo7ebvKr6E7XJkxgxzCXhReMwL1D
+         yv9OUeo9KjH+/RIlVXefhsYivAQRdlwo604eWoXrrvRFVxcSgXwgPis+UtVhyLpBWx3z
+         WyWg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:mime-version:reply-to:from:date:message-id
+         :subject:to;
+        bh=ampHH5WJLIBWSsxWwzVjbk5pO9UBFxn81pZ6QIDzZtY=;
+        b=po3M835XiVmpkkgO/gJtRitv8w9K73xM19foKvUpvFFDB6a8M58eUFhCo5cbX883SA
+         KRngN68Dmm5CNm7+YgjqWlSKTCFKez2xgXOxLSb49vyKIbe19S1vJJAJympAfzuAwnZ8
+         UwcQVflfqUdc/46xe+jN4DFPj6kfQ4se6NTVHWggJGXOtphhBmKgYlqysoDaUB4eFg5E
+         KV+RMy6wK3KJRF7ZgM0tB/GiFYAKYUGU65gaS8lbbrvazrCXr7ebbLmfPgF4gjba5eyS
+         Sdnp3S1YgpI4GSRjaHfOpNxsbtFa6ctSjbuzjtlWabXH7u3CwCuxGSCnXc3mJEXesDKr
+         xRkQ==
+X-Gm-Message-State: AOAM5324XtkeodeUvcCyPruuIv+ZmAUb3yd37p3EcdhIboJl4jGKXhRg
+        IHuKB/jqYvNWPDGiyyIX/i5ozO/auA6MvOMAhlzUvSUlbLzcQg==
+X-Google-Smtp-Source: ABdhPJyXbFHNtxfp8+qt+M9kuv/iG7XfFeFFPd7I4/fmpdxuycMtmf6dIJw5ghtZAT2CwgvAVE/kUl0HxsirxLIU8v0=
+X-Received: by 2002:a9d:6b16:0:b0:605:e0eb:d3d6 with SMTP id
+ g22-20020a9d6b16000000b00605e0ebd3d6mr8263208otp.213.1651708440302; Wed, 04
+ May 2022 16:54:00 -0700 (PDT)
 MIME-Version: 1.0
+Received: by 2002:a05:6802:1a9:0:0:0:0 with HTTP; Wed, 4 May 2022 16:53:59
+ -0700 (PDT)
+Reply-To: ortegainvestmmentforrealinvest@gmail.com
+From:   Info <joybhector64@gmail.com>
+Date:   Thu, 5 May 2022 05:23:59 +0530
+Message-ID: <CAP7KLYgH9LcKHS-KgR0zObHAgC6Fr3D+dOJSbDKurTc_12+iFw@mail.gmail.com>
+Subject: 
+To:     undisclosed-recipients:;
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Spam-Status: No, score=2.8 required=5.0 tests=BAYES_95,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,SPF_HELO_NONE,SPF_PASS,
-        T_SCC_BODY_TEXT_LINE autolearn=no autolearn_force=no version=3.4.6
-X-Spam-Level: **
+X-Spam-Status: Yes, score=5.3 required=5.0 tests=BAYES_50,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,
+        FREEMAIL_FROM,FREEMAIL_REPLYTO,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,
+        SPF_PASS,T_SCC_BODY_TEXT_LINE,UNDISC_FREEM autolearn=no
+        autolearn_force=no version=3.4.6
+X-Spam-Report: * -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at
+        *      https://www.dnswl.org/, no trust
+        *      [2607:f8b0:4864:20:0:0:0:b41 listed in]
+        [list.dnswl.org]
+        *  0.8 BAYES_50 BODY: Bayes spam probability is 40 to 60%
+        *      [score: 0.5004]
+        *  0.0 SPF_HELO_NONE SPF: HELO does not publish an SPF Record
+        *  0.0 FREEMAIL_FROM Sender email is commonly abused enduser mail
+        *      provider
+        *      [joybhector64[at]gmail.com]
+        * -0.0 SPF_PASS SPF: sender matches SPF record
+        *  0.2 FREEMAIL_ENVFROM_END_DIGIT Envelope-from freemail username ends
+        *       in digit
+        *      [joybhector64[at]gmail.com]
+        * -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
+        *      author's domain
+        * -0.1 DKIM_VALID_EF Message has a valid DKIM or DK signature from
+        *      envelope-from domain
+        * -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
+        *  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
+        *       valid
+        * -0.0 T_SCC_BODY_TEXT_LINE No description available.
+        *  3.5 UNDISC_FREEM Undisclosed recipients + freemail reply-to
+        *  1.0 FREEMAIL_REPLYTO Reply-To/From or Reply-To/body contain
+        *      different freemails
+X-Spam-Level: *****
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-Buenos d=C3=ADas:
+-- 
+I am an investor. I came from the USA and I have many investments all
+over the world.
 
-Le escribo para hablarle sobre una de las mejores herramientas GPS en el =
-mercado.
-
-La herramienta, que me gustar=C3=ADa presentarle brevemente, dispone de m=
-uchas funciones =C3=BAtiles para su trabajo, que optimizan los procesos d=
-e transporte y le ayudan a realizar tareas de campo de manera m=C3=A1s ef=
-iciente.
-
-=C2=BFQuiere conocer los detalles?
-
-
-Atentamente,
-Miguel Garcia
+I want you to partner with me to invest in your country I am into many
+investment such as real Estate or buying of properties i can also
+invest money in any of existing business with equity royalty or by %
+percentage so on,
+Warm regards
