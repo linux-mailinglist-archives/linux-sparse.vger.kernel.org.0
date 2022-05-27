@@ -2,108 +2,59 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 4929B53451A
-	for <lists+linux-sparse@lfdr.de>; Wed, 25 May 2022 22:40:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 96514535F46
+	for <lists+linux-sparse@lfdr.de>; Fri, 27 May 2022 13:31:58 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1344982AbiEYUkU (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Wed, 25 May 2022 16:40:20 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:59928 "EHLO
+        id S233262AbiE0Lb4 convert rfc822-to-8bit (ORCPT
+        <rfc822;lists+linux-sparse@lfdr.de>); Fri, 27 May 2022 07:31:56 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:40964 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1345201AbiEYUkS (ORCPT
+        with ESMTP id S232148AbiE0Lbz (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Wed, 25 May 2022 16:40:18 -0400
-Received: from mail-yw1-x1133.google.com (mail-yw1-x1133.google.com [IPv6:2607:f8b0:4864:20::1133])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id E912FB8BE7
-        for <linux-sparse@vger.kernel.org>; Wed, 25 May 2022 13:40:16 -0700 (PDT)
-Received: by mail-yw1-x1133.google.com with SMTP id 00721157ae682-2ff90e0937aso152394277b3.4
-        for <linux-sparse@vger.kernel.org>; Wed, 25 May 2022 13:40:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=mime-version:from:date:message-id:subject:to:cc
-         :content-transfer-encoding;
-        bh=LDBqQh/PztHeiDiV9Pr0v62BTTaDnPQyU98FGi1REkw=;
-        b=WtVrk4xeap1d8hkTvrZnMqD6LNAcHoTWQsDe7wjQqhM4tiwOp+K5uDKkazhhPREir4
-         2myD19w2lbtrkmRhfE8W6YLcevCFV9hkydww09Jd3LRiUI1qTUNVseE3wLBd68rvuO6N
-         7dytOlSkDkrdphH05WhiSp64mzYY8/HZlY2x6gVwz8ZctlEG/rxo3bWkZg5UZiqup/AH
-         Z00dLyk/yTkGGoM/R5E1Bo2FFZ5O5GL73sX4gzeYqDctrKZYZSoK+at4Oc8IXCPJW/yL
-         zLUh0qVR/OpHrsZmpxKCs9PftK2gSPu6oxs3S0xc+Po4fgRKh8QrWkuWRcl52qKisCWE
-         ySEw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc
-         :content-transfer-encoding;
-        bh=LDBqQh/PztHeiDiV9Pr0v62BTTaDnPQyU98FGi1REkw=;
-        b=nhPCv9Ap4xResJGmjKChcgT8qMAPYudG3XKi9MMKQ4yqtLdVY939en9mswQwhP93Tl
-         srqilPtDVhcZRQJpg/6ZN19nVAMoUfN0KoEaI92JG3ERRAYoc0I6eOz3hsR6zujbri8e
-         H6/hPUlQG6qZOwiwFcJTnvk6PdwEnMgYt9Lz1+RQ+EGqrB7SFZH4Z0dYxBrRHJ34S96I
-         vBtRrsly5W8nFrV8/0Kub3yiCChKZzMaQ0cSHSqPhgasAbbNCvZWTjq/18NVzdmd/fHP
-         eJw4QjZoTvU31vrKNGYVXL6N9x9I1fHuPUMSy6zyqC2xOr79/6It4bczBtwOpKdBFYCh
-         +pJw==
-X-Gm-Message-State: AOAM530FPc353ZNnIiZAFmuj2FWAmlnoGCdirURyq94jLMhfgb93D4xn
-        fl/xzSXdzOZ1Ds107e18agz/V9BNxX5sYw0ZAhw=
-X-Google-Smtp-Source: ABdhPJwK6ha/8xlx/ov16vbyCbhDLXZxWtpyFhPyhTyZHot53rJPuFN6FipHhvlwmdUigMNaC4lSQ77GARY4TogD6NQ=
-X-Received: by 2002:a81:920e:0:b0:2ff:ab0:2e6c with SMTP id
- j14-20020a81920e000000b002ff0ab02e6cmr36547205ywg.386.1653511215809; Wed, 25
- May 2022 13:40:15 -0700 (PDT)
+        Fri, 27 May 2022 07:31:55 -0400
+X-Greylist: delayed 1189 seconds by postgrey-1.37 at lindbergh.monkeyblade.net; Fri, 27 May 2022 04:31:54 PDT
+Received: from mail.composit.net (mail.composit.net [195.49.185.119])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTP id 5545711838;
+        Fri, 27 May 2022 04:31:54 -0700 (PDT)
+Received: from mail.composit.net (localhost.localdomain [127.0.0.1])
+        by mail.composit.net (Proxmox) with ESMTP id 0D4D039696B;
+        Fri, 27 May 2022 14:09:22 +0300 (MSK)
+Received: from mail.composit.net (mail.industrial-flow.com [192.168.101.14])
+        by mail.composit.net (Proxmox) with SMTP id D2891396751;
+        Fri, 27 May 2022 14:09:21 +0300 (MSK)
+Received: from [192.168.1.105] (Unknown [197.234.219.23])
+        by mail.composit.net with ESMTPSA
+        (version=TLSv1 cipher=DHE-RSA-AES256-SHA bits=256)
+        ; Fri, 27 May 2022 14:09:22 +0300
+Message-ID: <72C3A0BD-84CE-407C-9E1A-C3DD70490962@mail.composit.net>
+Content-Type: text/plain; charset="iso-8859-1"
 MIME-Version: 1.0
-Received: by 2002:a5b:506:0:0:0:0:0 with HTTP; Wed, 25 May 2022 13:40:15 -0700 (PDT)
-From:   Deterin Falcao <falcaodeterin@gmail.com>
-Date:   Wed, 25 May 2022 22:40:15 +0200
-Message-ID: <CABCO4Z36viNoMpZXRx38ftywLXWRrqSrUPPuEffHGQeW8CYfXA@mail.gmail.com>
-Subject: Bitte kontaktaufnahme Erforderlich !!! Please Contact Required !!!
-To:     contact@firstdiamondbk.com
-Cc:     info@firstdiamondbk.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Spam-Status: No, score=0.6 required=5.0 tests=BAYES_50,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
-        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
-        autolearn=unavailable autolearn_force=no version=3.4.6
+Content-Transfer-Encoding: 8BIT
+Content-Description: Mail message body
+Subject: Greetings From Ukraine.  
+To:     Recipients <heiss@dnet.it>
+From:   "Kostiantyn Chichkov" <heiss@dnet.it>
+Date:   Fri, 27 May 2022 12:08:23 +0100
+Reply-To: kostiantync@online.ee
+X-Spam-Status: No, score=3.7 required=5.0 tests=BAYES_50,RCVD_IN_SBL,
+        RCVD_IN_SORBS_WEB,RCVD_IN_VALIDITY_RPBL,SPF_HELO_NONE,SPF_NONE,
+        T_SCC_BODY_TEXT_LINE autolearn=no autolearn_force=no version=3.4.6
+X-Spam-Level: ***
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-Guten Tag,
+Good Morning,
 
-Ich habe mich nur gefragt, ob Sie meine vorherige E-Mail bekommen
+We are Kostiantyn Chychkov and Maryna Chudnovska from Ukraine, we need your service, we have gone through your profile and we will like to work with you on an important service that needs urgent attention due to the ongoing war in our country. Kindly acknowledge this inquiry as soon as possible for a detailed discussion about the service.
 
-haben ?
+Thank you.
 
-Ich habe versucht, Sie per E-Mail zu erreichen.
+Yours expectantly,
 
-Kommen Sie bitte schnell zu mir zur=C3=BCck, es ist sehr wichtig.
-
-Danke
-
-Falcao Deterin
-
-falcaodeterin@gmail.com
+Kostiantyn Chichkov & Ms. Maryna Chudnovska,
+From Ukraine.
 
 
-
-
-
-
-
-
-----------------------------------
-
-
-
-
-Good Afternoon,
-
-I was just wondering if you got my Previous E-mail
-have ?
-
-I tried to reach you by E-mail.
-
-Please come back to me quickly, it is very Important.
-
-Thanks
-
-Falcao Deterin
-
-falcaodeterin@gmail.com
