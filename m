@@ -2,92 +2,132 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 3C2BD53F2BF
-	for <lists+linux-sparse@lfdr.de>; Tue,  7 Jun 2022 01:46:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 8DBD553F9B1
+	for <lists+linux-sparse@lfdr.de>; Tue,  7 Jun 2022 11:28:33 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S235335AbiFFXqx (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Mon, 6 Jun 2022 19:46:53 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:55326 "EHLO
+        id S238703AbiFGJ22 (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Tue, 7 Jun 2022 05:28:28 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:40996 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S235334AbiFFXqx (ORCPT
+        with ESMTP id S239511AbiFGJ2N (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Mon, 6 Jun 2022 19:46:53 -0400
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id C7034C03AF
-        for <linux-sparse@vger.kernel.org>; Mon,  6 Jun 2022 16:46:51 -0700 (PDT)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-        (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-        (No client certificate requested)
-        by sin.source.kernel.org (Postfix) with ESMTPS id 2E777CE1BFE
-        for <linux-sparse@vger.kernel.org>; Mon,  6 Jun 2022 23:46:50 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D4118C385A9;
-        Mon,  6 Jun 2022 23:46:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1654559208;
-        bh=y9HP4P531TueWSM57Kq0oaU3FhCmycrqELU4rhQkPW8=;
-        h=From:To:Cc:Subject:Date:From;
-        b=p/hjir+TXJuTFiX/iTaiZHLfx7naBuBjWk1CI4mJuBLjRDVUWh4n1J8yzpsGcFWPk
-         +Ixt3ltg5DlEURCzQInN1d5506ijmpZL3P0zKNvCwOpchLw4tTCBzY5YFpoLSt3wNt
-         yjDICsdypqAZ8QaNbbZH2HLWKogNCX/hupRtkHt8u1aXZpO7tJaJxwIESmf9r5oxwD
-         jFbGpL2/bv+TC6ympmkuDWPjWqqjIa6S/WFyIx7zScz02X298YkogP9/eUtzd+GcFt
-         GUPnLQ8SHeyiuifA66gGEXWp2vvp1wIhS3zQe9coWVF0sGwD4y8MZQsyW32zEcBUu8
-         DrE6i2ffaI8Iw==
-From:   Luc Van Oostenryck <lucvoo@kernel.org>
-To:     linux-sparse@vger.kernel.org
-Cc:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>,
-        Tom Rix <trix@redhat.com>
-Subject: [PATCH] cgcc: do not die on '-x assembler'
-Date:   Tue,  7 Jun 2022 01:46:36 +0200
-Message-Id: <20220606234636.34972-1-lucvoo@kernel.org>
-X-Mailer: git-send-email 2.36.1
+        Tue, 7 Jun 2022 05:28:13 -0400
+Received: from mail-yb1-xb32.google.com (mail-yb1-xb32.google.com [IPv6:2607:f8b0:4864:20::b32])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 584333CA6D
+        for <linux-sparse@vger.kernel.org>; Tue,  7 Jun 2022 02:28:11 -0700 (PDT)
+Received: by mail-yb1-xb32.google.com with SMTP id g201so2311301ybf.12
+        for <linux-sparse@vger.kernel.org>; Tue, 07 Jun 2022 02:28:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=mime-version:reply-to:from:date:message-id:subject:to
+         :content-transfer-encoding;
+        bh=ohM259uqobJqtM7gttWurWj7P+4iDfPJquHax95olDY=;
+        b=gujHBVxqWIlmngbJHwwatlrY6K2BhXGLJOXKENebOL4hOCXVjvoa+7rQ+wCwOuo7nz
+         8e28HbaszMFtjrNu2xJwHUtJo1p0vWs5cPK29M2FpYQX1yrDGputAW1tF1NfmP59wawm
+         4ciGU9SnxDgRMb84mTOs96+/9zN97uENfqj9/+eZfuG77h5pSaMszmbmnWOwi9m+gNzd
+         5NtwsZACk2ULSP0cRt0MdNUxBuwzIbCfzmloCBb/Ue1QhCyZ8f6GEgrTXVIY7durHnKk
+         UWQF6j7yHnTlxlvI9xCgSzii4NusQH9ADfpyzQwiF9b+OrCBSH3adFs9TwqclNBk9aQF
+         O14A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:mime-version:reply-to:from:date:message-id
+         :subject:to:content-transfer-encoding;
+        bh=ohM259uqobJqtM7gttWurWj7P+4iDfPJquHax95olDY=;
+        b=LfFr+Vu61UJuPzwu+4+8Iu7/SYGigYyNO8hK8rusGA32AyMD/BDkQpINM+e5isaUaW
+         QrOXA7Z/rguNWPK2wu2YfcmNjjfKP5pfIB4sBrLZqUHHV+YQ+OREdHg2nKIEfXwCBoSn
+         BPhmaXknwxrDakeCwg7qcS07tHggK2VMaxJ/FN9k0ugGOYz7qn1TO/Z95b7Xs28i1xvI
+         TNSWoF5t8+cIKI4TNaXUTuuous59m79+1p/kXL1v97JtFEcuAx5OfSfx4EoxPev7S3SV
+         fr6PsTe9Js/HqjkcgCVWWlo0vJSka0P9w2q3Y5Eii1TaUjzh2wuMppTOkh7VC0Y/4LPb
+         XUDQ==
+X-Gm-Message-State: AOAM533ft7sf50eO6L+9nkBMZMAtdHfEAViDvsd4XRY6JXnplhS8ObwR
+        sH2RSbEZa7DCpSvVFJOTjKJL2b8/qi7gajYQSctYugPgnieI5QWd
+X-Google-Smtp-Source: ABdhPJxTYNOyqQTj+pRtv7B26L++zgaw4oyR9fAzq9Xjy/qi86fDOL5mMOdKcDA6Petw4QZgBH7CHdeaexgYk1On3ls=
+X-Received: by 2002:a05:6830:919:b0:60a:fe63:e321 with SMTP id
+ v25-20020a056830091900b0060afe63e321mr11494607ott.227.1654594080399; Tue, 07
+ Jun 2022 02:28:00 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Spam-Status: No, score=-8.3 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
-        SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE autolearn=ham
+Received: by 2002:a05:6358:99a5:b0:a2:a1fa:9308 with HTTP; Tue, 7 Jun 2022
+ 02:28:00 -0700 (PDT)
+Reply-To: robertbaileys_spende@aol.com
+From:   Robert Baileys <mercymiji.j@gmail.com>
+Date:   Tue, 7 Jun 2022 11:28:00 +0200
+Message-ID: <CAAD1zOZ9bCDqBnjmbC3dQfgC=P2zTqAS=TP3q5qK5TFB5=Q9dQ@mail.gmail.com>
+Subject: 
+To:     undisclosed-recipients:;
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Spam-Status: Yes, score=6.5 required=5.0 tests=BAYES_50,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,FREEMAIL_REPLYTO,
+        LOTS_OF_MONEY,MONEY_FREEMAIL_REPTO,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,
+        SPF_PASS,T_SCC_BODY_TEXT_LINE,UNDISC_FREEM,UNDISC_MONEY autolearn=no
         autolearn_force=no version=3.4.6
+X-Spam-Report: * -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at
+        *      https://www.dnswl.org/, no trust
+        *      [2607:f8b0:4864:20:0:0:0:b32 listed in]
+        [list.dnswl.org]
+        *  0.8 BAYES_50 BODY: Bayes spam probability is 40 to 60%
+        *      [score: 0.5000]
+        * -0.0 SPF_PASS SPF: sender matches SPF record
+        *  0.0 FREEMAIL_FROM Sender email is commonly abused enduser mail
+        *      provider
+        *      [mercymiji.j[at]gmail.com]
+        *  0.0 SPF_HELO_NONE SPF: HELO does not publish an SPF Record
+        * -0.1 DKIM_VALID_EF Message has a valid DKIM or DK signature from
+        *      envelope-from domain
+        * -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
+        *      author's domain
+        * -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
+        *  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
+        *       valid
+        *  0.0 LOTS_OF_MONEY Huge... sums of money
+        * -0.0 T_SCC_BODY_TEXT_LINE No description available.
+        *  2.3 UNDISC_FREEM Undisclosed recipients + freemail reply-to
+        *  2.0 MONEY_FREEMAIL_REPTO Lots of money from someone using free
+        *      email?
+        *  1.0 FREEMAIL_REPLYTO Reply-To/From or Reply-To/body contain
+        *      different freemails
+        *  0.6 UNDISC_MONEY Undisclosed recipients + money/fraud signs
+X-Spam-Level: ******
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-From: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
+--=20
+Hallo, lieber Beg=C3=BCnstigter,
 
-Currently cgcc will die if the option '-x' is used with any argument
-other than 'c'.
+Sie haben diese E-Mail von der Robert Bailey Foundation erhalten. Ich
+bin ein pensionierter Regierungsangestellter aus Harlem und ein
+Powerball-Lotterie-Jackpot-Gewinner von 343,8 Millionen Dollar. Ich
+bin der gr=C3=B6=C3=9Fte Jackpot-Gewinner in der Geschichte der New York Lo=
+ttery
+in Amerika. Ich habe diesen Wettbewerb am 27. Oktober 2018 gewonnen
+und m=C3=B6chte Ihnen mitteilen, dass Google in Kooperation mit Microsoft
+Ihre "E-Mail-Adresse" f=C3=BCr meine Anfrage hat und diese 3.000.000,00
+Millionen Euro kosten wird. Ich spende diese 3 Millionen Euro an Sie,
+um auch Wohlt=C3=A4tigkeitsorganisationen und armen Menschen in Ihrer
+Gemeinde zu helfen, damit wir die Welt zu einem besseren Ort f=C3=BCr alle
+machen k=C3=B6nnen. Bitte besuchen Sie die folgende Website f=C3=BCr weiter=
+e
+Informationen, damit Sie diesen 3 Mio. EUR Ausgaben nicht skeptisch
+gegen=C3=BCberstehen.
+https://nypost.com/2018/11/14/meet-the-winner-of-the-biggest-lottery-jackpo=
+t-in-new-york-history/Sie
+Weitere Best=C3=A4tigungen kann ich auch auf meinem Youtube suchen:
+https://www.youtube.com/watch?v=3DH5vT18Ysavc
+Bitte antworten Sie mir per E-Mail (robertbaileys_spende@aol.com).
+Sie m=C3=BCssen diese E-Mail sofort beantworten, damit die =C3=BCberweisend=
+e
+Bank mit dem Erhalt dieser Spende in H=C3=B6he von 3.000.000,00 Millionen
+Euro beginnen kann.
+Bitte kontaktieren Sie die untenstehende E-Mail-Adresse f=C3=BCr weitere
+Informationen, damit Sie diese Spende von der =C3=BCberweisenden Bank
+erhalten k=C3=B6nnen. E-Mail: robertbaileys_spende@aol.com
 
-It makes sense since sparse can only handle C files but it can be
-useful in a project to simply use something like:
-	make CC=cgcc
+Gr=C3=BC=C3=9Fe,
+Robert Bailey
+* * * * * * * * * * * * * * * *
 
-So, instead of die()ing, avoid calling sparse if such '-x' option
-is used, like already done by default for non .c files.
-
-Original-patch-by: Tom Rix <trix@redhat.com>
-Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
----
- cgcc | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
-
-diff --git a/cgcc b/cgcc
-index 733cadfa5dfe..618ba08a7b03 100755
---- a/cgcc
-+++ b/cgcc
-@@ -42,11 +42,10 @@ while (@ARGV) {
- 	$nargs = 1;
-     }
- 
--    # Ignore the extension if '-x c' is given.
-+    # We don't want to run the checker on non-C files.
-     if ($_ eq '-x') {
- 	die ("$0: missing argument for $_") if !@ARGV;
--	die ("$0: invalid argument for $_") if $ARGV[0] ne 'c';
--	$do_check = 1;
-+	$do_check = ($ARGV[0] eq 'c');
- 	$nargs = 1;
-     }
- 
--- 
-2.36.1
-
+Powerball-Jackpot-Gewinner
+E-Mail: robertbaileys_spende@aol.com
