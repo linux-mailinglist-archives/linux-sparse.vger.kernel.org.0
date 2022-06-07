@@ -2,132 +2,105 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 8DBD553F9B1
-	for <lists+linux-sparse@lfdr.de>; Tue,  7 Jun 2022 11:28:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 48D1653FF1C
+	for <lists+linux-sparse@lfdr.de>; Tue,  7 Jun 2022 14:42:21 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S238703AbiFGJ22 (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Tue, 7 Jun 2022 05:28:28 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:40996 "EHLO
+        id S231843AbiFGMmT (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Tue, 7 Jun 2022 08:42:19 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:47064 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S239511AbiFGJ2N (ORCPT
+        with ESMTP id S237899AbiFGMmR (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Tue, 7 Jun 2022 05:28:13 -0400
-Received: from mail-yb1-xb32.google.com (mail-yb1-xb32.google.com [IPv6:2607:f8b0:4864:20::b32])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 584333CA6D
-        for <linux-sparse@vger.kernel.org>; Tue,  7 Jun 2022 02:28:11 -0700 (PDT)
-Received: by mail-yb1-xb32.google.com with SMTP id g201so2311301ybf.12
-        for <linux-sparse@vger.kernel.org>; Tue, 07 Jun 2022 02:28:11 -0700 (PDT)
+        Tue, 7 Jun 2022 08:42:17 -0400
+Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com [IPv6:2a00:1450:4864:20::636])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 75390F594;
+        Tue,  7 Jun 2022 05:42:15 -0700 (PDT)
+Received: by mail-ej1-x636.google.com with SMTP id h23so23865028ejj.12;
+        Tue, 07 Jun 2022 05:42:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=mime-version:reply-to:from:date:message-id:subject:to
-         :content-transfer-encoding;
-        bh=ohM259uqobJqtM7gttWurWj7P+4iDfPJquHax95olDY=;
-        b=gujHBVxqWIlmngbJHwwatlrY6K2BhXGLJOXKENebOL4hOCXVjvoa+7rQ+wCwOuo7nz
-         8e28HbaszMFtjrNu2xJwHUtJo1p0vWs5cPK29M2FpYQX1yrDGputAW1tF1NfmP59wawm
-         4ciGU9SnxDgRMb84mTOs96+/9zN97uENfqj9/+eZfuG77h5pSaMszmbmnWOwi9m+gNzd
-         5NtwsZACk2ULSP0cRt0MdNUxBuwzIbCfzmloCBb/Ue1QhCyZ8f6GEgrTXVIY7durHnKk
-         UWQF6j7yHnTlxlvI9xCgSzii4NusQH9ADfpyzQwiF9b+OrCBSH3adFs9TwqclNBk9aQF
-         O14A==
+        h=date:from:to:cc:subject:message-id:references:mime-version
+         :content-disposition:in-reply-to;
+        bh=QWGQ/jFwQVG1lQvfacyHok6y1NHoHQn3XY+5974NmFs=;
+        b=WoKL+2b/ZHvv5g/XRuHkEc5DNuSGDQSccTXGcBhxG8C8aSmgB7gfDCN7CK/H7kqxZG
+         y0NRBmY/MwqhYZeH4kNPBG3DYIfKWvmWpaK6DaDaPQi4aABaZ6UFvPwIi+W70szvHv1/
+         uWdTPf2JYSg0w93u5h8GSj8oD9csDFEPuK60r996gCFiNceUTK2HnivfZFLw2F0u1idU
+         W6optP5n0M1QNFu0a1puha4ZK0ZdcQLoU+yKILJX/dh949Nq8jKJ5YarMrBn0W0al73l
+         8UnoCxvzC/Va796Umo6Qt0CWdULTTDC96+0d5MZEkbqlcdr7jef3Y6us5dd4x//rU9Dw
+         lUYw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=x-gm-message-state:mime-version:reply-to:from:date:message-id
-         :subject:to:content-transfer-encoding;
-        bh=ohM259uqobJqtM7gttWurWj7P+4iDfPJquHax95olDY=;
-        b=LfFr+Vu61UJuPzwu+4+8Iu7/SYGigYyNO8hK8rusGA32AyMD/BDkQpINM+e5isaUaW
-         QrOXA7Z/rguNWPK2wu2YfcmNjjfKP5pfIB4sBrLZqUHHV+YQ+OREdHg2nKIEfXwCBoSn
-         BPhmaXknwxrDakeCwg7qcS07tHggK2VMaxJ/FN9k0ugGOYz7qn1TO/Z95b7Xs28i1xvI
-         TNSWoF5t8+cIKI4TNaXUTuuous59m79+1p/kXL1v97JtFEcuAx5OfSfx4EoxPev7S3SV
-         fr6PsTe9Js/HqjkcgCVWWlo0vJSka0P9w2q3Y5Eii1TaUjzh2wuMppTOkh7VC0Y/4LPb
-         XUDQ==
-X-Gm-Message-State: AOAM533ft7sf50eO6L+9nkBMZMAtdHfEAViDvsd4XRY6JXnplhS8ObwR
-        sH2RSbEZa7DCpSvVFJOTjKJL2b8/qi7gajYQSctYugPgnieI5QWd
-X-Google-Smtp-Source: ABdhPJxTYNOyqQTj+pRtv7B26L++zgaw4oyR9fAzq9Xjy/qi86fDOL5mMOdKcDA6Petw4QZgBH7CHdeaexgYk1On3ls=
-X-Received: by 2002:a05:6830:919:b0:60a:fe63:e321 with SMTP id
- v25-20020a056830091900b0060afe63e321mr11494607ott.227.1654594080399; Tue, 07
- Jun 2022 02:28:00 -0700 (PDT)
+        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+         :mime-version:content-disposition:in-reply-to;
+        bh=QWGQ/jFwQVG1lQvfacyHok6y1NHoHQn3XY+5974NmFs=;
+        b=6qlgKMuTbTjtOaPgQapKPcYNSZq2NNRx/RT0M2LkhudSF2hvvvDfpLP1DqthJRpXXk
+         EbOlzPmSgYjph4ekgtxISC2d3+ojvaDlpTnXIixbKBOmEsSqf7KNF/PwIDcg0ZwPe637
+         G59qiq3sQSApyRwGlZeBma7LJYZzrT8x08sbAbR8uGo8FKH6seueb/ztU8BttqMIbsRT
+         /Ee3n0j8pmEBB0TRHNnUoyOj3SqgxWmJjfcHa0W3Nmwa7S2gAB229VuBc4yLx6s/66pW
+         3Wvca0TI17ikZQ9XoWZ+5E7O8boH42REm8/19IhEb2NRciMjjeGnpkm+CYGd+LgjKAIc
+         18xg==
+X-Gm-Message-State: AOAM533Gj6q7Ha7Bwb2fQWbSQ1nW/Xo1VORp/wLn9TFtQVi2PaOZwBx5
+        Fll888xsWs08uj2FGcwr9l4=
+X-Google-Smtp-Source: ABdhPJwHCSLPDHEhZvuk8tB5tsfWFvZUKoY+PHHEMWVQWj/CA1NZDebYXA9DTcCIDC1JxQqhj5m8mQ==
+X-Received: by 2002:a17:907:94c8:b0:711:d864:fd84 with SMTP id dn8-20020a17090794c800b00711d864fd84mr6889221ejc.18.1654605733831;
+        Tue, 07 Jun 2022 05:42:13 -0700 (PDT)
+Received: from mail (239.125-180-91.adsl-dyn.isp.belgacom.be. [91.180.125.239])
+        by smtp.gmail.com with ESMTPSA id o5-20020aa7c7c5000000b0042ad421574esm10427934eds.33.2022.06.07.05.42.11
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 07 Jun 2022 05:42:12 -0700 (PDT)
+Date:   Tue, 7 Jun 2022 14:42:09 +0200
+From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
+To:     Yafang Shao <laoar.shao@gmail.com>
+Cc:     kernel test robot <lkp@intel.com>, kbuild-all@lists.01.org,
+        LKML <linux-kernel@vger.kernel.org>, yujie.liu@intel.com,
+        linux-sparse@vger.kernel.org
+Subject: Re: /bin/bash: line 1: 45878 Segmentation fault sparse -D__linux__
+ -Dlinux -D__STDC__ -Dunix -D__unix__ -Wbitwise -Wno-return-void
+ -Wno-unknown-attribute -fdiagnostic-prefix -D__CHECK_ENDIAN__ -D__NDS32_EL__
+ --arch=nds32 -mlittle-endian -m32 -Wp,-MMD,ker...
+Message-ID: <20220607124209.ccibpwpjgh6kaqmj@mail>
+References: <202111131205.eni58iWQ-lkp@intel.com>
+ <CALOAHbBQfK16aXUwT3znCwLBWcpLwgovS=kYBBR=eL4Eb62t3g@mail.gmail.com>
 MIME-Version: 1.0
-Received: by 2002:a05:6358:99a5:b0:a2:a1fa:9308 with HTTP; Tue, 7 Jun 2022
- 02:28:00 -0700 (PDT)
-Reply-To: robertbaileys_spende@aol.com
-From:   Robert Baileys <mercymiji.j@gmail.com>
-Date:   Tue, 7 Jun 2022 11:28:00 +0200
-Message-ID: <CAAD1zOZ9bCDqBnjmbC3dQfgC=P2zTqAS=TP3q5qK5TFB5=Q9dQ@mail.gmail.com>
-Subject: 
-To:     undisclosed-recipients:;
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Spam-Status: Yes, score=6.5 required=5.0 tests=BAYES_50,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,FREEMAIL_REPLYTO,
-        LOTS_OF_MONEY,MONEY_FREEMAIL_REPTO,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,
-        SPF_PASS,T_SCC_BODY_TEXT_LINE,UNDISC_FREEM,UNDISC_MONEY autolearn=no
-        autolearn_force=no version=3.4.6
-X-Spam-Report: * -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at
-        *      https://www.dnswl.org/, no trust
-        *      [2607:f8b0:4864:20:0:0:0:b32 listed in]
-        [list.dnswl.org]
-        *  0.8 BAYES_50 BODY: Bayes spam probability is 40 to 60%
-        *      [score: 0.5000]
-        * -0.0 SPF_PASS SPF: sender matches SPF record
-        *  0.0 FREEMAIL_FROM Sender email is commonly abused enduser mail
-        *      provider
-        *      [mercymiji.j[at]gmail.com]
-        *  0.0 SPF_HELO_NONE SPF: HELO does not publish an SPF Record
-        * -0.1 DKIM_VALID_EF Message has a valid DKIM or DK signature from
-        *      envelope-from domain
-        * -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
-        *      author's domain
-        * -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
-        *  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
-        *       valid
-        *  0.0 LOTS_OF_MONEY Huge... sums of money
-        * -0.0 T_SCC_BODY_TEXT_LINE No description available.
-        *  2.3 UNDISC_FREEM Undisclosed recipients + freemail reply-to
-        *  2.0 MONEY_FREEMAIL_REPTO Lots of money from someone using free
-        *      email?
-        *  1.0 FREEMAIL_REPLYTO Reply-To/From or Reply-To/body contain
-        *      different freemails
-        *  0.6 UNDISC_MONEY Undisclosed recipients + money/fraud signs
-X-Spam-Level: ******
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CALOAHbBQfK16aXUwT3znCwLBWcpLwgovS=kYBBR=eL4Eb62t3g@mail.gmail.com>
+X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
+        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
+        autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
---=20
-Hallo, lieber Beg=C3=BCnstigter,
+On Sat, Nov 13, 2021 at 10:46:04PM +0800, Yafang Shao wrote:
+> On Sat, Nov 13, 2021 at 12:25 PM kernel test robot <lkp@intel.com> wrote:
+> >
+> > tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+> > head:   66f4beaa6c1d28161f534471484b2daa2de1dce0
+> > commit: 60f2415e19d3948641149ac6aca137a7be1d1952 sched: Make schedstats helpers independent of fair sched class
+> > date:   6 weeks ago
+> > config: nds32-randconfig-s031-20211015 (attached as .config)
+> > compiler: nds32le-linux-gcc (GCC) 11.2.0
 
-Sie haben diese E-Mail von der Robert Bailey Foundation erhalten. Ich
-bin ein pensionierter Regierungsangestellter aus Harlem und ein
-Powerball-Lotterie-Jackpot-Gewinner von 343,8 Millionen Dollar. Ich
-bin der gr=C3=B6=C3=9Fte Jackpot-Gewinner in der Geschichte der New York Lo=
-ttery
-in Amerika. Ich habe diesen Wettbewerb am 27. Oktober 2018 gewonnen
-und m=C3=B6chte Ihnen mitteilen, dass Google in Kooperation mit Microsoft
-Ihre "E-Mail-Adresse" f=C3=BCr meine Anfrage hat und diese 3.000.000,00
-Millionen Euro kosten wird. Ich spende diese 3 Millionen Euro an Sie,
-um auch Wohlt=C3=A4tigkeitsorganisationen und armen Menschen in Ihrer
-Gemeinde zu helfen, damit wir die Welt zu einem besseren Ort f=C3=BCr alle
-machen k=C3=B6nnen. Bitte besuchen Sie die folgende Website f=C3=BCr weiter=
-e
-Informationen, damit Sie diesen 3 Mio. EUR Ausgaben nicht skeptisch
-gegen=C3=BCberstehen.
-https://nypost.com/2018/11/14/meet-the-winner-of-the-biggest-lottery-jackpo=
-t-in-new-york-history/Sie
-Weitere Best=C3=A4tigungen kann ich auch auf meinem Youtube suchen:
-https://www.youtube.com/watch?v=3DH5vT18Ysavc
-Bitte antworten Sie mir per E-Mail (robertbaileys_spende@aol.com).
-Sie m=C3=BCssen diese E-Mail sofort beantworten, damit die =C3=BCberweisend=
-e
-Bank mit dem Erhalt dieser Spende in H=C3=B6he von 3.000.000,00 Millionen
-Euro beginnen kann.
-Bitte kontaktieren Sie die untenstehende E-Mail-Adresse f=C3=BCr weitere
-Informationen, damit Sie diese Spende von der =C3=BCberweisenden Bank
-erhalten k=C3=B6nnen. E-Mail: robertbaileys_spende@aol.com
+...
 
-Gr=C3=BC=C3=9Fe,
-Robert Bailey
-* * * * * * * * * * * * * * * *
+> > All errors (new ones prefixed by >>):
+> >
+> >    include/linux/rtmutex.h:68:58: sparse: sparse: got $
 
-Powerball-Jackpot-Gewinner
-E-Mail: robertbaileys_spende@aol.com
+Hi,
+
+Apologies for this late reply.
+
+The error was caused by the line:
+	#define tsk $r25
+in arch/nds32/include/asm/current.h
+
+I suppose it was only meant for assembly files but was also included in
+(most) C files and the '$' character made sparse crash in some weird
+circumstances. Patch is on the way.
+
+-- Luc
