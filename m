@@ -2,98 +2,80 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 19C8C54A31D
-	for <lists+linux-sparse@lfdr.de>; Tue, 14 Jun 2022 02:17:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 0777954DEEF
+	for <lists+linux-sparse@lfdr.de>; Thu, 16 Jun 2022 12:25:51 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S233373AbiFNARq (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Mon, 13 Jun 2022 20:17:46 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:41430 "EHLO
+        id S1376558AbiFPKZr (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Thu, 16 Jun 2022 06:25:47 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:42022 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S233901AbiFNARo (ORCPT
+        with ESMTP id S1376572AbiFPKZn (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Mon, 13 Jun 2022 20:17:44 -0400
-Received: from ams.source.kernel.org (ams.source.kernel.org [IPv6:2604:1380:4601:e00::1])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 0D5132253A
-        for <linux-sparse@vger.kernel.org>; Mon, 13 Jun 2022 17:17:42 -0700 (PDT)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-        (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-        (No client certificate requested)
-        by ams.source.kernel.org (Postfix) with ESMTPS id D3303B8167B
-        for <linux-sparse@vger.kernel.org>; Tue, 14 Jun 2022 00:17:40 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A4A55C34114;
-        Tue, 14 Jun 2022 00:17:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1655165859;
-        bh=A1dIgaKzESVI+B4DJt6QIN6fbPEVYNPzRIsvg9IjdyA=;
-        h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-        b=bHSu2h4XldpgJEJe28kFmcXke5jFLXRyAcPSovE3rjQxZTT6vJ++B3ad9XK0BbzKA
-         5dlaD+aNu0RVioe3PDimOmI85Ef6ylkGpb7jyv0uU3/Z/MLi3UeIiJ1RVpGE9XcnUF
-         O9sqDehD54N/SgZ+XUolYIBZ92Gh/GMy+hl67lQVD7NptWqtksE51kkILTRM6Rom3U
-         hOtZ7u+j/NKdfxApDkKAo5SS3kq3I0ksNWoTLuZqfu3GAB4k8m8ypWGi758tMieXdS
-         iUPt4tmKNvTLSqQzGYt5wX49rn7m1i4J0cR/6qVqwRASZ37Tx646qM1Ga+G7NqYKjB
-         LahQqcB/CBRGQ==
-From:   Luc Van Oostenryck <lucvoo@kernel.org>
-To:     linux-sparse@vger.kernel.org
-Cc:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>,
-        Randy Dunlap <rdunlap@infradead.org>,
-        kernel test robot <lkp@intel.com>
-Subject: [PATCH] predefine __ATOMIC_ACQUIRE & friends as weak
-Date:   Tue, 14 Jun 2022 02:17:25 +0200
-Message-Id: <20220614001725.29431-1-lucvoo@kernel.org>
-X-Mailer: git-send-email 2.36.1
-In-Reply-To: <33a053bc-1d81-49f4-0c8a-879a5519c433@infradead.org>
-References: <33a053bc-1d81-49f4-0c8a-879a5519c433@infradead.org>
+        Thu, 16 Jun 2022 06:25:43 -0400
+Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com [IPv6:2a00:1450:4864:20::133])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 90ACA5D66B
+        for <linux-sparse@vger.kernel.org>; Thu, 16 Jun 2022 03:25:42 -0700 (PDT)
+Received: by mail-lf1-x133.google.com with SMTP id s6so1489839lfo.13
+        for <linux-sparse@vger.kernel.org>; Thu, 16 Jun 2022 03:25:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=mime-version:reply-to:from:date:message-id:subject:to
+         :content-transfer-encoding;
+        bh=lLG88JCPgF7Yhflf4FNi4GQedsSNMbwmPtgneUr9Mu0=;
+        b=ABukwHqeSM98uGcshbCxcb5wQWHGiHfFagypt7/loMb9v2FDjwcTgJrhBtRxVWf1v2
+         BXStPbBsgYSqnUGGl7zGBKM5CMLd7osq6XxwDfWGiMcFn4Pi67uCFUXjvoArP/U14XOy
+         mQeS4UYPV1T6X+0EnR/uBN8wVFg+Gtbvf3f6qSheDv1gjHNHTXbbedH61hcExrUHexoJ
+         rx1Jgk5bVM9b9AL2u7FDe7guhHcyiN+kbqYLFek60/qjs7XvLdFeOWURUBV0kwO8CI+7
+         Cgd19SBjyhxlRHqwqo9b9KDCVX/Ur+QyoWeFC2a2uxKLH7+bPAsMu0Sd6y37iHP37kUl
+         Kx9A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:mime-version:reply-to:from:date:message-id
+         :subject:to:content-transfer-encoding;
+        bh=lLG88JCPgF7Yhflf4FNi4GQedsSNMbwmPtgneUr9Mu0=;
+        b=bvHYQzXJdmPX1KJuoTCnI9frOnHxS3vwHwbpl+k9mmNJAY104PVPXtPqljRwN6M3kX
+         RmkvsUmWz+7ckBQQj+1vufeEeEfslYeDThEqN09gvrWfh39GYGbU6c5tX30siwVGLAtZ
+         u5YFaUnysWfDG0DV8e66Rfedi4nUKROjysxWs+SQnVCwRXGCgpyzdq1oURgysVh0+cbI
+         DmqqJiJyos6rYnHJAan4mn1vIj35CGkruLdFwWURXhhu2NIB82w4v+wUkewzByy4Zr7w
+         Ounig4NNuagOQ8a+ogfg7uNJvHVWYoXYkeBz1Awy0oQBbLCnUvWMheLneiH0KyAtW4az
+         95iQ==
+X-Gm-Message-State: AJIora+Q5CEIiyjUDSGaLwkCSn4evVqaNjJt+NwXYvRZZMPC2AySst6o
+        uGghQOk7VzYM/IBlYN4Pss+VULoQA6ZSPWz6Oe0=
+X-Google-Smtp-Source: AGRyM1v58shGjEx7x4KAdFNHXuS9Ixy8KMeEpc8k/MiglXee1uXZfo7fZhbkGUuLzTt8pK6QeU3FZUcLi8QQvzcrZAY=
+X-Received: by 2002:a19:ca0c:0:b0:479:46c:2917 with SMTP id
+ a12-20020a19ca0c000000b00479046c2917mr2283112lfg.160.1655375140632; Thu, 16
+ Jun 2022 03:25:40 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Spam-Status: No, score=-8.3 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
-        SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE autolearn=ham
-        autolearn_force=no version=3.4.6
+Received: by 2002:a05:6520:28c2:b0:1f3:cf5:e20d with HTTP; Thu, 16 Jun 2022
+ 03:25:39 -0700 (PDT)
+Reply-To: clmloans9@gmail.com
+From:   MR ANTHONY EDWARD <bashirusman02021@gmail.com>
+Date:   Thu, 16 Jun 2022 11:25:39 +0100
+Message-ID: <CAGOBX5aJbCGJvAx_fa099PFZmXDUdUgW9p6nY_cgZy+0W2JLtg@mail.gmail.com>
+Subject: DARLEHENSANGEBOT
+To:     undisclosed-recipients:;
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Spam-Status: No, score=4.3 required=5.0 tests=BAYES_50,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,
+        FREEMAIL_FROM,FREEMAIL_REPLYTO,FREEMAIL_REPLYTO_END_DIGIT,
+        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_HK_NAME_FM_MR_MRS,
+        T_SCC_BODY_TEXT_LINE,UNDISC_FREEM autolearn=no autolearn_force=no
+        version=3.4.6
+X-Spam-Level: ****
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-From: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
+--=20
+Ben=C3=B6tigen Sie ein Gesch=C3=A4ftsdarlehen oder ein Darlehen jeglicher A=
+rt?
+Wenn ja, kontaktieren Sie uns
 
-In kernel's arch/mips/Makefile the whole content of gcc's -dM is used
-for CHECKFLAGS. This conflict with some macros also defined internally:
-	builtin:1:9: warning: preprocessor token __ATOMIC_ACQUIRE redefined
-	builtin:0:0: this was the original definition
-
-Fix this by using a weak define for these macros.
-
-Reported-by: Randy Dunlap <rdunlap@infradead.org>
-Reported-by: kernel test robot <lkp@intel.com>
-Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
----
- predefine.c | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
-
-diff --git a/predefine.c b/predefine.c
-index 98e38a04579d..5b0f0caf4c35 100644
---- a/predefine.c
-+++ b/predefine.c
-@@ -179,12 +179,12 @@ void predefined_macros(void)
- 	if (arch_target->has_int128)
- 		predefined_sizeof("INT128", "", 128);
- 
--	predefine("__ATOMIC_RELAXED", 0, "0");
--	predefine("__ATOMIC_CONSUME", 0, "1");
--	predefine("__ATOMIC_ACQUIRE", 0, "3");
--	predefine("__ATOMIC_RELEASE", 0, "4");
--	predefine("__ATOMIC_ACQ_REL", 0, "7");
--	predefine("__ATOMIC_SEQ_CST", 0, "8");
-+	predefine("__ATOMIC_RELAXED", 1, "0");
-+	predefine("__ATOMIC_CONSUME", 1, "1");
-+	predefine("__ATOMIC_ACQUIRE", 1, "3");
-+	predefine("__ATOMIC_RELEASE", 1, "4");
-+	predefine("__ATOMIC_ACQ_REL", 1, "7");
-+	predefine("__ATOMIC_SEQ_CST", 1, "8");
- 
- 	predefine("__ORDER_LITTLE_ENDIAN__", 1, "1234");
- 	predefine("__ORDER_BIG_ENDIAN__", 1, "4321");
--- 
-2.36.1
-
+*Vollst=C3=A4ndiger Name:
+* Ben=C3=B6tigte Menge:
+*Leihdauer:
+*Mobiltelefon:
+*Land:
