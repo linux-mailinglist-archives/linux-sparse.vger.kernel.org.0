@@ -2,74 +2,164 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 33226554E69
-	for <lists+linux-sparse@lfdr.de>; Wed, 22 Jun 2022 17:04:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 5783C559ECB
+	for <lists+linux-sparse@lfdr.de>; Fri, 24 Jun 2022 18:46:47 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1358862AbiFVPEI (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Wed, 22 Jun 2022 11:04:08 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:36264 "EHLO
+        id S230366AbiFXQqL (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Fri, 24 Jun 2022 12:46:11 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:42060 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1358162AbiFVPEB (ORCPT
+        with ESMTP id S230333AbiFXQqJ (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Wed, 22 Jun 2022 11:04:01 -0400
-Received: from mail-pg1-x52f.google.com (mail-pg1-x52f.google.com [IPv6:2607:f8b0:4864:20::52f])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 8F2BD3EB96
-        for <linux-sparse@vger.kernel.org>; Wed, 22 Jun 2022 08:03:54 -0700 (PDT)
-Received: by mail-pg1-x52f.google.com with SMTP id 23so10177144pgc.8
-        for <linux-sparse@vger.kernel.org>; Wed, 22 Jun 2022 08:03:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=mime-version:reply-to:from:date:message-id:subject:to;
-        bh=vhZEVnaGNBjosB86GDUW8b2wHjB/+QU31bPXl36TqFE=;
-        b=Jt/qXO7TwQJF3EWuk5p4azKGOCxq/Rzk3KoLqC6Pwff+0tHhs8als9639cidnzFde4
-         ry7ero38QELHA22RBkZWtE0xNRPiiPEWIvKtPd0fZpNhUDrKHRyETW5WgRrbPPmi6/vT
-         vJpxoQNLrGfsMgIfV+PXszjD1nMaBRUe0Gxx0eYZw7YGtSc5pfRkGeshne5cjr5BaKxu
-         3INPcNuWqxw7/0puGY6UuhzUSAv6SoxD7Bz3CVHuDQWru55+lIHO02gOv78FJXnTYNjB
-         rbtWgbiyhkE21LXWR11Bk6fRJOPFFcU92J8XbdNavb7vvb9W0t8MjYRzeI2ufnWOCsiS
-         AGLA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:mime-version:reply-to:from:date:message-id
-         :subject:to;
-        bh=vhZEVnaGNBjosB86GDUW8b2wHjB/+QU31bPXl36TqFE=;
-        b=FBFLz5n0cuom+Ol32Wn+hWZkjgMuwC7wrcLDocTPDm3c/FZea08Uu9iWwsLi4FdONb
-         8PROejh8bmoft6+jfJvQRPMB+/r+l2x5g1rzFsUlq9LVJbZqeLEsGtaqcuAybUR1+WSx
-         pUiZ6j4Z9Y84lfxsci/wAqVMsd/hbfTKN18pLAqY6+2BGl7NcOyfYpM0LXtcWB1Ufdhn
-         m24CABrBL48UI2gvsUpCOmHUxlQQq7jYQ5HKmHyMDD2Xxixp4xASyOlWNCl6wJjv0EmQ
-         sHegkpCqjxj7OX+XIr1urD0mbb/i4vPMEHcMwJCDYQte46Da8rGNohxMk7QbOqXDpGdx
-         viow==
-X-Gm-Message-State: AJIora8UjsxUJ09lAgvznDcxSwOFhAid677QdVxMWHoZInmKkgnphVAf
-        Z6LK/CDJtibtNTVfS/Wy1C7LL33uJf0UCU7mm9k=
-X-Google-Smtp-Source: AGRyM1uVFGSnpr+dTCH2B3yi91+xpZWxlNuq532hGAWMLDkFZu1Qrq3wwA6KogrJ63y1ppaQwcWp21NviyeWeo5Xswg=
-X-Received: by 2002:a63:af1c:0:b0:40c:f9fb:deca with SMTP id
- w28-20020a63af1c000000b0040cf9fbdecamr3305128pge.479.1655910232628; Wed, 22
- Jun 2022 08:03:52 -0700 (PDT)
+        Fri, 24 Jun 2022 12:46:09 -0400
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id D0E4150032
+        for <linux-sparse@vger.kernel.org>; Fri, 24 Jun 2022 09:46:08 -0700 (PDT)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+        (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+        (No client certificate requested)
+        by dfw.source.kernel.org (Postfix) with ESMTPS id 708FE622F5
+        for <linux-sparse@vger.kernel.org>; Fri, 24 Jun 2022 16:46:08 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E0C8C34114;
+        Fri, 24 Jun 2022 16:46:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+        s=k20201202; t=1656089167;
+        bh=tQPASPYBrhtAaP/xuHHMNarWkRMi1n5PkvyUGO5ej+Q=;
+        h=From:To:Cc:Subject:Date:From;
+        b=NUivbH9bBA8tpZPGAL5anvYIOYZ+dGrePv7jJZOGheDkX8ieEA4UXdOyNU6bCEiwl
+         YJ+VdITFDcRrfKPVmZDjE1IFyImWt5aomAOaiTvQjssMvGVYh9JdeY/PcggbllQiJn
+         RRLvhICApO2Fy4G6wYocn3yI6dssSx9LaYO74qRYimhLVR68jU3y6ODIo73M5+Myno
+         QYlgzyje6KxbSJ4k2LY8qHNdv/VBVD3nHR7wCp0oWU/JhNVuNYne0u9BCvYmowr5/s
+         GynuCm+HfTIWFer7IvwTFGGpvGvw6NY/XIbzOwqU8TE+EcLdvOJ9+DcmzvCLCetcSb
+         WVCBsVdYn7p2g==
+From:   Luc Van Oostenryck <lucvoo@kernel.org>
+To:     linux-sparse@vger.kernel.org
+Cc:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>,
+        kernel test robot <lkp@intel.com>
+Subject: [PATCH] fix "unreplaced" warnings caused by using typeof() on inline functions
+Date:   Fri, 24 Jun 2022 18:46:01 +0200
+Message-Id: <20220624164601.99527-1-lucvoo@kernel.org>
+X-Mailer: git-send-email 2.36.1
 MIME-Version: 1.0
-Received: by 2002:a17:903:2308:b0:16a:1b3f:f74b with HTTP; Wed, 22 Jun 2022
- 08:03:51 -0700 (PDT)
-Reply-To: sales0212@asonmedsystemsinc.com
-From:   Prasad Ronni <lerwickfinance7@gmail.com>
-Date:   Wed, 22 Jun 2022 16:03:51 +0100
-Message-ID: <CAFkto5szY9scoLwccBhUx92cgUVnT2cx2c=WmxiOTkm7N_y9gg@mail.gmail.com>
-Subject: Service Needed.
-To:     undisclosed-recipients:;
-Content-Type: text/plain; charset="UTF-8"
-X-Spam-Status: No, score=0.0 required=5.0 tests=BAYES_20,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,
-        FREEMAIL_FROM,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,
-        T_SCC_BODY_TEXT_LINE autolearn=unavailable autolearn_force=no
-        version=3.4.6
+Content-Transfer-Encoding: 8bit
+X-Spam-Status: No, score=-7.7 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_HI,
+        SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE autolearn=ham
+        autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
+From: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
+
+Currently, sparse do all its inlining at the tree level, during
+constant expansion. To not mix-up the evaluation of the original
+function body in case the address of an inline function is taken or
+when the function can't otherwise be inlined, the statements and
+symbols lists of inline functions are kept in separated fields.
+Then, if the original body must be evaluated it must first be
+'uninlined' to have a copy in the usual fields.
+
+This make sense when dealing with the definition of the function.
+But, when using typeof() on functions, the resulting type doesn't
+refer to this definition, it's just a copy of the type and only
+of the type. There shouldn't be any reasons to uninline anything.
+However, the distinction between 'full function' and 'type only'
+is not made during evaluation and the uninlining attempt produce
+a lot of "warning: unreplaced symbol '...'" because of the lack
+of a corresponding definition.
+
+Fix this by not doing the uninlining if the symbol lack a definition.
+
+Note: It would maybe be more appropriate for EXPR_TYPE to use
+      a stripped-own version of evaluate_symbol() doing only the
+      examination of the return and argument types, bypassing the
+      attempt to uninline the body and evaluate the initializer and
+      the statements since there is none of those for an EXPR_TYPE.
+
+Link: https://lore.kernel.org/all/202206191726.wq70mbMK-lkp@intel.com
+Reported-by: kernel test robot <lkp@intel.com>
+Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
+---
+ evaluate.c                                    |  2 +-
+ validation/inline-early/unreplaced-abstract.c | 28 +++++++++++++++++++
+ validation/optim/devirtualize0.c              | 17 +++++++++++
+ 3 files changed, 46 insertions(+), 1 deletion(-)
+ create mode 100644 validation/inline-early/unreplaced-abstract.c
+ create mode 100644 validation/optim/devirtualize0.c
+
+diff --git a/evaluate.c b/evaluate.c
+index 61f59ee3908e..fe716f631987 100644
+--- a/evaluate.c
++++ b/evaluate.c
+@@ -3555,7 +3555,7 @@ static struct symbol *evaluate_symbol(struct symbol *sym)
+ 		current_fn = sym;
+ 
+ 		examine_fn_arguments(base_type);
+-		if (!base_type->stmt && base_type->inline_stmt)
++		if (!base_type->stmt && base_type->inline_stmt && sym->definition)
+ 			uninline(sym);
+ 		if (base_type->stmt)
+ 			evaluate_statement(base_type->stmt);
+diff --git a/validation/inline-early/unreplaced-abstract.c b/validation/inline-early/unreplaced-abstract.c
+new file mode 100644
+index 000000000000..e38cd6681f14
+--- /dev/null
++++ b/validation/inline-early/unreplaced-abstract.c
+@@ -0,0 +1,28 @@
++static inline void f0(void) { }
++static inline long f1(long a) { return a + 1;}
++
++_Static_assert([typeof(f0)] != [typeof(f1)]);
++
++
++static inline void g0(void) { }
++static inline long g1(long a) { return a + 1;}
++
++extern long goo(long a);
++long goo(long a)
++{
++	g0();
++	return g1(a);
++}
++
++_Static_assert([typeof(g0)] != [typeof(g1)]);
++
++extern long moo(long a);
++long moo(long a)
++{
++	typeof(f1) *f = g1;
++	return f(a);
++}
++
++/*
++ * check-name: unreplaced-abstract
++ */
+diff --git a/validation/optim/devirtualize0.c b/validation/optim/devirtualize0.c
+new file mode 100644
+index 000000000000..7079e79072fe
+--- /dev/null
++++ b/validation/optim/devirtualize0.c
+@@ -0,0 +1,17 @@
++static inline long f1(long x) { return x + 1;}
++
++extern long foo(long a);
++long foo(long a)
++{
++	typeof(f1) *f = f1;
++	return f(a);
++}
++
++/*
++ * check-name: devirtualize0
++ * check-command: test-linearize -Wno-decl $file
++ * check-known-to-fail
++ *
++ * check-output-ignore
++ * check-output-excludes: call\\.
++ */
 -- 
-Hi,
+2.36.1
 
-Are you currently open to work as our executive company representative
-on contractual basis working remotely? If yes, we will be happy to
-share more details. Looking forward to your response.
-
-Regards,
