@@ -2,42 +2,42 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 4157D55B227
-	for <lists+linux-sparse@lfdr.de>; Sun, 26 Jun 2022 15:20:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id D0C3055B217
+	for <lists+linux-sparse@lfdr.de>; Sun, 26 Jun 2022 15:20:00 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S234467AbiFZNIF (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Sun, 26 Jun 2022 09:08:05 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:48592 "EHLO
+        id S234469AbiFZNIH (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Sun, 26 Jun 2022 09:08:07 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:48608 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S234487AbiFZNID (ORCPT
+        with ESMTP id S234535AbiFZNID (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
         Sun, 26 Jun 2022 09:08:03 -0400
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B97801151
-        for <linux-sparse@vger.kernel.org>; Sun, 26 Jun 2022 06:08:00 -0700 (PDT)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 29C5125F9
+        for <linux-sparse@vger.kernel.org>; Sun, 26 Jun 2022 06:08:01 -0700 (PDT)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
         (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
         (No client certificate requested)
-        by ams.source.kernel.org (Postfix) with ESMTPS id 6E8B3B80D8E
-        for <linux-sparse@vger.kernel.org>; Sun, 26 Jun 2022 13:07:59 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C829C341CA;
-        Sun, 26 Jun 2022 13:07:58 +0000 (UTC)
+        by dfw.source.kernel.org (Postfix) with ESMTPS id B39B86121E
+        for <linux-sparse@vger.kernel.org>; Sun, 26 Jun 2022 13:08:00 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D3D0C341CB;
+        Sun, 26 Jun 2022 13:07:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-        s=k20201202; t=1656248879;
-        bh=WViLtkh4M0IfYdsXOjabRJdmXKarw/L4MRoWslmvz48=;
+        s=k20201202; t=1656248880;
+        bh=UrAkhnFDuSOEuz40PQq0cDjbsCnjbB5GJR+N7s1FoBY=;
         h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-        b=ZoP8EHCSpFJomyP2oC1LGBWmLY+U4ECLLUewSByt0oYjQjy8Lqx5BaTHjGqE1EB8f
-         osD2KhlKSBYim2v0e4WdEaRRShAL44McWQyrhCHxfOMBrJDYvmG8WQsTJiWpXFY6F2
-         VNuosi3ED6mKe3pX3fKqGusd4u3ADdS7MOd8H/18NaL+OwsiosCAHSaBIpSdlVOCUN
-         7Zjp148xWsqddN7ENl4hrexNAv5sZUQHeseNVYMq3v2m53QkbQwLXd03h4f75A+Ext
-         mxnZysPzQ9+66gZAyp12tesV6oZzspsFZOiOaz8nksJCSWnoUQAVzOuWj/8e61ZG7C
-         8Ojlw4g4wx6lw==
+        b=BmGRE7g5vgCMrZB8EGhCK3jehwLKW6uMoaDFx8c2Y11+F3HhmueJVNMNoROnSShFq
+         u1TsE4WJTLJgIBYCx+6ddSqhy6dh+Q50DB7L9zYscH1ooUH63ugbmES1GgGqo+N4HE
+         lFKj5VrjQmwG/Wd1T7omhyMAv7eBNub8miYnd0FX3iSAY+B4sTEKkoSPsOk4/Eto5Z
+         LvqOXaPdMi7HJaAV3jEBV7xkv0i99N/qPbrExjkdnN30oyEoonHt/0ALVcM8wAdXBm
+         2zaP5lTB/sFLfuoOyDhm5fk1xwmOw2lhaohgrIxAxXIbOujoWubOGHQOWtcvXFjRp1
+         V2eX01frZ8X/w==
 From:   Luc Van Oostenryck <lucvoo@kernel.org>
 To:     linux-sparse@vger.kernel.org
 Cc:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-Subject: [PATCH 4/6] inline: avoid needless intermediate vars
-Date:   Sun, 26 Jun 2022 15:07:46 +0200
-Message-Id: <20220626130748.74163-5-lucvoo@kernel.org>
+Subject: [PATCH 5/6] inline: allocate statement after guards
+Date:   Sun, 26 Jun 2022 15:07:47 +0200
+Message-Id: <20220626130748.74163-6-lucvoo@kernel.org>
 X-Mailer: git-send-email 2.36.1
 In-Reply-To: <20220626130748.74163-1-lucvoo@kernel.org>
 References: <20220626130748.74163-1-lucvoo@kernel.org>
@@ -55,55 +55,41 @@ X-Mailing-List: linux-sparse@vger.kernel.org
 
 From: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 
-In inline_function(), the we need to iterate over the parameters
-and the (effective) arguments. An itermediate variable is used for
-each: "name_list" and "arg_list".
+In inline_function(), the statement that will correspond to the
+inlined code is allocated in the function declaration but then
+it's checked if the function can be allocated or not.
 
-These confuse me a lot (especially "name_list", "param_list" would
-be much more OK) and are just used once.
+This is not much memory and the checks should succeed most of the time
+but it's clearer if the statement is allocated after the checks.
 
-So, avoid using an intermediate variable for these.
+So, move the allocation after the checks.
 
 Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 ---
- inline.c | 9 +++------
- 1 file changed, 3 insertions(+), 6 deletions(-)
+ inline.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
 diff --git a/inline.c b/inline.c
-index 4696eb509f9a..a6f9252ab0ff 100644
+index a6f9252ab0ff..68f235c21945 100644
 --- a/inline.c
 +++ b/inline.c
-@@ -516,9 +516,8 @@ int inline_function(struct expression *expr, struct symbol *sym)
+@@ -516,7 +516,7 @@ int inline_function(struct expression *expr, struct symbol *sym)
  {
  	struct symbol_list * fn_symbol_list;
  	struct symbol *fn = sym->ctype.base_type;
--	struct expression_list *arg_list = expr->args;
- 	struct statement *stmt = alloc_statement(expr->pos, STMT_COMPOUND);
--	struct symbol_list *name_list, *arg_decl;
-+	struct symbol_list *arg_decl;
+-	struct statement *stmt = alloc_statement(expr->pos, STMT_COMPOUND);
++	struct statement *stmt;
+ 	struct symbol_list *arg_decl;
  	struct symbol *name;
  	struct expression *arg;
- 
-@@ -529,8 +528,6 @@ int inline_function(struct expression *expr, struct symbol *sym)
+@@ -528,6 +528,7 @@ int inline_function(struct expression *expr, struct symbol *sym)
  	if (fn->expanding)
  		return 0;
  
--	name_list = fn->arguments;
--
++	stmt = alloc_statement(expr->pos, STMT_COMPOUND);
  	expr->type = EXPR_STATEMENT;
  	expr->statement = stmt;
  	expr->ctype = fn->ctype.base_type;
-@@ -538,8 +535,8 @@ int inline_function(struct expression *expr, struct symbol *sym)
- 	fn_symbol_list = create_symbol_list(sym->inline_symbol_list);
- 
- 	arg_decl = NULL;
--	PREPARE_PTR_LIST(name_list, name);
--	FOR_EACH_PTR(arg_list, arg) {
-+	PREPARE_PTR_LIST(fn->arguments, name);
-+	FOR_EACH_PTR(expr->args, arg) {
- 		struct symbol *a = alloc_symbol(arg->pos, SYM_NODE);
- 
- 		if (name) {
 -- 
 2.36.1
 
