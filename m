@@ -2,63 +2,64 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id CABFD55CF70
-	for <lists+linux-sparse@lfdr.de>; Tue, 28 Jun 2022 15:06:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id A6C1A55C257
+	for <lists+linux-sparse@lfdr.de>; Tue, 28 Jun 2022 14:46:31 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S232675AbiF0TGA (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Mon, 27 Jun 2022 15:06:00 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:53110 "EHLO
+        id S234713AbiF0TFw (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Mon, 27 Jun 2022 15:05:52 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:53088 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S237721AbiF0TFx (ORCPT
+        with ESMTP id S232675AbiF0TFv (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Mon, 27 Jun 2022 15:05:53 -0400
-Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com [IPv6:2a00:1450:4864:20::530])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 42F2D21B1
-        for <linux-sparse@vger.kernel.org>; Mon, 27 Jun 2022 12:05:49 -0700 (PDT)
-Received: by mail-ed1-x530.google.com with SMTP id fd6so14420069edb.5
-        for <linux-sparse@vger.kernel.org>; Mon, 27 Jun 2022 12:05:49 -0700 (PDT)
+        Mon, 27 Jun 2022 15:05:51 -0400
+Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com [IPv6:2a00:1450:4864:20::62e])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 370BF25C7
+        for <linux-sparse@vger.kernel.org>; Mon, 27 Jun 2022 12:05:50 -0700 (PDT)
+Received: by mail-ej1-x62e.google.com with SMTP id ge10so21109930ejb.7
+        for <linux-sparse@vger.kernel.org>; Mon, 27 Jun 2022 12:05:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=8Nd43NybatWGJTBA2qqSGGzDsqnc6MaJgJYMDH2lkG8=;
-        b=WsgI1/uFOWAQM3u4UIsN1/Cpu/nKMIozAnQ44R2kPUr7aMcR5hhjpTZfd2/X5ZheCW
-         BCCdZSktwcdexYDJ0IGBlUfoeVT4bg0tgz0p7ZF5R7YBCKokD2exjr0D38IPWL+7QxUK
-         L1OhBZHkA96QE1HYe/IR14c6YAEkwehVi5Dgvt6k7ePbb5KB7jgrQDVBur49SouJlbu9
-         0Njbgw7nS1AKpU/KAJXgrzd3e7gx5eWQHeoCJwWs5avtzDkF5/99sElnIm9EI3x0Vxgs
-         MFAAcvIae36Kl3eNK5zLSB3HwvvU26fyBjXcpE/ZthK1dATRKrwsbdvL2gWB3AtjVOFv
-         icXw==
+        bh=9k6J9hkLR2Zl8PfPRX09C48/fSb3eQ2WsroE1G/XK7Y=;
+        b=jdI//FTt0jH+kOdIJwHvTUxGnhaaFPRnJDgOsxfWrglGGsLc4AlWyQA6+c0wBdrDf7
+         FTGaNJXMgjGStLwvScFEsHz1u3JLWzuSS/uZARTFX/Iu/nAlZkh/rrlZIFCZJzlZENFW
+         jVWGvxjvLzjXMtmRSBOup+ztDXJ5dW6FrWGyY23INgqXABgHtgVuXlq3PgM03r9L1u5p
+         MpgiTbboKQu4B5w/a15aaOYIdlnEWK4OCiVoWS1RT36AJDivz2Hl17eHPGuO1oOK5WT4
+         DA0EtvogtugqwLq4F+fucLWsbZ8LXLOQKTY0tJaRJ7FlGXmquO2MpB02SyPUhYsU9rJ3
+         d1Ag==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=8Nd43NybatWGJTBA2qqSGGzDsqnc6MaJgJYMDH2lkG8=;
-        b=LJoYgOnLJJvEy4l1KNaerCBvQ+V+a7/pWhHyjwAgH8tCcv0495BZYrenF6T6QIjyQ3
-         uxzLBmgNtelldrMlCeGqFaiXu1tFZSlD+QthOk/H0j6KdZYIspqVTSRiqBlBe+2HqVlB
-         plXeWGfcZxfHmOPj3JvEyFISbrQrI66Isyj5Z1tK/BD1s2+iy190X3/lwIGHAX2jjy17
-         yNjAS3e3vZiRNsHCrQ/Rm03wW3y5nK/7MPemNoBbsCCDl3S/J2CR/jDgWywz4gW2tq8H
-         i3lVd8LS0dbGmPW6EDqBk1AfPAaBwxyPafG2nDGC+Ag1AJ4AOAsjwHxETjBo8E4/C9i+
-         3gxg==
-X-Gm-Message-State: AJIora+nvr9c9Ayh26TCn/aKOFiWfKwu9Wge5Z4QqjPK5CezJGy8iOka
-        t8Hba1ybnWA+sfyEYmRE5i58YK5cF+Q=
-X-Google-Smtp-Source: AGRyM1tDRg3hKaPvxgsvk0PgHABsdIngyEPkBJrqgb8gbkE3Yie381x+9blUUn8a1I2RGZppiWNGmg==
-X-Received: by 2002:a50:ef12:0:b0:435:81f3:a93a with SMTP id m18-20020a50ef12000000b0043581f3a93amr17662554eds.80.1656356747812;
-        Mon, 27 Jun 2022 12:05:47 -0700 (PDT)
+        bh=9k6J9hkLR2Zl8PfPRX09C48/fSb3eQ2WsroE1G/XK7Y=;
+        b=27N2gOfPMAJijgDtUrV0F6xsdZo36iMQb25KQPf4J1te24+d5SOY8GkK/bSK2Qewtq
+         wAivrYRzdsBEC5ZhDCXln7WrTTmZJ3/62Hvpw9rDNdGt6sc/wKwL91w6GsuIBBTw1iJe
+         lQTt64S64qaP7BLO0DG4xJr42TRaAKbd2fC8HnCdhVr7y0I0s+bO8gVtKmHA32r6HO6B
+         dWkP4npFe1BVwl1OYp+DUmOBEzQ7y2n+n2eLKR13iOrHv3L25E/sugADJ9q53btnMsSi
+         pkGMy4vBSya1s5VhKx4eyX2ydXJxClYIAQYFVvJ6N/wl2b97kRCUnK7erSx7NaNALblC
+         /K7Q==
+X-Gm-Message-State: AJIora8NvH9EmDN2cSDKlzuFaC6Yr/aC9JL/9fMymaJSllQZWjmMgBpe
+        DAoJOBFEnig19IM+90Pt7Fv49sjlgT0=
+X-Google-Smtp-Source: AGRyM1vYdAWa551Xa0odmRlBr78NGQ0cVWKRrUEztGHM3n3MzfV4SqcAthfqliU5wt6RtyRL1AofcQ==
+X-Received: by 2002:a17:906:79ca:b0:705:111f:12dc with SMTP id m10-20020a17090679ca00b00705111f12dcmr13794757ejo.602.1656356748759;
+        Mon, 27 Jun 2022 12:05:48 -0700 (PDT)
 Received: from localhost.localdomain (239.125-180-91.adsl-dyn.isp.belgacom.be. [91.180.125.239])
-        by smtp.gmail.com with ESMTPSA id p24-20020a170906615800b00709343c0017sm5456776ejl.98.2022.06.27.12.05.46
+        by smtp.gmail.com with ESMTPSA id p24-20020a170906615800b00709343c0017sm5456776ejl.98.2022.06.27.12.05.48
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 27 Jun 2022 12:05:47 -0700 (PDT)
+        Mon, 27 Jun 2022 12:05:48 -0700 (PDT)
 From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
 To:     linux-sparse@vger.kernel.org
 Cc:     Linus Torvalds <torvalds@linux-foundation.org>,
         Bart Van Assche <bvanassche@acm.org>,
         Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-Subject: [PATCH 0/5] allow -1 and compares in bitwise types
-Date:   Mon, 27 Jun 2022 21:05:35 +0200
-Message-Id: <20220627190540.13358-1-luc.vanoostenryck@gmail.com>
+Subject: [PATCH 1/5] bitwise: add testcases
+Date:   Mon, 27 Jun 2022 21:05:36 +0200
+Message-Id: <20220627190540.13358-2-luc.vanoostenryck@gmail.com>
 X-Mailer: git-send-email 2.36.1
-In-Reply-To: <CAHk-=wj8gM8q04v2jS5JGjEdoE2d+B4_nm74xrFjZ77f9YRsbA@mail.gmail.com>
+In-Reply-To: <20220627190540.13358-1-luc.vanoostenryck@gmail.com>
 References: <CAHk-=wj8gM8q04v2jS5JGjEdoE2d+B4_nm74xrFjZ77f9YRsbA@mail.gmail.com>
+ <20220627190540.13358-1-luc.vanoostenryck@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
@@ -71,82 +72,139 @@ Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-Allow using -1 and compare operators with bitwise types
+Currently bitwise types only support bitwise operations
+(&, |, ^ and ~) and the constant 0 (since this value is
+invariant for all bitwise operations and endianness conversion).
 
-This series is an experiment for allowing constants like
--1 or ~0 with bitwise types, as well as using compares
-on them.
-the motivation for allowing this is to avoid useless casts
-and warnings on using some generic macros on bitwise types.
-The case of interest here is:
-	#define is_signed_type(T) (((T)(-1)) < (T)1)
-for which Sparse reports four warnings when 'T' is a bitwise
-type. Two of these warnings can be suppressed by using
-'__force' in the casts. But the other two can't be worked
-around because explicitly reject using any constants other
-than 0 with bitwise type.
+But the incoming series will relax this a little bit.
+So, add a few testcases for it.
 
-The changes in the series allow to use the following testcase
-without any warnings:
-	#define __bitwise __attribute__((bitwise))
-	typedef   signed int __bitwise s;
-	typedef unsigned int __bitwise u;
-
-	#define is_signed_type(type)  (((type)-1) <= 0)
-
-	int fs(void) { return ((s)-1) <= 0; }
-	int fu(void) { return ((u)-1) <= 0; }
-
-and result in a modest but significant decrease in the number
-of warnings issued by sparse (x86 {def,all}config):
-   -  2736  2735 cast to restricted type
-   +   774   792 cast truncates bits from constant value
-   -  3183  3152 incorrect type in assignment (different base types)
-   -   162   159 incorrect type in initializer (different base types)
-   -   789   661 restricted type degrades to integer
-   - 13002 12857 Total
-
-@Linus,
-This seems to work correctly and I think it correspond to
-what you wished (maybe modulo this 'early constant expansion'
-I added) and I think that accepting the -1/all-ones is fine.
-OTOH, I don't think we can allow the compares because they
-don't make any sense for the 'endian' types. Surely we want
-to catch things like:
-	typedef unsigned int __bitwise __be32;
-	__be32 x, y;
-	...
-	... (x < y)
-
-@Bart,
-Is there a good reason why the macro compares against 1 and
-not against 0? Is it just because of -Wtype-limits? If so,
-is it possible to use '<= 0' like here above?
-
-The series is available for review and testing at:
-  https://git.kernel.org/pub/scm/devel/sparse/sparse.git bitwise-ones
-
-Luc Van Oostenryck (5):
-  bitwise: add testcases
-  bitwise: accept all ones as non-restricted value
-  bitwise: allow compares for bitwise types
-  bitwise: do not remove the signedness of bitwise types
-  bitwise: early expansion of simple constants
-
- evaluate.c                       | 52 +++++++++++++++++++++++++++++++-
- parse.c                          |  1 -
- show-parse.c                     |  2 +-
- validation/bitwise-cast.c        | 26 ++++++++++++++++
- validation/bitwise-cmp.c         | 31 +++++++++++++++++++
- validation/bitwise-is-signed.c   | 21 +++++++++++++
- validation/linear/bitwise-cmps.c | 17 +++++++++++
- validation/linear/bitwise-cmpu.c | 17 +++++++++++
- 8 files changed, 164 insertions(+), 3 deletions(-)
+Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
+---
+ validation/bitwise-cmp.c         | 32 ++++++++++++++++++++++++++++++++
+ validation/bitwise-is-signed.c   | 22 ++++++++++++++++++++++
+ validation/linear/bitwise-cmps.c | 18 ++++++++++++++++++
+ validation/linear/bitwise-cmpu.c | 18 ++++++++++++++++++
+ 4 files changed, 90 insertions(+)
  create mode 100644 validation/bitwise-cmp.c
  create mode 100644 validation/bitwise-is-signed.c
  create mode 100644 validation/linear/bitwise-cmps.c
  create mode 100644 validation/linear/bitwise-cmpu.c
 
+diff --git a/validation/bitwise-cmp.c b/validation/bitwise-cmp.c
+new file mode 100644
+index 000000000000..ca12b5e51e8e
+--- /dev/null
++++ b/validation/bitwise-cmp.c
+@@ -0,0 +1,32 @@
++#define M 0xffffffff
++
++typedef int __attribute__((bitwise)) b32;
++
++static int eq0(b32 x, b32 y)  { return (x == 0); }
++static int eqm(b32 x, b32 y)  { return (x == M); }
++static int eqx(b32 x, b32 y)  { return (x == y); }
++
++static int ne0(b32 x, b32 y)  { return (x != 0); }
++static int nem(b32 x, b32 y)  { return (x != M); }
++static int nex(b32 x, b32 y)  { return (x != y); }
++
++static int lt0(b32 x, b32 y)  { return (x <  0); }
++static int ltm(b32 x, b32 y)  { return (x <  M); }
++static int ltx(b32 x, b32 y)  { return (x <  y); }
++
++static int lte0(b32 x, b32 y) { return (x <= 0); }
++static int ltem(b32 x, b32 y) { return (x <= M); }
++static int ltex(b32 x, b32 y) { return (x <= y); }
++
++static int gte0(b32 x, b32 y) { return (x >= 0); }
++static int gtem(b32 x, b32 y) { return (x >= M); }
++static int gtex(b32 x, b32 y) { return (x >= y); }
++
++static int gt0(b32 x, b32 y)  { return (x >  0); }
++static int gtm(b32 x, b32 y)  { return (x >  M); }
++static int gtx(b32 x, b32 y)  { return (x >  y); }
++
++/*
++ * check-name: bitwise-cmp
++ * check-known-to-fail
++ */
+diff --git a/validation/bitwise-is-signed.c b/validation/bitwise-is-signed.c
+new file mode 100644
+index 000000000000..dd9c147173cd
+--- /dev/null
++++ b/validation/bitwise-is-signed.c
+@@ -0,0 +1,22 @@
++#define __bitwise __attribute__((bitwise))
++
++#define is_signed_type(type)  (((type)-1) <= 0)
++
++typedef   signed int __bitwise s;
++typedef unsigned int __bitwise u;
++
++int fos(void);
++int fou(void);
++
++
++int fos(void) { return  is_signed_type(s); }
++int fou(void) { return !is_signed_type(u); }
++
++/*
++ * check-name: bitwise-is-signed
++ * check-command: test-linearize -Wno-decl $file
++ * check-known-to-fail
++ *
++ * check-output-ignore
++ * check-output-returns: 1
++ */
+diff --git a/validation/linear/bitwise-cmps.c b/validation/linear/bitwise-cmps.c
+new file mode 100644
+index 000000000000..6122944a42c6
+--- /dev/null
++++ b/validation/linear/bitwise-cmps.c
+@@ -0,0 +1,18 @@
++typedef   signed int __attribute__((bitwise)) bs32;
++
++static int ltu(bs32 x, bs32 y)  { return (x <  y); }
++static int lteu(bs32 x, bs32 y) { return (x <= y); }
++static int gteu(bs32 x, bs32 y) { return (x >= y); }
++static int gtu(bs32 x, bs32 y)  { return (x >  y); }
++
++/*
++ * check-name: bitwise-cmps
++ * check-command: test-linearize -Wno-decl $file
++ * check-known-to-fail
++ *
++ * check-output-ignore
++ * check-output-excludes: setb\\.
++ * check-output-excludes: setbe\\.
++ * check-output-excludes: setae\\.
++ * check-output-excludes: seta\\.
++ */
+diff --git a/validation/linear/bitwise-cmpu.c b/validation/linear/bitwise-cmpu.c
+new file mode 100644
+index 000000000000..8932436a7764
+--- /dev/null
++++ b/validation/linear/bitwise-cmpu.c
+@@ -0,0 +1,18 @@
++typedef unsigned int __attribute__((bitwise)) bu32;
++
++static int ltu(bu32 x, bu32 y)  { return (x <  y); }
++static int lteu(bu32 x, bu32 y) { return (x <= y); }
++static int gteu(bu32 x, bu32 y) { return (x >= y); }
++static int gtu(bu32 x, bu32 y)  { return (x >  y); }
++
++/*
++ * check-name: bitwise-cmpu
++ * check-command: test-linearize -Wno-decl $file
++ * check-known-to-fail
++ *
++ * check-output-ignore
++ * check-output-excludes: setlt\\.
++ * check-output-excludes: setlte\\.
++ * check-output-excludes: setgte\\.
++ * check-output-excludes: setgt\\.
++ */
 -- 
 2.36.1
 
