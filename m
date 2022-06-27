@@ -2,65 +2,65 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 989B955E2D9
-	for <lists+linux-sparse@lfdr.de>; Tue, 28 Jun 2022 15:36:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id CABFD55CF70
+	for <lists+linux-sparse@lfdr.de>; Tue, 28 Jun 2022 15:06:30 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S239937AbiF0Smj (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Mon, 27 Jun 2022 14:42:39 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:39812 "EHLO
+        id S232675AbiF0TGA (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Mon, 27 Jun 2022 15:06:00 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:53110 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S237597AbiF0Smi (ORCPT
+        with ESMTP id S237721AbiF0TFx (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Mon, 27 Jun 2022 14:42:38 -0400
-Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com [IPv6:2a00:1450:4864:20::629])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 003ADB8D
-        for <linux-sparse@vger.kernel.org>; Mon, 27 Jun 2022 11:42:37 -0700 (PDT)
-Received: by mail-ej1-x629.google.com with SMTP id g26so20989455ejb.5
-        for <linux-sparse@vger.kernel.org>; Mon, 27 Jun 2022 11:42:37 -0700 (PDT)
+        Mon, 27 Jun 2022 15:05:53 -0400
+Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com [IPv6:2a00:1450:4864:20::530])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 42F2D21B1
+        for <linux-sparse@vger.kernel.org>; Mon, 27 Jun 2022 12:05:49 -0700 (PDT)
+Received: by mail-ed1-x530.google.com with SMTP id fd6so14420069edb.5
+        for <linux-sparse@vger.kernel.org>; Mon, 27 Jun 2022 12:05:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=date:from:to:cc:subject:message-id:references:mime-version
-         :content-disposition:in-reply-to;
-        bh=F1V73gaHAzI2TDOJO8wgeUWrEPFOBJeqGG9WF2AbqRM=;
-        b=R7FSql2WzIfz7mHf6XEPuxqLm+WZKWs68bNvDX6HzIZI2u3el0GCoK5GUA/UA4Yadf
-         4nlUwyhpWZGo3lY5jeZxCXO8v66HG5sxCHkpqKWe/TbQiakguC0J0L6MNlQDMlp/XoEg
-         Z8/sAwWiMo2edYw3rtIR2Mr1mD2az0/eJmC+CW+ZWdSQo5HfJWBIw6u+wNxzGYBXvwBg
-         kueqVjuaYEpSXZTKp5S7YHiiNtROn5IhwVGi6Go8YRoAPc/eX5swWitxgBX3FsZoYxt4
-         wcLZqJ4OZcz9/Sfp087y/O69xtcN3+/j/lRCq6SepKoMXB1DYt3/MgYgVV1LGaZQsz8I
-         pUdg==
+        h=from:to:cc:subject:date:message-id:in-reply-to:references
+         :mime-version:content-transfer-encoding;
+        bh=8Nd43NybatWGJTBA2qqSGGzDsqnc6MaJgJYMDH2lkG8=;
+        b=WsgI1/uFOWAQM3u4UIsN1/Cpu/nKMIozAnQ44R2kPUr7aMcR5hhjpTZfd2/X5ZheCW
+         BCCdZSktwcdexYDJ0IGBlUfoeVT4bg0tgz0p7ZF5R7YBCKokD2exjr0D38IPWL+7QxUK
+         L1OhBZHkA96QE1HYe/IR14c6YAEkwehVi5Dgvt6k7ePbb5KB7jgrQDVBur49SouJlbu9
+         0Njbgw7nS1AKpU/KAJXgrzd3e7gx5eWQHeoCJwWs5avtzDkF5/99sElnIm9EI3x0Vxgs
+         MFAAcvIae36Kl3eNK5zLSB3HwvvU26fyBjXcpE/ZthK1dATRKrwsbdvL2gWB3AtjVOFv
+         icXw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
-         :mime-version:content-disposition:in-reply-to;
-        bh=F1V73gaHAzI2TDOJO8wgeUWrEPFOBJeqGG9WF2AbqRM=;
-        b=yzZOTaoBfMPljI4tCoGQs3Wy/0T9TpL6vZsPjYH5rfpIE1o5ChOhEF3O6NjBV2BwL5
-         f5CyXfzKAUDFxQBaPb+c8RDaSofA6S7b1mwrg5Am6JIfoseOZZI0uRQGq264YIeFGhVR
-         /tWWKV73Srn8TnwLK0l2pP9zWi0GgJirOnz3EEuefD439Onwmk6h27XeixgHXj7BLUI3
-         rcH4FSDhFWyRU1uY/EfiOVKtBXq/IwTjM38S4wYUoyVOYh9mW+AsTNqcniiKVfBk4AVu
-         4v7RafTNiCxkeZ2SHlTq6VPkpx3rmHVC7F5mTV/Xv3N4JARSM1PBjAJ8iHOTB6EUuuK2
-         7HAg==
-X-Gm-Message-State: AJIora/G0trW5Yoh+7VEtzqYbctuRsPnBDWRdkNls55V7Z+kEWgySnET
-        TwT35Ip7Xlq1TG2kaoEzmZ4=
-X-Google-Smtp-Source: AGRyM1s/WjXhfF/gr7kfYlkBny+mCrn4mI7SARL9dTywhDLA3BWNN8TBZm8nDi9ma6ZJWRgBu7nlMg==
-X-Received: by 2002:a17:906:4fd6:b0:70c:9284:cc01 with SMTP id i22-20020a1709064fd600b0070c9284cc01mr14247221ejw.553.1656355356479;
-        Mon, 27 Jun 2022 11:42:36 -0700 (PDT)
-Received: from mail (239.125-180-91.adsl-dyn.isp.belgacom.be. [91.180.125.239])
-        by smtp.gmail.com with ESMTPSA id rl4-20020a170907216400b0071cef6c53aesm5375045ejb.0.2022.06.27.11.42.34
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+         :references:mime-version:content-transfer-encoding;
+        bh=8Nd43NybatWGJTBA2qqSGGzDsqnc6MaJgJYMDH2lkG8=;
+        b=LJoYgOnLJJvEy4l1KNaerCBvQ+V+a7/pWhHyjwAgH8tCcv0495BZYrenF6T6QIjyQ3
+         uxzLBmgNtelldrMlCeGqFaiXu1tFZSlD+QthOk/H0j6KdZYIspqVTSRiqBlBe+2HqVlB
+         plXeWGfcZxfHmOPj3JvEyFISbrQrI66Isyj5Z1tK/BD1s2+iy190X3/lwIGHAX2jjy17
+         yNjAS3e3vZiRNsHCrQ/Rm03wW3y5nK/7MPemNoBbsCCDl3S/J2CR/jDgWywz4gW2tq8H
+         i3lVd8LS0dbGmPW6EDqBk1AfPAaBwxyPafG2nDGC+Ag1AJ4AOAsjwHxETjBo8E4/C9i+
+         3gxg==
+X-Gm-Message-State: AJIora+nvr9c9Ayh26TCn/aKOFiWfKwu9Wge5Z4QqjPK5CezJGy8iOka
+        t8Hba1ybnWA+sfyEYmRE5i58YK5cF+Q=
+X-Google-Smtp-Source: AGRyM1tDRg3hKaPvxgsvk0PgHABsdIngyEPkBJrqgb8gbkE3Yie381x+9blUUn8a1I2RGZppiWNGmg==
+X-Received: by 2002:a50:ef12:0:b0:435:81f3:a93a with SMTP id m18-20020a50ef12000000b0043581f3a93amr17662554eds.80.1656356747812;
+        Mon, 27 Jun 2022 12:05:47 -0700 (PDT)
+Received: from localhost.localdomain (239.125-180-91.adsl-dyn.isp.belgacom.be. [91.180.125.239])
+        by smtp.gmail.com with ESMTPSA id p24-20020a170906615800b00709343c0017sm5456776ejl.98.2022.06.27.12.05.46
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 27 Jun 2022 11:42:35 -0700 (PDT)
-Date:   Mon, 27 Jun 2022 20:42:32 +0200
+        Mon, 27 Jun 2022 12:05:47 -0700 (PDT)
 From:   Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-To:     Alexander Aring <aahringo@redhat.com>
-Cc:     linux-sparse@vger.kernel.org,
-        cluster-devel <cluster-devel@redhat.com>
-Subject: Re: sparse warnings related to kref_put_lock() and
- refcount_dec_and_lock()
-Message-ID: <20220627184232.tjfuzeir57l3h5ll@mail>
-References: <CAK-6q+hd-L54cqOiFNuufS2_VF5XS0R8cjQL7es8921+2u3uwQ@mail.gmail.com>
+To:     linux-sparse@vger.kernel.org
+Cc:     Linus Torvalds <torvalds@linux-foundation.org>,
+        Bart Van Assche <bvanassche@acm.org>,
+        Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
+Subject: [PATCH 0/5] allow -1 and compares in bitwise types
+Date:   Mon, 27 Jun 2022 21:05:35 +0200
+Message-Id: <20220627190540.13358-1-luc.vanoostenryck@gmail.com>
+X-Mailer: git-send-email 2.36.1
+In-Reply-To: <CAHk-=wj8gM8q04v2jS5JGjEdoE2d+B4_nm74xrFjZ77f9YRsbA@mail.gmail.com>
+References: <CAHk-=wj8gM8q04v2jS5JGjEdoE2d+B4_nm74xrFjZ77f9YRsbA@mail.gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAK-6q+hd-L54cqOiFNuufS2_VF5XS0R8cjQL7es8921+2u3uwQ@mail.gmail.com>
+Content-Transfer-Encoding: 8bit
 X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
         DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,
         RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
@@ -71,64 +71,82 @@ Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-On Mon, Jun 27, 2022 at 11:15:17AM -0400, Alexander Aring wrote:
-> Hi,
-> 
-> I recently converted to use kref_put_lock() in fs/dlm subsystem and
-> now I get the following warning in sparse:
-> 
-> warning: context imbalance in 'put_rsb' - unexpected unlock
-> 
-> It seems sparse is not able to detect that there is a conditional
-> requirement that the lock passed to kref_put_lock() (or also
-> refcount_dec_and_lock()) is locked or not. I evaluate the return value
-> to check if kref_put_lock() helds the lock and unlock it then. The
-> idea is that the lock needs only to be held when the refcount is going
-> to be zero.
-> 
-> It seems other users unlock the lock at the release callback of
-> kref_put_lock() and annotate the callback with "__releases()" which
-> seems to work to avoid the sparse warning. However this works if you
-> don't have additional stack pointers which you need to pass to the
-> release callback.
-> 
-> My question would be is this a known problem and a recommended way to
-> avoid this sparse warning (maybe just for now)?
+Allow using -1 and compare operators with bitwise types
 
-Hi,
+This series is an experiment for allowing constants like
+-1 or ~0 with bitwise types, as well as using compares
+on them.
+the motivation for allowing this is to avoid useless casts
+and warnings on using some generic macros on bitwise types.
+The case of interest here is:
+	#define is_signed_type(T) (((T)(-1)) < (T)1)
+for which Sparse reports four warnings when 'T' is a bitwise
+type. Two of these warnings can be suppressed by using
+'__force' in the casts. But the other two can't be worked
+around because explicitly reject using any constants other
+than 0 with bitwise type.
 
-I suppose that your case here can be simplified into something like:
+The changes in the series allow to use the following testcase
+without any warnings:
+	#define __bitwise __attribute__((bitwise))
+	typedef   signed int __bitwise s;
+	typedef unsigned int __bitwise u;
 
-	if (some_condition)
-		take(some_lock);
+	#define is_signed_type(type)  (((type)-1) <= 0)
 
-	do_stuff();
+	int fs(void) { return ((s)-1) <= 0; }
+	int fu(void) { return ((u)-1) <= 0; }
 
-	if (some_condition)
-		release(some_lock);
+and result in a modest but significant decrease in the number
+of warnings issued by sparse (x86 {def,all}config):
+   -  2736  2735 cast to restricted type
+   +   774   792 cast truncates bits from constant value
+   -  3183  3152 incorrect type in assignment (different base types)
+   -   162   159 incorrect type in initializer (different base types)
+   -   789   661 restricted type degrades to integer
+   - 13002 12857 Total
 
-Sparse issues the 'context imbalance' warning because, a priori,
-it can't exclude that some execution will takes the lock and not
-releases it (or the opposite). In some case, when do_stuff() is
-very simple, sparse can see that everything is OK, but generally
-it won't (some whole kernel analysis but the general case is
-undecidable anyway).
+@Linus,
+This seems to work correctly and I think it correspond to
+what you wished (maybe modulo this 'early constant expansion'
+I added) and I think that accepting the -1/all-ones is fine.
+OTOH, I don't think we can allow the compares because they
+don't make any sense for the 'endian' types. Surely we want
+to catch things like:
+	typedef unsigned int __bitwise __be32;
+	__be32 x, y;
+	...
+	... (x < y)
 
-The recommended way would be to write things rather like this:
+@Bart,
+Is there a good reason why the macro compares against 1 and
+not against 0? Is it just because of -Wtype-limits? If so,
+is it possible to use '<= 0' like here above?
 
-	if (some_condition) {
-		take(some_lock);
-		do_stuff();
-		release(some_lock);
-	} else {
-		do_stuff();
-	}
+The series is available for review and testing at:
+  https://git.kernel.org/pub/scm/devel/sparse/sparse.git bitwise-ones
 
+Luc Van Oostenryck (5):
+  bitwise: add testcases
+  bitwise: accept all ones as non-restricted value
+  bitwise: allow compares for bitwise types
+  bitwise: do not remove the signedness of bitwise types
+  bitwise: early expansion of simple constants
 
-The __acquires() and __releases() annotations are needed for sparse
-to know that the annotated function always take or always release
-some lock but won't handle conditional locks.
+ evaluate.c                       | 52 +++++++++++++++++++++++++++++++-
+ parse.c                          |  1 -
+ show-parse.c                     |  2 +-
+ validation/bitwise-cast.c        | 26 ++++++++++++++++
+ validation/bitwise-cmp.c         | 31 +++++++++++++++++++
+ validation/bitwise-is-signed.c   | 21 +++++++++++++
+ validation/linear/bitwise-cmps.c | 17 +++++++++++
+ validation/linear/bitwise-cmpu.c | 17 +++++++++++
+ 8 files changed, 164 insertions(+), 3 deletions(-)
+ create mode 100644 validation/bitwise-cmp.c
+ create mode 100644 validation/bitwise-is-signed.c
+ create mode 100644 validation/linear/bitwise-cmps.c
+ create mode 100644 validation/linear/bitwise-cmpu.c
 
-I hope that this is helpful to you.
+-- 
+2.36.1
 
--- Luc
