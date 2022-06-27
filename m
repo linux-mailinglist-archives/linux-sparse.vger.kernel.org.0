@@ -2,109 +2,126 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 5D21C55CC42
-	for <lists+linux-sparse@lfdr.de>; Tue, 28 Jun 2022 15:01:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 9AA4F55C443
+	for <lists+linux-sparse@lfdr.de>; Tue, 28 Jun 2022 14:49:33 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S237953AbiF0TUX (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Mon, 27 Jun 2022 15:20:23 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:40754 "EHLO
+        id S238701AbiF0XfM (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Mon, 27 Jun 2022 19:35:12 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:48280 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S235186AbiF0TUW (ORCPT
+        with ESMTP id S236667AbiF0XfM (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Mon, 27 Jun 2022 15:20:22 -0400
-Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com [IPv6:2a00:1450:4864:20::531])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 76187B482
-        for <linux-sparse@vger.kernel.org>; Mon, 27 Jun 2022 12:20:21 -0700 (PDT)
-Received: by mail-ed1-x531.google.com with SMTP id cf14so14458641edb.8
-        for <linux-sparse@vger.kernel.org>; Mon, 27 Jun 2022 12:20:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linux-foundation.org; s=google;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=XS8Sw0HZbV+YwphYe57/6LdokvT5GZYB3n7iaIGDRYY=;
-        b=Ml3IzjGALbtfgxW18NW2XHtiGIxGEVlmSN5PrbrPr17pyOAmvEd/B5rEdaF+wFWybD
-         JE9wRL5Hmm6sKxE46D4bYykmmrB6PHfC1nxPf7ekWtdpZEbLXXBRPeKhNcWpItehyD7r
-         T+Hp+Z6EafZj+3Pu8hGKJTrP69FiAyXOGfA1g=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=XS8Sw0HZbV+YwphYe57/6LdokvT5GZYB3n7iaIGDRYY=;
-        b=NNNNLPO9b/shCclaqQ4w9WiQPCNs0lzxkPjzexFPOp3XkjK+kF9W6ODeJQ6t7r55zG
-         XavBYc39ufKzlj4FRlpS/JKhrQmCE+khc9nqpWAznIMBNnOX5REY6q5mPiGbvp/W0ZO/
-         6ZlZKlrB4yT+pHDadAidK/C15uzdXGBxHL7uMCQe41w/6HhHz75B5W0gCR9TgZnKj0d6
-         5cFGGaq0nH6ax8gXSRiqKyrR550qjFtTjV70W0R2ot7zA8evyTl1DM9JbYqiGmHTRAGA
-         jJl10HnHL5IUqv3ds5zrNKMC2C2vDxtYEx5GewpjFCbxO3f8xkzTxFuyombp4s95h8Iu
-         GS7Q==
-X-Gm-Message-State: AJIora+NDfb7eSsSrtDPMfNSvlGwfryKg7+kte5p7/VooBxk+xWMZBtg
-        S13D7+9gTqmQyHj5zSTYLNfrh+/V/7WIuwPOS40=
-X-Google-Smtp-Source: AGRyM1vlj1mlOisymrOPCoY7Crb+GXWaZVrGg32/h3cGbg9PYnpwp1H3hGdz9hJJxPgPYxSYrD8ajQ==
-X-Received: by 2002:a05:6402:3807:b0:435:20fb:318d with SMTP id es7-20020a056402380700b0043520fb318dmr18443631edb.272.1656357619631;
-        Mon, 27 Jun 2022 12:20:19 -0700 (PDT)
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com. [209.85.221.54])
-        by smtp.gmail.com with ESMTPSA id z23-20020a170906435700b007094f98788csm5356484ejm.113.2022.06.27.12.20.18
-        for <linux-sparse@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 27 Jun 2022 12:20:19 -0700 (PDT)
-Received: by mail-wr1-f54.google.com with SMTP id e28so9260079wra.0
-        for <linux-sparse@vger.kernel.org>; Mon, 27 Jun 2022 12:20:18 -0700 (PDT)
-X-Received: by 2002:a05:6000:1251:b0:21a:efae:6cbe with SMTP id
- j17-20020a056000125100b0021aefae6cbemr13493238wrx.281.1656357618629; Mon, 27
- Jun 2022 12:20:18 -0700 (PDT)
+        Mon, 27 Jun 2022 19:35:12 -0400
+Received: from avasout-ptp-004.plus.net (avasout-ptp-004.plus.net [84.93.230.250])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 40297DF8B
+        for <linux-sparse@vger.kernel.org>; Mon, 27 Jun 2022 16:35:11 -0700 (PDT)
+Received: from [10.0.2.15] ([147.147.167.40])
+        by smtp with ESMTPA
+        id 5yD4otnqaAcBn5yD5odWkp; Tue, 28 Jun 2022 00:32:09 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=plus.com; s=042019;
+        t=1656372729; bh=gfskdcoxvdejMan26LENbPzg1N3zOADFqAP3O7LzFfQ=;
+        h=Date:Subject:To:Cc:References:From:In-Reply-To;
+        b=Ai/ubmONl1TJAO7lrlAVM/GuLR0vFbvBfvyvNrEg7uzLqtElgMThZZjJKEr7KBzLW
+         N0utJdcxqfLr23oWIkPHGw3YSYgRMK2x9zQ+KIW3AVvQUpdySJ7vFYitbjlHMjFIQ4
+         1PhINL3EYw9tQ5kMpPmaJKqKGixtpcFQI69nRQQm9syMJhNSmFOa6Z7M2pAJtw6UBR
+         AZVFv0npj/7msz1EiyjDh0EYttwQXzbWwFBsrFCoK8Yig1h+Du1ThInH8YXVeumcth
+         T2uRHpTKUP5zyd/i3D7zaiQfeKwnXjzCrDNiGyPv0BTo251DSBDuc4rPN6DUOo5rUw
+         tooXkdz3mJL5w==
+X-Clacks-Overhead: "GNU Terry Pratchett"
+X-CM-Score: 0.00
+X-CNFS-Analysis: v=2.4 cv=JPUoDuGb c=1 sm=1 tr=0 ts=62ba3df9
+ a=nyqnwr6A7Kzjd6EpZhiMcA==:117 a=nyqnwr6A7Kzjd6EpZhiMcA==:17
+ a=IkcTkHD0fZMA:10 a=pGLkceISAAAA:8 a=9qV9x0tqV3PRz3u1FukA:9 a=QEXdDO2ut3YA:10
+X-AUTH: ramsayjones@:2500
+Message-ID: <1be25b6f-5065-f448-b6f0-9e6eaf077264@ramsayjones.plus.com>
+Date:   Tue, 28 Jun 2022 00:32:02 +0100
 MIME-Version: 1.0
-References: <CAHk-=wj8gM8q04v2jS5JGjEdoE2d+B4_nm74xrFjZ77f9YRsbA@mail.gmail.com>
- <20220627190540.13358-1-luc.vanoostenryck@gmail.com> <20220627190540.13358-4-luc.vanoostenryck@gmail.com>
-In-Reply-To: <20220627190540.13358-4-luc.vanoostenryck@gmail.com>
-From:   Linus Torvalds <torvalds@linux-foundation.org>
-Date:   Mon, 27 Jun 2022 12:20:02 -0700
-X-Gmail-Original-Message-ID: <CAHk-=wi2eLQzBKrjVogJR_vKGDNM3f4ityrS=zgq2B38Yk5Qpw@mail.gmail.com>
-Message-ID: <CAHk-=wi2eLQzBKrjVogJR_vKGDNM3f4ityrS=zgq2B38Yk5Qpw@mail.gmail.com>
-Subject: Re: [PATCH 3/5] bitwise: allow compares for bitwise types
-To:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-Cc:     Sparse Mailing-list <linux-sparse@vger.kernel.org>,
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.9.1
+Subject: Re: [PATCH 2/5] bitwise: accept all ones as non-restricted value
+Content-Language: en-GB
+To:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>,
+        linux-sparse@vger.kernel.org
+Cc:     Linus Torvalds <torvalds@linux-foundation.org>,
         Bart Van Assche <bvanassche@acm.org>
-Content-Type: text/plain; charset="UTF-8"
-X-Spam-Status: No, score=-1.8 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE
-        autolearn=no autolearn_force=no version=3.4.6
+References: <CAHk-=wj8gM8q04v2jS5JGjEdoE2d+B4_nm74xrFjZ77f9YRsbA@mail.gmail.com>
+ <20220627190540.13358-1-luc.vanoostenryck@gmail.com>
+ <20220627190540.13358-3-luc.vanoostenryck@gmail.com>
+From:   Ramsay Jones <ramsay@ramsayjones.plus.com>
+In-Reply-To: <20220627190540.13358-3-luc.vanoostenryck@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-CMAE-Envelope: MS4xfMSvmP/0/BJ7lDZIYaJ89Et0aDiWbQyr8iqmSU6MolnRxNyi9eNCBQ1dMomwaFipdgfFzxdA53RiqbYV8rXG3M+f1yYipOdHUYN32FAcDoCk9iOQyTJ4
+ +8Mxg7J3WV3FiHxgNIGv7CuVLqzXXDhDNIMDhk5SCZbsd0dF0in65goM2fPAmf6voHvc7cWnTwmRjEonCoT2cxDK46prADKEfu0=
+X-Spam-Status: No, score=-2.0 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_EF,NICE_REPLY_A,RCVD_IN_MSPIKE_H3,
+        RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE
+        autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-On Mon, Jun 27, 2022 at 12:05 PM Luc Van Oostenryck
-<luc.vanoostenryck@gmail.com> wrote:
->
-> Currently, bitwise types are restricted to bitwise operations
-> (&, |, ^ and ~) as well as equality comparisons.
->
-> This patch makes the others comparisons valid for bitwise types
-> too.
->
-> Warning: This change make sense in the context of [1] but
->          doesn't make sense for the 'main' bitwise types:
->          __be32 and friends.
 
-Yeah, this is wrong.
 
-It will literally break one of the use-cases, which is endianness comparisons.
+On 27/06/2022 20:05, Luc Van Oostenryck wrote:
+> Currently, the only value bitwise types can act on is 0
+> because the this value is anyway invariant for all bitwise
 
-You cannot compare values in the wrong endianness for greater-than or
-less-than, because you will get the wrong answer - the ordering is
-different in different byte-orders.
+s/the this/this/
+s/anyway//
 
-But comparing for equality (and inequality) is fine, and we actually
-do that in the kernel (ie you can take a big-endian value, and compare
-it with another big-endian value for being equal, without converting
-it to the local CPU endianness).
+ATB,
+Ramsay Jones
 
-Now, comparing the *constants* 0 and all-ones is fine. They are
-smaller than (and larger than) all other values, regardless of any
-byte/bit order issues.
-
-So I think that really needs to check that one (or both) sides are the
-magic constants.
-
-             Linus
+> operations and endianness conversions.
+> 
+> But, a bit-pattern of all ones has the same properties and
+> is also very often used.
+> 
+> So, accept all ones as a valid value for bitwise operations.
+> 
+> Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
+> ---
+>  evaluate.c                |  2 +-
+>  validation/bitwise-cast.c | 13 +++++++++++++
+>  2 files changed, 14 insertions(+), 1 deletion(-)
+> 
+> diff --git a/evaluate.c b/evaluate.c
+> index 61f59ee3908e..bcbcdf1ef0cc 100644
+> --- a/evaluate.c
+> +++ b/evaluate.c
+> @@ -417,7 +417,7 @@ static int restricted_value(struct expression *v, struct symbol *type)
+>  {
+>  	if (v->type != EXPR_VALUE)
+>  		return 1;
+> -	if (v->value != 0)
+> +	if (v->value != 0 && v->value != bits_mask(type->bit_size))
+>  		return 1;
+>  	return 0;
+>  }
+> diff --git a/validation/bitwise-cast.c b/validation/bitwise-cast.c
+> index 0583461cb745..1075a3e9410c 100644
+> --- a/validation/bitwise-cast.c
+> +++ b/validation/bitwise-cast.c
+> @@ -35,6 +35,19 @@ static __be32 quuy(void)
+>  	return (__attribute__((force)) __be32) 1730;
+>  }
+>  
+> +/* Implicit casts of all ones, legal */
+> +static __be32 foo1(void)
+> +{
+> +	__be32 x = 0xffffffff;
+> +	return x;
+> +}
+> +
+> +/* Explicit cast of all ones, legal */
+> +static __be32 bar1(void)
+> +{
+> +	return (__be32)0xffffffff;
+> +}
+> +
+>  /*
+>   * check-name: conversions to bitwise types
+>   * check-command: sparse -Wbitwise $file
