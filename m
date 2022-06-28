@@ -2,68 +2,143 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 553C755E4E7
-	for <lists+linux-sparse@lfdr.de>; Tue, 28 Jun 2022 15:39:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 7BB2C55E47F
+	for <lists+linux-sparse@lfdr.de>; Tue, 28 Jun 2022 15:39:20 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1346094AbiF1NfL (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Tue, 28 Jun 2022 09:35:11 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:37768 "EHLO
+        id S1346427AbiF1N2c (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Tue, 28 Jun 2022 09:28:32 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:56710 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1345541AbiF1NfF (ORCPT
+        with ESMTP id S1346597AbiF1N1y (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Tue, 28 Jun 2022 09:35:05 -0400
-X-Greylist: delayed 3567 seconds by postgrey-1.37 at lindbergh.monkeyblade.net; Tue, 28 Jun 2022 06:35:01 PDT
-Received: from www2055.sakura.ne.jp (www2055.sakura.ne.jp [59.106.171.65])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 7FBD27661;
-        Tue, 28 Jun 2022 06:35:00 -0700 (PDT)
-Received: from fsav315.sakura.ne.jp (fsav315.sakura.ne.jp [153.120.85.146])
-        by www2055.sakura.ne.jp (8.15.2/8.15.2) with ESMTP id 25S97Gau026635;
-        Tue, 28 Jun 2022 18:07:16 +0900 (JST)
-        (envelope-from 1955@kkden.co.jp)
-Received: from www2055.sakura.ne.jp (59.106.171.65)
- by fsav315.sakura.ne.jp (F-Secure/fsigk_smtp/550/fsav315.sakura.ne.jp);
- Tue, 28 Jun 2022 18:07:16 +0900 (JST)
-X-Virus-Status: clean(F-Secure/fsigk_smtp/550/fsav315.sakura.ne.jp)
-Received: from www2055.sakura.ne.jp (localhost [127.0.0.1])
-        by www2055.sakura.ne.jp (8.15.2/8.15.2) with ESMTP id 25S97Dsm026581;
-        Tue, 28 Jun 2022 18:07:16 +0900 (JST)
-        (envelope-from 1955@kkden.co.jp)
-Received: (from kkden@localhost)
-        by www2055.sakura.ne.jp (8.15.2/8.15.2/Submit) id 25S97DN6026577;
-        Tue, 28 Jun 2022 18:07:13 +0900 (JST)
-        (envelope-from 1955@kkden.co.jp)
-Message-Id: <202206280907.25S97DN6026577@www2055.sakura.ne.jp>
-X-Authentication-Warning: www2055.sakura.ne.jp: kkden set sender to 1955@kkden.co.jp using -f
-Subject: THIS IS VERY CONFIDENTIAL
-From:   Steve Dibenedetto <1955@kkden.co.jp>
-To:     stevedibenedetto17@gmail.com
+        Tue, 28 Jun 2022 09:27:54 -0400
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTP id AC959111B
+        for <linux-sparse@vger.kernel.org>; Tue, 28 Jun 2022 06:27:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+        s=mimecast20190719; t=1656422827;
+        h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+         to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+         in-reply-to:in-reply-to:references:references;
+        bh=3WbsWEZ/mNVf4IIjW1g8i/pcRIWzNJLpjYPpewMPXV8=;
+        b=NTEcwwhjYJPFPRLrj5SuQ/LagvE1vcvkezLs0jrtMUVFjsZ7I7y/SmiaQ5YAuDVzrf0Ga/
+        GjSjyhfUFjEJNRiJmwbJvz/bandYmJgst0RkyhZXCWcpCpuT38/VfJgCqwgWygqXyXCadS
+        IKFypir84i3IDcGK4TsXtoRDEGzAUC4=
+Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com
+ [209.85.219.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-368-mUqL7D3CPMuKDB3_SB0DNQ-1; Tue, 28 Jun 2022 09:27:06 -0400
+X-MC-Unique: mUqL7D3CPMuKDB3_SB0DNQ-1
+Received: by mail-qv1-f70.google.com with SMTP id g29-20020a0caadd000000b004702ed3c3f5so12219581qvb.11
+        for <linux-sparse@vger.kernel.org>; Tue, 28 Jun 2022 06:27:06 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=3WbsWEZ/mNVf4IIjW1g8i/pcRIWzNJLpjYPpewMPXV8=;
+        b=2BMkCRxmW7OqAk4OvN4TqlaBvHSdq0j36TM2Z3Lk/N3fctfagiwZsFpNftapaj9rzS
+         aSdHtwEBBbIyCNUDrLNH8YrHkeYJUrtiVAzTHVpBl2FbmPtI36r/TmmuYhNkHpSJtj9c
+         VW7n/zqvwUQ4f6O9aXJ413g/MWEOsuquCGaVQp5P4KJMzPNu2tcZOPprb5RDnV1amyqV
+         /HVGqpV4Y1LfDELDOak9Rla/ePliBi/jz3g3ZkH0oBhLB/Q/8GIelVuvcp0rVejVupV5
+         tUa8DBTzpWA5rHDhEtNR09TTRYog0XbcJqaeo+3FrUA4FBuCqhhFVWb62jN2iTT/FNFD
+         0kGA==
+X-Gm-Message-State: AJIora/fZbOd8oP6mw//jY9Z//rDA1QvQ0RGY2RlEVLvUFf2bXKn2+2d
+        W7Np/8hGtTlSZk8WtS2pDb4mvoY6Ed5MH/Nt5DcJfUYiBv7+nkGpsGxP5q6oiIx05KQpshR+Giz
+        7YSIAzZouEijfHJq2lsGk/ckj54Lq1fvXHg/a+eZt
+X-Received: by 2002:a05:620a:4723:b0:6af:46a2:8531 with SMTP id bs35-20020a05620a472300b006af46a28531mr4202362qkb.177.1656422825510;
+        Tue, 28 Jun 2022 06:27:05 -0700 (PDT)
+X-Google-Smtp-Source: AGRyM1tsWzlpf+KpXIDtDj3F+am63Ss3bkIPFmCxv2A+xlePARaj83XrP5hyjd8iOe/scwK2BxF/7To24Jkd7nVCV6s=
+X-Received: by 2002:a05:620a:4723:b0:6af:46a2:8531 with SMTP id
+ bs35-20020a05620a472300b006af46a28531mr4202346qkb.177.1656422825275; Tue, 28
+ Jun 2022 06:27:05 -0700 (PDT)
 MIME-Version: 1.0
-Date:   Tue, 28 Jun 2022 18:07:13 +0900
-Content-Type: text/plain; charset="ISO-2022-JP"
-Content-Transfer-Encoding: 7bit
-X-Spam-Status: No, score=1.3 required=5.0 tests=BAYES_50,SPF_HELO_NONE,
-        SPF_NONE,SUBJ_ALL_CAPS,T_SCC_BODY_TEXT_LINE autolearn=no
+References: <CAK-6q+hd-L54cqOiFNuufS2_VF5XS0R8cjQL7es8921+2u3uwQ@mail.gmail.com>
+ <20220627184232.tjfuzeir57l3h5ll@mail> <CAK-6q+haOfQD8_N6pEm80BTrUXwaj07ZBcXP-EBHftpTVEc1XQ@mail.gmail.com>
+ <CAK-6q+g795MwPvUGxWXTE+s-TfJnbh2wf=Udb1k7r6ru-4FTMQ@mail.gmail.com> <20220628085821.kn3jjrviyprgai4w@mail>
+In-Reply-To: <20220628085821.kn3jjrviyprgai4w@mail>
+From:   Alexander Aring <aahringo@redhat.com>
+Date:   Tue, 28 Jun 2022 09:26:54 -0400
+Message-ID: <CAK-6q+h2syRtu1+7tv7ZQB98z62bn7vSeMX4b3uV6Oi+WxKsVA@mail.gmail.com>
+Subject: Re: sparse warnings related to kref_put_lock() and refcount_dec_and_lock()
+To:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
+Cc:     jacob.e.keller@intel.com, akpm@linux-foundation.org,
+        thunder.leizhen@huawei.com, linux-sparse@vger.kernel.org,
+        cluster-devel <cluster-devel@redhat.com>,
+        linux-kernel@vger.kernel.org
+Authentication-Results: relay.mimecast.com;
+        auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=aahringo@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="UTF-8"
+X-Spam-Status: No, score=-2.5 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,
+        SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=ham
         autolearn_force=no version=3.4.6
-X-Spam-Level: *
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
+Hi Luc,
 
-Hello,
+On Tue, Jun 28, 2022 at 4:58 AM Luc Van Oostenryck
+<luc.vanoostenryck@gmail.com> wrote:
+>
+> On Mon, Jun 27, 2022 at 09:06:43PM -0400, Alexander Aring wrote:
+> > >
+> > > If we change the refcount code to _never_ calling unlock() for the
+> > > specific lock, then all those foo_and_lock_bar() functions can be
+> > > annotated with "__acquires()". This should also end in the same code?
+> >
+> > sorry, this will not work because of the first condition of "if
+> > (refcount_dec_not_one(r))" which will never hold the lock if true...
+> > that's what the optimization is all about. However, maybe somebody has
+> > another idea...
+>
+> I would certainly not recommend this but ...
+> if it's OK to cheat and lie then you can do:
+> +       bool refcount_dec_and_lock(refcount_t *r, spinlock_t *lock) __acquires(lock);
+> +
+>         bool refcount_dec_and_lock(refcount_t *r, spinlock_t *lock)
+>         {
+> -               if (refcount_dec_not_one(r))
+> -                       return false;
+> +               if (refcount_dec_not_one(r)) {
+> +                       __acquire(lock);
+> +                       return false;
+> +               }
+>
+>                 spin_lock(lock);
+>                 if (!refcount_dec_and_test(r)) {
+>                         spin_unlock(lock);
+> +                       __acquire(lock);
+>                         return false;
+>                 }
+>
+>                 return true;
+>         }
+>
+> In other word, pretend that the lock is always taken but ...
+> 1) it's ugly
+> 2) it's lying and can be confusing
+> 3) now all the users of this function will have an imbalance problem
+>    (but they probably already have one since refcount_dec_and_lock()
+>     is not annotated).
+>
+> What is needed is some kind of annotation for conditional locks.
+> I've tried a few time and in itself it was working but in most
+> cases the usage pattern was so that there was a imbalance anyway.
+>
 
-My name is Steve Dibenedetto.
-I apologize to have contacted you this way without a direct relationship. There is an opportunity to collaborate with me in the sourcing of some materials needed by our company for production of the different medicines we are researching.
+may we can add something like __may_acquires() in the sense of
+ignoring imbalances for the specific lock. This will not check
+anything and probably ends in the same, but at least will stop
+dropping warnings... my alternative would be to add a #ifdef
+__CHECKER__ around my lock unlock().
 
-I'm aware that this might be totally outside your professional specialization, but it will be a great source for generating extra revenue. I  discovered a manufacturer who can supply us at a lower rate than our company's previous purchases.
-I will give you more specific details when/if I receive feedback from you showing interest.
+Maybe just for now as no better option exists to validate such code
+during compile time _at the moment_?
 
-Warm Regards  
-Steve Dibenedetto
-Production & Control Manager,
-Green Field Laboratories
-Gothic House, Barker Gate,
-Nottingham, NG1 1JU,
-United Kingdom.
+- Alex
+
