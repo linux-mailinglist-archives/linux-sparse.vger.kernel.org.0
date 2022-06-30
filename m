@@ -2,78 +2,55 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 3E40E560369
-	for <lists+linux-sparse@lfdr.de>; Wed, 29 Jun 2022 16:44:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id EE923561CEE
+	for <lists+linux-sparse@lfdr.de>; Thu, 30 Jun 2022 16:16:10 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S233693AbiF2OnH (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Wed, 29 Jun 2022 10:43:07 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:48518 "EHLO
+        id S237099AbiF3OOl (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Thu, 30 Jun 2022 10:14:41 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:41886 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S233729AbiF2OnF (ORCPT
+        with ESMTP id S237102AbiF3OOF (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Wed, 29 Jun 2022 10:43:05 -0400
+        Thu, 30 Jun 2022 10:14:05 -0400
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTP id 95CCE38A
-        for <linux-sparse@vger.kernel.org>; Wed, 29 Jun 2022 07:43:04 -0700 (PDT)
+        by lindbergh.monkeyblade.net (Postfix) with ESMTP id 1DAC9427E9
+        for <linux-sparse@vger.kernel.org>; Thu, 30 Jun 2022 06:59:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-        s=mimecast20190719; t=1656513783;
+        s=mimecast20190719; t=1656597590;
         h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-         to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-         in-reply-to:in-reply-to:references:references;
-        bh=V7S0nWCPZZOEGbD8N2JmBW7Bz7rcl+xCGtpBNVP7MTQ=;
-        b=WeQMoKghm8UCY7MWlojxuz3dXdXcpiNmZ9agKTsVzuGXyb788vb1Q55ZFyXwrCfNLv5SRF
-        GYVtD09fMKPl6P0ghHQ/zLUU6O0nznTi5aU7Q1jLEInOsIV9KXZh+HXMzy/oZeP1au3SY+
-        BxFRBzYXZtiMwcW8rZQe91YCgzbjvYs=
-Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com
- [209.85.219.72]) by relay.mimecast.com with ESMTP with STARTTLS
+         to:to:cc:cc:mime-version:mime-version:
+         content-transfer-encoding:content-transfer-encoding;
+        bh=LxaOFylJkQ/MdwV5aA3pa1YtRMsbn1Q4ucnowsYMktM=;
+        b=Dq4zCZi5mKp4cLoMNazGuKrfbbHDn5ZNKneZgzUGcnh/zEEEYSdvil3x9W/oLSKHiXuwA9
+        XjwLX8sGBq58a/NdmcQcET0rJcyQ8HFSSIWqRqiPCIhAZIjNsW8uddyVaWOOB20Ehf2pGi
+        yfIBsi/t+B7uydLgf73Q3GUUhrqt+YA=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-553-hfDj8tFeNnCNbx9uItxq8A-1; Wed, 29 Jun 2022 10:43:02 -0400
-X-MC-Unique: hfDj8tFeNnCNbx9uItxq8A-1
-Received: by mail-qv1-f72.google.com with SMTP id g29-20020a0caadd000000b004702ed3c3f5so15436750qvb.11
-        for <linux-sparse@vger.kernel.org>; Wed, 29 Jun 2022 07:43:02 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=V7S0nWCPZZOEGbD8N2JmBW7Bz7rcl+xCGtpBNVP7MTQ=;
-        b=4asB715iG55vn5JX4JqdPz48qQdyyc/QrqD4cnF01T2B1w03AnwZxQGx1rOcF5ZBI2
-         zcmj061ejfGB9g10G/S7UPDGI6BZhdVR3YgCmjOfuv++KHPMkwrIeqhBPQB1hiWu8+SB
-         0VkTS8Ee+5dPt82ezOjMzx3rPxQfinIgWeG2ImYN6TJFfPST7/l6HoFeDg3j3CpX8i6j
-         haXLmMDbPJ247T7zUM7qIvR9dgRQmgPWq5XwimLPSo7cp/TKhMMZZC1jvxgm72kp78p6
-         gnVgCITxtzEd3PdYZDehv65KsZFygjU/MehzRZZGPP1VNucKpsBWwOplDPqhUOMxM09e
-         zEsg==
-X-Gm-Message-State: AJIora+zbqYrSOgY00qw2FXP5i/5wB2EPVLgtoPxVogadrKDHTWABibq
-        FM2g/b2Dr/FVePw5WQJkwpMr8+LM9mMCLRSatgdxVQ2jbRksNywUJa6EZkrAWrMw450Wpq6Kegd
-        qluynSmgQDOOaKiiWdX7bt67h5i92rUl/ZTUyw8AW
-X-Received: by 2002:a05:622a:90a:b0:31b:899:3070 with SMTP id bx10-20020a05622a090a00b0031b08993070mr2755603qtb.470.1656513781463;
-        Wed, 29 Jun 2022 07:43:01 -0700 (PDT)
-X-Google-Smtp-Source: AGRyM1snXWlAR3sgWdAIaN3DlBIW0o4Fn6o5OCZioO1HkvOSAAI/43K9/YCye+hVbbMtLzZX4DAPjMyCEshh3UDDr/g=
-X-Received: by 2002:a05:622a:90a:b0:31b:899:3070 with SMTP id
- bx10-20020a05622a090a00b0031b08993070mr2755577qtb.470.1656513781205; Wed, 29
- Jun 2022 07:43:01 -0700 (PDT)
-MIME-Version: 1.0
-References: <CAK-6q+hd-L54cqOiFNuufS2_VF5XS0R8cjQL7es8921+2u3uwQ@mail.gmail.com>
- <20220627184232.tjfuzeir57l3h5ll@mail> <CAK-6q+haOfQD8_N6pEm80BTrUXwaj07ZBcXP-EBHftpTVEc1XQ@mail.gmail.com>
- <CAK-6q+g795MwPvUGxWXTE+s-TfJnbh2wf=Udb1k7r6ru-4FTMQ@mail.gmail.com>
- <20220628085821.kn3jjrviyprgai4w@mail> <CAHk-=wie9HSY-MmFr9zHeizRTgSfdONop0-4ezBiq5hYNp4U6g@mail.gmail.com>
-In-Reply-To: <CAHk-=wie9HSY-MmFr9zHeizRTgSfdONop0-4ezBiq5hYNp4U6g@mail.gmail.com>
+ us-mta-271-m3lxOeKDO0qqQtyjyl8G3A-1; Thu, 30 Jun 2022 09:59:45 -0400
+X-MC-Unique: m3lxOeKDO0qqQtyjyl8G3A-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com [10.11.54.5])
+        (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+        (No client certificate requested)
+        by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8982F1019C83;
+        Thu, 30 Jun 2022 13:59:44 +0000 (UTC)
+Received: from fs-i40c-03.fs.lab.eng.bos.redhat.com (fs-i40c-03.fs.lab.eng.bos.redhat.com [10.16.224.23])
+        by smtp.corp.redhat.com (Postfix) with ESMTP id 7D18018EAD;
+        Thu, 30 Jun 2022 13:59:43 +0000 (UTC)
 From:   Alexander Aring <aahringo@redhat.com>
-Date:   Wed, 29 Jun 2022 10:42:48 -0400
-Message-ID: <CAK-6q+jngywC7UZ6XG=yww16nJQgz0Z=VYKH8Fhg0kbZCkaypA@mail.gmail.com>
-Subject: Re: sparse warnings related to kref_put_lock() and refcount_dec_and_lock()
-To:     Linus Torvalds <torvalds@linux-foundation.org>
-Cc:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>,
-        jacob.e.keller@intel.com,
-        Andrew Morton <akpm@linux-foundation.org>,
-        thunder.leizhen@huawei.com,
-        Sparse Mailing-list <linux-sparse@vger.kernel.org>,
-        cluster-devel <cluster-devel@redhat.com>,
-        Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
-Authentication-Results: relay.mimecast.com;
-        auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=aahringo@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
+To:     will@kernel.org
+Cc:     peterz@infradead.org, boqun.feng@gmail.com, mark.rutland@arm.com,
+        thunder.leizhen@huawei.com, jacob.e.keller@intel.com,
+        akpm@linux-foundation.org, linux-sparse@vger.kernel.org,
+        cluster-devel@redhat.com, luc.vanoostenryck@gmail.com,
+        torvalds@linux-foundation.org, linux-kernel@vger.kernel.org,
+        aahringo@redhat.com
+Subject: [RFC 0/2] refcount: attempt to avoid imbalance warnings
+Date:   Thu, 30 Jun 2022 09:59:32 -0400
+Message-Id: <20220630135934.1799248-1-aahringo@redhat.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
 X-Spam-Status: No, score=-3.2 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
         DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_LOW,
         SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=unavailable
@@ -86,61 +63,28 @@ X-Mailing-List: linux-sparse@vger.kernel.org
 
 Hi,
 
-On Tue, Jun 28, 2022 at 1:27 PM Linus Torvalds
-<torvalds@linux-foundation.org> wrote:
->
-> On Tue, Jun 28, 2022 at 1:58 AM Luc Van Oostenryck
-> <luc.vanoostenryck@gmail.com> wrote:
-> >
-> > I would certainly not recommend this but ...
-> > if it's OK to cheat and lie then you can do:
-> > +       bool refcount_dec_and_lock(refcount_t *r, spinlock_t *lock) __acquires(lock);
->
-> Actually, we have "__cond_lock()" in the kernel to actually document
-> that something takes a lock only in certain conditions.
->
-> It needs to be declared as a macro in the header file, with this as an example:
->
->    #define raw_spin_trylock(lock)  __cond_lock(lock, _raw_spin_trylock(lock))
->
+This patch tries to avoid some sparse warnings related to
+refcount_dec_and_lock() and kref_put_lock().
 
-I added a prefix of "raw_" to refcount_dec_and_lock() and similar
-functions and replaced the original functions with the __cond_lock()
-macro to redirect to their raw_ functions. Similar to how the
-raw_spinlock_trylock() naming scheme is doing it. The "raw_"
-functionality should never be called by the user then.
+I send this patch series as RFC because it was necessary to do a kref
+change after adding __cond_lock() to refcount_dec_and_lock()
+functionality.
 
-> ie that says that "raw_spin_trylock() takes 'lock' when
-> _raw_spin_trylock() returned true".
->
-> That then makes it possible to write code like
->
->     if (raw_spin_trylock(lock)) {..
->                  raw_spin_unlock(lock));
->     }
->
-> and sparse will get the nesting right.
->
-> But that does *not* solve the issue of people then writing this as
->
->     locked = raw_spin_trylock(lock);
->     .. do_something ..
->     if (locked)
->                  raw_spin_unlock(lock));
->
-> and you end up with the same thing again.
->
-
-Yes it mostly removed all sparse warnings I see. I needed to move at
-one call of the refcount_dec_and_lock() function inside the if
-condition and the sparse warning was gone. It should not be a problem
-to change it in this way.
-
-If there are no other complaints I will send a patch for the raw_
-prefix to all those conditional refcount lock functions and the add a
-__cond_lock() macro for the original function calls.
-
-Thanks!
+For me it looks like we do a lot of acrobatics to avoid sparse warnings
+here and I really don't know if it's worth the offer. However this is
+what I have now...
 
 - Alex
+
+Alexander Aring (2):
+  refcount: add __cond_lock() for conditional lock refcount API
+  kref: move kref_put_lock() callback to caller
+
+ include/linux/kref.h     | 24 ++++++++----------------
+ include/linux/refcount.h | 21 ++++++++++++++++-----
+ lib/refcount.c           | 23 ++++++++++++-----------
+ 3 files changed, 36 insertions(+), 32 deletions(-)
+
+-- 
+2.31.1
 
