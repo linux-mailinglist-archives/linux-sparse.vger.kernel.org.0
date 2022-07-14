@@ -2,93 +2,98 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 7BD03567A8B
-	for <lists+linux-sparse@lfdr.de>; Wed,  6 Jul 2022 01:09:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 2F5DE574733
+	for <lists+linux-sparse@lfdr.de>; Thu, 14 Jul 2022 10:38:01 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S232222AbiGEXJF (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Tue, 5 Jul 2022 19:09:05 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:60138 "EHLO
+        id S236489AbiGNIh5 (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Thu, 14 Jul 2022 04:37:57 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:33198 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S231600AbiGEXJC (ORCPT
+        with ESMTP id S236702AbiGNIhP (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Tue, 5 Jul 2022 19:09:02 -0400
-Received: from mail-pg1-x52e.google.com (mail-pg1-x52e.google.com [IPv6:2607:f8b0:4864:20::52e])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 90150140BB
-        for <linux-sparse@vger.kernel.org>; Tue,  5 Jul 2022 16:09:01 -0700 (PDT)
-Received: by mail-pg1-x52e.google.com with SMTP id o18so11458539pgu.9
-        for <linux-sparse@vger.kernel.org>; Tue, 05 Jul 2022 16:09:01 -0700 (PDT)
+        Thu, 14 Jul 2022 04:37:15 -0400
+Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com [IPv6:2a00:1450:4864:20::12a])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 4B9DA402C0
+        for <linux-sparse@vger.kernel.org>; Thu, 14 Jul 2022 01:37:13 -0700 (PDT)
+Received: by mail-lf1-x12a.google.com with SMTP id bp17so1652603lfb.3
+        for <linux-sparse@vger.kernel.org>; Thu, 14 Jul 2022 01:37:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=rivosinc-com.20210112.gappssmtp.com; s=20210112;
-        h=date:subject:in-reply-to:cc:from:to:message-id:mime-version
-         :content-transfer-encoding;
-        bh=z8EKfgRX0wThVoewP5wZ3r1yeN0h/8IMac2/h3YDe7I=;
-        b=BK8FYUugTCWAPVoY2qcCxvo1PCPnf5zl6hjLvKmhg+LKpoNRDnQEndHZLEYRll0zk3
-         8FL0J0rgAkwpOjwIYjSb40V2nKDdipnzi3YMb3rG1UJsltyWDElPNfESAUBXuMY40VSV
-         o3K6zIhZRY062fYakbVti4zmlBPCCU6+aNVUQqwkgq7RugpXGgtEWBKodCUgr37tOgC7
-         pDjKVjpck+Fdaj3qKrzrNmBz5g9rgxHqKfLBTmLvQTsEWJiZqc/mq1uJnV0rTvWBs152
-         ar5AR8G+dduxlYGnzVqbQ9NEXybqKzt/XyBzmmYFHjwO1zT+nOSezNkbPTvMg3gmvBkg
-         KkvQ==
+        d=gmail.com; s=20210112;
+        h=mime-version:reply-to:from:date:message-id:subject:to;
+        bh=H3bGT1ZyGPu3PRQJlJHyQI9TvTjBPuNSyHjFOzNfiP0=;
+        b=eOKhIHPUU5qPTZbjyQcWfvRUY0zDAP8hnIUzGBjF2Jn5DfdNsbEWN2bt7ALPYmKFVp
+         Dxr1gDHkbIBW6Zt+nHPJYVynuk8AW0yQZ/Zbg6Hs/Db/0s9SnaRXX8dPxs4FUxGCTJqt
+         PUYZva9zdBfTCaw+ACjLsUUgRvbYiV1yKAF3EhOBh+YW55bYBsAw2vjNobpxCrdB648X
+         A9Vj0WSfJubet8viXTg/I9X1Zmn6KwP7YNCJiSogQMOb5VTL9XQBYGsxHSC28kklqMwQ
+         Xqm1mx/as6lOSd/UexvuUJPMkR0uIfSfLSUsGSd7SP6mXh7BeziDYVk18AfHAMhcFado
+         ZNLA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=x-gm-message-state:date:subject:in-reply-to:cc:from:to:message-id
-         :mime-version:content-transfer-encoding;
-        bh=z8EKfgRX0wThVoewP5wZ3r1yeN0h/8IMac2/h3YDe7I=;
-        b=V47jW3BPLT60P1YqxzJqE6glFf47NqHgREyGsuZ7nW/biHCZQnSsq14U8WLfCZN+Pn
-         260Mkk1BRiNq0CHrOM1pm4m+Lukz0bd+9eATeXoyAQJ7vaWUQAd4FfwJWWZG5T595fYR
-         CbfgKYqR85vpzLJYF6oek5Mbsn4xAjGFRB8Q6m7kCuqORAtzV/xI+4iW4rmfcCmgqYGY
-         AXK0TGzKXwUe78yi8Cpb6Yo6GKVsB+RYh9ivWlp5nCeOU6j/c8FGIO2dkm3AvJZnNRod
-         xgq1yAKOea8ZW/KQswZ87JfVN/dLmlfJ18qN9DTFPDh+vz5jP6zxEJFVC5rim1ZyKRM3
-         xeFA==
-X-Gm-Message-State: AJIora8R2GUg1YsqaX8vp5ZIEmiZ03zAIMIa4EJqzZZoKjfWUidYsY0t
-        Ys10krPKl9+MWJXUpBojRIa7cVEnrwMiNg==
-X-Google-Smtp-Source: AGRyM1uaXORTwb0ZRybtB59eAa2VAOw3qiqMgTloECFVIf7k0bbcwET7ZNLv2JIxwd1D/fVc/EuK7g==
-X-Received: by 2002:a63:9b0a:0:b0:406:8c31:47e6 with SMTP id r10-20020a639b0a000000b004068c3147e6mr31114432pgd.329.1657062540886;
-        Tue, 05 Jul 2022 16:09:00 -0700 (PDT)
-Received: from localhost (76-210-143-223.lightspeed.sntcca.sbcglobal.net. [76.210.143.223])
-        by smtp.gmail.com with ESMTPSA id u16-20020a170902e5d000b0016bd16f8acbsm7968883plf.114.2022.07.05.16.08.59
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 05 Jul 2022 16:09:00 -0700 (PDT)
-Date:   Tue, 05 Jul 2022 16:09:00 -0700 (PDT)
-X-Google-Original-Date: Tue, 05 Jul 2022 16:08:58 PDT (-0700)
-Subject:     Re: [PATCH v1 0/6] RISC-V -march handling improvements
-In-Reply-To: <20220521212325.lw6fdzsmlwvioggv@mail>
-CC:     linux-sparse@vger.kernel.org, Kito Cheng <kito.cheng@gmail.com>,
-        linux-riscv@lists.infradead.org, mkl@pengutronix.de,
-        aurelien@aurel32.net,
-        Linus Torvalds <torvalds@linux-foundation.org>
-From:   Palmer Dabbelt <palmer@rivosinc.com>
-To:     luc.vanoostenryck@gmail.com
-Message-ID: <mhng-6db3942c-ae4a-497e-bda1-01e7e2661595@palmer-mbp2014>
-Mime-Version: 1.0 (MHng)
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,
-        T_SCC_BODY_TEXT_LINE autolearn=ham autolearn_force=no version=3.4.6
+        h=x-gm-message-state:mime-version:reply-to:from:date:message-id
+         :subject:to;
+        bh=H3bGT1ZyGPu3PRQJlJHyQI9TvTjBPuNSyHjFOzNfiP0=;
+        b=M0aMOWemYLghNyceDhjICZINNqAJB8wA2SD3XXKq8enkdqLh6PKxjUglnjWfjNKhaX
+         t6sfAVfvhID8BXjI6JgmOfVHRrJ0n6SUaK3QLKKv6Ajj68g3MYDY4u3NbFO/EZI3MT+Y
+         Lt540C0M0hkiNFKWhioLMamQQLZjJOuefK9ExCPppIVx9IOU1r1vZ7uG/BrzvJfmuy1d
+         +P3z99r9GkzgBu+c/wLubCjNDGCa/NmvOua0Pvyp30Uc4ifTmkfvPJaTLWwMRCasoALR
+         D7Pb1pxkSyjflRVG94a4nCtKgaN/VGIHLoYJK/VXeDU7Z4C6WwV4vbjCvI0W+Pr7JIbm
+         nnhw==
+X-Gm-Message-State: AJIora8fNkJk46S3iHMDFKpakfLJIaF33qxgD275u4XB3gI00nhQExfB
+        A4yr+Qf1InQiEWjqW8NpRn6CxNmg4NqgV8yQUGQ=
+X-Google-Smtp-Source: AGRyM1suH6kpL0bxxrdPqBdRw7fjg6QmbYsIJ5KtUWeYknhIH8CIkHpjEQ1bnLxbFcENJg0E8wYhVlYhJeESVTPizkI=
+X-Received: by 2002:a05:6512:12c8:b0:489:efbf:18d1 with SMTP id
+ p8-20020a05651212c800b00489efbf18d1mr4734610lfg.192.1657787832538; Thu, 14
+ Jul 2022 01:37:12 -0700 (PDT)
+MIME-Version: 1.0
+Received: by 2002:a2e:9041:0:0:0:0:0 with HTTP; Thu, 14 Jul 2022 01:37:11
+ -0700 (PDT)
+Reply-To: abdwabbomaddahm@gmail.com
+From:   Abdwabbo Maddah <abdwabbomaddah746@gmail.com>
+Date:   Thu, 14 Jul 2022 09:37:11 +0100
+Message-ID: <CAFC-3icPrpmNqEMcqzAOFvzCPc-r5yv89mNAZ9SsCQvcOZ=+9g@mail.gmail.com>
+Subject: Get back to me... URGENT
+To:     undisclosed-recipients:;
+Content-Type: text/plain; charset="UTF-8"
+X-Spam-Status: Yes, score=5.0 required=5.0 tests=BAYES_50,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,
+        FREEMAIL_FROM,FREEMAIL_REPLYTO,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,
+        SPF_PASS,T_SCC_BODY_TEXT_LINE,UNDISC_FREEM autolearn=no
+        autolearn_force=no version=3.4.6
+X-Spam-Report: * -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at
+        *      https://www.dnswl.org/, no trust
+        *      [2a00:1450:4864:20:0:0:0:12a listed in]
+        [list.dnswl.org]
+        *  0.8 BAYES_50 BODY: Bayes spam probability is 40 to 60%
+        *      [score: 0.4900]
+        *  0.0 FREEMAIL_FROM Sender email is commonly abused enduser mail
+        *      provider
+        *      [abdwabbomaddah746[at]gmail.com]
+        *  0.2 FREEMAIL_ENVFROM_END_DIGIT Envelope-from freemail username ends
+        *       in digit
+        *      [abdwabbomaddah746[at]gmail.com]
+        * -0.0 SPF_PASS SPF: sender matches SPF record
+        *  0.0 SPF_HELO_NONE SPF: HELO does not publish an SPF Record
+        * -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
+        *      author's domain
+        *  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
+        *       valid
+        * -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
+        * -0.1 DKIM_VALID_EF Message has a valid DKIM or DK signature from
+        *      envelope-from domain
+        * -0.0 T_SCC_BODY_TEXT_LINE No description available.
+        *  3.2 UNDISC_FREEM Undisclosed recipients + freemail reply-to
+        *  1.0 FREEMAIL_REPLYTO Reply-To/From or Reply-To/body contain
+        *      different freemails
+X-Spam-Level: *****
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-On Sat, 21 May 2022 14:23:25 PDT (-0700), luc.vanoostenryck@gmail.com wrote:
-> On Fri, Apr 01, 2022 at 10:00:35PM -0700, Palmer Dabbelt wrote:
->
-> Hi,
->
-> Thank you for these patches and please accept my apologies
-> for this much delayed reply.
-
-No worries, looks like we're about equally slow ;)
-
-> I've just pushed the Zicsr and Zifencei patches since these solve
-> an immediate problem and I've some minor questions/objections for
-> the other ones.
-
-From looking at sparse/master, it looks like a lot of those comments got 
-resolved and merged.  That all looks good to me, I pointed my local 
-sparse over to ce1a6720 ("Merge branches 'unreplaced' and 'inline'") and 
-will be using that (via `make ... C=1 CF="-Wno-sparse-error"`) in my 
-pre-merge testing until something changes.
-
-Thanks!
+-- 
+Dear,
+I had sent you a mail but i don't think you received it that's why am
+writing you again.It is important you get back to me as soon as you
+can.
+Abd-Wabbo Maddah
