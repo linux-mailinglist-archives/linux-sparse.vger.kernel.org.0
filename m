@@ -2,107 +2,108 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id C727058E2F6
-	for <lists+linux-sparse@lfdr.de>; Wed, 10 Aug 2022 00:17:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id B61BF58F66A
+	for <lists+linux-sparse@lfdr.de>; Thu, 11 Aug 2022 05:33:15 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230453AbiHIWQY (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Tue, 9 Aug 2022 18:16:24 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:37328 "EHLO
+        id S233810AbiHKDdL (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Wed, 10 Aug 2022 23:33:11 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:48080 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229909AbiHIWPS (ORCPT
+        with ESMTP id S229924AbiHKDdK (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Tue, 9 Aug 2022 18:15:18 -0400
-Received: from mail-io1-xd32.google.com (mail-io1-xd32.google.com [IPv6:2607:f8b0:4864:20::d32])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B4FFA1F2DA
-        for <linux-sparse@vger.kernel.org>; Tue,  9 Aug 2022 15:15:14 -0700 (PDT)
-Received: by mail-io1-xd32.google.com with SMTP id z145so10743767iof.9
-        for <linux-sparse@vger.kernel.org>; Tue, 09 Aug 2022 15:15:14 -0700 (PDT)
+        Wed, 10 Aug 2022 23:33:10 -0400
+Received: from mail-pl1-x631.google.com (mail-pl1-x631.google.com [IPv6:2607:f8b0:4864:20::631])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id CA51748EB1
+        for <linux-sparse@vger.kernel.org>; Wed, 10 Aug 2022 20:33:09 -0700 (PDT)
+Received: by mail-pl1-x631.google.com with SMTP id x23so15932958pll.7
+        for <linux-sparse@vger.kernel.org>; Wed, 10 Aug 2022 20:33:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=to:subject:message-id:date:from:reply-to:mime-version:from:to:cc;
-        bh=GI1h58u9NHz7rI/vIwOU5DkUcoHPmL+b4tk5i/xxv5Y=;
-        b=QTP95oQi+RYhXbI8sz4RyTZp0RSE4jP48cyyUmWbTiK1ItvOHbADVtjkGHK/8zFbqv
-         EIzUG3d4HgG5eAQxnVHuBpH33ycuIiNpMEXk8S0LHARhhQGb6AufQVVn/40aQfLvP77W
-         778oK7qnpGZXO0Q2aGCYT4Mad4FGDHlh1br3s7D4D+9Vr7gPQrhXDR8bwR1fyz6kQ1n2
-         /mI7/+oIm6xqfpBjeRephfywWnzvzUcqvvdKwYuFsxmTm/GRVEQb9jKfBsLPvHEPeyBR
-         SLk52BQ10Zm7GZ4Mv5gugSKJZhGFXVOipaGDVsAOq6ABLyMrmGMv+5RYTjL3cqduwO+M
-         O1Rw==
+        d=rivosinc-com.20210112.gappssmtp.com; s=20210112;
+        h=to:from:cc:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:to:cc;
+        bh=auiLol2oSfZpMSxSGpxC7SJSMQbADVIHVYu6+RIdKBE=;
+        b=e8zjgsgG20pHcpBrBuiTUAmRQ1aCKJvzjnUTHWGN4Gkk+t6qQn+dQjV3amAkuFnkLV
+         JL2VSiomC2yM94imlAGt7TYVAOYYknrd7lZtq5/SHDyRDRNVjoF8DtaHnWxo2+cdrAj6
+         3UIIOarQVQ2rKvNuoXy+cg9p/HHtgREgL57xqq4MNfQPg1du1jiMwQe29fluLq1tXhwR
+         idq6rU/CnddWyErwNjAHg7LLhtH9hYryOsB/h6WjOw89LPajrqIs2xWSDvSyX9ci3kXT
+         r1GIGUzwsFKPkoEeY7e/ckMehJizBm0K78KpQg+UsQ519fE1JEfWGugcMo2VX/dFzIhz
+         g/xQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=to:subject:message-id:date:from:reply-to:mime-version
-         :x-gm-message-state:from:to:cc;
-        bh=GI1h58u9NHz7rI/vIwOU5DkUcoHPmL+b4tk5i/xxv5Y=;
-        b=EsJtqJZ9+nPZyiFTEb55z1mLmJVbWhWWh3PRUxVH34Okbd7kV9xah36XXDqDyHlkjU
-         jEiiRJ2/m95UcKeKTntDfdtWkGB+auM0YMATTxMlbCahr7hmaejT/b2atsMp1ctMnglK
-         /eQUHaR0i9xCJbHxO6z2s7TqGno1IO5TsKcV7qaOaueuse/H7yZj9vkIyfpZhJBpoutW
-         Nu72BV3noeXPRe/QjjKlwXoNRYzCZyrkS42lEvtWpDlGLX346rkreHbSRlXCSwDmkggA
-         DIDb7nb36FXm5aUBiSmb8yv8EARq3SQmJa5KgEZ2inASyWgIxAo87c5u64MOXxN8VqJe
-         lUKw==
-X-Gm-Message-State: ACgBeo3CjiSOf8iE/SUgypAlTZXFrz9e7wlbolLqdJWr2aC+qdLGJ/ck
-        dYESfVWFcU7IMoWXbMQ4Y7rA5wrXH6Resl9E0Het5+GYQfGHiw==
-X-Google-Smtp-Source: AA6agR7pJ6r7fhR2kV9XLe+oV3h+/ej1weqLnpTQS1YP5ule1vsDwGSNCnOW6LlEIY2xTapZFY+hu5KXPqSjTYpoaJM=
-X-Received: by 2002:a63:4642:0:b0:41b:d353:c5c7 with SMTP id
- v2-20020a634642000000b0041bd353c5c7mr20359415pgk.568.1660083303718; Tue, 09
- Aug 2022 15:15:03 -0700 (PDT)
+        h=to:from:cc:content-transfer-encoding:mime-version:message-id:date
+         :subject:x-gm-message-state:from:to:cc;
+        bh=auiLol2oSfZpMSxSGpxC7SJSMQbADVIHVYu6+RIdKBE=;
+        b=SvVYlFM4JzzOdgoJKZRmzKH1qycFUtMX5buHZFB9mszOP0BqUSHQwR7HYSiA7+et83
+         ZWirdlTZxVzlRViY5n0KJDraTWej8GOKLFkmvpp+2aFD6Exx7C04F9XLUnzT9n+o56AF
+         w625txC/hfKBw/FHdG00w+kxN932o/dVCz5DIyLT4Oj6n9VI6PUi3iSmYtNELr6oZvkJ
+         am5GGUjB4MQCcukijBPLR9ibq5hoZhfSyuLVkoC85Bs25NpgGOomNlKzG+OLQzi3Vxb5
+         dCQMjMqC2UEv/XqRYxTLWbEmMHPnDTdTMOsZMOaiV715sm7fYPVdHJDwYfqADWgtnRAz
+         C9mg==
+X-Gm-Message-State: ACgBeo2pGs5kXTlLjUwBh2sLW6GS70HOvR5oMTg2GvyMs7FLtkNTGapP
+        v9JrBV8SIQ1xAC4CfgcbP2pCKICphxjj+A==
+X-Google-Smtp-Source: AA6agR6qhv0ac6gweHRqtjJ/VsiIRtv30UTCY+97TVOO3rOFdnln4laWNqq3sdf/d7wCRuUBFO5Neg==
+X-Received: by 2002:a17:903:32c9:b0:171:2846:eef8 with SMTP id i9-20020a17090332c900b001712846eef8mr9586895plr.117.1660188789094;
+        Wed, 10 Aug 2022 20:33:09 -0700 (PDT)
+Received: from localhost (76-210-143-223.lightspeed.sntcca.sbcglobal.net. [76.210.143.223])
+        by smtp.gmail.com with ESMTPSA id iw18-20020a170903045200b0016d6d1b610fsm13690876plb.98.2022.08.10.20.33.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 10 Aug 2022 20:33:08 -0700 (PDT)
+Subject: [PATCH] RISC-V: Add support for the zicbom extension
+Date:   Wed, 10 Aug 2022 20:31:38 -0700
+Message-Id: <20220811033138.20676-1-palmer@rivosinc.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Received: by 2002:a05:6a10:e8a6:b0:2d4:fb1c:cc5e with HTTP; Tue, 9 Aug 2022
- 15:15:03 -0700 (PDT)
-Reply-To: wijh555@gmail.com
-From:   "Dr. Ali Moses" <alimoses07@gmail.com>
-Date:   Tue, 9 Aug 2022 15:15:03 -0700
-Message-ID: <CADWzZe65tcOX2+bMZfMLLauGpHEQ9Cdv814nLU=uQvKzDFrEVg@mail.gmail.com>
-Subject: Good Day,
-To:     undisclosed-recipients:;
-Content-Type: text/plain; charset="UTF-8"
-X-Spam-Status: Yes, score=5.2 required=5.0 tests=BAYES_50,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,
-        FREEMAIL_FROM,FREEMAIL_REPLYTO,FREEMAIL_REPLYTO_END_DIGIT,
-        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,
-        UNDISC_FREEM autolearn=no autolearn_force=no version=3.4.6
-X-Spam-Report: * -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at
-        *      https://www.dnswl.org/, no trust
-        *      [2607:f8b0:4864:20:0:0:0:d32 listed in]
-        [list.dnswl.org]
-        *  0.8 BAYES_50 BODY: Bayes spam probability is 40 to 60%
-        *      [score: 0.5000]
-        *  0.0 FREEMAIL_FROM Sender email is commonly abused enduser mail
-        *      provider
-        *      [alimoses07[at]gmail.com]
-        * -0.0 SPF_PASS SPF: sender matches SPF record
-        *  0.2 FREEMAIL_REPLYTO_END_DIGIT Reply-To freemail username ends in
-        *      digit
-        *      [wijh555[at]gmail.com]
-        *  0.0 SPF_HELO_NONE SPF: HELO does not publish an SPF Record
-        *  0.2 FREEMAIL_ENVFROM_END_DIGIT Envelope-from freemail username ends
-        *       in digit
-        *      [alimoses07[at]gmail.com]
-        * -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
-        *  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
-        *       valid
-        * -0.1 DKIM_VALID_EF Message has a valid DKIM or DK signature from
-        *      envelope-from domain
-        * -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
-        *      author's domain
-        * -0.0 T_SCC_BODY_TEXT_LINE No description available.
-        *  3.1 UNDISC_FREEM Undisclosed recipients + freemail reply-to
-        *  1.0 FREEMAIL_REPLYTO Reply-To/From or Reply-To/body contain
-        *      different freemails
-X-Spam-Level: *****
+Content-Transfer-Encoding: 8bit
+Cc:     Palmer Dabbelt <palmer@rivosinc.com>
+From:   Palmer Dabbelt <palmer@rivosinc.com>
+To:     luc.vanoostenryck@gmail.com, linux-sparse@vger.kernel.org
+X-Spam-Status: No, score=-1.9 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,
+        T_SCC_BODY_TEXT_LINE autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
+This was recently added to binutils and with any luck will soon be in
+Linux, without it sparse will fail when trying to build new kernels on
+systems with new toolchains.
+
+Signed-off-by: Palmer Dabbelt <palmer@rivosinc.com>
+---
+ target-riscv.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/target-riscv.c b/target-riscv.c
+index 217ab7e8..db0f7e57 100644
+--- a/target-riscv.c
++++ b/target-riscv.c
+@@ -19,6 +19,7 @@
+ #define RISCV_GENERIC	(RISCV_MUL|RISCV_DIV|RISCV_ATOMIC|RISCV_FPU)
+ #define RISCV_ZICSR	(1 << 10)
+ #define RISCV_ZIFENCEI	(1 << 11)
++#define RISCV_ZICBOM	(1 << 12)
+ 
+ static unsigned int riscv_flags;
+ 
+@@ -41,6 +42,7 @@ static void parse_march_riscv(const char *arg)
+ 		{ "c",		RISCV_COMP },
+ 		{ "_zicsr",	RISCV_ZICSR },
+ 		{ "_zifencei",	RISCV_ZIFENCEI },
++		{ "_zicbom",	RISCV_ZICBOM },
+ 	};
+ 	int i;
+ 
+@@ -131,6 +133,8 @@ static void predefine_riscv(const struct target *self)
+ 		predefine("__riscv_zicsr", 1, "1");
+ 	if (riscv_flags & RISCV_ZIFENCEI)
+ 		predefine("__riscv_zifencei", 1, "1");
++	if (riscv_flags & RISCV_ZICBOM)
++		predefine("__riscv_zicbom", 1, "1");
+ 
+ 	if (cmodel)
+ 		predefine_strong("__riscv_cmodel_%s", cmodel);
 -- 
-Hello,
-We the Board Directors believe you are in good health, doing great and
-with the hope that this mail will meet you in good condition, We are
-privileged and delighted to reach you via email" And we are urgently
-waiting to hear from you. and again your number is not connecting.
+2.34.1
 
-My regards,
-Dr. Ali Moses..
-
-Sincerely,
-Prof. Chin Guang
