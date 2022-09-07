@@ -2,108 +2,114 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 7C4675AAC01
-	for <lists+linux-sparse@lfdr.de>; Fri,  2 Sep 2022 12:03:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 773FB5B06C4
+	for <lists+linux-sparse@lfdr.de>; Wed,  7 Sep 2022 16:32:29 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S234925AbiIBKDA (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Fri, 2 Sep 2022 06:03:00 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:53044 "EHLO
+        id S230363AbiIGOcV (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Wed, 7 Sep 2022 10:32:21 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:46998 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S232681AbiIBKC7 (ORCPT
+        with ESMTP id S230297AbiIGOb5 (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Fri, 2 Sep 2022 06:02:59 -0400
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 27BEE9E11D
-        for <linux-sparse@vger.kernel.org>; Fri,  2 Sep 2022 03:02:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1662112979; x=1693648979;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=zgRVNIHnlowY0e1WXuhx0DMVtXHR0lQUoznw/MLyrIg=;
-  b=LDdS2/gU74VYTJzhhYF1a8IxaMfztjTOs6jZiNkWfkk38Vp6nWcaMF41
-   odLWX1SVdD20Dp9Gobp6hzygHL320p+1d/Fe7W/0/PlBDNH40gE9p94pn
-   ywZOPLYPfbzOts9qkHb4U5Q7r15oQNkSotPSjuldzn1XsUv7dNNlQv9OR
-   27aNueQA14HQ0s+HJ/K/sMmytm9b4PIvw9/InlKC9ovYMxVz8riJfX/4S
-   EqAk+fqIGwERe2rwWWMV6/gVGhHn7/DPoUdQCZJId8kRANzoxzuKDiPab
-   vvKQPqDP5jxQXyCh2awZNHNvCG4Upfm6psxJqQ+9pbgXpaBg7k1Hjceie
-   g==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10457"; a="294688511"
-X-IronPort-AV: E=Sophos;i="5.93,283,1654585200"; 
-   d="scan'208";a="294688511"
-Received: from fmsmga004.fm.intel.com ([10.253.24.48])
-  by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2022 03:02:49 -0700
-X-IronPort-AV: E=Sophos;i="5.93,283,1654585200"; 
-   d="scan'208";a="681239296"
-Received: from smile.fi.intel.com ([10.237.72.54])
-  by fmsmga004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2022 03:02:48 -0700
-Received: from andy by smile.fi.intel.com with local (Exim 4.96)
-        (envelope-from <andriy.shevchenko@intel.com>)
-        id 1oU3Vd-007K0H-1w;
-        Fri, 02 Sep 2022 13:02:45 +0300
-Date:   Fri, 2 Sep 2022 13:02:45 +0300
-From:   Andy Shevchenko <andriy.shevchenko@intel.com>
-To:     Luc Van Oostenryck <lucvoo@kernel.org>,
-        Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <ukleinek@debian.org>
-Cc:     linux-sparse@vger.kernel.org,
-        Luc Van Oostenryck <luc.vanoostenryck@gmail.com>,
-        kernel test robot <lkp@intel.com>
-Subject: Re: [PATCH] fix "unreplaced" warnings caused by using typeof() on
- inline functions
-Message-ID: <YxHUxfOxDuwe9k1n@smile.fi.intel.com>
-References: <20220624164601.99527-1-lucvoo@kernel.org>
- <Yr7kPM1wLZnOqxOA@smile.fi.intel.com>
+        Wed, 7 Sep 2022 10:31:57 -0400
+Received: from mail-ej1-x642.google.com (mail-ej1-x642.google.com [IPv6:2a00:1450:4864:20::642])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 06D3479A6A
+        for <linux-sparse@vger.kernel.org>; Wed,  7 Sep 2022 07:31:54 -0700 (PDT)
+Received: by mail-ej1-x642.google.com with SMTP id fg1so8704831ejc.2
+        for <linux-sparse@vger.kernel.org>; Wed, 07 Sep 2022 07:31:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=to:subject:message-id:date:from:reply-to:mime-version:from:to:cc
+         :subject:date;
+        bh=UTPjlhWN0j/3cl0uibj9IdU3K9tIHCNTd74bAPWV+BQ=;
+        b=hlX5LG70Pfi5xUfXCm2C7WvkXcJVP5UakJZVNodPOy7vNkSXQuxkM6JMnL0NkwpmEx
+         GApIDchppryVktOBo5G41BqVss7NVeWmLRXcOx2bAZqQ+LAYFz8ePbLc684sFXT4Nmqj
+         OcoPmJYuvMlwncvSBL0BFnkvuWLyKibj/n8A5QS+qmy30Nhg7xyf0NkI/q67juR/h0tY
+         bD/nOML45bK21IZjrLP4cVfkyGYdsdvh6OJ7KPKPWGwDpi4WDdxiFiQ5bptV3cHn11YY
+         R2/ccByiK1oIAZVOw3mE9dymIO7CzllUwLBF2JbmBffIhO2NpTaaNqhGzBB+XMxejIE1
+         VDsQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=to:subject:message-id:date:from:reply-to:mime-version
+         :x-gm-message-state:from:to:cc:subject:date;
+        bh=UTPjlhWN0j/3cl0uibj9IdU3K9tIHCNTd74bAPWV+BQ=;
+        b=aJT60vsJKHIHj53AYWELQhlKuvWkdOQinsae+/wnTBQWejYYuvzGUKKJt6H1U4ZPyi
+         1HrekoDsjDzm4ZF26yo4WhrUR6arnA0o9Y9kaPi2FW2BL7CGaJpQ/PUXSGNx6epPVoH8
+         wQsB7Od7qq3YbykFGXBc3RN8gqqoTCsIWFr9h4dBVACVlNqMtBK4nfz9WtrLjbwXfpts
+         eH5PaOyaWnff/OfacN0oNuRd/qn3xlIy9skwGOt6R7MreHrymsQaN0tv4j3zgM1cTOQl
+         c9gguOcDZmzVM6/rVCm19LFpApapd6AKroU7jAOpQw3NfaXYnznc/SkUN3IKKYN9Kbkr
+         hwKQ==
+X-Gm-Message-State: ACgBeo3YyKZFhXzB+dCQMrNOVMFJPiEbJ6R6DN+qFTCaTM7qGAmpLI6S
+        bRZJdg2ZGIIW+sId4bTjQr2k17nS4B1/xSd/ieA=
+X-Google-Smtp-Source: AA6agR4pyZsB+xbbjgKGlrl2+RDjPAQ7wWCMdSGS3qWC1Sv629AIX++hkd3miN/bJlP1/yRRoX5bdHKo53e2l2Vr/Xc=
+X-Received: by 2002:a17:906:38f:b0:742:1f68:7058 with SMTP id
+ b15-20020a170906038f00b007421f687058mr2510502eja.743.1662561112231; Wed, 07
+ Sep 2022 07:31:52 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <Yr7kPM1wLZnOqxOA@smile.fi.intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-X-Spam-Status: No, score=-4.4 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_MED,
-        SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=ham
+Received: by 2002:a54:3fc4:0:0:0:0:0 with HTTP; Wed, 7 Sep 2022 07:31:51 -0700 (PDT)
+Reply-To: lumar.casey@outlook.com
+From:   LUMAR CASEY <miriankushrat@gmail.com>
+Date:   Wed, 7 Sep 2022 16:31:51 +0200
+Message-ID: <CAO4StN23CjT73+kAZo3jW6NA7B_rVMGFz9vZYzq4Gs86AZgN6A@mail.gmail.com>
+Subject: ATTENTION/PROPOSAL
+To:     undisclosed-recipients:;
+Content-Type: text/plain; charset="UTF-8"
+X-Spam-Status: Yes, score=6.8 required=5.0 tests=ADVANCE_FEE_4_NEW_MONEY,
+        BAYES_50,DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
+        FREEMAIL_FROM,FREEMAIL_REPLYTO,LOTS_OF_MONEY,MONEY_FREEMAIL_REPTO,
+        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,
+        UNDISC_FREEM,UNDISC_MONEY,UPPERCASE_75_100 autolearn=no
         autolearn_force=no version=3.4.6
+X-Spam-Report: * -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at
+        *      https://www.dnswl.org/, no trust
+        *      [2a00:1450:4864:20:0:0:0:642 listed in]
+        [list.dnswl.org]
+        *  0.8 BAYES_50 BODY: Bayes spam probability is 40 to 60%
+        *      [score: 0.5014]
+        *  0.0 SPF_HELO_NONE SPF: HELO does not publish an SPF Record
+        * -0.0 SPF_PASS SPF: sender matches SPF record
+        *  0.0 FREEMAIL_FROM Sender email is commonly abused enduser mail
+        *      provider
+        *      [miriankushrat[at]gmail.com]
+        *  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
+        *       valid
+        * -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
+        * -0.1 DKIM_VALID_EF Message has a valid DKIM or DK signature from
+        *      envelope-from domain
+        * -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
+        *      author's domain
+        * -0.0 T_SCC_BODY_TEXT_LINE No description available.
+        *  0.0 UPPERCASE_75_100 message body is 75-100% uppercase
+        *  0.0 LOTS_OF_MONEY Huge... sums of money
+        *  3.1 UNDISC_FREEM Undisclosed recipients + freemail reply-to
+        *  1.0 FREEMAIL_REPLYTO Reply-To/From or Reply-To/body contain
+        *      different freemails
+        *  2.0 MONEY_FREEMAIL_REPTO Lots of money from someone using free
+        *      email?
+        *  0.2 UNDISC_MONEY Undisclosed recipients + money/fraud signs
+        *  0.0 ADVANCE_FEE_4_NEW_MONEY Advance Fee fraud and lots of money
+X-Spam-Level: ******
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-On Fri, Jul 01, 2022 at 03:10:36PM +0300, Andy Shevchenko wrote:
-> On Fri, Jun 24, 2022 at 06:46:01PM +0200, Luc Van Oostenryck wrote:
-> > From: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-> > 
-> > Currently, sparse do all its inlining at the tree level, during
-> > constant expansion. To not mix-up the evaluation of the original
-> > function body in case the address of an inline function is taken or
-> > when the function can't otherwise be inlined, the statements and
-> > symbols lists of inline functions are kept in separated fields.
-> > Then, if the original body must be evaluated it must first be
-> > 'uninlined' to have a copy in the usual fields.
-> > 
-> > This make sense when dealing with the definition of the function.
-> > But, when using typeof() on functions, the resulting type doesn't
-> > refer to this definition, it's just a copy of the type and only
-> > of the type. There shouldn't be any reasons to uninline anything.
-> > However, the distinction between 'full function' and 'type only'
-> > is not made during evaluation and the uninlining attempt produce
-> > a lot of "warning: unreplaced symbol '...'" because of the lack
-> > of a corresponding definition.
-> > 
-> > Fix this by not doing the uninlining if the symbol lack a definition.
-> > 
-> > Note: It would maybe be more appropriate for EXPR_TYPE to use
-> >       a stripped-own version of evaluate_symbol() doing only the
-> >       examination of the return and argument types, bypassing the
-> >       attempt to uninline the body and evaluate the initializer and
-> >       the statements since there is none of those for an EXPR_TYPE.
-> 
-> Uwe, can we get a Debian package with this fix, it's really a tons of such
-> messages when compile kernel with C=1?
+ATTENTION
 
-As of today it seems Debian still has old sparse version...
+BUSINESS PARTNER,
 
--- 
-With Best Regards,
-Andy Shevchenko
+I AM LUMAR CASEY WORKING WITH AN INSURANCE FINANCIAL INSTITUTE, WITH
+MY POSITION AND PRIVILEGES I WAS ABLE TO SOURCE OUT AN OVER DUE
+PAYMENT OF 12.8 MILLION POUNDS THAT IS NOW SECURED WITH A SHIPPING
+DIPLOMATIC OUTLET.
 
+I AM SEEKING YOUR PARTNERSHIP TO RECEIVE THIS CONSIGNMENT AS AS MY
+PARTNER TO INVEST THIS FUND INTO A PROSPEROUS INVESTMENT VENTURE IN
+YOUR COUNTRY.
 
+I AWAIT YOUR REPLY TO ENABLE US PROCEED WITH THIS BUSINESS PARTNERSHIP TOGETHER.
+
+REGARDS,
+
+LUMAR CASEY
