@@ -2,112 +2,74 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id D563A616DDC
-	for <lists+linux-sparse@lfdr.de>; Wed,  2 Nov 2022 20:33:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id 2AAAF61DA3B
+	for <lists+linux-sparse@lfdr.de>; Sat,  5 Nov 2022 13:39:46 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S230419AbiKBTdi (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Wed, 2 Nov 2022 15:33:38 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:51920 "EHLO
+        id S229940AbiKEMjo (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Sat, 5 Nov 2022 08:39:44 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:40222 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230207AbiKBTdg (ORCPT
+        with ESMTP id S229877AbiKEMjZ (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Wed, 2 Nov 2022 15:33:36 -0400
-Received: from mail-pl1-x62d.google.com (mail-pl1-x62d.google.com [IPv6:2607:f8b0:4864:20::62d])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id A27A35590
-        for <linux-sparse@vger.kernel.org>; Wed,  2 Nov 2022 12:33:35 -0700 (PDT)
-Received: by mail-pl1-x62d.google.com with SMTP id y4so17566094plb.2
-        for <linux-sparse@vger.kernel.org>; Wed, 02 Nov 2022 12:33:35 -0700 (PDT)
+        Sat, 5 Nov 2022 08:39:25 -0400
+Received: from mail-il1-x130.google.com (mail-il1-x130.google.com [IPv6:2607:f8b0:4864:20::130])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 7F00F175B1
+        for <linux-sparse@vger.kernel.org>; Sat,  5 Nov 2022 05:39:24 -0700 (PDT)
+Received: by mail-il1-x130.google.com with SMTP id z9so3820921ilu.10
+        for <linux-sparse@vger.kernel.org>; Sat, 05 Nov 2022 05:39:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=Is8uxYlhyk8bBxYXj/AJ+5Ed7risnbmV/bZZuRONlGw=;
-        b=YgTo3g4CWnxassQXwnQGCJRK8UV2dkG1gd5qUAMt9TS//89B3+EgDk8JBHMqQRWbqE
-         SasIIt6rr9pasf/tRkH/JpmtucjEENqYnz4Ij31JPs/tyYvKfhh0Xab/ZL8Kv52Brl9z
-         k+6eHolz1b5J42Hw8E/CNYhE3n7UgliU9iEI8=
+        d=gmail.com; s=20210112;
+        h=content-transfer-encoding:to:subject:message-id:date:from:reply-to
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=c8XA1N0uaxkLO/wKHErNWHaSuu64k5Pjb5u9dmcZrOc=;
+        b=RIHC9n/dKVExSLG73bd8Y0TEFLCe8HTSL+2d7yE6D2NKhaBTGC77yJTmz2n+UQEoLn
+         jxE36/CP2zWRsxdrbl6Qipo/1wujKwbWTegmQtKA5KaKY5c5k0uls/46uPweryK1Q/70
+         p7KuiiXfJ0vih3FChZlrnOZ0SimajpgL+AXRNjZnSx1jbzFH5llJcPftmYgxT0KBp7aY
+         Nvw2mfIN1dkT84jofHnK9dh7XMfTMquPbJMMLMjB0Dp08MAIB2DxhF8xAtCfYFVwsPDo
+         kuNK/heTlVtwv9hHFhKrR/b4yxRwRja7vVsRsbB9inWGKh1FmpKXNdm91a1Uu/cF0CiR
+         QmBg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Is8uxYlhyk8bBxYXj/AJ+5Ed7risnbmV/bZZuRONlGw=;
-        b=Cp0k3nw+y+/H5wmWO/DhKpiSviC9xERjCtGlLvPp1qE7jmGheQi5F8WFsFEDQLX1P1
-         efP4mZtf99bI7jJUYhqGIbHv7K39bWyua/OjpbDvxXQcBKaPiyWKwAQPb6uvu1SSQw2b
-         m/RRB72Qe1KFL5jMY9Za4Go/QIrAkhi+NL0ge5VsaXy37B0xw2yEVOJVqjrBToBjIO6x
-         rzvxSt2QEMP9S8anchSw2r4AVn3CmHHwG6iKSpJ7xXGTFs1zqUEKHMyJvIstHGbMuqzN
-         rcWoclXtwKwomnkmAqQ3zVx8IC0wg3X9qsAHQ/olZqK31aXqN+pHyM84l2RT++4eF1Kp
-         IF5A==
-X-Gm-Message-State: ACrzQf2YxTUMyBxSR9ycLjhE9Ob0tHXLghBsBngpTkKEEbQgxg++N3QW
-        GxLm39Sum5kCW5s7kuai80vVcA==
-X-Google-Smtp-Source: AMsMyM53U0WVK/IltYw2wXUwLPZJui+ftOfV8T9ZqcZx2iahytioyLerdzpOUR84Yg1+mPoG2ixzFA==
-X-Received: by 2002:a17:902:7446:b0:186:a3a1:782d with SMTP id e6-20020a170902744600b00186a3a1782dmr26452013plt.76.1667417615186;
-        Wed, 02 Nov 2022 12:33:35 -0700 (PDT)
-Received: from www.outflux.net (smtp.outflux.net. [198.145.64.163])
-        by smtp.gmail.com with ESMTPSA id s7-20020a170902988700b001811a197797sm8605891plp.194.2022.11.02.12.33.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Nov 2022 12:33:34 -0700 (PDT)
-Date:   Wed, 2 Nov 2022 12:33:33 -0700
-From:   Kees Cook <keescook@chromium.org>
-To:     Rasmus Villemoes <rasmus.villemoes@prevas.dk>
-Cc:     Gwan-gyeong Mun <gwan-gyeong.mun@intel.com>,
-        luc.vanoostenryck@gmail.com, nathan@kernel.org,
-        ndesaulniers@google.com, trix@redhat.com, dlatypov@google.com,
-        vitor@massaru.org, gustavoars@kernel.org,
-        linux-hardening@vger.kernel.org, llvm@lists.linux.dev,
-        jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com,
-        rodrigo.vivi@intel.com, tvrtko.ursulin@linux.intel.com,
-        airlied@linux.ie, daniel@ffwll.ch, linux-kernel@vger.kernel.org,
-        intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
-        linux-sparse@vger.kernel.org, arnd@kernel.org, mchehab@kernel.org,
-        mauro.chehab@linux.intel.com
-Subject: Re: [PATCH v5] overflow: Introduce overflows_type() and
- castable_to_type()
-Message-ID: <202211021233.02BF0D38@keescook>
-References: <20220926191109.1803094-1-keescook@chromium.org>
- <20221024201125.1416422-1-gwan-gyeong.mun@intel.com>
- <307b90cb-b80d-6ce3-14ae-4a0b2ee5e447@prevas.dk>
+        h=content-transfer-encoding:to:subject:message-id:date:from:reply-to
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=c8XA1N0uaxkLO/wKHErNWHaSuu64k5Pjb5u9dmcZrOc=;
+        b=fPOZMsVMjNnO3cIecsnkA/KWJNgy3KNm36hiYwOywt572XBlR33M9GtIWL1cESHRr5
+         XC5rWyEUtgYwD3n++kGielUb/dAzBo8aTZh03xdpBnKEB8VcL+53xYrgGEf7Gach3o5a
+         aaYxdEbj/YBB2kV8uJW7h/Zocc+5qRUmsUJ3GfqZB0B41VvZaDvKwkMBkQ7I1j817V4Q
+         7RqgUy/BDq5v+7X4MNl3ZN2zKCOFg1Lm59i9qtlxOIoFEgzxLXcxmbcLvQKhdLbNmLLq
+         ZcuLMN4GmH3N0OfWvxzpegvbiKWFkrhMihKLLwlsQiMnrzRrrX9pYEoux183J/hPM6T3
+         vzYw==
+X-Gm-Message-State: ACrzQf1p8tC2HDhaloy2XLHd9eUKF8oX1fTHNTo/tW79LheUaMT2jSvd
+        Homr8cTqvelUf5rFSg3WDyK/kthPbZym25HkrnpB12Uk/kI=
+X-Google-Smtp-Source: AMsMyM7B0KgO1ePqgiznBJPxBFqW0p1QJVzP9XdnRybtCWEEA1+7r7SGcBMaZXE781qwVCHZ0F/UGDKN4buuMG8EUng=
+X-Received: by 2002:a63:8aca:0:b0:461:25fe:e7c5 with SMTP id
+ y193-20020a638aca000000b0046125fee7c5mr34958534pgd.395.1667651947704; Sat, 05
+ Nov 2022 05:39:07 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <307b90cb-b80d-6ce3-14ae-4a0b2ee5e447@prevas.dk>
-X-Spam-Status: No, score=-3.1 required=5.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-        DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,
-        SPF_HELO_NONE,SPF_PASS autolearn=unavailable autolearn_force=no
-        version=3.4.6
+Received: by 2002:a05:7301:2e91:b0:83:922d:c616 with HTTP; Sat, 5 Nov 2022
+ 05:39:06 -0700 (PDT)
+Reply-To: stefanopessia755@hotmail.com
+From:   Stefano Pessina <wamathaibenard@gmail.com>
+Date:   Sat, 5 Nov 2022 15:39:06 +0300
+Message-ID: <CAN7bvZKFRi6jCy913fp9Nu5T=uorMfPGun5ibm5bYqhSVn2ZFA@mail.gmail.com>
+Subject: Geldspende
+To:     undisclosed-recipients:;
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Spam-Status: No, score=4.7 required=5.0 tests=BAYES_50,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,FREEMAIL_REPLYTO,
+        FREEMAIL_REPLYTO_END_DIGIT,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,
+        UNDISC_FREEM autolearn=no autolearn_force=no version=3.4.6
+X-Spam-Level: ****
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-On Wed, Nov 02, 2022 at 12:52:32PM +0100, Rasmus Villemoes wrote:
-> On 24/10/2022 22.11, Gwan-gyeong Mun wrote:
-> > From: Kees Cook <keescook@chromium.org>
-> > 
-> > Implement a robust overflows_type() macro to test if a variable or
-> > constant value would overflow another variable or type. This can be
-> > used as a constant expression for static_assert() (which requires a
-> > constant expression[1][2]) when used on constant values. This must be
-> > constructed manually, since __builtin_add_overflow() does not produce
-> > a constant expression[3].
-> > 
-> > Additionally adds castable_to_type(), similar to __same_type(), but for
-> > checking if a constant value would overflow if cast to a given type.
-> > 
-> 
-> > +#define __overflows_type_constexpr(x, T) (			\
-> > +	is_unsigned_type(typeof(x)) ?				\
-> > +		(x) > type_max(typeof(T)) ? 1 : 0		\
-> > +	: is_unsigned_type(typeof(T)) ?				\
-> > +		(x) < 0 || (x) > type_max(typeof(T)) ? 1 : 0	\
-> > +		: (x) < type_min(typeof(T)) ||			\
-> > +		  (x) > type_max(typeof(T)) ? 1 : 0)
-> > +
-> 
-> Can't all these instances of "foo ? 1 : 0" be simplified to "foo"? That
-> would improve the readability of this thing somewhat IMO.
-
-Oh, good point. :P I'll fix these.
-
--- 
-Kees Cook
+--=20
+Die Summe von 500.000,00 =E2=82=AC wurde Ihnen von STEFANO PESSINA gespende=
+t.
+Bitte kontaktieren Sie uns f=C3=BCr weitere Informationen =C3=BCber
+stefanopessia755@hotmail.com
