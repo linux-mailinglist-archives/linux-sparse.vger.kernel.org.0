@@ -2,63 +2,71 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id C17E565AE8B
-	for <lists+linux-sparse@lfdr.de>; Mon,  2 Jan 2023 10:06:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id DFB6465D378
+	for <lists+linux-sparse@lfdr.de>; Wed,  4 Jan 2023 13:56:37 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S231550AbjABJGJ (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Mon, 2 Jan 2023 04:06:09 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:35648 "EHLO
+        id S239271AbjADMz2 (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Wed, 4 Jan 2023 07:55:28 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:36068 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S229923AbjABJGI (ORCPT
+        with ESMTP id S238599AbjADMyz (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Mon, 2 Jan 2023 04:06:08 -0500
-Received: from mail.slidebizcompany.com (mail.slidebizcompany.com [135.125.235.171])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 24670BCD
-        for <linux-sparse@vger.kernel.org>; Mon,  2 Jan 2023 01:06:03 -0800 (PST)
-Received: by mail.slidebizcompany.com (Postfix, from userid 1002)
-        id A42CAA2475; Mon,  2 Jan 2023 09:05:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=slidebizcompany.com;
-        s=mail; t=1672650351;
-        bh=f01OOv7iZ6eKP39nAJoyJ+/Cmpugf6hkYKbYNn4lotU=;
-        h=Date:From:To:Subject:From;
-        b=OHepDHcgO65eTr2BzRp4qkcDh4toRY8rwozBwSTaYm/pBCXRT/yjO9o1KNs9bwz5H
-         5MtlGuJD6eIA270uttKhDJHKpWCyYidCbgZSFuo3nhYQnR8kcmLIXhP8y1Q1o132F+
-         zu0Tbv5XIDEGq/Va7jUugYjywxDjnU/5b2UIfJ6qP3cCXje23edRddDwv1xo+rR4mw
-         CMtkaDUzKba+WnRP1B0zbYisqABVnOs5oreGTyvI6+4oW+WTpGjmeVc7ZxOhZQrfZP
-         VxFhcrkYWHbT8w03dxZ9fqlYFaoA7WmDecKo4cwnwedGKJ1CnFlZEpj5NIILCy4069
-         OcT5d2+8SdQ3g==
-Received: by mail.slidebizcompany.com for <linux-sparse@vger.kernel.org>; Mon,  2 Jan 2023 09:05:35 GMT
-Message-ID: <20230102074500-0.1.53.1ov3i.0.vlhf4a2upq@slidebizcompany.com>
-Date:   Mon,  2 Jan 2023 09:05:35 GMT
-From:   "Miguel Garcia" <miguel.garcia@slidebizcompany.com>
-To:     <linux-sparse@vger.kernel.org>
-Subject: Servicio de la flota
-X-Mailer: mail.slidebizcompany.com
+        Wed, 4 Jan 2023 07:54:55 -0500
+Received: from mail-qt1-x82a.google.com (mail-qt1-x82a.google.com [IPv6:2607:f8b0:4864:20::82a])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 162481DDD8
+        for <linux-sparse@vger.kernel.org>; Wed,  4 Jan 2023 04:54:53 -0800 (PST)
+Received: by mail-qt1-x82a.google.com with SMTP id jr11so27067202qtb.7
+        for <linux-sparse@vger.kernel.org>; Wed, 04 Jan 2023 04:54:53 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=to:subject:message-id:date:from:reply-to:mime-version:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=g2m/uNsCm/OsAUZxAnJOSdXXDa9Gh4wg88n4VPL2lMU=;
+        b=BQfo1+41q2NZR57Q7BFlMODaOza2AgrRvUpAp3daCd4t1w84OEhFtXAM1g7CkVTr/y
+         mvXWkJvXCDM96Iy3cSf9E37Th3uZX5TzmwlIsHFzK3DAyLuSjJ8d3uR9drr/ahkzPGkt
+         iW+sw+gZOJCd7bumtfoM4UR2xOfXz6tdmGq2f+IJJhoSBazdofAm5Gs9PxuweXnk264c
+         knSGf1CtrqZScdeov1GoaGbl2sApMUXYjJGPCObPVA0UTlHx2t6+wdp4VOKHmsqLWM8X
+         lQt15zqigA6uJCG+q37n0r4mLK1MKtsniT1i9jhRA9qlN9E2Mf0sYN4W9Jd0n+39BoCK
+         yzWA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=to:subject:message-id:date:from:reply-to:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=g2m/uNsCm/OsAUZxAnJOSdXXDa9Gh4wg88n4VPL2lMU=;
+        b=d01+MW8dyqdDPVaywXOkQI8+SAypFNK3x8w/qU6nHeF40LHMpKZWNODSe5XDWYgVZa
+         VCO2zAdlQajhFa6O33293z05P4fbAIt4WCksYfco5U4QKNgDu5V8nTSUsCd8adm+6h5w
+         sLVwmWwXAOcNw194GO+jJKAhuVPmUg+kk0PJit+b//RKx4GiP2R9lF3fvyi+8OK8V8K6
+         8o2c5pQ0NCKvNrpkvxHz2u9Sz7C6Ub2exSJUotvwYakpMMYaNO/4vkqrMYZSpCnVDcWd
+         BzZsoQw/YXwjdpMGI+omIGVvv8bcELJmcC6GlMIyJjbUItOuRzc2P5xGkYcXpwzsHczQ
+         B4aQ==
+X-Gm-Message-State: AFqh2kry6pNy0WMCbI0FH6cMorZi+tL4EJ3DipO/foQWWAjemK2nbdHr
+        WpvFcoKv28EyZSyuiNeqWj1javFmKL5RHWiyBVRiIW/7BQg=
+X-Google-Smtp-Source: AMrXdXuKXTvNK0aSB9vnyjtdhrZfKmRzvU9Jw1W0zhcD7x19AMFVNgTh5oL+8ilZBOfTDf/bL64QVz1mYULxa/ftADs=
+X-Received: by 2002:ac8:568a:0:b0:3a9:688d:fad2 with SMTP id
+ h10-20020ac8568a000000b003a9688dfad2mr1976067qta.646.1672836882017; Wed, 04
+ Jan 2023 04:54:42 -0800 (PST)
 MIME-Version: 1.0
+Received: by 2002:a05:6200:5d91:b0:4a5:78e9:2012 with HTTP; Wed, 4 Jan 2023
+ 04:54:41 -0800 (PST)
+Reply-To: Gregdenzell9@gmail.com
+From:   Greg Denzell <mzsophie@gmail.com>
+Date:   Wed, 4 Jan 2023 12:54:41 +0000
+Message-ID: <CAEoj5=ZpJ15GRz-U33Ocbu5-P3Va+3bNv3476+mmJJ52cwx7tA@mail.gmail.com>
+Subject: 
+To:     undisclosed-recipients:;
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Spam-Status: No, score=1.9 required=5.0 tests=BAYES_50,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_VALIDITY_RPBL,
-        SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no version=3.4.6
-X-Spam-Level: *
+X-Spam-Status: No, score=4.6 required=5.0 tests=BAYES_50,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,FREEMAIL_REPLYTO,
+        FREEMAIL_REPLYTO_END_DIGIT,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,
+        UNDISC_FREEM autolearn=no autolearn_force=no version=3.4.6
+X-Spam-Level: ****
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-Buenos d=C3=ADas:
+Seasons Greetings!
 
-Le escribo para hablarle sobre una de las mejores herramientas GPS en el =
-mercado.
-
-La herramienta, que me gustar=C3=ADa presentarle brevemente, dispone de m=
-uchas funciones =C3=BAtiles para su trabajo, que optimizan los procesos d=
-e transporte y le ayudan a realizar tareas de campo de manera m=C3=A1s ef=
-iciente.
-
-=C2=BFQuiere conocer los detalles?
-
-
-Atentamente,
-Miguel Garcia
+This will remind you again that I have not yet received your reply to
+my last message to you.
