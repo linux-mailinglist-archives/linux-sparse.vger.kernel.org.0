@@ -2,75 +2,89 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 473AD6E58FB
-	for <lists+linux-sparse@lfdr.de>; Tue, 18 Apr 2023 07:59:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 3AEA86F5B35
+	for <lists+linux-sparse@lfdr.de>; Wed,  3 May 2023 17:32:36 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S229958AbjDRF7s (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Tue, 18 Apr 2023 01:59:48 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:43692 "EHLO
+        id S230120AbjECPcf (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Wed, 3 May 2023 11:32:35 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:55130 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S230416AbjDRF7g (ORCPT
+        with ESMTP id S230246AbjECPce (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Tue, 18 Apr 2023 01:59:36 -0400
-Received: from mail-ej1-x643.google.com (mail-ej1-x643.google.com [IPv6:2a00:1450:4864:20::643])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id EE6A459E1
-        for <linux-sparse@vger.kernel.org>; Mon, 17 Apr 2023 22:59:32 -0700 (PDT)
-Received: by mail-ej1-x643.google.com with SMTP id sz19so13165657ejc.2
-        for <linux-sparse@vger.kernel.org>; Mon, 17 Apr 2023 22:59:32 -0700 (PDT)
+        Wed, 3 May 2023 11:32:34 -0400
+Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com [IPv6:2a00:1450:4864:20::429])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 324B35592
+        for <linux-sparse@vger.kernel.org>; Wed,  3 May 2023 08:32:33 -0700 (PDT)
+Received: by mail-wr1-x429.google.com with SMTP id ffacd0b85a97d-3062b101ae1so2755930f8f.2
+        for <linux-sparse@vger.kernel.org>; Wed, 03 May 2023 08:32:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1681797571; x=1684389571;
-        h=to:subject:message-id:date:from:reply-to:mime-version:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=dQlu0Oc2Q0nPMBCNq5iTPUZpwrRZlsMdPt2zjra8+VI=;
-        b=h2u+IvYIbnFxxtQG/ZtOJXOGODtmHZE6DE2kphmV5deUhBtI5SSl5ZpPS81I4DoyvM
-         cL/QsMoq/nZ79QoTUVBpjigDCpbkhNV4ihdOYSWAZCOke9dA/QR1VB/koOlQ9LVEDYMX
-         XtbtlwSc8k7WA+c3R6xpugIUkMv4IcvxiBX5jugHOkE6bIQRd6XIP4bPoYTYUOtLJ8cY
-         jqOSy7VahCSY+50nHqKMLAvtMY0jgSKZG9RLZ0VM4rlX3dlYAIwPmpAZEs5sdE1jKPzt
-         sUSa+Yt3rvdogEL685HX9OzzgKvbxUuLxSFiR0ubii95w3DTWRmDDneYGKBqJn2l6obd
-         7Bag==
+        d=linaro.org; s=google; t=1683127950; x=1685719950;
+        h=content-disposition:mime-version:message-id:subject:to:from:date
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=SU9RxfazOghbsFZdmv9Rm/1fWfFP+Dx4yN1sdYemBKg=;
+        b=nVbs9uWGSX5vP9Z4UcJjCsjbB+DfyCSyUeHZZiZNuvwJeyEFfP1ru3aJOfZE8i8kCq
+         NUrEJf34a26wg/tadtFhWd2u2EGIsu08XAr+nNoRRZLkyHlZHAQCLdoRlOe0Lodgp+4l
+         2od9M+pieoPloHnwFUxtQMWd18YXTgcb8J5BEXVNjEmAhx+/NCYXYQ0TjedeTURqp7uO
+         Vrqz86FXnmukK6tDEh8HIr4d2aVbq8AaS5QsP+440en9qBwi6pHvX+MWKVV6HwDKr3Ib
+         m1WuOAe4uD0cR+9hlqUQ83+eCK1d9CDlA1A2ldXc2cSK6hLuI1gpelydvoAo5hcaQyzC
+         dv3w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1681797571; x=1684389571;
-        h=to:subject:message-id:date:from:reply-to:mime-version
+        d=1e100.net; s=20221208; t=1683127950; x=1685719950;
+        h=content-disposition:mime-version:message-id:subject:to:from:date
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=dQlu0Oc2Q0nPMBCNq5iTPUZpwrRZlsMdPt2zjra8+VI=;
-        b=iJGuMkhyYYlO9eS5pNzT0DNCG18RAoqJqfoVVO1batZjLBJiy4c3NWpG1ufCPnGur3
-         0gSabH5Q7ytc7bMpJ/qC/kgrpmi3NppQeyIt6t4kNGP6lrK6SV1H8q2ITouym2asBuyl
-         9qK/x3Vroprmfh/GfQhLWE17p9vc+EyXtI3jOTDrWs1T1sgv73lUPcamMK0HAWZGRYwo
-         QaNGQYAE6IEv7MZjy5MQmpyuvcm+w5Hoq/fpSJBUXm1kpGwV8Myzpn0QlPFF3bzJXrlt
-         Oqa23QzikzC5PBzWzyfCn2zuvOxPFdZFNp0XLAZw4Lq4EbXoIquOcI1ChmW75qMpWwmk
-         W5wg==
-X-Gm-Message-State: AAQBX9e5By5EUFJPWwOXazn2t/KFL7XkAP6y6eCys9sLNcL6sPeC5rfZ
-        7Jwoamzj16mu3i0XmxtXhp7dvhY8ptzJTIcV5NLfrc/38oE4olku
-X-Google-Smtp-Source: AKy350YRsUSKQ0+i58Lzun7WtY7IrRwSkm+DWIi2JdfS71rVYYWUT2OQ/a/Q5PRWIBazn3AQLm2dWBYGVxBajLvvRoE=
-X-Received: by 2002:a05:6512:96b:b0:4e8:4b7a:6b73 with SMTP id
- v11-20020a056512096b00b004e84b7a6b73mr2935594lft.4.1681797550844; Mon, 17 Apr
- 2023 22:59:10 -0700 (PDT)
+        bh=SU9RxfazOghbsFZdmv9Rm/1fWfFP+Dx4yN1sdYemBKg=;
+        b=V+nnIjjI3+bo/sAGS4rCZgbMrtQ85kht1Lx+BsGWNfR0/Qqp1A8Ii3iXE2tdIaRsZP
+         nFFSguaTp8D6APIbI36MXA50XiWcwntIR6qWPg0VxRsfGWj9i77XNz1XL8eDhR5g0wvc
+         IxxFOWfwErIpdCHByVUOYsInukC3ziYILZdxmvXa5i9jvuaMg6lf/qmnBXe3FsWJHGWs
+         WRrOeqUJPxFHG5gNjvu2EQ7znWKceR3RuR8vo16mwJzuIzh6Y6ESzQuavDWpbg1hoEfF
+         GRrDiZ2hcXPXBzkW75wptnwaqf8NVDLfBCT0YMDNELNHta2wE7rAel4q6UlE8Z9Q9P/9
+         vySQ==
+X-Gm-Message-State: AC+VfDyA1OdQGvOAf+68JVUMNhyAEAimM/Fc74I7tJVOk1rhVQiiOQ9k
+        QU83Zh6d0yLXF1DcfoBaDUOhtGSsPj9UzZozyuY=
+X-Google-Smtp-Source: ACHHUZ7gjz85VLh3bMaa/iJsGGCCfbsFynfp3alj87H2OvuHETImhZL0pwbWBfal+SICMEBQGqF9gA==
+X-Received: by 2002:a5d:5918:0:b0:2de:ffec:e48a with SMTP id v24-20020a5d5918000000b002deffece48amr316366wrd.29.1683127950582;
+        Wed, 03 May 2023 08:32:30 -0700 (PDT)
+Received: from localhost ([102.36.222.112])
+        by smtp.gmail.com with ESMTPSA id p18-20020a5d4e12000000b0030647d1f34bsm406021wrt.1.2023.05.03.08.32.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 03 May 2023 08:32:29 -0700 (PDT)
+Date:   Wed, 3 May 2023 18:32:24 +0300
+From:   Dan Carpenter <dan.carpenter@linaro.org>
+To:     linux-sparse@vger.kernel.org
+Subject: Sparse on ARM Neon intrinsics
+Message-ID: <f6adc14d-c5c5-45c5-9e85-979d5d328842@kili.mountain>
 MIME-Version: 1.0
-Received: by 2002:ab2:2681:0:b0:1b6:840f:9075 with HTTP; Mon, 17 Apr 2023
- 22:59:10 -0700 (PDT)
-Reply-To: mariamkouame.info@myself.com
-From:   Mariam Kouame <mariamkouame1992@gmail.com>
-Date:   Mon, 17 Apr 2023 22:59:10 -0700
-Message-ID: <CADUz=agNY633M0qMXMnAP3Ms7-3rKuWtAZGCOQZKeYpCdBxT_w@mail.gmail.com>
-Subject: from mariam kouame
-To:     undisclosed-recipients:;
-Content-Type: text/plain; charset="UTF-8"
-X-Spam-Status: No, score=2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
-        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_ENVFROM_END_DIGIT,
-        FREEMAIL_FROM,FREEMAIL_REPLYTO,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,
-        SPF_PASS,T_SCC_BODY_TEXT_LINE,UNDISC_FREEM autolearn=no
-        autolearn_force=no version=3.4.6
-X-Spam-Level: **
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+X-Spam-Status: No, score=-2.1 required=5.0 tests=BAYES_00,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,RCVD_IN_DNSWL_NONE,
+        SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED
+        autolearn=ham autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-Dear,
+There are a couple files in an ARM build which fail because of ARM Neon
+intrinsics: lib/raid6/recov_neon_inner.c and crypto/aegis128-neon-inner.c
 
-Please grant me permission to share a very crucial discussion with
-you. I am looking forward to hearing from you at your earliest
-convenience.
+  CHECK   crypto/aegis128-neon-inner.c
+crypto/aegis128-neon-inner.c: note: in included file (through arch/arm64/include/asm/neon-intrinsics.h):
+/usr/lib/gcc-cross/aarch64-linux-gnu/12/include/arm_neon.h:40:9: warning: '__Int8x8_t' has implicit type
+/usr/lib/gcc-cross/aarch64-linux-gnu/12/include/arm_neon.h:40:20: error: Expected ; at end of declaration
+/usr/lib/gcc-cross/aarch64-linux-gnu/12/include/arm_neon.h:40:20: error: got int8x8_t
+/usr/lib/gcc-cross/aarch64-linux-gnu/12/include/arm_neon.h:41:21: error: Expected ; at end of declaration
+/usr/lib/gcc-cross/aarch64-linux-gnu/12/include/arm_neon.h:41:21: error: got int16x4_t
+/usr/lib/gcc-cross/aarch64-linux-gnu/12/include/arm_neon.h:42:21: error: Expected ; at end of declaration
+/usr/lib/gcc-cross/aarch64-linux-gnu/12/include/arm_neon.h:42:21: error: got int32x2_t
+/usr/lib/gcc-cross/aarch64-linux-gnu/12/include/arm_neon.h:43:21: error: Expected ; at end of declaration
+/usr/lib/gcc-cross/aarch64-linux-gnu/12/include/arm_neon.h:43:21: error: got int64x1_t
+/usr/lib/gcc-cross/aarch64-linux-gnu/12/include/arm_neon.h:44:23: error: Expected ; at end of declaration
 
-Mrs. Mariam Kouame
+Neon intrinsics seem really complicated to handle, but maybe there is
+a hack around to just silence the warnings?
+
+regards,
+dan carpenter
+
