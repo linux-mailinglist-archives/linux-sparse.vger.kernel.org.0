@@ -2,174 +2,115 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 0911472725A
-	for <lists+linux-sparse@lfdr.de>; Thu,  8 Jun 2023 00:55:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 6345272DB1E
+	for <lists+linux-sparse@lfdr.de>; Tue, 13 Jun 2023 09:38:37 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S233353AbjFGWzl (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Wed, 7 Jun 2023 18:55:41 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:54500 "EHLO
+        id S235218AbjFMHif convert rfc822-to-8bit (ORCPT
+        <rfc822;lists+linux-sparse@lfdr.de>); Tue, 13 Jun 2023 03:38:35 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:38350 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S231761AbjFGWz0 (ORCPT
+        with ESMTP id S234472AbjFMHie (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Wed, 7 Jun 2023 18:55:26 -0400
-Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com [IPv6:2a00:1450:4864:20::535])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id E619026A3
-        for <linux-sparse@vger.kernel.org>; Wed,  7 Jun 2023 15:55:14 -0700 (PDT)
-Received: by mail-ed1-x535.google.com with SMTP id 4fb4d7f45d1cf-5149390b20aso2550396a12.3
-        for <linux-sparse@vger.kernel.org>; Wed, 07 Jun 2023 15:55:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1686178513; x=1688770513;
-        h=content-transfer-encoding:to:subject:message-id:date:from:reply-to
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=lwmqmz3SLTAm/5XHn54kA2Qkz1KiGdBlOiEDAaxIk1A=;
-        b=h4j71OFNDV5FfvldtjCh/L+Qg71oYHcBnHuDB5srtk996zsBHlbD8SaqVv65TPPNSR
-         D55ZWk68qXdEmt+kIdXRugiaujZb/weZnFCTHcuZcbiNqcbtWT0X7OlskYnP/y/1JDzr
-         WbOZ68AcZfM/aHW4up57fkOGafclaBar/hLOCFBtTjAlCxKYQtVTvq0W4SECGmO4CUql
-         dig397pPxdZX0OTvC2J8JrOzuSqogeJM29duG5G1BgaFsW6donzZWRU1Jz4x6qDKSWR9
-         w6/41Hy1gwVz7zf6M5uQKiqeQS7jHj9sppdk3jRa//N+UQ6Qg+lxAaHE7mp4Zy+a5Adc
-         Kv2w==
+        Tue, 13 Jun 2023 03:38:34 -0400
+Received: from mail-yw1-f179.google.com (mail-yw1-f179.google.com [209.85.128.179])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 6D7E3AA;
+        Tue, 13 Jun 2023 00:38:33 -0700 (PDT)
+Received: by mail-yw1-f179.google.com with SMTP id 00721157ae682-56d5492850dso6764397b3.0;
+        Tue, 13 Jun 2023 00:38:33 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1686178513; x=1688770513;
-        h=content-transfer-encoding:to:subject:message-id:date:from:reply-to
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=lwmqmz3SLTAm/5XHn54kA2Qkz1KiGdBlOiEDAaxIk1A=;
-        b=U5LKRsVzbaVdzD9zXMbKUraOeAPyN3kgaFdG6fplVIu7HIJHJXcDylcLggZweT21Pe
-         iEHVLJ8K/dcuHeyet6sMRn1lq3oCmQmobTyheTG4NmcU+g6sQTp9+flctdBiOhuZkSYM
-         T34xO3CQrg5QRlws7y5kOXoBnZIXuqtsVOpSjBjk2ZPma7ntBfxdaUsasSHWXhOsA3x4
-         BqFSp9dYdP+LFpv+QNhrjpRcRvcv6QdXH/TGNvoQ7d3PcEmjd10ND/PdDu0z50sK1ggx
-         /evvApLRo0MZVl3zLgvp4G3IqH02viyWeKZHp5C9Oi/WD71C7/Ac9y++oYt0FpbDM6hb
-         302w==
-X-Gm-Message-State: AC+VfDz1amETAArDyxoa5ZzOsU+6CKvkbtl/6Ee8XEMcYiEQZ9nUjoEZ
-        bAjgI+VqBjHT3Fr6Hu7plmwrooWsyqEZtsEOaLlh3iEnT9F/fg==
-X-Google-Smtp-Source: ACHHUZ5q9v5E8VuN7LGrTh1boUYVANIIUnJnBwlK4YNL8XVT+z7GalrAexguq0b795Op+2qoCUEoHnMN8sFXq0M0ebg=
-X-Received: by 2002:a17:907:8a15:b0:96f:d154:54f7 with SMTP id
- sc21-20020a1709078a1500b0096fd15454f7mr7113590ejc.42.1686178492570; Wed, 07
- Jun 2023 15:54:52 -0700 (PDT)
+        d=1e100.net; s=20221208; t=1686641912; x=1689233912;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=5HYSRhDPwRoW06pJwnVk/r95T6M6w1GodDXdJDLZ7hw=;
+        b=ErTBJHcVFLs7fU0t/WS8JU/lWBKznx7RfhF6qFEZ8Mzwf/SU2w2i1gPeK9nEePwyYK
+         0O46g2jbCe27596CJMeQpACBJtUEZZAqKrDyCkEbC7sWHdgfM7sQXfyeFABqXAiW6vVI
+         bn19WtZNg8YMqV62sr8OjzDogN4Nm71KrzZtCptZ2bptbWlCe6zE+j0n2nNYkEQnSlXH
+         Ybu00AsNs6thwz97zcHDI5QyhicemJLbwQsfCQ/sJQCNmXRSjSQqHn3VYf1dDNQ0iPyB
+         mhJCWvS2hDuSwm5mB7A5rQg2SJAj2qBMEx7LPZCvIbnnSM/BzVv0NWHzfNr+15VQn9Xi
+         +uZg==
+X-Gm-Message-State: AC+VfDw8Q07fQh8YZLYGWdyJsuinzEGW1zC0KOcQRifEXz/e+SVrOLUl
+        Stq5web72+MTSJNDtSIpwLLalouC9V7NxA==
+X-Google-Smtp-Source: ACHHUZ5Xy96REM2G8fMuYRpTXaL0Tx08J209KzAHyTv/iamcC284Vmx7eV+yhc2IHk03D3kppazIwA==
+X-Received: by 2002:a25:cf8a:0:b0:ba6:b00d:b865 with SMTP id f132-20020a25cf8a000000b00ba6b00db865mr779527ybg.56.1686641912378;
+        Tue, 13 Jun 2023 00:38:32 -0700 (PDT)
+Received: from mail-yb1-f181.google.com (mail-yb1-f181.google.com. [209.85.219.181])
+        by smtp.gmail.com with ESMTPSA id e72-20020a25e74b000000b00bc8f984984asm1258554ybh.35.2023.06.13.00.38.32
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 13 Jun 2023 00:38:32 -0700 (PDT)
+Received: by mail-yb1-f181.google.com with SMTP id 3f1490d57ef6-bc4e167c4b2so3115260276.3;
+        Tue, 13 Jun 2023 00:38:32 -0700 (PDT)
+X-Received: by 2002:a25:4245:0:b0:ba8:1ebe:9b96 with SMTP id
+ p66-20020a254245000000b00ba81ebe9b96mr762286yba.1.1686641911996; Tue, 13 Jun
+ 2023 00:38:31 -0700 (PDT)
 MIME-Version: 1.0
-Received: by 2002:a54:2409:0:b0:217:72a9:f646 with HTTP; Wed, 7 Jun 2023
- 15:54:52 -0700 (PDT)
-Reply-To: unitednationcompensationcoordinatortreasury@hotmail.com
-From:   "UNITED NATION DEPUTY SECRETARY-GENERAL (U.N)" 
-        <successikolo@gmail.com>
-Date:   Wed, 7 Jun 2023 15:54:52 -0700
-Message-ID: <CADFNGJ8vkgORi1jPvvhP+FQnPCNqs4cr588+_a-ywDXpqf+qKA@mail.gmail.com>
-Subject: CONTACT DHL OFFICE IMMEDIATELY FOR YOUR ATM MASTER CARD 1.5 MILLION,
-To:     undisclosed-recipients:;
+References: <20230613021643.3330661-1-gongruiqi@huaweicloud.com>
+In-Reply-To: <20230613021643.3330661-1-gongruiqi@huaweicloud.com>
+From:   Geert Uytterhoeven <geert@linux-m68k.org>
+Date:   Tue, 13 Jun 2023 09:38:20 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdXGG2xu+nXJt6CSTfV6aM=U=hMW+DiDgP3RhOw8+O8y=A@mail.gmail.com>
+Message-ID: <CAMuHMdXGG2xu+nXJt6CSTfV6aM=U=hMW+DiDgP3RhOw8+O8y=A@mail.gmail.com>
+Subject: Re: [PATCH] pinctrl: renesas: remove checker warnings: x | !y
+To:     "GONG, Ruiqi" <gongruiqi@huaweicloud.com>
+Cc:     Linus Walleij <linus.walleij@linaro.org>,
+        linux-renesas-soc@vger.kernel.org, linux-gpio@vger.kernel.org,
+        linux-kernel@vger.kernel.org, gongruiqi1@huawei.com,
+        linux-sparse@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Spam-Status: Yes, score=6.6 required=5.0 tests=ADVANCE_FEE_3_NEW_FRM_MNY,
-        BAYES_50,DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,
-        FILL_THIS_FORM,FORM_FRAUD_5,FREEMAIL_FROM,FREEMAIL_REPLYTO,
-        LOTS_OF_MONEY,MONEY_FORM,MONEY_FRAUD_5,MONEY_FREEMAIL_REPTO,
-        RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,SUBJ_ALL_CAPS,
-        T_FILL_THIS_FORM_LOAN,T_SCC_BODY_TEXT_LINE,UNDISC_FREEM,UNDISC_MONEY
-        autolearn=no autolearn_force=no version=3.4.6
-X-Spam-Report: * -0.0 RCVD_IN_DNSWL_NONE RBL: Sender listed at
-        *      https://www.dnswl.org/, no trust
-        *      [2a00:1450:4864:20:0:0:0:535 listed in]
-        [list.dnswl.org]
-        *  0.8 BAYES_50 BODY: Bayes spam probability is 40 to 60%
-        *      [score: 0.5000]
-        *  0.0 SPF_HELO_NONE SPF: HELO does not publish an SPF Record
-        *  0.0 FREEMAIL_FROM Sender email is commonly abused enduser mail
-        *      provider
-        *      [successikolo[at]gmail.com]
-        *  0.5 SUBJ_ALL_CAPS Subject is all capitals
-        * -0.0 SPF_PASS SPF: sender matches SPF record
-        *  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
-        *       valid
-        * -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
-        * -0.1 DKIM_VALID_EF Message has a valid DKIM or DK signature from
-        *      envelope-from domain
-        * -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
-        *      author's domain
-        *  0.0 LOTS_OF_MONEY Huge... sums of money
-        * -0.0 T_SCC_BODY_TEXT_LINE No description available.
-        *  2.7 UNDISC_FREEM Undisclosed recipients + freemail reply-to
-        *  0.2 MONEY_FREEMAIL_REPTO Lots of money from someone using free
-        *      email?
-        *  1.0 FREEMAIL_REPLYTO Reply-To/From or Reply-To/body contain
-        *      different freemails
-        *  0.0 FILL_THIS_FORM Fill in a form with personal information
-        *  0.0 T_FILL_THIS_FORM_LOAN Answer loan question(s)
-        *  0.0 MONEY_FORM Lots of money if you fill out a form
-        *  1.3 UNDISC_MONEY Undisclosed recipients + money/fraud signs
-        *  0.0 ADVANCE_FEE_3_NEW_FRM_MNY Advance Fee fraud form and lots of
-        *      money
-        *  0.2 MONEY_FRAUD_5 Lots of money and many fraud phrases
-        *  0.0 FORM_FRAUD_5 Fill a form and many fraud phrases
-X-Spam-Level: ******
+Content-Transfer-Encoding: 8BIT
+X-Spam-Status: No, score=-1.4 required=5.0 tests=BAYES_00,
+        FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
+        RCVD_IN_DNSWL_NONE,RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS,
+        T_SCC_BODY_TEXT_LINE autolearn=no autolearn_force=no version=3.4.6
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-UNITED NATION DEPUTY SECRETARY-GENERAL.
+Hi Gong,
 
-This is to official inform you that we have been having meetings for
-the past three (3) weeks which ended two days ago with MR. JIM YONG
-KIM the world bank president and other seven continent presidents on
-the congress we treated on solution to scam victim problems.
+On Tue, Jun 13, 2023 at 4:13 AM GONG, Ruiqi <gongruiqi@huaweicloud.com> wrote:
+> Eliminate the following Sparse reports when building with C=1:
+>
+> drivers/pinctrl/renesas/pinctrl-rzn1.c:187:52: warning: dubious: x | !y
+> drivers/pinctrl/renesas/pinctrl-rzn1.c:193:52: warning: dubious: x | !y
+>
+> Signed-off-by: GONG, Ruiqi <gongruiqi@huaweicloud.com>
 
- Note: we have decided to contact you following the reports we
-received from anti-fraud international monitoring group your
-name/email has been submitted to us therefore the united nations have
-agreed to compensate you with the sum of (USD$ 1.5 Million) this
-compensation is also including international business that failed you
-in the past due to government problems etc.
+Thanks for your patch!
 
- We have arranged your payment through our ATM Master Card and
-deposited it in DHL Office to deliver it to you which is the latest
-instruction from the World Bank president MR. JIM YONG KIM, For your
-information=E2=80=99s, the delivery charges already paid by U.N treasury, t=
-he
-only money you will send to DHL office south Korea is
-($500). for security keeping fee, U.N coordinator already paid for
-others charges fees for delivery except the security keeping fee, the
-director of DHL refused to collect the security keeping fee from U.N
-coordinator, the Director of DHL office said that they don=E2=80=99t know
-exactly time you will contact them to reconfirm your details to avoid
-counting demur-rage that is why they refused collecting the ($500) .
-for security keeping fee.
+Looks like sparse needs to be taught the "|" is not used in a boolean
+context here?
 
- Therefore be advice to contact DHL Office agent south Korea. Rev:John
-Lee Tae-seok
-who is in position to deliver your ATM
-Master Card to your location address, contact DHL Office immediately
-with the bellow email & phone number as listed below.
+> --- a/drivers/pinctrl/renesas/pinctrl-rzn1.c
+> +++ b/drivers/pinctrl/renesas/pinctrl-rzn1.c
+> @@ -184,13 +184,15 @@ static void rzn1_hw_set_lock(struct rzn1_pinctrl *ipctl, u8 lock, u8 value)
+>          * address | 1.
+>          */
+>         if (lock & LOCK_LEVEL1) {
+> -               u32 val = ipctl->lev1_protect_phys | !(value & LOCK_LEVEL1);
+> +               u32 val = ipctl->lev1_protect_phys |
+> +                       (value & LOCK_LEVEL1 ? 0 : 1);
+>
+>                 writel(val, &ipctl->lev1->status_protect);
+>         }
+>
+>         if (lock & LOCK_LEVEL2) {
+> -               u32 val = ipctl->lev2_protect_phys | !(value & LOCK_LEVEL2);
+> +               u32 val = ipctl->lev2_protect_phys |
+> +                       (value & LOCK_LEVEL2 ? 0 : 1);
+>
+>                 writel(val, &ipctl->lev2->status_protect);
+>         }
 
- Contact name: John Lee Tae-seok
+Gr{oetje,eeting}s,
 
- Email:( dhlgeneralheadquartersrepublic@gmail.com )
+                        Geert
 
- Do not hesitate to Contact Rev: John Lee Tae-seok, as soon as you
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
- read this message. Email:( dhlgeneralheadquartersrepublic@gmail.com )
-
- Make sure you reconfirmed DHL Office your details ASAP as stated
-below to avoid wrong delivery.
-
- Your full name..........
-
- Home address:.........
-
- Your country...........
-
- Your city..............
-
- Telephone......
-
- Occupation:.......
-
- Age:=E2=80=A6=E2=80=A6=E2=80=A6=E2=80=A6=E2=80=A6=E2=80=A6..
-
- Let us know as soon as possible you receive your ATM MasterCard
-for proper verification.
-
- Regards,
-
- Mrs Vivian kakadu.
-
- DEPUTY SECRETARY-GENERAL (U.N)
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
