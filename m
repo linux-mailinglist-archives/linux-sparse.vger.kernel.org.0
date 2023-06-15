@@ -2,128 +2,87 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 1E4BD72DE0F
-	for <lists+linux-sparse@lfdr.de>; Tue, 13 Jun 2023 11:45:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTP id 90B367310AB
+	for <lists+linux-sparse@lfdr.de>; Thu, 15 Jun 2023 09:30:56 +0200 (CEST)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S240443AbjFMJpk (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Tue, 13 Jun 2023 05:45:40 -0400
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:58808 "EHLO
+        id S243125AbjFOHax (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Thu, 15 Jun 2023 03:30:53 -0400
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:47608 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S240448AbjFMJph (ORCPT
+        with ESMTP id S244613AbjFOHap (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Tue, 13 Jun 2023 05:45:37 -0400
-Received: from dggsgout11.his.huawei.com (dggsgout11.his.huawei.com [45.249.212.51])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 23AE1173C;
-        Tue, 13 Jun 2023 02:45:33 -0700 (PDT)
-Received: from mail02.huawei.com (unknown [172.30.67.153])
-        by dggsgout11.his.huawei.com (SkyGuard) with ESMTP id 4QgNvs0klWz4f3wRQ;
-        Tue, 13 Jun 2023 17:45:29 +0800 (CST)
-Received: from [10.67.110.48] (unknown [10.67.110.48])
-        by APP1 (Coremail) with SMTP id cCh0CgDHIBu4OohkevjXKw--.29140S2;
-        Tue, 13 Jun 2023 17:45:29 +0800 (CST)
-Message-ID: <4a501c9f-245f-5ecd-46e9-dc0e71abf8a5@huaweicloud.com>
-Date:   Tue, 13 Jun 2023 17:45:28 +0800
+        Thu, 15 Jun 2023 03:30:45 -0400
+X-Greylist: delayed 10270 seconds by postgrey-1.37 at lindbergh.monkeyblade.net; Thu, 15 Jun 2023 00:30:43 PDT
+Received: from mail.sitirkam.com (mail.aurorateknoglobal.com [103.126.10.58])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id B5455E69;
+        Thu, 15 Jun 2023 00:30:43 -0700 (PDT)
+Received: from localhost (localhost.localdomain [127.0.0.1])
+        by mail.sitirkam.com (Postfix) with ESMTP id 16CDD4E7BE8D;
+        Thu, 15 Jun 2023 08:32:17 +0700 (WIB)
+Received: from mail.sitirkam.com ([127.0.0.1])
+        by localhost (mail.sitirkam.com [127.0.0.1]) (amavisd-new, port 10032)
+        with ESMTP id Ese7-pAPUxzt; Thu, 15 Jun 2023 08:32:16 +0700 (WIB)
+Received: from localhost (localhost.localdomain [127.0.0.1])
+        by mail.sitirkam.com (Postfix) with ESMTP id 29E3C4E7BA8C;
+        Thu, 15 Jun 2023 08:32:05 +0700 (WIB)
+DKIM-Filter: OpenDKIM Filter v2.10.3 mail.sitirkam.com 29E3C4E7BA8C
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sitirkam.com;
+        s=B8AB377C-ED3B-11EA-8736-9248CAEF674E; t=1686792725;
+        bh=q7vDHy+gLAr4GKZUDI+hjt8I93kvW09nNmGJORUTyfg=;
+        h=MIME-Version:To:From:Date:Message-Id;
+        b=Xb++C53IX6it0NRdJ6KCI6lXfhAKCq8P8Ks4ohctCBfc2WvkzaYUrDEbpIjtMfZM6
+         gwATCPxfO+XYuxJPNqaezrRwlrrZFnDgM3A1BLcJqYJVx+8XBBtXz2vL5vF0AE1l6G
+         guIKrbBV8tBP0pQEYkK8JYl/PGU1zWqrdVasxD98/swdJ2VGyaUPe0DtY1e4zV7gmW
+         3QR7PzCVRhGpRjm4sUM22RfpoasHalob+LUPqOlS+Wl/vP12LSG1XoiSThFLP72YM5
+         GLpk+2HNVmRN72yYrA3XTeCiRT10hIqpfMlnd6eUpWmOZ5Q/kW2WB+mXltuqM9dtz0
+         9/VdXlfQ6bf9Q==
+X-Virus-Scanned: amavisd-new at mail.sitirkam.com
+Received: from mail.sitirkam.com ([127.0.0.1])
+        by localhost (mail.sitirkam.com [127.0.0.1]) (amavisd-new, port 10026)
+        with ESMTP id EtD8e92cZ5a5; Thu, 15 Jun 2023 08:32:04 +0700 (WIB)
+Received: from [185.169.4.111] (unknown [185.169.4.111])
+        by mail.sitirkam.com (Postfix) with ESMTPSA id 21E5C4E7BA81;
+        Thu, 15 Jun 2023 08:31:55 +0700 (WIB)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Subject: Re: [PATCH] pinctrl: renesas: remove checker warnings: x | !y
-Content-Language: en-US
-To:     Geert Uytterhoeven <geert@linux-m68k.org>
-Cc:     Linus Walleij <linus.walleij@linaro.org>,
-        linux-renesas-soc@vger.kernel.org, linux-gpio@vger.kernel.org,
-        linux-kernel@vger.kernel.org, gongruiqi1@huawei.com,
-        linux-sparse@vger.kernel.org,
-        Dan Carpenter <dan.carpenter@linaro.org>
-References: <20230613021643.3330661-1-gongruiqi@huaweicloud.com>
- <CAMuHMdXGG2xu+nXJt6CSTfV6aM=U=hMW+DiDgP3RhOw8+O8y=A@mail.gmail.com>
-From:   "GONG, Ruiqi" <gongruiqi@huaweicloud.com>
-In-Reply-To: <CAMuHMdXGG2xu+nXJt6CSTfV6aM=U=hMW+DiDgP3RhOw8+O8y=A@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: cCh0CgDHIBu4OohkevjXKw--.29140S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7Cry8Xr4fWw1xtF4kWw18uFg_yoW8Zr4UpF
-        47ta4UtFsYyF4UZFZ8t3yxWrWYyan2krWDG3WDKa4UZFZ8ZF1kt3WSgw4FvF4Durs7Aw1q
-        qF4UKa4fG3W3A3JanT9S1TB71UUUUUUqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-        9KBjDU0xBIdaVrnRJUUUkjb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k2
-        6cxKx2IYs7xG6r1S6rWUM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4
-        vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7Cj
-        xVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x
-        0267AKxVW0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG
-        6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFV
-        Cjc4AY6r1j6r4UM4x0Y48IcVAKI48JMxk0xIA0c2IEe2xFo4CEbIxvr21l42xK82IYc2Ij
-        64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x
-        8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE
-        2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42
-        xK8VAvwI8IcIk0rVWrZr1j6s0DMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIE
-        c7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x07UWE__UUUUU=
-X-CM-SenderInfo: pjrqw2pxltxq5kxd4v5lfo033gof0z/
-X-CFilter-Loop: Reflected
-X-Spam-Status: No, score=-2.0 required=5.0 tests=BAYES_00,NICE_REPLY_A,
-        SPF_HELO_NONE,SPF_NONE,T_SCC_BODY_TEXT_LINE autolearn=ham
-        autolearn_force=no version=3.4.6
+Content-Transfer-Encoding: quoted-printable
+Content-Description: Mail message body
+Subject: Spende
+To:     Recipients <admin@sitirkam.com>
+From:   "Maria-Elisabeth Schaeffler" <admin@sitirkam.com>
+Date:   Wed, 14 Jun 2023 18:34:03 -0700
+Reply-To: schaefflermariaelisabeth1941@gmail.com
+Message-Id: <20230615013156.21E5C4E7BA81@mail.sitirkam.com>
+X-Spam-Status: Yes, score=5.9 required=5.0 tests=BAYES_50,DKIM_SIGNED,
+        DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FORGED_REPLYTO,
+        FREEMAIL_REPLYTO_END_DIGIT,NIXSPAM_IXHASH,SPF_HELO_PASS,SPF_PASS,
+        T_SCC_BODY_TEXT_LINE autolearn=no autolearn_force=no version=3.4.6
+X-Spam-Report: *  3.0 NIXSPAM_IXHASH http://www.nixspam.org/
+        *  0.8 BAYES_50 BODY: Bayes spam probability is 40 to 60%
+        *      [score: 0.5000]
+        * -0.0 SPF_PASS SPF: sender matches SPF record
+        *  0.2 FREEMAIL_REPLYTO_END_DIGIT Reply-To freemail username ends in
+        *      digit
+        *      [schaefflermariaelisabeth1941[at]gmail.com]
+        * -0.0 SPF_HELO_PASS SPF: HELO matches SPF record
+        * -0.1 DKIM_VALID Message has at least one valid DKIM or DK signature
+        *  0.1 DKIM_SIGNED Message has a DKIM or DK signature, not necessarily
+        *       valid
+        * -0.1 DKIM_VALID_AU Message has a valid DKIM or DK signature from
+        *      author's domain
+        * -0.1 DKIM_VALID_EF Message has a valid DKIM or DK signature from
+        *      envelope-from domain
+        * -0.0 T_SCC_BODY_TEXT_LINE No description available.
+        *  2.1 FREEMAIL_FORGED_REPLYTO Freemail in Reply-To, but not From
+X-Spam-Level: *****
 X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
         lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-Hi Geert,
+Your email account has been selected for a donation of =E2=82=AC1,700,000. =
+Please contact me for more information.
 
-On 2023/06/13 15:38, Geert Uytterhoeven wrote:
-> Hi Gong,
-> 
-> On Tue, Jun 13, 2023 at 4:13 AM GONG, Ruiqi <gongruiqi@huaweicloud.com> wrote:
->> Eliminate the following Sparse reports when building with C=1:
->>
->> drivers/pinctrl/renesas/pinctrl-rzn1.c:187:52: warning: dubious: x | !y
->> drivers/pinctrl/renesas/pinctrl-rzn1.c:193:52: warning: dubious: x | !y
->>
->> Signed-off-by: GONG, Ruiqi <gongruiqi@huaweicloud.com>
-> 
-> Thanks for your patch!
-> 
-> Looks like sparse needs to be taught the "|" is not used in a boolean
-> context here?
-
-Okay after reading the source code of Sparse I think what this kind of
-warnings actually means is to hint us a possible misuse of "|" instead
-of "||" (i.e. misusing a binary operator in a conditional context). Here
-the code is doing binary operation (i.e. to flip a bit or two), so in
-this sense the warnings should be just false alarms.
-
-However, the original code is a bit weird for me because of the sudden
-appearance of a boolean operator (i.e. "!") in the middle of a binary
-calculation. And I think it looks better after this change, since it
-makes the expression look more "binary". So maybe we can still consider
-apply this change ;)
-
-Greetings,
-Ruiqi
-
-> 
->> --- a/drivers/pinctrl/renesas/pinctrl-rzn1.c
->> +++ b/drivers/pinctrl/renesas/pinctrl-rzn1.c
->> @@ -184,13 +184,15 @@ static void rzn1_hw_set_lock(struct rzn1_pinctrl *ipctl, u8 lock, u8 value)
->>          * address | 1.
->>          */
->>         if (lock & LOCK_LEVEL1) {
->> -               u32 val = ipctl->lev1_protect_phys | !(value & LOCK_LEVEL1);
->> +               u32 val = ipctl->lev1_protect_phys |
->> +                       (value & LOCK_LEVEL1 ? 0 : 1);
->>
->>                 writel(val, &ipctl->lev1->status_protect);
->>         }
->>
->>         if (lock & LOCK_LEVEL2) {
->> -               u32 val = ipctl->lev2_protect_phys | !(value & LOCK_LEVEL2);
->> +               u32 val = ipctl->lev2_protect_phys |
->> +                       (value & LOCK_LEVEL2 ? 0 : 1);
->>
->>                 writel(val, &ipctl->lev2->status_protect);
->>         }
-> 
-> Gr{oetje,eeting}s,
-> 
->                         Geert
-> 
-
+Mrs Maria Elisabeth Schaeffler
+CEO SCHAEFFLER.
