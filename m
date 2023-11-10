@@ -2,100 +2,69 @@ Return-Path: <linux-sparse-owner@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from out1.vger.email (out1.vger.email [IPv6:2620:137:e000::1:20])
-	by mail.lfdr.de (Postfix) with ESMTP id 6F2CD7E70F8
-	for <lists+linux-sparse@lfdr.de>; Thu,  9 Nov 2023 18:58:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTP id EEEFA7E8970
+	for <lists+linux-sparse@lfdr.de>; Sat, 11 Nov 2023 07:08:33 +0100 (CET)
 Received: (majordomo@vger.kernel.org) by vger.kernel.org via listexpand
-        id S1344886AbjKIR6J (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
-        Thu, 9 Nov 2023 12:58:09 -0500
-Received: from lindbergh.monkeyblade.net ([23.128.96.19]:38556 "EHLO
+        id S229815AbjKKGIf (ORCPT <rfc822;lists+linux-sparse@lfdr.de>);
+        Sat, 11 Nov 2023 01:08:35 -0500
+Received: from lindbergh.monkeyblade.net ([23.128.96.19]:50386 "EHLO
         lindbergh.monkeyblade.net" rhost-flags-OK-OK-OK-OK) by vger.kernel.org
-        with ESMTP id S1344898AbjKIR6J (ORCPT
+        with ESMTP id S229806AbjKKGIe (ORCPT
         <rfc822;linux-sparse@vger.kernel.org>);
-        Thu, 9 Nov 2023 12:58:09 -0500
-Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com [IPv6:2a00:1450:4864:20::62a])
-        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id A98FD3AA9
-        for <linux-sparse@vger.kernel.org>; Thu,  9 Nov 2023 09:58:06 -0800 (PST)
-Received: by mail-ej1-x62a.google.com with SMTP id a640c23a62f3a-9d2e7726d5bso187962066b.0
-        for <linux-sparse@vger.kernel.org>; Thu, 09 Nov 2023 09:58:06 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linux-foundation.org; s=google; t=1699552685; x=1700157485; darn=vger.kernel.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=8wecaRSjJdSteghYXVOtsF+9kjggPC+ACQitgoijs5Y=;
-        b=g2v/ZXtYD0iLdWsYBKnjNJ1cJs0uAsR6qFrp84qXX6LHGK//6hM867JkTrIHuYkFJ7
-         LXwc1ktKgxiwApzns7yHfDu1wNXKbyywYeTyYu5yUxFeKsyeLn6S3ByNxx437mN932ig
-         4Ds9xYD6n8JoEkVWys+wv08pk8lX2Jx/KXsmw=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1699552685; x=1700157485;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=8wecaRSjJdSteghYXVOtsF+9kjggPC+ACQitgoijs5Y=;
-        b=DbWVLPS69aivDevP2rHzLYmV1Cd2oZ+PfJAXzd7/Cr8P/CEAyXxgYfAbBa+q1Ysm8t
-         1eh08mUq5VO8PYOwMW+g8cHuByJTchJCVHQPVmenGcKnIHNToviLtmgvlifZzTNQVBSu
-         xnpTuLL1X6NhVnzAIBO0o/N2PzBTx7Aj1G7UmhmrTqLhF0aykRP9e2VWeww7K5TlgEQ2
-         E6RZbnfsY1d0coAaET7CQEdebvN8yk/R0+OvyCpaDrJ7DApSa60rDQ/t1IhHjIpD/oIB
-         I5kLzJAonUkVOHZ64xD2IXdqNL7USXWKxBhhWxcxntBwhBnD47aFQosCTjA3xFwmiwqw
-         Z4DA==
-X-Gm-Message-State: AOJu0Yyht8LZVWXb82uqNbAeOiXlokA1+PUifA4N+EFUEQ7goA33AOEt
-        R2kVF1uiIdZ1t30Y5Axq9jqraFdSUFzM3lZYgmA3Cg==
-X-Google-Smtp-Source: AGHT+IFgGFJ1in55lKBmQvDKRkurYW1Isb9KdW4+pnRpEqEKpbFWmyu+vDcaLwx7N/8b4ULuof9Zfg==
-X-Received: by 2002:a17:906:7309:b0:9d3:8d1e:ceb with SMTP id di9-20020a170906730900b009d38d1e0cebmr5384665ejc.23.1699552685078;
-        Thu, 09 Nov 2023 09:58:05 -0800 (PST)
-Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com. [209.85.218.44])
-        by smtp.gmail.com with ESMTPSA id q11-20020a17090622cb00b0098e78ff1a87sm2834437eja.120.2023.11.09.09.58.04
-        for <linux-sparse@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 09 Nov 2023 09:58:04 -0800 (PST)
-Received: by mail-ej1-f44.google.com with SMTP id a640c23a62f3a-9be02fcf268so184328466b.3
-        for <linux-sparse@vger.kernel.org>; Thu, 09 Nov 2023 09:58:04 -0800 (PST)
-X-Received: by 2002:a17:907:7f8f:b0:9bf:f20:8772 with SMTP id
- qk15-20020a1709077f8f00b009bf0f208772mr5537864ejc.26.1699552684177; Thu, 09
- Nov 2023 09:58:04 -0800 (PST)
+        Sat, 11 Nov 2023 01:08:34 -0500
+Received: from mail.maprial.com (mail.maprial.com [190.181.35.27])
+        by lindbergh.monkeyblade.net (Postfix) with ESMTPS id 59C511BD;
+        Fri, 10 Nov 2023 22:08:31 -0800 (PST)
+Received: from localhost (localhost [127.0.0.1])
+        by mail.maprial.com (Postfix) with ESMTP id 537B9A05AC63;
+        Fri, 10 Nov 2023 21:41:41 -0400 (-04)
+Received: from mail.maprial.com ([127.0.0.1])
+        by localhost (mail.maprial.com [127.0.0.1]) (amavisd-new, port 10032)
+        with ESMTP id eyhUj079y5Mf; Fri, 10 Nov 2023 21:41:40 -0400 (-04)
+Received: from localhost (localhost [127.0.0.1])
+        by mail.maprial.com (Postfix) with ESMTP id 49190802F5A4;
+        Fri, 10 Nov 2023 17:47:24 -0400 (-04)
+DKIM-Filter: OpenDKIM Filter v2.10.3 mail.maprial.com 49190802F5A4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=maprial.com;
+        s=8A254412-65B9-11ED-A564-8B9C10001A2B; t=1699652844;
+        bh=WOZURJ77pkiMUL2pPLC14ifVPRvyTQIBEQmxuN1ezAA=;
+        h=MIME-Version:To:From:Date:Message-Id;
+        b=Dvnw57TgY3V5CSoD2jyXLKn/iHUEL689DCKmA3VjgNV9qm+WDQ2PE8Yzo3MfQKNwc
+         GESgGH0cXNyqDB8t4mIXjyvFFKT8BDrEKEoO2LxrZzOR0gZFfuIrHTaGpmj0ahHk8I
+         P4QksExBXy6LwEFudbBf5LUIn7ZynsYij9rjfNXU=
+X-Virus-Scanned: amavisd-new at mail.maprial.com
+Received: from mail.maprial.com ([127.0.0.1])
+        by localhost (mail.maprial.com [127.0.0.1]) (amavisd-new, port 10026)
+        with ESMTP id dbstDBarmINv; Fri, 10 Nov 2023 17:47:23 -0400 (-04)
+Received: from [192.168.1.152] (unknown [51.179.104.230])
+        by mail.maprial.com (Postfix) with ESMTPSA id 26CE178D6CD5;
+        Fri, 10 Nov 2023 17:04:40 -0400 (-04)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-References: <ZUxoJh7NlWw+uBlt@infradead.org> <CAMHZB6G_TZJ_uQGm5an0-bhG8wCxpEQrUCShen7O61Q9arAf+Q@mail.gmail.com>
- <ZUxuY13JnQ8IIFd1@infradead.org> <CAMHZB6H7Y0m2Y-ZD0PMKiGDeo7_sy=scDrzbBbBuUJfuzLK-Lg@mail.gmail.com>
- <ZUxx1kvWH7dSIazw@infradead.org>
-In-Reply-To: <ZUxx1kvWH7dSIazw@infradead.org>
-From:   Linus Torvalds <torvalds@linux-foundation.org>
-Date:   Thu, 9 Nov 2023 09:57:47 -0800
-X-Gmail-Original-Message-ID: <CAHk-=wiq873oXRfSqaM3mZzkoJbncWyWFGyi5yxHAogciRwMBQ@mail.gmail.com>
-Message-ID: <CAHk-=wiq873oXRfSqaM3mZzkoJbncWyWFGyi5yxHAogciRwMBQ@mail.gmail.com>
-Subject: Re: sparse feature request: nocast integer types
-To:     Christoph Hellwig <hch@infradead.org>
-Cc:     Luc Van Oostenryck <luc.vanoostenryck@gmail.com>,
-        linux-sparse@vger.kernel.org, linux-xfs@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Content-Description: Mail message body
+Subject: =?utf-8?b?4oKsIDEwMC4wMDAuMDAwPw==?=
+To:     Recipients <gvalencia@maprial.com>
+From:   gvalencia@maprial.com
+Date:   Fri, 10 Nov 2023 22:04:31 +0100
+Reply-To: joliushk@gmail.com
+Message-Id: <20231110210442.26CE178D6CD5@mail.maprial.com>
+X-Spam-Status: No, score=3.1 required=5.0 tests=BAYES_50,DKIM_INVALID,
+        DKIM_SIGNED,FREEMAIL_FORGED_REPLYTO,RCVD_IN_DNSWL_BLOCKED,
+        SPF_HELO_NONE,SPF_PASS,T_SCC_BODY_TEXT_LINE,URIBL_BLOCKED autolearn=no
+        autolearn_force=no version=3.4.6
+X-Spam-Level: ***
+X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
+        lindbergh.monkeyblade.net
 Precedence: bulk
 List-ID: <linux-sparse.vger.kernel.org>
 X-Mailing-List: linux-sparse@vger.kernel.org
 
-On Wed, 8 Nov 2023 at 21:45, Christoph Hellwig <hch@infradead.org> wrote:
->
-> For my use case it'd treat it exactly like __bitwise except for also
-> allowing arithmetics on it.  Bonus for always allowing 0 withou explicit
-> __force cast just like __bitwise.
+Goededag,
+Ik ben mevrouw Joanna Liu en een medewerker van Citi Bank Hong Kong.
+Kan ik =E2=82=AC 100.000.000 aan u overmaken? Kan ik je vertrouwen
 
-It's too long for me to really remember, but I think that was the
-*intention* of the "nocast" attribute originally.
 
-The whole "nocast" thing goes back to pretty early in sparse (first
-few weeks of it, in fact), and is almost entirely undocumented.
-
-The commit that starts parsing it doesn't actually even mention it -
-it mentions the *other* attributes it also starts parsing, but not
-'nocast'.
-
-Iirc, what happened was that one of the opriginal goals was that I
-really wanted to have that "warn about any implicit integer casts",
-and added "nocast" quite early, before the sparse type system was even
-very strong. But it ended up being almost just a placeholder.
-
-And then later on, Al came in, and he did the much stronger 'bitwise'
-thing, which was immediately useful for all the byte order handling,
-and 'nocast' ended up falling by the wayside.
-
-Anyway, I think what you ask for is what 'nocast' was always supposed
-to be, but just plain isn't.
-
-                   Linus
+Ik wacht op jullie reacties
+Met vriendelijke groeten
+mevrouw Joanna Liu
