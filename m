@@ -1,76 +1,63 @@
-Return-Path: <linux-sparse+bounces-22-lists+linux-sparse=lfdr.de@vger.kernel.org>
+Return-Path: <linux-sparse+bounces-24-lists+linux-sparse=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
-Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
-	by mail.lfdr.de (Postfix) with ESMTPS id EFCF281484C
-	for <lists+linux-sparse@lfdr.de>; Fri, 15 Dec 2023 13:42:13 +0100 (CET)
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id C1BCB8170DC
+	for <lists+linux-sparse@lfdr.de>; Mon, 18 Dec 2023 14:51:58 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by am.mirrors.kernel.org (Postfix) with ESMTPS id A1C9F1F214C2
-	for <lists+linux-sparse@lfdr.de>; Fri, 15 Dec 2023 12:42:13 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id C2F5F1C22B79
+	for <lists+linux-sparse@lfdr.de>; Mon, 18 Dec 2023 13:51:57 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id A7A322D059;
-	Fri, 15 Dec 2023 12:42:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 730251D139;
+	Mon, 18 Dec 2023 13:51:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nqDUizqL"
 X-Original-To: linux-sparse@vger.kernel.org
-Received: from baptiste.telenet-ops.be (baptiste.telenet-ops.be [195.130.132.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD5D72D033
-	for <linux-sparse@vger.kernel.org>; Fri, 15 Dec 2023 12:41:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux-m68k.org
-Received: from ramsan.of.borg ([IPv6:2a02:1810:ac12:ed40:28e5:a835:e0b1:5291])
-	by baptiste.telenet-ops.be with bizsmtp
-	id Nchv2B00529mzEW01chvll; Fri, 15 Dec 2023 13:41:55 +0100
-Received: from geert (helo=localhost)
-	by ramsan.of.borg with local-esmtp (Exim 4.95)
-	(envelope-from <geert@linux-m68k.org>)
-	id 1rE7Vr-00C6tf-7I;
-	Fri, 15 Dec 2023 13:41:55 +0100
-Date: Fri, 15 Dec 2023 13:41:55 +0100 (CET)
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-To: Palmer Dabbelt <palmer@rivosinc.com>
-cc: luc.vanoostenryck@gmail.com, linux-sparse@vger.kernel.org
-Subject: Re: [PATCH] RISC-V: Add support fo the zihintpause extension
-In-Reply-To: <20220811053356.17375-1-palmer@rivosinc.com>
-Message-ID: <b26c790-c192-8b70-9947-cb6ff6a9ac55@linux-m68k.org>
-References: <20220811053356.17375-1-palmer@rivosinc.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56F021D12F
+	for <linux-sparse@vger.kernel.org>; Mon, 18 Dec 2023 13:51:40 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C3A1C433C8;
+	Mon, 18 Dec 2023 13:51:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1702907499;
+	bh=zni6E0geUBEa+VcgoWM3lbO9/Qz0g9vGcSa1egY7ThU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=nqDUizqLTkKUQaHA4gkYPAqOtUJGLN2pAN++G2VEwEbU3QzIkfkrDNj2b5CdzsbPk
+	 nlLPMDIry/lRDm4oDci1BOM/PaZCCfNb91gYQObBjniSuW9dRcdEyHzNx1TMYebhe5
+	 BLdseKCLNdbTVF1HTSGXgBBNU2vPY2CYcQDtaCAxJ+XzzZXPF3O+jSMBP1mYVpe0J+
+	 vkDgdYXoKditZRhOuZKP40NqMwUZEfgX/M42nRDqA0YuyFdQuU8l2lNhhZZLEBQ7lL
+	 kZMZ2lBbeQtN+Yr+6JMP5KTyfsBgFOzVcH/Wx8cUtt4bvPid6rJ938tQGjUxUToklO
+	 yw7MYMiERxqrw==
+Date: Mon, 18 Dec 2023 14:51:32 +0100
+From: Luc Van Oostenryck <lucvoo@kernel.org>
+To: Dan Carpenter <dan.carpenter@linaro.org>
+Cc: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>, 
+	linux-sparse@vger.kernel.org
+Subject: Re: [PATCH v2] parse: handle __cleanup__ attribute
+Message-ID: <troz4beymvsw2m4y4ocghwiidohi4nbj45ry2tfmbekanu2ray@ooravawiynxr>
+References: <8d596a06-9f25-4d9f-8282-deb2d03a6b0a@moroto.mountain>
+ <i4s2gnr6rlq3yhmfiy7lkbsahnaioilksvmx3eocdjfh2434zo@zhxhwwgqpxt2>
+ <44e22df1-734e-49c5-b20b-4f4cdbce24a6@suswa.mountain>
+ <75ee8bd3-aa80-46dc-9f0c-874a8f4e9d48@suswa.mountain>
+ <k6ztyjq24ik24qtsu3aqpipodzgq37i2ko42ag7wzn4t2ryrzf@i4gbxu7kvslt>
+ <c3884893-44fe-4622-8e8e-576a0bdff19f@suswa.mountain>
 Precedence: bulk
 X-Mailing-List: linux-sparse@vger.kernel.org
 List-Id: <linux-sparse.vger.kernel.org>
 List-Subscribe: <mailto:linux-sparse+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-sparse+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII; format=flowed
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <c3884893-44fe-4622-8e8e-576a0bdff19f@suswa.mountain>
 
-On Wed, 10 Aug 2022, Palmer Dabbelt wrote:
-> This was recently added to binutils and with any luck will soon be in
-> Linux, without it sparse will fail when trying to build new kernels on
-> systems with new toolchains.
->
-> Signed-off-by: Palmer Dabbelt <palmer@rivosinc.com>
+On Thu, Dec 14, 2023 at 04:20:20PM +0300, Dan Carpenter wrote:
+> Yep.  Perfect.  Thanks so much!
 
-As I've just run into
-
-     .../linux$ make C=1
-
-     [...]
-
-     invalid argument to '-march': '_zicsr_zifencei_zihintpause'
-
-and needed to apply this patch before upgrading sparse:
-
-Tested-by: Geert Uytterhoeven <geert+renesas@glider.be>
-
-Gr{oetje,eeting}s,
-
- 						Geert
-
---
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
- 							    -- Linus Torvalds
+Pushed now.
+-- Luc 
 
