@@ -1,123 +1,123 @@
-Return-Path: <linux-sparse+bounces-204-lists+linux-sparse=lfdr.de@vger.kernel.org>
+Return-Path: <linux-sparse+bounces-206-lists+linux-sparse=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
-	by mail.lfdr.de (Postfix) with ESMTPS id D24229C5F7B
-	for <lists+linux-sparse@lfdr.de>; Tue, 12 Nov 2024 18:52:27 +0100 (CET)
+Received: from am.mirrors.kernel.org (am.mirrors.kernel.org [147.75.80.249])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4F4C59C610A
+	for <lists+linux-sparse@lfdr.de>; Tue, 12 Nov 2024 20:09:17 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 97EF028470D
-	for <lists+linux-sparse@lfdr.de>; Tue, 12 Nov 2024 17:52:26 +0000 (UTC)
+	by am.mirrors.kernel.org (Postfix) with ESMTPS id 06BBE1F22718
+	for <lists+linux-sparse@lfdr.de>; Tue, 12 Nov 2024 19:09:17 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6CC96213EEE;
-	Tue, 12 Nov 2024 17:52:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id CB4812185B2;
+	Tue, 12 Nov 2024 19:09:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="HOwxMVfS"
+	dkim=pass (2048-bit key) header.d=wanadoo.fr header.i=@wanadoo.fr header.b="fyix5Dcn"
 X-Original-To: linux-sparse@vger.kernel.org
-Received: from mail-yw1-f182.google.com (mail-yw1-f182.google.com [209.85.128.182])
+Received: from smtp.smtpout.orange.fr (smtp-14.smtpout.orange.fr [80.12.242.14])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D088212F05
-	for <linux-sparse@vger.kernel.org>; Tue, 12 Nov 2024 17:52:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41E06217659
+	for <linux-sparse@vger.kernel.org>; Tue, 12 Nov 2024 19:09:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.12.242.14
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1731433942; cv=none; b=ChCOUR/bA03+m/3yZyb7sgykx8tk5IR8fozYr4/l+9a8Sl3ftNh0aVuhVbZDS5LLQFxlgf/ap4VkJrEZNdsYDXlwYuw7iLcD7e7ba+jRUx94LqzBWB12iU8W6h30zchfoVy4KBEUS7DZPEHv+5m9QTg9poxPB52wsq9kuuxInlk=
+	t=1731438549; cv=none; b=eh5XEBwgng518mNspTewezOlQxed1i4yuZBpSr/Vju9ovc0PAZq/mDumrGU2TDQqySqmUaFqEUJga6EyHmuwsXxfdj91iApkQL0PbQh+ottJqZuyWtsewUtNFeraUdNklYhA21/GByRGX5rqXfdWGYnrBJe6rfsU/SOxcL1TCP8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1731433942; c=relaxed/simple;
-	bh=rF0m3RHCDCu5flwjKgaX68jhNqdc11TxTrvhrmCBPPg=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=etuocQzxojhn8fZKvQK3jWNJIKpPrEuur32lepbSXhSdPBql/oag6u/uVywXCfZx/Y3+LVL5VdBZZQaEkIRl2aMwj5ySX+7zezvMXVrLbAmtsK8S9djGqPJmnGsJP6s0ShbTXMYmLxV9ZAAnAb5itzYEWv/zxUXOBREzMbYDn5w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org; spf=pass smtp.mailfrom=linuxfoundation.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=HOwxMVfS; arc=none smtp.client-ip=209.85.128.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
-Received: by mail-yw1-f182.google.com with SMTP id 00721157ae682-6e5b7cd1ef5so51382487b3.1
-        for <linux-sparse@vger.kernel.org>; Tue, 12 Nov 2024 09:52:20 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linux-foundation.org; s=google; t=1731433939; x=1732038739; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=s4eyKsihgIZD98hfy0JGAdD/M8t7V0X38hx8vGXpfi0=;
-        b=HOwxMVfSDYQ+RxVYbxIKybq63fDnnIv3ifxeI3YXFf7c7AGzMw5A621vYXjS+UFgyI
-         Qp/I3I/uhNH+XQTOdmdzgHc+lCIeWwzVz0Y4VOutOEJ4vNk3L/nzxVOyjg2v7bRGV4lz
-         D2HDdEGPwaAevGXkFysfNgBG2ELGQXVK2qpTU=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1731433939; x=1732038739;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=s4eyKsihgIZD98hfy0JGAdD/M8t7V0X38hx8vGXpfi0=;
-        b=WkcLSHWrWXTMMotiRL2f7Q1W8ddso6yDTWTQip/RNbgphymxHBWdePyCY1IvT1+I2k
-         gUKWvbLkATs5KgsZNyRcKsvMCPHZh1+zeKkbtbPkRSqm3pCsezVCuCUC3ijUJXtMRQgF
-         I/rUHziJO222LUtpPGZ8OYSkq7QSZqfmeeKX0dS6pgIwFegahzfctkg7p1z02yocXwLK
-         JOrJj+SEHd5B9hb3QKMBoyh5ZYp/iZG6dgI9E4rLnbIbdaH+6WN257AXurn5hd4tbEar
-         AavCRJGCmvaSeXpTNyGh2JRqX8OfF4okFWb7JgCM59w+A2IlMVREg7D8uARii4JiyxMr
-         8afg==
-X-Forwarded-Encrypted: i=1; AJvYcCVKSQ4uOxxXPznQh9Of8NHE3lEQfVp2jnBNs5YFg6imwTiojPp7qk/GIK3+AHRvQob8tvmAzZjNhiWSGdw=@vger.kernel.org
-X-Gm-Message-State: AOJu0Yww2mDi56k2VKeoavjfdPKOwP0Idb48I1AIsVXtsbFt6BkXz/O3
-	IjBfIdCbipYRUNEnoZ1qA8AQ58drTWNGIM90rb9mAiew9iE6QFrcVIoXCjANYVR94xMCKkCKUUy
-	/XKRwJ46FpSSeUwNAdkpt0f0mvxpyNtWGuUkm/Q==
-X-Google-Smtp-Source: AGHT+IGvEcIbEvzGr1VmCsZ0mQRwAsSPld9R2C5JTh0+fNcSwWaec7ZBqYSyzKL8e3qzWUzVn7JzLdpmgnyRZvU5CZE=
-X-Received: by 2002:a05:690c:6211:b0:6ea:3313:f98c with SMTP id
- 00721157ae682-6eaddf8430emr155761917b3.32.1731433939616; Tue, 12 Nov 2024
- 09:52:19 -0800 (PST)
+	s=arc-20240116; t=1731438549; c=relaxed/simple;
+	bh=nWRQjn91DNK5zz+b2an8tRM8K0bt+EfpoZOjFlH3LcI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=HPV17MS4rQoqRA6n3AYM5ZbSaYhLcbqOwj0ENagGj4GIxtDQ0NSlh9tgXnROK51guvF6/1Sj64jVXSvUDzPcbJmgJzQHZ/Jb7XA5lYr8mZl+5vn2jPviFcdl2pIyUbozswf97PXuJRyq52RjZQnJgeDDmtCrlixHLMfIC4y2KHc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=wanadoo.fr; spf=pass smtp.mailfrom=wanadoo.fr; dkim=pass (2048-bit key) header.d=wanadoo.fr header.i=@wanadoo.fr header.b=fyix5Dcn; arc=none smtp.client-ip=80.12.242.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=wanadoo.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wanadoo.fr
+Received: from localhost.localdomain ([106.146.16.70])
+	by smtp.orange.fr with ESMTPA
+	id AwFntjwiq18HRAwFxt29oF; Tue, 12 Nov 2024 20:08:59 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=wanadoo.fr;
+	s=t20230301; t=1731438539;
+	bh=Uh2aYyWQsACom5KFNN2Py5OBj+Ni+B3nIaWCn08jwsE=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version;
+	b=fyix5Dcn66dN5sfw+t2A0lW+BbqoFqsYSiyIeuGSEYAVkP2lUE8crZDuMpYvHgK1f
+	 8qzJPvS9biPCdNwRbDl4XjXdqg/OPWYN8oQCrEknyHOvKIbECQVDXIsLNYzJJPUyTf
+	 N5TD8SNfYrYFCa+01CoWrZ10iXzAo8LF/vRr3K0p6PxwgD33rT0JF0os7z25ggjUQX
+	 XSSVte5SCgpaHtq+KT0TbS1gAI4W//H3vjrHVq5tInS3tANv8VuzJFi1i4Q7MVwDhJ
+	 QnPwyOHtVhg+V2j8hgkDmemWnBwDAggqGxxoTxqOJSPcpHXYm3dkZDjLn4lgalsial
+	 tSUrResDQY+Sw==
+X-ME-Helo: localhost.localdomain
+X-ME-Auth: bWFpbGhvbC52aW5jZW50QHdhbmFkb28uZnI=
+X-ME-Date: Tue, 12 Nov 2024 20:08:59 +0100
+X-ME-IP: 106.146.16.70
+From: Vincent Mailhol <mailhol.vincent@wanadoo.fr>
+To: Linus Torvalds <torvalds@linux-foundation.org>,
+	Yury Norov <yury.norov@gmail.com>,
+	Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+	Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
+Cc: linux-kernel@vger.kernel.org,
+	linux-sparse@vger.kernel.org,
+	Rikard Falkeborn <rikard.falkeborn@gmail.com>,
+	Vincent Mailhol <mailhol.vincent@wanadoo.fr>
+Subject: [RESEND PATCH v3 0/2] add _statically_true() to simplify GENMASK_INPUT_CHECK()
+Date: Wed, 13 Nov 2024 04:08:38 +0900
+Message-ID: <20241112190840.601378-4-mailhol.vincent@wanadoo.fr>
+X-Mailer: git-send-email 2.45.2
 Precedence: bulk
 X-Mailing-List: linux-sparse@vger.kernel.org
 List-Id: <linux-sparse.vger.kernel.org>
 List-Subscribe: <mailto:linux-sparse+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-sparse+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20241112140454.518823-4-mailhol.vincent@wanadoo.fr>
-In-Reply-To: <20241112140454.518823-4-mailhol.vincent@wanadoo.fr>
-From: Linus Torvalds <torvalds@linux-foundation.org>
-Date: Tue, 12 Nov 2024 09:52:09 -0800
-Message-ID: <CAADWXX88Uv+r1JtpnN2gDv6S2wDTqxsn5x8+-U_xWfeNxmT9NA@mail.gmail.com>
-Subject: Re: [PATCH v3 0/2] add _statically_true() to simplify GENMASK_INPUT_CHECK()
-To: Vincent Mailhol <mailhol.vincent@wanadoo.fr>
-Cc: Yury Norov <yury.norov@gmail.com>, Rasmus Villemoes <linux@rasmusvillemoes.dk>, 
-	Luc Van Oostenryck <luc.vanoostenryck@gmail.com>, linux-kernel@vger.kernel.org, 
-	linux-sparse@vger.kernel.org, Rikard Falkeborn <rikard.falkeborn@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1657; i=mailhol.vincent@wanadoo.fr; h=from:subject; bh=nWRQjn91DNK5zz+b2an8tRM8K0bt+EfpoZOjFlH3LcI=; b=owGbwMvMwCV2McXO4Xp97WbG02pJDOnGy3dI3rgl/W3yxzfGv3s+PjgjE5Vt4m5UX5LMlzvhX afWgt6zHaUsDGJcDLJiiizLyjm5FToKvcMO/bWEmcPKBDKEgYtTACYyQYPhn9bl1e33eD8EV3ZO jbiiOeN4r9nizc+73oc838yhJbwhvZ3hD8fuF2qRikY2a82NH7dYdfG2ceYr8K5caCnmUP4uU2Q 2IwA=
+X-Developer-Key: i=mailhol.vincent@wanadoo.fr; a=openpgp; fpr=ED8F700574E67F20E574E8E2AB5FEB886DBB99C2
+Content-Transfer-Encoding: 8bit
 
-On Tue, Nov 12, 2024 at 6:05=E2=80=AFAM Vincent Mailhol
-<mailhol.vincent@wanadoo.fr> wrote:
->
-> v2 -> v3:
->
->    - split the single patch into a series of two patches.
+The first patch introduces a new variant of statically_true() named
+_statically_true() which rely on __is_constexpr() to produce a
+constant expression result which can be used in BUILD_BUG_ON_ZERO()
+and other macros which expect a constant expression as input.
 
-I haven't actually gotten to the patches yet, because all your emails
-end up in my spam box.
+The second patch applies this newly created _statically_true() to
+GENMASK_INPUT_CHECK().
 
-The reason is because your git-send-email setup is broken, resulting in:
 
-  dmarc=3Dfail (p=3DQUARANTINE sp=3DNONE dis=3DQUARANTINE) header.from=3Dwa=
-nadoo.fr
+** Changelog **
 
-because you claim to use a wanadoo.fr address in your "From:" line:
+v3 -> v3 RESEND:
 
-    From: Vincent Mailhol <mailhol.vincent@wanadoo.fr>
+   - send email using the smtp.wanadoo.fr gateway. Note that this may
+     appear as smtp.orange.fr which is an alias (both have the same IP).
 
-but you actually used gmail to send it, and the DKIM hash was
-generated by gmail:
+v2 -> v3:
 
-    DKIM-Signature: v=3D1; a=3Drsa-sha256; c=3Drelaxed/relaxed;
-        d=3D1e100.net;
+   - split the single patch into a series of two patches.
 
-And then DMARC complains because the From: and the DKIM doesn't match.
+   - add explanation of why _statically_true() is needed in addition
+     to the existing statically_true(). Explain the pros and cons of
+     each.
 
-So to actually get the right DKIM hashes, you need to either
+   - use __builtin_choose_expr() in _statically_true(). The
+     _statically_true() of the v2 works perfectly fine when used in
+     conjunction with BUILD_BUG_ON_ZERO() but fails if used, for
+     example, in arrays or in static_assert().
 
- (a) send email using the wanadoo.fr smtp gateway
+Link: https://lore.kernel.org/all/20241111164743.339117-2-mailhol.vincent@wanadoo.fr/
 
-or
+v1 -> v2:
 
- (b) make the sender be that gmail address that you actually use for sendin=
-g.
+   - introduce _statically_true(), taking inspiration from
+     statically_true() as introduced in commit 22f546873149 ("minmax:
+     improve macro expansion and type checking").
 
-Pls fix.
+Link: https://lore.kernel.org/all/20240609073513.256179-1-mailhol.vincent@wanadoo.fr/
 
-                  Linus
+Vincent Mailhol (2):
+  compiler.h: add _static_assert()
+  linux/bits.h: simplify GENMASK_INPUT_CHECK()
+
+ include/linux/bits.h     |  5 ++---
+ include/linux/compiler.h | 14 ++++++++++++++
+ 2 files changed, 16 insertions(+), 3 deletions(-)
+
+-- 
+2.45.2
+
 
