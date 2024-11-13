@@ -1,207 +1,147 @@
-Return-Path: <linux-sparse+bounces-210-lists+linux-sparse=lfdr.de@vger.kernel.org>
+Return-Path: <linux-sparse+bounces-212-lists+linux-sparse=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
-Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [IPv6:2604:1380:40f1:3f00::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0EE8C9C652F
-	for <lists+linux-sparse@lfdr.de>; Wed, 13 Nov 2024 00:31:52 +0100 (CET)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
+	by mail.lfdr.de (Postfix) with ESMTPS id EA1739C79F2
+	for <lists+linux-sparse@lfdr.de>; Wed, 13 Nov 2024 18:30:34 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sy.mirrors.kernel.org (Postfix) with ESMTPS id 26C27B81A72
-	for <lists+linux-sparse@lfdr.de>; Tue, 12 Nov 2024 20:26:43 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 54B5B2848AA
+	for <lists+linux-sparse@lfdr.de>; Wed, 13 Nov 2024 17:30:33 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id DBB49219E36;
-	Tue, 12 Nov 2024 20:26:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id E187E2010FC;
+	Wed, 13 Nov 2024 17:30:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dIIZgmbw"
+	dkim=pass (2048-bit key) header.d=wanadoo.fr header.i=@wanadoo.fr header.b="Nc7rWx06"
 X-Original-To: linux-sparse@vger.kernel.org
-Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
+Received: from smtp.smtpout.orange.fr (smtp-26.smtpout.orange.fr [80.12.242.26])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C88E219CAB;
-	Tue, 12 Nov 2024 20:26:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BC59165F17
+	for <linux-sparse@vger.kernel.org>; Wed, 13 Nov 2024 17:30:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.12.242.26
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1731443172; cv=none; b=LLQ6G5aTMho713Kd32DqsWcBwFwwD/wc7Zch19iq3RiGSsRPTcJ5Jx4cj0OaOoCq9E4S7kUwb23SWHR8IcmJobb8PT9Fu6KhvkogiOk3/aVUOlXiznLY+6qIDlTFRs8gYeCSXybbSp95SMII5CH5BxM6PO3JWL85xABqhEtWR/8=
+	t=1731519025; cv=none; b=eAd5H7Rl5S+8CZOq7LcTFAG/H9Ec21nKp3UBu/atvPIMCz7zcwBfPydL0oo0ztOKYYDxiPICCKB3gqxrItq+Q7wivxbwz0qcfeLg6pCM1op+PTTJV10KTWsam+U6k5pFEjEnqp+CQQrVZQs254SJV9E+CDMZgkXKinyAfNVmEfA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1731443172; c=relaxed/simple;
-	bh=lpSX9AQd8tnAf/7uAuKcKFncAOMu9HHCLxUafBbmHUc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=sHHETz5Ce5RF5hlB8JKIQ1DbTn21DDcJRTEDpNUSDZXSeL7DEfI8Kqw9YnI2kpreiKV9+V4yP0m/sH8kT2wMjhRwMn+VuTv+b6e5dnvP+SebxOi4Cvqqssav3xsdHNtJ4OUMrRI+B1aRJck6rWE6PI0SwLli22w+1gpKQI1UVDQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dIIZgmbw; arc=none smtp.client-ip=209.85.214.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-20cdbe608b3so62962685ad.1;
-        Tue, 12 Nov 2024 12:26:11 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1731443171; x=1732047971; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=GkM/qEq4y9oAmuugOBzErq6qYUQUI6HO1Srs3ZPkn7A=;
-        b=dIIZgmbwW/kBuviZiBOUP/cx7/bqlijGWlam3HDF40sY1lzgBKJ6sTlDEH9KUxA1v3
-         ciZgvR/5xYvuWBDFEs5EXSZfSVKphPvNaARg0HgBSdzH7C1sp1vTJes6p6mntkYX1dey
-         E8dkrNMTc/zEgKalsL1JF4QL0Ix3UWxvduysw8oXebV2w1kuwufRVDEEJjqBk4X9IW5G
-         m24wgXjZRel7RC/577UD5CBTkq8sbglGh26GBd24pdi5vtnPHN6FkQA0lP4J2eDOemMQ
-         EPdQVyLDGVOotSgB+tMqP4Qi3tzro1ekc7l4PXHqL4GyvvS6YYuFbiy4du8NcoV/PdVO
-         PL9w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1731443171; x=1732047971;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=GkM/qEq4y9oAmuugOBzErq6qYUQUI6HO1Srs3ZPkn7A=;
-        b=t9dz8Q9apcrxDk6mqQexeiteifth4y0YJlIg0Gi/i6qeR+f0euwqtZwdAzZ4C0zDmE
-         Gqe83XKuhWUB6dl2iqoi6X2aHTYSHLKW2xOIsd1nsemM6+Q4/VkgiRWD8rz4CcEUVFaG
-         VXJ9rkjF5uiRbADmeN9BEObD2ErvJQLWb6iI/O61ONot/FhfEwEgC1BSkXpwSbAeW0Yb
-         6RRNbkxQXUxfEOVRn6/4duGZXzgipbYl1EF6EbKdKeRgh0rJ6qsNX/IO/4QBlp/di6KG
-         s3ImC5dzou+1Ta2xF03X5Ndw/7Y64p28cljWLZsOu3qlJtZu/S3kwj0osuC1AkdjqavP
-         lgqg==
-X-Forwarded-Encrypted: i=1; AJvYcCUIselxEq/7X67aCIivazCnurR83FqRLbHGD2Wo8x6LOv656A5sgrpB7GB9drQSqh/Ip8H+IoeimSSFgCM=@vger.kernel.org, AJvYcCVrllNXN406cRlaXqX41bMo7YdVIEsLdBWpS68cHauhJVwR/VcI1/u92UgGlPi8R40MDcNypQgJPRrCJCXb@vger.kernel.org
-X-Gm-Message-State: AOJu0YzFkwfHy8wnQmb+mD2WfKtIR4Ena7J0qqZwoAKgBnzGj93Tl5eA
-	cDTvKKWe1A1Cu0D28w7HaNpgmA6yUzBe3ycyudqYVOkSzELKJJ0L
-X-Google-Smtp-Source: AGHT+IFjeJp9WEWS9DcHgCU8gu4UzPOW6aZMIRJ/trd0B4BxoLvXv8tv1cW+1kX3L5m/kYsXbGYblw==
-X-Received: by 2002:a17:903:22ce:b0:20f:ab4a:db2e with SMTP id d9443c01a7336-211ab980431mr47372805ad.29.1731443170569;
-        Tue, 12 Nov 2024 12:26:10 -0800 (PST)
-Received: from localhost ([216.228.127.131])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-21177dc7cf8sm97026755ad.34.2024.11.12.12.26.09
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 12 Nov 2024 12:26:10 -0800 (PST)
-Date: Tue, 12 Nov 2024 12:26:07 -0800
-From: Yury Norov <yury.norov@gmail.com>
-To: Vincent Mailhol <mailhol.vincent@wanadoo.fr>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>,
+	s=arc-20240116; t=1731519025; c=relaxed/simple;
+	bh=PwfHx4AF8ld/SKw0YKnmiiYM5VeZ7ME6TNFBrnt8Twk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=WXjan0QqDOF1sHcwGNnHuy7oA3lgOMQGZlmP4VVrU3yTJjVB64ld3VFbKrj9Xomb6jSPYTG0Lw3OZCmHJ+WhMANadqp9ZTCS64ue3iZB6Xf91XToH5RuCPWxPxnZfGIZodhHCALZyOWw1I3IvFli3R+2Syf73kyTERrjBvOv8Ws=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=wanadoo.fr; spf=pass smtp.mailfrom=wanadoo.fr; dkim=pass (2048-bit key) header.d=wanadoo.fr header.i=@wanadoo.fr header.b=Nc7rWx06; arc=none smtp.client-ip=80.12.242.26
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=wanadoo.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wanadoo.fr
+Received: from localhost.localdomain ([124.33.176.97])
+	by smtp.orange.fr with ESMTPA
+	id BHBhtnfvcYmvZBHBztEx3p; Wed, 13 Nov 2024 18:30:14 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=wanadoo.fr;
+	s=t20230301; t=1731519014;
+	bh=pM/L8af+pYG7ktkzsToPr37ePWA0GwmVusU7tEiF/R4=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version;
+	b=Nc7rWx06q5P239h3z+XSDD++dgCIwAHntxvPJBs6aZSaJYVBxlyagWLQ1JYGA8RKC
+	 CIp+WsC6aycH21zWzU4gPZD7So5OOhZOO/6ma7+d5gT+BRzV1w1H0x3h+klFJDz6RJ
+	 CF/pMUqnqBgGyUCgHjACJRQpvizyDmAygjF7bEoYsM+sTrtgNA7T4l2m2/zOqzhUx+
+	 B7kXhBu9z2us8trhttDdl5qdwADR1vx3/b3uTMJ3Dp/LvNVNJ/bo+S7cDSGi6Gugle
+	 +2CK9rpvT1hCqVLzS3jnOKrs3yzNc3v+AMkdp0hpFxQKCibcfn/k5PIiuZUnxZnKLU
+	 IPZV4XJGIYwCA==
+X-ME-Helo: localhost.localdomain
+X-ME-Auth: bWFpbGhvbC52aW5jZW50QHdhbmFkb28uZnI=
+X-ME-Date: Wed, 13 Nov 2024 18:30:14 +0100
+X-ME-IP: 124.33.176.97
+From: Vincent Mailhol <mailhol.vincent@wanadoo.fr>
+To: Linus Torvalds <torvalds@linux-foundation.org>,
+	Yury Norov <yury.norov@gmail.com>,
 	Rasmus Villemoes <linux@rasmusvillemoes.dk>,
-	Luc Van Oostenryck <luc.vanoostenryck@gmail.com>,
-	linux-kernel@vger.kernel.org, linux-sparse@vger.kernel.org,
-	Rikard Falkeborn <rikard.falkeborn@gmail.com>
-Subject: Re: [RESEND PATCH v3 1/2] compiler.h: add _static_assert()
-Message-ID: <ZzO5390yVTqNbgJl@yury-ThinkPad>
-References: <20241112190840.601378-4-mailhol.vincent@wanadoo.fr>
- <20241112190840.601378-5-mailhol.vincent@wanadoo.fr>
+	Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
+Cc: linux-kernel@vger.kernel.org,
+	linux-sparse@vger.kernel.org,
+	Rikard Falkeborn <rikard.falkeborn@gmail.com>,
+	Vincent Mailhol <mailhol.vincent@wanadoo.fr>
+Subject: [PATCH v4 0/2] add const_true() to simplify GENMASK_INPUT_CHECK()
+Date: Thu, 14 Nov 2024 02:18:31 +0900
+Message-ID: <20241113172939.747686-4-mailhol.vincent@wanadoo.fr>
+X-Mailer: git-send-email 2.45.2
 Precedence: bulk
 X-Mailing-List: linux-sparse@vger.kernel.org
 List-Id: <linux-sparse.vger.kernel.org>
 List-Subscribe: <mailto:linux-sparse+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-sparse+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20241112190840.601378-5-mailhol.vincent@wanadoo.fr>
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2456; i=mailhol.vincent@wanadoo.fr; h=from:subject; bh=PwfHx4AF8ld/SKw0YKnmiiYM5VeZ7ME6TNFBrnt8Twk=; b=owGbwMvMwCV2McXO4Xp97WbG02pJDOkmj5g92+UOfdPZt0jhr93FRbdfbHK643Xx+S5XnQ2Tt 3+rL3fu6ihlYRDjYpAVU2RZVs7JrdBR6B126K8lzBxWJpAhDFycAjARNXVGhlVHhLsbOU68Vth2 ff6Su3mTuOSXyJrznm19nGA0YWbwt0qG32xxn+yaD39emn/J9hWD2YqqHY3+EdcnbJjXNSP/6CE VBmYA
+X-Developer-Key: i=mailhol.vincent@wanadoo.fr; a=openpgp; fpr=ED8F700574E67F20E574E8E2AB5FEB886DBB99C2
+Content-Transfer-Encoding: 8bit
 
-On Wed, Nov 13, 2024 at 04:08:39AM +0900, Vincent Mailhol wrote:
-> __builtin_constant_p() is known for not always being able to produce
-> constant expression [1] which lead to the introduction of
-> __is_constexpr() [2]. Because of its dependency on
-> __builtin_constant_p(), statically_true() suffers from the same
-> issues.
-> 
-> For example:
-> 
->   void foo(int a)
->   {
->   	 /* fail on GCC */
->   	BUILD_BUG_ON_ZERO(statically_true(a));
-> 
->   	 /* fail both clang and GCC */
->   	static char arr[statically_true(a) ? 1 : 2];
->   }
-> 
-> For the same reasons why __is_constexpr() was created to cover
-> __builtin_constant_p() edge cases, __is_constexpr() can be used to
-> resolve statically_true() limitations.
-> 
-> Note that, somehow, GCC is not always able to fold this:
-> 
->   __is_constexpr(x) && (x)
-> 
-> It is OK in BUILD_BUG_ON_ZERO() but not in array declarations or in
-> static_assert():
-> 
->   void bar(int a)
->   {
->   	/* success */
->   	BUILD_BUG_ON_ZERO(__is_constexpr(a) && (a));
-> 
->   	/* fail on GCC */
->   	static char arr[__is_constexpr(a) && (a) ? 1 : 2];
-> 
->   	/* fail on GCC */
->   	static_assert(__is_constexpr(a) && (a));
->   }
-> 
-> Encapsulating the expression in a __builtin_choose_expr() switch
-> resolves all these failed test.
-> 
-> Declare a new _statically_true() macro which, by making use of the
-> __builtin_choose_expr() and __is_constexpr(x) combo, always produces a
-> constant expression.
+The first patch introduces a new variant of statically_true() named
+const_true() which rely on __is_constexpr() to produce a constant
+expression result which can be used in BUILD_BUG_ON_ZERO() and other
+macros which expect a constant expression as input.
 
-So, maybe name it const_true() then?
- 
-> It should be noted that statically_true() still produces better
-> folding:
-> 
->   statically_true(!(var * 8 % 8))
-> 
-> always evaluates to true even if var is unknown, whereas
-> 
->   _statically_true(!(var * 8 % 8))
-> 
-> fails to fold the expression and return false.
-> 
-> For this reason, usage of _statically_true() be should the exception.
-> Reflect in the documentation that _statically_true() is less powerful
-> and that statically_true() is the overall preferred solution.
-> 
-> [1] __builtin_constant_p cannot resolve to const when optimizing
-> Link: https://gcc.gnu.org/bugzilla/show_bug.cgi?id=19449
-> 
-> [2] commit 3c8ba0d61d04 ("kernel.h: Retain constant expression output for max()/min()")
-> 
-> Signed-off-by: Vincent Mailhol <mailhol.vincent@wanadoo.fr>
-> ---
-> Bonuses:
-> 
->   - above examples, and a bit more:
-> 
->       https://godbolt.org/z/zzqM1ajPj
-> 
->   - a proof that statically_true() does better constant folding than _statically_true()
-> 
->       https://godbolt.org/z/vK6KK4hMG
-> ---
->  include/linux/compiler.h | 14 ++++++++++++++
->  1 file changed, 14 insertions(+)
-> 
-> diff --git a/include/linux/compiler.h b/include/linux/compiler.h
-> index 4d4e23b6e3e7..c76db8b50202 100644
-> --- a/include/linux/compiler.h
-> +++ b/include/linux/compiler.h
-> @@ -308,6 +308,20 @@ static inline void *offset_to_ptr(const int *off)
->   */
->  #define statically_true(x) (__builtin_constant_p(x) && (x))
->  
-> +/*
-> + * Similar to statically_true() but produces a constant expression
-> + *
-> + * To be used in conjunction with macros, such as BUILD_BUG_ON_ZERO(),
-> + * which require their input to be a constant expression and for which
-> + * statically_true() would otherwise fail.
-> + *
-> + * This is a tradeoff: _statically_true() is less efficient at
-> + * constant folding and will fail to optimize any expressions in which
-> + * at least one of the subcomponent is not constant. For the general
-> + * case, statically_true() is better.
+The second patch applies this newly created const_true() to
+GENMASK_INPUT_CHECK().
+---
 
-I agree with Rasmus. Would be nice to have examples where should I use
-one vs another right here in the comment.
+** Changelog **
 
-> + */
-> +#define _statically_true(x) __builtin_choose_expr(__is_constexpr(x), x, false)
-> +
->  /*
->   * This is needed in functions which generate the stack canary, see
->   * arch/x86/kernel/smpboot.c::start_secondary() for an example.
-> -- 
-> 2.45.2
+v3 -> v4:
+
+   - rename _statically_true() into const_true().
+
+   - fix incorrect subject in the first patch.
+
+   - s/Declare/Define in first patch description: macro are defined,
+     not declared.
+
+   - move the godbolt link with the tautology folding examples as a
+     footnote into the patch description (was after the --- scissors
+     in v3).
+
+   - add more examples of tautologically true expressions in the first
+     patch description.
+
+   - Rewrite the paragraph in the macro comment which compares
+     statically_true() with const_true() and add code examples
+     directly into that comment.
+
+Link: https://lore.kernel.org/all/20241112190840.601378-4-mailhol.vincent@wanadoo.fr/
+
+v3 -> v3 RESEND:
+
+   - send email using the smtp.wanadoo.fr gateway. Note that this may
+     appear as smtp.orange.fr which is an alias (both have the same IP).
+
+Link: https://lore.kernel.org/all/20241112140454.518823-4-mailhol.vincent@wanadoo.fr/
+
+v2 -> v3:
+
+   - split the single patch into a series of two patches.
+
+   - add explanation of why _statically_true() is needed in addition
+     to the existing statically_true(). Explain the pros and cons of
+     each.
+
+   - use __builtin_choose_expr() in _statically_true(). The
+     _statically_true() of the v2 works perfectly fine when used in
+     conjunction with BUILD_BUG_ON_ZERO() but fails if used, for
+     example, in arrays or in static_assert().
+
+Link: https://lore.kernel.org/all/20241111164743.339117-2-mailhol.vincent@wanadoo.fr/
+
+v1 -> v2:
+
+   - introduce _statically_true(), taking inspiration from
+     statically_true() as introduced in commit 22f546873149 ("minmax:
+     improve macro expansion and type checking").
+
+Link: https://lore.kernel.org/all/20240609073513.256179-1-mailhol.vincent@wanadoo.fr/
+
+Vincent Mailhol (2):
+  compiler.h: add const_true()
+  linux/bits.h: simplify GENMASK_INPUT_CHECK()
+
+ include/linux/bits.h     |  5 ++---
+ include/linux/compiler.h | 22 ++++++++++++++++++++++
+ 2 files changed, 24 insertions(+), 3 deletions(-)
+
+-- 
+2.45.2
+
 
