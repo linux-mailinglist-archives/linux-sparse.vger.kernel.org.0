@@ -1,53 +1,52 @@
-Return-Path: <linux-sparse+bounces-263-lists+linux-sparse=lfdr.de@vger.kernel.org>
+Return-Path: <linux-sparse+bounces-262-lists+linux-sparse=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
-Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [IPv6:2604:1380:40f1:3f00::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8A9509E0BE1
-	for <lists+linux-sparse@lfdr.de>; Mon,  2 Dec 2024 20:17:38 +0100 (CET)
+Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [147.75.48.161])
+	by mail.lfdr.de (Postfix) with ESMTPS id 69CA19E0CA4
+	for <lists+linux-sparse@lfdr.de>; Mon,  2 Dec 2024 20:58:42 +0100 (CET)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sy.mirrors.kernel.org (Postfix) with ESMTPS id 26B7FB81AD8
-	for <lists+linux-sparse@lfdr.de>; Mon,  2 Dec 2024 17:35:21 +0000 (UTC)
+	by sy.mirrors.kernel.org (Postfix) with ESMTPS id A0F8BB64936
+	for <lists+linux-sparse@lfdr.de>; Mon,  2 Dec 2024 17:35:18 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 12C1E1DDA3D;
-	Mon,  2 Dec 2024 17:35:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id EEBA21DDA2E;
+	Mon,  2 Dec 2024 17:35:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Np6Vb9OH"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="j/90kkzH"
 X-Original-To: linux-sparse@vger.kernel.org
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D870F1DD9A6;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDA951DC1BA;
 	Mon,  2 Dec 2024 17:35:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1733160905; cv=none; b=aC46UuUqnc8+Z1Fl4X5nwgG7lYehxz08NMb34slQswfjfoquaE7Iuzsje3+xIQjYJguaEbCatHcQKMmaXCWDtCxtcgXuNbA1FgcDWq1a2U31Av5Hveg/emFodf3NN3IPI/cCH4UjUMtoo0vkK6jyLihvNd9W92wYCKS0HaL1hWg=
+	t=1733160904; cv=none; b=YrdnclkP5sAAffXH9Ggoi72ajh4qv5dI+iV0KwsdAP6vwMFazB0J11/VbOaoECEuNFa84G9WkBOJht1LqE3ANv6Bq3s1AZNM14qlzhgVF0vuPTDP/2VtfSp6qdUEn2OZWu4r03MpaRFPncn5/lfiljFzWuoDyi20gimyaJGivkw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1733160905; c=relaxed/simple;
-	bh=FZmPlNwEP0dLH9uzEAPVjoA2IENASDBcbOxyxt6OpgQ=;
+	s=arc-20240116; t=1733160904; c=relaxed/simple;
+	bh=0n7K8123aVRmHZxGT60ksDzEW/cULJYrbFl/Q86l37M=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=qrJJWTK9rBQgUTSp5pr+8bOnsLL+YPgDcwFRS/FHeYgGaGjt9I2S171xiu9EXLwHTvGBMvPtuaiN6LBPZokKjpKtrYZF5QBSxIR8d2G4BSyhF3IFX8zX6pECbyL5Z7dztH0ExggQwo4YIhpR/E9Wt6hFg/ngowJ6zgdOgUBh9R8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Np6Vb9OH; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 637F2C4CEE3;
+	 In-Reply-To:To:Cc; b=WVWX531HXG4q+utWscENrYLbvZ7/FyRm8+8nen477ChNx9444rci9GrD0KrcmJn/KCnUt+JIn+lih08RRAYi1lbsC++PoyaY/WoEYTxj9tAuxzpMyD+fNISKM+QBNY6vIPXdiSGHStoiJ8n5vSQV3QSEy/ItuJRBQX35x8btGeg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=j/90kkzH; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 9AEC8C4CEE9;
 	Mon,  2 Dec 2024 17:35:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1733160904;
-	bh=FZmPlNwEP0dLH9uzEAPVjoA2IENASDBcbOxyxt6OpgQ=;
+	bh=0n7K8123aVRmHZxGT60ksDzEW/cULJYrbFl/Q86l37M=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=Np6Vb9OHybQfNzDBImwNMJVhDJu/8UXyGodvRv29g6p6oSEeNdnBODBy7/6sK8Mt+
-	 zlRyO0cedmOcRUNaIFPlX4cc9ErbeCj7+h5RT4pjxrGC77hKjrDMpHgNvCTqz/nTsN
-	 w2i9wWcIiPMIwKxE9P4tpnswci6LoL102L0oXYpKajA8DGNgirvUJuwLmrOme0joUv
-	 au2yD/+s5HolY3ATZHEuyWQNYlk57qFV5d0V2FGBKiMgUjnTAD8aFWym1eWRfJlkBL
-	 pu0rc2snu+Ik9dYybACLnKehUFwBD96canGBtO+Btp8w/PUQyUWT4dLC5UwFytqCqY
-	 7y0i7z89Sln0A==
+	b=j/90kkzHJYpxgw9fCykFpmgCYrZb/HPUY4Fn5AfokJhP84zgU7WPjnPRfcVDKNTZ6
+	 wg+fmlmBVyCt//Ey3/M6ExHqZHnZfnNtjNwYpa7cjYFMZUUr9k/jEbhhMlkpXAEPu8
+	 tyBddS+OV2r4MV7GOACqXDiV2MFmPliFoCKNi3gXMxhlm3mvVMqJV7rk2kHU1Nf1iF
+	 Rmspw7y6S/BTMrAVwZfQYYIvu3wu1tA0CWgmUb/hRT/5vecMQRWoCUH10RiN4SK+ik
+	 KNISAN2qv9Bv/qfkjhjCxYcPlt6QwRjzMjF4MkKIAmeuKGAEzSHUCnhg3q3mCxkg59
+	 zwzNKjWmBqpZg==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 51D2FD7833D;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 88EEED7831C;
 	Mon,  2 Dec 2024 17:35:04 +0000 (UTC)
 From: Vincent Mailhol via B4 Relay <devnull+mailhol.vincent.wanadoo.fr@kernel.org>
-Date: Tue, 03 Dec 2024 02:33:27 +0900
-Subject: [PATCH 05/10] minmax: simplify __clamp_once() by using
- is_const_false()
+Date: Tue, 03 Dec 2024 02:33:29 +0900
+Subject: [PATCH 07/10] overflow: replace __is_constexpr() by is_const()
 Precedence: bulk
 X-Mailing-List: linux-sparse@vger.kernel.org
 List-Id: <linux-sparse.vger.kernel.org>
@@ -56,7 +55,7 @@ List-Unsubscribe: <mailto:linux-sparse+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20241203-is_constexpr-refactor-v1-5-4e4cbaecc216@wanadoo.fr>
+Message-Id: <20241203-is_constexpr-refactor-v1-7-4e4cbaecc216@wanadoo.fr>
 References: <20241203-is_constexpr-refactor-v1-0-4e4cbaecc216@wanadoo.fr>
 In-Reply-To: <20241203-is_constexpr-refactor-v1-0-4e4cbaecc216@wanadoo.fr>
 To: Linus Torvalds <torvalds@linux-foundation.org>, 
@@ -83,13 +82,13 @@ Cc: linux-sparse@vger.kernel.org, linux-kernel@vger.kernel.org,
  coresight@lists.linaro.org, linux-arm-kernel@lists.infradead.org, 
  Vincent Mailhol <mailhol.vincent@wanadoo.fr>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1058;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2119;
  i=mailhol.vincent@wanadoo.fr; h=from:subject:message-id;
- bh=ktV9jrZU0giaHV9vBo3GiXQr/Qxl6VWxrueXUQe+OfY=;
- b=owGbwMvMwCV2McXO4Xp97WbG02pJDOm+74+eev1x37SU7/s4fOZsfexXwSuwUZXlqNClRp+XD
- 71fb+e91lHKwiDGxSArpsiyrJyTW6Gj0Dvs0F9LmDmsTCBDGLg4BWAit84y/BX7aL9/YU3XnR7j
- ixp8Oy/Oeb/9EFPOXNM1rhuKog5yzH/PyPD2dPyivxyLOtx7gqSDZL8HtSqF7j576ccC5tVXdN5
- +EmADAA==
+ bh=3zhdAHGJKxe/cfP6gSQHSq0jEALX5ywlxJaLknSE8PU=;
+ b=owGbwMvMwCV2McXO4Xp97WbG02pJDOm+74/q876MC9CKYjyo9Ky9cdPpsilBc38vnbBxvs6ZW
+ UF5mtXRHaUsDGJcDLJiiizLyjm5FToKvcMO/bWEmcPKBDKEgYtTACbyQ5fhr7xK1ZyIKSviHgrp
+ 8+d4/NxvmD6DX/jspxv39qf9Nnzx8QYjw5+v16eWdS2+XNXV/TjVMnulR8GKU3Mazly4pdn98Ng
+ OKx4A
 X-Developer-Key: i=mailhol.vincent@wanadoo.fr; a=openpgp;
  fpr=ED8F700574E67F20E574E8E2AB5FEB886DBB99C2
 X-Endpoint-Received: by B4 Relay for mailhol.vincent@wanadoo.fr/default
@@ -99,35 +98,54 @@ Reply-To: mailhol.vincent@wanadoo.fr
 
 From: Vincent Mailhol <mailhol.vincent@wanadoo.fr>
 
-In __clamp_once(),
-
-  __builtin_choose_expr(__is_constexpr((lo) > (hi)), (lo) <= (hi), true)
-
-is equivalent to:
-
-  !is_const_false((lo) <= (hi))
-
-Apply is_const_false() to simplify __clamp_once().
+is_const() is a one to one replacement of __is_constexpr(). Do the
+replacement so that __is_constexpr() can be removed.
 
 Signed-off-by: Vincent Mailhol <mailhol.vincent@wanadoo.fr>
 ---
- include/linux/minmax.h | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+ include/linux/overflow.h | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/include/linux/minmax.h b/include/linux/minmax.h
-index 98008dd92153db10c672155bca93201ffabee994..431bf76ac460a11a2e4af23acd90c0d26e99c862 100644
---- a/include/linux/minmax.h
-+++ b/include/linux/minmax.h
-@@ -111,8 +111,7 @@
- 	__auto_type uval = (val);						\
- 	__auto_type ulo = (lo);							\
- 	__auto_type uhi = (hi);							\
--	static_assert(__builtin_choose_expr(__is_constexpr((lo) > (hi)), 	\
--			(lo) <= (hi), true),					\
-+	static_assert(!is_const_false((lo) <= (hi)),				\
- 		"clamp() low limit " #lo " greater than high limit " #hi);	\
- 	BUILD_BUG_ON_MSG(!__types_ok3(val,lo,hi,uval,ulo,uhi),			\
- 		"clamp("#val", "#lo", "#hi") signedness error");		\
+diff --git a/include/linux/overflow.h b/include/linux/overflow.h
+index 0c7e3dcfe8670cb95f371a6f7d41bb8b63b1786c..d69361a3128897d493b5e2ec471f077ca2b9861d 100644
+--- a/include/linux/overflow.h
++++ b/include/linux/overflow.h
+@@ -234,7 +234,7 @@ static inline bool __must_check __must_check_overflow(bool overflow)
+  * Returns: true if overflow can occur, false otherwise.
+  */
+ #define overflows_type(n, T)					\
+-	__builtin_choose_expr(__is_constexpr(n),		\
++	__builtin_choose_expr(is_const(n),			\
+ 			      __overflows_type_constexpr(n, T),	\
+ 			      __overflows_type(n, T))
+ 
+@@ -250,7 +250,7 @@ static inline bool __must_check __must_check_overflow(bool overflow)
+  * back to __same_type().
+  */
+ #define castable_to_type(n, T)						\
+-	__builtin_choose_expr(__is_constexpr(n),			\
++	__builtin_choose_expr(is_const(n),				\
+ 			      !__overflows_type_constexpr(n, T),	\
+ 			      __same_type(n, T))
+ 
+@@ -352,7 +352,7 @@ static inline size_t __must_check size_sub(size_t minuend, size_t subtrahend)
+  * Return: number of bytes needed or SIZE_MAX on overflow.
+  */
+ #define flex_array_size(p, member, count)				\
+-	__builtin_choose_expr(__is_constexpr(count),			\
++	__builtin_choose_expr(is_const(count),				\
+ 		(count) * sizeof(*(p)->member) + __must_be_array((p)->member),	\
+ 		size_mul(count, sizeof(*(p)->member) + __must_be_array((p)->member)))
+ 
+@@ -368,7 +368,7 @@ static inline size_t __must_check size_sub(size_t minuend, size_t subtrahend)
+  * Return: number of bytes needed or SIZE_MAX on overflow.
+  */
+ #define struct_size(p, member, count)					\
+-	__builtin_choose_expr(__is_constexpr(count),			\
++	__builtin_choose_expr(is_const(count),				\
+ 		sizeof(*(p)) + flex_array_size(p, member, count),	\
+ 		size_add(sizeof(*(p)), flex_array_size(p, member, count)))
+ 
 
 -- 
 2.45.2
