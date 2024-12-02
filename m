@@ -1,154 +1,116 @@
-Return-Path: <linux-sparse+bounces-262-lists+linux-sparse=lfdr.de@vger.kernel.org>
+Return-Path: <linux-sparse+bounces-267-lists+linux-sparse=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
-Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [147.75.48.161])
-	by mail.lfdr.de (Postfix) with ESMTPS id 69CA19E0CA4
-	for <lists+linux-sparse@lfdr.de>; Mon,  2 Dec 2024 20:58:42 +0100 (CET)
-Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [147.75.199.223])
+	by mail.lfdr.de (Postfix) with ESMTPS id 323469E0D89
+	for <lists+linux-sparse@lfdr.de>; Mon,  2 Dec 2024 22:06:41 +0100 (CET)
+Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sy.mirrors.kernel.org (Postfix) with ESMTPS id A0F8BB64936
-	for <lists+linux-sparse@lfdr.de>; Mon,  2 Dec 2024 17:35:18 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 020361654C3
+	for <lists+linux-sparse@lfdr.de>; Mon,  2 Dec 2024 21:06:38 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id EEBA21DDA2E;
-	Mon,  2 Dec 2024 17:35:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6ABA21DEFF4;
+	Mon,  2 Dec 2024 21:06:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="j/90kkzH"
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="EcrO95W/"
 X-Original-To: linux-sparse@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f51.google.com (mail-ed1-f51.google.com [209.85.208.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDA951DC1BA;
-	Mon,  2 Dec 2024 17:35:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA0251DEFE8
+	for <linux-sparse@vger.kernel.org>; Mon,  2 Dec 2024 21:06:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1733160904; cv=none; b=YrdnclkP5sAAffXH9Ggoi72ajh4qv5dI+iV0KwsdAP6vwMFazB0J11/VbOaoECEuNFa84G9WkBOJht1LqE3ANv6Bq3s1AZNM14qlzhgVF0vuPTDP/2VtfSp6qdUEn2OZWu4r03MpaRFPncn5/lfiljFzWuoDyi20gimyaJGivkw=
+	t=1733173598; cv=none; b=OVLcvZIFAWA9dTZn8lLu94S42CADSzRBNyNveF0a4ETmSYvnZbS9S9fGEA3jemt3ad/w0AKsWRAa581RLSgg4AUeCGD5rmdoFn946c0IRy+BEaWede3JBi7nFuwaA+5Vt+9oY/PFeLBL4ylLLWeh19LQxEAvQbVhI7ZU7Nt4kt4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1733160904; c=relaxed/simple;
-	bh=0n7K8123aVRmHZxGT60ksDzEW/cULJYrbFl/Q86l37M=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=WVWX531HXG4q+utWscENrYLbvZ7/FyRm8+8nen477ChNx9444rci9GrD0KrcmJn/KCnUt+JIn+lih08RRAYi1lbsC++PoyaY/WoEYTxj9tAuxzpMyD+fNISKM+QBNY6vIPXdiSGHStoiJ8n5vSQV3QSEy/ItuJRBQX35x8btGeg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=j/90kkzH; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 9AEC8C4CEE9;
-	Mon,  2 Dec 2024 17:35:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1733160904;
-	bh=0n7K8123aVRmHZxGT60ksDzEW/cULJYrbFl/Q86l37M=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=j/90kkzHJYpxgw9fCykFpmgCYrZb/HPUY4Fn5AfokJhP84zgU7WPjnPRfcVDKNTZ6
-	 wg+fmlmBVyCt//Ey3/M6ExHqZHnZfnNtjNwYpa7cjYFMZUUr9k/jEbhhMlkpXAEPu8
-	 tyBddS+OV2r4MV7GOACqXDiV2MFmPliFoCKNi3gXMxhlm3mvVMqJV7rk2kHU1Nf1iF
-	 Rmspw7y6S/BTMrAVwZfQYYIvu3wu1tA0CWgmUb/hRT/5vecMQRWoCUH10RiN4SK+ik
-	 KNISAN2qv9Bv/qfkjhjCxYcPlt6QwRjzMjF4MkKIAmeuKGAEzSHUCnhg3q3mCxkg59
-	 zwzNKjWmBqpZg==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 88EEED7831C;
-	Mon,  2 Dec 2024 17:35:04 +0000 (UTC)
-From: Vincent Mailhol via B4 Relay <devnull+mailhol.vincent.wanadoo.fr@kernel.org>
-Date: Tue, 03 Dec 2024 02:33:29 +0900
-Subject: [PATCH 07/10] overflow: replace __is_constexpr() by is_const()
+	s=arc-20240116; t=1733173598; c=relaxed/simple;
+	bh=RvjCtzdKVrvbWKQVEXYdBnVvywPTYiArckHNQkEptzM=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=IFp0Rfg9Zea864MP5MFw484C+IJH3drxrGlHWHyhIQerzrOWbkAceRC1aiom71zKek/TeJy9Ym9JL+7EBqM0Fvo1iDSfyivzDfD2gl7lBM+09fyhSEbQ7ji6BhdOl/CkqkePKWA8BZS7kLwKIHoWbqHyCKbx+/F2vBI5wJQUaOQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org; spf=pass smtp.mailfrom=linuxfoundation.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=EcrO95W/; arc=none smtp.client-ip=209.85.208.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
+Received: by mail-ed1-f51.google.com with SMTP id 4fb4d7f45d1cf-5d0ca0f67b6so3636533a12.3
+        for <linux-sparse@vger.kernel.org>; Mon, 02 Dec 2024 13:06:35 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linux-foundation.org; s=google; t=1733173594; x=1733778394; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=0WcndBrbpWuoHMnsxtz9P9A5nq/oNeq0He/lm65PwFU=;
+        b=EcrO95W/pz3xLhSr47lJqxCofSNBCSAm66L6d0h2s8Z9BddPr5vIDmvY+Pj/h70F4W
+         8U+rCBlxvkbhCs+stI2R//1mej6NM2NiTzthvKlvqG4KlNVlIjLRmLnjoZ/+JoWSg4pH
+         y1kek0b1jdZjySw2nQfQCJvQxvRDo2vT84wPM=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1733173594; x=1733778394;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=0WcndBrbpWuoHMnsxtz9P9A5nq/oNeq0He/lm65PwFU=;
+        b=VckIlC/T75WssOScHrgS0U4MIcp0/EThX1vSg0CvT2kydMaPpPVjfXFvCRB28EC9Ou
+         ax+jSdOKF8S330m2vtd1sm0DCtG1FQx7uUg4hD6CgD6z/Z9h+vuIkMlWpzNv2o3RHfpv
+         1eq9tzkTYVDv0UDjusPyLcfhy/Kf9i0t7w37EULE5hsyJfuN8tU8pke9hZCC21aL83DE
+         OXZREdOnPZChOuclahmy5/0jILzIS2wlCZxEO3VsgM1XdEb1wLqbWI392yE8T/xuh220
+         t2qRc2H/FeV5nUo1k6+kg4aGnV6D37WYq0pZBYvd8B3Cwywxl7zyV8yxRSnXuOQ00/yn
+         3bkQ==
+X-Gm-Message-State: AOJu0Yw+/ALVpXD3B78ubPcP+Sle09DcoEs4TPY39W0Kg03ZRyAArYwR
+	clMhIeNHVZxWkA+cb7ibGPBzI5JQIPBXi8qUOLe68GVwPD0Sp7IkENH6CIklEFFKVWjY+5yxIIo
+	0hypbuA==
+X-Gm-Gg: ASbGncudQh7acwot5FWBV76cFBEkVCrWfLrAUOKTd5To4RQix+psf/luI91CGr/14JS
+	PYAsBli73JVPJJA+Ex4YSQgoTek0MoJMbKhH+k1xzWV9bqUtxiAq2sficSmRtXge3BAgJ0E2W5I
+	P0uWcMLZDvH0z9sOgG3KZFkS6wFpy6YKJmspAXJlI/OoF51H0FMhcA2Yk7lJR5f1JLnK/v/ANNf
+	1ptUs2ER2KSBovXTXf5EuFETG0jMpy9wTPfUFcM98OScaTlom/qVvx8fteeLDhVf0dc3DZIDKgi
+	Xn0JLBYT/MPBzu1CpDvshkHR
+X-Google-Smtp-Source: AGHT+IFLnTWfKV0MFG64Ll/Yy1qAP+wCceJSwDEa269/vUj/85gHBQTVQ9weBBXpmEjTyweABHIdog==
+X-Received: by 2002:aa7:cfc3:0:b0:5d0:f6ed:4cb0 with SMTP id 4fb4d7f45d1cf-5d0f6ed4e48mr3592536a12.1.1733173593848;
+        Mon, 02 Dec 2024 13:06:33 -0800 (PST)
+Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com. [209.85.208.48])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-5d0eb2d116csm1596371a12.61.2024.12.02.13.06.31
+        for <linux-sparse@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 02 Dec 2024 13:06:32 -0800 (PST)
+Received: by mail-ed1-f48.google.com with SMTP id 4fb4d7f45d1cf-5d0cd67766aso3451455a12.2
+        for <linux-sparse@vger.kernel.org>; Mon, 02 Dec 2024 13:06:31 -0800 (PST)
+X-Received: by 2002:a17:907:cc01:b0:a9a:a891:b43e with SMTP id
+ a640c23a62f3a-aa581081adfmr1938344366b.50.1733173591318; Mon, 02 Dec 2024
+ 13:06:31 -0800 (PST)
 Precedence: bulk
 X-Mailing-List: linux-sparse@vger.kernel.org
 List-Id: <linux-sparse.vger.kernel.org>
 List-Subscribe: <mailto:linux-sparse+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-sparse+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20241203-is_constexpr-refactor-v1-7-4e4cbaecc216@wanadoo.fr>
-References: <20241203-is_constexpr-refactor-v1-0-4e4cbaecc216@wanadoo.fr>
-In-Reply-To: <20241203-is_constexpr-refactor-v1-0-4e4cbaecc216@wanadoo.fr>
-To: Linus Torvalds <torvalds@linux-foundation.org>, 
- David Laight <David.Laight@aculab.com>, 
- Luc Van Oostenryck <luc.vanoostenryck@gmail.com>, 
- Nathan Chancellor <nathan@kernel.org>, 
- Nick Desaulniers <ndesaulniers@google.com>, 
- Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
- Yury Norov <yury.norov@gmail.com>, 
- Rasmus Villemoes <linux@rasmusvillemoes.dk>, Kees Cook <kees@kernel.org>, 
- "Gustavo A. R. Silva" <gustavoars@kernel.org>, 
- Jani Nikula <jani.nikula@linux.intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Suzuki K Poulose <suzuki.poulose@arm.com>, 
- Mike Leach <mike.leach@linaro.org>, James Clark <james.clark@linaro.org>, 
- Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
- Rikard Falkeborn <rikard.falkeborn@gmail.com>, 
- Martin Uecker <Martin.Uecker@med.uni-goettingen.de>
-Cc: linux-sparse@vger.kernel.org, linux-kernel@vger.kernel.org, 
- llvm@lists.linux.dev, linux-hardening@vger.kernel.org, 
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- coresight@lists.linaro.org, linux-arm-kernel@lists.infradead.org, 
- Vincent Mailhol <mailhol.vincent@wanadoo.fr>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2119;
- i=mailhol.vincent@wanadoo.fr; h=from:subject:message-id;
- bh=3zhdAHGJKxe/cfP6gSQHSq0jEALX5ywlxJaLknSE8PU=;
- b=owGbwMvMwCV2McXO4Xp97WbG02pJDOm+74/q876MC9CKYjyo9Ky9cdPpsilBc38vnbBxvs6ZW
- UF5mtXRHaUsDGJcDLJiiizLyjm5FToKvcMO/bWEmcPKBDKEgYtTACbyQ5fhr7xK1ZyIKSviHgrp
- 8+d4/NxvmD6DX/jspxv39qf9Nnzx8QYjw5+v16eWdS2+XNXV/TjVMnulR8GKU3Mazly4pdn98Ng
- OKx4A
-X-Developer-Key: i=mailhol.vincent@wanadoo.fr; a=openpgp;
- fpr=ED8F700574E67F20E574E8E2AB5FEB886DBB99C2
-X-Endpoint-Received: by B4 Relay for mailhol.vincent@wanadoo.fr/default
- with auth_id=291
-X-Original-From: Vincent Mailhol <mailhol.vincent@wanadoo.fr>
-Reply-To: mailhol.vincent@wanadoo.fr
+References: <xc3xx56vvesaen7r2c3q5thmrjva7zcfq5habasejlyn7vnpbj@jxsfprt5gfa4>
+In-Reply-To: <xc3xx56vvesaen7r2c3q5thmrjva7zcfq5habasejlyn7vnpbj@jxsfprt5gfa4>
+From: Linus Torvalds <torvalds@linux-foundation.org>
+Date: Mon, 2 Dec 2024 13:06:15 -0800
+X-Gmail-Original-Message-ID: <CAHk-=wiVDZejo_1BhOaR33qb=pny7sWnYtP4JUbRTXkXCkW6jA@mail.gmail.com>
+Message-ID: <CAHk-=wiVDZejo_1BhOaR33qb=pny7sWnYtP4JUbRTXkXCkW6jA@mail.gmail.com>
+Subject: Re: sparse reports "different lock contexts for basic block" when
+ using guard syntax
+To: =?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+Cc: linux-sparse@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Vincent Mailhol <mailhol.vincent@wanadoo.fr>
+On Mon, 2 Dec 2024 at 01:26, Uwe Kleine-K=C3=B6nig
+<u.kleine-koenig@baylibre.com> wrote:
+>
+> Trying to understand what sparse wants to tell me, I tried the following
+> change and the 2nd warning goes away:
 
-is_const() is a one to one replacement of __is_constexpr(). Do the
-replacement so that __is_constexpr() can be removed.
+Sparse really doesn't understand the new guard infrastructure. It gets
+_parsed_, but that's just about it.
 
-Signed-off-by: Vincent Mailhol <mailhol.vincent@wanadoo.fr>
----
- include/linux/overflow.h | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+So it parses the cleanup function, but never actually generates the
+logic to _call_ the cleanup function when the variable goes out of
+scope.
 
-diff --git a/include/linux/overflow.h b/include/linux/overflow.h
-index 0c7e3dcfe8670cb95f371a6f7d41bb8b63b1786c..d69361a3128897d493b5e2ec471f077ca2b9861d 100644
---- a/include/linux/overflow.h
-+++ b/include/linux/overflow.h
-@@ -234,7 +234,7 @@ static inline bool __must_check __must_check_overflow(bool overflow)
-  * Returns: true if overflow can occur, false otherwise.
-  */
- #define overflows_type(n, T)					\
--	__builtin_choose_expr(__is_constexpr(n),		\
-+	__builtin_choose_expr(is_const(n),			\
- 			      __overflows_type_constexpr(n, T),	\
- 			      __overflows_type(n, T))
- 
-@@ -250,7 +250,7 @@ static inline bool __must_check __must_check_overflow(bool overflow)
-  * back to __same_type().
-  */
- #define castable_to_type(n, T)						\
--	__builtin_choose_expr(__is_constexpr(n),			\
-+	__builtin_choose_expr(is_const(n),				\
- 			      !__overflows_type_constexpr(n, T),	\
- 			      __same_type(n, T))
- 
-@@ -352,7 +352,7 @@ static inline size_t __must_check size_sub(size_t minuend, size_t subtrahend)
-  * Return: number of bytes needed or SIZE_MAX on overflow.
-  */
- #define flex_array_size(p, member, count)				\
--	__builtin_choose_expr(__is_constexpr(count),			\
-+	__builtin_choose_expr(is_const(count),				\
- 		(count) * sizeof(*(p)->member) + __must_be_array((p)->member),	\
- 		size_mul(count, sizeof(*(p)->member) + __must_be_array((p)->member)))
- 
-@@ -368,7 +368,7 @@ static inline size_t __must_check size_sub(size_t minuend, size_t subtrahend)
-  * Return: number of bytes needed or SIZE_MAX on overflow.
-  */
- #define struct_size(p, member, count)					\
--	__builtin_choose_expr(__is_constexpr(count),			\
-+	__builtin_choose_expr(is_const(count),				\
- 		sizeof(*(p)) + flex_array_size(p, member, count),	\
- 		size_add(sizeof(*(p)), flex_array_size(p, member, count)))
- 
+Which obviously then means that none of the context updates of the
+cleanup get done, and so the lock context never gets undone.
 
--- 
-2.45.2
+Sadly, I think sparse is unmaintained these days,
 
-
+               Linus
 
