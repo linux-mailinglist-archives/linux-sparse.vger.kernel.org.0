@@ -1,179 +1,174 @@
-Return-Path: <linux-sparse+bounces-318-lists+linux-sparse=lfdr.de@vger.kernel.org>
+Return-Path: <linux-sparse+bounces-320-lists+linux-sparse=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
-Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5ED899E8174
-	for <lists+linux-sparse@lfdr.de>; Sat,  7 Dec 2024 19:08:40 +0100 (CET)
-Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from ny.mirrors.kernel.org (ny.mirrors.kernel.org [IPv6:2604:1380:45d1:ec00::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id 688C19E818E
+	for <lists+linux-sparse@lfdr.de>; Sat,  7 Dec 2024 19:28:01 +0100 (CET)
+Received: from smtp.subspace.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sv.mirrors.kernel.org (Postfix) with ESMTPS id C4A5928188D
-	for <lists+linux-sparse@lfdr.de>; Sat,  7 Dec 2024 18:08:38 +0000 (UTC)
+	by ny.mirrors.kernel.org (Postfix) with ESMTPS id 4D4CB1653A3
+	for <lists+linux-sparse@lfdr.de>; Sat,  7 Dec 2024 18:27:58 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 838EB14F115;
-	Sat,  7 Dec 2024 18:08:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5FA2814EC5B;
+	Sat,  7 Dec 2024 18:27:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="H0pt3ysU"
 X-Original-To: linux-sparse@vger.kernel.org
-Received: from eu-smtp-delivery-151.mimecast.com (eu-smtp-delivery-151.mimecast.com [185.58.85.151])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com [209.85.208.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 393BF5A7B8
-	for <linux-sparse@vger.kernel.org>; Sat,  7 Dec 2024 18:08:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.58.85.151
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BCDB14B96E
+	for <linux-sparse@vger.kernel.org>; Sat,  7 Dec 2024 18:27:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1733594914; cv=none; b=kKDfTZX0M+YmcASrxZ0JZ1S0kNfszL1ICVqbODUgmJMYQ8c8cFBgK3v8HfxkMs3f59b/AfAG9SajFBLTmshp92MBYJDIAUV1bh31HW2LZStbjVFyT4tyYD5H3GbI51cLfb5/nUfwPgFa/11Olq93iAKIoYRx23LSdKmvEi50b/g=
+	t=1733596078; cv=none; b=BCo/mzEvEduRDH8Djm4ggQaSeQ6aUjUbo4L95S+JCbHcksufoDroTLxNkEIRGpgDcjjSu8bltB4+RfbwSCRkU9ofB37TtnkBdgmbTh9GdM0Zqme5WAE2OhcjJDmrq0SsMKJS+ylnINQimi+qDyuwwdpZkN2yYGNpbzGONMoH2r4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1733594914; c=relaxed/simple;
-	bh=UF0WAhqtVuc+q4G3+Pd3EKlZbpDJq8VuO3E01WBbySA=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 MIME-Version:Content-Type; b=ePKEDlu8Zt8ZYgRmnjon13KLV+NlsITDDBBoVBnkrEeQEfHdSO1kNg0jKA2UnJoO/SniENL2uuJuZN0CNdihiXRQRbYkGhfwbFUxS6SCWQTDUovW0YwKSI42TqqvndTz+tLXHkotOgXWs4pdoZJ5APXQrE7wyDdskQG9OWIwcBk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ACULAB.COM; spf=pass smtp.mailfrom=aculab.com; arc=none smtp.client-ip=185.58.85.151
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ACULAB.COM
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aculab.com
-Received: from AcuMS.aculab.com (156.67.243.121 [156.67.243.121]) by
- relay.mimecast.com with ESMTP with both STARTTLS and AUTH (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
- uk-mta-90-ibaGRZ9SPyGPO9gonrHa7A-1; Sat, 07 Dec 2024 18:08:29 +0000
-X-MC-Unique: ibaGRZ9SPyGPO9gonrHa7A-1
-X-Mimecast-MFC-AGG-ID: ibaGRZ9SPyGPO9gonrHa7A
-Received: from AcuMS.Aculab.com (10.202.163.6) by AcuMS.aculab.com
- (10.202.163.6) with Microsoft SMTP Server (TLS) id 15.0.1497.48; Sat, 7 Dec
- 2024 18:07:38 +0000
-Received: from AcuMS.Aculab.com ([::1]) by AcuMS.aculab.com ([::1]) with mapi
- id 15.00.1497.048; Sat, 7 Dec 2024 18:07:38 +0000
-From: David Laight <David.Laight@ACULAB.COM>
-To: 'Vincent Mailhol' <vincent.mailhol@gmail.com>, Martin Uecker
-	<muecker@gwdg.de>
-CC: Linus Torvalds <torvalds@linux-foundation.org>, Luc Van Oostenryck
-	<luc.vanoostenryck@gmail.com>, Nathan Chancellor <nathan@kernel.org>, "Nick
- Desaulniers" <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>,
-	Justin Stitt <justinstitt@google.com>, Yury Norov <yury.norov@gmail.com>,
-	Rasmus Villemoes <linux@rasmusvillemoes.dk>, Kees Cook <kees@kernel.org>,
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>, Jani Nikula
-	<jani.nikula@linux.intel.com>, Joonas Lahtinen
-	<joonas.lahtinen@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
-	Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>, Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Mike Leach <mike.leach@linaro.org>, James Clark <james.clark@linaro.org>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>, Rikard Falkeborn
-	<rikard.falkeborn@gmail.com>, "linux-sparse@vger.kernel.org"
-	<linux-sparse@vger.kernel.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "llvm@lists.linux.dev"
-	<llvm@lists.linux.dev>, "linux-hardening@vger.kernel.org"
-	<linux-hardening@vger.kernel.org>, "intel-gfx@lists.freedesktop.org"
-	<intel-gfx@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org"
-	<dri-devel@lists.freedesktop.org>, "coresight@lists.linaro.org"
-	<coresight@lists.linaro.org>, "linux-arm-kernel@lists.infradead.org"
-	<linux-arm-kernel@lists.infradead.org>
-Subject: RE: [PATCH 02/10] compiler.h: add is_const() as a replacement of
- __is_constexpr()
-Thread-Topic: [PATCH 02/10] compiler.h: add is_const() as a replacement of
- __is_constexpr()
-Thread-Index: AQHbROFPJXcuwP9wN0+yRzIQ2cx/pbLWa+gggAFf14CAACMqUIAC5S1rgAA568A=
-Date: Sat, 7 Dec 2024 18:07:38 +0000
-Message-ID: <00d233a607a84f73942cd706cc29f088@AcuMS.aculab.com>
-References: <20241203-is_constexpr-refactor-v1-0-4e4cbaecc216@wanadoo.fr>
- <20241203-is_constexpr-refactor-v1-2-4e4cbaecc216@wanadoo.fr>
- <1d807c7471b9434aa8807e6e86c964ec@AcuMS.aculab.com>
- <CAMZ6RqLJLP+4d8f5gLfBdFeDVgqy23O+Eo8HRgKCthqBjSHaaw@mail.gmail.com>
- <9ef03cebb4dd406885d8fdf79aaef043@AcuMS.aculab.com>
- <abdd7862f136aa676b2d2c324369f4a43ff9909c.camel@gwdg.de>
- <CAMZ6RqKzGiRNMeLsQKRNrxvW_bXB-kEi11udQ82kKX6tGCrqcg@mail.gmail.com>
- <9607300dfca5d71ca9570b1e1de0864e524f356b.camel@gwdg.de>
- <CAMZ6RqJGqBqvgxzp5yPFY1pk0WkkwEMM34qU-dZ3kXfsnKaqEg@mail.gmail.com>
- <429e7c6713ecc94494d9107e5f5a1f0c8e854f23.camel@gwdg.de>
- <CAMZ6RqL+iS6GVsY20=O6GdQakRpp7XdewZJsUbmE5OCsKaHR6Q@mail.gmail.com>
-In-Reply-To: <CAMZ6RqL+iS6GVsY20=O6GdQakRpp7XdewZJsUbmE5OCsKaHR6Q@mail.gmail.com>
-Accept-Language: en-GB, en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ms-exchange-transport-fromentityheader: Hosted
+	s=arc-20240116; t=1733596078; c=relaxed/simple;
+	bh=xXsYNQRaodrrqkXbZvBZDBxwyz9RKFl5ErY9YCsri3A=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Xf5LYao4xRUr6sQ+3MAV4MOrITXYmiV2ElMNdpfFWIAI7lvm2SDRWO9ZOU7sA9ohln8ltNtcrRcg7/0Ysq3T6YIj5wTFGoU4BrweP9BhBr32YdRqT5kI/fFcb1oofvxccgMmFxYjODfnK7PqAVOZAoVrJ19eZSvUEWQ/+aCYnmQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org; spf=pass smtp.mailfrom=linuxfoundation.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=H0pt3ysU; arc=none smtp.client-ip=209.85.208.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
+Received: by mail-ed1-f48.google.com with SMTP id 4fb4d7f45d1cf-5cf6f804233so3749745a12.2
+        for <linux-sparse@vger.kernel.org>; Sat, 07 Dec 2024 10:27:56 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linux-foundation.org; s=google; t=1733596074; x=1734200874; darn=vger.kernel.org;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=hz+XAesKzHzZKAdlmXfk5ETHyOV9LQeE1EOaQCTU32k=;
+        b=H0pt3ysUQlbLzOk/+ZRuST1gd/6Nz2BdPUI8kUPOr48Tf4TWoCGoN5oUWgoLIRSPbh
+         lnRD0IZkO16V06ok3tBdGbyuuqRhmJq9Qgq0O7kTfj4zpFXfqx1nvPqWHaAEv12O2yzT
+         PZ2EPmvcY8RCbCFs62LdN+U4n7sBjz8AJYCxA=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1733596074; x=1734200874;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=hz+XAesKzHzZKAdlmXfk5ETHyOV9LQeE1EOaQCTU32k=;
+        b=cd8R6zf7V1Rw3H14zjNe+Qx18xW9WtRN53OtKmMEmyMBLIREYCCg2jb4Jau0CDq4md
+         93ihn0if/DY2nQ2HznPc+tSedh1XCT7DNs/NngYf2gUtp+UnFnTJ6w3J4C5EC3aWNdLj
+         e2jYpwJ4QgMyL4Mf7eINn2q27VIMxs891Kz/xp0GSPcslBhT1GdPTr2xn97liLTqn+2W
+         cF8+NoDxtI/vyloK4h1eXUiAhBsu8eLgRcSSXZg83GRf+VCaYixDsSutjos+PGKmZc/Q
+         I4RCzQkKA4cx9klay0/VgmK0d4oUAlpwdvwy9uUvAKokiO8TTqE+z71lAUiDPnKasHeB
+         jwug==
+X-Forwarded-Encrypted: i=1; AJvYcCVgBGBBmtwtaURBv6qbA+QxOX67kSW77l4fL6kD4aRNqBEGYF3iLRdcX32zxTno5ngMx/ts0PFAzst7Y4k=@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz8MmoKRhDJuVEkopAy6OBvEYjsnhH1HWECNku0mYENCCrX2b5Q
+	pxcL0Y/Hh0DCDBkB1GlxjGWE6fHgpT0rMXkigH3jHt+dTkZmx4KLd8noo6KvPzv1TkLV3wxa2O4
+	B767faw==
+X-Gm-Gg: ASbGncuXY4VEM4aOW9ANfljmb2MM8O1M6L9a0FvFLxnKoHSXID2K08/jNfDobKUbTAY
+	7pCvi6X1wNN9mYCQPcZahxz7FSPgS5XYKuOT09mWszpwHmcq0OvzVxkxjs0kapvjUczNQFzIAVN
+	RS4MlTAyOSdGSGEK/z8Fv26A221Ho1SWskJoaFs96xklw4XorACBAj1NZKb0Jb5uYYv/tDA+hLU
+	kxUPoh9GNZa81UFzndoF4GHEgV/V49fgX/Cj0kEXZOqs2seTqE3NyQXa51B+t6EyO1aQc1LfR2Z
+	3JLfYZMAHL+y6R0fiLtPrx7eF+Sp
+X-Google-Smtp-Source: AGHT+IFjr6aF/7ajyIbZLrxUkDzbOI9BV8gbif1ZTkDGSyRM7+kPx2DzLagD+H6xdUbNToCqYBR3Ow==
+X-Received: by 2002:a05:6402:4005:b0:5d0:e00d:93e8 with SMTP id 4fb4d7f45d1cf-5d3be6644e5mr8070304a12.6.1733596074525;
+        Sat, 07 Dec 2024 10:27:54 -0800 (PST)
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com. [209.85.221.44])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-5d14c7aa9c9sm3743476a12.81.2024.12.07.10.27.52
+        for <linux-sparse@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 07 Dec 2024 10:27:53 -0800 (PST)
+Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-385f4a4093eso1900878f8f.1
+        for <linux-sparse@vger.kernel.org>; Sat, 07 Dec 2024 10:27:52 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AJvYcCVjhQY9QGwNhCEaIzcSu4hMAJzglG6v6ZjAocXvO9iYKZNLsMsrjLVHCOAqB6ri0PHgLMY6ygKH5n6zcX8=@vger.kernel.org
+X-Received: by 2002:a17:906:1db1:b0:aa6:3de7:f258 with SMTP id
+ a640c23a62f3a-aa63de7f394mr497786166b.37.1733595590996; Sat, 07 Dec 2024
+ 10:19:50 -0800 (PST)
 Precedence: bulk
 X-Mailing-List: linux-sparse@vger.kernel.org
 List-Id: <linux-sparse.vger.kernel.org>
 List-Subscribe: <mailto:linux-sparse+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-sparse+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: 8hQ0ariTqHVpjMSjVFjgCSAMJL2y4HLC3Lyg6NDrFPs_1733594908
-X-Mimecast-Originator: aculab.com
-Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: base64
+References: <20241203-is_constexpr-refactor-v1-0-4e4cbaecc216@wanadoo.fr>
+ <20241203-is_constexpr-refactor-v1-2-4e4cbaecc216@wanadoo.fr>
+ <1d807c7471b9434aa8807e6e86c964ec@AcuMS.aculab.com> <CAMZ6RqLJLP+4d8f5gLfBdFeDVgqy23O+Eo8HRgKCthqBjSHaaw@mail.gmail.com>
+ <9ef03cebb4dd406885d8fdf79aaef043@AcuMS.aculab.com> <CAHk-=wjmeU6ahyuwAymqkSpxX-gCNa3Qc70UXjgnxNiC8eiyOw@mail.gmail.com>
+ <CAMZ6Rq+SzTA25XcMZnMnOJcrrq1VZpeT1xceinarqbXgDDo8VA@mail.gmail.com>
+ <CAHk-=wiP8111QZZJNbcDNsYQ_JC-xvwRKr0qV9UdKn3HKK+-4Q@mail.gmail.com>
+ <d23fe8a5dbe84bfeb18097fdef7aa4c4@AcuMS.aculab.com> <CAHk-=win8afdcergvJ6f2=rRrff8giGUW62qmYs9Ae6aw=wcnA@mail.gmail.com>
+ <0f5c07b827c3468c8fa3928a93a98bfa@AcuMS.aculab.com> <e806dd51b1ac4e289131297fbf30fc37@AcuMS.aculab.com>
+ <CAMZ6RqLOR3aCRW_js2agV+VFiHdazb4S2+NdT5G4=WbDKNB8bA@mail.gmail.com>
+ <b1ff4a65594a4d39b2e9b8b44770214e@AcuMS.aculab.com> <CAMZ6RqJFReLJTd-O8s02oQNeB0SPQh3C-Mg+Nif5vMB9gFtQww@mail.gmail.com>
+In-Reply-To: <CAMZ6RqJFReLJTd-O8s02oQNeB0SPQh3C-Mg+Nif5vMB9gFtQww@mail.gmail.com>
+From: Linus Torvalds <torvalds@linux-foundation.org>
+Date: Sat, 7 Dec 2024 10:19:34 -0800
+X-Gmail-Original-Message-ID: <CAHk-=wjpN4GWtnsWQ8XJvf=gBQ3UvBk512xK1S35=nGXA6yTiw@mail.gmail.com>
+Message-ID: <CAHk-=wjpN4GWtnsWQ8XJvf=gBQ3UvBk512xK1S35=nGXA6yTiw@mail.gmail.com>
+Subject: Re: [PATCH 02/10] compiler.h: add is_const() as a replacement of __is_constexpr()
+To: Vincent Mailhol <vincent.mailhol@gmail.com>
+Cc: David Laight <David.Laight@aculab.com>, "w@1wt.eu" <w@1wt.eu>, 
+	Luc Van Oostenryck <luc.vanoostenryck@gmail.com>, Nathan Chancellor <nathan@kernel.org>, 
+	Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>, 
+	Justin Stitt <justinstitt@google.com>, Yury Norov <yury.norov@gmail.com>, 
+	Rasmus Villemoes <linux@rasmusvillemoes.dk>, Kees Cook <kees@kernel.org>, 
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>, Jani Nikula <jani.nikula@linux.intel.com>, 
+	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+	Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>, 
+	Simona Vetter <simona@ffwll.ch>, Suzuki K Poulose <suzuki.poulose@arm.com>, 
+	Mike Leach <mike.leach@linaro.org>, James Clark <james.clark@linaro.org>, 
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
+	Rikard Falkeborn <rikard.falkeborn@gmail.com>, 
+	"linux-sparse@vger.kernel.org" <linux-sparse@vger.kernel.org>, 
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
+	"llvm@lists.linux.dev" <llvm@lists.linux.dev>, 
+	"linux-hardening@vger.kernel.org" <linux-hardening@vger.kernel.org>, 
+	"intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>, 
+	"dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, 
+	"coresight@lists.linaro.org" <coresight@lists.linaro.org>, 
+	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>, 
+	"uecker@tugraz.at" <uecker@tugraz.at>
+Content-Type: text/plain; charset="UTF-8"
 
-RnJvbTogVmluY2VudCBNYWlsaG9sDQo+IFNlbnQ6IDA3IERlY2VtYmVyIDIwMjQgMTM6NTENCi4u
-Lg0KPiA+ID4gSXQgc2VlbXMgdG8gbWUgdGhhdCB0aGUgbG9uZyB0ZXJtIHNvbHV0aW9uIHRvIHRo
-aXMgcHJvYmxlbSBhcmUgdGhlDQo+ID4gPiBjb25zdGV4cHIgZnVuY3Rpb25zLg0KPiA+DQo+ID4g
-SG93IHdvdWxkIGNvbnN0ZXhwciBmdW5jdGlvbnMgaGVscCBoZXJlPyAgKEkgYW0gYSBiaXQgc2Nl
-cHRpY2FsIGFib3V0DQo+ID4gY29uc3RleHByIGZ1bmN0aW9ucy4pDQo+IA0KPiBJIHdhcyB0aGlu
-a2luZyBvZiBzb21lIG9mIHRoZSAic2lkZSBmZWF0dXJlcyIgb2YgY29uc3RleHByIGZ1bmN0aW9u
-cy4gTmFtZWx5Og0KPiANCj4gICAtIHN0ZDo6aXNfY29uc3RhbnRfZXZhbHVhdGVkDQo+ICAgTGlu
-azogaHR0cHM6Ly9lbi5jcHByZWZlcmVuY2UuY29tL3cvY3BwL3R5cGVzL2lzX2NvbnN0YW50X2V2
-YWx1YXRlZA0KPiANCj4gICAtIGlmIGNvbnN0ZXZhbA0KPiAgIExpbms6IGh0dHBzOi8vZW4uY3Bw
-cmVmZXJlbmNlLmNvbS93L2NwcC9sYW5ndWFnZS9pZiNDb25zdGV2YWxfaWYNCj4gDQo+IEkgZGlk
-IG5vdCB0cnkgaXQsIGJ1dCBsb29raW5nIGF0IHRoZXNlLCBJIGJlbGlldmUgdGhhdCB0aGlzIHdv
-dWxkDQo+IGFsbG93IHVzIHRvIHJld3JpdGUgbW9zdCBvZiBvdXIgbWFjcm9zIGludG8gc29tZSBj
-b25zdGV4cHIgZnVuY3Rpb25zLg0KDQpJSVJDIChhbmQgdHJ5aW5nIHRvIHVuZGVyc3RhbmQgdGhl
-IGRlZmluaXRpb25zKSB0aGV5IGFyZSBiYWNrd2FyZHMNCmZyb20gd2hhdCB0aGUga2VybmVsIHRl
-c3RzIGFyZSB0cnlpbmcgdG8gYWNoaWV2ZS4NClRoZSBrZXJuZWwgd2FucyB0byBhZGQgYWRkaXRp
-b25hbCBjb21waWxlLXRpbWUgdGVzdHMgd2hlcmUgcG9zc2libGUuDQpUaGlzIGlzIG9mdGVuIHJl
-c3RyaWN0ZWQgdG8gY2hlY2tpbmcgdmFsdWVzIHRoYXQgYXJlIGNvbXBpbGUgdGltZQ0KY29uc3Rh
-bnRzIChmb3Igc29tZSBkZWZpbml0aW9uIG9mIGNvbnN0YW50KS4NClRoZSBDKysgJ2NvbnN0ZXhw
-cicgaXMgYWJvdXQgZGV0ZXJtaW5pbmcgdGhlIGNvbnRleHQgaW4gd2hpY2ggYQ0KZnVuY3Rpb24g
-aXMgY2FsbGVkLg0KDQpSZW1lbWJlciBpbiBDICdzdGF0aWMgaW50IHggPSBleHByOycgcmVxdWly
-ZXMgdGhhdCAnZXhwcicgaXMgYSBjb25zdGFudA0Kc28gdGhhdCB0aGUgYXNtIGNhbiBjb250YWlu
-ICd4OiAud29yZCB2YWx1ZScsIGJ1dCBDKysgaXMgcGVyZmVjdGx5IHdpbGxpbmcNCnRvIGFkZCBh
-biBlbnRyeSB0byB0aGUgJ2dsb2JhbCBjb25zdHJ1Y3RvcnMnIGFuZCBjYWxsIGEgZnVuY3Rpb24g
-Zm9yIHlvdS4NClRoaXMgaXMgbm90IHVzZWZ1bCBkZWZhdWx0IGJlaGF2aW91ci4NClRoZSAnY29u
-c3RleHByJyBzdHVmZiBzZWVtcyB0byBiZSBhYm91dCBkZXRlY3Rpbmcgc29tZSBvZiB0aGVzZSBj
-YXNlcw0Kc28gdGhlIGZ1bmN0aW9uIGNhbiByZXR1cm4gYSBkaWZmZXJlbnQgdmFsdWUgLSBhbmQg
-dGhlbiBwb3NzaWJseSBiZQ0Kb3B0aW1pc2VkIGF3YXkuDQpUaGUga2VybmVsIGlzIHRyeWluZyB0
-byBnZXQgc29tZSB0ZXN0IGNvdmVyYWdlIGF0IGNvbXBpbGUgdGltZQ0Kd2l0aG91dCBhZmZlY3Rp
-bmcgcnVuLXRpbWUuDQoNClRoZSBjb21waWxlLXRpbWUgY2hlY2tzIGFsbCBnZXQgbW9yZSBjb21w
-bGljYXRlZCBiZWNhdXNlIHRoaW5ncyBsaWtlDQppbml0aWFsaXNlcnMgaGF2ZSB0byBiZSAnaW50
-ZWdlciBjb25zdGFudCBleHByZXNzaW9ucycgcmF0aGVyIHRoYW4gdGhlDQptb3JlIHJlbGF4ZWQg
-J2NvbXBpbGUgdGltZSBjb25zdGFudCcgKGFycmF5IGJvdW5kcyBwcm9iYWJseSBkbyBuZWVkDQp0
-byBiZSB0aGUgZm9ybWVyKS4NClRoaXMgaXMgKHByb2JhYmx5KSB3aGF0IHN0b3BzICh7IGV4cHI7
-IH0pIGJlaW5nIHVzZWQgZm9yIGluaXRpYWxpc2Vycw0KZXZlbiB3aGVuIHRoZSB2YWx1ZSBpcyBh
-IGNvbXBpbGUgdGltZSBjb25zdGFudC4NClJlbGF4aW5nIHRoYXQgcnVsZSB3b3VsZCBiZSB1c2Vm
-dWwuDQoNClRoZW4gdGhlcmUgaXMgdGhlIGJyYWluLWRlYWQgZGVmaW5pdGlvbiBvZiBfU3RhdGlj
-X2Fzc2VydCgpIHRoYXQgbWFrZXMNCml0IHByZXR0eSBuZWFyIGNvbXBsZXRlbHkgdXNlbGVzcyAo
-SSBjYW4ndCByZW1lbWJlciBMaW51cydzIHdvcmRzKSBmb3INCmFueXRoaW5nIG5vbi10cml2aWFs
-Lg0KVG8gYmUgdXNlZnVsIGl0IHdvdWxkIG5lZWQgdG8gYmUgZGVmZXJyZWQgdW50aWwgYWZ0ZXIg
-dGhlIG9wdGltaXNlcg0KaGFzIGRvbmUgYWxsIGl0cyBwcm9jZXNzaW5nIGFuIG9ubHkgdHJpZ2dl
-ciBpZiB0aGUgY2FsbCBoYXNuJ3QgYmVlbg0Kb3B0aW1pc2VkIGF3YXkgYW5kIHRoZSBjb25kaXRp
-b24gaXMgZWl0aGVyIG5vbi1jb25zdGFudCBvciBmYWxzZS4NCmNsYW5nJ3MgJ2luZmluaXRlIHdp
-c2RvbScgZGVjaWRlZCB0byB1bmNvbmRpdGlvbmFsbHkgb3V0cHV0IHRoZSBjcHANCm91dHB1dCBv
-ZiB0aGUgZXhwcmVzc2lvbiBpbiB0aGUgZXJyb3IgbWVzc2FnZSAoZXZlbiB3aGVuIHRoZXJlIHdh
-cw0KYSBjYWxsZXIgcHJvdmlkZWQgbWVzc2FnZSkuIFdoZW4gbWluKCkgd2FzIHVzaW5nIGl0IHRo
-YXQgY291bGQgYmUNCmEgZmV3IGh1bmRyZWQgYnl0ZXMgb2YgaW1wZW5ldHJhYmxlIHRleHQgaW4g
-YSBub3JtYWwgY2FsbCAtIG5ldmVyDQptaW5kIHRoZSBuZXN0ZWQgb25lcyB0aGF0IGhpdCAxMCtN
-QiBiZWNhdXNlIG9mIGEgcmVxdWlyZW1lbnQgdG8gcmV0dXJuDQonY29uc3RhbnQgaW50ZWdlciBl
-eHByZXNzaW9ucycuDQoNCkl0IHdvdWxkIGFsc28gYmUgdXNlZnVsIHRvIGhhdmUgYSAnd2Fybmlu
-ZycgZm9ybSAob3IgZXZlbiBhbiAnaW5mbycNCnRoYXQgaXNuJ3QgYW4gZXJyb3IgZXZlbiB3aXRo
-IC1XZXJyb3IpLg0KDQpUaGVuIHlvdSBnZXQgX0dlbmVyaWMoKS4NCldURiBkbyB0aGUgdW5zZWxl
-Y3RlZCBjYXNlcyBub3Qgb25seSBoYXZlIHRvIGJlIHZhbGlkIEMgYnV0IGFsc28gZ2V0DQpjaGVj
-a2VkIGZvciBzb21lIHdhcm5pbmdzIChsaWtlIC1Xc2lnbi1jb21wYXJlIGFuZCAndW5zaWduZWQg
-Pj0gMCcpLg0KDQouLi4NCj4gSSB3YXMgaW52aXRlZCB0byBXRzE0IHRoaXMgU2VwdGVtYmVyLiBG
-b3Igbm93LCBJIGFtIG9ubHkgbHVya2luZy4gVGhlDQo+IHRoaW5nIEkgaGF2ZSBpbiBtaW5kIHJp
-Z2h0IG5vdyBpcyB0byB3cml0ZSBhIHBhcGVyIHRvIGFsbG93IHRoZSB1c2Ugb2YNCj4gc3RhdGlj
-X2Fzc2VydCgpIGluIGV4cHJlc3Npb25zIChpLmUuIG1ha2UgaXQgcmV0dXJuIDAgb24gc3VjY2Vz
-cykuDQo+IFRoYXQgc2hvdWxkIGJlIGEgcmVsYXRpdmVseSBzbWFsbCBjaGFuZ2UsIGJ1dCB3b3Vs
-ZCBicmluZyBhIG5pY2UNCj4gcXVhbGl0eSBvZiBsaWZlIGltcHJvdmVtZW50Lg0KDQpBZGRpbmcg
-Z2NjJ3MgKHsgZXhwcjsgfSkgdG8gdGhlIHN0YW5kYXJkIGFuZCBhbGxvd2luZyBpdHMgb3V0cHV0
-IHRvDQpiZSBhcyAnY29uc3RhbnQnIGFzIGFueXRoaW5nIGluICdleHByJyB3b3VsZCBzb2x2ZSBh
-IGxvdCBvZiBpc3N1ZXMuDQoNCllvdSBuZWVkIHRvIGJlIGFibGUgdG8gaGF2ZToNCglpZiAoeCkN
-CgkJc3RhdGljX2Fzc2VydCh5KQ0KZm9yIHN0YXRpY19hc3NlcnQoKSB0byBiZSB1c2FibGUgYXMg
-dGhlIG1haW4gbWV0aG9kIG9mIHJlcG9ydGluZw0KdGhlc2Ugc29ydCBvbiBtZXNzYWdlcy4NClRo
-ZSBiZXN0IG9uZSBpbiB0aGUga2VybmVsIChhYil1c2VzIHRoZSBtZXNzYWdlIGZvciBjYWxsaW5n
-IGEgZGVwcmVjYXRlZA0KZnVuY3Rpb24uDQoNClRoZXJlIGFyZSBvdGhlciB0aGluZ3MgdGhhdCBn
-ZXQgYW5ub3lpbmcuDQpJIHVuZGVyc3RhbmQgd2h5IG9mZnNldG9mKCkgbmVlZHMgdG8gYmUgYSAn
-Y29tcGlsZSB0aW1lIGNvbnN0YW50JywNCmJ1dCB0aGF0IHNob3VsZCBvbmx5IGJlIGZvciBjb25z
-dGFudCBpbnB1dC4NClRoZXJlIGlzIG5vIHJlYXNvbiB3aHkgb2Zmc2V0b2YoeCwgeVtleHByZXNz
-aW9uXSkgc2hvdWxkIGJlIGludmFsaWQNCkMgZm9yIGEgbm9uLWNvbnN0YW50IGV4cHJlc3Npb24u
-DQooQWx0aG91Z2ggSSd2ZSBoYWQgaXNzdWVzIGV2ZW4gd2l0aCBhIGNvbnN0YW50IGV4cHJlc3Np
-b24gd2l0aCBhDQpjZXJ0YWluIGNvbXBpbGVyIEknbSBmb3JjZWQgdG8gdXNlIHNvbWV0aW1lcy4p
-DQoNCglEYXZpZA0KDQotDQpSZWdpc3RlcmVkIEFkZHJlc3MgTGFrZXNpZGUsIEJyYW1sZXkgUm9h
-ZCwgTW91bnQgRmFybSwgTWlsdG9uIEtleW5lcywgTUsxIDFQVCwgVUsNClJlZ2lzdHJhdGlvbiBO
-bzogMTM5NzM4NiAoV2FsZXMpDQo=
+On Sat, 7 Dec 2024 at 04:24, Vincent Mailhol <vincent.mailhol@gmail.com> wrote:
+>
+> > No good - expands everything twice.
+>
+> And? __is_const_zero() does not evaluate its arguments, so no side effect:
 
+No, the problem is literally the expansion.
+
+Double expansion of these fundamental helpers gets exponential,
+because they are used in various nested ways in other fundamental
+helpers.
+
+That's why we then spent so much effort on trying to clean up the
+min/max macros, because a single line of code would expand to
+literally tens of megabytes of horrific expansions.
+
+And the problem with these things is that you can't make them inline
+functions, so they have to be macros, and then you build up other
+macros using them (like that "clamp()" macro), and it really gets
+horrendous and affects the build time.
+
+And yes, it is very sad. Particularly since a compiler would have a
+really easy time with some nice helper builtins.
+
+Of course, often the compiler *does* have helper builtins, but we
+can't use them, because they aren't *quite* the right thing. Like that
+"__builtin_constant_p()" not actually working for some situations
+where we absolutely need not just a constant value, but a constant
+_expression_ due to C parsing rules.
+
+Quite a lot of the pain we tend to have with these things is directly
+related to the fact that we often want to do these tests in contexts
+like global array initializers etc.
+
+If there is one feature of C I would have liked it is "allow inline
+functions and statement expressions with constant arguments as
+constant expressions". Other languages have done that, and it really
+does help. And yes, it means that you have to basically have a
+language interpreter in the compiler (you do want to allow loop
+constructions etc), but it really is very useful.
+
+Oh well. Even if compilers added that today, it would be years until
+we could take advantage of it.
+
+At one point I literally was thinking I'd do 'sparse' as a
+pre-processor for kernel code, in order to have extended language
+facilities like that.
+
+            Linus
 
