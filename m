@@ -1,432 +1,118 @@
-Return-Path: <linux-sparse+bounces-968-lists+linux-sparse=lfdr.de@vger.kernel.org>
+Return-Path: <linux-sparse+bounces-971-lists+linux-sparse=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from tor.lore.kernel.org (tor.lore.kernel.org [IPv6:2600:3c04:e001:36c::12fc:5321])
-	by mail.lfdr.de (Postfix) with ESMTPS id 35F91CD6AF7
-	for <lists+linux-sparse@lfdr.de>; Mon, 22 Dec 2025 17:39:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 43691CD6E64
+	for <lists+linux-sparse@lfdr.de>; Mon, 22 Dec 2025 19:39:24 +0100 (CET)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by tor.lore.kernel.org (Postfix) with ESMTP id 0074E301297E
-	for <lists+linux-sparse@lfdr.de>; Mon, 22 Dec 2025 16:39:39 +0000 (UTC)
+	by tor.lore.kernel.org (Postfix) with ESMTP id EA867301371B
+	for <lists+linux-sparse@lfdr.de>; Mon, 22 Dec 2025 18:39:22 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0BD8578F4F;
-	Mon, 22 Dec 2025 16:39:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id B00CC326943;
+	Mon, 22 Dec 2025 18:39:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=codethink.co.uk header.i=@codethink.co.uk header.b="rAEvl0eo"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oqOlyYFf"
 X-Original-To: linux-sparse@vger.kernel.org
-Received: from imap5.colo.codethink.co.uk (imap5.colo.codethink.co.uk [78.40.148.171])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 453F710E3
-	for <linux-sparse@vger.kernel.org>; Mon, 22 Dec 2025 16:39:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=78.40.148.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 623072BCF5;
+	Mon, 22 Dec 2025 18:39:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1766421577; cv=none; b=hn0yrd85USClMRH73A8Z1t0lDgb3YrsHLu+evCO0xB0Pes4QjbXF0JNPpFBFYgIc5t5ippYe1BnDO4GhlMngIY4HRHzFrfEI4lEQGgF6DTLvzryCQFpafEWXDfkiwpofofQcmIn9lSxapScCMzXBD/aRpjwuCarsDINddIlT/g0=
+	t=1766428760; cv=none; b=MZCQ8qp9vUoRDWvbpTYc+m1RLh8PE5Qlqeo5tVGg2eI3IUIXIBgjH6/XqpkQgy+nGHZbQ1EeCds13VbsYe32VkmYk5nltC0FYPLgXBpEd8XOxAG8ROjdY39M5e0OEmiNLhOp5H304hG/7VtME0wvoAv1g2ltU+8o40ZKIi5Bcq8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1766421577; c=relaxed/simple;
-	bh=FFrCa2KQVpGqBt/eve+fyWdhLY/t/2+RKFEG7/VOsVo=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=lxPQz4tJbXOJ1gKpGhLz+ST9v2+5kZrYJwjKoCI4MejZxRoQRENcfze8nawT8N4tfBmmrMIum8MpZZM0WF6Qwr1z8O10Y9TSd858Ga+tStKKtTZRzNxSM9F3fjTWi1xMk7KfNf417eF7A0LeKZLu3QXvmTWSVPjswhzwTVpSz5s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=codethink.co.uk; spf=pass smtp.mailfrom=codethink.com; dkim=pass (2048-bit key) header.d=codethink.co.uk header.i=@codethink.co.uk header.b=rAEvl0eo; arc=none smtp.client-ip=78.40.148.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=codethink.co.uk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=codethink.com
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=codethink.co.uk; s=imap5-20230908; h=Sender:Content-Transfer-Encoding:
-	MIME-Version:References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:
-	Reply-To; bh=8yBMjVU4IKQWzOCM+tH0SljSmfh2WXW7OCgyZTehxRc=; b=rAEvl0eozcB3sQH/
-	hzzIhdCBVH+lnxC6g77hiI6ck8wTBTEa0rBx0vQ5VL2tNzy3huUeHoIoXZmO8TPK6/skY2YO991ju
-	yC2FUUidkO/cF88K9okD49Ide7v+Ww32JuKv+3siC/9toFe67sFkh5iG/zbfKWKLE1Nik1R4R3vWU
-	6yFZnZU285W/ag70axOqF9sqRtWmy2mWRIToc/tFgTRDuM6OwqBXfnHr8VZa7RAOfDuJuoJhlKjQy
-	sOsd0u2hS5O4Xf1We1C7rLT2RR9ej70WLdT8FLPjz6AxaehpI1EDO3drK4G2pQPXQB1sZhxivyGYO
-	srg+y9GufolNxeNurA==;
-Received: from [167.98.27.226] (helo=rainbowdash)
-	by imap5.colo.codethink.co.uk with esmtpsa  (Exim 4.94.2 #2 (Debian))
-	id 1vXiKp-004DSt-IB; Mon, 22 Dec 2025 16:00:35 +0000
-Received: from ben by rainbowdash with local (Exim 4.99)
-	(envelope-from <ben@rainbowdash>)
-	id 1vXiKp-00000000P2j-18d4;
-	Mon, 22 Dec 2025 16:00:35 +0000
-From: Ben Dooks <ben.dooks@codethink.co.uk>
-To: linux-sparse@vger.kernel.org,
-	sparse@chrisli.org
-Cc: luc.vanoostenryck@gmail.com,
-	Ben Dooks <ben.dooks@codethink.co.uk>
-Subject: [PATCH v2 4/4] tests: add varargs printf format tests
-Date: Mon, 22 Dec 2025 16:00:34 +0000
-Message-Id: <20251222160034.96188-5-ben.dooks@codethink.co.uk>
-X-Mailer: git-send-email 2.37.2.352.g3c44437643
-In-Reply-To: <20251222160034.96188-1-ben.dooks@codethink.co.uk>
-References: <20251222160034.96188-1-ben.dooks@codethink.co.uk>
+	s=arc-20240116; t=1766428760; c=relaxed/simple;
+	bh=LkRq9kuAyuxgNdzcszCitFOsSMy7gibIDiS0A45NiQQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ZwZXuMhvao/qOw194g55g7yn5RECTxYnqtarvkB4tPZ/6CWgulLpgh1AzVtMWYj2vxAByO9btz7Zd7B/dWM0S5VELs2BGUMNKbNVKOF+jfJYpyeeJyy8s/BVFSE/NBPmy5nN8HzscIxr9T9myXhsGqTdYD7yaslG/TFg4mQDRxw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oqOlyYFf; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A205C4CEF1;
+	Mon, 22 Dec 2025 18:39:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1766428759;
+	bh=LkRq9kuAyuxgNdzcszCitFOsSMy7gibIDiS0A45NiQQ=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=oqOlyYFft6Wzt4wVJf4CDio7jFWhzYs8F8zDe+9CBb8s3RCxhgI6PmW3kHvQ71bQV
+	 43WGiakXUGUL0wHaCv5l7RH49JKgfi7uqX22oJ43aelEyB8it6OFfs6ypfg6ayd9Dz
+	 u7Uwamylo0DaqrM3acuyq3V/QDPbuqf6d3ek0OcYd6abh625xFAPKitkNqcYsRfwVU
+	 AqNZkNHNAEKWrhxDjm3TzJ8RH/YhqH7uG3MNddMRbVAzIemILAJzzH1vrxeb6Psiji
+	 2ES1Au69Qb6s/AAf4gXwEH3GPKfmvqzoXUatQAPleETTbB+tQLTABK6HSXLQrs7e9f
+	 Z62wUQXT7lxSA==
+Message-ID: <efa713c6-36f5-4475-ad75-ce51cdc6819d@kernel.org>
+Date: Mon, 22 Dec 2025 19:39:11 +0100
 Precedence: bulk
 X-Mailing-List: linux-sparse@vger.kernel.org
 List-Id: <linux-sparse.vger.kernel.org>
 List-Subscribe: <mailto:linux-sparse+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-sparse+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Sender: srv_ts003@codethink.com
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 3/3] overflow: Remove is_non_negative() and
+ is_negative()
+To: kernel test robot <lkp@intel.com>, Nathan Chancellor <nathan@kernel.org>,
+ Nicolas Schier <nsc@kernel.org>,
+ Nick Desaulniers <nick.desaulniers+lkml@gmail.com>,
+ Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Chris Mason <chris.mason@fusionio.com>, David Sterba <dsterba@suse.com>,
+ Kees Cook <kees@kernel.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>
+Cc: oe-kbuild-all@lists.linux.dev, linux-kbuild@vger.kernel.org,
+ linux-sparse@vger.kernel.org, linux-kernel@vger.kernel.org,
+ llvm@lists.linux.dev, dri-devel@lists.freedesktop.org,
+ linux-btrfs@vger.kernel.org, linux-hardening@vger.kernel.org
+References: <20251220-remove_wtype-limits-v3-3-24b170af700e@kernel.org>
+ <202512221735.mRV4BZqB-lkp@intel.com>
+Content-Language: en-US
+From: Vincent Mailhol <mailhol@kernel.org>
+Autocrypt: addr=mailhol@kernel.org; keydata=
+ xjMEZluomRYJKwYBBAHaRw8BAQdAf+/PnQvy9LCWNSJLbhc+AOUsR2cNVonvxhDk/KcW7FvN
+ JFZpbmNlbnQgTWFpbGhvbCA8bWFpbGhvbEBrZXJuZWwub3JnPsKZBBMWCgBBFiEE7Y9wBXTm
+ fyDldOjiq1/riG27mcIFAmdfB/kCGwMFCQp/CJcFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcC
+ F4AACgkQq1/riG27mcKBHgEAygbvORJOfMHGlq5lQhZkDnaUXbpZhxirxkAHwTypHr4A/joI
+ 2wLjgTCm5I2Z3zB8hqJu+OeFPXZFWGTuk0e2wT4JzjgEZx4y8xIKKwYBBAGXVQEFAQEHQJrb
+ YZzu0JG5w8gxE6EtQe6LmxKMqP6EyR33sA+BR9pLAwEIB8J+BBgWCgAmFiEE7Y9wBXTmfyDl
+ dOjiq1/riG27mcIFAmceMvMCGwwFCQPCZwAACgkQq1/riG27mcJU7QEA+LmpFhfQ1aij/L8V
+ zsZwr/S44HCzcz5+jkxnVVQ5LZ4BANOCpYEY+CYrld5XZvM8h2EntNnzxHHuhjfDOQ3MAkEK
+In-Reply-To: <202512221735.mRV4BZqB-lkp@intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Add some tests for the new printf format checking code.
-Note, these do not all pass yet.
+On 22/12/2025 at 11:03, kernel test robot wrote:
+> Hi Vincent,
+> 
+> kernel test robot noticed the following build warnings:
+> 
+> [auto build test WARNING on 3e7f562e20ee87a25e104ef4fce557d39d62fa85]
+> 
+> url:    https://github.com/intel-lab-lkp/linux/commits/Vincent-Mailhol/kbuild-remove-gcc-s-Wtype-limits/20251220-190509
+> base:   3e7f562e20ee87a25e104ef4fce557d39d62fa85
+> patch link:    https://lore.kernel.org/r/20251220-remove_wtype-limits-v3-3-24b170af700e%40kernel.org
+> patch subject: [PATCH v3 3/3] overflow: Remove is_non_negative() and is_negative()
+> config: x86_64-randconfig-161-20251222 (https://download.01.org/0day-ci/archive/20251222/202512221735.mRV4BZqB-lkp@intel.com/config)
+> compiler: gcc-14 (Debian 14.2.0-19) 14.2.0
+> 
+> If you fix the issue in a separate patch/commit (i.e. not just a new version of
+> the same patch/commit), kindly add following tags
+> | Reported-by: kernel test robot <lkp@intel.com>
+> | Closes: https://lore.kernel.org/oe-kbuild-all/202512221735.mRV4BZqB-lkp@intel.com/
+> 
+> smatch warnings:
+> fs/libfs.c:1628 generic_check_addressable() warn: unsigned '*_d' is never less than zero.
+> fs/libfs.c:1628 generic_check_addressable() warn: unsigned '_a' is never less than zero.
+> mm/vmalloc.c:4708 remap_vmalloc_range_partial() warn: unsigned '*_d' is never less than zero.
+> mm/vmalloc.c:4708 remap_vmalloc_range_partial() warn: unsigned '_a' is never less than zero.
 
-Signed-off-by: Ben Dooks <ben.dooks@codethink.co.uk>
----
- validation/varargs-format-addrspace1.c |  36 ++++++++
- validation/varargs-format-bad.c        |  18 ++++
- validation/varargs-format-checking.c   |  21 +++++
- validation/varargs-format-position.c   |  32 +++++++
- validation/varargs-format-prefix.c     |  19 ++++
- validation/varargs-format-tests.c      |  55 ++++++++++++
- validation/varargs-type-formattest.c   | 117 +++++++++++++++++++++++++
- 7 files changed, 298 insertions(+)
- create mode 100644 validation/varargs-format-addrspace1.c
- create mode 100644 validation/varargs-format-bad.c
- create mode 100644 validation/varargs-format-checking.c
- create mode 100644 validation/varargs-format-position.c
- create mode 100644 validation/varargs-format-prefix.c
- create mode 100644 validation/varargs-format-tests.c
- create mode 100644 validation/varargs-type-formattest.c
+So smatch is not able to distinguish when the comparison comes from
+a macro expansion.
 
-diff --git a/validation/varargs-format-addrspace1.c b/validation/varargs-format-addrspace1.c
-new file mode 100644
-index 00000000..3370ac67
---- /dev/null
-+++ b/validation/varargs-format-addrspace1.c
-@@ -0,0 +1,36 @@
-+
-+extern int variadic(char *msg, ...) __attribute__((format (printf, 1, 2)));
-+extern int variadic2(char *msg, int , ...) __attribute__((format (printf, 1, 3)));
-+extern int variadic3(int, char *msg,  ...) __attribute__((format (printf, 2, 3)));
-+
-+static void test(void) {
-+	void __attribute__((noderef, address_space(1))) *a;
-+	void *b;
-+
-+	variadic("%s\n", a);
-+	variadic("%s\n", b);
-+	variadic("%s %s\n", b, a);
-+	variadic2("%s %s\n", 1, b, a);
-+	variadic3(1, "%s %s\n", b, a);
-+	variadic3(1, "%s %p\n", b, a);
-+}
-+
-+/*
-+ * check-name: variadic formatting test with address-space to %s
-+ * check-command: sparse -Wformat $file
-+ *
-+ * check-error-start
-+varargs-format-addrspace1.c:10:26: warning: incorrect type in argument 2 (different address spaces)
-+varargs-format-addrspace1.c:10:26:    expected char const *
-+varargs-format-addrspace1.c:10:26:    got void [noderef] <asn:1> *a
-+varargs-format-addrspace1.c:12:32: warning: incorrect type in argument 3 (different address spaces)
-+varargs-format-addrspace1.c:12:32:    expected char const *
-+varargs-format-addrspace1.c:12:32:    got void [noderef] <asn:1> *a
-+varargs-format-addrspace1.c:13:36: warning: incorrect type in argument 4 (different address spaces)
-+varargs-format-addrspace1.c:13:36:    expected char const *
-+varargs-format-addrspace1.c:13:36:    got void [noderef] <asn:1> *a
-+varargs-format-addrspace1.c:14:36: warning: incorrect type in argument 4 (different address spaces)
-+varargs-format-addrspace1.c:14:36:    expected char const *
-+varargs-format-addrspace1.c:14:36:    got void [noderef] <asn:1> *a
-+ * check-error-end
-+ */
-diff --git a/validation/varargs-format-bad.c b/validation/varargs-format-bad.c
-new file mode 100644
-index 00000000..82ae357c
---- /dev/null
-+++ b/validation/varargs-format-bad.c
-@@ -0,0 +1,18 @@
-+
-+extern int variadic(char *msg, ...) __attribute__((format (printf, 0, 0)));
-+extern int variadic2(char *msg, int , ...) __attribute__((format (printf, 2, 2)));
-+extern int variadic3(char *msg, int , ...) __attribute__((format (printf, 2, 1)));
-+
-+static void test(void) {
-+}
-+
-+/*
-+ * check-name: variadic formatting test with bad formatting parameters
-+ * check-command: sparse -Wformat $file
-+ *
-+ * check-error-start
-+varargs-format-bad.c:2:73: warning: bad format positions
-+varargs-format-bad.c:3:80: warning: bad format positions
-+varargs-format-bad.c:4:80: warning: format cannot be after va_args
-+* check-error-end
-+ */
-diff --git a/validation/varargs-format-checking.c b/validation/varargs-format-checking.c
-new file mode 100644
-index 00000000..9f3e5ac2
---- /dev/null
-+++ b/validation/varargs-format-checking.c
-@@ -0,0 +1,21 @@
-+
-+extern void pf(char *msg, ...) __attribute__((format (printf, 1, 2)));
-+
-+static void test(void) {
-+	pf("%u %lu %llu\n", 1U, 1UL, 1ULL);
-+	pf("%d %ld %lld\n", 1, 1L, 1LL);
-+	pf("%x %lx %llx\n", 1U, 1UL, 1ULL);
-+	pf("%d %ld %lld\n", 1, 1L, 1L);
-+}
-+
-+/*
-+ * check-name: variadic formatting test type checking
-+ * check-command: sparse -Wformat $file
-+ * check-known-to-fail
-+ *
-+ * check-error-start
-+varargs-format-checking.c:8:36: warning: incorrect type in argument 4 (different types)
-+varargs-format-checking.c:8:36:    expected long long
-+varargs-format-checking.c:8:36:    got long
-+ * check-error-end
-+ */
-diff --git a/validation/varargs-format-position.c b/validation/varargs-format-position.c
-new file mode 100644
-index 00000000..88a4dbc2
---- /dev/null
-+++ b/validation/varargs-format-position.c
-@@ -0,0 +1,32 @@
-+
-+extern void pf(char *msg, ...) __attribute__((format (printf, 1, 2)));
-+
-+static void test(void) {
-+	pf("%2$d %u\n", 1U, 1L);
-+	pf("%3$d %2$u\n", 1U, 1);
-+	pf("%1$d %2$d\n", 1L, 1);
-+}
-+
-+/*
-+ * check-name: variadic formatting test position checking
-+ * check-command: sparse -Wformat $file
-+ * check-known-to-fail
-+ *
-+ * check-error-start
-+varargs-format-position.c:5:29: warning: incorrect type in argument 3 (different types)
-+varargs-format-position.c:5:29:    expected int
-+varargs-format-position.c:5:29:    got long
-+varargs-format-position.c:5:12: warning: format 3: position: no position specified
-+varargs-format-position.c:5:29: warning: incorrect type in argument 3 (different types)
-+varargs-format-position.c:5:29:    expected unsigned int
-+varargs-format-position.c:5:29:    got long
-+varargs-format-position.c:6:12: warning: no argument at position '4'
-+varargs-format-position.c:6:31: warning: incorrect type in argument 3 (different types)
-+varargs-format-position.c:6:31:    expected unsigned int
-+varargs-format-position.c:6:31:    got int
-+varargs-format-position.c:7:27: warning: incorrect type in argument 2 (different types)
-+varargs-format-position.c:7:27:    expected int
-+varargs-format-position.c:7:27:    got long
-+ * check-error-end
-+ *
-+ */
-diff --git a/validation/varargs-format-prefix.c b/validation/varargs-format-prefix.c
-new file mode 100644
-index 00000000..8e2456e6
---- /dev/null
-+++ b/validation/varargs-format-prefix.c
-@@ -0,0 +1,19 @@
-+
-+extern int __attribute__((format (printf, 1, 2))) variadic(char *msg, ...);
-+
-+static int test(void) {
-+	void __attribute__((noderef, address_space(1))) *a;
-+
-+	variadic("%s\n", a);
-+}
-+
-+/*
-+ * check-name: variadic formatting test prefix based __attribute__
-+ * check-command: sparse -Wformat $file
-+ *
-+ * check-error-start
-+varargs-format-prefix.c:7:26: warning: incorrect type in argument 2 (different address spaces)
-+varargs-format-prefix.c:7:26:    expected char const *
-+varargs-format-prefix.c:7:26:    got void [noderef] <asn:1> *a
-+ * check-error-end
-+ */
-diff --git a/validation/varargs-format-tests.c b/validation/varargs-format-tests.c
-new file mode 100644
-index 00000000..659bbe94
---- /dev/null
-+++ b/validation/varargs-format-tests.c
-@@ -0,0 +1,55 @@
-+
-+extern void pf(char *msg, ...) __attribute__((format (printf, 1, 2)));
-+
-+static int test(void)
-+{
-+	pf("%*d\n", 5, 10);		/* value 10, print width is 5 */
-+	pf("%2$*1$d\n", 5, 10);		/* value 10, print width is 5 */
-+	pf("%3$*2$d\n", 1, 5, 10);	/* ok, skipping the '1' */
-+	pf("%3$-*2$d\n", 1, 5, 10);	/* ok, skipping the '1' */
-+	pf("%3$*2$-d\n", 1, 5, 10);	/* bad, the "-" shouldn't be before the 'd' */
-+	pf("%3$ *2$d\n", 1, 5, 10);	/* ok, skipping the '1' */
-+	pf("%3$+*2$d\n", 1, 5, 10);	/* ok, skipping the '1' */
-+	pf("%3$0+*2$d\n", 1, 5, 10);	/* ok, skipping the '1' */
-+	pf("%3$+0*2$d\n", 1, 5, 10);	/* ok, skipping the '1' */
-+	pf("%3$+#*2$d\n", 1, 5, 10);	/* ok, skipping the '1' */
-+	pf("%3$+#*2$.5d\n", 1, 5, 10);	/* ok, skipping the '1' */
-+
-+	/* go with some precision as well as width strings */
-+	pf("%2$+*1$.6d\n", 5, 10);	/* ok */
-+	pf("%2$+*1$.*3$d\n", 5, 10, 6);	/* ok */
-+	pf("%2$+*3$.*1$d\n", 6, 10, 5);	/* ok */
-+	pf("%2$+*1$.*d\n", 5, 10, 6);	/* not ok */
-+
-+	pf("%s", "msg");
-+	return 0;
-+}
-+
-+static void test2(int x, int y, const void *p)
-+{
-+	pf("%02x%02x %8p\n", x, y, p);
-+}
-+
-+static inline void fn(int x) { pf("%08x\n", x); }
-+static void test3(int x)
-+{
-+	fn;
-+	fn(x);
-+}
-+
-+static void test4(int i, unsigned int u)
-+{
-+	pf("%d\n", i);
-+	pf("%x\n", u);
-+}
-+
-+/*
-+ * check-name: variadic formatting tests for width/precisions
-+ * check-command: sparse -Wformat $file
-+ *
-+ * check-error-start
-+varargs-format-tests.c:10:12: warning: cannot evaluate type '%3$*2$-d'
-+varargs-format-tests.c:10:12: warning: cannot evaluate format string
-+varargs-format-tests.c:22:12: warning: format 3: position: no position specified
-+ * check-error-end
-+ */
-diff --git a/validation/varargs-type-formattest.c b/validation/varargs-type-formattest.c
-new file mode 100644
-index 00000000..f01c6d89
---- /dev/null
-+++ b/validation/varargs-type-formattest.c
-@@ -0,0 +1,117 @@
-+
-+extern void pf1(char *msg, ...) __attribute__((format (printf, 1, 2)));
-+extern void pf2(int m, char *msg, ...) __attribute__((format (printf, 2, 3)));
-+
-+/* run all the tests with both of these printf formatted types */
-+#define pf(x...) do { pf1(x); pf2(1, x); } while(0);
-+
-+static void test(void) {
-+	/* first two are valid */
-+	pf("%*d", 5, 10);	/* value 10, print width is 5 */
-+	pf("%2$*1$d", 5, 10);	/* value 10, print width is 5 */
-+	pf("%2$*3$d", 5, 10);	/* value 10, print width is ?? */
-+
-+	pf("%*d", 5, 10);	/* value 10, print width is 5 */
-+	pf("%*d", 5, 10L);	/* value 10, print width is 5 (bad type) */
-+	pf("%*d", 5UL, 10L);	/* value 10, print width is 5 (bad type) */
-+
-+	pf("%3$*2$d", 1, 5, 10);	/* ok, skipping the '1' */
-+	pf("%3$*2$d", 1, 5, 10L);	/* bad print type */
-+	pf("%2$*3$d", 1UL, 10, 5);	/* ok, try with swapping width/val */
-+	pf("%2$*3$d", 1UL, 10L, 5);	/* bad, try with swapping width/val */
-+
-+	/* and now try with precision specifiers */
-+
-+	pf("%*.6d", 5, 10);	/* value 10, print width is 5 */
-+	pf("%*.6d", 5, 10L);	/* value 10, print width is 5 (bad type) */
-+	pf("%*.6d", 5UL, 10L);	/* value 10, print width is 5 (bad type) */
-+
-+	pf("%*.*d", 5, 6, 10);	/* value 10, print width is 5 */
-+	pf("%*.*d", 5, 6, 10L);	/* value 10, print width is 5 (bad type) */
-+	pf("%*.*d", 5UL, 6, 10L); /* value 10, print width is 5 (bad type) */
-+	pf("%*.*d", 5, 6UL, 10); /* value 10, print width is 5 (bad type) */
-+}
-+
-+/*
-+ * check-name: variadic formatting test position checking types
-+ * check-command: sparse -Wformat $file
-+ * check-known-to-fail
-+ *
-+ * check-error-start
-+varargs-type-formattest.c:12:9: warning: width: no argument at position 4
-+varargs-type-formattest.c:12:9: warning: width: no argument at position 5
-+varargs-type-formattest.c:15:9: warning: incorrect type in argument 3 (different types)
-+varargs-type-formattest.c:15:9:    expected int
-+varargs-type-formattest.c:15:9:    got long
-+varargs-type-formattest.c:15:9: warning: incorrect type in argument 4 (different types)
-+varargs-type-formattest.c:15:9:    expected int
-+varargs-type-formattest.c:15:9:    got long
-+varargs-type-formattest.c:16:9: warning: incorrect type for width argument 2
-+varargs-type-formattest.c:16:9:    expected int
-+varargs-type-formattest.c:16:9:    got unsigned long
-+varargs-type-formattest.c:16:9: warning: incorrect type in argument 3 (different types)
-+varargs-type-formattest.c:16:9:    expected int
-+varargs-type-formattest.c:16:9:    got long
-+varargs-type-formattest.c:16:9: warning: incorrect type for width argument 3
-+varargs-type-formattest.c:16:9:    expected int
-+varargs-type-formattest.c:16:9:    got unsigned long
-+varargs-type-formattest.c:16:9: warning: incorrect type in argument 4 (different types)
-+varargs-type-formattest.c:16:9:    expected int
-+varargs-type-formattest.c:16:9:    got long
-+varargs-type-formattest.c:19:9: warning: incorrect type in argument 4 (different types)
-+varargs-type-formattest.c:19:9:    expected int
-+varargs-type-formattest.c:19:9:    got long
-+varargs-type-formattest.c:19:9: warning: incorrect type in argument 5 (different types)
-+varargs-type-formattest.c:19:9:    expected int
-+varargs-type-formattest.c:19:9:    got long
-+varargs-type-formattest.c:21:9: warning: incorrect type in argument 3 (different types)
-+varargs-type-formattest.c:21:9:    expected int
-+varargs-type-formattest.c:21:9:    got long
-+varargs-type-formattest.c:21:9: warning: incorrect type in argument 4 (different types)
-+varargs-type-formattest.c:21:9:    expected int
-+varargs-type-formattest.c:21:9:    got long
-+varargs-type-formattest.c:26:9: warning: incorrect type in argument 3 (different types)
-+varargs-type-formattest.c:26:9:    expected int
-+varargs-type-formattest.c:26:9:    got long
-+varargs-type-formattest.c:26:9: warning: incorrect type in argument 4 (different types)
-+varargs-type-formattest.c:26:9:    expected int
-+varargs-type-formattest.c:26:9:    got long
-+varargs-type-formattest.c:27:9: warning: incorrect type for width argument 2
-+varargs-type-formattest.c:27:9:    expected int
-+varargs-type-formattest.c:27:9:    got unsigned long
-+varargs-type-formattest.c:27:9: warning: incorrect type in argument 3 (different types)
-+varargs-type-formattest.c:27:9:    expected int
-+varargs-type-formattest.c:27:9:    got long
-+varargs-type-formattest.c:27:9: warning: incorrect type for width argument 3
-+varargs-type-formattest.c:27:9:    expected int
-+varargs-type-formattest.c:27:9:    got unsigned long
-+varargs-type-formattest.c:27:9: warning: incorrect type in argument 4 (different types)
-+varargs-type-formattest.c:27:9:    expected int
-+varargs-type-formattest.c:27:9:    got long
-+varargs-type-formattest.c:30:9: warning: incorrect type in argument 4 (different types)
-+varargs-type-formattest.c:30:9:    expected int
-+varargs-type-formattest.c:30:9:    got long
-+varargs-type-formattest.c:30:9: warning: incorrect type in argument 5 (different types)
-+varargs-type-formattest.c:30:9:    expected int
-+varargs-type-formattest.c:30:9:    got long
-+varargs-type-formattest.c:31:9: warning: incorrect type for width argument 2
-+varargs-type-formattest.c:31:9:    expected int
-+varargs-type-formattest.c:31:9:    got unsigned long
-+varargs-type-formattest.c:31:9: warning: incorrect type in argument 4 (different types)
-+varargs-type-formattest.c:31:9:    expected int
-+varargs-type-formattest.c:31:9:    got long
-+varargs-type-formattest.c:31:9: warning: incorrect type for width argument 3
-+varargs-type-formattest.c:31:9:    expected int
-+varargs-type-formattest.c:31:9:    got unsigned long
-+varargs-type-formattest.c:31:9: warning: incorrect type in argument 5 (different types)
-+varargs-type-formattest.c:31:9:    expected int
-+varargs-type-formattest.c:31:9:    got long
-+varargs-type-formattest.c:32:9: warning: incorrect type for position argument 3
-+varargs-type-formattest.c:32:9:    expected int
-+varargs-type-formattest.c:32:9:    got unsigned long
-+varargs-type-formattest.c:32:9: warning: incorrect type for position argument 4
-+varargs-type-formattest.c:32:9:    expected int
-+varargs-type-formattest.c:32:9:    got unsigned long
-+ * check-error-end
-+ *
-+ */
--- 
-2.37.2.352.g3c44437643
+Can this warning be ignored? Or should I remove this 3rd patch from
+the series (and go back to v1)?  My choice would be to ignore this
+warning.
 
+
+Yours sincerely,
+Vincent Mailhol
 
