@@ -1,120 +1,131 @@
-Return-Path: <linux-sparse+bounces-979-lists+linux-sparse=lfdr.de@vger.kernel.org>
+Return-Path: <linux-sparse+bounces-981-lists+linux-sparse=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
-Received: from sea.lore.kernel.org (sea.lore.kernel.org [IPv6:2600:3c0a:e001:db::12fc:5321])
-	by mail.lfdr.de (Postfix) with ESMTPS id D8D90CDFECF
-	for <lists+linux-sparse@lfdr.de>; Sat, 27 Dec 2025 16:58:53 +0100 (CET)
+Received: from tor.lore.kernel.org (tor.lore.kernel.org [172.105.105.114])
+	by mail.lfdr.de (Postfix) with ESMTPS id 0C879CE4F3E
+	for <lists+linux-sparse@lfdr.de>; Sun, 28 Dec 2025 13:58:03 +0100 (CET)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by sea.lore.kernel.org (Postfix) with ESMTP id 8A248300ACF3
-	for <lists+linux-sparse@lfdr.de>; Sat, 27 Dec 2025 15:58:52 +0000 (UTC)
+	by tor.lore.kernel.org (Postfix) with ESMTP id 814A930052F9
+	for <lists+linux-sparse@lfdr.de>; Sun, 28 Dec 2025 12:55:28 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1149C2D2387;
-	Sat, 27 Dec 2025 15:58:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7374B2D6E63;
+	Sun, 28 Dec 2025 12:55:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="uZ7umuT7"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="eQScCX6C"
 X-Original-To: linux-sparse@vger.kernel.org
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD2932D6E63
-	for <linux-sparse@vger.kernel.org>; Sat, 27 Dec 2025 15:58:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87B172D5936
+	for <linux-sparse@vger.kernel.org>; Sun, 28 Dec 2025 12:55:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1766851130; cv=none; b=Cesy3dSudPfkoPBvXau3aVpsD3H3JlQZ+8Lisyggk0Y6KFfeBsfeXC4qzmhd+SKLaU/HpcqEOUFiw0vzAbN8V3l7r3HXJ14t6LrKWRkp9i4lHl3U/kjrM47+MGwFcIypnCg0jFHVPF/6vDE8taU4GSxF568j6Um8G9gKpcPCXvY=
+	t=1766926526; cv=none; b=P0EIFjK7EnrIjsuODH3fiTVS3LmSTmT2qKjewjVqzXzZ0tV5S44DJj/qyjIjLmEZGvLe3HQ3Oq2HEMNamIyTZ3KI5ieQY901V3ODtCMqcMQMiTx13lyQ5oRsykYr17z+HsL2F2478tqboQziDF1z+94MjJ6b5bx2I8040ExRBkQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1766851130; c=relaxed/simple;
-	bh=rgMZYtMINKu/cu/GQcVVwt/EhyizAHjQJm98KbNG3BA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=uPhkoe+Ro7IAl9I41WxiP5lSAX/oxPw48PTfA4fjb+RL6hGjudIbRbNL/7s65Cqn7pldKJhkkwv3Yio8cF7i3HIT/5BpdUJWBsgGhPR9Gvx/wQMdNOblh/Kso901VTPmWWIjgty1jefumGNK1J7bNU/enb9scOxJypgNZuKVx/E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=uZ7umuT7; arc=none smtp.client-ip=10.30.226.201
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB630C4CEF1;
-	Sat, 27 Dec 2025 15:58:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1766851129;
-	bh=rgMZYtMINKu/cu/GQcVVwt/EhyizAHjQJm98KbNG3BA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=uZ7umuT7wNvGWEw+xGSX7OASbjz8/0/TeFbWXbaAHVFbv7NkX1h6h1pAe26VvMd4I
-	 KfZTA6W/8P6SXwJL58uqsNaDM88N0dcfdLHbJnmHp2tfg0pUkkZfo2hIcrC82PaYdr
-	 nSIuZyDXEvi65fiCygQOvQWjgJGCLzW8azwcDxv+1H4zgTbswGjkoVyKNtQaYUxrtB
-	 g/efsKor1Iru+jkeW444HWZyuQv4CWEVfHy7CfiBuOWrwTp115+DQebDQb31ZUVcLY
-	 Wx1T1vv8YIgeDXgJnBWxfyQnwBHbVfYBZjHvGVVZyTs1HCAfrgGx1hUXL+JVHDuYqd
-	 EuprQwEbbHa6w==
-Date: Sat, 27 Dec 2025 16:58:45 +0100
-From: Alexey Gladkov <legion@kernel.org>
-To: Oleg Nesterov <oleg@redhat.com>
-Cc: Chris Li <sparse@chrisli.org>, Luc Van Oostenryck <lucvoo@kernel.org>,
-	linux-sparse@vger.kernel.org
-Subject: Re: [PATCH 1/2] sparse/semind: add the new
- --param=dissect-show-compiled option
-Message-ID: <aVACNT1JYz4u3X7h@example.org>
-References: <aU6cXFyfwtD9GMYa@redhat.com>
+	s=arc-20240116; t=1766926526; c=relaxed/simple;
+	bh=9db6qbyA6vVS0edhUxGKCzcajUECRgqKCiBHlPSJVl4=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=orAjBC93Y0qY8jgmNoMewdtCdUVJuAvnEjcPw9k7WzcEgwEt4ayV9M/wpeoccRRz5oJt6QR9tSdVsPyO226g3KyXGJvssj3cqfbDWJjrI+/uZBL6f6XMF2BiFdCoPhCyuzMsnxGvooTAjSR2HEv3RHbLVQNqAdsiChhzAwFoGtI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=eQScCX6C; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1766926523;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type;
+	bh=MCDI7oyrFNaFiHHQRZYfEyf9bydZv7J2bJPi2JTdCj0=;
+	b=eQScCX6CQ0/hBU2GHddG9k9pfW3us5ZSaX5AXPllkp+tvE/sqH3plEV2wUda0xLqPPntNx
+	nEXy40dOfll8EDz/f/p2PlCXf0XgtNiO2j3adn8JLDK9qMb8eVUpe7GhCaO1NozEVy9G4S
+	HatMpSe4IFT2x1f0sVCibfUuRHuL3K8=
+Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-164-39o73qAJMk2Md3gf4CR7uQ-1; Sun,
+ 28 Dec 2025 07:55:20 -0500
+X-MC-Unique: 39o73qAJMk2Md3gf4CR7uQ-1
+X-Mimecast-MFC-AGG-ID: 39o73qAJMk2Md3gf4CR7uQ_1766926519
+Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id D9ACF19560B2;
+	Sun, 28 Dec 2025 12:55:18 +0000 (UTC)
+Received: from fedora (unknown [10.44.32.43])
+	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with SMTP id 0AC0F30001A8;
+	Sun, 28 Dec 2025 12:55:16 +0000 (UTC)
+Received: by fedora (nbSMTP-1.00) for uid 1000
+	oleg@redhat.com; Sun, 28 Dec 2025 13:55:18 +0100 (CET)
+Date: Sun, 28 Dec 2025 13:55:15 +0100
+From: Oleg Nesterov <oleg@redhat.com>
+To: Chris Li <sparse@chrisli.org>, Luc Van Oostenryck <lucvoo@kernel.org>
+Cc: Alexey Gladkov <legion@kernel.org>, linux-sparse@vger.kernel.org
+Subject: [PATCH] sparse/dissect: change do_file() to use __sparse()
+Message-ID: <aVEos-vrx34olo6s@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-sparse@vger.kernel.org
 List-Id: <linux-sparse.vger.kernel.org>
 List-Subscribe: <mailto:linux-sparse+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-sparse+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: tUMyuexf-e7e44PLJJqrthN2JHipErV4r1fexPtgGGM_1766926519
+X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <aU6cXFyfwtD9GMYa@redhat.com>
 
-On Fri, Dec 26, 2025 at 03:31:56PM +0100, Oleg Nesterov wrote:
-> parse_cmdline_add() sets dissect_show_all_symbols = 1 unconditionally
-> and currently it is not possible to clear this option.
-> 
-> We could simply remove this line; users could use
-> "semind add --param=dissect-show-all-symbols," but this would break
-> existing setups.
-> 
-> Signed-off-by: Oleg Nesterov <oleg@redhat.com>
+rather than do sparse_keep_tokens/clear_token_alloc by hand.
 
-Acked-by: Alexey Gladkov <legion@kernel.org>
+dissect/semind doesn't need/use tokens, we can safely do
+drop_all_allocations(token_allocator) after parsing.
 
-> ---
->  options.c | 2 ++
->  semind.c  | 4 ++--
->  2 files changed, 4 insertions(+), 2 deletions(-)
-> 
-> diff --git a/options.c b/options.c
-> index 0f207e80..dbe0349f 100644
-> --- a/options.c
-> +++ b/options.c
-> @@ -976,6 +976,8 @@ static char **handle_param(char *arg, char **next)
->  
->  	if (!strcmp(value, "dissect-show-all-symbols"))
->  		dissect_show_all_symbols = 1;
-> +	else if (!strcmp(value, "dissect-show-compiled"))
-> +		dissect_show_all_symbols = 0;
->  
->  	return next;
->  }
-> diff --git a/semind.c b/semind.c
-> index ad8003ba..fa084e04 100644
-> --- a/semind.c
-> +++ b/semind.c
-> @@ -322,14 +322,14 @@ done:
->  		show_usage();
->  	}
->  
-> -	// enforce tabstop
-> +	// enforce defaults
->  	tabstop = 1;
-> +	dissect_show_all_symbols = 1;
->  
->  	// step back since sparse_initialize will ignore argv[0].
->  	optind--;
->  
->  	sparse_initialize(argc - optind, argv + optind, &semind_filelist);
-> -	dissect_show_all_symbols = 1;
->  }
->  
->  static void parse_cmdline_rm(int argc, char **argv)
-> -- 
-> 2.52.0
-> 
-> 
+Signed-off-by: Oleg Nesterov <oleg@redhat.com>
+---
+ dissect.c | 16 ++++------------
+ 1 file changed, 4 insertions(+), 12 deletions(-)
 
+diff --git a/dissect.c b/dissect.c
+index 62f927c5..55e76846 100644
+--- a/dissect.c
++++ b/dissect.c
+@@ -681,14 +681,10 @@ static inline bool valid_namespace(enum namespace ns)
+ 	return (ns == NS_TYPEDEF || ns == NS_MACRO || ns == NS_UNDEF || ns == NS_STRUCT || ns == NS_SYMBOL);
+ }
+ 
+-static void do_file(char *file)
++static void do_file(struct symbol_list *res)
+ {
+-	struct symbol_list *res = sparse_keep_tokens(file);
+-
+-	if (!dissect_show_all_symbols) {
+-		do_sym_list(res);
+-		goto end;
+-	}
++	if (!dissect_show_all_symbols)
++		return do_sym_list(res);
+ 
+ 	DO_LIST(file_scope->symbols, sym,
+ 		if (input_streams[sym->pos.stream].fd != -1 && valid_namespace(sym->namespace)) {
+@@ -719,10 +715,6 @@ static void do_file(char *file)
+ 			do_symbol(sym);
+ 		}
+ 	);
+-
+-end:
+-	/* Drop the tokens for this file after parsing */
+-	clear_token_alloc();
+ }
+ 
+ void dissect(struct reporter *rep, struct string_list *filelist)
+@@ -730,5 +722,5 @@ void dissect(struct reporter *rep, struct string_list *filelist)
+ 	dissect_mode = 1;
+ 	reporter = rep;
+ 
+-	DO_LIST(filelist, file, do_file(file));
++	DO_LIST(filelist, file, do_file(__sparse(file)));
+ }
 -- 
-Rgrds, legion
+2.52.0
+
 
 
