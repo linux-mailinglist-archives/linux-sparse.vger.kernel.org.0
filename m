@@ -1,103 +1,113 @@
-Return-Path: <linux-sparse+bounces-990-lists+linux-sparse=lfdr.de@vger.kernel.org>
+Return-Path: <linux-sparse+bounces-993-lists+linux-sparse=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
-Received: from sea.lore.kernel.org (sea.lore.kernel.org [IPv6:2600:3c0a:e001:db::12fc:5321])
-	by mail.lfdr.de (Postfix) with ESMTPS id DA5ECCEE762
-	for <lists+linux-sparse@lfdr.de>; Fri, 02 Jan 2026 13:11:52 +0100 (CET)
+Received: from sea.lore.kernel.org (sea.lore.kernel.org [172.234.253.10])
+	by mail.lfdr.de (Postfix) with ESMTPS id 31C24CEF6B5
+	for <lists+linux-sparse@lfdr.de>; Fri, 02 Jan 2026 23:26:54 +0100 (CET)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by sea.lore.kernel.org (Postfix) with ESMTP id D15FB3010FCF
-	for <lists+linux-sparse@lfdr.de>; Fri,  2 Jan 2026 12:09:38 +0000 (UTC)
+	by sea.lore.kernel.org (Postfix) with ESMTP id 34A9630145AA
+	for <lists+linux-sparse@lfdr.de>; Fri,  2 Jan 2026 22:26:46 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id D3ABE30E83C;
-	Fri,  2 Jan 2026 12:09:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8A92D2DF3FD;
+	Fri,  2 Jan 2026 22:26:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=codethink.co.uk header.i=@codethink.co.uk header.b="6a3a/+6d"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Rob5AMor"
 X-Original-To: linux-sparse@vger.kernel.org
-Received: from imap5.colo.codethink.co.uk (imap5.colo.codethink.co.uk [78.40.148.171])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 999B230EF76
-	for <linux-sparse@vger.kernel.org>; Fri,  2 Jan 2026 12:09:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=78.40.148.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 476EB2D249B;
+	Fri,  2 Jan 2026 22:26:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1767355768; cv=none; b=AJo7VUzSfoF3OX18AViVc0DFdI03TYo+qSEuATzw1voAlwc5C14nU8rPXqc8Wu9Pyx77e975h/qOozX2xdFFgsgx2j5i94R3fmpo14sykPyXn0GpFvJkLLmuYUVFsj6Rp525EKSGw2uXCoi2monqfR2j+OGHkrYE/T7UJcVbJOs=
+	t=1767392804; cv=none; b=dScFi8sY4WxpCdYO+HzcRHldxLcK4Wqv5OgAdfXS1MNaRiPEntBEm7k4ofvuKXOgmPqE1rIxSMzzckUBxl+2TFUADBB7pfldFZnOlJj2guCvpxfhcVhqVkz3cUk+z6R/Z0NJhe++a0YQbaNWVuduTF1yatIJ/LaEkvDRO2PjvgU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1767355768; c=relaxed/simple;
-	bh=s2EyDQjTgg2RCdccckdJ5JFFrG10s/9+Du5ubd+1N4M=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=eNZ9NXt9VVThiAchIk3/07QAl51VqDXOGaNgDtlTkyawheJmtqKc1aQrg35IeOaOKC0rWQv3ULjYA+gZRs9hBS4PI3msxDQd+1APpMXiFNBOVjMLdS2FSbLdH4LZcHPorgITyi1MExwm66NsVVTUCRtL9o0jLEAb67lkXx/sm7E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=codethink.co.uk; spf=pass smtp.mailfrom=codethink.com; dkim=pass (2048-bit key) header.d=codethink.co.uk header.i=@codethink.co.uk header.b=6a3a/+6d; arc=none smtp.client-ip=78.40.148.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=codethink.co.uk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=codethink.com
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=codethink.co.uk; s=imap5-20230908; h=Sender:Content-Transfer-Encoding:
-	MIME-Version:References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:
-	Reply-To; bh=zjo3PiQezr0MQPpRQGd3WNZe5cObPVmGZc16I/iCTxM=; b=6a3a/+6dJV28MUgj
-	URCBnzM1u5/k+99yZ0Tlzo76y0REbr26aQSuw9SqGKcvcQH4gzJ2mQEHdOcmElqpfR/t9iAt28i+H
-	kLUvFrWcIZQuqz7rZqzn/pAv5MK8nfFOnh88Rl0wiwtBayQXTLcDzY0nYxKnWPi3dKvQnx34O2W6M
-	mfT5o+HTdmWGv+PbEjzY5OmM5bAOD74p774HwxqbARqe89OvrRssdFptYZbqHFqkuP/jT8/UF1kNZ
-	uNpROgAV360MlP585IMXiM2S+RseQVQXCoxoJFxON80LYNIgqKly+1iDxxB5MpxFK22DUfwqAe6xY
-	EBpLsaDnSl4gkE+vJQ==;
-Received: from [167.98.27.226] (helo=rainbowdash)
-	by imap5.colo.codethink.co.uk with esmtpsa  (Exim 4.94.2 #2 (Debian))
-	id 1vbdaM-00HP3W-TF; Fri, 02 Jan 2026 11:44:50 +0000
-Received: from ben by rainbowdash with local (Exim 4.99.1)
-	(envelope-from <ben@rainbowdash>)
-	id 1vbdaM-00000002FXn-2JHX;
-	Fri, 02 Jan 2026 11:44:50 +0000
-From: Ben Dooks <ben.dooks@codethink.co.uk>
-To: linux-sparse@vger.kernel.org
-Cc: Ben Dooks <ben.dooks@codethink.co.uk>
-Subject: [PATCH 2/2] RISC-V: restart extension search on match
-Date: Fri,  2 Jan 2026 11:44:49 +0000
-Message-Id: <20260102114449.535597-3-ben.dooks@codethink.co.uk>
-X-Mailer: git-send-email 2.37.2.352.g3c44437643
-In-Reply-To: <20260102114449.535597-1-ben.dooks@codethink.co.uk>
-References: <20260102114449.535597-1-ben.dooks@codethink.co.uk>
+	s=arc-20240116; t=1767392804; c=relaxed/simple;
+	bh=J/sL983X/0vBalHqoLpr7GXM37hk7msCvf822DzhzBE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=f29KG+PCFh8sNSbRDbLBxNiUq+zgJWF8C3ErYFG1tjcDiEhEfQh+N8aO6xAvDhAWrHkX2FiPdBcbksQTiDN5Ff37ZuovgaI4VIF8KrH8JhXHO95CeXnH0DFaJ/d5Z0RTtOBWuF/gbRYesRge1iqdqKGc2yRnMxsPUI+gvr1ksWg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Rob5AMor; arc=none smtp.client-ip=10.30.226.201
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 58FD7C116B1;
+	Fri,  2 Jan 2026 22:26:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1767392803;
+	bh=J/sL983X/0vBalHqoLpr7GXM37hk7msCvf822DzhzBE=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=Rob5AMorNzzOXqHUHII4Eyuge1d9SSvjvsr1PigXkpLA3u3daGl+zwPd5eRYpkfMM
+	 qxcXQuHapVnsY/MNlmHqO3J45yfuJ2uskTZopAbvXRDab5WKoYb8Vdxpl4kP1gGpIs
+	 t5qyDYOBHx0gObQUbMOzeeYMees/7+WTSl1RAz6u+OfblFw7ldAfF3kn1Ol4Komx+J
+	 sqQnM5QCl0MeoLIz6jKIby6MbErRLjEF/8nQrO2WDNEtNw2NspsiGOrjvZx/h7sNAe
+	 d8elRWFf7R7C76OcZEAtJG983L4Od8KN9YCyaqQvWT2BTlKLjed4tfxm/0QciNGLGl
+	 oQKeKE+ukejeA==
+Message-ID: <b549e430-5623-4c60-acb1-4b5e095ae870@kernel.org>
+Date: Fri, 2 Jan 2026 23:26:35 +0100
 Precedence: bulk
 X-Mailing-List: linux-sparse@vger.kernel.org
 List-Id: <linux-sparse.vger.kernel.org>
 List-Subscribe: <mailto:linux-sparse+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-sparse+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 3/3] overflow: Remove is_non_negative() and
+ is_negative()
+To: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>,
+ Nicolas Schier <nicolas@fjasle.eu>
+Cc: Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>,
+ Nick Desaulniers <nick.desaulniers+lkml@gmail.com>,
+ Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Chris Mason <clm@fb.com>, David Sterba <dsterba@suse.com>,
+ Kees Cook <kees@kernel.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>,
+ Linus Torvalds <torvalds@linux-foundation.org>,
+ linux-kbuild@vger.kernel.org, linux-sparse@vger.kernel.org,
+ linux-kernel@vger.kernel.org, llvm@lists.linux.dev,
+ dri-devel@lists.freedesktop.org, linux-btrfs@vger.kernel.org,
+ linux-hardening@vger.kernel.org, kernel test robot <lkp@intel.com>
+References: <20251220-remove_wtype-limits-v3-0-24b170af700e@kernel.org>
+ <20251220-remove_wtype-limits-v3-3-24b170af700e@kernel.org>
+ <acdd84b2-e893-419c-8a46-da55d695dda2@kernel.org>
+ <20260101-futuristic-petrel-of-ecstasy-23db5f@lindesnes>
+ <CANiq72=jRT+6+2PBgshsK-TpxPiRK70H-+3D6sYaN-fdfC83qw@mail.gmail.com>
+From: Vincent Mailhol <mailhol@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=mailhol@kernel.org; keydata=
+ xjMEZluomRYJKwYBBAHaRw8BAQdAf+/PnQvy9LCWNSJLbhc+AOUsR2cNVonvxhDk/KcW7FvN
+ JFZpbmNlbnQgTWFpbGhvbCA8bWFpbGhvbEBrZXJuZWwub3JnPsKZBBMWCgBBFiEE7Y9wBXTm
+ fyDldOjiq1/riG27mcIFAmdfB/kCGwMFCQp/CJcFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcC
+ F4AACgkQq1/riG27mcKBHgEAygbvORJOfMHGlq5lQhZkDnaUXbpZhxirxkAHwTypHr4A/joI
+ 2wLjgTCm5I2Z3zB8hqJu+OeFPXZFWGTuk0e2wT4JzjgEZx4y8xIKKwYBBAGXVQEFAQEHQJrb
+ YZzu0JG5w8gxE6EtQe6LmxKMqP6EyR33sA+BR9pLAwEIB8J+BBgWCgAmFiEE7Y9wBXTmfyDl
+ dOjiq1/riG27mcIFAmceMvMCGwwFCQPCZwAACgkQq1/riG27mcJU7QEA+LmpFhfQ1aij/L8V
+ zsZwr/S44HCzcz5+jkxnVVQ5LZ4BANOCpYEY+CYrld5XZvM8h2EntNnzxHHuhjfDOQ3MAkEK
+In-Reply-To: <CANiq72=jRT+6+2PBgshsK-TpxPiRK70H-+3D6sYaN-fdfC83qw@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Sender: srv_ts003@codethink.com
 
-If we are passed multiple extensions in -march, don't assume these will
-be in any sort of order. If we do match, then restart the loop by setting
-the search back to 0, and retrying.
+On 02/01/2026 at 12:04, Miguel Ojeda wrote:
+> On Thu, Jan 1, 2026 at 9:13 PM Nicolas Schier <nicolas@fjasle.eu> wrote:
+>>
+>> thanks!  I think it's a bit sad to keep code only to make some checker
+>> tooling happy, but for now it seems to be the right thing to do.
+> 
+> Perhaps a patch to add a comment explaining Vincent's findings would
+> be a good outcome, i.e. explaining the reason it needs to remain in
+> place for the moment 
 
-This sorts out issues with the current kernel build where there are now
-lots of extensions for the rv64i and even adding zacas doesn't silence the
-warnings generated.
+OK. But I will send this as a separate patch as a reply to this thread
+so that this can be discussed separately without having to respin the
+main series again and again. I will add it back to the main series only
+if it get a decent level of Acked-by tags.
 
-Signed-off-by: Ben Dooks <ben.dooks@codethink.co.uk>
----
- target-riscv.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+> (even a link to lore.kernel.org to this thread would help).
 
-diff --git a/target-riscv.c b/target-riscv.c
-index 80c25285..ddf50e61 100644
---- a/target-riscv.c
-+++ b/target-riscv.c
-@@ -56,7 +56,7 @@ static void parse_march_riscv(const char *arg)
- 
- 	// Each -march=.. options entirely overrides previous ones
- 	riscv_flags = 0;
--
-+	
- 	for (i = 0; i < ARRAY_SIZE(basic_sets); i++) {
- 		const char *pat = basic_sets[i].pattern;
- 		size_t len = strlen(pat);
-@@ -80,6 +80,7 @@ ext:
- 		if (!strncmp(arg, pat, len)) {
- 			riscv_flags |= extensions[i].flags;
- 			arg += len;
-+			i = 0;
- 		}
- 	}
- 	if (arg[0])
--- 
-2.37.2.352.g3c44437643
+It is rather uncommon to add lore.kernel.org links in the code comment.
+But I am not against. I will do as you suggested so and see what people
+think of it.
+
+
+Yours sincerely,
+Vincent Mailhol
 
 
