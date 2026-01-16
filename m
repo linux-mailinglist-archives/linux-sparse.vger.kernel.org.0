@@ -1,56 +1,60 @@
-Return-Path: <linux-sparse+bounces-1040-lists+linux-sparse=lfdr.de@vger.kernel.org>
+Return-Path: <linux-sparse+bounces-1042-lists+linux-sparse=lfdr.de@vger.kernel.org>
 X-Original-To: lists+linux-sparse@lfdr.de
 Delivered-To: lists+linux-sparse@lfdr.de
 Received: from sea.lore.kernel.org (sea.lore.kernel.org [IPv6:2600:3c0a:e001:db::12fc:5321])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0C639D37B1B
+	by mail.lfdr.de (Postfix) with ESMTPS id 81E83D37B1C
 	for <lists+linux-sparse@lfdr.de>; Fri, 16 Jan 2026 19:03:54 +0100 (CET)
 Received: from smtp.subspace.kernel.org (conduit.subspace.kernel.org [100.90.174.1])
-	by sea.lore.kernel.org (Postfix) with ESMTP id 7429530B6C0A
+	by sea.lore.kernel.org (Postfix) with ESMTP id C513330C6C8E
 	for <lists+linux-sparse@lfdr.de>; Fri, 16 Jan 2026 17:58:22 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0E16B3939BA;
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 79CA976025;
 	Fri, 16 Jan 2026 17:58:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=codethink.co.uk header.i=@codethink.co.uk header.b="NymYyTOg"
+	dkim=pass (2048-bit key) header.d=codethink.co.uk header.i=@codethink.co.uk header.b="UNZMc2z/"
 X-Original-To: linux-sparse@vger.kernel.org
 Received: from imap4.hz.codethink.co.uk (imap4.hz.codethink.co.uk [188.40.203.114])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2094394474
-	for <linux-sparse@vger.kernel.org>; Fri, 16 Jan 2026 17:58:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C92A396B66
+	for <linux-sparse@vger.kernel.org>; Fri, 16 Jan 2026 17:58:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.40.203.114
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1768586301; cv=none; b=fZYGOzTEhAnWsNsM5KzUCGEq8X5maY06VLtbgSrs6nW5PP2ltGNEn0Ziv1DYeS2MekqrfUhpAQq6bqVUUWi94DhQb9ZZx928JPfHLZ9IyE0rqtqJcsLViiCMfOe2V6vnuIyi/alCF+3vpQ36R8E8y7Y4TQW49TsEUm0LcMLNqFk=
+	t=1768586302; cv=none; b=FE18VYmIU5qaKXUignt7xbvbM+aYs4QSZBJNdf5p0TztRiw7HeZN6D99lbPecEV+SPyHtzoNDcjHi6PZC4ITvYKNqSb4wdIG2LQvl5ddz6nE58yxQBGByJeUaLvcDaF4hLwzzIoCHkfuohLVO79LuaB33A23v7q/upiOIkjB4B0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1768586301; c=relaxed/simple;
-	bh=grDuCbkF2FqAKy0g6JQAjhr5qy/ZoND6JtJvXnSl36Y=;
-	h=From:To:Subject:Date:Message-Id:MIME-Version; b=iwnM4+XiTVkww57KmAEGNeLro78HPNZIBMPbsObQAMOduMW+OhcwGfhF+D+IjzjQ+Vypuc33QpmaDdBTcm52FDYyz/IPiaJtBGHBqJGUQvAb3/Z16WG26aIitj8/H+aVw4qALuUrlnC6WqI8PJIN3NEeI9WDbh0DzmI3XFZCzKA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=codethink.co.uk; spf=pass smtp.mailfrom=codethink.com; dkim=pass (2048-bit key) header.d=codethink.co.uk header.i=@codethink.co.uk header.b=NymYyTOg; arc=none smtp.client-ip=188.40.203.114
+	s=arc-20240116; t=1768586302; c=relaxed/simple;
+	bh=X80RebAIrDzbNlF/MduhF715h+CTWC9Z7ZHie2FlZN0=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=Kp6vxhkHAxUIMk5A4mNhAKus/hdF14cMZx4pcHwqP1UY+rdG0pfhJfAFWbHvyRzO/QSHQQNjQqVueHsBUE8ES0Dn8ZLH7+9LZTtttT4RMAXxsNlnKZaP3URwDVy/FPuRIXKrSf9NtJi7cJ543TT4a84aqe85o3Z6MMGsYg0ubtU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=codethink.co.uk; spf=pass smtp.mailfrom=codethink.com; dkim=pass (2048-bit key) header.d=codethink.co.uk header.i=@codethink.co.uk header.b=UNZMc2z/; arc=none smtp.client-ip=188.40.203.114
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=codethink.co.uk
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=codethink.com
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=codethink.co.uk; s=imap4-20230908; h=Sender:Content-Transfer-Encoding:
-	MIME-Version:Message-Id:Date:Subject:To:From:Reply-To:Cc:In-Reply-To:
-	References; bh=grDuCbkF2FqAKy0g6JQAjhr5qy/ZoND6JtJvXnSl36Y=; b=NymYyTOgI3IBK7
-	KLWreGZeRWF4WWJAFMhA33aXr1IGPJKzLImWtt3jxpRiEoBCldaBhwAWAX3YrVtQP/MnnvWxs3qIO
-	QyzVNX1CzirbVaLezAq2hTwYy5u4pFY47+TocazrUVDnwmBvqEPcLrLNpuEyvU6yR/+kPLuTzPIHL
-	8qbemXlK8UaBVx3zwF68dzWs1sLEM8yJ7nCHw1DkN+5qChGAY+cWAS+zAxV90e5XzILt0Y9uGwIBj
-	EuyPaUznH1R/M2i6OROYeKNLh3/seIrmSaMRV/PMVSNGbqLfEOjLOgQFU0gbnTsyN4ARHejMUaCzh
-	Z2k/KRzK+w/+nnM3+t3w==;
+	MIME-Version:References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:
+	Reply-To; bh=+Z4T9hFzpw2vew5F5Y5XHcgo27J+dWTLyeKYu7E4FZk=; b=UNZMc2z/8+5yj93k
+	qNnt7iuI6PU02xRRaK2sOjOAxOR3q2aKf7WR4BWPZjJ6brhct+HHiz/eivE4YUOtCab70ephLAEo7
+	GgUlDYvP4d03p8J9AoqOWF4Ozuil7NN1aZCW9wPxRdGWfmZK41YSwDxko121+k04GKViNvGmhLkFQ
+	3TQG76tUFebymGdZrWIg0c3q1W4rprdUxWxmrkXb4sffyivhRSDRTk8b71+rs5KvEJyp5S5c2vS38
+	S8bxX0B1zb4p+j5RGq3Wn02OBhTQYBaHBxk9kdhQNQ+U2UN6y0Xmuklxg6HYlvyLH0uJBzrw6ZIV/
+	/zmxjcfPHDhrXih/Ug==;
 Received: from [167.98.27.226] (helo=rainbowdash)
 	by imap4.hz.codethink.co.uk with esmtpsa  (Exim 4.94.2 #2 (Debian))
-	id 1vgo5K-002Qln-EK; Fri, 16 Jan 2026 17:58:11 +0000
+	id 1vgo5K-002Qlo-HG; Fri, 16 Jan 2026 17:58:11 +0000
 Received: from ben by rainbowdash with local (Exim 4.99.1)
 	(envelope-from <ben@rainbowdash>)
-	id 1vgo5L-000000001mv-0lum;
+	id 1vgo5L-000000001my-1DF4;
 	Fri, 16 Jan 2026 17:58:11 +0000
 From: Ben Dooks <ben.dooks@codethink.co.uk>
 To: linux-sparse@vger.kernel.org,
 	sparse@chrisli.org
-Subject: add variadic format checking
-Date: Fri, 16 Jan 2026 17:58:05 +0000
-Message-Id: <20260116175809.6849-1-ben.dooks@codethink.co.uk>
+Cc: Ben Dooks <ben.dooks@codethink.co.uk>
+Subject: [PATCH v3 1/4] parse: initial parsing of __attribute__((format))
+Date: Fri, 16 Jan 2026 17:58:06 +0000
+Message-Id: <20260116175809.6849-2-ben.dooks@codethink.co.uk>
 X-Mailer: git-send-email 2.37.2.352.g3c44437643
+In-Reply-To: <20260116175809.6849-1-ben.dooks@codethink.co.uk>
+References: <20260116175809.6849-1-ben.dooks@codethink.co.uk>
 Precedence: bulk
 X-Mailing-List: linux-sparse@vger.kernel.org
 List-Id: <linux-sparse.vger.kernel.org>
@@ -60,21 +64,192 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Sender: srv_ts003@codethink.com
 
-Third version with a few minor fixes, the only issues seem to be
-with the complexities of the linux-kernel which has some printk
-fun locally defined.
+Add code to parse the __attribute__((format)) used to indicate that
+a variadic function takes a printf-style format string and where
+those are. Save the data in ctype ready for checking when such an
+function is encoutered.
 
+Signed-off-by: Ben Dooks <ben.dooks@codethink.co.uk>
+--
+v2:
+  - apply comments about arg names and early-exit from function
+  - remove the KW_UNUSED
+---
+ parse.c  | 83 +++++++++++++++++++++++++++++++++++++++++++++++++++++++-
+ symbol.h | 10 +++++--
+ 2 files changed, 90 insertions(+), 3 deletions(-)
 
-This series (which was initially sent back in 2020) adds the
-ability to deal with __attribute__((format) and checking the
-arguments to formatted variadic functions.
-
-I have been considering adding a -Wformat-linux to this as
-the kernel now has a number of extra formatting options and
-checking the type of these would be useful. An even nicer
-extension would be some way of informing the compiler/sparse
-of these at compile time (but would need to get agreement on
-how to do this with the compilers too)
-
+diff --git a/parse.c b/parse.c
+index 3f67451e..8d587c07 100644
+--- a/parse.c
++++ b/parse.c
+@@ -86,7 +86,7 @@ static attr_t
+ 	attribute_cleanup,
+ 	attribute_designated_init,
+ 	attribute_transparent_union, ignore_attribute,
+-	attribute_mode, attribute_force;
++	attribute_mode, attribute_force, attribute_format;
+ 
+ typedef struct symbol *to_mode_t(struct symbol *);
+ 
+@@ -121,6 +121,12 @@ static void asm_modifier(struct token *token, unsigned long *mods, unsigned long
+ 	*mods |= mod;
+ }
+ 
++/* the types of formatting from __attribute__((format)) */
++enum {
++	FMT_PRINTF = 0,
++	FMT_SCANF,
++};
++
+ static struct symbol_op typedef_op = {
+ 	.type = KW_MODIFIER,
+ 	.declarator = storage_specifier,
+@@ -382,6 +388,10 @@ static struct symbol_op attr_force_op = {
+ 	.attribute = attribute_force,
+ };
+ 
++static struct symbol_op attr_format_op = {
++	.attribute = attribute_format,
++};
++
+ static struct symbol_op address_space_op = {
+ 	.attribute = attribute_address_space,
+ };
+@@ -441,6 +451,16 @@ static struct symbol_op mode_word_op = {
+ 	.to_mode = to_word_mode
+ };
+ 
++static struct symbol_op attr_printf_op = {
++	.type	= KW_FORMAT,
++	.class	= FMT_PRINTF,
++};
++
++static struct symbol_op attr_scanf_op = {
++	.type	= KW_FORMAT,
++	.class	= FMT_SCANF,
++};
++
+ /*
+  * Define the keyword and their effects.
+  * The entries in the 'typedef' and put in NS_TYPEDEF and
+@@ -557,6 +577,9 @@ static struct init_keyword {
+ 	D("pure",		&attr_fun_op,		.mods = MOD_PURE),
+ 	A("const",		&attr_fun_op,		.mods = MOD_PURE),
+ 	D("gnu_inline",		&attr_fun_op,		.mods = MOD_GNU_INLINE),
++	D("format",		&attr_format_op),
++	D("printf",		&attr_printf_op),
++	D("scanf",		&attr_scanf_op),
+ 
+ 	/* Modes */
+ 	D("mode",		&mode_op),
+@@ -1217,6 +1240,62 @@ static struct token *attribute_address_space(struct token *token, struct symbol
+ 	return token;
+ }
+ 
++static int invalid_format_args(long long start, long long at)
++{
++	return start < 0 || at < 0 || start > USHRT_MAX || at > USHRT_MAX ||
++		(start == at && start > 0) ||
++		(start == 0 && at == 0);
++}
++
++static struct token *attribute_format(struct token *token, struct symbol *attr, struct decl_state *ctx)
++{
++	struct expression *arg_type, *arg_fmt, *arg_argpos;
++	struct symbol *fmt_sym = NULL;
++	long long start, at;
++
++	/* expecting format ( type, fmt, va_args at) */
++
++	token = expect(token, '(', "after format attribute");
++	if (token_type(token) == TOKEN_IDENT)
++		fmt_sym = lookup_keyword(token->ident, NS_KEYWORD);
++	if (fmt_sym && (!fmt_sym->op || fmt_sym->op->type != KW_FORMAT))
++		fmt_sym = NULL;
++
++	token = conditional_expression(token, &arg_type);
++	token = expect(token, ',', "format attribute type");
++	token = conditional_expression(token, &arg_fmt);
++	token = expect(token, ',', "format attribute type position");
++	token = conditional_expression(token, &arg_argpos);
++	token = expect(token, ')', "format attribute arg position");
++
++	if (!fmt_sym || !arg_type || !arg_fmt || !arg_argpos) {
++		warning(token->pos, "missing format attribute argument(s)");
++		return token;
++	}
++
++	if (fmt_sym->op->class != FMT_PRINTF) {
++		/* skip anything that isn't printf for the moment */
++		warning(token->pos, "only printf format attribute supported");
++		return token;
++	}
++
++	start = get_expression_value(arg_argpos);
++	at = get_expression_value(arg_fmt);
++
++	if (invalid_format_args(start, at)) {
++		warning(token->pos, "bad format positions");
++	} else if (start == 0) {
++		/* nothing to do here, is va_list function */
++	} else if (start < at) {
++		warning(token->pos, "format cannot be after va_args");
++	} else {
++		ctx->ctype.format.index = at;
++		ctx->ctype.format.first = start;
++	}
++
++	return token;
++}
++
+ static struct symbol *to_QI_mode(struct symbol *ctype)
+ {
+ 	if (ctype->ctype.base_type != &int_type)
+@@ -3007,6 +3086,8 @@ struct token *external_declaration(struct token *token, struct symbol_list **lis
+ 
+ 		if (!(decl->ctype.modifiers & MOD_STATIC))
+ 			decl->ctype.modifiers |= MOD_EXTERN;
++
++		base_type->ctype.format = decl->ctype.format;
+ 	} else if (base_type == &void_ctype && !(decl->ctype.modifiers & MOD_EXTERN)) {
+ 		sparse_error(token->pos, "void declaration");
+ 	}
+diff --git a/symbol.h b/symbol.h
+index 88130c15..8cc61cdb 100644
+--- a/symbol.h
++++ b/symbol.h
+@@ -82,8 +82,8 @@ enum keyword {
+ 	KW_ASM		= 1 << 5,
+ 	KW_MODE		= 1 << 6,
+ 	KW_STATIC	= 1 << 7,
+-     // KW UNUSED	= 1 << 8,
+-	KW_EXACT	= 1 << 9,
++	KW_EXACT	= 1 << 8,
++	KW_FORMAT	= 1 << 9,
+ };
+ 
+ struct context {
+@@ -95,12 +95,18 @@ extern struct context *alloc_context(void);
+ 
+ DECLARE_PTR_LIST(context_list, struct context);
+ 
++struct attr_format {
++	unsigned short index;	/* index in argument list for format string */
++	unsigned short first;	/* where first variadic argument is */
++};
++
+ struct ctype {
+ 	struct symbol *base_type;
+ 	unsigned long modifiers;
+ 	unsigned long alignment;
+ 	struct context_list *contexts;
+ 	struct ident *as;
++	struct attr_format format;
+ };
+ 
+ struct decl_state {
+-- 
+2.37.2.352.g3c44437643
 
 
